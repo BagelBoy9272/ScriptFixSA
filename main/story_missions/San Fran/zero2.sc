@@ -456,7 +456,7 @@ main_sub_function_zero2:
 		
 	    CREATE_RANDOM_CHAR_AS_DRIVER car_enemy_vans_zero2[index_zero2] char_drivers_zero2[index_zero2]
 		GIVE_WEAPON_TO_CHAR char_drivers_zero2[index_zero2] WEAPONTYPE_MICRO_UZI 500
-		SET_CHAR_ACCURACY char_drivers_zero2[index_zero2] 80
+		SET_CHAR_ACCURACY char_drivers_zero2[index_zero2] 60
 	   
 		SET_LOAD_COLLISION_FOR_CAR_FLAG car_enemy_vans_zero2[index_zero2] FALSE
 
@@ -468,7 +468,7 @@ main_sub_function_zero2:
 			
 			CREATE_RANDOM_CHAR_AS_PASSENGER car_enemy_vans_zero2[index_zero2] 0 char_3_buddy_with_MICRO_UZI[index_zero2]
 			GIVE_WEAPON_TO_CHAR char_3_buddy_with_MICRO_UZI[index_zero2] WEAPONTYPE_MICRO_UZI 500 
-			SET_CHAR_ACCURACY char_3_buddy_with_MICRO_UZI[index_zero2] 80
+			SET_CHAR_ACCURACY char_3_buddy_with_MICRO_UZI[index_zero2] 60
 
 			SET_CHAR_DECISION_MAKER char_3_buddy_with_MICRO_UZI[index_zero2] dm_baddies_zero2
 			SET_CHAR_DECISION_MAKER char_drivers_zero2[index_zero2] dm_baddies_zero2
@@ -696,20 +696,11 @@ main_sub_function_zero2:
 			
 
 			IF NOT IS_CAR_DEAD rc_playerbaron_zero2
-				IF IS_XBOX_VERSION
-					IF IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER1 
-						timer_time_limit-=45.0
-						timer_time_limit_converted_float = timer_time_limit / timer_time_limit_initial
-						timer_time_limit_converted_float*=100.0
-						timer_time_limit_converted_int =# timer_time_limit_converted_float
-					ENDIF
-				ELSE
-					IF IS_BUTTON_PRESSED PAD1 CROSS 
-						timer_time_limit-=45.0
-						timer_time_limit_converted_float = timer_time_limit / timer_time_limit_initial
-						timer_time_limit_converted_float*=100.0
-						timer_time_limit_converted_int =# timer_time_limit_converted_float
-					ENDIF
+				IF IS_BUTTON_PRESSED PAD1 CROSS 
+					timer_time_limit-=@20.0
+					timer_time_limit_converted_float = timer_time_limit / timer_time_limit_initial
+					timer_time_limit_converted_float*=100.0
+					timer_time_limit_converted_int =# timer_time_limit_converted_float
 				ENDIF
 
 				GET_CAR_COORDINATES rc_playerbaron_zero2 coord_redbaron_x coord_redbaron_y coord_redbaron_z  
@@ -1482,21 +1473,12 @@ land_plane_zero2:
 
 	IF NOT IS_CAR_DEAD rc_playerbaron_zero2
 		GET_CAR_SPEED rc_playerbaron_zero2 speed_rc_playerbaron_zero2
-		IF IS_XBOX_VERSION
-				IF IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER1
-					timer_time_limit-=45.0
-					timer_time_limit_converted_float = timer_time_limit / timer_time_limit_initial
-					timer_time_limit_converted_float*=100.0
-					timer_time_limit_converted_int =# timer_time_limit_converted_float
-				ENDIF
-		ELSE
 				IF IS_BUTTON_PRESSED PAD1 CROSS
-					timer_time_limit-=45.0
+					timer_time_limit-=@20.0
 					timer_time_limit_converted_float = timer_time_limit / timer_time_limit_initial
 					timer_time_limit_converted_float*=100.0
 					timer_time_limit_converted_int =# timer_time_limit_converted_float
 				ENDIF
-		ENDIF
 
 
 		IF return_city_zero2 = LEVEL_LOSANGELES

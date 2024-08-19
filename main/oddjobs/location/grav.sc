@@ -1272,16 +1272,16 @@ grav_update_player:
 			
 				IF grav_ground = 1
 					grav_ground = 0
-					grav_speed_y += 4.0
+					grav_speed_y +=@ 1.0
 				ENDIF
 				IF grav_speed_y < 20.0
-					grav_speed_y += 0.4
+					grav_speed_y +=@ 0.1
 				ENDIF
 			ENDIF
 			IF IS_BUTTON_PRESSED PAD1 SQUARE
 				IF grav_ground = 0
 					IF grav_speed_y > 0.0
-						grav_speed_y -= 0.2
+						grav_speed_y -=@ 0.05
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1290,16 +1290,16 @@ grav_update_player:
 			
 				IF grav_ground = 1
 					grav_ground = 0
-					grav_speed_y += 4.0
+					grav_speed_y +=@ 1.0
 				ENDIF
 				IF grav_speed_y < 20.0
-					grav_speed_y += 0.4
+					grav_speed_y +=@ 0.1
 				ENDIF
 			ENDIF
 			IF IS_BUTTON_PRESSED PAD1 SQUARE
 				IF grav_ground = 0
 					IF grav_speed_y > 0.0
-						grav_speed_y -= 0.2
+						grav_speed_y -=@ 0.05
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1308,8 +1308,8 @@ grav_update_player:
 		// Add friction.
 
 		grav_temp_x = grav_speed_x
-		grav_temp_x /= 4.0
-		grav_speed_x -= grav_temp_x
+		grav_temp_x /= 16.0
+		grav_speed_x -=@ grav_temp_x
 
 		IF IS_BUTTON_PRESSED PAD1 DPADLEFT
 			grav_lstickx = -127
@@ -1322,21 +1322,21 @@ grav_update_player:
 		// Directional movement.
 								   
 		grav_temp_x =# grav_lstickx
-		grav_temp_x /= 128.0
-		grav_speed_x += grav_temp_x
+		grav_temp_x /= 512.0	//	128.0
+		grav_speed_x +=@ grav_temp_x
 
-		grav_plyr_x += grav_speed_x
+		grav_plyr_x +=@ grav_speed_x
 			
 		
 		// Gravity
 
 		IF grav_ground = 0
 			IF grav_speed_y > -20.0			
-				grav_speed_y -= 0.2
+				grav_speed_y -=@ 0.05
 			ENDIF
   		ENDIF
 
-		grav_plyr_y -= grav_speed_y
+		grav_plyr_y -=@ grav_speed_y
 
 	ENDIF
 			
