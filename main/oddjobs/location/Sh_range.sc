@@ -1646,6 +1646,8 @@ SR_mission:
 						GIVE_WEAPON_TO_CHAR scplayer weapontype[3] ammo[3]
 					ENDIF
 					
+					SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+					
 					SET_PLAYER_DUCK_BUTTON Player1 TRUE
 					DELETE_OBJECT sr_obj
   
