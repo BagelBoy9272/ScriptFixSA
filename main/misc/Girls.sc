@@ -369,7 +369,7 @@ SET_OBJECT_PROOFS iGFdoor[GF_BARN_DOOR] TRUE TRUE TRUE TRUE TRUE
 	//	 	0 = ALL SEX IS IN
 	//		1 = NO SEX 
 
-	iCensoredVersion = 1
+	iCensoredVersion = 0 // FIXEDGROVE
 
 	//--- Launch the memory resident that handles GFs. 
 	START_NEW_SCRIPT GF_Dating_Agent 
