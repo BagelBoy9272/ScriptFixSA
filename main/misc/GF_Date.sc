@@ -660,13 +660,13 @@ IF NOT IS_BIT_SET iDateFlags 1
 						IF iTemp2 = POPCYCLE_ZONE_PARK
 						OR iTemp2 = POPCYCLE_ZONE_COUNTRYSIDE
 							GET_MINUTES_TO_TIME_OF_DAY 6 0 iTemp2 // Sunrise
-							IF iTemp <= 30
-							OR iTemp >= 1380								 		
+							IF iTemp2 <= 30 // FIXEDGROVE: originally all of these used iTemp
+							OR iTemp2 >= 1380 // FIXEDGROVE								 		
 								fFunTemp += GF_FUN_INCREMENT_BIG
 							ELSE
 								GET_MINUTES_TO_TIME_OF_DAY 20 0 iTemp2 // Sunset
-								IF iTemp <= 30
-								OR iTemp >= 1380								 		
+								IF iTemp2 <= 30 // FIXEDGROVE
+								OR iTemp2 >= 1380 // FIXEDGROVE							 		
 									fFunTemp += GF_FUN_INCREMENT_BIG
 								ENDIF
 							ENDIF
