@@ -4058,7 +4058,7 @@ GF_Date_TwoTiming:
 				ENDIF
 				IF iGF_TT_PedModel = MILLIE
 					iGF_TT_PedModel = CROGRL3
-					iGF_TT_CarModel = FELTZER //126 1
+					iGF_TT_CarModel = CLUB //126 1 // FIXEDGROVE
 				ENDIF
 				//--- Move on to do requests for the above
 				iGF_TT_Status = GF_TT_REQUESTS 
@@ -4089,7 +4089,7 @@ GF_Date_TwoTiming:
 				IF iGF_TT_CarModel = ROMERO 
 					CHANGE_CAR_COLOUR iGF_TT_Car 1 1 
 				ENDIF
-				IF iGF_TT_CarModel = FELTZER 
+				IF iGF_TT_CarModel = CLUB // FIXEDGROVE 
 					CHANGE_CAR_COLOUR iGF_TT_Car 126 1 
 				ENDIF
 				CREATE_CHAR_INSIDE_CAR iGF_TT_Car PEDTYPE_CIVFEMALE iGF_TT_PedModel iGF_TT_driver
