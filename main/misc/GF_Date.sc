@@ -4429,28 +4429,30 @@ GF_Date_TwoTiming:
 			ENDIF
 			//--- If the payer has killed his other girl, she should be removed
 			IF IS_CHAR_DEAD iGF_TT_driver
-			AND HAS_CHAR_BEEN_DAMAGED_BY_CHAR iGF_TT_driver scplayer
-				//--- Retrieve the jealous girl IDX from the model
-				IF iGF_TT_PedModel = GANGRL3					
-					iTemp2 = COOCHIE
+				IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR iGF_TT_driver scplayer
+				OR HAS_CAR_BEEN_DAMAGED_BY_CHAR iGF_TT_Car scplayer // FIXEDGROVE: add extra check for some cases (ex. bazookaing her)
+					//--- Retrieve the jealous girl IDX from the model
+					IF iGF_TT_PedModel = GANGRL3					
+						iTemp2 = COOCHIE
+					ENDIF
+					IF iGF_TT_PedModel = MECGRL3
+						iTemp2 = MICHELLE	
+					ENDIF
+					IF iGF_TT_PedModel = COPGRL3
+						iTemp2 = BARBARA
+					ENDIF								   
+					IF iGF_TT_PedModel = GUNGRL3
+						iTemp2 = KYLIE
+					ENDIF
+					IF iGF_TT_PedModel = NURGRL3
+						iTemp2 = SUZIE
+					ENDIF
+					IF iGF_TT_PedModel = CROGRL3
+						iTemp2 = MILLIE
+					ENDIF
+					//--- Mark this girl as dead
+					iGFLikesPlayer[iTemp2] = GF_IS_DEAD
 				ENDIF
-				IF iGF_TT_PedModel = MECGRL3
-					iTemp2 = MICHELLE	
-				ENDIF
-				IF iGF_TT_PedModel = COPGRL3
-					iTemp2 = BARBARA
-				ENDIF								   
-				IF iGF_TT_PedModel = GUNGRL3
-					iTemp2 = KYLIE
-				ENDIF
-				IF iGF_TT_PedModel = NURGRL3
-					iTemp2 = SUZIE
-				ENDIF
-				IF iGF_TT_PedModel = CROGRL3
-					iTemp2 = MILLIE
-				ENDIF
-				//--- Mark this girl as dead
-				iGFLikesPlayer[iTemp2] = GF_IS_DEAD
 			ENDIF 
 			//--- Clear this bit, as if nothing ever happened...
 			CLEAR_BIT iDateReport PLAYER_TWO_TIMING	
