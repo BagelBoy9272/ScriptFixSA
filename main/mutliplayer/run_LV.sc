@@ -195,29 +195,13 @@ GOSUB runlv_set_camera
 
 		ENDIF
 
-		IF IS_JAPANESE_VERSION
+		IF IS_BUTTON_PRESSED PAD2 BUTTON_ACCEPT  // FIXEDGROVE: use button variables instead of copypasted code for JP version
 
-			IF IS_BUTTON_PRESSED PAD2 CIRCLE 
+			GOSUB runlv_restore_camera
 
-				GOSUB runlv_restore_camera
+			CLEAR_HELP
 
-				CLEAR_HELP
-
-				GOTO runlv_main_loop
-
-			ENDIF
-
-		ELSE
-
-			IF IS_BUTTON_PRESSED PAD2 CROSS 
-
-				GOSUB runlv_restore_camera
-
-				CLEAR_HELP
-
-				GOTO runlv_main_loop
-
-			ENDIF
+			GOTO runlv_main_loop
 
 		ENDIF
 

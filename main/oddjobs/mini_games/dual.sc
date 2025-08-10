@@ -860,24 +860,13 @@ endif
 LVAR_INT left_stick_x left_stick_y
 
 //CONTROL CHECKS////
-IF IS_JAPANESE_VERSION
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-		if pad1_triangle_pressed = 1
-			pad1_triangle_pressed = 0
-			quit_game = 1
-		endif
-	else
-		pad1_triangle_pressed = 1
-	ENDIF
-ELSE
-	IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-		if pad1_triangle_pressed = 1
-			pad1_triangle_pressed = 0
-			quit_game = 1
-		endif
-	else
-		pad1_triangle_pressed = 1
-	ENDIF
+IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+	if pad1_triangle_pressed = 1
+		pad1_triangle_pressed = 0
+		quit_game = 1
+	endif
+else
+	pad1_triangle_pressed = 1
 ENDIF
 	IF IS_BUTTON_PRESSED PAD1 DPADRIGHT
     	ship_heading +=@ 5.0

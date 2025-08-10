@@ -379,49 +379,25 @@ IF startexbike_flag = 1
 
 			gym_TIMERC ++
 
-			IF IS_JAPANESE_VERSION
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL  // Quit the bike entirely. // FIXEDGROVE: use button variables instead of copypasted code for JP version
+			AND gym_TIMERC > 20
+				CLEAR_HELP
+				DELETE_MENU main_menu_bike
+				levelbar_bike = 0
+				GOTO bike_quit_back
+			ENDIF 
 
-				IF IS_BUTTON_PRESSED PAD1 CROSS  // Quit the bike entirely.
-				AND gym_TIMERC > 20
-					CLEAR_HELP
-					DELETE_MENU main_menu_bike
-					levelbar_bike = 0
-					GOTO bike_quit_back
-				ENDIF 
-
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
 		
-					CLEAR_HELP
+				CLEAR_HELP
 
-					GET_MENU_ITEM_SELECTED main_menu_bike levelbar_bike
+				GET_MENU_ITEM_SELECTED main_menu_bike levelbar_bike
 
-					levelbar_bike++
-					DELETE_MENU main_menu_bike
-					GOTO bike_out_of_loop
-				ENDIF 
-			
-			ELSE
+				levelbar_bike++
+				DELETE_MENU main_menu_bike
+				GOTO bike_out_of_loop
+			ENDIF 
 
-				IF IS_BUTTON_PRESSED PAD1 TRIANGLE  // Quit the bike entirely.
-				AND gym_TIMERC > 20
-					CLEAR_HELP
-					DELETE_MENU main_menu_bike
-					levelbar_bike = 0
-					GOTO bike_quit_back
-				ENDIF 
-
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-		
-					CLEAR_HELP
-
-					GET_MENU_ITEM_SELECTED main_menu_bike levelbar_bike
-
-					levelbar_bike++
-					DELETE_MENU main_menu_bike
-					GOTO bike_out_of_loop
-				ENDIF 
-
-			ENDIF
 		ENDWHILE
 
 		bike_out_of_loop:

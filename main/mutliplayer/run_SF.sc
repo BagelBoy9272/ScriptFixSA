@@ -198,29 +198,13 @@ GOSUB runsf_set_camera
 
 		ENDIF
 
-		IF IS_JAPANESE_VERSION
+		IF IS_BUTTON_PRESSED PAD2 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version 
 
-			IF IS_BUTTON_PRESSED PAD2 CIRCLE 
+			GOSUB runsf_restore_camera
 
-				GOSUB runsf_restore_camera
+			CLEAR_HELP
 
-				CLEAR_HELP
-
-				GOTO runsf_main_loop
-
-			ENDIF
-
-		ELSE
-
-			IF IS_BUTTON_PRESSED PAD2 CROSS 
-
-				GOSUB runsf_restore_camera
-
-				CLEAR_HELP
-
-				GOTO runsf_main_loop
-
-			ENDIF
+			GOTO runsf_main_loop
 
 		ENDIF
 

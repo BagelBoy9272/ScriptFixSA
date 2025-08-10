@@ -220,22 +220,12 @@ IF shtr_front_end = 1 // play
 	DRAW_SPRITE 8 320.0 344.0 128.0 32.0 150 150 150 255
 	DRAW_SPRITE 9 320.0 376.0 64.0 32.0 150 150 150 255
 	
-	IF IS_JAPANESE_VERSION
-		IF IS_BUTTON_PRESSED PAD1 CIRCLE
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_TRACK_START
-			GET_GAME_TIMER shtr_reload_start
-			GET_GAME_TIMER shtr_help_start
-			shtr_front_end = 0
-		ENDIF
-	ELSE
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_TRACK_START
-			GET_GAME_TIMER shtr_reload_start
-			GET_GAME_TIMER shtr_help_start
-			shtr_front_end = 0
-		ENDIF
+	IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
+		REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_TRACK_START
+		GET_GAME_TIMER shtr_reload_start
+		GET_GAME_TIMER shtr_help_start
+		shtr_front_end = 0
 	ENDIF
 ENDIF
 
@@ -245,20 +235,11 @@ IF shtr_front_end = 2 // Hi Score
 	DRAW_SPRITE 5 320.0 344.0 128.0 32.0 150 150 150 255
 	DRAW_SPRITE 9 320.0 376.0 64.0 32.0 150 150 150 255
 	
-	IF IS_JAPANESE_VERSION
-		IF IS_BUTTON_PRESSED PAD1 CIRCLE
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-			GET_GAME_TIMER shtr_help_start
-			shtr_on_table = 4
-			shtr_front_end = 4
-		ENDIF
-	ELSE
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-			GET_GAME_TIMER shtr_help_start
-			shtr_on_table = 4
-			shtr_front_end = 4
-		ENDIF
+	IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
+		GET_GAME_TIMER shtr_help_start
+		shtr_on_table = 4
+		shtr_front_end = 4
 	ENDIF
 ENDIF
 
@@ -268,18 +249,10 @@ IF shtr_front_end = 3 // Exit
 	DRAW_SPRITE 8 320.0 344.0 128.0 32.0 150 150 150 255
 	DRAW_SPRITE 6 320.0 376.0 64.0 32.0 150 150 150 255
 	
-	IF IS_JAPANESE_VERSION
-		IF IS_BUTTON_PRESSED PAD1 CIRCLE
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_DECLINE
-			DO_FADE 0 FADE_OUT
-			GOTO exit
-		ENDIF
-	ELSE
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_DECLINE
-			DO_FADE 0 FADE_OUT
-			GOTO exit
-		ENDIF
+	IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_DECLINE
+		DO_FADE 0 FADE_OUT
+		GOTO exit
 	ENDIF
 ENDIF
 
@@ -423,35 +396,18 @@ IF shtr_front_end = 0
 		GET_GAME_TIMER shtr_reload_end
 		shtr_reload_diff = shtr_reload_end - shtr_reload_start
 		
-		IF NOT IS_JAPANESE_VERSION
-			IF shtr_auto_pickup	= 0
-				
-				IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-					IF shtr_reload_diff > shtr_speed_pickup
-						shtr_button1 = 0
-					ENDIF
-				ENDIF
+		IF shtr_auto_pickup	= 0
 			
-			ELSE
-				IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-				OR shtr_reload_diff > shtr_speed_pickup
+			IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				IF shtr_reload_diff > shtr_speed_pickup
 					shtr_button1 = 0
 				ENDIF
 			ENDIF
+		
 		ELSE
-			IF shtr_auto_pickup	= 0
-				
-				IF NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-					IF shtr_reload_diff > shtr_speed_pickup
-						shtr_button1 = 0
-					ENDIF
-				ENDIF
-			
-			ELSE
-				IF NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-				OR shtr_reload_diff > shtr_speed_pickup
-					shtr_button1 = 0
-				ENDIF
+			IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+			OR shtr_reload_diff > shtr_speed_pickup
+				shtr_button1 = 0
 			ENDIF
 		ENDIF
 	ENDIF
@@ -465,93 +421,47 @@ IF shtr_front_end = 0
 	OR shtr_player_alive = 3
 		IF shtr_heat_bar < 1000
 		   	IF shtr_button1 = 0
-				IF NOT IS_JAPANESE_VERSION
-					IF IS_BUTTON_PRESSED PAD1 CROSS
+				IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				
+					REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_PLAYER_FIRE
+					COS shtr_shot_angle	shtr_cos_shot_angle
+					shtr_x_add = shtr_fire_speed * shtr_cos_shot_angle
+					SIN shtr_shot_angle shtr_sin_shot_angle
+					shtr_y_add = shtr_fire_speed * shtr_sin_shot_angle
 					
-						REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_PLAYER_FIRE
-						COS shtr_shot_angle	shtr_cos_shot_angle
-						shtr_x_add = shtr_fire_speed * shtr_cos_shot_angle
-						SIN shtr_shot_angle shtr_sin_shot_angle
-						shtr_y_add = shtr_fire_speed * shtr_sin_shot_angle
-						
-						IF shtr_projectile_alive[shtr_current_projectile_fired] = 0
-							shtr_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
-							shtr_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
-							shtr_projectile_x[shtr_current_projectile_fired] = shtr_projectile_origin[shtr_current_projectile_fired] + 16.0
-							shtr_projectile_alive[shtr_current_projectile_fired] = 1
-						ENDIF
-						
-						IF shtr_multi_pickup = 1
-						OR shtr_multi_pickup = 2
-							IF shtr_up_projectile_alive[shtr_current_projectile_fired] = 0
-								shtr_up_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
-								shtr_up_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
-								shtr_up_projectile_x[shtr_current_projectile_fired] = shtr_up_projectile_origin[shtr_current_projectile_fired] + 16.0
-								shtr_up_projectile_alive[shtr_current_projectile_fired] = 1
-							ENDIF
-						ENDIF
-						
-						IF shtr_multi_pickup = 2
-							IF shtr_down_projectile_alive[shtr_current_projectile_fired] = 0
-								shtr_down_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
-								shtr_down_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
-								shtr_down_projectile_x[shtr_current_projectile_fired] = shtr_down_projectile_origin[shtr_current_projectile_fired] + 16.0
-								shtr_down_projectile_alive[shtr_current_projectile_fired] = 1
-							ENDIF
-						ENDIF
-						
-						GET_GAME_TIMER shtr_reload_start
-						
-						shtr_current_projectile_fired++
-						shtr_button1 = 1
-						
-						IF shtr_current_projectile_fired = 16
-							shtr_current_projectile_fired = 0
+					IF shtr_projectile_alive[shtr_current_projectile_fired] = 0
+						shtr_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
+						shtr_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
+						shtr_projectile_x[shtr_current_projectile_fired] = shtr_projectile_origin[shtr_current_projectile_fired] + 16.0
+						shtr_projectile_alive[shtr_current_projectile_fired] = 1
+					ENDIF
+					
+					IF shtr_multi_pickup = 1
+					OR shtr_multi_pickup = 2
+						IF shtr_up_projectile_alive[shtr_current_projectile_fired] = 0
+							shtr_up_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
+							shtr_up_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
+							shtr_up_projectile_x[shtr_current_projectile_fired] = shtr_up_projectile_origin[shtr_current_projectile_fired] + 16.0
+							shtr_up_projectile_alive[shtr_current_projectile_fired] = 1
 						ENDIF
 					ENDIF
-				ELSE
-					IF IS_BUTTON_PRESSED PAD1 CIRCLE
 					
-						REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_PLAYER_FIRE
-						COS shtr_shot_angle	shtr_cos_shot_angle
-						shtr_x_add = shtr_fire_speed * shtr_cos_shot_angle
-						SIN shtr_shot_angle shtr_sin_shot_angle
-						shtr_y_add = shtr_fire_speed * shtr_sin_shot_angle
-						
-						IF shtr_projectile_alive[shtr_current_projectile_fired] = 0
-							shtr_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
-							shtr_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
-							shtr_projectile_x[shtr_current_projectile_fired] = shtr_projectile_origin[shtr_current_projectile_fired] + 16.0
-							shtr_projectile_alive[shtr_current_projectile_fired] = 1
+					IF shtr_multi_pickup = 2
+						IF shtr_down_projectile_alive[shtr_current_projectile_fired] = 0
+							shtr_down_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
+							shtr_down_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
+							shtr_down_projectile_x[shtr_current_projectile_fired] = shtr_down_projectile_origin[shtr_current_projectile_fired] + 16.0
+							shtr_down_projectile_alive[shtr_current_projectile_fired] = 1
 						ENDIF
-						
-						IF shtr_multi_pickup = 1
-						OR shtr_multi_pickup = 2
-							IF shtr_up_projectile_alive[shtr_current_projectile_fired] = 0
-								shtr_up_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
-								shtr_up_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
-								shtr_up_projectile_x[shtr_current_projectile_fired] = shtr_up_projectile_origin[shtr_current_projectile_fired] + 16.0
-								shtr_up_projectile_alive[shtr_current_projectile_fired] = 1
-							ENDIF
-						ENDIF
-						
-						IF shtr_multi_pickup = 2
-							IF shtr_down_projectile_alive[shtr_current_projectile_fired] = 0
-								shtr_down_projectile_origin[shtr_current_projectile_fired] = shtr_plyr_x 
-								shtr_down_projectile_y[shtr_current_projectile_fired] = shtr_plyr_y
-								shtr_down_projectile_x[shtr_current_projectile_fired] = shtr_down_projectile_origin[shtr_current_projectile_fired] + 16.0
-								shtr_down_projectile_alive[shtr_current_projectile_fired] = 1
-							ENDIF
-						ENDIF
-						
-						GET_GAME_TIMER shtr_reload_start
-						
-						shtr_current_projectile_fired++
-						shtr_button1 = 1
-						
-						IF shtr_current_projectile_fired = 16
-							shtr_current_projectile_fired = 0
-						ENDIF
+					ENDIF
+					
+					GET_GAME_TIMER shtr_reload_start
+					
+					shtr_current_projectile_fired++
+					shtr_button1 = 1
+					
+					IF shtr_current_projectile_fired = 16
+						shtr_current_projectile_fired = 0
 					ENDIF
 				ENDIF
 			ENDIF
@@ -889,18 +799,10 @@ ENDIF
 // Quit to front end ----------------------------------------------------------
 IF shtr_front_end = 0
 OR shtr_front_end = 4
-	IF IS_JAPANESE_VERSION
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		AND NOT shtr_on_table = 1
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_DECLINE
-			GOTO shtr_restart
-		ENDIF
-	ELSE
-		IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-		AND NOT shtr_on_table = 1
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_DECLINE
-			GOTO shtr_restart
-		ENDIF
+	IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+	AND NOT shtr_on_table = 1
+		REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_DECLINE
+		GOTO shtr_restart
 	ENDIF
 ENDIF
 
@@ -1384,27 +1286,14 @@ RETURN
 shtr_write_name:
 	
 	GET_POSITION_OF_ANALOGUE_STICKS PAD1 LStickX LStickY RStickX RStickY
-	IF IS_JAPANESE_VERSION
-		IF NOT IS_BUTTON_PRESSED PAD1 DPADUP
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADDOWN
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADLEFT
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADRIGHT
-		AND NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-			IF LStickY = 0
-			AND LStickX = 0
-				shtr_press = 0
-			ENDIF
-		ENDIF
-	ELSE
-		IF NOT IS_BUTTON_PRESSED PAD1 DPADUP
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADDOWN
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADLEFT
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADRIGHT
-		AND NOT IS_BUTTON_PRESSED PAD1 CROSS
-			IF LStickY = 0
-			AND LStickX = 0
-				shtr_press = 0
-			ENDIF
+	IF NOT IS_BUTTON_PRESSED PAD1 DPADUP
+	AND NOT IS_BUTTON_PRESSED PAD1 DPADDOWN
+	AND NOT IS_BUTTON_PRESSED PAD1 DPADLEFT
+	AND NOT IS_BUTTON_PRESSED PAD1 DPADRIGHT
+	AND NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		IF LStickY = 0
+		AND LStickX = 0
+			shtr_press = 0
 		ENDIF
 	ENDIF
 
@@ -1440,20 +1329,11 @@ shtr_write_name:
 				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_SELECT
 				shtr_press = 1
 			ENDIF
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					shtr_chars = 10
-					shtr_write = 1
-					shtr_press = 1
-					REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					shtr_chars = 10
-					shtr_write = 1
-					shtr_press = 1
-					REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				shtr_chars = 10
+				shtr_write = 1
+				shtr_press = 1
+				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
 			ENDIF
 		ENDIF
 	ENDIF
@@ -1488,20 +1368,11 @@ shtr_write_name:
 				shtr_press = 1
 			ENDIF
 			
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					shtr_chars = 10
-					shtr_write = 2
-					shtr_press = 1
-					REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					shtr_chars = 10
-					shtr_write = 2
-					shtr_press = 1
-					REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				shtr_chars = 10
+				shtr_write = 2
+				shtr_press = 1
+				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
 			ENDIF
 		ENDIF
 	ENDIF
@@ -1535,20 +1406,11 @@ shtr_write_name:
 				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_SELECT
 				shtr_press = 1
 			ENDIF
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					shtr_write = 3
-					shtr_press = 1
-					shtr_on_table = 4
-					REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					shtr_write = 3
-					shtr_press = 1
-					shtr_on_table = 4
-					REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				shtr_write = 3
+				shtr_press = 1
+				shtr_on_table = 4
+				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_GOGO_ACCEPT
 			ENDIF
 		ENDIF
 	ENDIF

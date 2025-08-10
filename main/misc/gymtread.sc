@@ -297,45 +297,24 @@ AND NOT IS_CHAR_DEAD scplayer
 
 			gym_TIMERC++
 
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-				AND gym_TIMERC > 20
-					CLEAR_HELP
-					DELETE_MENU main_menu_tread
-					GOTO tread_quit_back
-				ENDIF 
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+			AND gym_TIMERC > 20
+				CLEAR_HELP
+				DELETE_MENU main_menu_tread
+				GOTO tread_quit_back
+			ENDIF 
 
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
 
-					CLEAR_HELP
+				CLEAR_HELP
 
-					GET_MENU_ITEM_SELECTED main_menu_tread levelbar_tread
+				GET_MENU_ITEM_SELECTED main_menu_tread levelbar_tread
 
-					levelbar_tread++
-					DELETE_MENU main_menu_tread
-					TIMERA = 0
-					GOTO tread_out_of_loop
-				ENDIF 
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-				AND gym_TIMERC > 20
-					CLEAR_HELP
-					DELETE_MENU main_menu_tread
-					GOTO tread_quit_back
-				ENDIF 
-
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-
-					CLEAR_HELP
-
-					GET_MENU_ITEM_SELECTED main_menu_tread levelbar_tread
-
-					levelbar_tread++
-					DELETE_MENU main_menu_tread
-					TIMERA = 0
-					GOTO tread_out_of_loop
-				ENDIF 
-			ENDIF
+				levelbar_tread++
+				DELETE_MENU main_menu_tread
+				TIMERA = 0
+				GOTO tread_out_of_loop
+			ENDIF 
 
 		ENDWHILE
 
