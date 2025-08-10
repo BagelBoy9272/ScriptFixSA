@@ -206,7 +206,7 @@ SET_AREA_VISIBLE 0
 // CREATE statements to keep the compiler happy
 
 IF d6_fake_creates = 1
-	CREATE_CAR RANCHER 0.0 0.0 -100.0 d6_player_car
+	CREATE_CAR RNCHLURE 0.0 0.0 -100.0 d6_player_car // FIXEDGROVE: changed rancher to rancher lure
 	d6_index = 0
 	WHILE d6_index < d6_total_num_of_chase_bikes
 		CREATE_CAR SANCHEZ d6_chase_bike_x d6_chase_bike_y -100.0 d6_chase_bikes[d6_index]
@@ -666,14 +666,14 @@ GOTO driv6_loop
 
 	d6_create_player_car:
 
-		REQUEST_MODEL RANCHER
+		REQUEST_MODEL RNCHLURE // FIXEDGROVE: changed rancher to rancher lure
 
-		WHILE NOT HAS_MODEL_LOADED RANCHER
+		WHILE NOT HAS_MODEL_LOADED RNCHLURE // FIXEDGROVE: changed rancher to rancher lure
 			WAIT 0
 		ENDWHILE
 
 		CLEAR_AREA -2149.95 644.31 52.35 100.0 FALSE
-		CREATE_CAR RANCHER -2149.95 644.31 52.35 d6_player_car
+		CREATE_CAR RNCHLURE -2149.95 644.31 52.35 d6_player_car // FIXEDGROVE: changed rancher to rancher lure
 		SET_CAR_HEADING d6_player_car 180.0
 		SET_CAR_STRONG d6_player_car TRUE
 		SET_CAN_BURST_CAR_TYRES d6_player_car FALSE
@@ -1746,7 +1746,7 @@ IF NOT IS_CAR_DEAD d6_player_car
 	SET_CAR_PROOFS d6_player_car FALSE FALSE FALSE FALSE FALSE
 	SET_CAR_CAN_BE_VISIBLY_DAMAGED d6_player_car TRUE
 ENDIF
-MARK_MODEL_AS_NO_LONGER_NEEDED RANCHER
+MARK_MODEL_AS_NO_LONGER_NEEDED RNCHLURE // FIXEDGROVE: changed rancher to rancher lure
 MARK_MODEL_AS_NO_LONGER_NEEDED SANCHEZ
 MARK_MODEL_AS_NO_LONGER_NEEDED DNB3
 MARK_MODEL_AS_NO_LONGER_NEEDED DNB2
