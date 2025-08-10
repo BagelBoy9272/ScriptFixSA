@@ -2157,6 +2157,18 @@ IF moteldeal_f1flag = 24
 		DELETE_CAR extpolicevan1_f1
 		DELETE_CAR extpolicevan2_f1
 		DELETE_SEARCHLIGHT helispotlight_f1
+		// FIXEDGROVE: START - remove global versions of objects
+		DELETE_OBJECT g_skylite
+		DELETE_OBJECT g_vent1
+		DELETE_OBJECT g_vent2
+		DELETE_OBJECT g_trolley1
+		DELETE_OBJECT g_trolley2
+		DELETE_OBJECT g_trolley3
+		DELETE_OBJECT g_trolley4
+		DELETE_OBJECT g_trolley5
+		DELETE_OBJECT g_trolley6
+		DELETE_OBJECT g_trolley7
+		// FIXEDGROVE: END
 		MARK_MODEL_AS_NO_LONGER_NEEDED GREENWOO
 		MARK_MODEL_AS_NO_LONGER_NEEDED POLMAV
 		MARK_MODEL_AS_NO_LONGER_NEEDED ENFORCER
@@ -8787,7 +8799,67 @@ flag_la1fin1_mission_counter ++
 
 RETURN
 		
+// FIXEDGROVE: ************************** recreate global objects subroutine *************
+recreate_g_objects_f1:
 
+// skylight
+CREATE_OBJECT_NO_OFFSET imy_skylight 2246.07 -1191.242 1037.234 g_skylite
+DONT_REMOVE_OBJECT g_skylite
+
+// vent 1 
+CREATE_OBJECT_NO_OFFSET lxr_motelvent 2217.072 -1188.664 1032.276 g_vent1
+SET_OBJECT_HEADING g_vent1 180.0
+FREEZE_OBJECT_POSITION g_vent1 TRUE
+DONT_REMOVE_OBJECT g_vent1
+
+// vent 2
+CREATE_OBJECT lxr_motelvent 2193.188 -1164.511 1032.276 g_vent2
+SET_OBJECT_HEADING g_vent2 90.0
+DONT_REMOVE_OBJECT g_vent2
+FREEZE_OBJECT_POSITION g_vent2 TRUE
+
+// TROLLEYS
+
+// trolley 1
+CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2242.433 -1166.712 1029.304 g_trolley1
+SET_OBJECT_HEALTH g_trolley1 150
+DONT_REMOVE_OBJECT g_trolley1
+
+// trolley 2
+CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2240.11 -1174.919 1029.304 g_trolley2
+SET_OBJECT_HEALTH g_trolley2 250
+DONT_REMOVE_OBJECT g_trolley2
+
+// trolley 3
+CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2229.87 -1189.845 1029.304 g_trolley3
+SET_OBJECT_HEADING g_trolley3 90.0
+SET_OBJECT_HEALTH g_trolley3 150
+DONT_REMOVE_OBJECT g_trolley3
+
+// trolley 4
+CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2217.569  -1187.528 1029.304 g_trolley4
+SET_OBJECT_HEADING g_trolley4 90.0
+SET_OBJECT_HEALTH g_trolley4 250
+DONT_REMOVE_OBJECT g_trolley4
+
+// trolley 5
+CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2204.649 -1187.544 1029.304 g_trolley5
+SET_OBJECT_HEADING g_trolley5 90.0
+SET_OBJECT_HEALTH g_trolley5 150
+DONT_REMOVE_OBJECT g_trolley5
+
+// trolley 6
+CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2194.345 -1171.269 1029.304 g_trolley6
+SET_OBJECT_HEALTH g_trolley6 250
+DONT_REMOVE_OBJECT g_trolley6
+
+// trolley 7
+CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2192.079 -1166.364 1029.304 g_trolley7
+SET_OBJECT_HEALTH g_trolley7 150
+DONT_REMOVE_OBJECT g_trolley7
+
+RETURN
+// FIXEDGROVE: END
 
 // ********************************** mission cleanup **************************************
 
@@ -8825,6 +8897,8 @@ MARK_MODEL_AS_NO_LONGER_NEEDED imy_skylight
 MARK_MODEL_AS_NO_LONGER_NEEDED kmb_trolley
 REMOVE_ANIMATION KISSING
 REMOVE_ANIMATION GANGS
+// FIXEDGROVE: recreate global objects
+GOSUB recreate_g_objects_f1
 //blips
 REMOVE_BLIP heli_f1blip
 REMOVE_BLIP sweet_f1blip
