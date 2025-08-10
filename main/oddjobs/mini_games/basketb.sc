@@ -384,36 +384,19 @@ bball_loop:
 						AND NOT p_status = DUNK_FINISH
 						AND NOT p_status = SHOOT	
 						
-							IF NOT IS_JAPANESE_VERSION
-								IF tri_pressed = 0
-									
-									IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-										tri_pressed = 1
-										GOSUB bball_cleanup_minigame
-										m_stage = 1
-									ENDIF
-								ELSE
-									
-									IF NOT IS_BUTTON_PRESSED PAD1 TRIANGLE
-										tri_pressed = 0
-									ENDIF
+							IF tri_pressed = 0
+								
+								IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+									tri_pressed = 1
+									GOSUB bball_cleanup_minigame
+									m_stage = 1
 								ENDIF
 							ELSE
-								IF tri_pressed = 0
-									
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-										tri_pressed = 1
-										GOSUB bball_cleanup_minigame
-										m_stage = 1
-									ENDIF
-								ELSE
-									
-									IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-										tri_pressed = 0
-									ENDIF
+								
+								IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+									tri_pressed = 0
 								ENDIF
 							ENDIF
-
 						ENDIF
 					ENDIF
 				BREAK
@@ -2242,171 +2225,86 @@ update_player_control:
 			// shoot
 			//WRITE_DEBUG_WITH_INT cross_pressed cross_pressed
 			IF cross_pressed = 0
-				IF NOT IS_JAPANESE_VERSION
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					
-						IF NOT p_status_old = FINISH_SHOT
-							
-							// check infront of board
-							
-							// get vector to hoop from player
-							GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 0 x y z
-							IF IS_PLAYER_PLAYING player1
-								GET_CHAR_COORDINATES scplayer x2 y2 z2
-							ENDIF
-							x3 = x - x2
-							y3 = y - y2
+				IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				
+					IF NOT p_status_old = FINISH_SHOT
+						
+						// check infront of board
+						
+						// get vector to hoop from player
+						GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 0 x y z
+						IF IS_PLAYER_PLAYING player1
+							GET_CHAR_COORDINATES scplayer x2 y2 z2
+						ENDIF
+						x3 = x - x2
+						y3 = y - y2
 
-							// vector straight out of hoop
-							GET_OBJECT_COORDINATES bbhoop x y z
-							GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS bbhoop 0.0 -1.0 0.0 x2 y2 z2
-							temp_float = x2 - x
-							temp_float2 = y2 - y
-							x2 = temp_float
-							y2 = temp_float2
+						// vector straight out of hoop
+						GET_OBJECT_COORDINATES bbhoop x y z
+						GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS bbhoop 0.0 -1.0 0.0 x2 y2 z2
+						temp_float = x2 - x
+						temp_float2 = y2 - y
+						x2 = temp_float
+						y2 = temp_float2
 
-							// check angle between 2 vectors is below 90.
-							GET_ANGLE_BETWEEN_2D_VECTORS x3 y3 x2 y2 temp_float
+						// check angle between 2 vectors is below 90.
+						GET_ANGLE_BETWEEN_2D_VECTORS x3 y3 x2 y2 temp_float
 
+						temp_int = 0
+
+						IF temp_float < 90.0
+
+							// check if in right position for a dunk
 							temp_int = 0
+							IF p_status_old = RUN_WITH_BALL
+								// check the player isn't too fat
+								GET_FLOAT_STAT FAT temp_float
+								IF temp_float < 400.0
+									GET_CHAR_COORDINATES scplayer x y z
+									GET_OBJECT_COORDINATES bbhoop x2 y2 z2
+									GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.0 1.0 0.0 x3 y3 z3
+									GET_DISTANCE_BETWEEN_COORDS_2D x y x2 y2 temp_float
+									IF temp_float > 2.4
+									AND temp_float < 3.5
+										// check player is facing correct way.
 
-							IF temp_float < 90.0
+										//WRITE_DEBUG_WITH_FLOAT temp_float temp_float
 
-								// check if in right position for a dunk
-								temp_int = 0
-								IF p_status_old = RUN_WITH_BALL
-									// check the player isn't too fat
-									GET_FLOAT_STAT FAT temp_float
-									IF temp_float < 400.0
-										GET_CHAR_COORDINATES scplayer x y z
-										GET_OBJECT_COORDINATES bbhoop x2 y2 z2
-										GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.0 1.0 0.0 x3 y3 z3
-										GET_DISTANCE_BETWEEN_COORDS_2D x y x2 y2 temp_float
-										IF temp_float > 2.4
-										AND temp_float < 3.5
-											// check player is facing correct way.
-
-											//WRITE_DEBUG_WITH_FLOAT temp_float temp_float
-
-											bb_cam_vec_x = x3 - x
-											bb_cam_vec_y = y3 - y
-											temp_float = x2 - x
-											temp_float2 = y2 - y
+										bb_cam_vec_x = x3 - x
+										bb_cam_vec_y = y3 - y
+										temp_float = x2 - x
+										temp_float2 = y2 - y
 
 
-											GET_ANGLE_BETWEEN_2D_VECTORS bb_cam_vec_x bb_cam_vec_y temp_float temp_float2 z
-											
-											//WRITE_DEBUG_WITH_FLOAT z z
+										GET_ANGLE_BETWEEN_2D_VECTORS bb_cam_vec_x bb_cam_vec_y temp_float temp_float2 z
+										
+										//WRITE_DEBUG_WITH_FLOAT z z
 
-											IF z < 90.0
-												temp_int = 1
-											ELSE
-												temp_int = 0
-											ENDIF
+										IF z < 90.0
+											temp_int = 1
+										ELSE
+											temp_int = 0
 										ENDIF
 									ENDIF
 								ENDIF
-
-								IF temp_int = 1
-									p_status = DUNK_START
-								ELSE
-									p_status = SHOOT
-								ENDIF
-
-								//WRITE_DEBUG StartingShot
-								cross_pressed = 1
-
 							ENDIF
-						ENDIF
-					ELSE
-						IF p_status_old = SHOOT
-						AND NOT p_status = FINISH_SHOT
-							//p_status = CANCEL_SHOT
+
+							IF temp_int = 1
+								p_status = DUNK_START
+							ELSE
+								p_status = SHOOT
+							ENDIF
+
+							//WRITE_DEBUG StartingShot
 							cross_pressed = 1
+
 						ENDIF
 					ENDIF
 				ELSE
-					IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					
-						IF NOT p_status_old = FINISH_SHOT
-							
-							// check infront of board
-							
-							// get vector to hoop from player
-							GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 0 x y z
-							IF IS_PLAYER_PLAYING player1
-								GET_CHAR_COORDINATES scplayer x2 y2 z2
-							ENDIF
-							x3 = x - x2
-							y3 = y - y2
-
-							// vector straight out of hoop
-							GET_OBJECT_COORDINATES bbhoop x y z
-							GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS bbhoop 0.0 -1.0 0.0 x2 y2 z2
-							temp_float = x2 - x
-							temp_float2 = y2 - y
-							x2 = temp_float
-							y2 = temp_float2
-
-							// check angle between 2 vectors is below 90.
-							GET_ANGLE_BETWEEN_2D_VECTORS x3 y3 x2 y2 temp_float
-
-							temp_int = 0
-
-							IF temp_float < 90.0
-
-								// check if in right position for a dunk
-								temp_int = 0
-								IF p_status_old = RUN_WITH_BALL
-									// check the player isn't too fat
-									GET_FLOAT_STAT FAT temp_float
-									IF temp_float < 400.0
-										GET_CHAR_COORDINATES scplayer x y z
-										GET_OBJECT_COORDINATES bbhoop x2 y2 z2
-										GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.0 1.0 0.0 x3 y3 z3
-										GET_DISTANCE_BETWEEN_COORDS_2D x y x2 y2 temp_float
-										IF temp_float > 2.4
-										AND temp_float < 3.5
-											// check player is facing correct way.
-
-											//WRITE_DEBUG_WITH_FLOAT temp_float temp_float
-
-											bb_cam_vec_x = x3 - x
-											bb_cam_vec_y = y3 - y
-											temp_float = x2 - x
-											temp_float2 = y2 - y
-
-
-											GET_ANGLE_BETWEEN_2D_VECTORS bb_cam_vec_x bb_cam_vec_y temp_float temp_float2 z
-											
-											//WRITE_DEBUG_WITH_FLOAT z z
-
-											IF z < 90.0
-												temp_int = 1
-											ELSE
-												temp_int = 0
-											ENDIF
-										ENDIF
-									ENDIF
-								ENDIF
-
-								IF temp_int = 1
-									p_status = DUNK_START
-								ELSE
-									p_status = SHOOT
-								ENDIF
-
-								//WRITE_DEBUG StartingShot
-								cross_pressed = 1
-
-							ENDIF
-						ENDIF
-					ELSE
-						IF p_status_old = SHOOT
-						AND NOT p_status = FINISH_SHOT
-							//p_status = CANCEL_SHOT
-							cross_pressed = 1
-						ENDIF
+					IF p_status_old = SHOOT
+					AND NOT p_status = FINISH_SHOT
+						//p_status = CANCEL_SHOT
+						cross_pressed = 1
 					ENDIF
 				ENDIF
 			ELSE
@@ -2447,76 +2345,38 @@ update_player_control:
 					
 					// figure out if this shot is a hit or miss
 					
-					IF NOT IS_JAPANESE_VERSION
-						IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-						
-							cross_pressed = 0
-						
-							IF IS_CHAR_PLAYING_ANIM scplayer BBALL_Jump_Shot
-								
-								GET_CHAR_ANIM_CURRENT_TIME scplayer BBALL_Jump_Shot temp_float	
-								
-								IF temp_float > anim_release_time
-									release_time = temp_float - anim_release_time	
-								ELSE
-									release_time = anim_release_time - temp_float	
-								ENDIF  
+					IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+					
+						cross_pressed = 0
+					
+						IF IS_CHAR_PLAYING_ANIM scplayer BBALL_Jump_Shot
+							
+							GET_CHAR_ANIM_CURRENT_TIME scplayer BBALL_Jump_Shot temp_float	
+							
+							IF temp_float > anim_release_time
+								release_time = temp_float - anim_release_time	
 							ELSE
-								release_time = 1.0
-							ENDIF
+								release_time = anim_release_time - temp_float	
+							ENDIF  
 						ELSE
-							IF IS_CHAR_PLAYING_ANIM scplayer BBALL_Jump_Shot
-								GET_CHAR_ANIM_CURRENT_TIME scplayer BBALL_Jump_Shot temp_float	
-								temp_float2 = anim_release_time + 0.1
-								IF temp_float > temp_float2
-									release_time = 1.0
-									cross_pressed = 0
-								ENDIF
-							ELSE
-								release_time = 1.0
-							ENDIF
+							release_time = 1.0
 						ENDIF
 					ELSE
-						IF NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-						
-							cross_pressed = 0
-						
-							IF IS_CHAR_PLAYING_ANIM scplayer BBALL_Jump_Shot
-								
-								GET_CHAR_ANIM_CURRENT_TIME scplayer BBALL_Jump_Shot temp_float	
-								
-								IF temp_float > anim_release_time
-									release_time = temp_float - anim_release_time	
-								ELSE
-									release_time = anim_release_time - temp_float	
-								ENDIF  
-							ELSE
+						IF IS_CHAR_PLAYING_ANIM scplayer BBALL_Jump_Shot
+							GET_CHAR_ANIM_CURRENT_TIME scplayer BBALL_Jump_Shot temp_float	
+							temp_float2 = anim_release_time + 0.1
+							IF temp_float > temp_float2
 								release_time = 1.0
+								cross_pressed = 0
 							ENDIF
 						ELSE
-							IF IS_CHAR_PLAYING_ANIM scplayer BBALL_Jump_Shot
-								GET_CHAR_ANIM_CURRENT_TIME scplayer BBALL_Jump_Shot temp_float	
-								temp_float2 = anim_release_time + 0.1
-								IF temp_float > temp_float2
-									release_time = 1.0
-									cross_pressed = 0
-								ENDIF
-							ELSE
-								release_time = 1.0
-							ENDIF
+							release_time = 1.0
 						ENDIF
 					ENDIF
-
 				ELSE
 					
-					IF NOT IS_JAPANESE_VERSION
-						IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-							cross_pressed = 0
-						ENDIF
-					ELSE
-						IF NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-							cross_pressed = 0
-						ENDIF
+					IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+						cross_pressed = 0
 					ENDIF
 
 				ENDIF
@@ -2534,14 +2394,8 @@ update_player_control:
 					ENDIF
 				ENDIF
 			ELSE
-				IF NOT IS_JAPANESE_VERSION
-					IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-						cross_pressed = 0
-					ENDIF
-				ELSE
-					IF NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-						cross_pressed = 0
-					ENDIF
+				IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+					cross_pressed = 0
 				ENDIF
 			ENDIF
 		ENDIF	

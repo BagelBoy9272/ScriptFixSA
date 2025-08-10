@@ -456,33 +456,17 @@ WAIT 0
 
 		
 			//triggering mission
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					IF mission_selection = 4 
-					OR mission_selection = 7 
-					OR mission_selection = 9 
-					OR mission_selection = 13 
-						f1_control_flag = 1	
-					ELSE
-						IF playback_flag < 4
-							playback_flag = 3
-						ENDIF
-						GOTO start_mission
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				IF mission_selection = 4 
+				OR mission_selection = 7 
+				OR mission_selection = 9 
+				OR mission_selection = 13 
+					f1_control_flag = 1	
+				ELSE
+					IF playback_flag < 4
+						playback_flag = 3
 					ENDIF
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					IF mission_selection = 4 
-					OR mission_selection = 7 
-					OR mission_selection = 9 
-					OR mission_selection = 13 
-						f1_control_flag = 1	
-					ELSE
-						IF playback_flag < 4
-							playback_flag = 3
-						ENDIF
-						GOTO start_mission
-					ENDIF
+					GOTO start_mission
 				ENDIF
 			ENDIF
 		ENDIF
@@ -557,134 +541,68 @@ WAIT 0
 		ENDIF
 		
 		//quitting the driving school
-		IF IS_JAPANESE_VERSION
-			IF IS_BUTTON_PRESSED PAD1 CROSS
+		IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+			GOSUB f1_drawing_tv_screen
+			DO_FADE 500 FADE_OUT
+			WHILE GET_FADING_STATUS
 				GOSUB f1_drawing_tv_screen
-				DO_FADE 500 FADE_OUT
-				WHILE GET_FADING_STATUS
-					GOSUB f1_drawing_tv_screen
-					WAIT 0
-					GOSUB f1_drawing_tv_screen
-				ENDWHILE
+				WAIT 0
 				GOSUB f1_drawing_tv_screen
+			ENDWHILE
+			GOSUB f1_drawing_tv_screen
 
-				CLEAR_MISSION_AUDIO 3
+			CLEAR_MISSION_AUDIO 3
 
-				CLEAR_PRINTS
-				CLEAR_EXTRA_COLOURS TRUE
+			CLEAR_PRINTS
+			CLEAR_EXTRA_COLOURS TRUE
 
-				SET_CHAR_AREA_VISIBLE scplayer 3
-				SET_AREA_VISIBLE 3
-				REQUEST_COLLISION -2031.1 -118.2
-				LOAD_SCENE -2031.1 -118.2 1034.2
-				
-				SET_CHAR_COORDINATES scplayer -2029.7 -115.5 1034.2
-				SET_CHAR_HEADING scplayer 0.0
+			SET_CHAR_AREA_VISIBLE scplayer 3
+			SET_AREA_VISIBLE 3
+			REQUEST_COLLISION -2031.1 -118.2
+			LOAD_SCENE -2031.1 -118.2 1034.2
+			
+			SET_CHAR_COORDINATES scplayer -2029.7 -115.5 1034.2
+			SET_CHAR_HEADING scplayer 0.0
 
-				IF NOT IS_CAR_DEAD instructor_car
-					IF IS_PLAYBACK_GOING_ON_FOR_CAR instructor_car
-						STOP_PLAYBACK_RECORDED_CAR instructor_car 
-					ENDIF
+			IF NOT IS_CAR_DEAD instructor_car
+				IF IS_PLAYBACK_GOING_ON_FOR_CAR instructor_car
+					STOP_PLAYBACK_RECORDED_CAR instructor_car 
 				ENDIF
-				DELETE_CAR instructor_car
-				CLEAR_AREA -2051.0 -174.0 34.0 300.0 TRUE
-				CLEAR_ONSCREEN_TIMER car_timer
-				FREEZE_ONSCREEN_TIMER FALSE
-				DELETE_CHAR f1_test_crash_dummy 
-				DELETE_CHAR f1_test_crash_dummy2 
-				DELETE_CAR dummy_car1
-				DELETE_CAR dummy_car2
-				DELETE_OBJECT ramp1
-				DELETE_OBJECT ramp2
-				DELETE_OBJECT f1_stinger
-				REMOVE_CAR_RECORDING 1
-				REMOVE_CAR_RECORDING 2
-				REMOVE_CAR_RECORDING 3
-				REMOVE_CAR_RECORDING 4
-				REMOVE_CAR_RECORDING 5
-				REMOVE_CAR_RECORDING 7
-				REMOVE_CAR_RECORDING 9
-				REMOVE_CAR_RECORDING 10
-				REMOVE_CAR_RECORDING 11
-				REMOVE_CAR_RECORDING 13
-				REMOVE_CAR_RECORDING 14
-				REMOVE_CAR_RECORDING 15
-				REMOVE_CAR_RECORDING 16
-				GOSUB deleting_cones
-
-				SET_CAMERA_BEHIND_PLAYER
-				RESTORE_CAMERA_JUMPCUT
-
-				DO_FADE 500 FADE_IN
-				WHILE GET_FADING_STATUS
-					WAIT 0
-				ENDWHILE
-				GOTO mission_failed_dskool
 			ENDIF
-		ELSE
-			IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-				GOSUB f1_drawing_tv_screen
-				DO_FADE 500 FADE_OUT
-				WHILE GET_FADING_STATUS
-					GOSUB f1_drawing_tv_screen
-					WAIT 0
-					GOSUB f1_drawing_tv_screen
-				ENDWHILE
-				GOSUB f1_drawing_tv_screen
+			DELETE_CAR instructor_car
+			CLEAR_AREA -2051.0 -174.0 34.0 300.0 TRUE
+			CLEAR_ONSCREEN_TIMER car_timer
+			FREEZE_ONSCREEN_TIMER FALSE
+			DELETE_CHAR f1_test_crash_dummy 
+			DELETE_CHAR f1_test_crash_dummy2 
+			DELETE_CAR dummy_car1
+			DELETE_CAR dummy_car2
+			DELETE_OBJECT ramp1
+			DELETE_OBJECT ramp2
+			DELETE_OBJECT f1_stinger
+			REMOVE_CAR_RECORDING 1
+			REMOVE_CAR_RECORDING 2
+			REMOVE_CAR_RECORDING 3
+			REMOVE_CAR_RECORDING 4
+			REMOVE_CAR_RECORDING 5
+			REMOVE_CAR_RECORDING 7
+			REMOVE_CAR_RECORDING 9
+			REMOVE_CAR_RECORDING 10
+			REMOVE_CAR_RECORDING 11
+			REMOVE_CAR_RECORDING 13
+			REMOVE_CAR_RECORDING 14
+			REMOVE_CAR_RECORDING 15
+			REMOVE_CAR_RECORDING 16
+			GOSUB deleting_cones
 
-				CLEAR_MISSION_AUDIO 3
+			SET_CAMERA_BEHIND_PLAYER
+			RESTORE_CAMERA_JUMPCUT
 
-				CLEAR_PRINTS
-				CLEAR_EXTRA_COLOURS TRUE
-
-				SET_CHAR_AREA_VISIBLE scplayer 3
-				SET_AREA_VISIBLE 3
-				REQUEST_COLLISION -2031.1 -118.2
-				LOAD_SCENE -2031.1 -118.2 1034.2
-				
-				SET_CHAR_COORDINATES scplayer -2029.7 -115.5 1034.2
-				SET_CHAR_HEADING scplayer 0.0
-
-				IF NOT IS_CAR_DEAD instructor_car
-					IF IS_PLAYBACK_GOING_ON_FOR_CAR instructor_car
-						STOP_PLAYBACK_RECORDED_CAR instructor_car 
-					ENDIF
-				ENDIF
-				DELETE_CAR instructor_car
-				CLEAR_AREA -2051.0 -174.0 34.0 300.0 TRUE
-				CLEAR_ONSCREEN_TIMER car_timer
-				FREEZE_ONSCREEN_TIMER FALSE
-				DELETE_CHAR f1_test_crash_dummy 
-				DELETE_CHAR f1_test_crash_dummy2 
-				DELETE_CAR dummy_car1
-				DELETE_CAR dummy_car2
-				DELETE_OBJECT ramp1
-				DELETE_OBJECT ramp2
-				DELETE_OBJECT f1_stinger
-				REMOVE_CAR_RECORDING 1
-				REMOVE_CAR_RECORDING 2
-				REMOVE_CAR_RECORDING 3
-				REMOVE_CAR_RECORDING 4
-				REMOVE_CAR_RECORDING 5
-				REMOVE_CAR_RECORDING 7
-				REMOVE_CAR_RECORDING 9
-				REMOVE_CAR_RECORDING 10
-				REMOVE_CAR_RECORDING 11
-				REMOVE_CAR_RECORDING 13
-				REMOVE_CAR_RECORDING 14
-				REMOVE_CAR_RECORDING 15
-				REMOVE_CAR_RECORDING 16
-				GOSUB deleting_cones
-
-				SET_CAMERA_BEHIND_PLAYER
-				RESTORE_CAMERA_JUMPCUT
-
-				DO_FADE 500 FADE_IN
-				WHILE GET_FADING_STATUS
-					WAIT 0
-				ENDWHILE
-				GOTO mission_failed_dskool
-			ENDIF
+			DO_FADE 500 FADE_IN
+			WHILE GET_FADING_STATUS
+				WAIT 0
+			ENDWHILE
+			GOTO mission_failed_dskool
 		ENDIF
 
 	GOSUB watching_demo
@@ -931,17 +849,10 @@ IF mission_selection = 1
 
 							IF NOT f1_print_top_scores_flag = 2
 								//checking player hasnt left car
-								IF IS_JAPANESE_VERSION
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-										instructor_car_dead_flag = 2
-										GOTO after_scores_360_xbox																		  
-									ENDIF
-								ELSE
-									IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-										instructor_car_dead_flag = 2
-										GOTO after_scores_360_xbox																		  
-									ENDIF 									    
-								ENDIF
+								IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+									instructor_car_dead_flag = 2
+									GOTO after_scores_360_xbox																		  
+								ENDIF 									    
 							ENDIF
 
 							//displaying scores
@@ -1043,17 +954,10 @@ IF mission_selection = 1
 							IF NOT f1_print_top_scores_flag = 2
 								//checking player hasnt left car
 								
-								IF IS_JAPANESE_VERSION
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-										instructor_car_dead_flag = 2
-										GOTO after_scores_360																		  
-									ENDIF 									    
-								ELSE
-									IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-										instructor_car_dead_flag = 2
-										GOTO after_scores_360																		  
-									ENDIF 									    
-								ENDIF
+								IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+									instructor_car_dead_flag = 2
+									GOTO after_scores_360																		  
+								ENDIF 									    
 							ENDIF
 
 							//displaying scores
@@ -1274,17 +1178,10 @@ IF mission_selection = 2
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_180																		  
-								ENDIF 	
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_180																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_180																		  
+							ENDIF 									    
 						ENDIF
 					
 						//displaying scores
@@ -1543,17 +1440,10 @@ OR mission_selection = 4
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_whip_and_terminate																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_whip_and_terminate																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_whip_and_terminate																		  
+							ENDIF 									    
 						ENDIF
 
 						//displaying scores
@@ -1795,17 +1685,10 @@ IF mission_selection = 5
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_pop_control																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_pop_control																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_pop_control																		  
+							ENDIF 									    
 						ENDIF
 		
 						//displaying scores
@@ -2083,17 +1966,10 @@ OR mission_selection = 7
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_burn_lap																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_burn_lap																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_burn_lap																		  
+							ENDIF 									    
 						ENDIF
 						
 						//displaying scores
@@ -2335,17 +2211,10 @@ OR mission_selection = 9
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_cone_coil																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_cone_coil																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_cone_coil																		  
+							ENDIF 									    
 						ENDIF
 					
 						//displaying scores
@@ -2640,17 +2509,10 @@ IF mission_selection = 10
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_90																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_90																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_90																		  
+							ENDIF 									    
 						ENDIF
 						
 						//displaying scores
@@ -2905,17 +2767,10 @@ IF mission_selection = 11
 
 							IF NOT f1_print_top_scores_flag = 2
 								//checking player hasnt left car
-								IF IS_JAPANESE_VERSION
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-										instructor_car_dead_flag = 2
-										GOTO after_scores_wheelie_weave																		  
-									ENDIF 									    
-								ELSE
-									IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-										instructor_car_dead_flag = 2
-										GOTO after_scores_wheelie_weave																		  
-									ENDIF 									    
-								ENDIF
+								IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+									instructor_car_dead_flag = 2
+									GOTO after_scores_wheelie_weave																		  
+								ENDIF 									    
 							ENDIF
 
 							//displaying scores
@@ -3146,17 +3001,10 @@ OR mission_selection = 13
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_spin_go																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_spin_go																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_spin_go																		  
+							ENDIF 									    
 						ENDIF
 					
 						//displaying scores
@@ -3431,17 +3279,10 @@ IF mission_selection = 14
 
 							IF NOT f1_print_top_scores_flag = 2
 								//checking player hasnt left car
-								IF IS_JAPANESE_VERSION
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-										instructor_car_dead_flag = 2
-										GOTO after_scores_pit_technique																		  
-									ENDIF 									    
-								ELSE
-									IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-										instructor_car_dead_flag = 2
-										GOTO after_scores_pit_technique																		  
-									ENDIF 									    
-								ENDIF
+								IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+									instructor_car_dead_flag = 2
+									GOTO after_scores_pit_technique																		  
+								ENDIF 									    
 							ENDIF
 
 							//displaying scores
@@ -3834,17 +3675,10 @@ IF mission_selection = 15
 
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_swift_escape																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_swift_escape																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_swift_escape																		  
+							ENDIF 									    
 						ENDIF
 		
 						//displaying scores
@@ -4087,17 +3921,10 @@ IF mission_selection = 16
 					
 						IF NOT f1_print_top_scores_flag = 2
 							//checking player hasnt left car
-							IF IS_JAPANESE_VERSION
-								IF IS_BUTTON_PRESSED PAD1 CROSS
-									instructor_car_dead_flag = 2
-									GOTO after_scores_city_slicking																		  
-								ENDIF 									    
-							ELSE
-								IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-									instructor_car_dead_flag = 2
-									GOTO after_scores_city_slicking																		  
-								ENDIF 									    
-							ENDIF
+							IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+								instructor_car_dead_flag = 2
+								GOTO after_scores_city_slicking																		  
+							ENDIF 									    
 						ENDIF
 
 						//displaying scores
@@ -5488,27 +5315,14 @@ RETURN
 
 skip_scores:///////////////////////////////////////////////////////////////////////////////
 	
-	IF IS_JAPANESE_VERSION
-		IF IS_BUTTON_PRESSED PAD1 CIRCLE
-			IF button_pressed = 1
-				button_pressed = 0
-				finished_watching_scores = 1
-			ENDIF
-		ELSE
-			IF button_pressed = 0
-				button_pressed = 1
-			ENDIF
+	IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		IF button_pressed = 1
+			button_pressed = 0
+			finished_watching_scores = 1
 		ENDIF
 	ELSE
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-			IF button_pressed = 1
-				button_pressed = 0
-				finished_watching_scores = 1
-			ENDIF
-		ELSE
-			IF button_pressed = 0
-				button_pressed = 1
-			ENDIF
+		IF button_pressed = 0
+			button_pressed = 1
 		ENDIF
 	ENDIF
 RETURN/////////////////////////////////////////////////////////////////////////////////////

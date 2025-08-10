@@ -198,29 +198,13 @@ GOSUB runde_set_camera
 
 		ENDIF
 
-		IF IS_JAPANESE_VERSION
+		IF IS_BUTTON_PRESSED PAD2 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
 
-			IF IS_BUTTON_PRESSED PAD2 CIRCLE 
+			GOSUB runde_restore_camera
 
-				GOSUB runde_restore_camera
+			CLEAR_HELP
 
-				CLEAR_HELP
-
-				GOTO runde_main_loop
-
-			ENDIF
-
-		ELSE
-
-			IF IS_BUTTON_PRESSED PAD2 CROSS 
-
-				GOSUB runde_restore_camera
-
-				CLEAR_HELP
-
-				GOTO runde_main_loop
-
-			ENDIF
+			GOTO runde_main_loop
 
 		ENDIF
 

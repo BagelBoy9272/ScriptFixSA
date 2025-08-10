@@ -406,24 +406,13 @@ mission_grav_loop:
         DRAW_SPRITE 18 320.0 344.0 128.0 32.0 150 150 150 255
         DRAW_SPRITE 20 320.0 376.0 64.0 32.0 150 150 150 255
         
-		IF IS_JAPANESE_VERSION
-			IF IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
 
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_ACCEPT
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_TRACK_START
-				GET_GAME_TIMER grav_help_start
-				nGameState = PLAYING_GAME
-				timera = 0
-			ENDIF		
-        ELSE
-			IF IS_BUTTON_PRESSED PAD1 CROSS
-
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_ACCEPT
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_TRACK_START
-				GET_GAME_TIMER grav_help_start
-				nGameState = PLAYING_GAME
-				timera = 0
-			ENDIF
+			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_ACCEPT
+			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_TRACK_START
+			GET_GAME_TIMER grav_help_start
+			nGameState = PLAYING_GAME
+			timera = 0
 		ENDIF
     ENDIF
 
@@ -433,23 +422,13 @@ mission_grav_loop:
 		
 		DRAW_SPRITE 16 320.0 312.0 64.0 32.0 150 150 150 255
 		DRAW_SPRITE 19 320.0 344.0 128.0 32.0 150 150 150 255   // Hi Scores is selected, others unselected.
-		DRAW_SPRITE 20 320.0 376.0 64.0 32.0 150 150 150 255
-		IF IS_JAPANESE_VERSION
-			IF IS_BUTTON_PRESSED PAD1 CIRCLE
+		DRAW_SPRITE 20 320.0 376.0 64.0 32.0 150 150 150 255		
+		IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
 
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_ACCEPT
-				GET_GAME_TIMER grav_help_start
-				grav_on_table = SHOWING_HIGH_SCORES
-				nGameState = INACTIVE
-			ENDIF
-		ELSE		
-			IF IS_BUTTON_PRESSED PAD1 CROSS
-
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_ACCEPT
-				GET_GAME_TIMER grav_help_start
-				grav_on_table = SHOWING_HIGH_SCORES
-				nGameState = INACTIVE
-			ENDIF
+			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_ACCEPT
+			GET_GAME_TIMER grav_help_start
+			grav_on_table = SHOWING_HIGH_SCORES
+			nGameState = INACTIVE
 		ENDIF
     ENDIF
 
@@ -460,20 +439,11 @@ mission_grav_loop:
 		DRAW_SPRITE 16 320.0 312.0 64.0 32.0 150 150 150 255
 		DRAW_SPRITE 18 320.0 344.0 128.0 32.0 150 150 150 255
 		DRAW_SPRITE 21 320.0 376.0 64.0 32.0 150 150 150 255    // Exit is selected, others unselected.
-		IF IS_JAPANESE_VERSION
-			IF IS_BUTTON_PRESSED PAD1 CIRCLE
-			
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_DECLINE
-				DO_FADE 0 FADE_OUT
-				GOTO mission_cleanup_grav
-			ENDIF
-		ELSE
-			IF IS_BUTTON_PRESSED PAD1 CROSS
-			
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_DECLINE
-				DO_FADE 0 FADE_OUT
-				GOTO mission_cleanup_grav
-			ENDIF
+		IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT
+		
+			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_DECLINE
+			DO_FADE 0 FADE_OUT
+			GOTO mission_cleanup_grav
 		ENDIF
     ENDIF
 
@@ -708,18 +678,10 @@ ENDIF
 IF nGameState = PLAYING_GAME
 OR nGameState = INACTIVE
 
-	IF IS_JAPANESE_VERSION
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		AND NOT grav_on_table = GAME_OVER_WAITING
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_TRACK_STOP
-			GOTO grav_restart
-		ENDIF
-	ELSE
-		IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-		AND NOT grav_on_table = GAME_OVER_WAITING
-			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_TRACK_STOP
-			GOTO grav_restart
-		ENDIF
+	IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL
+	AND NOT grav_on_table = GAME_OVER_WAITING
+		REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_TRACK_STOP
+		GOTO grav_restart
 	ENDIF
 ENDIF
 	
@@ -1039,34 +1001,17 @@ grav_checkcollision:
 				grav_temp_y = grav_plyr_y + 12.0
 				IF grav_temp_y < grav_ground_y[grav_current_plat]
 					IF grav_ground = 0
-						IF IS_JAPANESE_VERSION
-							IF NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-							OR grav_speed_y < 0.0
-								grav_temp_x = grav_ground_x[grav_current_plat] - 52.0
-								IF NOT grav_plyr_x < grav_temp_x
-									grav_temp_x = grav_ground_x[grav_current_plat] + 52.0
-									IF NOT grav_plyr_x > grav_temp_x
-										//grav_speed_x *= -0.1
-										grav_speed_y *= -0.1
-										grav_plyr_y = grav_ground_y[grav_current_plat]
-										grav_plyr_y -= 38.0
-										grav_ground = 1
-									ENDIF
-								ENDIF
-							ENDIF
-						ELSE
-							IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-							OR grav_speed_y < 0.0
-								grav_temp_x = grav_ground_x[grav_current_plat] - 52.0
-								IF NOT grav_plyr_x < grav_temp_x
-									grav_temp_x = grav_ground_x[grav_current_plat] + 52.0
-									IF NOT grav_plyr_x > grav_temp_x
-										//grav_speed_x *= -0.1
-										grav_speed_y *= -0.1
-										grav_plyr_y = grav_ground_y[grav_current_plat]
-										grav_plyr_y -= 38.0
-										grav_ground = 1
-									ENDIF
+						IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT
+						OR grav_speed_y < 0.0
+							grav_temp_x = grav_ground_x[grav_current_plat] - 52.0
+							IF NOT grav_plyr_x < grav_temp_x
+								grav_temp_x = grav_ground_x[grav_current_plat] + 52.0
+								IF NOT grav_plyr_x > grav_temp_x
+									//grav_speed_x *= -0.1
+									grav_speed_y *= -0.1
+									grav_plyr_y = grav_ground_y[grav_current_plat]
+									grav_plyr_y -= 38.0
+									grav_ground = 1
 								ENDIF
 							ENDIF
 						ENDIF
@@ -1267,40 +1212,20 @@ grav_update_player:
 			grav_plyr_x = 590.0
 		ENDIF
 
-		IF NOT IS_JAPANESE_VERSION
-			IF IS_BUTTON_PRESSED PAD1 CROSS   // Accelerate up.
-			
-				IF grav_ground = 1
-					grav_ground = 0
-					grav_speed_y +=@ 1.0
-				ENDIF
-				IF grav_speed_y < 20.0
-					grav_speed_y +=@ 0.1
-				ENDIF
+		IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT   // Accelerate up. // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		
+			IF grav_ground = 1
+				grav_ground = 0
+				grav_speed_y +=@ 1.0
 			ENDIF
-			IF IS_BUTTON_PRESSED PAD1 SQUARE
-				IF grav_ground = 0
-					IF grav_speed_y > 0.0
-						grav_speed_y -=@ 0.05
-					ENDIF
-				ENDIF
+			IF grav_speed_y < 20.0
+				grav_speed_y +=@ 0.1
 			ENDIF
-		ELSE
-			IF IS_BUTTON_PRESSED PAD1 CIRCLE   // Accelerate up.
-			
-				IF grav_ground = 1
-					grav_ground = 0
-					grav_speed_y +=@ 1.0
-				ENDIF
-				IF grav_speed_y < 20.0
-					grav_speed_y +=@ 0.1
-				ENDIF
-			ENDIF
-			IF IS_BUTTON_PRESSED PAD1 SQUARE
-				IF grav_ground = 0
-					IF grav_speed_y > 0.0
-						grav_speed_y -=@ 0.05
-					ENDIF
+		ENDIF
+		IF IS_BUTTON_PRESSED PAD1 SQUARE
+			IF grav_ground = 0
+				IF grav_speed_y > 0.0
+					grav_speed_y -=@ 0.05
 				ENDIF
 			ENDIF
 		ENDIF
@@ -1395,20 +1320,11 @@ grav_draw_screen:
 	grav_temp_y = grav_plyr_y - grav_screen_y
     
 	IF grav_player_alive = 1
-		IF IS_JAPANESE_VERSION
-			IF NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-				DRAW_SPRITE_WITH_ROTATION 12 grav_temp_x grav_temp_y 48.0 48.0 grav_rotation 150 150 150 255
-			ELSE
-				DRAW_SPRITE_WITH_ROTATION grav_buzz grav_temp_x grav_temp_y 48.0 48.0 grav_rotation 150 150 150 255
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_BUZZ
-			ENDIF
+		IF NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+			DRAW_SPRITE_WITH_ROTATION 12 grav_temp_x grav_temp_y 48.0 48.0 grav_rotation 150 150 150 255
 		ELSE
-			IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-				DRAW_SPRITE_WITH_ROTATION 12 grav_temp_x grav_temp_y 48.0 48.0 grav_rotation 150 150 150 255
-			ELSE
-				DRAW_SPRITE_WITH_ROTATION grav_buzz grav_temp_x grav_temp_y 48.0 48.0 grav_rotation 150 150 150 255
-				REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_BUZZ
-			ENDIF
+			DRAW_SPRITE_WITH_ROTATION grav_buzz grav_temp_x grav_temp_y 48.0 48.0 grav_rotation 150 150 150 255
+			REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_BEE_BUZZ
 		ENDIF
 	ELSE
 		IF grav_player_alive = 2
@@ -1484,27 +1400,14 @@ grav_write_name:
 	
 	GET_POSITION_OF_ANALOGUE_STICKS PAD1 LStickX LStickY RStickX RStickY
 	
-	IF IS_JAPANESE_VERSION
-		IF NOT IS_BUTTON_PRESSED PAD1 DPADUP
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADDOWN
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADLEFT
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADRIGHT
-		AND NOT IS_BUTTON_PRESSED PAD1 CIRCLE
-			IF LStickY = 0
-			AND LStickX = 0
-				grav_press = 0
-			ENDIF
-		ENDIF
-	ELSE
-		IF NOT IS_BUTTON_PRESSED PAD1 DPADUP
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADDOWN
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADLEFT
-		AND NOT IS_BUTTON_PRESSED PAD1 DPADRIGHT
-		AND NOT IS_BUTTON_PRESSED PAD1 CROSS
-			IF LStickY = 0
-			AND LStickX = 0
-				grav_press = 0
-			ENDIF
+	IF NOT IS_BUTTON_PRESSED PAD1 DPADUP
+	AND NOT IS_BUTTON_PRESSED PAD1 DPADDOWN
+	AND NOT IS_BUTTON_PRESSED PAD1 DPADLEFT
+	AND NOT IS_BUTTON_PRESSED PAD1 DPADRIGHT
+	AND NOT IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		IF LStickY = 0
+		AND LStickX = 0
+			grav_press = 0
 		ENDIF
 	ENDIF
 	
@@ -1540,18 +1443,10 @@ grav_write_name:
 				grav_press = 1
 			ENDIF
 			
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					grav_chars = 10
-					grav_write = 1
-					grav_press = 1
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					grav_chars = 10
-					grav_write = 1
-					grav_press = 1
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				grav_chars = 10
+				grav_write = 1
+				grav_press = 1
 			ENDIF
 		ENDIF
 	ENDIF
@@ -1585,18 +1480,10 @@ grav_write_name:
 				ENDIF
 				grav_press = 1
 			ENDIF
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					grav_chars = 10
-					grav_write = 2
-					grav_press = 1
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					grav_chars = 10
-					grav_write = 2
-					grav_press = 1
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				grav_chars = 10
+				grav_write = 2
+				grav_press = 1
 			ENDIF
 		ENDIF
 	ENDIF
@@ -1631,18 +1518,10 @@ grav_write_name:
 				grav_press = 1
 			ENDIF
 			
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					grav_write = 3
-					grav_press = 1
-					grav_on_table = SHOWING_HIGH_SCORES
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					grav_write = 3
-					grav_press = 1
-					grav_on_table = SHOWING_HIGH_SCORES
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP versions
+				grav_write = 3
+				grav_press = 1
+				grav_on_table = SHOWING_HIGH_SCORES
 			ENDIF
 		ENDIF
 	ENDIF

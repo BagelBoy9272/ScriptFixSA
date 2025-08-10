@@ -551,42 +551,22 @@ WAIT 0
 			ENDIF
 
 			//triggering mission
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CIRCLE
-					/*
-					IF boat_mission_selection = 4 
-					OR boat_mission_selection = 7 
-					OR boat_mission_selection = 9 
-					OR boat_mission_selection = 13 
-						boat_control_flag = 1	
-					ELSE */
-						IF boatpb_flag < 4
-							boatpb_flag = 3
-						ENDIF
-						////WRITE_DEBUG xpressed
-						CLEAR_MISSION_AUDIO 3
-						sfx_video = 0
-						GOTO boat_start_mission
-					
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					/*
-					IF boat_mission_selection = 4 
-					OR boat_mission_selection = 7 
-					OR boat_mission_selection = 9 
-					OR boat_mission_selection = 13 
-						boat_control_flag = 1	
-					ELSE */
-						IF boatpb_flag < 4
-							boatpb_flag = 3
-						ENDIF
-						////WRITE_DEBUG xpressed
-						CLEAR_MISSION_AUDIO 3
-						sfx_video = 0
-						GOTO boat_start_mission
-					
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				/*
+				IF boat_mission_selection = 4 
+				OR boat_mission_selection = 7 
+				OR boat_mission_selection = 9 
+				OR boat_mission_selection = 13 
+					boat_control_flag = 1	
+				ELSE */
+					IF boatpb_flag < 4
+						boatpb_flag = 3
+					ENDIF
+					////WRITE_DEBUG xpressed
+					CLEAR_MISSION_AUDIO 3
+					sfx_video = 0
+					GOTO boat_start_mission
+				
 			ENDIF
 
 			//opening all the missions
@@ -595,14 +575,8 @@ WAIT 0
 			ENDIF
 
 			//quitting the boat school
-			IF IS_JAPANESE_VERSION
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-					GOTO mission_boat_failed
-				ENDIF
-			ELSE
-				IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-					GOTO mission_boat_failed
-				ENDIF
+			IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+				GOTO mission_boat_failed
 			ENDIF
 
 		ENDIF
@@ -939,19 +913,11 @@ IF boat_mission_selection = 1
 						GOSUB boat_setting_up_camera			
 
 						//checking player hasnt left car
-						IF IS_JAPANESE_VERSION
-							IF IS_BUTTON_PRESSED PAD1 CROSS
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_accelerate																		  
-							ENDIF 									    
-						ELSE
-							IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_accelerate																		  
-							ENDIF 									    
-						ENDIF
+						IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+							instructor_boat_dead_flag = 2
+							REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
+							GOTO after_scores_boat_accelerate																		  
+						ENDIF 									    
 
 						//displaying scores
 						GOSUB display_overall_boat_score_text				   
@@ -1454,21 +1420,12 @@ IF boat_mission_selection = 2
 						GOSUB boat_setting_up_camera			
 
 						//checking player hasnt left car
-						IF IS_JAPANESE_VERSION
-							If IS_BUTTON_PRESSED PAD1 CROSS
+						If IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
 
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_simplecircuit																		  
-							ENDIF 									    
-						ELSE
-							If IS_BUTTON_PRESSED PAD1 TRIANGLE
-
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_simplecircuit																		  
-							ENDIF 									    
-						ENDIF
+							instructor_boat_dead_flag = 2
+							REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
+							GOTO after_scores_boat_simplecircuit																		  
+						ENDIF 									    
 
 						//displaying scores
 						GOSUB display_overall_boat_score_text				   
@@ -2219,19 +2176,11 @@ boat_refresh_slalom:
 						GOSUB boat_setting_up_camera			
 
 						//checking player hasnt left car
-						IF IS_JAPANESE_VERSION
-							IF IS_BUTTON_PRESSED PAD1 CROSS
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_slalom																		  
-							ENDIF 									    
-						ELSE
-							IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_slalom																		  
-							ENDIF 									    
-						ENDIF
+						IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+							instructor_boat_dead_flag = 2
+							REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
+							GOTO after_scores_boat_slalom																		  
+						ENDIF 									    
 					
 						//displaying scores
 						GOSUB display_overall_boat_score_text				   
@@ -2635,19 +2584,11 @@ IF boat_mission_selection = 4
 						GOSUB boat_setting_up_camera			
 
 						//checking player hasnt left car
-						IF IS_JAPANESE_VERSION
-							IF IS_BUTTON_PRESSED PAD1 CROSS
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_skijump																		  
-							ENDIF 									    
-						ELSE
-							IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_skijump																		  
-							ENDIF 									    
-						ENDIF
+						IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+							instructor_boat_dead_flag = 2
+							REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
+							GOTO after_scores_boat_skijump																		  
+						ENDIF 									    
 					
 						//displaying scores
 						GOSUB display_overall_boat_score_text				   
@@ -3762,19 +3703,11 @@ boat_refresh_hover:
 						GOSUB boat_setting_up_camera			
 
 						//checking player hasnt left car
-						IF IS_JAPANESE_VERSION
-							IF IS_BUTTON_PRESSED PAD1 CROSS
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_hover																		  
-							ENDIF 									    
-						ELSE
-							IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-								instructor_boat_dead_flag = 2
-								REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
-								GOTO after_scores_boat_hover																		  
-							ENDIF 									    
-						ENDIF
+						IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+							instructor_boat_dead_flag = 2
+							REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_STOP
+							GOTO after_scores_boat_hover																		  
+						ENDIF 									    
 					
 						//displaying scores
 						GOSUB display_overall_boat_score_text				   
@@ -3958,27 +3891,14 @@ RETURN
 //
 
 skip_boat_scores:
-	IF IS_JAPANESE_VERSION
-		IF IS_BUTTON_PRESSED PAD1 CIRCLE
-			IF boat_button_pressed = 1
-				boat_button_pressed = 0
-				finished_watching_boat_scores = 1
-			ENDIF
-		ELSE
-			IF boat_button_pressed = 0
-				boat_button_pressed = 1
-			ENDIF
+	IF IS_BUTTON_PRESSED PAD1 BUTTON_ACCEPT // FIXEDGROVE: use button variables instead of copypasted code for JP version
+		IF boat_button_pressed = 1
+			boat_button_pressed = 0
+			finished_watching_boat_scores = 1
 		ENDIF
 	ELSE
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-			IF boat_button_pressed = 1
-				boat_button_pressed = 0
-				finished_watching_boat_scores = 1
-			ENDIF
-		ELSE
-			IF boat_button_pressed = 0
-				boat_button_pressed = 1
-			ENDIF
+		IF boat_button_pressed = 0
+			boat_button_pressed = 1
 		ENDIF
 	ENDIF
 	
