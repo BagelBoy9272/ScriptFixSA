@@ -688,8 +688,9 @@ jump_loop:
 					ELSE 
 						IF para_Vz < -4.0
 							OPEN_SEQUENCE_TASK para_seq
-								TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 fall_front PED 20.0 0 0 0 1 700
-								TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 getup_front PED 8.0 0 1 0 0 -2							 
+								//TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 fall_front PED 20.0 0 0 0 1 700 // FIXEDGROVE: original code
+								//TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 getup_front PED 8.0 0 1 0 0 -2 // FIXEDGROVE: original code	
+								TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 para_land PARACHUTE 10.0 0 1 1 0 -2 // FIXEDGROVE: fixed parachute animation, by crspy				 
 							CLOSE_SEQUENCE_TASK para_seq
 							PERFORM_SEQUENCE_TASK scplayer para_seq
 							CLEAR_SEQUENCE_TASK para_seq					
