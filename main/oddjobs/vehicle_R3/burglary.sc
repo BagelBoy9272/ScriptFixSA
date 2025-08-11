@@ -116,9 +116,6 @@ LVAR_INT burglary_new_house
 //VAR_INT burglary_player_spotted
 
 
-IF done_burglary_progress = 0
-	//REGISTER_MISSION_GIVEN
-ENDIF 
 
 // ****************************************Mission Start************************************
 
@@ -126,7 +123,12 @@ mission_start_burgl:
 
 flag_player_on_mission = 1
 
-REGISTER_MISSION_GIVEN
+// FIXEDGROVE: START - only count toward mission attempts if the player hasnt completed burglary
+IF done_burglary_progress = 0
+	REGISTER_MISSION_GIVEN 
+ENDIF
+// FIXEDGROVE: END 
+
 
 WAIT 0
 
@@ -1420,7 +1422,9 @@ mission_burgl_passed:
 			PRINT_WITH_NUMBER_BIG BURG54 3000 5000 1
 			ADD_SCORE player1 3000
 			CLEAR_WANTED_LEVEL player1
-			PLAY_MISSION_PASSED_TUNE 2			
+			PLAY_MISSION_PASSED_TUNE 2
+			PLAYER_MADE_PROGRESS 1 //FIXEDGROVE: fixed burglary not incrementing 'missions passed' stat
+			REGISTER_ODDJOB_MISSION_PASSED //FIXEDGROVE: fixed burglary not incrementing 'missions passed' stat			
 			done_burglary_progress = 1
 		ENDIF
 		RETURN
