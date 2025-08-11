@@ -99,7 +99,7 @@ MISSION_END
 		cs1_cesar_car_z = 12.5547 
 		cs1_cesar_car_h = 0.1899 
 		CLEAR_AREA cs1_cesar_car_x cs1_cesar_car_y cs1_cesar_car_z 20.5 TRUE
-		CUSTOM_PLATE_FOR_NEXT_CAR SAVANNA &_LVA4L__
+		CUSTOM_PLATE_FOR_NEXT_CAR SAVANNA &_VLA4L__ // FIXEDGROVE: originally was LVA4L
 
 		CREATE_CAR SAVANNA cs1_cesar_car_x cs1_cesar_car_y cs1_cesar_car_z cs1_cesar_car
 		SET_LOAD_COLLISION_FOR_CAR_FLAG cs1_cesar_car FALSE

@@ -95,7 +95,7 @@ MISSION_END
 		sy1_cesar_car_z = 1.0
 		sy1_cesar_car_h	= 259.0
 		CLEAR_AREA sy1_cesar_car_x sy1_cesar_car_y sy1_cesar_car_z 100.0 TRUE 
-		CUSTOM_PLATE_FOR_NEXT_CAR SAVANNA &_LVA4L__
+		CUSTOM_PLATE_FOR_NEXT_CAR SAVANNA &_VLA4L__ // FIXEDGROVE: originally was LVA4L
 		CREATE_CAR SAVANNA sy1_cesar_car_x sy1_cesar_car_y sy1_cesar_car_z sy1_cesar_car
 		CREATE_CHAR PEDTYPE_CIVMALE SPECIAL01 -51.6293 -430.5620 0.5721 sy1_cesar
 		//CREATE_CHAR_INSIDE_CAR sy1_cesar_car PEDTYPE_CIVMALE SPECIAL01 sy1_cesar
