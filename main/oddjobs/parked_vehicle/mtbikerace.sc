@@ -2179,9 +2179,14 @@ mission_mtbikerace_passed:
 	e =	mtbikerace_selection + 1
 	e *= 10000
 	CLEAR_WANTED_LEVEL player1
-	PLAY_MISSION_PASSED_TUNE 1
+	//PLAY_MISSION_PASSED_TUNE 1 // FIXEDGROVE: commented out redundant line
 
-
+	// FIXEDGROVE: START - check if its the first time player completes these races
+	IF flag_mtbike_passed_1stime = 0
+		REGISTER_ODDJOB_MISSION_PASSED
+		PLAYER_MADE_PROGRESS 1
+	ENDIF
+	// FIXEDGROVE: END
 
 	IF mtbikerace_selection = 1
         PRINT_BIG RACES18 500 1  // Winner!
@@ -2197,9 +2202,7 @@ mission_mtbikerace_passed:
 	  	PLAY_MISSION_PASSED_TUNE 1
 	ENDIF
 
-
 	IF mtbikerace_selection = 3
-
 		PRINT_BIG RACES18 2000 1  // Winner!
 		ADD_SCORE player1 2000
 	  	PRINT_NOW MTWIN3 5000 1	  // You have completed all routes for 'The Chiliad Challange'
@@ -2211,8 +2214,7 @@ mission_mtbikerace_passed:
 	++ mtbikerace_selection
 	IF mtbikerace_selection > 3
 		IF flag_mtbike_passed_1stime = 0
-			REGISTER_ODDJOB_MISSION_PASSED
-		    PLAYER_MADE_PROGRESS 1
+			// FIXEDGROVE: deleted lines that are now redundant
 		    flag_mtbike_passed_1stime = 1
 		ENDIF
 		mtbikerace_selection = 1 //reset the race
