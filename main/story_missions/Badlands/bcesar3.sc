@@ -98,9 +98,11 @@ SCRIPT_NAME COKEC
 		GOTO coke_courier_script_start
 	ENDIF
 
-	IF bcesar3_passed_mission = 0
-		REGISTER_MISSION_GIVEN
-	ENDIF
+	// FIXEDGROVE: START - moved
+	//IF bcesar3_passed_mission = 0
+	//	REGISTER_MISSION_GIVEN
+	//ENDIF
+	// FIXEDGROVE: END
 	mission_started_properly = 1
 	flag_on_courier_mission = 1
 
@@ -336,6 +338,11 @@ WAIT 0
 					IF phone_conversation_choice = 2
 
 						IF IS_BUTTON_PRESSED PAD1 DPADRIGHT
+							// FIXEDGROVE: START - only increase 'missions attempted' stat if player accepts
+							IF bcesar3_passed_mission = 0
+								REGISTER_MISSION_GIVEN 
+							ENDIF
+							// FIXEDGROVE: END
 							phone_conversation_answer = 1
 							phone_conversation_choice++
 							CLEAR_HELP	

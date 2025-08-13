@@ -25,9 +25,11 @@ SCRIPT_NAME bcesar2
 	ENDIF
 
 	SET_DEATHARREST_STATE OFF
-	IF flag_bce2_passed_1stime = 0
-		REGISTER_MISSION_GIVEN
-	ENDIF
+	// FIXEDGROVE: START - moved
+	//IF flag_bce2_passed_1stime = 0 
+	//	REGISTER_MISSION_GIVEN
+	//ENDIF
+	// FIXEDGROVE: END
 	bcesar2_mission_flag = 1
 	flag_on_courier_mission = 1
 
@@ -412,6 +414,12 @@ IF bce2_played > 0
 			bce2_response = 2
 		ENDIF
 		IF IS_BUTTON_PRESSED PAD1 DPADRIGHT
+
+			// FIXEDGROVE: START - only increase 'missions attempted' stat if player accepts
+			IF flag_bce2_passed_1stime = 0 
+				REGISTER_MISSION_GIVEN
+			ENDIF
+			// FIXEDGROVE: END
 
 			CLEAR_HELP
 			bce2_response = 1
