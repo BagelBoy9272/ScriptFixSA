@@ -24,7 +24,8 @@ GOSUB mission_cleanup_POOL2
 MISSION_END
 
 mission_start_POOL2:										   
-REGISTER_MISSION_GIVEN
+//REGISTER_MISSION_GIVEN // FIXEDGROVE: now doesn't count towards 'missions attempted' stat while on the wager menu
+						 // it also didn't count towards 'missions passed', which isn't changed because no minigame does it
 flag_player_on_mission = 1
 
 VAR_INT pool_view_debug[8]
