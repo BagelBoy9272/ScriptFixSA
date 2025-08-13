@@ -3407,6 +3407,15 @@ Truck_Display_Mission_Passed_Text:
 
 	GOSUB Truck_Update_Cash
 
+	// FIXEDGROVE: START - previously 'missions passed' stat & completion % was only increased in the last mission on first playthrough
+	IF done_truck_progress = FALSE
+		REGISTER_ODDJOB_MISSION_PASSED
+		PLAYER_MADE_PROGRESS 1
+	ENDIF
+	// FIXEDGROVE: END
+
+
+	PLAY_MISSION_PASSED_TUNE 1 // FIXEDGROVE: play mission passed tune
 	PRINT_WITH_NUMBER_BIG M_PASS countCash 5000 1
 	ADD_SCORE player1 countCash
 
@@ -3422,8 +3431,8 @@ Truck_Display_Mission_Passed_Text:
 	ELSE
 		IF g_nTruckMissionsPassed = TRUCK_HIGHEST_TRUCKING_MISSION
 			IF done_truck_progress = FALSE
-				REGISTER_ODDJOB_MISSION_PASSED
-				PLAYER_MADE_PROGRESS 1
+				//REGISTER_ODDJOB_MISSION_PASSED // FIXEDGROVE: moved
+				//PLAYER_MADE_PROGRESS 1 // FIXEDGROVE: moved
 				PLAY_MISSION_PASSED_TUNE 2
 				done_truck_progress = TRUE
 				flagShowAssetAcquired = TRUE

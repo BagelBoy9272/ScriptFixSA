@@ -4632,6 +4632,12 @@ Quarry_Mission_Passed:
 
 
 	IF done_quarry_progress = FALSE
+
+		// FIXEDGROVE: START - previously 'missions passed' stat & completion % was only increased in the last mission on first playthrough
+		REGISTER_ODDJOB_MISSION_PASSED 
+		PLAYER_MADE_PROGRESS 1
+		// FIXEDGROVE: END		  
+
 		// ...this is the player's first playthrough
 		// Work out the score
 		// NOTE: nTempInt used to hold the score
@@ -4683,6 +4689,8 @@ Quarry_Mission_Passed:
 	// Clear wanted level only on pass
 	CLEAR_WANTED_LEVEL player1
 
+	PLAY_MISSION_PASSED_TUNE 1 // FIXEDGROVE: play mission passed tune on all missions
+
 	// Display number of missions passed
 	IF done_quarry_progress = FALSE
 		// ...this is the first playthrough of the Quarry missions
@@ -4691,8 +4699,8 @@ Quarry_Mission_Passed:
 			PRINT_NOW QUAR_P1 5000 1
 		ELSE
 			IF g_nQuarryMissionsPassed = QUARRY_HIGHEST_MISSION
-				REGISTER_ODDJOB_MISSION_PASSED
-				PLAYER_MADE_PROGRESS 1
+				//REGISTER_ODDJOB_MISSION_PASSED //FIXEDGROVE: moved
+				//PLAYER_MADE_PROGRESS 1 //FIXEDGROVE: moved 
 				PLAY_MISSION_PASSED_TUNE 2
 				done_quarry_progress = TRUE
 				g_nQuarryMissionsPassed = 0
