@@ -384,8 +384,8 @@ WAIT 0
 										audio_sound_file = SOUND_MCES08D
 										START_NEW_SCRIPT audio_line scplayer 0 1 1 0
 									ELSE
-										$audio_string = &VOFFE2N			 // negative response
-										audio_sound_file = SOUND_VOFFE2N
+										$audio_string = &MCES08E			 // negative response // FIXEDGROVE: use corresponding unused audio
+										audio_sound_file = SOUND_MCES08E // FIXEDGROVE: use corresponding unused audio
 										START_NEW_SCRIPT audio_line scplayer 0 1 1 0
 									ENDIF
 								BREAK
