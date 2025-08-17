@@ -3487,6 +3487,12 @@ RETURN
 // MISSION ENDED (Quits out of the taxi missions and cleans up the script)
 Taxiodd_Mission_Ended:
 
+	// FIXEDGROVE : START - turn taxi light off when oddjob ends	
+	IF NOT IS_CAR_DEAD carTaxi
+		SET_TAXI_LIGHTS carTaxi OFF
+	ENDIF
+	// FIXEDGROVE : END
+	
 	PRINT_BIG TX_END 5000 5
 	PRINT_WITH_NUMBER_BIG TX_PAY nEarnings 6000 6
 
