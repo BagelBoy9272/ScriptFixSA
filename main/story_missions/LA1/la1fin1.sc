@@ -5270,6 +5270,7 @@ IF motelchase_f1flag > 0
 				SET_CAR_PROOFS sweet_car FALSE FALSE FALSE FALSE FALSE
 				SET_CHAR_PROOFS scplayer FALSE FALSE FALSE FALSE FALSE
 				EXPLODE_CAR sweet_car
+				TASK_DIE scplayer // FIXEDGROVE: kill the player if the car explodes
 				PRINT_NOW LAF1_4 5000 1 //~r~You wrecked the car!
 				GOTO mission_drugs4_failed
 			ELSE
@@ -8630,7 +8631,7 @@ IF handlingaudio_f1flag = 1
 	IF HAS_MISSION_AUDIO_LOADED 1
 		PRINT_NOW $text_label_f1 4000 1 //Dummy message"
 		
-
+		/* // FIXEDGROVE: START - comment lines that removed these subtitles for some reason
 		CLEAR_THIS_PRINT FIN1_BD  // Get some suppressing fire in there!
 		CLEAR_THIS_PRINT FIN1_CK  // Unit down, repeat, unit down!
 		CLEAR_THIS_PRINT FIN1_BE  // imme some fucking covering fire!
@@ -8638,6 +8639,7 @@ IF handlingaudio_f1flag = 1
 		CLEAR_THIS_PRINT FIN1_CB  // Four bangers in blue 4door heading back into South Central.
 		CLEAR_THIS_PRINT FIN1_BK  // Surprise, homeboy!
 		CLEAR_THIS_PRINT FIN1_BL  // Heads up, brother!
+		*/ // FIXEDGROVE: END
 
 		IF attachaudio_f1flag = 1
 			IF NOT IS_CHAR_DEAD woundedgrove1_f1 
