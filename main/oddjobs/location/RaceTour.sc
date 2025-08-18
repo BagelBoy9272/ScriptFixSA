@@ -3199,16 +3199,16 @@ racer_model[0] = WMYST
 racer_model[1] = WMYBMX
 racer_model[2] = special01
 racer_model[3] = MALE01
-racers_car_model[0] = ZR350
+racers_car_model[0] = ELEGY // FIXEDGROVE: was ZR350
 racers_car_model[1] = SULTAN
-racers_car_model[2] = ELEGY
-racers_car_model[3] = ZR350
+racers_car_model[2] = ZR350 // FIXEDGROVE: was ELEGY
+racers_car_model[3] = ZR350 
 
-racers_car_colour1[0] = 4 
+racers_car_colour1[0] = 5 // FIXEDGROVE: was 4 
 racers_car_colour2[0] = 80 
 racers_car_colour1[1] = 3 
 racers_car_colour2[1] = 80  
-racers_car_colour1[2] = 5 
+racers_car_colour1[2] = 4 // FIXEDGROVE: was 5
 racers_car_colour2[2] = 80 
 break
 
