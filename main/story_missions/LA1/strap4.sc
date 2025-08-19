@@ -57,7 +57,9 @@ LVAR_INT m5_seq m5_ped_decisions m5_empty_ped_decision_maker m5_good_group m5_go
 // ****************************************Mission Start************************************
 mission_start_music5:
 flag_player_on_mission = 1
-REGISTER_MISSION_GIVEN
+IF strap4_mission_passed_once_flag = 1 // FIXEDGROVE: only increase 'missions attempted' stat in the actual mission
+	REGISTER_MISSION_GIVEN
+ENDIF
 LOAD_MISSION_TEXT STRAP4
 CLEAR_PRINTS
 WAIT 0
