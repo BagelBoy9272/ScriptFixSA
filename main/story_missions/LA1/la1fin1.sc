@@ -2773,7 +2773,13 @@ IF roofmotel_f1flag = 0
 									TASK_PLAY_ANIM_NON_INTERRUPTABLE hoochie2_f1 GRLFRD_KISS_03 KISSING 4.0 FALSE FALSE FALSE FALSE -1
 								ENDIF
 
-								SET_CHAR_HEALTH scplayer 100
+								// FIXEDGROVE: START - heal the player like the vending machine and food vendor scripts
+								GET_CHAR_HEALTH scplayer temp_integer_1
+								temp_integer_1 += 100
+								SET_CHAR_HEALTH scplayer temp_integer_1
+								// FIXDEDGROVE: END
+								 
+								//SET_CHAR_HEALTH scplayer 100 // FIXEDGROVE: original code
 
 								hoochie2_f1flag = 2
 							ENDIF
@@ -3221,8 +3227,14 @@ IF roofmotel_f1flag = 0
 								IF NOT IS_CHAR_DEAD hoochie1_f1
 									TASK_PLAY_ANIM hoochie1_f1 GRLFRD_KISS_03 KISSING 4.0 FALSE FALSE FALSE FALSE -1
 								ENDIF
+								
+								// FIXEDGROVE: START - heal the player like the vending machine and food vendor scripts
+								GET_CHAR_HEALTH scplayer temp_integer_1
+								temp_integer_1 += 100
+								SET_CHAR_HEALTH scplayer temp_integer_1
+								// FIXDEDGROVE: END
 
-								SET_CHAR_HEALTH scplayer 100
+								//SET_CHAR_HEALTH scplayer 100 // FIXEDGROVE: original code
 
 								hoochie1_f1flag = 3
 							ENDIF
@@ -4341,7 +4353,13 @@ IF roofmotel_f1flag = 1
 							ADD_BLIP_FOR_CAR extpoliceheli_f1 heli_f1blip
 						ENDIF
 
-						SET_CHAR_HEALTH scplayer 100
+						// FIXEDGROVE: START - heal the player like the vending machine and food vendor scripts
+						GET_CHAR_HEALTH scplayer temp_integer_1
+						temp_integer_1 += 100
+						SET_CHAR_HEALTH scplayer temp_integer_1
+						// FIXDEDGROVE: END
+
+						// SET_CHAR_HEALTH scplayer 100 // FIXEDGROVE: original code
 
 						REMOVE_DECISION_MAKER coward_DM
 						TIMERA = 0
