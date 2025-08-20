@@ -280,6 +280,7 @@ LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_WEAK cartercoward_DM
 
 SET_MAX_WANTED_LEVEL 0
 
+disable_mod_garage = 1 // FIXEDGROVE: disable mod garages to prevent weird issues
 
 SWITCH_EMERGENCY_SERVICES OFF
 
@@ -4401,6 +4402,8 @@ RETURN
 
 mission_cleanup_finaleA:
 CLEAR_ALL_SCRIPT_ROADBLOCKS
+
+disable_mod_garage = 0 // FIXEDGROVE: turn garages back on
 
 DISABLE_ALL_ENTRY_EXITS FALSE
 
