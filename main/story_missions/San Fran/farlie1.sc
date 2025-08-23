@@ -4493,7 +4493,7 @@ f1_drawing_medal:///////////////////////////////////////////////////////////////
 		IF current_Language = LANGUAGE_ENGLISH
 			DRAW_SPRITE	6 320.0 307.0 110.0 95.0 160 160 160 255
 		ELSE
-			DRAW_SPRITE	10 320.0 327.0 110.0 95.0 160 160 160 255
+			DRAW_SPRITE	10 320.0 307.0 110.0 95.0 160 160 160 255
 		ENDIF
 		GOSUB small_onscreen_text 
 		GET_HUD_COLOUR HUD_COLOUR_LIGHTBLUE f1_r f1_g f1_b f1_alpha2
