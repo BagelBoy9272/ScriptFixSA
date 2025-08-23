@@ -3920,7 +3920,7 @@ cell_phone_random_inner:
 								IF flag_player_answered_phone = 1	
 									flag_mob_random[10] = 1
 									flag_mob_random[11] = 0
-									terminate_cat_calls = 1
+									// terminate_cat_calls = 1 // FIXEDGROVE: this was terminating the badlands phone thread for no good reason
 								ENDIF
 								GOSUB mobile_message_cleanup
 								GOTO cell_phone_random_inner
@@ -3969,7 +3969,7 @@ cell_phone_random_inner:
 									ENDIF
 									IF flag_player_answered_phone = 1	
 										flag_mob_random[11] = 1
-										terminate_cat_calls = 1
+										// terminate_cat_calls = 1 // FIXEDGROVE: this was terminating the badlands phone thread for no good reason
 									ENDIF
 									GOSUB mobile_message_cleanup
 									GOTO cell_phone_random_inner
