@@ -683,15 +683,15 @@ WAIT 0
 				IF IS_CHAR_PLAYING_ANIM s2_escaping_guy run_gang1
 					SET_CHAR_ANIM_SPEED s2_escaping_guy run_gang1 1.5
 				ENDIF
-				IF IS_CHAR_PLAYING_ANIM s2_escaping_guy sprint_civi
-					SET_CHAR_ANIM_SPEED s2_escaping_guy sprint_civi 1.5
+				IF IS_CHAR_PLAYING_ANIM s2_escaping_guy sprint_panic // FIXEDGROVE: was sprint_civi
+					SET_CHAR_ANIM_SPEED s2_escaping_guy sprint_panic 1.5 // FIXEDGROVE: was sprint_civi
 				ENDIF
 			ELSE
 				IF IS_CHAR_PLAYING_ANIM s2_escaping_guy run_gang1
 					SET_CHAR_ANIM_SPEED s2_escaping_guy run_gang1 1.2
 				ENDIF
-				IF IS_CHAR_PLAYING_ANIM s2_escaping_guy sprint_civi
-					SET_CHAR_ANIM_SPEED s2_escaping_guy sprint_civi 1.2
+				IF IS_CHAR_PLAYING_ANIM s2_escaping_guy sprint_panic // FIXEDGROVE: was sprint_civi
+					SET_CHAR_ANIM_SPEED s2_escaping_guy sprint_panic 1.2 // FIXEDGROVE: was sprint_civi
 				ENDIF
 			ENDIF
 		ENDIF
