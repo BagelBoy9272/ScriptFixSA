@@ -1539,8 +1539,10 @@ WAIT mission_trigger_wait_time
 						LOAD_AND_LAUNCH_MISSION sweet6.sc 
 					ENDIF
 					IF flag_sweet_mission_counter = 8 
-						FIND_MAX_NUMBER_OF_GROUP_MEMBERS returned_respect
-						IF returned_respect	> 1
+						// FIXEDGROVE: START - comment out respect requirement
+						//FIND_MAX_NUMBER_OF_GROUP_MEMBERS returned_respect
+						//IF returned_respect	> 1
+						// FIXEDGROVE: END
 							GET_TIME_OF_DAY hours minutes
 							IF hours >= 9
 							AND hours < 17
@@ -1552,13 +1554,15 @@ WAIT mission_trigger_wait_time
 							ELSE
 								PRINT_NOW MTIME3 1000 1 //Come back between 9:00 17:00
 							ENDIF
-						ELSE
-							PRINT_NOW MOREREP 1000 1 //You need more respect
-							IF respect_help_played = 0
-								PRINT_HELP HELP101
-								respect_help_played	= 1
-							ENDIF
-						ENDIF
+						// FIXEDGROVE: START - comment out respect requirement
+						//ELSE
+						//	PRINT_NOW MOREREP 1000 1 //You need more respect
+						//	IF respect_help_played = 0
+						//		PRINT_HELP HELP101
+						//		respect_help_played	= 1
+						//	ENDIF
+						//ENDIF
+						// FIXEDGROVE: END
 					ENDIF
 				ENDIF
 			ENDIF
