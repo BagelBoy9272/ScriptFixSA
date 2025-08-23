@@ -7579,8 +7579,8 @@ open_the_map_inner:
 		IF opened_la2_up = 0
 			ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 451.9, -1480.0, 30.9 RADAR_SPRITE_TSHIRT clothes_blips[13] //CSEXL //LA2
 			SWITCH_ENTRY_EXIT csexl	TRUE  //DIDIERSACHS //LA2
-			TERMINATE_THIS_SCRIPT
-			opened_la2_up = 1
+			opened_la2_up = 1 // FIXEDGROVE: swapped these lines
+			TERMINATE_THIS_SCRIPT // FIXEDGROVE: swapped these lines
 		ENDIF
 	ENDIF
 
