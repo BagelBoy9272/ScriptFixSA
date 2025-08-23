@@ -9231,6 +9231,9 @@ RETURN
 
 mission_cleanup_heist9:
 
+	CLEAR_RELATIONSHIP ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_CIVMALE PEDTYPE_PLAYER1 // FIXEDGROVE: this mission was permanently modifying this relationship
+	CLEAR_RELATIONSHIP ACQUAINTANCE_TYPE_PED_LIKE PEDTYPE_CIVMALE PEDTYPE_PLAYER1 // FIXEDGROVE: this mission was permanently modifying this relationship
+
 	disable_mod_garage = 0
 
 	IF NOT IS_CHAR_DEAD scplayer
