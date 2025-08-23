@@ -2040,7 +2040,6 @@ mission_intro2_passed:
 	REGISTER_MISSION_PASSED ( INTRO_2 ) //Used in the stats 
 	PRINT_WITH_NUMBER_BIG ( M_PASSR ) 3 5000 1 //"Mission Passed!"
 	AWARD_PLAYER_MISSION_RESPECT 3
-	SWITCH_CAR_GENERATOR gen_car6 101
 	flag_intro_mission_counter ++
 	REMOVE_BLIP intro_contact_blip
 	START_NEW_SCRIPT sweet_mission_loop
@@ -2136,6 +2135,7 @@ mission_cleanup_intro2:
 	REMOVE_ANIMATION GANGS
 	REMOVE_ANIMATION FOOD
 		
+	SWITCH_CAR_GENERATOR gen_car6 101 // FIXEDGROVE: turn ryder's car back on in cleanup instead of only on mission pass
 	flag_menace_buyfood = 0
 	flag_changed_hair_intro2 = 0
 	GET_GAME_TIMER timer_mobile_start

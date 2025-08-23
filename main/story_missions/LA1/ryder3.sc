@@ -3561,6 +3561,8 @@ mission_ryder3_cleanup:
 
 	SET_WANTED_MULTIPLIER 1.0
 
+	SWITCH_CAR_GENERATOR gen_car6 101 // FIXEDGROVE: turn ryder's car back on
+
 	MISSION_HAS_FINISHED
 
 RETURN
