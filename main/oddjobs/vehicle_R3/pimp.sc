@@ -5904,7 +5904,14 @@ IF pimp_window_showing = 1
 	DELETE_MENU pimp_window
 ENDIF
 
-SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_DISLIKE PEDTYPE_GANG_FLAT PEDTYPE_PLAYER1
+// FIXEDGROVE: START - don't undo the relationship change from 'Drive-By'
+IF flag_sweet_mission_counter >= 4
+	SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_GANG_FLAT PEDTYPE_PLAYER1
+ELSE
+	SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_DISLIKE PEDTYPE_GANG_FLAT PEDTYPE_PLAYER1
+ENDIF
+// FIXEDGROVE: END
+
 GET_GAME_TIMER timer_mobile_start //Used to reset the mobile phone timer so it doesn't ring immediately after the mission
 flag_player_on_pimp_mission = 0
 flag_player_on_mission = 0
