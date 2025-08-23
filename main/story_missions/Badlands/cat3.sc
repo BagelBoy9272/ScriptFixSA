@@ -164,6 +164,7 @@ MISSION_END
 		CLEAR_AREA c3_buyer_x c3_buyer_y c3_buyer_z 3.0 TRUE 
 		CREATE_CHAR PEDTYPE_CIVMALE BMOST c3_buyer_x c3_buyer_y c3_buyer_z c3_buyer
 		SET_CHAR_HEADING c3_buyer c3_buyer_h
+		SET_CHAR_PROOFS c3_buyer TRUE TRUE TRUE TRUE TRUE // FIXEDGROVE: proof whittaker to prevent softlocks in the final cutscene
 	RETURN
 		CREATE_CHAR PEDTYPE_CIVMALE BMOST c3_buyer_x c3_buyer_y c3_buyer_z c3_audio_char
 // ------------------------------------------------------------------------------------------------
