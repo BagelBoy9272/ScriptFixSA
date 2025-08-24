@@ -65,9 +65,17 @@ VAR_INT bball_player_has_brassknuckle
 
 //GENERATE_RANDOM_INT_IN_RANGE 1 320000 this_script_id
 
+LVAR_INT iStreamedScriptInstances // FIXEDGROVE: add var
+
+// FIXEDGROVE: START - check if the script is running already, if so, terminate, else, reset bball_active flag
 IF NOT bball_active = 0
-	TERMINATE_THIS_SCRIPT
+	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc iStreamedScriptInstances
+		IF iStreamedScriptInstances > 1
+			TERMINATE_THIS_SCRIPT
+		ENDIF
+	bball_active = 0
 ENDIF
+// FIXEDGROVE: END
 		   
 
 // set flags
