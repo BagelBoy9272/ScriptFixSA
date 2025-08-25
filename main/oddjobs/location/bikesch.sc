@@ -152,6 +152,7 @@ LOAD_SPRITE 6 naward
 LOAD_SPRITE 7 ribbw
 LOAD_SPRITE 8 blkdot
 LOAD_SPRITE 9 tvbase
+LOAD_SPRITE 10 nawtxt // FIXEDGROVE: load no award w/o text sprite
 
 
 // ------------------------------------------------------------------------------------------------
@@ -2533,8 +2534,14 @@ bs_drawing_medal:///////////////////////////////////////////////////////////////
 
 	//which medal awarded
 	SET_SPRITES_DRAW_BEFORE_FADE TRUE
-	IF bs_which_medal_displayed = 1 
-		DRAW_SPRITE	6 320.0 307.0 110.0 95.0 160 160 160 255
+	IF bs_which_medal_displayed = 1
+		// FIXEDGROVE: START - only draw medal with text in english version
+		IF current_Language = LANGUAGE_ENGLISH 
+			DRAW_SPRITE	6 320.0 307.0 110.0 95.0 160 160 160 255
+		ELSE
+			DRAW_SPRITE	10 320.0 307.0 110.0 95.0 160 160 160 255
+		// FIXEDGROVE: END
+		ENDIF
 		GOSUB bs_small_onscreen_text 
 		SET_TEXT_COLOUR 166 202 240 255
 		SET_TEXT_RIGHT_JUSTIFY OFF
