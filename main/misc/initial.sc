@@ -1409,7 +1409,7 @@ d5_silver_generator_unlocked = 0
 d5_gold_generator_unlocked = 0
 CREATE_CAR_GENERATOR 325.12 2537.1 17.52 180.0 RUSTLER -1 -1 TRUE 0 0 0 10000 d5_bronze_generator
 CREATE_CAR_GENERATOR 348.0 2537.1 17.42 180.0 STUNT -1 -1 TRUE 0 0 0 10000 d5_silver_generator
-CREATE_CAR_GENERATOR 365.51 2537.1 17.42 180.0 HUNTER -1 -1 TRUE 0 0 0 10000 d5_gold_generator
+CREATE_CAR_GENERATOR 365.41 2537.1 17.42 180.0 HUNTER -1 -1 TRUE 0 0 0 10000 d5_gold_generator // FIXEDGROVE: x coord was 365.51
 SWITCH_CAR_GENERATOR d5_bronze_generator 0
 SWITCH_CAR_GENERATOR d5_silver_generator 0
 SWITCH_CAR_GENERATOR d5_gold_generator 0
@@ -1861,7 +1861,7 @@ pilotZ = 19.18
 
 // ****************** HEIST5 CAR GEN FOR MISSION COMPLETE **********************
 VAR_INT hm5_car_gen
-CREATE_CAR_GENERATOR 383.178 2538.891 16.53 180.0 LEVIATHN -1 -1 TRUE 0 0 0 10000 hm5_car_gen
+CREATE_CAR_GENERATOR 387.25 2537.1 15.53 180.0 LEVIATHN -1 -1 TRUE 0 0 0 10000 hm5_car_gen // FIXEDGROVE: coords were 383.178 2538.891 16.53
 SWITCH_CAR_GENERATOR hm5_car_gen 0
 
 // LA1*************************************************  
