@@ -1199,9 +1199,7 @@ m3_end_cutscene:
 
 		REMOVE_CHAR_FROM_GROUP sweet
 
-		CLEAR_AREA 2512.7610 -1672.5204 12.5034 20.0 TRUE 
-							 
-		DELETE_CAR m3_ply_car
+		CLEAR_AREA 2512.7610 -1672.5204 12.5034 20.0 TRUE 							 
 
 		IF IS_CHAR_IN_ANY_CAR scplayer 
 
