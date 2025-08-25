@@ -146,6 +146,7 @@ CUSTOM_PLATE_FOR_NEXT_CAR GREENWOO GROVE4L_
 CREATE_CAR GREENWOO 1254.3 -806.6 82.9 r1_sweets_car
 CHANGE_CAR_COLOUR r1_sweets_car 59 34 
 SET_CAR_HEADING r1_sweets_car 177.7
+SWITCH_CAR_GENERATOR gen_car7 0 // FIXEDGROVE: switch off sweet's car in grove street
 
 //player
 CLEAR_AREA 1258.2 -814.4 83.1 60.0 TRUE 
@@ -517,6 +518,7 @@ REMOVE_CHAR_ELEGANTLY sweet
 UNLOAD_SPECIAL_CHARACTER 1 
 REMOVE_BLIP r1_control_blip
 ENABLE_AMBIENT_CRIME TRUE
+SWITCH_CAR_GENERATOR gen_car7 101 // FIXEDGROVE: enable sweet's car in grove street
 GET_GAME_TIMER timer_mobile_start
 flag_player_on_mission = 0
 MISSION_HAS_FINISHED
