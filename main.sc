@@ -3287,6 +3287,7 @@ WAIT mission_trigger_wait_time
 				ENDIF
 				IF LOCATE_CHAR_ON_FOOT_3D scplayer mansionX mansionY mansionZ 1.2 1.2 2.0 FALSE
 					IF flag_mansion_mission_counter = 1
+					AND flag_mob_LA2[0] = 1 // FIXEDGROVE: check if player answered rosenberg phonecall
 						flag_player_on_mission = 1
 						PRINT_BIG ( MAN_2 ) 1000 2 //"mansion mission 2" //CRAIG //Steal Harrier
 						GOSUB LA_mansion_script_cut1
