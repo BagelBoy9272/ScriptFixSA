@@ -241,8 +241,16 @@ mission_mansion5_START:
 	audio_speaker_M5[23] = scplayer
 
 	SET_PLAYER_CONTROL player1 ON
-	SWITCH_WIDESCREEN OFF	
-	DO_FADE 0 FADE_IN
+	SWITCH_WIDESCREEN OFF
+	// FIXEDGROVE: START - set camera behind the player, and fade in
+	SET_CAMERA_BEHIND_PLAYER
+	RESTORE_CAMERA_JUMPCUT	
+	DO_FADE 1000 FADE_IN
+	
+	WHILE GET_FADING_STATUS
+		WAIT 0
+	ENDWHILE
+	// FIXEDGROVE: END
 
 	
 	md_text_status_M5 = 0
