@@ -181,6 +181,9 @@ LVAR_INT flag_winch_message_heist5 flag_watched_end_cutscene_heist5
 
 LVAR_INT stored_vehicle_heist5 // used for cutscenes
 
+// FIXEDGROVE: vars for player's weapon
+LVAR_INT weapontype_heist5 ammo_heist5 model_for_weapon_heist5
+
 // **************************************** Mission Start **********************************
 
 mission_start_heist5:
@@ -1186,6 +1189,8 @@ WHILE NOT counter_backup_dead_heist5 = 2
 						CLEAR_HELP
 						REMOVE_BLIP minigun_blip_heist5
 						REMOVE_SPHERE sphere_heist5
+						GET_CHAR_WEAPON_IN_SLOT scplayer 8 weapontype_heist5 ammo_heist5 model_for_weapon_heist5 // FIXEDGROVE: store player's weapon
+						SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED // FIXEDGROVE: have to do this to correctly store weapon
 						ATTACH_CHAR_TO_OBJECT scplayer minigun_heist5 0.0 0.0 2.0  FACING_LEFT 360.0 WEAPONTYPE_MINIGUN
 						SET_OBJECT_VISIBLE minigun_heist5 FALSE
 						flag_player_at_minigun = 2
@@ -1227,6 +1232,7 @@ WHILE NOT counter_backup_dead_heist5 = 2
 				IF flag_player_using_gun_heist5 = 1
 				
 					DETACH_CHAR_FROM_CAR scplayer
+					GOSUB restore_player_weapon // FIXEDGROVE: restore weapon
 					CLEAR_AREA 2596.129 2757.112 22.862 1.0 FALSE 
 					SET_CHAR_COORDINATES scplayer 2596.129 2757.112 22.862
 					SET_CHAR_HEADING scplayer 217.0
@@ -1337,6 +1343,7 @@ MARK_MODEL_AS_NO_LONGER_NEEDED minigun
 
 IF flag_player_using_gun_heist5 = 1
 	DETACH_CHAR_FROM_CAR scplayer
+	GOSUB restore_player_weapon // FIXEDGROVE: restore weapon
 	CLEAR_AREA 2596.129 2757.112 22.862 1.0 FALSE 
 	SET_CHAR_COORDINATES scplayer 2596.129 2757.112 22.862
 	SET_CHAR_HEADING scplayer 217.0
@@ -2302,6 +2309,12 @@ RETURN
 mission_cleanup_heist5:
 
 DETACH_CHAR_FROM_CAR scplayer
+
+// FIXEDGROVE: START - give the player's weapon back if they die while using the turret minigun
+IF flag_player_using_gun_heist5 = 1
+	GOSUB restore_player_weapon
+ENDIF
+// FIXEDGROVE: END
 
 SET_WANTED_MULTIPLIER 1.0
 
@@ -3780,5 +3793,12 @@ flag_cleanup2_done_heist5 = 1
 
 RETURN
 
-
+// FIXEDGROVE: START - restore player's weapon when he gets out of the minigun, copypasted from SilentPatch's Air Raid fix
+restore_player_weapon:
+	REQUEST_MODEL model_for_weapon_heist5
+	LOAD_ALL_MODELS_NOW
+	GIVE_WEAPON_TO_CHAR scplayer weapontype_heist5 ammo_heist5
+	MARK_MODEL_AS_NO_LONGER_NEEDED model_for_weapon_heist5
+	RETURN
+// FIXEDGROVE: END
 }
