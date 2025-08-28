@@ -5708,7 +5708,7 @@ CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -1903.10 -466.44 25.18 pickup_bribe[24
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -2657.0 -144.0  4.0 pickup_bribe[25]	// alleyway behind houses Ocean Flats
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -2454.0 -166.0  35.0 pickup_bribe[26] // Hashbury alleyway
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -2009.0 1227.0  32.0 pickup_bribe[27] // Calton heights steep alleyway
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -2120.0 96.39 39.0    pickup_bribe[28] //Doherty Alley
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -2077.03 80.0 32.8    pickup_bribe[28] //Doherty Alley // FIXEDGROVE: coords were -2120.0 96.39 39.0
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -2411.0 -334.0 37.0  pickup_bribe[29]  //Avispa country club underpass
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -1690.0 450.0 13.0   pickup_bribe[30] // traintracks beside the Xoomer station]
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW -1991.26 -1144.13 29.69 pickup_bribe[31] // Foster Valley, on road turnoff, quite secluded.
