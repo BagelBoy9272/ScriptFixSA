@@ -7,6 +7,7 @@ SCRIPT_NAME FODVEND
 
 LVAR_INT food_stand
 LVAR_INT flag vendor timer
+LVAR_INT food_stand_model vendor_model // FIXEDGROVE
 flag = 0
 IF flag = 1
     CREATE_OBJECT_NO_OFFSET icescart_prop   0.0 0.0 0.0 food_stand
@@ -25,6 +26,31 @@ food_vendor_loop:
     IF DOES_OBJECT_EXIST food_stand
 		if IS_OBJECT_WITHIN_BRAIN_ACTIVATION_RANGE food_stand
 			IF IS_PLAYER_PLAYING player1
+				// FIXEDGROVE: START - assign vendor ped based on food stand
+				GET_OBJECT_MODEL food_stand food_stand_model
+				IF HAS_MODEL_LOADED food_stand_MODEL
+					SWITCH food_stand_model
+
+						CASE icescart_prop
+							vendor_model = WMOICE
+							BREAK
+
+						CASE chillidogcart
+							vendor_model = BMOCHIL
+							BREAK
+
+						CASE noodlecart_prop
+							vendor_model = OMONOOD
+							BREAK
+						
+						DEFAULT
+							vendor_model = BMOCHIL
+							BREAK
+						
+					ENDSWITCH
+				ENDIF
+				// FIXEDGROVE: END
+
 				if not HAS_OBJECT_BEEN_UPROOTED food_stand
 					IF flag = 0
 						GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS food_stand -1.0 0.0 -1.0 x y z
@@ -36,9 +62,9 @@ food_vendor_loop:
 						temp_float_3 = z + 2.0
 						if not IS_AREA_OCCUPIED x_temp y_temp z_temp temp_float_1 temp_float_2 temp_float_3 false false true false false
 							if not IS_point_on_screen x y z 1.0
-								request_model BMOCHIL
-								if has_model_loaded BMOCHIL
-									create_char pedtype_civmale BMOCHIL	x y z vendor
+								request_model vendor_model // FIXEDGROVE: use var for ped model
+								if has_model_loaded vendor_model // FIXEDGROVE: use var for ped model
+									create_char pedtype_civmale vendor_model x y z vendor // FIXEDGROVE: use var for ped model
 									GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS food_stand 1.0 0.0 0.0 x_temp y_temp z_temp
 									x_temp -= x
 									y_temp -= y
@@ -48,7 +74,7 @@ food_vendor_loop:
 								endif
 							endif
 						else
-							mark_model_as_no_longer_needed BMOCHIL
+							mark_model_as_no_longer_needed vendor_model // FIXEDGROVE: use var for ped model
 							TERMINATE_THIS_SCRIPT
 						endif
 					ENDIF
@@ -109,7 +135,7 @@ food_vendor_loop:
 						remove_animation VENDING
 						flag = 0
 					endif
-					mark_model_as_no_longer_needed BMOCHIL
+					mark_model_as_no_longer_needed vendor_model // FIXEDGROVE: use var for ped model
 					TERMINATE_THIS_SCRIPT
 				endif
 			ELSE
@@ -119,7 +145,7 @@ food_vendor_loop:
 					remove_animation VENDING
 					flag = 0
 				ENDIF
-				mark_model_as_no_longer_needed BMOCHIL
+				mark_model_as_no_longer_needed vendor_model // FIXEDGROVE: use var for ped model
 			ENDIF
 		ELSE
 			IF flag > 0
@@ -128,7 +154,7 @@ food_vendor_loop:
 				remove_animation VENDING
 				flag = 0
 			ENDIF
-			mark_model_as_no_longer_needed BMOCHIL
+			mark_model_as_no_longer_needed vendor_model // FIXEDGROVE: use var for ped model
 			TERMINATE_THIS_SCRIPT
 		ENDIF
 	ELSE
@@ -138,7 +164,7 @@ food_vendor_loop:
 			remove_animation VENDING
 			flag = 0
 		ENDIF
-		mark_model_as_no_longer_needed BMOCHIL
+		mark_model_as_no_longer_needed vendor_model // FIXEDGROVE: use var for ped model
 		TERMINATE_THIS_SCRIPT
 	ENDIF//DOES_OBJECT_EXIST
 
