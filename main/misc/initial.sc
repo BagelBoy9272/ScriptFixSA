@@ -5286,7 +5286,7 @@ CREATE_PICKUP_WITH_AMMO Satchel PICKUP_ON_STREET_SLOW 15 -2754.0 -400.0 7.0 	 	p
 CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 -2206.0 -23.0 35.0  	 	pickup_weapon[74]						 //	- semi auto handgun //Garcia alleyway
 CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 -1841.1058 -74.2171 14.7606 pickup_weapon[75]					 	 //	- pump shotgun //Doherty behind Solarin industries building
 CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -1579.0 29.45 17.0  	 		pickup_weapon[76] 					  //	- FLAME 50thrower //Easter basin on the freight liner
-CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 -2094.0 -488.0 36.0  		pickup_weapon[77]					 //	- countryside rifle //outside Foster Valler arena
+CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 -2095.85 -491.3 35.7  		pickup_weapon[77]					 //	- countryside rifle //outside Foster Valler arena // FIXEDGROVE: coords were -2094.0 -488.0 36.0 
 CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 -1968.0 -923.0 32.0 	 		pickup_weapon[78]					//	- AK47 60 //behind rocks at Foster Valley complex
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1945.0 -1088.0 31.0  		pickup_weapon[79]					 //	- camera 50 //outside the loading bays in the foster valley complex
 CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 -1700.0 415.0 7.0 	 	pickup_weapon[80]						  //	- Fire Extinguisher //outside the Easter Basin Xoomer gas station
