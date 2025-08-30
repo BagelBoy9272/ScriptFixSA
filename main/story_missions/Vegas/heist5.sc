@@ -1347,6 +1347,7 @@ IF flag_player_using_gun_heist5 = 1
 	CLEAR_AREA 2596.129 2757.112 22.862 1.0 FALSE 
 	SET_CHAR_COORDINATES scplayer 2596.129 2757.112 22.862
 	SET_CHAR_HEADING scplayer 217.0
+	flag_player_using_gun_heist5 = 0 // FIXEDGROVE: flag that the player is no longer at the minigun
 ENDIF
 
 IF DOES_OBJECT_EXIST minigun_heist5 
