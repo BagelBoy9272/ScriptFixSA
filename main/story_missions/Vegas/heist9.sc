@@ -283,7 +283,7 @@ IF NOT IS_CHAR_DEAD scplayer
  
 	GIVE_PLAYER_CLOTHES_OUTSIDE_SHOP Player1 croupier valet CLOTHES_TEX_EXTRA1
 
-    GIVE_PLAYER_CLOTHES player1 0 0 1  // should remove any hat 
+    //GIVE_PLAYER_CLOTHES player1 0 0 1  // should remove any hat // FIXEDGROVE: comment out
 
     GIVE_PLAYER_CLOTHES player1 0 0 13 // should remove any hat 
 	       
