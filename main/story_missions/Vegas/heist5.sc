@@ -145,7 +145,7 @@ LVAR_INT flag_heli_wheels_cool_heist5 // used to tell me that the van is on its 
 // animation stuff
 LVAR_INT flag_move_rocket_guys_heist5 // used to move the guards position after player has been spotted
 
-VAR_FLOAT bankvan1_upright_value_heist5 // change this to a LVAR once I am not displaying it
+LVAR_FLOAT bankvan1_upright_value_heist5 // change this to a LVAR once I am not displaying it // FIXEDGROVE: made LVAR
 
 // Landing heli and van at the end
 LVAR_INT heli_land_blip_heist5
