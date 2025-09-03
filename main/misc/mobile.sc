@@ -12,6 +12,7 @@ VAR_INT call_delay cell_index_start	cell_index_end audio_slot_mobile
 VAR_INT mobile_audio_labels[20]	current_visible_area_cell
 VAR_TEXT_LABEL $mobile_print_labels[20]
 VAR_FLOAT Returnedfat
+VAR_INT call_number_gf_variation // FIXEDGROVE: stores gf phonecall conversation variation
    
 // SET FLAGS AND VARIABLES
 skip_the_mobile_call = 0
@@ -1789,7 +1790,7 @@ IF call_number < COOCHIE_MOBILE
 ELSE //call_number IS >= COOCHIE_MOBILE
 	
 // ***************************************GIRLFRIENDS************************************************************************************
-	SWITCH call_number
+	SWITCH call_number_gf_variation // FIXEDGROVE: was call_number
 
 
 
@@ -4007,7 +4008,10 @@ SET_DEATHARREST_STATE OFF //stops script being terminated if Player dies/arreste
 SET_BIT iAgentFlags MOBILE_CALL_SCRIPT_RUNNING
 CLEAR_BIT iAgentFlags MOBILE_CALL_ANSWERED
 
-GENERATE_RANDOM_INT_IN_RANGE 0 8 iCallRandomVariant // generate a random variation of the mobile call (0-7)
+GENERATE_RANDOM_INT_IN_RANGE 0 7 iCallRandomVariant // generate a random variation of the mobile call (0-7) // FIXEDGROVE: max number was 8
+
+// FIXEDGROVE: original code used call_number to assign a variation of the call, but mobile_rings didn't check every variation to print
+//			   the special help box. So instead I assign the call variation to call_number_gf_variation.
 
 cell_phone_GF_inner:
 	
@@ -4021,14 +4025,11 @@ cell_phone_GF_inner:
 				// COOCHIE PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = COOCHIE
 					//PRINT_HELP ( ANSWER )
+					call_number = COOCHIE_MOBILE
 					IF iCallType = CALL_DATE
-						call_number = COOCHIE_MOBILE
-						call_number += iCallRandomVariant
-						IF call_number > COOCHIE_MOBILE8
-							call_number = COOCHIE_MOBILE8
-						ENDIF	 
+						call_number_gf_variation = call_number + iCallRandomVariant
 					ELSE
-						call_number = COOCHIE_DUMP
+						call_number_gf_variation = COOCHIE_DUMP
 					ENDIF						
 					GOSUB mobile_rings
 					IF flag_player_answered_phone = 1	
@@ -4046,14 +4047,11 @@ cell_phone_GF_inner:
 				// MICHELLE PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = MICHELLE
 					//PRINT_HELP ( ANSWER )
+					call_number = MICHELLE_MOBILE
 					IF iCallType = CALL_DATE
-						call_number = MICHELLE_MOBILE
-						call_number += iCallRandomVariant
-						IF call_number > MICHELLE_MOBILE8
-							call_number = MICHELLE_MOBILE8
-						ENDIF	 
+						call_number_gf_variation = call_number + iCallRandomVariant
 					ELSE
-						call_number = MICHELLE_DUMP
+						call_number_gf_variation = MICHELLE_DUMP
 					ENDIF						
 					GOSUB mobile_rings
 					IF flag_player_answered_phone = 1	
@@ -4070,14 +4068,11 @@ cell_phone_GF_inner:
 				// KYLIE PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = KYLIE
 					//PRINT_HELP ( ANSWER )
-					IF iCallType = CALL_DATE
-						call_number = KYLIE_MOBILE
-						call_number += iCallRandomVariant
-						IF call_number > KYLIE_MOBILE8
-							call_number = KYLIE_MOBILE8
-						ENDIF	 
+					call_number = KYLIE_MOBILE
+					IF iCallType = CALL_DATE			
+						call_number_gf_variation = call_number + iCallRandomVariant
 					ELSE
-						call_number = KYLIE_DUMP
+						call_number_gf_variation = KYLIE_DUMP
 					ENDIF						
 					GOSUB mobile_rings
 					IF flag_player_answered_phone = 1	
@@ -4094,14 +4089,11 @@ cell_phone_GF_inner:
 				// BARBARA PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = BARBARA
 					//PRINT_HELP ( ANSWER )
-					IF iCallType = CALL_DATE
-						call_number = BARBARA_MOBILE
-						call_number += iCallRandomVariant
-						IF call_number > BARBARA_MOBILE8
-							call_number = BARBARA_MOBILE8
-						ENDIF	 
+					call_number = BARBARA_MOBILE
+					IF iCallType = CALL_DATE				
+						call_number_gf_variation = call_number + iCallRandomVariant
 					ELSE
-						call_number = BARBARA_DUMP
+						call_number_gf_variation = BARBARA_DUMP
 					ENDIF						
 					GOSUB mobile_rings
 					IF flag_player_answered_phone = 1	
@@ -4119,14 +4111,11 @@ cell_phone_GF_inner:
 				// SUZIE PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = SUZIE
 					//PRINT_HELP ( ANSWER )
-					IF iCallType = CALL_DATE
-						call_number = SUZIE_MOBILE
-						call_number += iCallRandomVariant
-						IF call_number > SUZIE_MOBILE8
-							call_number = SUZIE_MOBILE8
-						ENDIF	 
+					call_number = SUZIE_MOBILE
+					IF iCallType = CALL_DATE			
+						call_number_gf_variation = call_number + iCallRandomVariant
 					ELSE
-						call_number = SUZIE_DUMP
+						call_number_gf_variation = SUZIE_DUMP
 					ENDIF						
 					GOSUB mobile_rings
 					IF flag_player_answered_phone = 1
@@ -4143,14 +4132,11 @@ cell_phone_GF_inner:
 				// MILLIE PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = MILLIE
 					//PRINT_HELP ( ANSWER )
+					call_number = MILLIE_MOBILE
 					IF iCallType = CALL_DATE
-						call_number = MILLIE_MOBILE
-						call_number += iCallRandomVariant
-						IF call_number > MILLIE_MOBILE8
-							call_number = MILLIE_MOBILE8
-						ENDIF	 
+						call_number_gf_variation = call_number + iCallRandomVariant
 					ELSE
-						call_number = MILLIE_DUMP
+						call_number_gf_variation = MILLIE_DUMP
 					ENDIF						
 					GOSUB mobile_rings
 					IF flag_player_answered_phone = 1
@@ -4186,7 +4172,8 @@ mobile_rings:
 	audio_slot_mobile = 1
 	LOAD_MISSION_AUDIO 3 SOUND_MOBRING
 	players_skipping_the_call = 0
-	//--- Print the generic message unless its a girlfriend call (for a frame, to get the sound fx) 
+	//--- Print the generic message unless its a girlfriend call (for a frame, to get the sound fx)
+	// FIXEDGROVE: originally also checked for the dump calls, but those use the same text as the normal calls anyway
 	SWITCH call_number
 		CASE COOCHIE_MOBILE
 			PRINT_HELP ANSWER0
@@ -4205,24 +4192,6 @@ mobile_rings:
 		BREAK
 		CASE MILLIE_MOBILE	 
 			PRINT_HELP ANSWER5
-		BREAK
-		CASE COOCHIE_DUMP	 
-			PRINT_HELP ANSWER0
-		BREAK
-		CASE MICHELLE_DUMP	 
-			PRINT_HELP ANSWER1
-		BREAK
-		CASE KYLIE_DUMP	  
-			PRINT_HELP ANSWER2
-		BREAK
-		CASE BARBARA_DUMP 
-			PRINT_HELP ANSWER3
-		BREAK
-		CASE SUZIE_DUMP	 
-			PRINT_HELP ANSWER4
-		BREAK
-		CASE MILLIE_DUMP 
-			PRINT_HELP ANSWER5  
 		BREAK
 		DEFAULT
 			PRINT_HELP ANSWER
@@ -4252,24 +4221,6 @@ mobile_rings:
 			BREAK
 			CASE MILLIE_MOBILE	 
 			    PRINT_HELP_FOREVER ANSWER5
-			BREAK
-			CASE COOCHIE_DUMP	 
-			    PRINT_HELP_FOREVER ANSWER0
-			BREAK
-			CASE MICHELLE_DUMP	 
-			    PRINT_HELP_FOREVER ANSWER1
-			BREAK
-			CASE KYLIE_DUMP	  
-			    PRINT_HELP_FOREVER ANSWER2
-			BREAK
-			CASE BARBARA_DUMP 
-			    PRINT_HELP_FOREVER ANSWER3
-			BREAK
-			CASE SUZIE_DUMP	 
-				PRINT_HELP_FOREVER ANSWER4
-			BREAK
-			CASE MILLIE_DUMP 
-				PRINT_HELP_FOREVER ANSWER5
 			BREAK
 			DEFAULT
 				PRINT_HELP_FOREVER ANSWER
