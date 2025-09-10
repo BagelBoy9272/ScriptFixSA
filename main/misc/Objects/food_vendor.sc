@@ -35,10 +35,6 @@ food_vendor_loop:
 							vendor_model = WMOICE
 							BREAK
 
-						CASE chillidogcart
-							vendor_model = BMOCHIL
-							BREAK
-
 						CASE noodlecart_prop
 							vendor_model = OMONOOD
 							BREAK
