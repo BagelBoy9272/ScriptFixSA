@@ -65,10 +65,10 @@ ENDWHILE
 
 VAR_INT para_pickup  
 
-IF NOT IS_CHAR_DEAD scplayer
+//IF NOT IS_CHAR_DEAD scplayer // FIXEDGROVE: comment out
 //	SET_CHAR_COORDINATES scplayer 1794.9514 -1308.5892 133.8128
 //	CREATE_PICKUP Gun_para  PICKUP_ONCE 1797.6023 -1308.8815 133.8128 para_pickup
-ENDIF
+//ENDIF // FIXEDGROVE: comment out
 
 //GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_PARACHUTE 1
 //
@@ -84,7 +84,9 @@ player_has_parachute = 0
 
 
 IF player_landed = 999
-	 CREATE_PICKUP Gun_para  PICKUP_ONCE player_x player_y player_z para_pickup
+	CREATE_PICKUP Gun_para  PICKUP_ONCE player_x player_y player_z para_pickup
+	CREATE_OBJECT PARACHUTE player_x player_y player_z ParaC // FIXEDGROVE: add fake create to fool compiler
+	CREATE_OBJECT para_collision player_x player_y player_z para_col // FIXEDGROVE: add fake create to fool compiler
 ENDIF
 
 
@@ -106,10 +108,26 @@ jump_loop:
 //	fake_code_flag = code_flag
 //	VIEW_INTEGER_VARIABLE fake_code_flag fake_code_flag
 
-		 
-
-
-	IF NOT IS_CHAR_DEAD scplayer
+	// FIXEDGROVE: START - emergency cleanup, manual check because 
+	//					   HAS_DEATHARREST_BEEN_EXECUTED doesn't work on streamed scripts	 
+	IF IS_CHAR_DEAD scplayer
+	OR HAS_CHAR_BEEN_ARRESTED scplayer
+		MARK_MODEL_AS_NO_LONGER_NEEDED PARACHUTE
+		REMOVE_ANIMATION PARACHUTE
+		IF DOES_OBJECT_EXIST parac
+			DETACH_OBJECT parac 0.0 0.0 0.0 FALSE
+			REMOVE_OBJECT_ELEGANTLY parac
+		ENDIF
+		IF DOES_OBJECT_EXIST para_col
+			DELETE_OBJECT para_col
+		ENDIF
+		SET_PLAYER_CYCLE_WEAPON_BUTTON Player1 TRUE
+		player_landed = 0
+		player_fall_state = 0
+		player_has_parachute = 0
+		code_flag = 0
+	// FIXEDGROVE: END
+	ELSE
 		IF NOT IS_2PLAYER_GAME_GOING_ON
 			IF NOT player_fall_state = 0
 				SET_PLAYER_CYCLE_WEAPON_BUTTON Player1 FALSE
@@ -658,8 +676,11 @@ jump_loop:
 				IF NOT IS_CHAR_DEAD scplayer
 
 					IF IS_CHAR_IN_WATER scplayer
+						SET_CHAR_ROTATION scplayer 0.0 0.0 para_yaw // FIXEDGROVE: set rotation here because its no longer in the cleanup
 						TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer para_land_water PARACHUTE 8.0 1 1 0 0 1000
 						PLAY_OBJECT_ANIM parac para_land_water_o PARACHUTE 1000.0 0 1
+						DETACH_OBJECT parac 0.0 0.0 0.0 FALSE // FIXEDGROVE: detach parachute so it falls in water
+						SET_OBJECT_ROTATION parac 0.0 0.0 para_yaw // FIXEDGROVE: reset parachute rotation when landing
 						player_fall_state = 5
 						code_flag = 0					
 					ENDIF
@@ -687,13 +708,7 @@ jump_loop:
 						code_flag = 0	
 					ELSE 
 						IF para_Vz < -4.0
-							OPEN_SEQUENCE_TASK para_seq
-								//TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 fall_front PED 20.0 0 0 0 1 700 // FIXEDGROVE: original code
-								//TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 getup_front PED 8.0 0 1 0 0 -2 // FIXEDGROVE: original code	
-								TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 para_land PARACHUTE 10.0 0 1 1 0 -2 // FIXEDGROVE: fixed parachute animation, by crspy				 
-							CLOSE_SEQUENCE_TASK para_seq
-							PERFORM_SEQUENCE_TASK scplayer para_seq
-							CLEAR_SEQUENCE_TASK para_seq					
+							TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer para_land PARACHUTE 8.0 0 0 0 0 -2 // FIXEDGROVE: fixed parachute land animation, simplified code			 				
 						ELSE
 							TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer run_player PED 8.0 1 1 0 0 1000
 						ENDIF
@@ -701,7 +716,9 @@ jump_loop:
 					ENDIF
 
 					PLAY_OBJECT_ANIM parac para_land_o PARACHUTE 1000.0 0 1
+					FREEZE_OBJECT_POSITION parac TRUE // FIXEDGROVE: freeze parachute to allow anim to be seen the intended way
 					DETACH_OBJECT parac 0.0 0.0 0.0 FALSE
+					SET_OBJECT_ROTATION parac 0.0 0.0 para_yaw // FIXEDGROVE: reset parachute rotation when landing
 					para_time_check = TIMERA + 1000
 					
 				ENDIF
@@ -722,14 +739,15 @@ jump_loop:
 			IF player_fall_state = 5
 				player_landed = 1
 				IF code_flag = 0
-//					IF NOT IS_OBJECT_PLAYING_ANIM parac para_land_water_o
-//						GET_OBJECT_ANIM_CURRENT_TIME parac para_land_water_o para_f1
-//						IF para_f1 = 1.0 
+					//FIXEDGROVE: START - uncomment parachute animation check to allow full anim to play
+					IF IS_OBJECT_PLAYING_ANIM parac para_land_water_o
+						GET_OBJECT_ANIM_CURRENT_TIME parac para_land_water_o para_f1
+						IF para_f1 = 1.0
 	//				IF TIMERA > para_time_check
 							player_landed = 2
 							GOSUB parachute_cleanup
-//						ENDIF
-//					ENDIF				
+						ENDIF
+					ENDIF		
 				ENDIF			
 			ENDIF
 
@@ -744,6 +762,7 @@ jump_loop:
 			ENDIF
 
 			IF player_fall_state = 6
+				SET_CHAR_ROTATION scplayer 0.0 0.0 para_yaw // FIXEDGROVE: set rotation here because its no longer in the cleanup
 				GOSUB parachute_cleanup					
 			ENDIF
 
@@ -785,7 +804,7 @@ parachute_cleanup:
 						MARK_MODEL_AS_NO_LONGER_NEEDED PARACHUTE
 						REMOVE_ANIMATION PARACHUTE
 						MARK_MODEL_AS_NO_LONGER_NEEDED gun_para
-						SET_CHAR_ROTATION scplayer 0.0 0.0 para_yaw
+						//SET_CHAR_ROTATION scplayer 0.0 0.0 para_yaw // FIXEDGROVE: now is only set when necessary in other places in the script
 						SET_PLAYER_CYCLE_WEAPON_BUTTON Player1 TRUE
 
 
