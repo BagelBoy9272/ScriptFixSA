@@ -1533,7 +1533,7 @@ mission_intro1_SUB_text_handler:
 				DISPLAY_TEXT 320.0 220.0 LOAD_04
 
 			ELSE			
-				SET_TEXT_SCALE 0.6 1.6 
+				SET_TEXT_SCALE 0.3525 1.6  // FIXEDGROVE: was originally 0.6 1.6
 				SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
 				SET_TEXT_CENTRE ON
 				SET_TEXT_WRAPX 600.0
