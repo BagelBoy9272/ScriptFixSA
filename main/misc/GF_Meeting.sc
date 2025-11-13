@@ -399,15 +399,18 @@ GF_Meeting_State5:
 	BREAK
 
 	CASE 2
-		GOSUB GF_Meeting_CheckLikesPlayer // Returns iTemp > 0 if she likes him
-		IF iTemp = 1
-			ENABLE_CONVERSATION iGF_ped TRUE
-			iState = 2  // Impressed State
-			iSubStateStatus = 0	
-		ELSE
-			iState = 3 // Not Impressed State
-			iSubStateStatus = 0							
-		ENDIF 
+		GET_SCRIPT_TASK_STATUS iGF_ped TASK_PLAY_ANIM iTemp	// FIXEDGROVE: fix for tai chi exit anim not finishing			
+		IF iTemp = FINISHED_TASK // FIXEDGROVE
+			GOSUB GF_Meeting_CheckLikesPlayer // Returns iTemp > 0 if she likes him
+			IF iTemp = 1
+				ENABLE_CONVERSATION iGF_ped TRUE
+				iState = 2  // Impressed State
+				iSubStateStatus = 0	
+			ELSE
+				iState = 3 // Not Impressed State
+				iSubStateStatus = 0							
+			ENDIF
+		ENDIF // FIXEDGROVE
 	BREAK	  
 	ENDSWITCH
 
