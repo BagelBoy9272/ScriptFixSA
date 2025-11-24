@@ -6016,7 +6016,7 @@ RETURN
 		REMOVE_ANIMATION ON_LOOKERS
 		REMOVE_ANIMATION CAR_CHAT
 
-		REMOVE_CHAR_ELEGANTLY ryd1_ryder_ped
+		DELETE_CHAR ryd1_ryder_ped // FIXEDGROVE: was previously a vanish, which was visible in-game
 
 		MARK_CHAR_AS_NO_LONGER_NEEDED ryd1_owner_ped
 		MARK_CHAR_AS_NO_LONGER_NEEDED ryd1_cop1_ped
