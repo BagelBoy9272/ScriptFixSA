@@ -5123,7 +5123,7 @@ IF rails_f1flag = 8
 
 								TASK_PLAY_ANIM sweet CAR_Sc4_BL CAR_CHAT 8.0 FALSE FALSE FALSE FALSE -1
 								PLAY_MISSION_AUDIO 2 //SOUND_FIN1_KE //Hit the gas!
-								START_CHAR_FACIAL_TALK sweet 1000
+								START_CHAR_FACIAL_TALK scplayer 1000 //FIXEDGROVE: target was originally sweet
 								PRINT_NOW FIN1_KE 2000 1
 
 								CLEAR_MISSION_AUDIO 1
@@ -5177,6 +5177,7 @@ IF rails_f1flag = 9
 			IF NOT IS_CHAR_DEAD big_smoke
 				IF NOT IS_CHAR_DEAD sweet
 					IF TIMERA > 500
+						STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: stop player facial anim
 						TIMERA = 0
 						rails_f1flag = 10
 					ENDIF
@@ -6052,6 +6053,7 @@ IF motelchase_f1flag = 2
 	REQUEST_CAR_RECORDING 381
 
 	REQUEST_MODEL munch_donut
+	LOAD_SPECIAL_CHARACTER 1 SWEET // FIXEDGROVE: load sweet
 	LOAD_SPECIAL_CHARACTER 2 SMOKE
 	LOAD_SPECIAL_CHARACTER 3 RYDER2
 
@@ -6158,7 +6160,10 @@ IF motelchase_f1flag = 2
 
 	IF NOT IS_CAR_DEAD sweet_car
 		DETACH_CHAR_FROM_CAR scplayer
-		SET_CHAR_COORDINATES scplayer 2585.74 -1264.16 46.2
+		//SET_CHAR_COORDINATES scplayer 2585.74 -1264.16 46.2 // FIXEDGROVE: original code
+		WARP_CHAR_INTO_CAR_AS_PASSENGER scplayer sweet_car 2 // FIXEDGROVE: warp player into car so they're seen in the cutscene
+		CREATE_CHAR_AS_PASSENGER sweet_car PEDTYPE_SPECIAL SPECIAL03 1 sweet // FIXEDGROVE: add sweet into car for the cutscene
+		SET_CHAR_DECISION_MAKER sweet motel_DM // FIXEDGROVE
 		CREATE_CHAR_INSIDE_CAR sweet_car PEDTYPE_SPECIAL SPECIAL02 big_smoke
 		SET_CHAR_DECISION_MAKER big_smoke motel_DM
 		CREATE_CHAR_AS_PASSENGER sweet_car PEDTYPE_SPECIAL SPECIAL03 0 ryder
@@ -6319,12 +6324,15 @@ IF motelchase_f1flag = 6
 			DELETE_CAR copbike1_f1 
 			DELETE_CHAR biker1_f1
 			DELETE_OBJECT donut_f1
+			DELETE_CHAR sweet // FIXEDGROVE: delete sweet
 			DELETE_CHAR big_smoke
 			DELETE_CHAR ryder
+			UNLOAD_SPECIAL_CHARACTER 1 // FIXEDGROVE: unload sweet
 			UNLOAD_SPECIAL_CHARACTER 2
 			UNLOAD_SPECIAL_CHARACTER 3
 
 			IF NOT IS_CAR_DEAD sweet_car////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				WARP_CHAR_FROM_CAR_TO_COORD scplayer 2569.7429 -1287.6459 52.0 // FIXEDGROVE: have to do this otherwise ATTACH_CHAR_TO_CAR fails 
 				ATTACH_CHAR_TO_CAR scplayer sweet_car 0.0 -0.5 0.8 FACING_BACK 360.0 WEAPONTYPE_AK47////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				SET_HEADING_FOR_ATTACHED_PLAYER PLAYER1 75.0 75.0 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			ENDIF 
@@ -8298,7 +8306,7 @@ IF helisetpiece_f1flag = 10
 			SET_CAR_HEALTH sweet_car 300
 			SET_TIME_SCALE 0.7
 			POP_CAR_PANEL sweet_car FRONT_BUMPER TRUE
-			SET_TIME_OF_DAY 07 15
+			//SET_TIME_OF_DAY 07 15 FIXEDGROVE: commented out because it causes a time jump
 			SET_FIXED_CAMERA_POSITION 2204.8037 -1568.2760 1.9452 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT 2203.8606 -1567.9508 1.8744 JUMP_CUT
 			SET_NEAR_CLIP 0.1
