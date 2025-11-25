@@ -2790,6 +2790,8 @@ Crash1_Stage_TakeTheLadyHome:
 			SET_FIXED_CAMERA_POSITION 2392.5417 -1727.9492 14.9910 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT 2393.4580 -1727.5577 14.9067 JUMP_CUT
 
+			SET_CHAR_PROOFS charCoochie TRUE TRUE TRUE TRUE TRUE // FIXEDGROVE: proof her during cutscene to avoid softlocks
+
 			m_goals++
 		ENDIF
 	ENDIF
@@ -2866,6 +2868,7 @@ Crash1_Stage_TakeTheLadyHome:
 			TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
 		ENDIF
 		
+		timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
 		m_goals++
 	ENDIF
 
@@ -2873,6 +2876,13 @@ Crash1_Stage_TakeTheLadyHome:
 	// Check if Coochie reached wave position, and make player turn again to face her
 	IF m_goals = 9
 		GET_SCRIPT_TASK_STATUS charCoochie TASK_GO_STRAIGHT_TO_COORD m_status
+
+		// FIXEDGROVE: START - added timer failsafe to prevent softlocks
+		IF timerCutscene < m_mission_timer
+			SET_CHAR_COORDINATES charCoochie 2402.0522 -1719.7156 12.6181
+			m_status = FINISHED_TASK	
+		ENDIF
+		// FIXEDGROVE: END
 
 		IF m_status = FINISHED_TASK
 			// The wave anim starts 180 degrees away from the actual wave heading, so calculate this heading
@@ -2912,6 +2922,8 @@ Crash1_Stage_TakeTheLadyHome:
 		IF nCurrentConversationID = CRASH1_CONVERSATION_CYA
 			GOSUB Crash1_Conversation_Command_Play
 
+			timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
+
 			m_goals++
 		ENDIF
 	ENDIF
@@ -2919,12 +2931,21 @@ Crash1_Stage_TakeTheLadyHome:
 
 	// Check if animation finished
 	IF m_goals = 11
+
+		// FIXEDGROVE: START - added timer failsafe to prevent softlocks
+		IF timerCutscene < m_mission_timer
+			SET_CHAR_COORDINATES charCoochie 2401.8574 -1717.0104 12.6334
+			m_goals++
+		ENDIF
+		// FIXEDGROVE: END
+
 		IF IS_CHAR_PLAYING_ANIM charCoochie BD_GF_Wave
  			GET_CHAR_ANIM_CURRENT_TIME charCoochie BD_GF_Wave fTempFloat
 			IF fTempFloat = 1.0000
 				// Walk away
 				TASK_GO_STRAIGHT_TO_COORD charCoochie 2401.8574 -1717.0104 12.6334 PEDMOVE_RUN -2
 
+				timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
 				m_goals++
 			ENDIF
 		ENDIF
@@ -2934,6 +2955,12 @@ Crash1_Stage_TakeTheLadyHome:
 	// Check if girl disappeared from view
 	IF m_goals = 12
 		GET_SCRIPT_TASK_STATUS charCoochie TASK_GO_STRAIGHT_TO_COORD m_status
+
+		// FIXEDGROVE: START - added timer failsafe to prevent softlocks
+		IF timerCutscene < m_mission_timer
+			m_status = FINISHED_TASK	
+		ENDIF
+		// FIXEDGROVE: END
 
 		IF m_status = FINISHED_TASK
 			DELETE_CHAR charCoochie
