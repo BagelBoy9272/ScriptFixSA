@@ -81,6 +81,7 @@ LVAR_INT f1_last_label //f1_played_random_speech[2]
 LVAR_INT f1_slot1 f1_slot2 f1_slot_load f1_play_which_slot
 
 
+trafficcone_counter = 0 // FIXEDGROVE: set trafficcone_counter to 0 so the first destruction doesn't happen (SilentPatch)
 playback_flag = 0   ///needs to be set to 0
 f1_control_flag = 0
 f1_fade_flag = 0
@@ -5372,12 +5373,12 @@ RETURN//////////////////////////////////////////////////////////////////////////
 
 deleting_cones:////////////////////////////////////////////////////////////////////////////
 	CLEAR_PRINTS
-	trafficcone_counter = 0
-	WHILE trafficcone_counter < 46
-		CLEAR_PRINTS
+	// FIXEDGROVE: START - new logic for deleting cones, count down to 0 to only delete as many cones were created (SilentPatch)
+	WHILE trafficcone_counter > 0
+		trafficcone_counter --
 		DELETE_OBJECT trafficcones[trafficcone_counter]
-		trafficcone_counter ++
 	ENDWHILE
+	// FIXEDGROVE: END
 RETURN/////////////////////////////////////////////////////////////////////////////////////
 
 creating_cones:////////////////////////////////////////////////////////////////////////////
@@ -5966,7 +5967,7 @@ creating_cones://///////////////////////////////////////////////////////////////
 		PLACE_OBJECT_RELATIVE_TO_CAR trafficcones[34] instructor_car 12.0 50.0 -0.5
 	
 		trafficcone_counter = 25 
-		WHILE trafficcone_counter < 35
+		WHILE trafficcone_counter < 42 // FIXEDGROVE: correct traffic cone count (SilentPatch)
 			IF DOES_OBJECT_EXIST trafficcones[trafficcone_counter] 
 				GET_OBJECT_COORDINATES trafficcones[trafficcone_counter] cone_coords_x cone_coords_y cone_coords_z
 				GET_GROUND_Z_FOR_3D_COORD cone_coords_x cone_coords_y 40.0 cone_coords_z  
@@ -6680,7 +6681,7 @@ creating_cones://///////////////////////////////////////////////////////////////
 		PLACE_OBJECT_RELATIVE_TO_CAR trafficcones[22] instructor_car 0.0 -4.0 -0.5
 	
 		trafficcone_counter = 15 
-		WHILE trafficcone_counter < 23
+		WHILE trafficcone_counter < 30 // FIXEDGROVE: correct traffic cone count (SilentPatch)
 			IF DOES_OBJECT_EXIST trafficcones[trafficcone_counter] 
 				GET_OBJECT_COORDINATES trafficcones[trafficcone_counter] cone_coords_x cone_coords_y cone_coords_z
 				GET_GROUND_Z_FOR_3D_COORD cone_coords_x cone_coords_y 40.0 cone_coords_z  

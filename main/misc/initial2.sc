@@ -2734,17 +2734,18 @@ CONST_INT DANCE_WAIT_TO_START_BEATDISPLAY	10000
 
 // - Pauld gym stuff ---------------------------------------------------------------------------
  
-VAR_INT gym_day gym_month gym_final_day gym_final_month
+VAR_INT gym_day gym_final_day 
+//VAR INT gym_month gym_final_month // FIXEDGROVE: these variables are no longer used
 
 VAR_FLOAT gym_day_fitness
 
 gym_day = -1
 
-gym_month = -1
+//gym_month = -1 // FIXEDGROVE: these variables are no longer used
 
 gym_final_day = -1
 
-gym_final_month = -1
+//gym_final_month = -1 // FIXEDGROVE: these variables are no longer used
 
 gym_day_fitness = 0.0
 

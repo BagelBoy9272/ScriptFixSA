@@ -287,7 +287,7 @@ GIVE_MELEE_ATTACK_TO_CHAR SF_boxer_B MCOMBO_UNARMED_3 6
 GOSUB gymsf_fade_in
 
 IF gym_day > gym_final_day
-OR gym_month > gym_final_month
+//OR gym_month > gym_final_month // FIXEDGROVE: new method for gym workout limit no longer uses month
 
 	gym_day_fitness = 0.0
 

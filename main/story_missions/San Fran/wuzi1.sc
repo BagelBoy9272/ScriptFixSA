@@ -736,6 +736,7 @@ wz1_scene1:
 			IF play_wuzi_arrive_message = 2
 				IF audio_flag = 1
 				AND play_audio = 0
+				AND journey_audio_flag  = 11 // FIXEDGROVE: fix softlock (SilentPatch)
 					PRINT WZ1_B4 5000 1
 					wz1_scene_flag = 1
 					play_wuzi_arrive_message = 3					

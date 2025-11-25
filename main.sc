@@ -1401,7 +1401,7 @@ IF IS_PLAYER_PLAYING player1
 			IF LOCATE_CHAR_ANY_MEANS_3D scplayer 658.0068 -1866.3127 4.4537 15.0 15.0 15.0 FALSE
 				IF gym_at_beach = 0
 					IF gym_day > gym_final_day
-					OR gym_month > gym_final_month
+//					OR gym_month > gym_final_month // FIXEDGROVE: new method for gym workout limit no longer uses month
 						gym_day_fitness = 0.0
 					ENDIF
 					gym_at_beach = 1

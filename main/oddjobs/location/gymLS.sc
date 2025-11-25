@@ -304,7 +304,7 @@ TIMERA = 0
 ls_playing = 2
 
 IF gym_day > gym_final_day
-OR gym_month > gym_final_month
+//OR gym_month > gym_final_month // FIXEDGROVE: new method for gym workout limit no longer uses month
 
 	gym_day_fitness = 0.0
 

@@ -82,6 +82,7 @@ LVAR_INT bs_timer_diff bs_timer_end bs_timer_start
 // To be added to initial.sc
 
 
+trafficcone_counter = 0 // FIXEDGROVE: set trafficcone_counter to 0 so the first destruction doesn't happen (SilentPatch)
 playback_flag = 0   ///needs to be set to 0
 test_timer = 0
 pausing_flag = 0
@@ -3293,11 +3294,12 @@ bs_mini_cleanup:////////////////////////////////////////////////////////////////
 RETURN/////////////////////////////////////////////////////////////////////////////////////
 
 bs_deleting_cones:////////////////////////////////////////////////////////////////////////////
-	trafficcone_counter = 0
-	WHILE trafficcone_counter < 46
+	// FIXEDGROVE: START - new logic for deleting cones, count down to 0 to only delete as many cones were created (SilentPatch)
+	WHILE trafficcone_counter > 0
+		trafficcone_counter --
 		DELETE_OBJECT trafficcones[trafficcone_counter]
-		trafficcone_counter ++
 	ENDWHILE
+	// FIXEDGROVE: END
 	IF DOES_OBJECT_EXIST bs_ramp
 		DELETE_OBJECT bs_ramp
 	ENDIF

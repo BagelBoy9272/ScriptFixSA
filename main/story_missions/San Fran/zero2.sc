@@ -606,7 +606,7 @@ main_sub_function_zero2:
 	CAMERA_RESET_NEW_SCRIPTABLES
 
 	IF NOT IS_CAR_DEAD rc_van_zero2 
-		SET_CAR_COORDINATES  rc_van_zero2 -2233.9 122.6 700.48
+		SET_CAR_COORDINATES  rc_van_zero2 -2233.9 122.6 10.0 // FIXEDGROVE: was 700.48, fixes lods (SilentPatch)
 		SET_CAR_HEADING rc_van_zero2 90.0
 		FREEZE_CAR_POSITION rc_van_zero2 TRUE
 	ENDIF

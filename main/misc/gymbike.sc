@@ -279,10 +279,11 @@ ENDIF
 					IF flag_player_on_mission = 0
 					OR gym_is_running = 1
 
-						GET_CURRENT_DATE gym_day gym_month
+//						GET_CURRENT_DATE gym_day gym_month // FIXEDGROVE: original code commented out
+						GET_INT_STAT DAYS_PASSED gym_day // FIXEDGROVE: use 'Days Passed' stat instead (SilentPatch)
 
 						IF gym_day > gym_final_day
-						OR gym_month > gym_final_month
+//						OR gym_month > gym_final_month // FIXEDGROVE: new method no longer uses month
 
 							startexbike_flag = 1
 							playerexercising_flag = 1
@@ -932,7 +933,8 @@ IF startexbike_flag = 1
 				ENDIF
 
 				IF gym_day_fitness > 200.0
-					GET_CURRENT_DATE gym_final_day gym_final_month
+//					GET_CURRENT_DATE gym_final_day gym_final_month // FIXEDGROVE: original code commented out
+					GET_INT_STAT DAYS_PASSED gym_final_day // FIXEDGROVE: use 'Days Passed' stat instead (SilentPatch)
 					PRINT_NOW ( GYM1_1B ) 4000 1 // You have reached your limit for today come back tommorow!
 				ENDIF
 

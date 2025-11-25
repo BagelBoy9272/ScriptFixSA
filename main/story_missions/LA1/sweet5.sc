@@ -496,7 +496,7 @@ LVAR_INT dont_skip
 
 	IF sw5_cut_flag = 3
 		IF TIMERA > sw5_time
-			IF play_audio = 3
+			IF play_audio >= 3 // FIXEDGROVE: comparison was originally > , fixes weird softlock (SilentPatch)
 				// look at sweet
 				SET_FIXED_CAMERA_POSITION 2753.7837 -1947.4662 16.4890 0.0 0.0 0.0
 				POINT_CAMERA_AT_POINT 2753.2551 -1948.2924 16.6835 JUMP_CUT	

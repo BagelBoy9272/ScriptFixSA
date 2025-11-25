@@ -3199,7 +3199,12 @@ RETURN
 mission_cleanup_zero1:
 
 	IF NOT HAS_DEATHARREST_BEEN_EXECUTED
-		//GIVE_WEAPON_TO_CHAR scplayer weapontype_zero1 ammo_zero1 // causes crash
+		// FIXEDGROVE: START - load weapon model before giving it back to the player (SilentPatch)
+		REQUEST_MODEL model_for_weapon_zero1
+		LOAD_ALL_MODELS_NOW
+		GIVE_WEAPON_TO_CHAR scplayer weapontype_zero1 ammo_zero1 // causes crash
+		MARK_MODEL_AS_NO_LONGER_NEEDED model_for_weapon_zero1
+		// FIXEDGROVE: END
 	ENDIF 
 
 
