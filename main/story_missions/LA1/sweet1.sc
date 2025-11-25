@@ -1436,9 +1436,9 @@ WHILE NOT tag_percentage = 100 //SPRAY 2 BALLAS TAGS****************************
 				IF NOT LOCATE_CHAR_ANY_MEANS_CAR_3D scplayer sweet_car 30.0 30.0 10.0 FALSE
 				AND NOT IS_CAR_ON_SCREEN sweet_car
 					CLEAR_CHAR_TASKS sweet 
-					SET_CAR_COORDINATES sweet_car 2487.1721 -1666.3010 -100.3438
 					FREEZE_CAR_POSITION_AND_DONT_LOAD_COLLISION sweet_car TRUE
 					FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION sweet TRUE
+					SET_CAR_COORDINATES sweet_car 2487.1721 -1666.3010 -10.0 // FIXEDGROVE: warp car after freezing position and increase z coord, to avoid it warping back to street level
 					sweet_car_frozen = 1
 				ENDIF
 			ENDIF
@@ -1544,9 +1544,9 @@ WHILE NOT tag_percentage = 100 //SPRAY LAST TAG*********************************
 				IF NOT LOCATE_CHAR_ANY_MEANS_CAR_3D scplayer sweet_car 100.0 100.0 10.0 FALSE
 				OR NOT IS_CAR_ON_SCREEN sweet_car
 					CLEAR_CHAR_TASKS sweet 
-					SET_CAR_COORDINATES sweet_car 2487.1721 -1666.3010 -100.3438
 					FREEZE_CAR_POSITION_AND_DONT_LOAD_COLLISION sweet_car TRUE
 					FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION sweet TRUE
+					SET_CAR_COORDINATES sweet_car 2487.1721 -1666.3010 -10.0 // FIXEDGROVE: warp car after freezing position and increase z coord, to avoid it warping back to street level
 					sweet_car_frozen = 1
 				ENDIF
 			ENDIF
