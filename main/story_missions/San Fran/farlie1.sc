@@ -19,6 +19,7 @@ MISSION_END
 mission_start_dskool:
 flag_player_on_mission = 1
 IF driving_test_passed = 0
+AND f1_scripted_cut = 1 // FIXEDGROVE: only register mission given if the cutscene has been played
 	REGISTER_MISSION_GIVEN
 ENDIF
 LOAD_MISSION_TEXT DS
@@ -75,8 +76,8 @@ LVAR_INT f1_camera_mode
 
 //speech
 LVAR_INT f1_speech_goals f1_speech_control_flag f1_speech_flag f1_random_last_label 
-LVAR_TEXT_LABEL f1_print_label[7] 
-LVAR_INT f1_audio_label[7] 
+LVAR_TEXT_LABEL f1_print_label[5] // FIXEDGROVE: reduce array size to 5 as only 5 labels are used
+LVAR_INT f1_audio_label[5] // FIXEDGROVE: reduce array size to 5 as only 5 labels are used
 LVAR_INT f1_last_label //f1_played_random_speech[2]   
 LVAR_INT f1_slot1 f1_slot2 f1_slot_load f1_play_which_slot
 
