@@ -310,7 +310,7 @@ LVAR_INT policecar7_f1blip
 LVAR_INT policecar8_f1blip
 
 //flags
-LVAR_INT difficulty_f1flag //do not reset this
+VAR_INT difficulty_f1flag //do not reset this // FIXEDGROVE: made difficulty flag global
 
 LVAR_INT rails_f1flag
 LVAR_INT motelchase_f1flag
@@ -350,6 +350,7 @@ LVAR_INT policecarexplode_f1flag
 LVAR_INT breakposter_f1flag
 LVAR_INT finalcut_f1flag
 LVAR_INT helpshoottext_f1flag
+LVAR_INT speaker_f1 // FIXEDGROVE
 ///////////////////////////////////////////////////////	On rails variables
 ///////////////////////////////////////////////////////	On rails variables
 
@@ -444,6 +445,7 @@ REQUEST_MODEL MP5LNG
 REQUEST_MODEL COLT45
 REQUEST_MODEL SWAT
 
+CLEAR_MISSION_AUDIO 2 // FIXEDGROVE: clear audio slot just to be sure
 LOAD_MISSION_AUDIO 2 SOUND_SMOX_AD //Come on, playa, get in!
 
 
@@ -535,6 +537,7 @@ hoochie2_f1flag = 0
 missionaudio2_f1flag = 0
 audiosweet_f1flag = 0
 attachaudio_f1flag = 0
+speaker_f1 = 0
 
 //flags for rails chase
 rails_f1flag = 0
@@ -605,6 +608,7 @@ SET_BLIP_AS_FRIENDLY sweet_f1blip TRUE
 CHANGE_CAR_COLOUR sweet_car 59 34
 //create buddies
 CREATE_CHAR PEDTYPE_SPECIAL SPECIAL01 2511.005 -1672.268 12.493 sweet
+SET_ANIM_GROUP_FOR_CHAR sweet gang2 // FIXEDGROVE: set intended animation group
 SET_CHAR_HEADING sweet 62.083
 SET_CHAR_NEVER_TARGETTED sweet TRUE
 SET_CHAR_ONLY_DAMAGED_BY_PLAYER sweet TRUE
@@ -617,6 +621,7 @@ SET_CHAR_SUFFERS_CRITICAL_HITS sweet FALSE
 SET_CHAR_GET_OUT_UPSIDE_DOWN_CAR sweet FALSE
 
 CREATE_CHAR PEDTYPE_SPECIAL SPECIAL02 2505.318 -1674.747 12.376 big_smoke
+SET_ANIM_GROUP_FOR_CHAR big_smoke fatman // FIXEDGROVE: set intended animation group
 SET_CHAR_HEADING big_smoke 356.374
 SET_CHAR_NEVER_TARGETTED big_smoke TRUE
 SET_CHAR_ONLY_DAMAGED_BY_PLAYER big_smoke TRUE
@@ -629,6 +634,7 @@ SET_CHAR_SUFFERS_CRITICAL_HITS big_smoke FALSE
 SET_CHAR_GET_OUT_UPSIDE_DOWN_CAR big_smoke FALSE
 
 CREATE_CHAR PEDTYPE_SPECIAL SPECIAL03 2506.57 -1667.753 12.376 ryder
+SET_ANIM_GROUP_FOR_CHAR ryder gang1 // FIXEDGROVE: set intended animation group
 SET_CHAR_HEADING ryder 171.457
 SET_CHAR_NEVER_TARGETTED ryder TRUE
 SET_CHAR_ONLY_DAMAGED_BY_PLAYER ryder TRUE
@@ -641,7 +647,8 @@ SET_CHAR_SUFFERS_CRITICAL_HITS ryder FALSE
 SET_CHAR_GET_OUT_UPSIDE_DOWN_CAR ryder FALSE
 
 PRINT_NOW LAF1_1 10000 1 //Get in the car and drive the crew to the meet at the motel.
-SHUT_CHAR_UP scplayer TRUE
+//SHUT_CHAR_UP scplayer TRUE // FIXEDGROVE: this is a weird decision, was probably made to stop playor speech during scripted ones
+							 // but now its handled in a better way
 
 SET_WANTED_MULTIPLIER 0.0
 SET_MAX_FIRE_GENERATIONS 1
@@ -711,12 +718,14 @@ IF moteldeal_f1flag = 1
 
 	GOSUB process_audio_f1
 
+	// FIXEDGROVE: assigned speakers
 	//play mission audio
 	IF progressaudio_f1flag = 0
 		IF handlingaudio_f1flag = 0
 			IF TIMERA > 7000
 				audio_label_f1 = SOUND_FIN1_GA	//Say, CJ, you gonna crash the car again?
 				$input_text_f1 = FIN1_GA	//Say, CJ, you gonna crash the car again?
+				speaker_f1 = ryder
 				GOSUB load_audio_f1
 			ENDIF
 		ENDIF
@@ -725,6 +734,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GB	//Fuck you, Ryder.
 			$input_text_f1 = FIN1_GB	//Fuck you, Ryder.
+			speaker_f1 = scplayer
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -732,6 +742,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GC	//Ryder, give CJ a break, man. He’s practically turned the Grove around by himself.
 			$input_text_f1 = FIN1_GC	//Ryder, give CJ a break, man. He’s practically turned the Grove around by himself.
+			speaker_f1 = sweet
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -739,6 +750,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GD	//Man, I was just telling a joke on the little nigga.
 			$input_text_f1 = FIN1_GD	//Man, I was just telling a joke on the little nigga.
+			speaker_f1 = ryder
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -746,6 +758,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GE	//Everything you do is a joke, Ryder.
 			$input_text_f1 = FIN1_GE	//Everything you do is a joke, Ryder.
+			speaker_f1 = scplayer
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -753,6 +766,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GG	//That ain’t true!
 			$input_text_f1 = FIN1_GG	//That ain’t true!
+			speaker_f1 = ryder
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -760,6 +774,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GI	//Ryder… <sighs> just chill the fuck out.
 			$input_text_f1 = FIN1_GI	//Ryder… <sighs> just chill the fuck out.
+			speaker_f1 = big_smoke
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -767,6 +782,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GJ	//Remember, we’re uniting the Families, so no bullshit.
 			$input_text_f1 = FIN1_GJ	//Remember, we’re uniting the Families, so no bullshit.
+			speaker_f1 = sweet
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -774,6 +790,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GK	//Stay cool.
 			$input_text_f1 = FIN1_GK	//Stay cool.
+			speaker_f1 = sweet
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -781,6 +798,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GL	//You know me, Sweet, cool as a Shaolin monk!
 			$input_text_f1 = FIN1_GL	//You know me, Sweet, cool as a Shaolin monk!
+			speaker_f1 = ryder
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -788,6 +806,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GM	//Especially you, Ryder.
 			$input_text_f1 = FIN1_GM	//Especially you, Ryder.
+			speaker_f1 = sweet
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -795,6 +814,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GN	//What you mean? I resent your implication, and shit.
 			$input_text_f1 = FIN1_GN	//What you mean? I resent your implication, and shit.
+			speaker_f1 = ryder
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -802,6 +822,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GO	//Sweet’s just sayin’ you’re a natural killa.
 			$input_text_f1 = FIN1_GO	//Sweet’s just sayin’ you’re a natural killa.
+			speaker_f1 = big_smoke
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -809,13 +830,15 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GP	//You gotta tame that tiger and stay cool.
 			$input_text_f1 = FIN1_GP	//You gotta tame that tiger and stay cool.
+			speaker_f1 = big_smoke
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
 	IF progressaudio_f1flag = 14
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GQ	//Yeah, well put it like this – I understand what he’s trying to say,
-			$input_text_f1 = FIN1_GQ	//Yeah, well put it like this – I understand what he’s trying to say,				
+			$input_text_f1 = FIN1_GQ	//Yeah, well put it like this – I understand what he’s trying to say,
+			speaker_f1 = ryder		
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -823,6 +846,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GR	//but I’m always cool, fool!
 			$input_text_f1 = FIN1_GR	//but I’m always cool, fool!
+			speaker_f1 = ryder
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -830,6 +854,7 @@ IF moteldeal_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_GS	//Hey we all down with that, dog.
 			$input_text_f1 = FIN1_GS	//Hey we all down with that, dog.
+			speaker_f1 = big_smoke
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -841,6 +866,7 @@ ENDIF
 
 IF moteldeal_f1flag = 1
 OR moteldeal_f1flag = 100
+OR moteldeal_f1flag = 101 // FIXEDGROVE: player is out of the car and smoke's line is playing
 
 	//tell player to get back in the car if they leave it
 	IF NOT IS_CAR_DEAD sweet_car
@@ -850,10 +876,18 @@ OR moteldeal_f1flag = 100
 				REMOVE_BLIP motel_f1blip
 				ADD_BLIP_FOR_CAR sweet_car sweet_f1blip	
 				SET_BLIP_AS_FRIENDLY sweet_f1blip TRUE
-				//PRINT_NOW LAF1_2 5000 1 //Get back in the car!
+
+				CLEAR_MISSION_AUDIO 1
+				// FIXEDGROVE: START
+				GOSUB process_audio_f1
+				IF NOT IS_CHAR_DEAD big_smoke
+					START_CHAR_FACIAL_TALK big_smoke 10000
+				ENDIF
+				// FIXEDGROVE: END
 				PLAY_MISSION_AUDIO 2
 				PRINT_NOW SMOX_AD 2000 1 //Come on, playa, get in!
-				moteldeal_f1flag = 100
+
+				moteldeal_f1flag = 101 // FIXEDGROVE: player is out of the car and smoke's line is playing
 				playerincar_f1flag = 0
 			ENDIF
 		ENDIF
@@ -867,8 +901,25 @@ OR moteldeal_f1flag = 100
 				IF progressaudio_f1flag > 16
 					PRINT_NOW LAF1_3 5000 1 //Drive the crew to the meet at the motel
 				ENDIF
+				// FIXEDGROVE: START
+				IF NOT IS_CHAR_DEAD big_smoke
+					STOP_CHAR_FACIAL_TALK big_smoke
+				ENDIF
+				// FIXEDGROVE: END
 				moteldeal_f1flag = 1
 				playerincar_f1flag = 1
+			ELSE
+				// FIXEDGROVE: START
+				IF moteldeal_f1flag = 101 // FIXEDGROVE: player is out of the car and smoke's line is playing
+					IF HAS_MISSION_AUDIO_FINISHED 2
+						IF NOT IS_CHAR_DEAD big_smoke
+							STOP_CHAR_FACIAL_TALK big_smoke
+						ENDIF
+						PRINT_NOW LAF1_2 5000 1 //Get back in the car! // FIXEDGROVE: added commented line here
+						moteldeal_f1flag = 100
+					ENDIF
+				ENDIF
+				// FIXEDGROVE: END
 			ENDIF
 		ENDIF
 
@@ -878,6 +929,7 @@ ENDIF
 IF moteldeal_f1flag = 0
 OR moteldeal_f1flag = 1
 OR moteldeal_f1flag = 100
+OR moteldeal_f1flag = 101 // FIXEDGROVE: player is out of the car and smoke's line is playing
 
 	//any of the crew get wasted
 	IF IS_CHAR_DEAD sweet
@@ -928,8 +980,6 @@ ENDIF
 IF moteldeal_f1flag = 2
 	IF NOT IS_CAR_DEAD sweet_car
 
-		CLEAR_AREA 2223.971 -1149.75 200.0 200.0 FALSE
-		SWITCH_WIDESCREEN ON
 		SET_PLAYER_CONTROL PLAYER1 OFF
 		
 		DO_FADE 500 FADE_OUT
@@ -937,6 +987,9 @@ IF moteldeal_f1flag = 2
 		WHILE GET_FADING_STATUS
 			WAIT 0
 		ENDWHILE
+
+		CLEAR_AREA 2223.971 -1149.75 200.0 200.0 FALSE
+		SWITCH_WIDESCREEN ON
 
 		CLEAR_MISSION_AUDIO 1
 		CLEAR_MISSION_AUDIO 2
@@ -959,23 +1012,31 @@ IF moteldeal_f1flag = 2
 		ENDWHILE
 
 
-		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2220.3696 -1160.3181 24.7265 grove1_f1 
+		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2220.3696 -1160.3181 24.7265 grove1_f1
+		SET_ANIM_GROUP_FOR_CHAR grove1_f1 gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove1_f1 272.7973 //leaning against middle car
 		TASK_PLAY_ANIM grove1_f1 IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
+		START_CHAR_FACIAL_TALK grove1_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
 		SET_CHAR_DECISION_MAKER grove1_f1 motel_DM
 		SET_CHAR_NEVER_TARGETTED grove1_f1 TRUE
 		WAIT 250
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.5642 -1160.3588 24.7265 grove2_f1
+		SET_ANIM_GROUP_FOR_CHAR grove2_f1 gang1 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove2_f1 85.7682 //opposite that guy
 		TASK_PLAY_ANIM grove2_f1 IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
+		START_CHAR_FACIAL_TALK grove2_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
 		SET_CHAR_DECISION_MAKER grove2_f1 motel_DM
 		SET_CHAR_NEVER_TARGETTED grove2_f1 TRUE
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove3_f1
-		SET_CHAR_HEADING grove3_f1 359.1032 //leaning against the left car 
+		SET_ANIM_GROUP_FOR_CHAR grove3_f1 gang1 // FIXEDGROVE: set intended animation group
+		SET_CHAR_HEADING grove3_f1 359.1032 //leaning against the left car
+		START_CHAR_FACIAL_TALK grove3_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
 		SET_CHAR_DECISION_MAKER grove3_f1 motel_DM
 		SET_CHAR_NEVER_TARGETTED grove3_f1 TRUE
 		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2226.3889 -1171.6877 24.7265 grove4_f1
+		SET_ANIM_GROUP_FOR_CHAR grove4_f1 gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove4_f1 278.7767 //next to him
+		START_CHAR_FACIAL_TALK grove4_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
 		TASK_PLAY_ANIM grove4_f1 IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
 		SET_CHAR_DECISION_MAKER grove4_f1 motel_DM
 		SET_CHAR_NEVER_TARGETTED grove4_f1 TRUE
@@ -2188,10 +2249,11 @@ IF moteldeal_f1flag = 24
 		SET_CHAR_NEVER_TARGETTED grove1_f1 TRUE
 		SET_CHAR_DECISION_MAKER grove1_f1 motel_DM
 		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove1_f1 motel_DM
+		SHUT_CHAR_UP grove1_f1 TRUE // FIXEDGROVE: added to stop him from speaking since he's supposed to be dead
 
 		LOAD_MISSION_AUDIO 1 SOUND_FIN1_JC //Where the OG’s at – I gotta go get my brother, Sweet.
-		LOAD_MISSION_AUDIO 2 SOUND_FIN1_AS //<loud explosion> Go Go Go!
-		LOAD_MISSION_AUDIO 3 SOUND_CEILING_VENT_OPEN
+		// LOAD_MISSION_AUDIO 2 SOUND_FIN1_AS //<loud explosion> Go Go Go! // FIXEDGROVE: now its handlded like every other voiceline
+		LOAD_MISSION_AUDIO 2 SOUND_CEILING_VENT_OPEN // FIXEDGROVE: changed slot from 3 to 2 since its not used anymore
 
 		REQUEST_ANIMATION SWAT
 		REQUEST_MODEL BFYPRO
@@ -2212,7 +2274,7 @@ IF moteldeal_f1flag = 24
 
 		WHILE NOT HAS_MISSION_AUDIO_LOADED 1
 			OR NOT HAS_MISSION_AUDIO_LOADED 2
-			OR NOT HAS_MISSION_AUDIO_LOADED 3
+			//OR NOT HAS_MISSION_AUDIO_LOADED 3 // FIXEDGROVE: removed since its not used anymore
 			WAIT 0
 		ENDWHILE
 
@@ -2241,6 +2303,7 @@ IF moteldeal_f1flag = 24
 
 		//sweet
 		CREATE_CHAR PEDTYPE_SPECIAL SPECIAL01 2202.23 -1156.914 1029.852 sweet
+		SET_ANIM_GROUP_FOR_CHAR sweet gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HAS_USED_ENTRY_EXIT sweet 2232.41 -1160.04 3.0
 		SET_CHAR_AREA_VISIBLE sweet 15
 		SET_CHAR_SUFFERS_CRITICAL_HITS sweet FALSE
@@ -2266,7 +2329,8 @@ IF moteldeal_f1flag = 24
 		SET_CHAR_ONLY_DAMAGED_BY_PLAYER woundedgrove1_f1 TRUE
 
 								
-		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2234.92 -1149.63 1029.0 grove2_f1 //explode this guys head as soon as created
+		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2234.79 -1150.714 1029.0 grove2_f1 //explode this guys head as soon as created // FIXEDGROVE: centered him in the hallway
+		SET_CHAR_HEADING grove2_f1 270.0 // FIXEDGROVE: make him turn towards the swat
 		SET_CHAR_DECISION_MAKER grove2_f1 motel_DM
 		SET_CHAR_HAS_USED_ENTRY_EXIT grove2_f1 2232.41 -1160.04 20.0
 
@@ -2300,13 +2364,15 @@ IF moteldeal_f1flag = 24
 
 		//grove controlled corner
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2244.5 -1189.627 1028.8 grove3_f1 //grove behind table
+		SET_ANIM_GROUP_FOR_CHAR grove3_f1 gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove3_f1 88.196
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove3_f1 TRUE
+		//SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove3_f1 TRUE // FIXEDGROVE: comment out since he's supposed to die
 		GIVE_WEAPON_TO_CHAR grove3_f1 WEAPONTYPE_PISTOL 9999
 		SET_CHAR_NEVER_TARGETTED grove3_f1 TRUE
+		SET_CHAR_HEALTH grove3_f1 50 // FIXEDGROVE: reduce his health
 		SET_CHAR_ACCURACY grove3_f1 10
 		SET_CHAR_RELATIONSHIP grove3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-		SET_CHAR_DECISION_MAKER grove3_f1 motel_DM
+		//SET_CHAR_DECISION_MAKER grove3_f1 motel_DM // FIXEDGROVE: comment out since this would cause him to stand still
 		SET_CHAR_HAS_USED_ENTRY_EXIT grove3_f1 2232.41 -1160.04 20.0
 
 		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2241.0503 -1192.3729 1028.7981 grove4_f1 //grove behind sofa facing first corridor
@@ -2437,8 +2503,9 @@ IF roofmotel_f1flag = 0
 				IF IS_CHAR_PLAYING_ANIM grove1_f1 Rail_fall
 					GET_CHAR_ANIM_CURRENT_TIME grove1_f1 Rail_fall playeranim_f1
 						IF playeranim_f1 = 1.0
+							SET_CHAR_COLLISION grove1_f1 FALSE // FIXEDGROVE: disable collision since he's offset from his actual position
 							TASK_PLAY_ANIM_NON_INTERRUPTABLE grove1_f1 Rail_fall_crawl SWAT 1000.0 FALSE FALSE FALSE TRUE -1
-							//TASK_PLAY_ANIM_WITH_FLAGS grove1_f1 Rail_fall_crawl SWAT 8.0 FALSE FALSE FALSE TRUE -1 FALSE TRUE
+							//TASK_PLAY_ANIM_WITH_FLAGS grove1_f1 Rail_fall_crawl SWAT 8.0 FALSE TRUE TRUE TRUE -1 TRUE TRUE
 							motelentrance_f1flag = 2
 						ENDIF
 				ENDIF
@@ -2553,7 +2620,7 @@ IF roofmotel_f1flag = 0
 					ENDIF
 
 					//2nd corridor
-					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2228.6072 -1189.7207 1028.7981 swat6_f1 //first trolley
+					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2228.6072 -1189.7207 1028.7981 swat6_f1 //first trolley // FIXEDGROVE: changed from mission1 to mission4 pedtype
 					SET_CHAR_HAS_USED_ENTRY_EXIT swat6_f1 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat6_f1 266.5963
 					GIVE_WEAPON_TO_CHAR swat6_f1 WEAPONTYPE_MP5 9999
@@ -2563,7 +2630,7 @@ IF roofmotel_f1flag = 0
 					SET_CHAR_MAX_HEALTH swat6_f1 150
 					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat6_f1 TRUE
 							
-					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2225.796 -1186.783 1028.7981 swat7_f1 //right door peek and shoot
+					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2225.796 -1186.783 1028.7981 swat7_f1 //right door peek and shoot // FIXEDGROVE: changed from mission1 to mission4 pedtype
 					SET_CHAR_HAS_USED_ENTRY_EXIT swat7_f1 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat7_f1 273.6395
 					GIVE_WEAPON_TO_CHAR swat7_f1 WEAPONTYPE_MP5 9999
@@ -2639,10 +2706,6 @@ IF roofmotel_f1flag = 0
 							SET_OBJECT_COLLISION breachdoor_f1 FALSE
 							BREAK_OBJECT breachdoor_f1 TRUE
 						ENDIF
-						IF missionaudio2_f1flag = 0
-							PLAY_MISSION_AUDIO 2
-							missionaudio2_f1flag = 1
-						ENDIF
 
 						PLAY_AND_KILL_FX_SYSTEM breachfx_f1
 						TASK_PLAY_ANIM swat3_f1 SWT_BREACH_01 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
@@ -2713,7 +2776,7 @@ IF roofmotel_f1flag = 0
 				IF NOT IS_CHAR_DEAD swat4_f1
 					GET_SCRIPT_TASK_STATUS swat4_f1 TASK_PLAY_ANIM swtbreach02_f1
 						IF swtbreach02_f1 = FINISHED_TASK
-						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat4_f1 scplayer 4.5 4.5 FALSE
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat4_f1 scplayer 3.5 3.5 FALSE // FIXEDGROVE: radius swapped with swat5 since he's closer
 							IF NOT IS_CHAR_DEAD grove4_f1
 								enemy_f1 = swat4_f1
 								enemytarget_f1 = scplayer
@@ -2728,10 +2791,10 @@ IF roofmotel_f1flag = 0
 				IF NOT IS_CHAR_DEAD swat5_f1
 					GET_SCRIPT_TASK_STATUS swat5_f1 TASK_PLAY_ANIM swtbreach03_f1
 						IF swtbreach03_f1 = FINISHED_TASK
-						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat5_f1 scplayer 3.5 3.5 FALSE
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat5_f1 scplayer 4.5 4.5 FALSE // FIXEDGROVE: radius swapped with swat4 since he's farther
 							enemy_f1 = swat5_f1
 							enemytarget_f1 = scplayer
-							GOSUB stayshoot_f1label
+							GOSUB stayshootnoduck_f1label // FIXEDGROVE: make him stand to match his anim
 							swat5_f1flag = 2
 						ENDIF
 				ENDIF
@@ -2894,7 +2957,7 @@ IF roofmotel_f1flag = 0
 				ENDIF
 
 				//create 1st vent setpiece guys
-				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2216.605 -1188.611 1032.27 swat12_f1
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.605 -1188.611 1032.27 swat12_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HAS_USED_ENTRY_EXIT swat12_f1 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat12_f1 264.4329 
 				GIVE_WEAPON_TO_CHAR swat12_f1 WEAPONTYPE_MP5 9999
@@ -2905,7 +2968,7 @@ IF roofmotel_f1flag = 0
 //				SET_CHAR_COLLISION swat12_f1 FALSE
 //				SET_CHAR_NEVER_TARGETTED swat12_f1 TRUE 
 
-				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2216.131 -1188.611 1032.27 swat13_f1
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.131 -1188.611 1032.27 swat13_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HAS_USED_ENTRY_EXIT swat13_f1 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat13_f1 264.4329
 				GIVE_WEAPON_TO_CHAR swat13_f1 WEAPONTYPE_MP5 9999
@@ -2925,9 +2988,10 @@ IF roofmotel_f1flag = 0
 				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat14_f1 TRUE
 				SET_CHAR_NEVER_TARGETTED swat14_f1 TRUE
 				SET_CHAR_HEALTH swat14_f1 1000
+				SET_CHAR_SUFFERS_CRITICAL_HITS swat14_f1 FALSE // FIXEDGROVE: added to avoid him bugging out
 
 				//right rollout guy in the final corridor
-				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2195.489 -1172.941 1029.859 swat15_f1
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2195.489 -1172.941 1029.859 swat15_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HAS_USED_ENTRY_EXIT swat15_f1 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat15_f1 181.323
 				GIVE_WEAPON_TO_CHAR swat15_f1 WEAPONTYPE_MP5 9999
@@ -2936,7 +3000,7 @@ IF roofmotel_f1flag = 0
 				SET_CHAR_HEALTH swat15_f1 120
 
 				//crouch behind trolley
-				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2191.987 -1165.214 1029.852 swat16_f1
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2191.987 -1165.214 1029.852 swat16_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HAS_USED_ENTRY_EXIT swat16_f1 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat16_f1 181.323
 				GIVE_WEAPON_TO_CHAR swat16_f1 WEAPONTYPE_MP5 9999
@@ -2946,7 +3010,7 @@ IF roofmotel_f1flag = 0
 				SET_CHAR_MAX_HEALTH swat16_f1 150
 
 				//roll left 
-				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2190.6977 -1156.633 1029.859 swat17_f1
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2190.6977 -1156.633 1029.859 swat17_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HAS_USED_ENTRY_EXIT swat17_f1 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat17_f1 189.575
 				GIVE_WEAPON_TO_CHAR swat17_f1 WEAPONTYPE_MP5 9999
@@ -2955,7 +3019,7 @@ IF roofmotel_f1flag = 0
 				SET_CHAR_ACCURACY swat17_f1 30
 
 				//guy shooting sweet
-				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2194.593 -1156.995 1029.852 swat18_f1
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2194.593 -1156.995 1029.852 swat18_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HAS_USED_ENTRY_EXIT swat18_f1 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat18_f1 275.754
 				GIVE_WEAPON_TO_CHAR swat18_f1 WEAPONTYPE_MP5 9999
@@ -2980,7 +3044,8 @@ IF roofmotel_f1flag = 0
 				IF DOES_OBJECT_EXIST skylite_f1
 					BREAK_OBJECT skylite_f1 TRUE
 				ENDIF
-				SHUT_CHAR_UP scplayer TRUE
+				// SHUT_CHAR_UP scplayer TRUE // FIXEDGROVE: this is a weird decision, was probably made to stop playor speech during scripted ones
+							 				  // but now its handled in a better way
 				swatwindosmash_f1flag = 1
 			ENDIF
 		ENDIF
@@ -3091,19 +3156,15 @@ IF roofmotel_f1flag = 0
 				IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2232.7 -1188.84 1029.4 5.0 5.0 3.5 FALSE
 				OR IS_CHAR_DEAD	swat6_f1
 				OR IS_CHAR_DEAD swat7_f1
-					SHUT_CHAR_UP scplayer FALSE
+					// SHUT_CHAR_UP scplayer FALSE // FIXEDGROVE: no longer needed since its never set in the first place
 					IF DOES_OBJECT_EXIST vent1_f1
 						FREEZE_OBJECT_POSITION vent1_f1 FALSE
 						SET_OBJECT_ROTATION_VELOCITY vent1_f1 0.0 0.6 0.0
-						ATTACH_MISSION_AUDIO_TO_OBJECT 3 vent1_f1
-						PLAY_MISSION_AUDIO 3
+						ATTACH_MISSION_AUDIO_TO_OBJECT 2 vent1_f1
+						PLAY_MISSION_AUDIO 2
 					ENDIF
 					IF NOT IS_CHAR_DEAD grove3_f1
-						CLEAR_CHAR_TASKS grove3_f1
-					ENDIF
-
-					IF missionaudio2_f1flag = 3
-						PLAY_MISSION_AUDIO 2 //get into positions
+						TASK_DIE grove3_f1 // FIXEGROVE: kill him so he doesnt stand around
 					ENDIF
 
 					vent1a_f1flag = 1
@@ -3390,97 +3451,93 @@ IF roofmotel_f1flag = 0
 					IF DOES_OBJECT_EXIST vent2_f1
 						FREEZE_OBJECT_POSITION vent2_f1 FALSE
 						SET_OBJECT_ROTATION_VELOCITY vent2_f1 0.0 0.8 0.0
-						ATTACH_MISSION_AUDIO_TO_OBJECT 3 vent2_f1
-						PLAY_MISSION_AUDIO 3
+						ATTACH_MISSION_AUDIO_TO_OBJECT 2 vent2_f1 // FIXEDGROVE: changed slot from 3 to 2
+						PLAY_MISSION_AUDIO 2 // FIXEDGORVE: changed slot from 3 to 2
 					ENDIF
 				swat14_f1flag = 1
 				ENDIF
 			ENDIF
 			
-			IF swat14_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat14_f1
+			// FIXEDGROVE: slight refactoring, also fixes a bug where swat14 would freeze if you shoot him while he was still in his 'entering' animation
+			IF NOT IS_CHAR_DEAD swat14_f1
+			AND NOT LOCATE_CHAR_ANY_MEANS_3D scplayer 2193.12 -1161.86 1029.61 2.8 2.8 3.0 FALSE
+			AND NOT HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat14_f1 scplayer
+				IF swat14_f1flag = 1
 					TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_in SWAT 1000.0 FALSE FALSE FALSE TRUE -1
 					swat14_f1flag = 2
 				ENDIF
-			ENDIF
 
-
-
-
-			IF swat14_f1flag = 2
-				IF NOT IS_CHAR_DEAD swat14_f1
+				IF swat14_f1flag = 2
 					IF IS_CHAR_PLAYING_ANIM swat14_f1 swt_vnt_sht_in
 						GET_CHAR_ANIM_CURRENT_TIME swat14_f1 swt_vnt_sht_in upsidedownswat_f1
-							IF upsidedownswat_f1 = 1.0
-								TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1
-								GET_CHAR_COORDINATES scplayer player_x player_y player_z
-								FIRE_SINGLE_BULLET 2193.268 -1165.441 1031.124 player_x player_y player_z 1
-								REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat14_f1 SOUND_MINITANK_FIRE
-								ADD_BIG_GUN_FLASH 2193.268 -1165.441 1031.124 player_x player_y player_z
-								SET_CHAR_NEVER_TARGETTED swat14_f1 FALSE
-								SET_CHAR_IS_TARGET_PRIORITY swat14_f1 TRUE
-								TIMERB = 1000 //0
-								swat14_f1flag = 3
-							ENDIF
+						IF upsidedownswat_f1 = 1.0
+							TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1
+							GET_CHAR_COORDINATES scplayer player_x player_y player_z
+							FIRE_SINGLE_BULLET 2193.300 -1165.308 1031.124 player_x player_y player_z 10 // FIXEDGROVE: increased damage and made coords more accurate
+							REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat14_f1 SOUND_MINITANK_FIRE
+							ADD_BIG_GUN_FLASH 2193.300 -1165.308 1031.124 player_x player_y player_z // FIXEDGROVE: made coords more accurate
+							SET_CHAR_NEVER_TARGETTED swat14_f1 FALSE
+							SET_CHAR_IS_TARGET_PRIORITY swat14_f1 TRUE
+							TIMERB = 1000 //0
+							swat14_f1flag = 3
+						ENDIF
 					ENDIF
 				ENDIF
-			ENDIF
-
-			IF swat14_f1flag = 3
-				IF TIMERB > 1000
-					IF NOT IS_CHAR_DEAD swat14_f1
+	
+				IF swat14_f1flag = 3
+					IF TIMERB > 750 // FIXEDGROVE: decreased timer a bit
 						IF IS_CHAR_PLAYING_ANIM swat14_f1 swt_vnt_sht_loop
 							GET_CHAR_ANIM_CURRENT_TIME swat14_f1 swt_vnt_sht_loop upsidedownswat_f1
-								IF upsidedownswat_f1 = 1.0 //= 1.0
-									TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1 //old line
-									//TASK_PLAY_ANIM_WITH_FLAGS swat14_f1 swt_vnt_sht_loop SWAT 8.0 FALSE FALSE FALSE TRUE -1 FALSE TRUE //new line
-									GET_CHAR_COORDINATES scplayer player_x player_y player_z
-									player_z = player_z + 0.5
-									//player_y = player_y + 0.0
-									FIRE_SINGLE_BULLET 2193.46 -1165.83 1031.55 player_x player_y player_z 3
-									REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat14_f1 SOUND_MINITANK_FIRE									 								
-									ADD_BIG_GUN_FLASH 2193.268 -1165.441 1031.124 player_x player_y player_z
-									TIMERB = 0
+							IF upsidedownswat_f1 = 1.0 //= 1.0
+								TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1 //old line
+								//TASK_PLAY_ANIM_WITH_FLAGS swat14_f1 swt_vnt_sht_loop SWAT 8.0 FALSE FALSE FALSE TRUE -1 FALSE TRUE //new line
+								GET_CHAR_COORDINATES scplayer player_x player_y player_z
+								// FIXEDGROVE: START - added ducking check to make shooting more accurate
+								IF IS_CHAR_DUCKING scplayer				
+									player_z -= 0.4
+								ELSE
+									player_z += 0.5
 								ENDIF
+								// FIXEDGROVE: END
+								//player_y = player_y + 0.0
+								FIRE_SINGLE_BULLET 2193.300 -1165.308 1031.124 player_x player_y player_z 20 // FIXEDGROVE: increased damage and made coords more accurate
+								REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat14_f1 SOUND_MINITANK_FIRE									 								
+								ADD_BIG_GUN_FLASH 2193.300 -1165.308 1031.124 player_x player_y player_z // FIXEDGROVE: made coords more accurate
+								TIMERB = 0
+							ENDIF
 						ENDIF
 					ENDIF
 				ENDIF
-			ENDIF
-			//dies if player walks past him
-			IF swat14_f1flag < 4
-				IF NOT IS_CHAR_DEAD swat14_f1
-					IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2193.12 -1161.86 1029.61 2.8 2.8 3.0 FALSE
-					OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat14_f1 scplayer
-						IF DOES_CHAR_EXIST swat14_f1
-							SET_CHAR_COLLISION swat14_f1 FALSE
-							SET_CHAR_COORDINATES swat14_f1 2193.129 -1164.661 1032.269
-							TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_die SWAT 1000.0 FALSE FALSE FALSE TRUE -1
-							SET_CHAR_NEVER_TARGETTED swat14_f1 TRUE
-						ENDIF
-						swat14_f1flag = 4
+			ELSE
+				IF DOES_CHAR_EXIST swat14_f1
+					//dies if player walks past him
+					IF swat14_f1flag < 4
+						SET_CHAR_COLLISION swat14_f1 FALSE
+						SET_CHAR_COORDINATES swat14_f1 2193.129 -1164.661 1032.269
+						TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_die SWAT 1000.0 FALSE FALSE FALSE TRUE -1
+						SET_CHAR_NEVER_TARGETTED swat14_f1 TRUE
+						swat14_f1flag = 4	
 					ENDIF
-				ENDIF
-			ENDIF
-			IF swat14_f1flag = 4
-				IF NOT IS_CHAR_DEAD swat14_f1
-					IF IS_CHAR_PLAYING_ANIM swat14_f1 swt_vnt_sht_die
-						GET_CHAR_ANIM_CURRENT_TIME swat14_f1 swt_vnt_sht_die upsidedownswat_f1
+
+					IF swat14_f1flag = 4
+						IF IS_CHAR_PLAYING_ANIM swat14_f1 swt_vnt_sht_die
+							GET_CHAR_ANIM_CURRENT_TIME swat14_f1 swt_vnt_sht_die upsidedownswat_f1
 							IF upsidedownswat_f1 = 1.0
 								swat14_f1flag = 5
 							ENDIF
+						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-			IF swat14_f1flag = 5
-				IF NOT IS_CHAR_DEAD swat14_f1
-					IF NOT IS_CHAR_ON_SCREEN swat14_f1
-					OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat14_f1 scplayer 5.0 5.0 FALSE
-						REMOVE_CHAR_ELEGANTLY swat14_f1
-						swat14_f1flag = 6
-					ENDIF
-				ENDIF
-			ENDIF
 
+					IF swat14_f1flag = 5
+						IF NOT IS_CHAR_ON_SCREEN swat14_f1
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat14_f1 scplayer 5.0 5.0 FALSE
+							REMOVE_CHAR_ELEGANTLY swat14_f1
+							swat14_f1flag = 6
+						ENDIF
+					ENDIF
+				ENDIF
+			ENDIF
+				
 			
 			//roll left 
 			IF swat17_f1flag = 0
@@ -3980,12 +4037,14 @@ IF roofmotel_f1flag = 0
 
 			GOSUB process_audio_f1
 			
+			// FIXEDGROVE: assigned speakers to the voicelines, moved 'Go go go!' and 'Get into positions' voicelines here for consistency and to add back subtitles
 			//play mission audio
 			IF progressaudio_f1flag = 0
 				IF handlingaudio_f1flag = 0
 					IF woundedgrove1_f1flag = 1
 						audio_label_f1 = SOUND_FIN1_JC	//Where the OG’s at – I gotta go get my brother, Sweet.
 						$input_text_f1 = FIN1_JC	//Where the OG’s at – I gotta go get my brother, Sweet.
+						speaker_f1 = scplayer
 						GOSUB load_audio_f1
 					ENDIF
 				ENDIF
@@ -3996,16 +4055,41 @@ IF roofmotel_f1flag = 0
 						attachaudio_f1flag = 1						
 						audio_label_f1 = SOUND_FIN1_JD	//They were meeting in the back of the motel someplace…
 						$input_text_f1 = FIN1_JD //They were meeting in the back of the motel someplace…
+						speaker_f1 = woundedgrove1_f1
+						GOSUB load_audio_f1
+					ENDIF
+				ENDIF
+			ENDIF
+
+			ENDIF
+
+			IF breach_f1flag > 2
+				IF progressaudio_f1flag = 2
+					IF handlingaudio_f1flag = 0
+						audio_label_f1 = SOUND_FIN1_AS // <loud explosion> Go Go Go!
+						$input_text_f1 = FIN1_AS // <loud explosion> Go Go Go!
+						speaker_f1 = swat3_f1
 						GOSUB load_audio_f1
 					ENDIF
 				ENDIF
 			ENDIF
 
 			IF swatwindosmash_f1flag > 0
-				IF progressaudio_f1flag = 2
+				IF progressaudio_f1flag = 3
 					IF handlingaudio_f1flag = 0
 						audio_label_f1 = SOUND_FIN1_JF	//Families! Cops comin’ in behind!
 						$input_text_f1 = FIN1_JF	//Families! Cops comin’ in behind!
+						speaker_f1 = scplayer
+						GOSUB load_audio_f1
+					ENDIF
+				ENDIF
+
+			IF vent1a_f1flag > 0
+				IF progressaudio_f1flag = 4
+					IF handlingaudio_f1flag = 0 
+						audio_label_f1 = SOUND_FIN1_AE	//Get into positions!
+						$input_text_f1 = FIN1_AE	//Get into positions!
+						speaker_f1 = swat12_f1
 						GOSUB load_audio_f1
 					ENDIF
 				ENDIF
@@ -4013,10 +4097,11 @@ IF roofmotel_f1flag = 0
 
 			//corner where swat run down stairs
 			IF swat8_f1flag > 0
-				IF progressaudio_f1flag = 3
+				IF progressaudio_f1flag = 5
 					IF handlingaudio_f1flag = 0
 						audio_label_f1 = SOUND_FIN1_BD	//Get some suppressing fire in there!
 						$input_text_f1 = FIN1_BD	//Get some suppressing fire in there!
+						speaker_f1 = swat8_f1
 						GOSUB load_audio_f1
 					ENDIF
 				ENDIF
@@ -4024,35 +4109,23 @@ IF roofmotel_f1flag = 0
 
 			//upside down guy
 			IF swat14_f1flag > 0
-				IF progressaudio_f1flag = 4
+				IF progressaudio_f1flag = 6
 					IF handlingaudio_f1flag = 0
 						audio_label_f1 = SOUND_FIN1_CK	//Unit down, repeat, unit down!
 						$input_text_f1 = FIN1_CK	//Unit down, repeat, unit down!
+						speaker_f1 = swat14_f1
 						GOSUB load_audio_f1
 					ENDIF
 				ENDIF
 			ENDIF
-			IF progressaudio_f1flag = 5
+			IF progressaudio_f1flag = 7
 				IF handlingaudio_f1flag = 0
 					audio_label_f1 = SOUND_FIN1_BE	//Gimme some fucking covering fire!
 					$input_text_f1 = FIN1_BE	//Gimme some fucking covering fire!
+					speaker_f1 = swat14_f1
 					GOSUB load_audio_f1
 				ENDIF
 			ENDIF
-
-			IF missionaudio2_f1flag = 1
-				IF HAS_MISSION_AUDIO_FINISHED 2
-					CLEAR_MISSION_AUDIO 2
-					LOAD_MISSION_AUDIO 2 SOUND_FIN1_AE	//Get into positions!
-					missionaudio2_f1flag = 2
-				ENDIF
-			ENDIF
-			IF missionaudio2_f1flag = 2
-				IF HAS_MISSION_AUDIO_LOADED 2
-					missionaudio2_f1flag = 3
-				ENDIF
-			ENDIF
-
 		ENDIF
 
 		
@@ -4683,11 +4756,13 @@ IF roofmotel_f1flag > 1
 			IF roofmotel_f1flag = 2
 				IF NOT IS_CAR_DEAD extpoliceheli_f1
 
+					// FIXEDGROVE: asigned speakers
 					IF progressaudio_f1flag = 0
 						IF handlingaudio_f1flag = 0
 							IF sweetexit_f1flag > 11
 								audio_label_f1 = SOUND_FIN1_JM	//CJ, dump on that helicopter!
 								$input_text_f1 = FIN1_JM	//CJ, dump on that helicopter!
+								speaker_f1 = sweet
 								GOSUB load_audio_f1
 							ENDIF
 						ENDIF
@@ -4697,6 +4772,7 @@ IF roofmotel_f1flag > 1
 						IF handlingaudio_f1flag = 0
 							audio_label_f1 = SOUND_FIN1_BY //This is Buzzard 1, we are taking ground fire!
 							$input_text_f1 = FIN1_BY //This is Buzzard 1, we are taking ground fire!
+							speaker_f1 = exthelidriver_f1
 							GOSUB load_audio_f1
 						ENDIF
 					ENDIF
@@ -4706,11 +4782,11 @@ IF roofmotel_f1flag > 1
 							IF sweetexit_f1flag > 14
 								audio_label_f1 = SOUND_FIN1_JL	//CJ, that chopper’s all over us! Hit it!
 								$input_text_f1 = FIN1_JL	//CJ, that chopper’s all over us! Hit it!
+								speaker_f1 = sweet
 								GOSUB load_audio_f1
 							ENDIF
 						ENDIF
 					ENDIF
-
 				ENDIF
 			ENDIF
 
@@ -4720,6 +4796,7 @@ IF roofmotel_f1flag > 1
 						IF handlingaudio_f1flag = 0
 							audio_label_f1 = SOUND_FIN1_JN	//C’mon, CJ, let’s go!
 							$input_text_f1 = FIN1_JN //C’mon, CJ, let’s go!
+							speaker_f1 = sweet
 							GOSUB load_audio_f1
 						ENDIF
 					ENDIF
@@ -5040,11 +5117,13 @@ IF rails_f1flag = 5
 		IF NOT IS_CHAR_DEAD ryder
 			IF NOT IS_CHAR_DEAD big_smoke
 				IF NOT IS_CHAR_DEAD sweet
-					IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR	sweet_car
-						IF HAS_MISSION_AUDIO_LOADED 1
-							IF HAS_MISSION_AUDIO_FINISHED 2
-								STOP_CHAR_FACIAL_TALK scplayer
-								CLEAR_MISSION_AUDIO 2
+					// FIXEDGROVE: START - moved this check here to make the facial anim sync with the voiceline
+					IF HAS_MISSION_AUDIO_FINISHED 2
+						STOP_CHAR_FACIAL_TALK scplayer
+						CLEAR_MISSION_AUDIO 2
+					// FIXEDGROVE: END
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR	sweet_car
+							IF HAS_MISSION_AUDIO_LOADED 1
 								CLEAR_PRINTS
 								LOAD_MISSION_AUDIO 2 SOUND_FIN1_KE //Hit the gas!
 								PLAY_MISSION_AUDIO 1 //FIN1_KC //Get in!
@@ -5797,10 +5876,12 @@ IF textrails_f1flag = 1
 	//dialogue
 	GOSUB process_audio_f1
 
+	// FIXEDGROVE: assigned speakers
 	IF progressaudio_f1flag = 0
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_KF	//Eh man, I’m running low.
 			$input_text_f1 = FIN1_KF //Eh man, I’m running low.
+			speaker_f1 = scplayer
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -5808,6 +5889,7 @@ IF textrails_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_KG	//I got a ‘K here!
 			$input_text_f1 = FIN1_KG //I got a ‘K here!
+			speaker_f1 = ryder
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -5815,6 +5897,7 @@ IF textrails_f1flag = 1
 		IF handlingaudio_f1flag = 0
 			audio_label_f1 = SOUND_FIN1_KH //This is a fucking antique!
 			$input_text_f1 = FIN1_KH //This is a fucking antique!
+			speaker_f1 = 0
 			GOSUB load_audio_f1
 		ENDIF
 	ENDIF
@@ -6719,8 +6802,8 @@ IF NOT IS_CAR_DEAD sweet_car
 		IF actiontext_f1flag = 5
 			IF progressaudio_f1flag = 10
 				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_KS //Hey, CJ, watch to the left!
-					$input_text_f1 = FIN1_KS //Hey, CJ, watch to the left!
+					audio_label_f1 = SOUND_FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
+					$input_text_f1 = FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
 					GOSUB load_audio_f1
 				ENDIF
 			ENDIF
@@ -6735,15 +6818,15 @@ IF NOT IS_CAR_DEAD sweet_car
 
 		IF progressaudio_f1flag = 11
 			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LQ	//Hey, ain’t we been here before?
-				$input_text_f1 = FIN1_LQ	//Hey, ain’t we been here before?
+				audio_label_f1 = SOUND_FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
+				$input_text_f1 = FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
 				GOSUB load_audio_f1
 			ENDIF
 		ENDIF
 		IF progressaudio_f1flag = 12
 			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LT	//Hey, I’m taking what options I have, a’ight?
-				$input_text_f1 = FIN1_LT	//Hey, I’m taking what options I have, a’ight?
+				audio_label_f1 = SOUND_FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
+				$input_text_f1 = FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
 				GOSUB load_audio_f1
 			ENDIF
 		ENDIF
@@ -6889,12 +6972,28 @@ IF NOT IS_CAR_DEAD sweet_car
 		IF sca_f1flag = 1
 			IF NOT IS_CAR_DEAD policecar1_f1
 				IF LOCATE_CAR_2D policecar1_f1 2566.12 -1322.35 1.5 1.5 FALSE
+					// FIXEDGROVE: START - break all the scaffoldings the original script didn't
+					IF DOES_OBJECT_EXIST sca1_f1
+						BREAK_OBJECT sca1_f1 TRUE
+					ENDIF
+					// FIXEDGROVE: END
 					IF DOES_OBJECT_EXIST sca2_f1
 						BREAK_OBJECT sca2_f1 TRUE
 					ENDIF
 					IF DOES_OBJECT_EXIST sca3_f1
 						BREAK_OBJECT sca3_f1 TRUE
 					ENDIF
+					// FIXEDGROVE: START - break all the scaffoldings the original script didn't
+					IF DOES_OBJECT_EXIST sca4_f1
+						BREAK_OBJECT sca4_f1 TRUE
+					ENDIF
+					IF DOES_OBJECT_EXIST sca5_f1
+						BREAK_OBJECT sca5_f1 TRUE
+					ENDIF
+					IF DOES_OBJECT_EXIST sca6_f1
+						BREAK_OBJECT sca6_f1 TRUE
+					ENDIF
+					// FIXEDGROVE: END
 					sca_f1flag = 2
 				ENDIF
 			ENDIF
@@ -7141,20 +7240,22 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_OBJECT_HEADING fence2_f1 90.0
 				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1461.021 25.328 fence3_f1 
 				SET_OBJECT_HEADING fence3_f1 90.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1456.353 25.328 fence4_f1 
-//				SET_OBJECT_HEADING fence4_f1 90.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1451.713 25.328 fence5_f1 
-//				SET_OBJECT_HEADING fence5_f1 90.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1447.041 25.328 fence6_f1 
-//				SET_OBJECT_HEADING fence6_f1 90.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1442.374 25.328 fence7_f1
-//				SET_OBJECT_HEADING fence7_f1 90.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1437.707 25.328 fence8_f1 
-//				SET_OBJECT_HEADING fence8_f1 90.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1433.04 25.328 fence9_f1 
-//				SET_OBJECT_HEADING fence9_f1 90.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1428.399 25.328 fence10_f1 
-//				SET_OBJECT_HEADING fence10_f1 90.0
+				// FIXEDGROVE: START - add back commented fences
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1456.353 25.328 fence4_f1 
+				SET_OBJECT_HEADING fence4_f1 90.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1451.713 25.328 fence5_f1 
+				SET_OBJECT_HEADING fence5_f1 90.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1447.041 25.328 fence6_f1 
+				SET_OBJECT_HEADING fence6_f1 90.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1442.374 25.328 fence7_f1
+				SET_OBJECT_HEADING fence7_f1 90.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1437.707 25.328 fence8_f1 
+				SET_OBJECT_HEADING fence8_f1 90.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1433.04 25.328 fence9_f1 
+				SET_OBJECT_HEADING fence9_f1 90.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1428.399 25.328 fence10_f1 
+				SET_OBJECT_HEADING fence10_f1 90.0
+				// FIXEDGROVE: END
 //				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1423.737 25.328 fence11_f1 
 //				SET_OBJECT_HEADING fence11_f1 90.0
 //				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2167.763 -1419.096 25.328 fence12_f1 
@@ -7166,25 +7267,27 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_OBJECT_HEADING fence2l_f1 270.0
 				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1461.021 25.328 fence3l_f1 
 				SET_OBJECT_HEADING fence3l_f1 270.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1456.353 25.328 fence4l_f1 
-//				SET_OBJECT_HEADING fence4l_f1 270.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1451.713 25.328 fence5l_f1 
-//				SET_OBJECT_HEADING fence5l_f1 270.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1447.041 25.328 fence6l_f1 
-//				SET_OBJECT_HEADING fence6l_f1 270.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1442.374 25.328 fence7l_f1
-//				SET_OBJECT_HEADING fence7l_f1 270.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1437.707 25.328 fence8l_f1 
-//				SET_OBJECT_HEADING fence8l_f1 270.0
-//				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1433.04 25.328 fence9l_f1 
-//				SET_OBJECT_HEADING fence9l_f1 270.0
+				// FIXEDGROVE: START - add back commented fences
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1456.353 25.328 fence4l_f1 
+				SET_OBJECT_HEADING fence4l_f1 270.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1451.713 25.328 fence5l_f1 
+				SET_OBJECT_HEADING fence5l_f1 270.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1447.041 25.328 fence6l_f1 
+				SET_OBJECT_HEADING fence6l_f1 270.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1442.374 25.328 fence7l_f1
+				SET_OBJECT_HEADING fence7l_f1 270.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1437.707 25.328 fence8l_f1 
+				SET_OBJECT_HEADING fence8l_f1 270.0
+				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1433.04 25.328 fence9l_f1 
+				SET_OBJECT_HEADING fence9l_f1 270.0
+				// FIXEDGROVE: END
 //				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1428.399 25.328 fence10l_f1 
 //				SET_OBJECT_HEADING fence10l_f1 270.0
 //				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1423.737 25.328 fence11l_f1 
 //				SET_OBJECT_HEADING fence11l_f1 270.0
 //				CREATE_OBJECT_NO_OFFSET Wd_Fence_Anim 2174.328 -1419.096 25.328 fence12l_f1 
 //				SET_OBJECT_HEADING fence12l_f1 270.0
-//
+
 				copcars_f1flag = 6
 			ENDIF
 		ENDIF 
@@ -7306,62 +7409,64 @@ IF NOT IS_CAR_DEAD sweet_car
 					fence_f1flag = 3
 				ENDIF
 			ENDIF
+			
+			// FIXEDGROVE: START - add back commented fences
+			IF fence_f1flag = 3
+				IF TIMERA > 16099
+					PLAY_OBJECT_ANIM fence4_f1 Fen_Choppa_R2 MD_CHASE 1000.0 FALSE TRUE
+					PLAY_OBJECT_ANIM fence4l_f1 Fen_Choppa_L2 MD_CHASE 1000.0 FALSE TRUE
+					fence_f1flag = 4
+				ENDIF
+			ENDIF
 
-//			IF fence_f1flag = 3
-//				IF TIMERA > 16099
-////					PLAY_OBJECT_ANIM fence4_f1 Fen_Choppa_R2 MD_CHASE 1000.0 FALSE TRUE
-////					PLAY_OBJECT_ANIM fence4l_f1 Fen_Choppa_L2 MD_CHASE 1000.0 FALSE TRUE
-//					fence_f1flag = 4
-//				ENDIF
-//			ENDIF
-//
-//			IF fence_f1flag = 4
-//				IF TIMERA > 16666
-////					PLAY_OBJECT_ANIM fence5_f1 Fen_Choppa_R1 MD_CHASE 1000.0 FALSE TRUE
-////					PLAY_OBJECT_ANIM fence5l_f1 Fen_Choppa_L3 MD_CHASE 1000.0 FALSE TRUE
-//					fence_f1flag = 5
-//				ENDIF
-//			ENDIF
-//
-//			IF fence_f1flag = 5
-//				IF TIMERA > 17466
-////					PLAY_OBJECT_ANIM fence6_f1 Fen_Choppa_R3 MD_CHASE 1000.0 FALSE TRUE
-////					PLAY_OBJECT_ANIM fence6l_f1 Fen_Choppa_L1 MD_CHASE 1000.0 FALSE TRUE
-//					fence_f1flag = 6
-//				ENDIF
-//			ENDIF
-//
-//			IF fence_f1flag = 6
-//				IF TIMERA > 18266
-////					PLAY_OBJECT_ANIM fence7_f1 Fen_Choppa_R1 MD_CHASE 1000.0 FALSE TRUE
-////					PLAY_OBJECT_ANIM fence7l_f1 Fen_Choppa_L2 MD_CHASE 1000.0 FALSE TRUE
-//					fence_f1flag = 7
-//				ENDIF
-//			ENDIF 
-//
-//			IF fence_f1flag = 7
-//				IF TIMERA > 18899
-////					PLAY_OBJECT_ANIM fence8_f1 Fen_Choppa_R2 MD_CHASE 1000.0 FALSE TRUE
-////					PLAY_OBJECT_ANIM fence8l_f1 Fen_Choppa_L3 MD_CHASE 1000.0 FALSE TRUE
-//					fence_f1flag = 8
-//				ENDIF
-//			ENDIF
-//
-//			IF fence_f1flag = 8
-//				IF TIMERA > 19467
-////					PLAY_OBJECT_ANIM fence9_f1 Fen_Choppa_R3 MD_CHASE 1000.0 FALSE TRUE
-////					PLAY_OBJECT_ANIM fence9l_f1 Fen_Choppa_L1 MD_CHASE 1000.0 FALSE TRUE
-//					fence_f1flag = 9
-//				ENDIF
-//			ENDIF
-// 
-//			IF fence_f1flag = 9
-//				IF TIMERA > 20032
-////					PLAY_OBJECT_ANIM fence10_f1 Fen_Choppa_R1 MD_CHASE 1000.0 FALSE TRUE
+			IF fence_f1flag = 4
+				IF TIMERA > 16666
+					PLAY_OBJECT_ANIM fence5_f1 Fen_Choppa_R1 MD_CHASE 1000.0 FALSE TRUE
+					PLAY_OBJECT_ANIM fence5l_f1 Fen_Choppa_L3 MD_CHASE 1000.0 FALSE TRUE
+					fence_f1flag = 5
+				ENDIF
+			ENDIF
+
+			IF fence_f1flag = 5
+				IF TIMERA > 17466
+					PLAY_OBJECT_ANIM fence6_f1 Fen_Choppa_R3 MD_CHASE 1000.0 FALSE TRUE
+					PLAY_OBJECT_ANIM fence6l_f1 Fen_Choppa_L1 MD_CHASE 1000.0 FALSE TRUE
+					fence_f1flag = 6
+				ENDIF
+			ENDIF
+
+			IF fence_f1flag = 6
+				IF TIMERA > 18266
+					PLAY_OBJECT_ANIM fence7_f1 Fen_Choppa_R1 MD_CHASE 1000.0 FALSE TRUE
+					PLAY_OBJECT_ANIM fence7l_f1 Fen_Choppa_L2 MD_CHASE 1000.0 FALSE TRUE
+					fence_f1flag = 7
+				ENDIF
+			ENDIF 
+
+			IF fence_f1flag = 7
+				IF TIMERA > 18899
+					PLAY_OBJECT_ANIM fence8_f1 Fen_Choppa_R2 MD_CHASE 1000.0 FALSE TRUE
+					PLAY_OBJECT_ANIM fence8l_f1 Fen_Choppa_L3 MD_CHASE 1000.0 FALSE TRUE
+					fence_f1flag = 8
+				ENDIF
+			ENDIF
+
+			IF fence_f1flag = 8
+				IF TIMERA > 19467
+					PLAY_OBJECT_ANIM fence9_f1 Fen_Choppa_R3 MD_CHASE 1000.0 FALSE TRUE
+					PLAY_OBJECT_ANIM fence9l_f1 Fen_Choppa_L1 MD_CHASE 1000.0 FALSE TRUE
+					fence_f1flag = 9
+				ENDIF
+			ENDIF
+			// FIXEDGROVE: END
+
+			IF fence_f1flag = 9
+				IF TIMERA > 20032
+					PLAY_OBJECT_ANIM fence10_f1 Fen_Choppa_R1 MD_CHASE 1000.0 FALSE TRUE
 ////					PLAY_OBJECT_ANIM fence10l_f1 Fen_Choppa_L3 MD_CHASE 1000.0 FALSE TRUE
 //					fence_f1flag = 10
-//				ENDIF
-//			ENDIF
+				ENDIF
+			ENDIF
 //
 //			IF fence_f1flag = 10
 //				IF TIMERA > 20866
@@ -7498,13 +7603,13 @@ IF NOT IS_CAR_DEAD sweet_car
 					DELETE_OBJECT fence_f1  
 					DELETE_OBJECT fence2l_f1 
 					DELETE_OBJECT fence3l_f1 
-//					DELETE_OBJECT fence4l_f1 
-//					DELETE_OBJECT fence5l_f1 
+					DELETE_OBJECT fence4l_f1 // FIXEDGROVE: add back commented fences
+					DELETE_OBJECT fence5l_f1 // FIXEDGROVE: add back commented fences
 					DELETE_OBJECT fencel_f1  
 					DELETE_OBJECT fence2l_f1 
 					DELETE_OBJECT fence3l_f1 
-//					DELETE_OBJECT fence4l_f1 
-//					DELETE_OBJECT fence5l_f1 
+					DELETE_OBJECT fence4l_f1 // FIXEDGROVE: add back commented fences
+					DELETE_OBJECT fence5l_f1 // FIXEDGROVE: add back commented fences
 					helisetpiece_f1flag = 4
 				ENDIF
 			ENDIF
@@ -7525,9 +7630,10 @@ IF NOT IS_CAR_DEAD sweet_car
 					SET_OBJECT_DYNAMIC head_f1 TRUE
 					SET_OBJECT_ROTATION head_f1 0.5 0.2 -0.1
 					PLAY_AND_KILL_FX_SYSTEM bloodfx3_f1
-					IF NOT IS_CAR_DEAD extpoliceheli_f1
-						STOP_PLAYBACK_RECORDED_CAR extpoliceheli_f1
-					ENDIF
+					// FIXEDGROVE: comment out to prevent heli from going limp
+//					IF NOT IS_CAR_DEAD extpoliceheli_f1
+//						STOP_PLAYBACK_RECORDED_CAR extpoliceheli_f1
+//					ENDIF
 					helisetpiece_f1flag = 5
 				ENDIF
 			ENDIF
@@ -8284,7 +8390,7 @@ ENDIF
 IF helisetpiece_f1flag = 9
 	IF TIMERA > 500
 		IF NOT IS_CAR_DEAD sweet_car
-//			POP_CAR_PANEL sweet_car FRONT_RIGHT_PANEL TRUE
+			//POP_CAR_PANEL sweet_car FRONT_RIGHT_PANEL TRUE
 			POP_CAR_PANEL sweet_car REAR_BUMPER TRUE
 			SET_CAR_PROOFS sweet_car TRUE TRUE TRUE TRUE TRUE
 			IF NOT IS_CAR_DEAD trailer_f1
@@ -8312,16 +8418,19 @@ IF helisetpiece_f1flag = 10
 			SET_NEAR_CLIP 0.1
 
 			CREATE_CHAR PEDTYPE_SPECIAL SPECIAL01 2168.479 -1506.067 24.0 sweet
+			SET_ANIM_GROUP_FOR_CHAR sweet gang2 // FIXEDGROVE: set intended animation group
 			SET_CHAR_HEADING sweet 135.0
 			SET_CHAR_DECISION_MAKER sweet motel_DM
 			SET_CHAR_PROOFS sweet TRUE TRUE TRUE TRUE TRUE
 
 			CREATE_CHAR PEDTYPE_SPECIAL SPECIAL02 2168.992 -1508.601 24.0 big_smoke
+			SET_ANIM_GROUP_FOR_CHAR big_smoke fatman // FIXEDGROVE: set intended animation group
 			SET_CHAR_HEADING big_smoke 45.0
 			SET_CHAR_DECISION_MAKER big_smoke motel_DM
 			SET_CHAR_PROOFS big_smoke TRUE TRUE TRUE TRUE TRUE
 
 			CREATE_CHAR PEDTYPE_SPECIAL SPECIAL03 2167.054 -1507.7 24.0 ryder
+			SET_ANIM_GROUP_FOR_CHAR ryder gang1 // FIXEDGROVE: set intended animation group
 			SET_CHAR_HEADING ryder 290.0
 			SET_CHAR_DECISION_MAKER ryder motel_DM
 			SET_CHAR_PROOFS ryder TRUE TRUE TRUE TRUE TRUE
@@ -8675,6 +8784,14 @@ IF handlingaudio_f1flag = 1
 			ENDIF
 		ENDIF
 		PLAY_MISSION_AUDIO 1
+
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD speaker_f1
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH speaker_f1 TRUE
+			START_CHAR_FACIAL_TALK speaker_f1 10000
+		ENDIF
+		// FIXEDGROVE: END
+
 		handlingaudio_f1flag = 2
 	ENDIF
 ENDIF
@@ -8683,6 +8800,14 @@ IF handlingaudio_f1flag = 2
 		progressaudio_f1flag++
 		CLEAR_MISSION_AUDIO 1
 		CLEAR_PRINTS
+
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD speaker_f1
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH speaker_f1 FALSE
+			STOP_CHAR_FACIAL_TALK speaker_f1
+		ENDIF
+		// FIXEDGROVE: END
+
 		handlingaudio_f1flag = 0
 	ENDIF
 ENDIF
@@ -8804,6 +8929,12 @@ RETURN
 
 mission_drugs4_failed:
 PRINT_BIG ( M_FAIL ) 5000 1 //"Mission Failed"
+// FIXEDGROVE: START - give 4 stars if the player fails the mission after arriving to the motel
+IF moteldeal_f1flag > 0
+	SET_MAX_WANTED_LEVEL 4
+	ALTER_WANTED_LEVEL player1 4
+ENDIF
+// FIXEDGROVE: END
 DELETE_OBJECT advert_f1
 CREATE_OBJECT_NO_OFFSET md_poster 2167.82 -1518.193 20.237 advert_f1
 SET_OBJECT_HEADING advert_f1 0.0
@@ -8830,6 +8961,38 @@ RETURN
 		
 // FIXEDGROVE: ************************** recreate global objects subroutine *************
 recreate_g_objects_f1:
+
+// delete the mission-specific objects to prevent duplication
+IF DOES_OBJECT_EXIST skylite_f1
+	DELETE_OBJECT skylite_f1
+ENDIF
+IF DOES_OBJECT_EXIST vent1_f1
+	DELETE_OBJECT vent1_f1
+ENDIF
+IF DOES_OBJECT_EXIST vent2_f1
+	DELETE_OBJECT vent2_f1
+ENDIF
+IF DOES_OBJECT_EXIST trolley1_f1
+	DELETE_OBJECT trolley1_f1
+ENDIF
+IF DOES_OBJECT_EXIST trolley2_f1
+	DELETE_OBJECT trolley2_f1
+ENDIF
+IF DOES_OBJECT_EXIST trolley3_f1
+	DELETE_OBJECT trolley3_f1
+ENDIF
+IF DOES_OBJECT_EXIST trolley4_f1
+	DELETE_OBJECT trolley4_f1
+ENDIF
+IF DOES_OBJECT_EXIST trolley5_f1
+	DELETE_OBJECT trolley5_f1
+ENDIF
+IF DOES_OBJECT_EXIST trolley6_f1
+	DELETE_OBJECT trolley6_f1
+ENDIF
+IF DOES_OBJECT_EXIST trolley7_f1
+	DELETE_OBJECT trolley7_f1
+ENDIF
 
 // skylight
 CREATE_OBJECT_NO_OFFSET imy_skylight 2246.07 -1191.242 1037.234 g_skylite
@@ -8978,7 +9141,8 @@ REMOVE_BLIP policecar8_f1blip
 IF IS_PLAYER_PLAYING PLAYER1
 	SET_PLAYER_DUCK_BUTTON PLAYER1 TRUE
 	SET_PLAYER_FIRE_BUTTON PLAYER1 TRUE
-	SHUT_CHAR_UP scplayer FALSE
+	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE: changed from SHUT_CHAR_UP
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
 	//SET_PLAYER_FAST_RELOAD PLAYER1 FALSE
 	//Interior
 ENDIF
