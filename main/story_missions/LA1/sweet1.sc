@@ -1042,7 +1042,7 @@ WHILE NOT IS_CHAR_IN_CAR scplayer sweet_car
 
 ENDWHILE
 
-
+tag_cutscene_skipped = 0 // FIXEDGROVE
 added_sweet1_blip = 0
 help_for_tagging = 0
 TIMERA = 0
@@ -1881,6 +1881,8 @@ DO_FADE 1000 FADE_IN
 
 WAIT 700
 
+SKIP_CUTSCENE_START // FIXEDGROVE
+
 Retured_anim_time = 0.0
 
 sweet1_cutscene_flag = 0
@@ -2012,6 +2014,17 @@ WHILE NOT sweet1_index = 7 //I’ll catch you later.
 ENDWHILE
 
 WAIT 1500
+
+// FIXEDGROVE: START
+tag_cutscene_skipped = 1
+SKIP_CUTSCENE_END
+
+IF tag_cutscene_skipped = 0
+	CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
+	STOP_CHAR_FACIAL_TALK scplayer
+	CLEAR_PRINTS
+ENDIF
+// FIXEDGROVE: END
 
 CLEAR_LOOK_AT scplayer
 
