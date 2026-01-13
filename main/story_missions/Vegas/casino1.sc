@@ -1022,24 +1022,29 @@ IF ca1_stage = 3
 				IF IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER1
 					GET_CAR_HEADING ca1_truck ca1_truck_h_end
 					ca1_truck_h_add = ca1_truck_h_end - ca1_truck_h_start
+					// FIXEDGROVE: START - handle crossing 0/360 degrees
+					IF ca1_truck_h_add > 180.0
+            			ca1_truck_h_add -= 360.0
+        			ENDIF
+        			IF ca1_truck_h_add < -180.0
+            			ca1_truck_h_add += 360.0
+        			ENDIF
+					// FIXEDGROVE: END
 					ca1_truck_h_diff += ca1_truck_h_add
 					GET_CAR_HEADING ca1_truck ca1_truck_h_start
 				ENDIF
 				IF NOT IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER1
 					
-					IF ca1_truck_h_diff < 0.0
-						ca1_truck_h_diff += 360.0
-					ENDIF
-					IF ca1_truck_h_diff > 0.0
-						IF ca1_truck_h_diff > 14.0
-						AND ca1_truck_h_diff < 210.0
-							ca1_spooked += 7
-						ELSE
-							IF ca1_truck_h_diff > 90.0
-							AND ca1_truck_h_diff < 270.0
-								ca1_spooked += 3
-							ENDIF	
-						ENDIF
+					ABS ca1_truck_h_diff // FIXEDGROVE: calculate absolute value
+
+					IF ca1_truck_h_diff > 14.0
+					AND ca1_truck_h_diff < 210.0
+						ca1_spooked += 7
+					ELSE
+						IF ca1_truck_h_diff > 90.0
+						AND ca1_truck_h_diff < 270.0
+							ca1_spooked += 3
+						ENDIF	
 					ENDIF
 					ca1_handbrake = 0
 				ENDIF
