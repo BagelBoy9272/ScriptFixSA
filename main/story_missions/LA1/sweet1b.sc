@@ -354,16 +354,7 @@ OR NOT LOCATE_CHAR_ANY_MEANS_CHAR_3D ryder scplayer 30.0 30.0 8.0 FALSE
 	IF new_visible_area	= 0
 		IF NOT IS_CHAR_DEAD	ryder
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D ryder scplayer 10.0 10.0 8.0 FALSE
-				IF IS_CHAR_ON_FOOT scplayer
-				AND IS_CHAR_ON_FOOT	ryder
-					GOSUB load_and_play_audio_sweet1b
-				ENDIF	
-				IF NOT IS_CHAR_DEAD	ryder
-					IF IS_CHAR_IN_ANY_CAR scplayer
-					AND IS_CHAR_IN_ANY_CAR ryder
-						GOSUB load_and_play_audio_sweet1b
-					ENDIF
-				ENDIF
+				GOSUB load_and_play_audio_sweet1b
 			ENDIF
 		ENDIF
 	ENDIF
@@ -1178,16 +1169,9 @@ OR NOT LOCATE_CHAR_ANY_MEANS_CHAR_3D ryder scplayer 30.0 30.0 8.0 FALSE
 
 	IF TIMERB > 5000
 		IF LOCATE_CHAR_ANY_MEANS_CHAR_3D ryder scplayer 10.0 10.0 8.0 FALSE
-			IF IS_CHAR_ON_FOOT scplayer
-			AND IS_CHAR_ON_FOOT	ryder
+			IF NOT IS_CHAR_DEAD	ryder
 				GOSUB load_and_play_audio_sweet1b
 			ENDIF	
-			IF NOT IS_CHAR_DEAD	ryder
-				IF IS_CHAR_IN_ANY_CAR scplayer
-				AND IS_CHAR_IN_ANY_CAR ryder
-					GOSUB load_and_play_audio_sweet1b
-				ENDIF
-			ENDIF
 		ENDIF
 	ENDIF
 
@@ -1895,16 +1879,7 @@ OR NOT LOCATE_CHAR_ANY_MEANS_3D ryder 2513.3 -1671.9 12.52 4.0 4.0 4.0 FALSE
 					IF NOT IS_CHAR_DEAD	ryder
 						IF LOCATE_CHAR_ANY_MEANS_CHAR_3D ryder scplayer 10.0 10.0 8.0 FALSE
 							SWITCH_ENTRY_EXIT lacrak FALSE
-							IF IS_CHAR_ON_FOOT scplayer
-							AND IS_CHAR_ON_FOOT	ryder
-								GOSUB load_and_play_audio_sweet1b
-							ENDIF	
-							IF NOT IS_CHAR_DEAD	ryder
-								IF IS_CHAR_IN_ANY_CAR scplayer
-								AND IS_CHAR_IN_ANY_CAR ryder
-									GOSUB load_and_play_audio_sweet1b
-								ENDIF
-							ENDIF
+							GOSUB load_and_play_audio_sweet1b
 						ENDIF
 					ENDIF
 				ENDIF
