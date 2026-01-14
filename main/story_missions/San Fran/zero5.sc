@@ -107,7 +107,7 @@ help_flags_zero1 = 0
 flag_player_on_mission = 1
 CLEAR_THIS_PRINT_BIG_NOW 1
 
-REGISTER_MISSION_GIVEN
+//REGISTER_MISSION_GIVEN // FIXEDGROVE: mission doesn't award progress nor increases 'missions completed' stat, so remove this
 SCRIPT_NAME zero5
 SET_PLAYER_CONTROL player1 OFF
 
@@ -283,7 +283,7 @@ main_sub_function_zero5:
 
 
 	IF NOT IS_CAR_DEAD rc_van_zero5 
-		SET_CAR_COORDINATES  rc_van_zero5 -2233.9 122.6 746.48
+		SET_CAR_COORDINATES  rc_van_zero5 -2233.9 122.6 10.0 // FIXEDGROVE: was 746.48, fixes lods (SilentPatch)
 
 		SET_CAR_HEADING rc_van_zero5 90.0
 		FREEZE_CAR_POSITION rc_van_zero5 TRUE
