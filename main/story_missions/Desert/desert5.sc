@@ -136,8 +136,9 @@ mission_start_desert5:
 CLEAR_THIS_PRINT M_FAIL
 flag_player_on_mission = 1
 IF NOT pilot_test_passed = 1
+AND d5_watched_first_cutscene = 1 // FIXEDGROVE
 	REGISTER_MISSION_GIVEN
-ENDIF
+ENDIF // FIXEDGROVE
 LOAD_MISSION_TEXT DSERT5
 SET_FADING_COLOUR 0 0 0
 WAIT 0
