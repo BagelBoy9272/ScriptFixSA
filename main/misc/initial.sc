@@ -1604,8 +1604,8 @@ VAR_INT flag_bce2_passed_1stime
 VAR_INT flag_syn1_passed_1stime
 VAR_INT flag_cas1_passed_1stime
 VAR_INT flag_bikeschool_passed_1stime
-VAR_INT flag_shtr_passed_1stime
-VAR_INT flag_grav_passed_1stime
+//VAR_INT flag_shtr_passed_1stime // FIXEDGROVE: unused
+//VAR_INT flag_grav_passed_1stime // FIXEDGROVE: unused
 
 VAR_INT flag_on_courier_mission	respect_help_played
 
@@ -1614,8 +1614,8 @@ flag_bce2_passed_1stime = 0
 flag_syn1_passed_1stime = 0
 flag_cas1_passed_1stime = 0
 flag_bikeschool_passed_1stime = 0
-flag_shtr_passed_1stime = 0
-flag_grav_passed_1stime = 0
+//flag_shtr_passed_1stime = 0 // FIXEDGROVE: unused
+//flag_grav_passed_1stime = 0 // FIXEDGROVE: unused
 flag_on_courier_mission = 0
 
 // Chris M's Trip Skip flags

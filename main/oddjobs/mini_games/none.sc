@@ -17,7 +17,7 @@ mission_none_start:
 
 flag_player_on_mission = 1
 
-REGISTER_MISSION_GIVEN
+//REGISTER_MISSION_GIVEN // FIXEDGROVE: comment out, it seems they changed their minds about this and didn't implement it fully
 SCRIPT_NAME none
 
 WAIT 0
