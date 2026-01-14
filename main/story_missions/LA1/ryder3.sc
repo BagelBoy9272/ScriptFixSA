@@ -3225,20 +3225,12 @@ WHILE NOT IS_CHAR_DEAD scplayer
 						ENDIF
 
 						IF NOT IS_CHAR_DEAD ryder
-
-							IF IS_CHAR_IN_ANY_CAR ryder
 								
-								DETACH_CHAR_FROM_CAR ryder
+							DETACH_CHAR_FROM_CAR ryder
 
-								WARP_CHAR_FROM_CAR_TO_COORD ryder x y z
+							SET_CHAR_COORDINATES ryder x y z
 
-							ELSE
-
-								SET_CHAR_COORDINATES ryder x y z
-
-							ENDIF
-
-								H = 238.6571 - 180.0
+							H = 238.6571 - 180.0
 
 							CLEAR_CHAR_TASKS_IMMEDIATELY ryder
 
@@ -3258,9 +3250,9 @@ WHILE NOT IS_CHAR_DEAD scplayer
 							
 							OPEN_SEQUENCE_TASK sequence_task
 
-							TASK_CHAR_SLIDE_TO_COORD_AND_PLAY_ANIM -1 x y z H 0.4 PRTIAL_HNDSHK_01 GANGS 4.0 FALSE FALSE FALSE FALSE -1
+								TASK_CHAR_SLIDE_TO_COORD_AND_PLAY_ANIM -1 x y z H 0.4 PRTIAL_HNDSHK_01 GANGS 4.0 FALSE FALSE FALSE FALSE -1
 
-							TASK_GO_STRAIGHT_TO_COORD -1 2465.7278 -1687.0248 12.5184 pedmove_walk -2
+								TASK_GO_STRAIGHT_TO_COORD -1 2465.7278 -1687.0248 12.5184 pedmove_walk -2
 
 							CLOSE_SEQUENCE_TASK sequence_task
 
