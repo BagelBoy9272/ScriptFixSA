@@ -24,7 +24,9 @@ GOSUB mission_cleanup_SYN2
 MISSION_END
 
 mission_start_SYN2:
-REGISTER_MISSION_GIVEN
+IF syn2_mission_attempts = 1 // FIXEDGROVE
+	REGISTER_MISSION_GIVEN
+ENDIF // FIXEDGROVE
 flag_player_on_mission = 1
 
 // general variables that are in every mission - DON'T DECLARE MISSION SPECIFIC VARIABLES HERE
