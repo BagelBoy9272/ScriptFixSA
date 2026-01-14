@@ -25,11 +25,6 @@ SCRIPT_NAME bcesar2
 	ENDIF
 
 	SET_DEATHARREST_STATE OFF
-	// FIXEDGROVE: START - moved
-	//IF flag_bce2_passed_1stime = 0 
-	//	REGISTER_MISSION_GIVEN
-	//ENDIF
-	// FIXEDGROVE: END
 	bcesar2_mission_flag = 1
 	flag_on_courier_mission = 1
 
@@ -138,34 +133,29 @@ WAIT 0
 	bce2_cruise_speed = 40.0
 
 //	bce2_courier_create:
-		GENERATE_RANDOM_INT_IN_RANGE 0 2 bce2_random
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 bce2_random // FIXEDGROVE: increased upper limit, since its exclusive
 
-		IF bce2_random = 0
-			bce2_final_dest = 114
-		ENDIF 
-		IF bce2_random = 1
-			bce2_final_dest = 96
-
-		ENDIF
-		IF bce2_random = 2
-			bce2_final_dest = 115
-		ENDIF
-
-		IF bce2_random = 0 
-			bce2_track_x = bce2_route1_x[0]
-			bce2_track_y = bce2_route1_y[0]
-			bce2_track_z = bce2_route1_z[0]
-		ELSE
-			IF bce2_random = 1 
+		// FIXEDGROVE: swapped if else chain with a switchcase
+		SWITCH bce2_random
+			CASE 0
+				bce2_final_dest = 114 
+				bce2_track_x = bce2_route1_x[0]
+				bce2_track_y = bce2_route1_y[0]
+				bce2_track_z = bce2_route1_z[0]
+				BREAK
+			CASE 1
+				bce2_final_dest = 96
 				bce2_track_x = bce2_route2_x[0]
 				bce2_track_y = bce2_route2_y[0]
 				bce2_track_z = bce2_route2_z[0]
-			ELSE
+				BREAK
+			DEFAULT	// CASE 2
+				bce2_final_dest = 115
 				bce2_track_x = bce2_route3_x[0]
 				bce2_track_y = bce2_route3_y[0]
 				bce2_track_z = bce2_route3_z[0]
-			ENDIF
-		ENDIF
+				BREAK
+		ENDSWITCH
 
 		LVAR_INT bce2_courier bce2_courier_car bce2_courier_car_blip
 		LVAR_INT bce2_goon[3]
@@ -194,7 +184,6 @@ WAIT 0
 		ADD_STUCK_CAR_CHECK_WITH_WARP bce2_courier_car 2.0 2000 TRUE TRUE TRUE 2
 		LOCK_CAR_DOORS bce2_courier_car CARLOCK_LOCKOUT_PLAYER_ONLY
 		TASK_CAR_DRIVE_TO_COORD bce2_courier bce2_courier_car bce2_route1_x[bce2_route] bce2_route1_y[bce2_route] bce2_route1_z[bce2_route] bce2_cruise_speed MODE_NORMAL FALSE DRIVINGMODE_AVOIDCARS
-		ADD_BLIP_FOR_CAR bce2_courier_car bce2_courier_car_blip
 		SET_CAR_ONLY_DAMAGED_BY_PLAYER bce2_courier_car TRUE
 
 		IF bce2_played > 0
@@ -254,7 +243,7 @@ WAIT 0
 		WAIT 0
 			IF NOT IS_CAR_DEAD bce2_courier_car
 				IF bce2_crate_status[bce2_current] = 0
-					GENERATE_RANDOM_FLOAT_IN_RANGE 0.0 19.9 bce2_random_rot
+					GENERATE_RANDOM_FLOAT_IN_RANGE 0.0 20.0 bce2_random_rot // FIXEDGROVE: sligthly increased upper limit
 					IF bce2_random_rot < 20.0
 					AND bce2_random_rot > 10.0
 						bce2_random_rot += 340.0
@@ -415,12 +404,6 @@ IF bce2_played > 0
 		ENDIF
 		IF IS_BUTTON_PRESSED PAD1 DPADRIGHT
 
-			// FIXEDGROVE: START - only increase 'missions attempted' stat if player accepts
-			IF flag_bce2_passed_1stime = 0 
-				REGISTER_MISSION_GIVEN
-			ENDIF
-			// FIXEDGROVE: END
-
 			CLEAR_HELP
 			bce2_response = 1
 		ENDIF
@@ -547,6 +530,14 @@ OR bce2_mobile = 8
 					TASK_USE_MOBILE_PHONE scplayer FALSE
 				ENDIF
 				IF bce2_response < 2
+					// FIXEDGROVE: START - only increase 'missions attempted' stat and add blip if player accepts
+					IF flag_bce2_passed_1stime = 0 
+						REGISTER_MISSION_GIVEN
+					ENDIF
+					IF NOT IS_CAR_DEAD bce2_courier_car
+						ADD_BLIP_FOR_CAR bce2_courier_car bce2_courier_car_blip
+					ENDIF
+					// FIXEDGROVE: END
 					GOTO bce2_main_loop
 				ELSE 
 					GOTO mission_cleanup_bce2
@@ -812,6 +803,7 @@ GOTO bce2_main_loop
 mission_cleanup_bce2:
 
 	IF flag_on_courier_mission = 1
+	AND bce2_response < 2 // FIXEDGROVE: check if mission was accepted
 		PRINT_WITH_NUMBER_BIG BCE2_04 bce2_earnings 7500 5 
 		PRINT_NOW ( BCE2_05 ) 7500 1
 		bce2_played++
@@ -857,10 +849,13 @@ mission_cleanup_bce2:
 	//flag_player_on_mission = 0
   	GET_GAME_TIMER timer_mobile_start
   	//MISSION_HAS_FINISHED
-	IF flag_on_courier_mission = 1
-		IF flag_bce2_passed_1stime = 0
-		    REGISTER_ODDJOB_MISSION_PASSED
-		    flag_bce2_passed_1stime = 1
+	IF bce2_response < 2 // FIXEDGROVE: check if mission was accepted
+		IF bce2_crate_check = 6 // FIXEDGROVE: check if mission was passed
+			IF flag_bce2_passed_1stime = 0
+			    REGISTER_ODDJOB_MISSION_PASSED
+			    flag_bce2_passed_1stime = 1
+			ENDIF
+			PLAY_MISSION_PASSED_TUNE 1 // FIXEDGROVE
 		ENDIF
 	ENDIF
 	flag_on_courier_mission = 0

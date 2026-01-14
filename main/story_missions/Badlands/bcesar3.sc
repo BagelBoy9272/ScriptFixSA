@@ -98,11 +98,6 @@ SCRIPT_NAME COKEC
 		GOTO coke_courier_script_start
 	ENDIF
 
-	// FIXEDGROVE: START - moved
-	//IF bcesar3_passed_mission = 0
-	//	REGISTER_MISSION_GIVEN
-	//ENDIF
-	// FIXEDGROVE: END
 	mission_started_properly = 1
 	flag_on_courier_mission = 1
 
@@ -313,102 +308,6 @@ WAIT 0
 				ENDIF
 
 			ENDIF
-
-
-			// do mobile phone conversation
-			IF m_goals >= 2
-				
-				IF mobile_phone_conv < 5
-					
-					IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-						mobile_phone_conv = 4
-						phone_conversation_choice = 3
-						phone_conversation_answer = 2
-						hide_text = 1
-					ENDIF
-
-					// initialise phone choice stuff
-					IF phone_conversation_choice = 1
-					AND audio_line_is_active = 0
-					AND NOT IS_MESSAGE_BEING_DISPLAYED
-						PRINT_HELP_FOREVER TALK_1
-						phone_conversation_choice++
-					ENDIF
-
-					IF phone_conversation_choice = 2
-
-						IF IS_BUTTON_PRESSED PAD1 DPADRIGHT
-							// FIXEDGROVE: START - only increase 'missions attempted' stat if player accepts
-							IF bcesar3_passed_mission = 0
-								REGISTER_MISSION_GIVEN 
-							ENDIF
-							// FIXEDGROVE: END
-							phone_conversation_answer = 1
-							phone_conversation_choice++
-							CLEAR_HELP	
-						ELSE
-							IF IS_BUTTON_PRESSED PAD1 DPADLEFT
-								phone_conversation_answer = 2
-								phone_conversation_choice++	
-								CLEAR_HELP
-							ENDIF
-						ENDIF
-					ENDIF
-
-					
-					IF phone_conversation_choice = 0
-					OR phone_conversation_choice = 3
-						IF audio_line_is_active = 0
-						AND TIMERA > 1000
-							SWITCH mobile_phone_conv
-								CASE 0
-									CLEAR_MISSION_AUDIO 3
-									$audio_string    = &MCES08A				
-									audio_sound_file = SOUND_MCES08A
-									START_NEW_SCRIPT audio_line -1 0 1 1 0
-								BREAK
-								CASE 1
-									$audio_string    = &MCES08B				
-									audio_sound_file = SOUND_MCES08B
-									START_NEW_SCRIPT audio_line scplayer 0 1 1 0
-								BREAK
-								CASE 2
-									$audio_string    = &MCES08C				
-									audio_sound_file = SOUND_MCES08C
-									START_NEW_SCRIPT audio_line -1 0 1 1 0
-									phone_conversation_choice++
-								BREAK
-								CASE 3
-									IF phone_conversation_answer = 1
-										$audio_string    = &MCES08D			// positive response	
-										audio_sound_file = SOUND_MCES08D
-										START_NEW_SCRIPT audio_line scplayer 0 1 1 0
-									ELSE
-										$audio_string = &MCES08E			 // negative response // FIXEDGROVE: use corresponding unused audio
-										audio_sound_file = SOUND_MCES08E // FIXEDGROVE: use corresponding unused audio
-										START_NEW_SCRIPT audio_line scplayer 0 1 1 0
-									ENDIF
-								BREAK
-								CASE 4
-									START_NEW_SCRIPT cleanup_audio_lines
-									CLEAR_MISSION_AUDIO 1
-									CLEAR_MISSION_AUDIO 2
-									IF IS_PLAYER_PLAYING player1
-										TASK_USE_MOBILE_PHONE scplayer FALSE
-									ENDIF
-									IF NOT phone_conversation_answer = 1
-										GOTO bcesar3_cleanup										
-									ENDIF 
-								BREAK
-							ENDSWITCH
-							mobile_phone_conv++
-							TIMERA = 0
-						ENDIF
-					ENDIF
-
-				ENDIF
-
-			ENDIF
 			
 			// create the coke courier
 			IF m_goals = 2
@@ -490,9 +389,6 @@ WAIT 0
 				MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
 				
 				//PRINT BCR3_01 7000 1 // Courier was last spotted in xxxx
-				IF NOT IS_CHAR_DEAD coke_courier
-					ADD_BLIP_FOR_CHAR coke_courier coke_blip
-				ENDIF
 
 				caught_up_with_courier = 0
 				//TIMERA = 0
@@ -502,6 +398,108 @@ WAIT 0
 			m_goals++
 			ENDIF
 			
+			// FIXEDGROVE: moved this code block to avoid compiler complaining due to blip command
+			// do mobile phone conversation
+			IF mobile_phone_conv < 5 // FIXEDGROVE: swapped these two checks
+			
+				IF m_goals >= 2 // FIXEDGROVE: swapped these two checks
+				
+					
+					IF IS_BUTTON_PRESSED PAD1 TRIANGLE
+						mobile_phone_conv = 4
+						phone_conversation_choice = 3
+						phone_conversation_answer = 2
+						hide_text = 1
+					ENDIF
+
+					// initialise phone choice stuff
+					IF phone_conversation_choice = 1
+					AND audio_line_is_active = 0
+					AND NOT IS_MESSAGE_BEING_DISPLAYED
+						PRINT_HELP_FOREVER TALK_1
+						phone_conversation_choice++
+					ENDIF
+
+					IF phone_conversation_choice = 2
+
+						IF IS_BUTTON_PRESSED PAD1 DPADRIGHT
+							phone_conversation_answer = 1
+							phone_conversation_choice++
+							CLEAR_HELP	
+						ELSE
+							IF IS_BUTTON_PRESSED PAD1 DPADLEFT
+								phone_conversation_answer = 2
+								phone_conversation_choice++	
+								CLEAR_HELP
+							ENDIF
+						ENDIF
+					ENDIF
+
+					
+					IF phone_conversation_choice = 0
+					OR phone_conversation_choice = 3
+						IF audio_line_is_active = 0
+						AND TIMERA > 1000
+							SWITCH mobile_phone_conv
+								CASE 0
+									CLEAR_MISSION_AUDIO 3
+									$audio_string    = &MCES08A				
+									audio_sound_file = SOUND_MCES08A
+									START_NEW_SCRIPT audio_line -1 0 1 1 0
+								BREAK
+								CASE 1
+									$audio_string    = &MCES08B				
+									audio_sound_file = SOUND_MCES08B
+									START_NEW_SCRIPT audio_line scplayer 0 1 1 0
+								BREAK
+								CASE 2
+									$audio_string    = &MCES08C				
+									audio_sound_file = SOUND_MCES08C
+									START_NEW_SCRIPT audio_line -1 0 1 1 0
+									phone_conversation_choice++
+								BREAK
+								CASE 3
+									IF phone_conversation_answer = 1
+										$audio_string    = &MCES08D			// positive response	
+										audio_sound_file = SOUND_MCES08D
+										START_NEW_SCRIPT audio_line scplayer 0 1 1 0
+									ELSE
+										$audio_string = &MCES08E			 // negative response // FIXEDGROVE: use corresponding unused audio
+										audio_sound_file = SOUND_MCES08E // FIXEDGROVE: use corresponding unused audio
+										START_NEW_SCRIPT audio_line scplayer 0 1 1 0
+									ENDIF
+								BREAK
+								CASE 4
+									START_NEW_SCRIPT cleanup_audio_lines
+									CLEAR_MISSION_AUDIO 1
+									CLEAR_MISSION_AUDIO 2
+									IF IS_PLAYER_PLAYING player1
+										TASK_USE_MOBILE_PHONE scplayer FALSE
+									ENDIF
+									IF phone_conversation_answer = 1 // FIXEDGROVE: slightly changed check
+										// FIXEDGROVE: START - only increase 'missions attempted' stat and add blip if player accepts
+										IF bcesar3_passed_mission = 0
+											REGISTER_MISSION_GIVEN 
+										ENDIF
+										
+										IF NOT IS_CHAR_DEAD coke_courier
+											ADD_BLIP_FOR_CHAR coke_courier coke_blip
+										ENDIF
+										// FIXEDGROVE: END		
+									ELSE
+										hide_text = 1 // FIXEDGROVE: if mission wasn't accepted, hide text
+										GOTO bcesar3_cleanup
+									ENDIF 
+								BREAK
+							ENDSWITCH
+							mobile_phone_conv++
+							TIMERA = 0
+						ENDIF
+					ENDIF
+
+				ENDIF
+
+			ENDIF
 
 			// courier drives along route
 			IF m_goals = 3
@@ -1026,10 +1024,6 @@ bcesar3_cleanup:
 
 IF mission_started_properly = 1
 	
-	IF IS_PLAYER_PLAYING player1
-		TASK_USE_MOBILE_PHONE scplayer FALSE
-	ENDIF
-
 	START_NEW_SCRIPT cleanup_audio_lines
 	CLEAR_MISSION_AUDIO 1
 	CLEAR_MISSION_AUDIO 2
@@ -1055,7 +1049,7 @@ IF mission_started_properly = 1
 		IF bcesar3_passed_mission = 0
 			//REGISTER_MISSION_PASSED BCESAR3
 			REGISTER_ODDJOB_MISSION_PASSED
-			bcesar3_passed_mission++
+			bcesar3_passed_mission = 1 // FIXEDGROVE: changed '++' to direct assignment
 		ENDIF
 		PLAY_MISSION_PASSED_TUNE 1
 		CLEAR_WANTED_LEVEL PLAYER1
@@ -1077,14 +1071,6 @@ IF mission_started_properly = 1
 	MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
 	MARK_MODEL_AS_NO_LONGER_NEEDED CELLPHONE
 	REMOVE_CAR_RECORDING 556
-
-	// === RESTORE ENVIRONMENT SETTINGS ===
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-
-	MARK_MODEL_AS_NO_LONGER_NEEDED CELLPHONE
-
-	mission_started_properly = 0
 
 ENDIF
 
