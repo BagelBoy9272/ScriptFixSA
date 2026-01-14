@@ -4008,7 +4008,7 @@ SET_DEATHARREST_STATE OFF //stops script being terminated if Player dies/arreste
 SET_BIT iAgentFlags MOBILE_CALL_SCRIPT_RUNNING
 CLEAR_BIT iAgentFlags MOBILE_CALL_ANSWERED
 
-GENERATE_RANDOM_INT_IN_RANGE 0 7 iCallRandomVariant // generate a random variation of the mobile call (0-7) // FIXEDGROVE: max number was 8
+GENERATE_RANDOM_INT_IN_RANGE 0 8 iCallRandomVariant // generate a random variation of the mobile call (0-7)
 
 // FIXEDGROVE: original code used call_number to assign a variation of the call, but mobile_rings didn't check every variation to print
 //			   the special help box. So instead I assign the call variation to call_number_gf_variation.
