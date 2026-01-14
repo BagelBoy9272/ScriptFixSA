@@ -68,7 +68,7 @@ RETURN
 
 mission_start_catcut:
 
-REGISTER_MISSION_GIVEN
+//REGISTER_MISSION_GIVEN // FIXEDGROVE
 
 flag_player_on_mission = 1
 
