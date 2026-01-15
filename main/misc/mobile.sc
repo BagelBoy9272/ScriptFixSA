@@ -4011,7 +4011,7 @@ CLEAR_BIT iAgentFlags MOBILE_CALL_ANSWERED
 GENERATE_RANDOM_INT_IN_RANGE 0 8 iCallRandomVariant // generate a random variation of the mobile call (0-7)
 
 // FIXEDGROVE: original code used call_number to assign a variation of the call, but mobile_rings didn't check every variation to print
-//			   the special help box. So instead I assign the call variation to call_number_gf_variation.
+//			   the special help box. So instead I assign the call variation to call_number_gf_variation. Also deleted redundant code
 
 cell_phone_GF_inner:
 	
@@ -4021,7 +4021,9 @@ cell_phone_GF_inner:
 
 	IF IS_PLAYER_PLAYING player1
 		IF player_is_completely_safe_for_mobile = 1
+		AND flag_on_courier_mission = 0 // FIXEDGROVE: if a gf call triggers during a courier missions it causes issues
 			IF timer_mobile_diff > call_delay
+				SET_BIT iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEGROVE
 				// COOCHIE PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = COOCHIE
 					//PRINT_HELP ( ANSWER )
@@ -4034,7 +4036,6 @@ cell_phone_GF_inner:
 					GOSUB mobile_rings
 					IF flag_player_answered_phone = 1	
 						SET_BIT iAgentFlags MOBILE_CALL_ANSWERED
-						SET_BIT iAgentFlags iGFCaller
 						GOSUB mobile_chat_switch
 						GOSUB load_and_play_mobile_calls		
 					ENDIF
@@ -4099,8 +4100,7 @@ cell_phone_GF_inner:
 					IF flag_player_answered_phone = 1	
 						SET_BIT iAgentFlags MOBILE_CALL_ANSWERED
 						GOSUB mobile_chat_switch
-						GOSUB load_and_play_mobile_calls
-						SET_BIT iAgentFlags MOBILE_CALL_ANSWERED								
+						GOSUB load_and_play_mobile_calls							
 					ENDIF
 					CLEAR_BIT iAgentFlags MOBILE_CALL_SCRIPT_RUNNING							
 					GOSUB mobile_message_cleanup
@@ -4121,8 +4121,7 @@ cell_phone_GF_inner:
 					IF flag_player_answered_phone = 1
 						SET_BIT iAgentFlags MOBILE_CALL_ANSWERED	
 						GOSUB mobile_chat_switch
-						GOSUB load_and_play_mobile_calls
-						SET_BIT iAgentFlags MOBILE_CALL_ANSWERED								
+						GOSUB load_and_play_mobile_calls								
 					ENDIF
 					CLEAR_BIT iAgentFlags MOBILE_CALL_SCRIPT_RUNNING							
 					GOSUB mobile_message_cleanup
@@ -4151,8 +4150,11 @@ cell_phone_GF_inner:
 				// **********************************************************************************************************
 			ENDIF
 		ELSE
-			CLEAR_BIT iAgentFlags MOBILE_CALL_SCRIPT_RUNNING							
-			GOSUB mobile_message_cleanup
+			CLEAR_BIT iAgentFlags MOBILE_CALL_SCRIPT_RUNNING
+			CLEAR_BIT iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEDGROVE
+//			GOSUB mobile_message_cleanup // FIXEDGROVE: commented, cell_phone_GF_inner doesn't ever set the variables that this cleanups 
+										 // so it would cause a race condition where it would cleanup another phonecall's stuff,
+										 // making it flash for one frame and effectively canceling it
 			TERMINATE_THIS_SCRIPT
 		ENDIF
 	ELSE

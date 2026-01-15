@@ -1372,8 +1372,10 @@ GF_Dating_Agent_CheckPhoneState:
 					iPhoneState = TIME_FOR_DATE
 				ELSE
 					//--- Player has NOT answered
-					iGFLikesPlayer[iCaller] -= GF_LIKES_PLAYER_DECREMENT_NO_ANSWER
-					GOSUB GF_Dating_Agent_SynchStats
+					IF IS_BIT_SET iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEDGROVE
+						iGFLikesPlayer[iCaller] -= GF_LIKES_PLAYER_DECREMENT_NO_ANSWER
+						GOSUB GF_Dating_Agent_SynchStats
+					ENDIF
 					//--- RESET 
 					GOSUB GF_Dating_Agent_ResetAppointment
 					iPhoneState = MOBILE_INACTIVE
@@ -1391,21 +1393,21 @@ GF_Dating_Agent_CheckPhoneState:
 		BREAK
 
 		CASE MOBILE_DUMPED
-			IF NOT IS_BIT_SET iAgentFlags MOBILE_CALL_SCRIPT_RUNNING								
-				IF IS_BIT_SET iAgentFlags MOBILE_CALL_ANSWERED
-					IF iCaller > -1 	
-					AND iCaller < 6						
+			// FIXEDGROVE: move bounds check here
+			IF iCaller > -1 	
+			AND iCaller < 6
+				IF NOT IS_BIT_SET iAgentFlags MOBILE_CALL_SCRIPT_RUNNING								
+					IF IS_BIT_SET iAgentFlags MOBILE_CALL_ANSWERED					
 						iGFLikesPlayer[iCaller] = GF_HATES_PLAYER
 						CLEAR_BIT iActiveGF iCaller  // remove the girlfriend					
-					ENDIF
-					iPhoneState = MOBILE_INACTIVE
-				ELSE					
-					IF iCaller > -1 	
-					AND iCaller < 6
+						iPhoneState = MOBILE_INACTIVE
+					ELSE					
 						//--- Player has not answered... wait until he meets girl
-						iGFLikesPlayer[iCaller] = GF_DUMP_PLAYER_IMMEDIATELY
+						IF IS_BIT_SET iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEDGROVE
+							iGFLikesPlayer[iCaller] = GF_DUMP_PLAYER_IMMEDIATELY
+						ENDIF
+						iPhoneState = MOBILE_INACTIVE
 					ENDIF
-					iPhoneState = MOBILE_INACTIVE
 				ENDIF		 
 			ENDIF
 		BREAK
