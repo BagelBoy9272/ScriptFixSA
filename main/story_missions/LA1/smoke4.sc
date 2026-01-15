@@ -126,7 +126,6 @@ LVAR_INT helpshoottext_s4flag
 LVAR_INT warp_s4flag
 LVAR_INT oneoff_s4flag
 LVAR_INT slowdownstart_s4flag
-LVAR_INT stoptalk_s4flag
 //////////////////////// variables for on rails section
 
 LVAR_FLOAT cam_pos_X_s4 cam_pos_Y_s4 cam_pos_Z_s4 cam_look_X_s4 cam_look_Y_s4 cam_look_Z_s4
@@ -221,6 +220,7 @@ LVAR_INT russian20_s4blip
 LVAR_TEXT_LABEL $text_label_s4
 LVAR_INT audio_label_s4
 LVAR_TEXT_LABEL $input_text_s4
+LVAR_INT speaker_s4 // FIXEDGROVE
 
 //flags
 LVAR_INT ambientcar_s4flag
@@ -269,8 +269,8 @@ LVAR_INT getonbikecut_s4flag
 LVAR_INT truckaudio_s4flag
 LVAR_INT explodecar5_s4flag
 LVAR_INT explodecar6_s4flag
-LVAR_INT difficulty_s4flag //do not reset this flag
-LVAR_INT difficulty_s4value //do not reset this
+VAR_INT difficulty_s4flag //do not reset this flag // FIXEDGROVE: made global
+VAR_INT difficulty_s4value //do not reset this // FIXEDGROVE: made global
 
 // **************************************** Mission Start **********************************
 
@@ -412,7 +412,7 @@ progressaudio_s4flag = 0
 handlingudio_s4flag	= 0
 oneoff_s4flag = 0
 slowdownstart_s4flag = 0
-stoptalk_s4flag = 0
+speaker_s4 = 0 // FIXEDGROVE
 //////////////////////// variables for on rails section
 
 //flags
@@ -502,7 +502,6 @@ DO_FADE 1500 FADE_IN
 RESTORE_CAMERA_JUMPCUT
 SET_PLAYER_CONTROL player1 ON
 SWITCH_WIDESCREEN OFF
-SHUT_CHAR_UP scplayer TRUE
 
 SWITCH_ROADS_OFF 1694.12 -1604.33 5.0 1805.94 -1593.12 15.0
 
@@ -512,9 +511,6 @@ TIMERB = 0
 
 SET_PLAYER_GROUP_RECRUITMENT player1 FALSE
 SET_SCRIPT_LIMIT_TO_GANG_SIZE 0
-
-SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke TRUE
-SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
 
 smoke4_main_loop:
 
@@ -556,16 +552,12 @@ IF shootout_s4flag = 0
 	ENDIF
 
 	IF smoke_s4flag = 0	
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CAR_DEAD smokecar_s4
-				IF IS_CHAR_SITTING_IN_CAR scplayer smokecar_s4
-					IF IS_CHAR_SITTING_IN_CAR scplayer smokecar_s4
-						ADD_BLIP_FOR_COORD 1722.568 -1597.92 12.405 atrium_s4blip
-						PRINT_NOW DGS1_1 10000 1 //~s~Take Big Smoke to ~y~Downtown~s~.
-//						REMOVE_BLIP	smokecar_s4blip
-						smoke_s4flag = 1
-					ENDIF
-				ENDIF
+		IF NOT IS_CAR_DEAD smokecar_s4
+			IF IS_CHAR_SITTING_IN_CAR scplayer smokecar_s4
+				ADD_BLIP_FOR_COORD 1722.568 -1597.92 12.405 atrium_s4blip
+				PRINT_NOW DGS1_1 10000 1 //~s~Take Big Smoke to ~y~Downtown~s~.
+//				REMOVE_BLIP	smokecar_s4blip
+				smoke_s4flag = 1
 			ENDIF
 		ENDIF
 	ENDIF
@@ -576,6 +568,7 @@ IF shootout_s4flag = 0
 	IF outoffirstgroup_s4flag = 0
 		IF smoke_s4flag = 1
 		OR smoke_s4flag = 100
+		OR smoke_s4flag = 101 // FIXEDGROVE: player is out of the car and smoke's line is playing
 
 			IF smokegroupstation_s4flag = 0
 				IF NOT IS_CAR_DEAD smokecar_s4
@@ -583,12 +576,18 @@ IF shootout_s4flag = 0
 						ADD_BLIP_FOR_CAR smokecar_s4 smokecar_s4blip
 						SET_BLIP_AS_FRIENDLY smokecar_s4blip TRUE
 						REMOVE_BLIP atrium_s4blip
-						//PRINT_NOW DGS1_57 5000 1 //~s~Get back in the car!
-						smoke_s4flag = 100
+						
 						CLEAR_MISSION_AUDIO 1
-						CLEAR_PRINTS
+						// FIXEDGROVE: START
+						GOSUB process_audio_s4
+						IF NOT IS_CHAR_DEAD big_smoke
+							START_CHAR_FACIAL_TALK big_smoke 10000
+						ENDIF
+						// FIXEDGROVE: END
 						PLAY_MISSION_AUDIO 2 
 						PRINT_NOW SMOX_AC 2000 1 //Get in the car!
+
+						smoke_s4flag = 101 // FIXEDGROVE: player is out of the car and smoke's line is playing
 						smokegroupstation_s4flag = 1
 					ENDIF
 				ENDIF
@@ -601,11 +600,28 @@ IF shootout_s4flag = 0
 						ADD_BLIP_FOR_COORD 1722.568 -1597.92 12.405 atrium_s4blip
 						CLEAR_PRINTS
 						CLEAR_MISSION_AUDIO 2
-						IF progressaudio_s4flag > 12
+						IF progressaudio_s4flag > 13
 							PRINT_NOW DGS1_1 5000 1 //~s~Take Big Smoke to ~y~Downtown~s~.
 						ENDIF
+						// FIXEDGROVE: START
+						IF NOT IS_CHAR_DEAD big_smoke
+							STOP_CHAR_FACIAL_TALK big_smoke
+						ENDIF
+						// FIXEDGROVE: END
 						smoke_s4flag = 1
 						smokegroupstation_s4flag = 0
+					ELSE
+						// FIXEDGROVE: START
+						IF smoke_s4flag = 101
+							IF HAS_MISSION_AUDIO_FINISHED 2
+								IF NOT IS_CHAR_DEAD big_smoke
+									STOP_CHAR_FACIAL_TALK big_smoke
+								ENDIF
+								smoke_s4flag = 100
+								PRINT_NOW DGS1_57 5000 1 //~s~Get back in the car! // FIXEDGROVE: added commented line here
+							ENDIF
+						ENDIF
+						// FIXEDGROVE: END
 					ENDIF
 				ENDIF
 			ENDIF
@@ -618,12 +634,14 @@ IF shootout_s4flag = 0
 		
 		GOSUB process_audio_s4
 
+		// FIXEDGROVE: assigned speakers
 		//play mission audio
 		IF progressaudio_s4flag = 0
 			IF handlingudio_s4flag = 0
 				IF TIMERB > 6500
 					audio_label_s4 = SOUND_SMO4_AA	//This better now be another cop errand, man.
 					$input_text_s4 = SMO4_AA	//This better now be another cop errand, man.
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -633,6 +651,7 @@ IF shootout_s4flag = 0
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AB	//No, this is strictly for the homies.
 				$input_text_s4 = SMO4_AB	//No, this is strictly for the homies.
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
@@ -641,6 +660,7 @@ IF shootout_s4flag = 0
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AC //I gotta be honest, CJ, could be some heavy shit where we going.
 				$input_text_s4 = SMO4_AC //I gotta be honest, CJ, could be some heavy shit where we going.
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
@@ -649,6 +669,7 @@ IF shootout_s4flag = 0
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AD	//Man, what is you into, Smoke?
 				$input_text_s4 = SMO4_AD	//Man, what is you into, Smoke?
+				speaker_s4 = scplayer
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
@@ -657,6 +678,7 @@ IF shootout_s4flag = 0
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AE	//Lot of shit going down, Carl. 
 				$input_text_s4 = SMO4_AE	//Lot of shit going down, Carl. 
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
@@ -665,6 +687,7 @@ IF shootout_s4flag = 0
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AF	//Families coming back, Ballas pushing base, 
 				$input_text_s4 = SMO4_AF	//Families coming back, Ballas pushing base,
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
@@ -673,6 +696,7 @@ IF shootout_s4flag = 0
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AG	//Russian cats with nothing to lose...
 				$input_text_s4 = SMO4_AG	//Russian cats with nothing to lose...
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
@@ -681,55 +705,63 @@ IF shootout_s4flag = 0
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AH //Russians?
 				$input_text_s4 = SMO4_AH //Russians?
+				speaker_s4 = scplayer
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
 
-		IF progressaudio_s4flag = 7
+		IF progressaudio_s4flag = 8 // FIXEDGROVE: this was previously 7, and since other cut lines are commented out, its possible this
+									//			   was unintentionally cut
 			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AJ //	Yeah, go figure.
 				$input_text_s4 = SMO4_AJ //	Yeah, go figure.
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 
-			ENDIF
-		ENDIF
-
-		IF progressaudio_s4flag = 8
-			IF handlingudio_s4flag = 0
-				audio_label_s4 = SOUND_SMO4_AK	//All my life I been told to fear the Ruskies, but I never even met one. 
-				$input_text_s4 = SMO4_AK	//All my life I been told to fear the Ruskies, but I never even met one. 
-				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
 
 		IF progressaudio_s4flag = 9
 			IF handlingudio_s4flag = 0
-				audio_label_s4 = SOUND_SMO4_AL	//Then the wall comes down and we’re all supposed to be friends.
-				$input_text_s4 = SMO4_AL	//Then the wall comes down and we’re all supposed to be friends.
+				audio_label_s4 = SOUND_SMO4_AK	//All my life I been told to fear the Ruskies, but I never even met one. 
+				$input_text_s4 = SMO4_AK	//All my life I been told to fear the Ruskies, but I never even met one.
+				speaker_s4 = big_smoke 
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
 
 		IF progressaudio_s4flag = 10
 			IF handlingudio_s4flag = 0
-				audio_label_s4 = SOUND_SMO4_AM //Five minutes later my cuz gets laid out by some Rigger fresh off the boat.
-				$input_text_s4 = SMO4_AM //Five minutes later my cuz gets laid out by some Rigger fresh off the boat.
+				audio_label_s4 = SOUND_SMO4_AL	//Then the wall comes down and we’re all supposed to be friends.
+				$input_text_s4 = SMO4_AL	//Then the wall comes down and we’re all supposed to be friends.
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
 
 		IF progressaudio_s4flag = 11
 			IF handlingudio_s4flag = 0
-				audio_label_s4 = SOUND_SMO4_AN	//For real?
-				$input_text_s4 = SMO4_AN	//For real?
+				audio_label_s4 = SOUND_SMO4_AM //Five minutes later my cuz gets laid out by some Rigger fresh off the boat.
+				$input_text_s4 = SMO4_AM //Five minutes later my cuz gets laid out by some Rigger fresh off the boat.
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
 
 		IF progressaudio_s4flag = 12
 			IF handlingudio_s4flag = 0
+				audio_label_s4 = SOUND_SMO4_AN	//For real?
+				$input_text_s4 = SMO4_AN	//For real?
+				speaker_s4 = scplayer
+				GOSUB load_audio_s4
+			ENDIF
+		ENDIF
+
+		IF progressaudio_s4flag = 13
+			IF handlingudio_s4flag = 0
 				audio_label_s4 = SOUND_SMO4_AO	//Word.
 				$input_text_s4 = SMO4_AO	//Word.
+				speaker_s4 = big_smoke
 				GOSUB load_audio_s4
 			ENDIF
 		ENDIF
@@ -1085,8 +1117,8 @@ IF shootout_s4flag = 0
 
 		IF cutscene_s4flag = 5
 			IF HAS_MISSION_AUDIO_FINISHED 2
+				STOP_CHAR_FACIAL_TALK scplayer
 				IF HAS_MISSION_AUDIO_LOADED 1
-					STOP_CHAR_FACIAL_TALK scplayer
 					PLAY_MISSION_AUDIO 1
 					IF NOT IS_CHAR_DEAD big_smoke
 						START_CHAR_FACIAL_TALK big_smoke 10000
@@ -1115,10 +1147,10 @@ IF shootout_s4flag = 0
 			IF TIMERB > 9999
 				IF NOT IS_CHAR_DEAD hoochie_s4
 					IF HAS_MISSION_AUDIO_FINISHED 2
+						IF NOT IS_CHAR_DEAD big_smoke
+							STOP_CHAR_FACIAL_TALK big_smoke
+						ENDIF
 						IF HAS_MISSION_AUDIO_LOADED 1
-							IF NOT IS_CHAR_DEAD big_smoke
-								STOP_CHAR_FACIAL_TALK big_smoke
-							ENDIF
 							CLEAR_CHAR_TASKS_IMMEDIATELY hoochie_s4
 							SET_CHAR_COORDINATES hoochie_s4 1732.785 -1633.043 19.2
 							SET_CHAR_HEADING hoochie_s4 0.0
@@ -1129,7 +1161,6 @@ IF shootout_s4flag = 0
 							START_CHAR_FACIAL_TALK scplayer	2000
 							CLEAR_MISSION_AUDIO 2
 							LOAD_MISSION_AUDIO 2 SOUND_SMO4_BF	//Hey, baby, want company?
-							stoptalk_s4flag = 1
 							cutscene_s4flag = 8
 						ENDIF
 					ENDIF
@@ -1137,22 +1168,17 @@ IF shootout_s4flag = 0
 			ENDIF
 		ENDIF
 
-		IF stoptalk_s4flag = 1
+		IF cutscene_s4flag = 8
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				STOP_CHAR_FACIAL_TALK scplayer
-				stoptalk_s4flag = 2
-			ENDIF
-		ENDIF
-
-		IF cutscene_s4flag = 8
-			IF TIMERB > 18500//17165
-				IF HAS_MISSION_AUDIO_LOADED 2
-					IF HAS_MISSION_AUDIO_FINISHED 1
+				IF TIMERB > 18500//17165
+					IF HAS_MISSION_AUDIO_LOADED 2
 						SET_FIXED_CAMERA_POSITION 1725.0935 -1632.4459 20.7074 0.0 0.0 0.0
 						POINT_CAMERA_AT_POINT 1726.0913 -1632.3909 20.6711 JUMP_CUT
 						SET_NEAR_CLIP 0.1
 						PLAY_MISSION_AUDIO 2
 						PRINT_NOW SMO4_BF 3000 1 //Hey, baby, want company?
+						START_CHAR_FACIAL_TALK scplayer 10000
 						CLEAR_MISSION_AUDIO 1
 						LOAD_MISSION_AUDIO 1 SOUND_SMO4_BG	//Motherfuckers!
 						cutscene_s4flag = 9
@@ -1163,8 +1189,8 @@ IF shootout_s4flag = 0
 
 		IF cutscene_s4flag = 9
 			IF HAS_MISSION_AUDIO_FINISHED 2
+				STOP_CHAR_FACIAL_TALK scplayer
 				IF HAS_MISSION_AUDIO_LOADED 1
-					STOP_CHAR_FACIAL_TALK scplayer
 					PLAY_MISSION_AUDIO 1
 					PRINT_NOW SMO4_BG 5000 1 //Motherfuckers!
 					cutscene_s4flag = 10
@@ -1900,6 +1926,7 @@ IF smoke_s4flag = 11
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_BO	//Use some cover, they’s blasting like fools!
 							$input_text_s4 = SMO4_BO	//Use some cover, they’s blasting like fools!
+							speaker_s4 = big_smoke
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -1908,6 +1935,7 @@ IF smoke_s4flag = 11
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_EK //Ice those fools!
 							$input_text_s4 = SMO4_EK //Ice those fools!
+							speaker_s4 = big_smoke
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -1916,6 +1944,7 @@ IF smoke_s4flag = 11
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_DA	//Big Smoke, you made big mistake, huh!
 							$input_text_s4 = SMO4_DA	//Big Smoke, you made big mistake, huh!
+							speaker_s4 = russian11_s4
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -1924,6 +1953,7 @@ IF smoke_s4flag = 11
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_BN	//Watch yourself, CJ, I think they’s pissed!
 							$input_text_s4 = SMO4_BN	//Watch yourself, CJ, I think they’s pissed!
+							speaker_s4 = big_smoke
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -1931,7 +1961,8 @@ IF smoke_s4flag = 11
 					IF progressaudio_s4flag = 4
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_BP	//Take the right and cover my ass! 
-							$input_text_s4 = SMO4_BP	//Take the right and cover my ass! 
+							$input_text_s4 = SMO4_BP	//Take the right and cover my ass!
+							speaker_s4 = big_smoke 
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -1940,6 +1971,7 @@ IF smoke_s4flag = 11
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_EG	//Keep it up, CJ!
 							$input_text_s4 = SMO4_EG	//Keep it up, CJ!
+							speaker_s4 = big_smoke
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -1955,7 +1987,8 @@ IF smoke_s4flag = 11
 					IF progressaudio_s4flag = 6
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_EJ	//My homie is making y’all pay! 
-							$input_text_s4 = SMO4_EJ	//My homie is making y’all pay! 
+							$input_text_s4 = SMO4_EJ	//My homie is making y’all pay!
+							speaker_s4 = big_smoke 
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -1972,7 +2005,8 @@ IF smoke_s4flag = 11
 					IF progressaudio_s4flag = 12
 						IF handlingudio_s4flag = 0
 							audio_label_s4 = SOUND_SMO4_DJ	//Stick with me, CJ, we’re out of here! 
-							$input_text_s4 = SMO4_DJ	//Stick with me, CJ, we’re out of here! 
+							$input_text_s4 = SMO4_DJ	//Stick with me, CJ, we’re out of here!
+							speaker_s4 = big_smoke 
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -2298,11 +2332,13 @@ IF smoke_s4flag = 11
 				ENDIF
 			ENDIF
 
+			// FIXEDGROVE: assigned speakers
 			//play mission audio
 			IF progressaudio_s4flag = 0
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_EB	//Stick real close, Carl!
 					$input_text_s4 = SMO4_EB	//Stick real close, Carl!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -2311,6 +2347,7 @@ IF smoke_s4flag = 11
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_BM	//Keep your head down – the air’s thick with lead!
 					$input_text_s4 = SMO4_BM	//Keep your head down – the air’s thick with lead!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -2319,6 +2356,7 @@ IF smoke_s4flag = 11
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_DG	//Smoke, you and your friend are dead men!
 					$input_text_s4 = SMO4_DG	//Smoke, you and your friend are dead men!
+					speaker_s4 = russian18_s4
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -2327,6 +2365,7 @@ IF smoke_s4flag = 11
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_BG	//Motherfuckers!
 					$input_text_s4 = SMO4_BG	//Motherfuckers!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -2335,6 +2374,7 @@ IF smoke_s4flag = 11
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_ED	//Back me up, here!
 					$input_text_s4 = SMO4_ED	//Back me up, here!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -2343,6 +2383,7 @@ IF smoke_s4flag = 11
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_EF	//That’s my dog, CJ!
 					$input_text_s4 = SMO4_EF	//That’s my dog, CJ!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -2351,6 +2392,7 @@ IF smoke_s4flag = 11
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_EH	//Holmes, you are ice cold!
 					$input_text_s4 = SMO4_EH	//Holmes, you are ice cold!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3375,11 +3417,13 @@ IF smoke_s4flag = 20
 OR firstchase_s4flag = 1
 		IF storm1_s4flag < 3
 
+			// FIXEDGROVE: assigned speakers
 			//audio
 			IF progressaudio_s4flag = 0
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_FB	//They after us on a bike, Smoke!
 					$input_text_s4 = SMO4_FB	//They after us on a bike, Smoke!!
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3388,6 +3432,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_ES	//Waste any motherfucker that follows us!
 					$input_text_s4 = SMO4_ES	//Waste any motherfucker that follows us!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3404,6 +3449,7 @@ OR firstchase_s4flag = 1
 					IF truckaudio_s4flag = 1
 						audio_label_s4 = SOUND_SMO4_FD	//Shit, man, they coming fo’ us in a truck!
 						$input_text_s4 = SMO4_FD	//Shit, man, they coming fo’ us in a truck!
+						speaker_s4 = scplayer
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -3413,6 +3459,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_FE	//Don’t tell me about it, toast that fucker!
 					$input_text_s4 = SMO4_FE		//Don’t tell me about it, toast that fucker!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3421,6 +3468,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_FF	//Look at all this traffic
 					$input_text_s4 = SMO4_FF	//Look at all this traffic 
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3429,6 +3477,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_FG	//I’m coming through!
 					$input_text_s4 = SMO4_FG	//I’m coming through!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3453,6 +3502,7 @@ OR firstchase_s4flag = 1
 					IF truckaudio_s4flag = 2
 						audio_label_s4 = SOUND_SMO4_FC	//We got bikes on our six—smash it Smoke!
 						$input_text_s4 = SMO4_FC	//We got bikes on our six—smash it Smoke!
+						speaker_s4 = scplayer
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -3470,6 +3520,7 @@ OR firstchase_s4flag = 1
 					IF truckaudio_s4flag = 3
 						audio_label_s4 = SOUND_SMO4_FJ	//Hold on tight, homie!
 						$input_text_s4 = SMO4_FJ	//Hold on tight, homie!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -3479,6 +3530,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_FK	//Ah Smoke,! Nooooooo!
 					$input_text_s4 = SMO4_FK	//Ah Smoke,! Nooooooo!
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3500,6 +3552,7 @@ OR firstchase_s4flag = 1
 					IF truckaudio_s4flag = 4
 						audio_label_s4 = SOUND_SMO4_FL	//Ah, they hit a bus!
 						$input_text_s4 = SMO4_FL	//Ah, they hit a bus!
+						speaker_s4 = scplayer
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -3509,6 +3562,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_FM	//I’ll never dis public transport again!
 					$input_text_s4 = SMO4_FM //I’ll never dis public transport again!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3525,6 +3579,7 @@ OR firstchase_s4flag = 1
 					IF truckaudio_s4flag = 5
 						audio_label_s4 = SOUND_SMO4_GA	//Damn, road-blocked!
 						$input_text_s4 = SMO4_GA //Damn, road-blocked!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -3533,6 +3588,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GB	//Ah shit Smoke, these cats is organized,
 					$input_text_s4 = SMO4_GB //Ah shit Smoke, these cats is organized,
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3540,6 +3596,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GD	//Look, Carl, all I know is they’s real pissed with us.
 					$input_text_s4 = SMO4_GD	//Look, Carl, all I know is they’s real pissed with us.
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3547,6 +3604,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GE	//Hold on, I got an idea!
 					$input_text_s4 = SMO4_GE	//Hold on, I got an idea!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3554,6 +3612,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GF	//Smoke, what you thinking? Flood control’s a dead end, man!
 					$input_text_s4 = SMO4_GF	//Smoke, what you thinking? Flood control’s a dead end, man!
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3561,6 +3620,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GG	//We had to lose those cars!
 					$input_text_s4 = SMO4_GG	//We had to lose those cars!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3568,6 +3628,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GH	//Don’t worry, I know a way out, up past Grove street!
 					$input_text_s4 = SMO4_GH	//Don’t worry, I know a way out, up past Grove street!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3575,6 +3636,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GJ	//The old sewer tunnel? Oh man....
 					$input_text_s4 = SMO4_GJ	//The old sewer tunnel? Oh man....
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3582,6 +3644,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_ER	//Watch our backs!
 					$input_text_s4 = SMO4_ER	//Watch our backs!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -3597,6 +3660,7 @@ OR firstchase_s4flag = 1
 					IF truckaudio_s4flag = 6
 						audio_label_s4 = SOUND_SMO4_GK	//Smoke, it’s more bikes!
 						$input_text_s4 = SMO4_GK	//Smoke, it’s more bikes!
+						speaker_s4 = scplayer
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -3605,6 +3669,7 @@ OR firstchase_s4flag = 1
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_EL	//Pop their brains, CJ!
 					$input_text_s4 = SMO4_EL	//Pop their brains, CJ!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5354,10 +5419,12 @@ IF firstchase_s4flag = 2
 		//audio
 		IF thirdchase_s4flag > 0
 
+			// FIXEDGROVE: assigned speakers
 			IF progressaudio_s4flag = 0
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HA	//Oh shit, now the truck’s found us again!
 					$input_text_s4 = SMO4_HA	//They after us on a bike, Smoke!!
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5365,6 +5432,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HB	//Man, you’re so negative!
 					$input_text_s4 = SMO4_HB	//Man, you’re so negative!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5372,6 +5440,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HC	//Focus on the good news!
 					$input_text_s4 = SMO4_HC	//Focus on the good news!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5379,13 +5448,15 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HD	//Such as?
 					$input_text_s4 = SMO4_HD	//Such as?
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
 			IF progressaudio_s4flag = 4
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HE	//We ain’t dead and your trigger finger still works!
-					$input_text_s4 = SMO4_HE	//Waste any motherfucker that follows us!
+					$input_text_s4 = SMO4_HE	//We ain’t dead and your trigger finger still works!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5393,6 +5464,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HF	//I think the gearbox is screwed on this thing!!
 					$input_text_s4 = SMO4_HF	//I think the gearbox is screwed on this thing!!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5400,6 +5472,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HH	//Yeah, who negative now, bitch?
 					$input_text_s4 = SMO4_HH	//Yeah, who negative now, bitch?
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5407,6 +5480,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HJ	//Point taken. I’ll shut up!
 					$input_text_s4 = SMO4_HJ	//Point taken. I’ll shut up!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5414,6 +5488,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_ER	//Watch our backs!
 					$input_text_s4 = SMO4_ER	//Watch our backs!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5429,6 +5504,7 @@ IF firstchase_s4flag = 2
 					IF truckaudio_s4flag = 1
 						audio_label_s4 = SOUND_SMO4_HN //OH SHIT!
 						$input_text_s4 = SMO4_HN //OH SHIT!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -5445,6 +5521,7 @@ IF firstchase_s4flag = 2
 					IF truckaudio_s4flag = 2
 						audio_label_s4 = SOUND_SMO4_GM	//Oh man, the cars found a ramp!
 						$input_text_s4 = SMO4_GM	//Oh man, the cars found a ramp!
+						speaker_s4 = scplayer
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -5453,6 +5530,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GP //Don’t tell me about it – shoot!
 					$input_text_s4 = SMO4_GP //Don’t tell me about it – shoot!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5468,6 +5546,7 @@ IF firstchase_s4flag = 2
 					IF truckaudio_s4flag = 3
 						audio_label_s4 = SOUND_SMO4_HP	//Hold on!
 						$input_text_s4 = SMO4_HP	//Hold on!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -5476,6 +5555,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HS	//Get us up that ramp!
 					$input_text_s4 = SMO4_HS	//Get us up that ramp!
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5483,6 +5563,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_HT	//I’m on it!
 					$input_text_s4 = SMO4_HT	//I’m on it!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5498,6 +5579,7 @@ IF firstchase_s4flag = 2
 					IF truckaudio_s4flag = 4
 						audio_label_s4 = SOUND_SMO4_GL //We got more bikes on us, man!
 						$input_text_s4 = SMO4_GL //We got more bikes on us, man!
+						speaker_s4 = scplayer
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -5506,6 +5588,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_GN	//Quit whining and shoot as many assholes as you can!
 					$input_text_s4 = SMO4_GN	//Quit whining and shoot as many assholes as you can!
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5521,6 +5604,7 @@ IF firstchase_s4flag = 2
 					IF truckaudio_s4flag = 4
 						audio_label_s4 = SOUND_SMO4_JA //Fools totalled their truck!
 						$input_text_s4 = SMO4_JA //Fools totalled their truck!!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -5529,6 +5613,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_JB //Go around ‘em, man!
 					$input_text_s4 = SMO4_JB //Go around ‘em, man!
+					speaker_s4 = scplayer
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -5536,6 +5621,7 @@ IF firstchase_s4flag = 2
 				IF handlingudio_s4flag = 0
 					audio_label_s4 = SOUND_SMO4_JC //Screw that, We’re taking the scenic route
 					$input_text_s4 = SMO4_JC //Screw that, We’re taking the scenic route
+					speaker_s4 = big_smoke
 					GOSUB load_audio_s4
 				ENDIF
 			ENDIF
@@ -6104,6 +6190,7 @@ IF jumpchase_s4flag = 2
 					ENDWHILE
 					PLAY_MISSION_AUDIO 2
 					PRINT_NOW SMO4_JS 5000 1//We lost ‘em, Smoke!
+					START_CHAR_FACIAL_TALK scplayer 10000 // FIXEDGROVE
 					finalchase_s4flag = 4
 				ENDIF
 			ENDIF
@@ -6114,11 +6201,13 @@ IF jumpchase_s4flag = 2
 				IF LOCATE_STOPPED_CAR_2D smokebike_s4 2825.37 -1538.43 5.0 5.0 FALSE
 					IF NOT IS_CHAR_DEAD big_smoke
 						IF HAS_MISSION_AUDIO_FINISHED 2
+						STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 							IF HAS_MISSION_AUDIO_LOADED 1
 
 								CLEAR_PRINTS
 								PLAY_MISSION_AUDIO 1 //Man, we better split up.
 								PRINT_NOW SMO4_KA 5000 1//Man, we better split up.
+								START_CHAR_FACIAL_TALK scplayer 10000 // FIXEDGROVE
 								CLEAR_MISSION_AUDIO 2
 								LOAD_MISSION_AUDIO 2 SOUND_SMO4_KC	//I’ll take it another block and dump it.
 
@@ -6154,6 +6243,7 @@ IF jumpchase_s4flag = 2
 
 		IF finalchase_s4flag = 5
 			IF HAS_MISSION_AUDIO_FINISHED 1
+				STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 				IF HAS_MISSION_AUDIO_LOADED 2
 					SET_FIXED_CAMERA_POSITION 2819.6658 -1542.1078 10.2063 0.0 0.0 0.0
 					POINT_CAMERA_AT_POINT 2820.4011 -1541.4436 10.3396 JUMP_CUT
@@ -6201,10 +6291,11 @@ IF jumpchase_s4flag = 2
 
 		IF finalchase_s4flag = 8
 			IF HAS_MISSION_AUDIO_FINISHED 1
+				// FIXEDGROVE: move this here so it syncs better
+				IF NOT IS_CHAR_DEAD big_smoke
+					STOP_CHAR_FACIAL_TALK big_smoke
+				ENDIF
 				IF HAS_MISSION_AUDIO_LOADED 2
-					IF NOT IS_CHAR_DEAD big_smoke
-						STOP_CHAR_FACIAL_TALK big_smoke
-					ENDIF
 					CLEAR_PRINTS
 					PLAY_MISSION_AUDIO 2
 					PRINT_NOW SMO4_KE 5000 1 //Yeah, for sure.
@@ -6236,8 +6327,8 @@ IF jumpchase_s4flag = 2
 				IF NOT IS_CHAR_DEAD big_smoke
 					IF TIMERA > 3000
 						IF HAS_MISSION_AUDIO_FINISHED 1
+							STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: move this here so it syncs better
 							IF HAS_MISSION_AUDIO_LOADED 2
-								STOP_CHAR_FACIAL_TALK scplayer
 								SET_CAR_STRAIGHT_LINE_DISTANCE smokebike_S4 200
 								TASK_CAR_DRIVE_TO_COORD big_smoke smokebike_s4 2804.5 -1538.95 10.38 6.0 MODE_NORMAL 0 DRIVINGMODE_PLOUGHTHROUGH
 								PLAY_MISSION_AUDIO 2
@@ -6303,6 +6394,7 @@ IF jumpchase_s4flag = 2
 					IF handlingudio_s4flag = 0
 						audio_label_s4 = SOUND_SMO4_JE	//Fry, motherfuckers!
 						$input_text_s4 = SMO4_JE	//Fry, motherfuckers!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -6310,6 +6402,7 @@ IF jumpchase_s4flag = 2
 					IF handlingudio_s4flag = 0
 						audio_label_s4 = SOUND_SMO4_JF	//There’s the old sewer up ahead!
 						$input_text_s4 = SMO4_JF	//There’s the old sewer up ahead!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -6317,6 +6410,7 @@ IF jumpchase_s4flag = 2
 					IF handlingudio_s4flag = 0
 						audio_label_s4 = SOUND_SMO4_JG	//Shoot out the gate!
 						$input_text_s4 = SMO4_JG	//Shoot out the gate!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -6326,11 +6420,13 @@ IF jumpchase_s4flag = 2
 						IF grate_s4flag = 2
 							audio_label_s4 = SOUND_SMO4_JH	//Nice one, CJ, here we go!
 							$input_text_s4 = SMO4_JH	//Nice one, CJ, here we go!
+							speaker_s4 = big_smoke
 							GOSUB load_audio_s4
 						ELSE
 							IF grate_s4flag = 3
 								audio_label_s4 = SOUND_SMO4_JJ	//The gate, Carl, the GATE!
 								$input_text_s4 = SMO4_JJ	//The gate, Carl, the GATE!
+								speaker_s4 = big_smoke
 								GOSUB load_audio_s4
 							ENDIF
 						ENDIF
@@ -6348,6 +6444,7 @@ IF jumpchase_s4flag = 2
 						IF truckaudio_s4flag = 1
 							audio_label_s4 = SOUND_SMO4_JK	//Man, I used to hate this tunnel when we was kids.
 							$input_text_s4 = SMO4_JK	//Man, I used to hate this tunnel when we was kids.
+							speaker_s4 = scplayer
 							GOSUB load_audio_s4
 						ENDIF
 					ENDIF
@@ -6356,6 +6453,7 @@ IF jumpchase_s4flag = 2
 					IF handlingudio_s4flag = 0
 						audio_label_s4 = SOUND_SMO4_JL	//We can reminisce later – we still got company!
 						$input_text_s4 = SMO4_JL	//We can reminisce later – we still got company!
+						speaker_s4 = big_smoke
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -6363,6 +6461,7 @@ IF jumpchase_s4flag = 2
 					IF handlingudio_s4flag = 0
 						audio_label_s4 = SOUND_SMO4_JP	//Don’t these guys ever give up?
 						$input_text_s4 = SMO4_JP	//Don’t these guys ever give up?
+						speaker_s4 = scplayer
 						GOSUB load_audio_s4
 					ENDIF
 				ENDIF
@@ -6776,6 +6875,12 @@ IF handlingudio_s4flag = 1
 	IF HAS_MISSION_AUDIO_LOADED 1
 		PRINT_NOW $text_label_s4 4000 1 //Dummy message"
 		PLAY_MISSION_AUDIO 1
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD speaker_s4
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH speaker_s4 TRUE
+			START_CHAR_FACIAL_TALK speaker_s4 10000
+		ENDIF
+		// FIXEDGROVE: END
 		handlingudio_s4flag = 2
 	ENDIF
 ENDIF
@@ -6784,6 +6889,12 @@ IF handlingudio_s4flag = 2
 		progressaudio_s4flag++
 		CLEAR_MISSION_AUDIO 1
 		CLEAR_PRINTS
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD speaker_s4
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH speaker_s4 FALSE
+			STOP_CHAR_FACIAL_TALK speaker_s4
+		ENDIF
+		// FIXEDGROVE: END
 		handlingudio_s4flag = 0
 	ENDIF
 ENDIF
@@ -6942,10 +7053,10 @@ CLEAR_ONSCREEN_COUNTER bikehealth_s4
 //other
 IF IS_PLAYER_PLAYING PLAYER1
 	//SET_PLAYER_FAST_RELOAD PLAYER1 FALSE
-	SHUT_CHAR_UP scplayer FALSE
 	SET_PLAYER_ENTER_CAR_BUTTON PLAYER1 TRUE
 	SET_CHAR_CAN_BE_KNOCKED_OFF_BIKE scplayer KNOCKOFFBIKE_DEFAULT
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
 ENDIF
 IF NOT IS_CHAR_DEAD big_smoke
 	SET_CHAR_CAN_BE_KNOCKED_OFF_BIKE big_smoke KNOCKOFFBIKE_DEFAULT
