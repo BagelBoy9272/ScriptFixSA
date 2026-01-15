@@ -6727,9 +6727,6 @@ intro_stuff_loop_inner:
 							ENDIF
 
 						ENDWHILE
-						
-						PRINT_NOW ( VO_AG ) 4000 1 
-						PLAY_MISSION_AUDIO 2 // At least it was before I fucked everything up.
 
 						WHILE NOT HAS_MISSION_AUDIO_LOADED 2
 							WAIT 0
@@ -6739,6 +6736,9 @@ intro_stuff_loop_inner:
 							ENDIF
 
 						ENDWHILE
+
+						PRINT_NOW ( VO_AG ) 4000 1 
+						PLAY_MISSION_AUDIO 2 // At least it was before I fucked everything up.
 
 						skip_loading_audio:
 						voice_over_at_hub = 1
