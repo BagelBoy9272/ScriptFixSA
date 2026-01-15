@@ -45,6 +45,7 @@ LVAR_INT tw7_last_label
 LVAR_INT tw7_slot1 tw7_slot2 tw7_slot_load tw7_play_which_slot
 LVAR_INT tw7_random_last_label
 LVAR_INT tw7_storing_speech_control_number tw7_storing_speech_goals_number 
+LVAR_INT tw7_speaker[13] // FIXEDGROVE
 
 //coords
 LVAR_FLOAT tw7_playerx tw7_playery tw7_ass_banditx tw7_ass_bandity tw7_tempx tw7_tempy tw7_tempz tw7_playback_speed 
@@ -341,9 +342,6 @@ WAIT 0
 		IF tw7_special_trip_skip = 1
 			IF IS_SKIP_WAITING_FOR_SCRIPT_TO_FADE_IN
 				SET_PLAYER_CONTROL player1 OFF
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke FALSE
 				CLEAR_PRINTS
 				CLEAR_MISSION_AUDIO 1
 				CLEAR_MISSION_AUDIO 2
@@ -473,9 +471,6 @@ WAIT 0
 			IF tw7_speech_goals = 0 
 				IF tw7_speech_flag = 0
 					IF timerb > 7000	
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke TRUE
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet TRUE
 						tw7_speech_goals = 1
 						tw7_speech_control_flag = 0
 						GOSUB tw7_dialogue_setup 
@@ -485,9 +480,6 @@ WAIT 0
 			ENDIF
 			IF tw7_speech_flag = 1 
 				IF tw7_speech_goals = 0	 
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke FALSE
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
 					tw7_speech_flag = 2
 				ENDIF
 			ENDIF
@@ -517,9 +509,6 @@ WAIT 0
 		IF tw7_control_flag = 1 
 			SET_PLAYER_CONTROL player1 OFF
 
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke FALSE
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
 			CLEAR_PRINTS
 			CLEAR_MISSION_AUDIO 1
 			CLEAR_MISSION_AUDIO 2
@@ -675,10 +664,6 @@ WAIT 0
 			IF tw7_speech_goals = 0 
 				IF tw7_speech_flag = 0
 					IF timerb > 7000	
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke TRUE
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet TRUE
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH mc_strap TRUE
 						tw7_speech_goals = 2
 						tw7_speech_control_flag = 0
 						GOSUB tw7_dialogue_setup 
@@ -688,10 +673,6 @@ WAIT 0
 			ENDIF
 			IF tw7_speech_flag = 1 
 				IF tw7_speech_goals = 0	 
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke FALSE
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH mc_strap FALSE
 					tw7_speech_flag = 2
 				ENDIF
 			ENDIF
@@ -745,10 +726,6 @@ WAIT 0
 			SET_FIXED_CAMERA_POSITION 2451.2 -1295.1 24.8 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT 2459.7 -1284.6 26.5 JUMP_CUT
 		
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke FALSE
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH mc_strap FALSE
 			CLEAR_PRINTS
 			CLEAR_MISSION_AUDIO 1
 			CLEAR_MISSION_AUDIO 2
@@ -784,7 +761,6 @@ WAIT 0
 		ENDIF
 
 		IF tw7_control_flag = 3 
-			DRAW_SPHERE 2468.8 -1278.2 29.1 1.2
 
 			IF tw7_speech_goals = 0 
 				IF IS_CAR_STOPPED tw7_smokes_car 
@@ -807,7 +783,6 @@ WAIT 0
 			ENDIF
 		ENDIF
 		IF tw7_control_flag = 4 
-			DRAW_SPHERE 2468.8 -1278.2 29.1 1.2
 			GET_SCRIPT_TASK_STATUS scplayer PERFORM_SEQUENCE_TASK task_status	
 			IF task_status = FINISHED_TASK	
 				
@@ -823,8 +798,7 @@ WAIT 0
 			ENDIF
 		ENDIF
 		IF tw7_control_flag = 5
-			DRAW_SPHERE 2468.8 -1278.2 29.1 1.2
-			IF timera > 0   //////DEBUG - THIS CAN BE CHANGED BACK TO 3000 IF YOU WANT TO SEE SMOKE PULLING AWAY
+			IF timera > 3000   //////DEBUG - THIS CAN BE CHANGED BACK TO 3000 IF YOU WANT TO SEE SMOKE PULLING AWAY // FIXEDGROVE: changed back to 3000
 										   
 				tw7_skip_cutscene_flag = 0
 				SKIP_CUTSCENE_END
@@ -842,9 +816,7 @@ WAIT 0
 					
 					DO_FADE 500 FADE_OUT	
 					WHILE GET_FADING_STATUS	
-						DRAW_SPHERE 2468.8 -1278.2 29.1 1.2
 					   	WAIT 0
-						DRAW_SPHERE 2468.8 -1278.2 29.1 1.2
 					ENDWHILE 
 					GOSUB tw7_death_checks
 					IF tw7_deathcheck_flag = 1
@@ -897,15 +869,14 @@ WAIT 0
 				IF tw7_skip_cutscene_flag = 1
 					DO_FADE 500 FADE_IN	
 					WHILE GET_FADING_STATUS	
-						DRAW_SPHERE 2468.8 -1278.2 29.1 1.2
 					   	WAIT 0
-						DRAW_SPHERE 2468.8 -1278.2 29.1 1.2
 					ENDWHILE 
 					GOSUB tw7_death_checks
 					IF tw7_deathcheck_flag = 1
 						GOTO mission_twar7_failed
 					ENDIF
-				ENDIF 
+				ENDIF
+				DRAW_SPHERE 2468.8 -1278.2 29.1 1.2 // FIXEDGROVE: removed redundant DRAW_SPHERE lines, and call it after the cutscene ends
 				tw7_control_flag = 0
 				tw7_goals = 3
 			ENDIF  
@@ -990,7 +961,6 @@ WAIT 0
 		
 			CLEAR_AREA 2483.9 -1280.2 29.4 30.0 TRUE
 			CREATE_CHAR PEDTYPE_MISSION1 LSV2 2483.9 -1280.2 29.4 tw7_ass_bandit
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH tw7_ass_bandit TRUE
 			SET_CHAR_MONEY tw7_ass_bandit 500 
 			SET_CHAR_HEADING tw7_ass_bandit 261.6
 			GIVE_WEAPON_TO_CHAR tw7_ass_bandit WEAPONTYPE_TEC9 30000
@@ -3114,10 +3084,11 @@ mission_cleanup_twar7:
 IF IS_STRING_EMPTY $shop_name
 	RESTORE_CAMERA_JUMPCUT
 ENDIF
+SHUT_ALL_CHARS_UP FALSE
 IF NOT IS_CHAR_DEAD scplayer 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
 ENDIF
-SHUT_ALL_CHARS_UP FALSE
 REMOVE_BLIP tw7_control_blip
 CLEAR_MISSION_AUDIO 3
 MARK_MODEL_AS_NO_LONGER_NEEDED MANANA
@@ -3443,11 +3414,14 @@ IF NOT IS_CHAR_DEAD tw7_ass_bandit
 				ENDIF
 			ENDIF
 
+			/* // FIXEDGROVE: START - coment out debug code
 			/////DEBUG/////////////////////////////////////////
+			
 			IF NOT IS_CHAR_IN_CAR tw7_ass_bandit tw7_ass_bandit_bike
 				WARP_CHAR_INTO_CAR tw7_ass_bandit tw7_ass_bandit_bike
-			ENDIF 
+			ENDIF
 			/////DEBUG/////////////////////////////////////////
+			*/ // FIXEDGROVE: END
 		ELSE
 			IF NOT IS_CAR_DEAD tw7_ass_bandit_bike 
 				IF IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
@@ -3470,118 +3444,121 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 tw7_my_number_plates:///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-	GENERATE_RANDOM_INT_IN_RANGE 1 37 tw7_no_plates_flag
-	IF tw7_no_plates_flag = 1 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates got_m00_
-	ENDIF 
-	IF tw7_no_plates_flag = 2 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates m00tv_4u 
-	ENDIF
-	IF tw7_no_plates_flag = 3 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates mathew_2 
-	ENDIF 
-	IF tw7_no_plates_flag = 4 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates d4_dew0r 
-	ENDIF 
-	IF tw7_no_plates_flag = 5 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates d0de_777 
-	ENDIF 
-	IF tw7_no_plates_flag = 6 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates dam0_666 
-	ENDIF 
-	IF tw7_no_plates_flag = 7 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates C0NEY_88 
-	ENDIF 
-	IF tw7_no_plates_flag = 8 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates pre4cher 
-	ENDIF 
-	IF tw7_no_plates_flag = 9 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates dbp_4ndy 
-	ENDIF 
-	IF tw7_no_plates_flag = 10 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates ev1l_sly 
-	ENDIF 
-	IF tw7_no_plates_flag = 11 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates n1_r4v3n 
-	ENDIF 
-	IF tw7_no_plates_flag = 12 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates d1vx_z00 
-	ENDIF 
-	IF tw7_no_plates_flag = 13 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates mr_b3nn 
-	ENDIF 
-	IF tw7_no_plates_flag = 14 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates r3d_r4sp 
-	ENDIF 
-	IF tw7_no_plates_flag = 15 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates La_B0mba 
-	ENDIF 
-	IF tw7_no_plates_flag = 16 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates L3337_0g 
-	ENDIF 
-	IF tw7_no_plates_flag = 17 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates budd4h_X 
-	ENDIF 
-	IF tw7_no_plates_flag = 18 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates t3h_buck 
-	ENDIF 
-	IF tw7_no_plates_flag = 19 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates CHUNKY_1 
-	ENDIF 
-	IF tw7_no_plates_flag = 20 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates ev1l_bnz 
-	ENDIF 
-	IF tw7_no_plates_flag = 21 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates S4ND_M4N 
-	ENDIF 
-	IF tw7_no_plates_flag = 22 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates RKK_DBP1 
-	ENDIF 
-	IF tw7_no_plates_flag = 23 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates RE1_K0KU 
-	ENDIF 
-	IF tw7_no_plates_flag = 24 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates s3xy_jud 
-	ENDIF 
-	IF tw7_no_plates_flag = 25 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates sunra_93 
-	ENDIF 
-	IF tw7_no_plates_flag = 26 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates UG_FuX69 
-	ENDIF 
-	IF tw7_no_plates_flag = 27 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates Li0n_Cum 
-	ENDIF 
-	IF tw7_no_plates_flag = 28 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates rkk_pwnd 
-	ENDIF 
-	IF tw7_no_plates_flag = 29 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates haze_b0b 
-	ENDIF 
-	IF tw7_no_plates_flag = 30 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates t3h_fluf 
-	ENDIF 
-	IF tw7_no_plates_flag = 31 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_4NDY_ 
-	ENDIF 
-	IF tw7_no_plates_flag = 32 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_D34N_ 
-	ENDIF 
-	IF tw7_no_plates_flag = 33 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_L4C3Y 
-	ENDIF 
-	IF tw7_no_plates_flag = 34 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_D3V__ 
-	ENDIF 
-	IF tw7_no_plates_flag = 35 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates NU_SK00L 
-	ENDIF 
-	IF tw7_no_plates_flag = 36 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates G4L_AVET 
-	ENDIF 
-	IF tw7_no_plates_flag = 37 
-		CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates M0j0_j0j 
-	ENDIF 
+	GENERATE_RANDOM_INT_IN_RANGE 1 38 tw7_no_plates_flag // FIXEDGROVE: increassed upper limit since its exclusive
+	// FIXEDGROVE: swapped if chain with switch case
+	SWITCH tw7_no_plates_flag
+		CASE 1
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates got_m00_
+			BREAK
+		CASE 2
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates m00tv_4u 
+			BREAK
+		CASE 3
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates mathew_2 
+			BREAK 
+		CASE 4 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates d4_dew0r 
+			BREAK
+		CASE 5 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates d0de_777 
+			BREAK
+		CASE 6 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates dam0_666 
+			BREAK 
+		CASE 7 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates C0NEY_88 
+			BREAK 
+		CASE 8 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates pre4cher 
+			BREAK 
+		CASE 9 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates dbp_4ndy 
+			BREAK 
+		CASE 10	 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates ev1l_sly 
+			BREAK 
+		CASE 11
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates n1_r4v3n 
+			BREAK 
+		CASE 12 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates d1vx_z00 
+			BREAK 
+		CASE 13 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates mr_b3nn 
+			BREAK 
+		CASE 14
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates r3d_r4sp 
+			BREAK 
+		CASE 15 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates La_B0mba 
+			BREAK 
+		CASE 16 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates L3337_0g 
+			BREAK 
+		CASE 17 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates budd4h_X 
+			BREAK 
+		CASE 18 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates t3h_buck 
+			BREAK 
+		CASE 19 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates CHUNKY_1 
+			BREAK 
+		CASE 20 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates ev1l_bnz 
+			BREAK 
+		CASE 21 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates S4ND_M4N 
+			BREAK 
+		CASE 22 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates RKK_DBP1 
+			BREAK 
+		CASE 23 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates RE1_K0KU 
+			BREAK 
+		CASE 24 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates s3xy_jud 
+			BREAK 
+		CASE 25 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates sunra_93 
+			BREAK 
+		CASE 26 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates UG_FuX69 
+			BREAK 
+		CASE 27 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates Li0n_Cum 
+			BREAK 
+		CASE 28 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates rkk_pwnd 
+			BREAK
+		CASE 29 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates haze_b0b 
+			BREAK 
+		CASE 30 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates t3h_fluf 
+			BREAK 
+		CASE 31 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_4NDY_ 
+			BREAK 
+		CASE 32 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_D34N_ 
+			BREAK 
+		CASE 33 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_L4C3Y 
+			BREAK 
+		CASE 34 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates BM_D3V__ 
+			BREAK 
+		CASE 35 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates NU_SK00L 
+			BREAK 
+		CASE 36 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates G4L_AVET 
+			BREAK 
+		DEFAULT // CASE 37 
+			CUSTOM_PLATE_FOR_NEXT_CAR tw7_no_plates M0j0_j0j 
+			BREAK 
+	ENDSWITCH
 ////////////////////////////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
@@ -3630,12 +3607,10 @@ IF tw7_goals = 1
 	ENDIF
 	IF NOT IS_CHAR_IN_CAR scplayer tw7_smokes_car 
 		IF tw7_speech_goals < 11 
-			IF tw7_speech_control_flag < tw7_last_label 
-				tw7_speech_control_flag ++ 
-			ENDIF
 			CLEAR_MISSION_AUDIO 1
 			CLEAR_MISSION_AUDIO 2
 			CLEAR_PRINTS 
+			GOSUB tw7_finishing_dialogue // FIXEDGROVE: added to properly cleanup remaining dialogue
 			CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag]
 			tw7_storing_speech_goals_number = tw7_speech_goals
 			tw7_storing_speech_control_number = tw7_speech_control_flag
@@ -3684,6 +3659,7 @@ IF tw7_goals = 1
 		IF IS_CHAR_SITTING_IN_CAR scplayer tw7_smokes_car
 			CLEAR_MISSION_AUDIO 1
 			CLEAR_MISSION_AUDIO 2
+			GOSUB tw7_finishing_dialogue // FIXEDGROVE: added to properly cleanup remaining dialogue
 			CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag]
 			tw7_speech_goals = 13
 			tw7_speech_control_flag = 0
@@ -3748,46 +3724,23 @@ IF tw7_goals > 3
 		IF IS_GROUP_MEMBER mc_strap Players_Group 
 			
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D mc_strap scplayer 10.0 10.0 8.0 FALSE
-	            IF IS_CHAR_ON_FOOT scplayer
-    	        AND IS_CHAR_ON_FOOT mc_strap
-					IF tw7_speech_goals = 9 //strap talking to player about where to go
-						IF tw7_speech_control_flag < tw7_last_label
-							GOSUB tw7_loading_dialogue
-							GOSUB tw7_playing_dialogue
-							IF NOT IS_CHAR_DEAD mc_strap
-								GOSUB tw7_finishing_dialogue  
-							ELSE
-								CLEAR_MISSION_AUDIO 1
-								CLEAR_MISSION_AUDIO 2
-								CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag] 
-								tw7_slot1 = 0
-								tw7_slot2 = 0
-							ENDIF
+				IF tw7_speech_goals = 9 //strap talking to player about where to go
+					IF tw7_speech_control_flag < tw7_last_label
+						GOSUB tw7_loading_dialogue
+						GOSUB tw7_playing_dialogue
+						IF NOT IS_CHAR_DEAD mc_strap
+							GOSUB tw7_finishing_dialogue  
 						ELSE
-							tw7_speech_goals = 0
+							CLEAR_MISSION_AUDIO 1
+							CLEAR_MISSION_AUDIO 2
+							CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag] 
+							tw7_slot1 = 0
+							tw7_slot2 = 0
 						ENDIF
+					ELSE
+						tw7_speech_goals = 0
 					ENDIF
-	            ENDIF   
-                IF IS_CHAR_IN_ANY_CAR scplayer
-                AND IS_CHAR_IN_ANY_CAR mc_strap
-					IF tw7_speech_goals = 9 //strap talking to player about where to go
-						IF tw7_speech_control_flag < tw7_last_label
-							GOSUB tw7_loading_dialogue
-							GOSUB tw7_playing_dialogue
-							IF NOT IS_CHAR_DEAD mc_strap
-								GOSUB tw7_finishing_dialogue  
-							ELSE
-								CLEAR_MISSION_AUDIO 1
-								CLEAR_MISSION_AUDIO 2
-								CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag] 
-								tw7_slot1 = 0
-								tw7_slot2 = 0
-							ENDIF
-						ELSE
-							tw7_speech_goals = 0
-						ENDIF
-					ENDIF
-                ENDIF
+				ENDIF
 			ENDIF
 		
 			/*
@@ -3811,13 +3764,11 @@ IF tw7_goals > 3
 			*/
 		ELSE		  
 			IF tw7_speech_goals < 14 
-				IF tw7_speech_control_flag < tw7_last_label 
-					tw7_speech_control_flag ++
-				ENDIF
 				CLEAR_MISSION_AUDIO 1
 				CLEAR_MISSION_AUDIO 2
 				CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag]
 				CLEAR_PRINTS
+				GOSUB tw7_finishing_dialogue // FIXEDGROVE: added to properly cleanup remaining dialogue
 				tw7_storing_speech_goals_number = tw7_speech_goals 
 				tw7_storing_speech_control_number = tw7_speech_control_flag
 				tw7_speech_goals = 14
@@ -3936,6 +3887,7 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 tw7_dialogue_setup://///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
+// FIXEDGROVE: assigned speakers
 IF tw7_speech_goals = 1
 	$tw7_print_label[0] = &SMO1_AA // Good to hang with you, brother. I'm sorry I can get a little tense.
 	$tw7_print_label[1] = &SMO1_AC // Don't worry about it.
@@ -3954,6 +3906,15 @@ IF tw7_speech_goals = 1
 	tw7_audio_label[5] = SOUND_SMO1_AG 
 	tw7_audio_label[6] = SOUND_SMO1_AH 
 	tw7_audio_label[7] = SOUND_SMO1_AJ 
+
+	tw7_speaker[0] = sweet
+	tw7_speaker[1] = scplayer
+	tw7_speaker[2] = big_smoke
+	tw7_speaker[3] = scplayer
+	tw7_speaker[4] = sweet
+	tw7_speaker[5] = scplayer
+	tw7_speaker[6] = big_smoke
+	tw7_speaker[7] = big_smoke
 	tw7_last_label = 8 
 ENDIF
 IF tw7_speech_goals = 2
@@ -3972,6 +3933,14 @@ IF tw7_speech_goals = 2
 	tw7_audio_label[4] = SOUND_SMO1_BE 
 	tw7_audio_label[5] = SOUND_SMO1_BF 
 	tw7_audio_label[6] = SOUND_SMO1_BG 
+
+	tw7_speaker[0] = scplayer
+	tw7_speaker[1] = mc_strap
+	tw7_speaker[2] = big_smoke
+	tw7_speaker[3] = mc_strap
+	tw7_speaker[4] = mc_strap
+	tw7_speaker[5] = sweet
+	tw7_speaker[6] = mc_strap
 	tw7_last_label = 7
 ENDIF
 IF tw7_speech_goals = 3
@@ -3990,6 +3959,14 @@ IF tw7_speech_goals = 3
 	tw7_audio_label[4] = SOUND_SMO1_CE
 	tw7_audio_label[5] = SOUND_SMO1_CF
 	tw7_audio_label[6] = SOUND_SMO1_CG
+
+	tw7_speaker[0] = mc_strap
+	tw7_speaker[1] = scplayer
+	tw7_speaker[2] = mc_strap
+	tw7_speaker[3] = big_smoke
+	tw7_speaker[4] = scplayer
+	tw7_speaker[5] = sweet
+	tw7_speaker[6] = sweet
 	tw7_last_label = 7
 ENDIF
 
@@ -4019,6 +3996,17 @@ IF tw7_speech_goals = 4
 	tw7_audio_label[8] = SOUND_SMO1_CP
 	tw7_audio_label[9] = SOUND_SMO1_DA
 	//tw7_audio_label[10] = SOUND_SMO1_DC
+
+	tw7_speaker[0] = mc_strap
+	tw7_speaker[1] = scplayer
+	tw7_speaker[2] = 0
+	tw7_speaker[3] = 0
+	tw7_speaker[4] = 0
+	tw7_speaker[5] = mc_strap
+	tw7_speaker[6] = mc_strap
+	tw7_speaker[7] = 0
+	tw7_speaker[8] = 0
+	tw7_speaker[9] = mc_strap
 	tw7_last_label = tw7_random_last_label
 ENDIF
 IF tw7_speech_goals = 5
@@ -4027,6 +4015,9 @@ IF tw7_speech_goals = 5
 	
 	tw7_audio_label[0] = SOUND_SMO1_EA
 	tw7_audio_label[1] = SOUND_SMO1_EB
+
+	tw7_speaker[0] = scplayer
+	tw7_speaker[1] = mc_strap
 	tw7_last_label = 2
 ENDIF
 IF tw7_speech_goals = 6
@@ -4054,7 +4045,18 @@ IF tw7_speech_goals = 6
 	tw7_audio_label[8] = SOUND_SMO1_FJ
 	tw7_audio_label[9] = SOUND_SMO1_FK
 	//tw7_audio_label[10] = SOUND_SMO1_FL
-	//tw7_audio_label[11] = SOUND_SMO1_FM
+	//tw7_audio_label[11] = SOUND_SMO1_FM 
+
+	tw7_speaker[0] = tw7_ass_bandit
+	tw7_speaker[1] = tw7_ass_bandit
+	tw7_speaker[2] = tw7_ass_bandit
+	tw7_speaker[3] = tw7_ass_bandit
+	tw7_speaker[4] = tw7_ass_bandit
+	tw7_speaker[5] = tw7_ass_bandit
+	tw7_speaker[6] = tw7_ass_bandit
+	tw7_speaker[7] = tw7_ass_bandit
+	tw7_speaker[8] = tw7_ass_bandit
+	tw7_speaker[9] = tw7_ass_bandit
 	tw7_last_label = tw7_random_last_label
 ENDIF
 IF tw7_speech_goals = 7
@@ -4063,6 +4065,9 @@ IF tw7_speech_goals = 7
 
 	tw7_audio_label[0] = SOUND_SMO1_GA
 	tw7_audio_label[1] = SOUND_SMO1_GB
+
+	tw7_speaker[0] = tw7_ass_bandit
+	tw7_speaker[1] = tw7_ass_bandit
 	tw7_last_label = 2
 ENDIF
 IF tw7_speech_goals = 8
@@ -4088,6 +4093,15 @@ IF tw7_speech_goals = 8
 	tw7_audio_label[5] = SOUND_SMO1_HF
 	tw7_audio_label[6] = SOUND_SMO1_HG
 	tw7_audio_label[7] = SOUND_SMO1_HH
+
+	tw7_speaker[0] = mc_strap
+	tw7_speaker[1] = scplayer
+	tw7_speaker[2] = scplayer
+	tw7_speaker[3] = mc_strap
+	tw7_speaker[4] = scplayer
+	tw7_speaker[5] = mc_strap
+	tw7_speaker[6] = scplayer
+	tw7_speaker[7] = mc_strap
 	tw7_last_label = 8
 ENDIF
 IF tw7_speech_goals = 9
@@ -4112,6 +4126,17 @@ IF tw7_speech_goals = 9
 	tw7_audio_label[7] = SOUND_SMO1_JJ
 	tw7_audio_label[8] = SOUND_SMO1_JK
 	tw7_audio_label[9] = SOUND_SMO1_JL
+
+	tw7_speaker[0] = mc_strap
+	tw7_speaker[1] = scplayer
+	tw7_speaker[2] = mc_strap
+	tw7_speaker[3] = mc_strap
+	tw7_speaker[4] = scplayer
+	tw7_speaker[5] = scplayer
+	tw7_speaker[6] = mc_strap
+	tw7_speaker[7] = scplayer
+	tw7_speaker[8] = mc_strap
+	tw7_speaker[9] = scplayer
 	tw7_last_label = 10
 ENDIF
 IF tw7_speech_goals = 10
@@ -4126,6 +4151,12 @@ IF tw7_speech_goals = 10
 	tw7_audio_label[2] = SOUND_SMO1_KC
 	tw7_audio_label[3] = SOUND_SMO1_KD
 	tw7_audio_label[4] = SOUND_SMO1_KE
+
+	tw7_speaker[0] = mc_strap
+	tw7_speaker[1] = mc_strap
+	tw7_speaker[2] = scplayer
+	tw7_speaker[3] = mc_strap
+	tw7_speaker[4] = mc_strap
 	tw7_last_label = 5
 ENDIF
 
@@ -4143,6 +4174,13 @@ IF tw7_speech_goals = 11
 	tw7_audio_label[3] = SOUND_SMOX_AD
 	tw7_audio_label[4] = SOUND_SMOX_AE
 	tw7_audio_label[5] = SOUND_SMOX_AF
+
+	tw7_speaker[0] = big_smoke
+	tw7_speaker[1] = big_smoke
+	tw7_speaker[2] = big_smoke
+	tw7_speaker[3] = big_smoke
+	tw7_speaker[4] = big_smoke
+	tw7_speaker[5] = big_smoke
  	tw7_last_label = tw7_random_last_label 
 ENDIF
 
@@ -4154,6 +4192,10 @@ IF tw7_speech_goals = 14
 	tw7_audio_label[0] = SOUND_LOCX_AA
 	tw7_audio_label[1] = SOUND_LOCX_AB
 	tw7_audio_label[2] = SOUND_LOCX_AC
+
+	tw7_speaker[0] = mc_strap
+	tw7_speaker[1] = mc_strap
+	tw7_speaker[2] = mc_strap
  	tw7_last_label = tw7_random_last_label 
 ENDIF
 
@@ -4167,6 +4209,11 @@ IF tw7_speech_goals = 17
 	tw7_audio_label[1] = SOUND_SMO1_GD
 	tw7_audio_label[2] = SOUND_SMO1_GE
 	tw7_audio_label[3] = SOUND_SMO1_GF
+
+	tw7_speaker[0] = mc_strap
+	tw7_speaker[1] = mc_strap
+	tw7_speaker[2] = mc_strap
+	tw7_speaker[3] = mc_strap
 	tw7_last_label = 4 
 ENDIF
 
@@ -4208,6 +4255,12 @@ IF tw7_play_which_slot = 1
 	IF tw7_slot1 = 1
 		IF HAS_MISSION_AUDIO_LOADED 1	 
 			PLAY_MISSION_AUDIO 1
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD tw7_speaker[tw7_speech_control_flag]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH tw7_speaker[tw7_speech_control_flag] TRUE
+				START_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag] 10000
+			ENDIF
+			// FIXEDGROVE: END
 			PRINT_NOW ( $tw7_print_label[tw7_speech_control_flag] ) 4500 1 
 			tw7_slot1 = 2
 		ENDIF
@@ -4219,6 +4272,12 @@ IF tw7_play_which_slot = 2
 	IF tw7_slot2 = 1
 		IF HAS_MISSION_AUDIO_LOADED 2	 
 			PLAY_MISSION_AUDIO 2
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD tw7_speaker[tw7_speech_control_flag]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH tw7_speaker[tw7_speech_control_flag] TRUE
+				START_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag]r 10000
+			ENDIF
+			// FIXEDGROVE: END
 			PRINT_NOW ( $tw7_print_label[tw7_speech_control_flag] ) 4500 1 
 			tw7_slot2 = 2
 		ENDIF
@@ -4234,6 +4293,12 @@ tw7_finishing_dialogue://////////////////////////////////////////////////////
 //slot 1
 IF tw7_slot1 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 1
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD tw7_speaker[tw7_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH tw7_speaker[tw7_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: END
 		CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag]
 		tw7_speech_control_flag ++		
 		tw7_play_which_slot = 2
@@ -4244,6 +4309,12 @@ ENDIF
 //slot 2
 IF tw7_slot2 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 2
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD tw7_speaker[tw7_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH tw7_speaker[tw7_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: END
 		CLEAR_THIS_PRINT $tw7_print_label[tw7_speech_control_flag]
 		tw7_speech_control_flag ++		
 		tw7_play_which_slot = 1
