@@ -1041,7 +1041,7 @@ VAR_INT flag_dumper_passed_1stime
 VAR_INT current_highest_score_kickstart //kickstart highest score
 
 VAR_INT flag_cycling_skill_help 
-VAR_INT flag_triathalon_passed_1stime
+VAR_INT flags_triathalon_passed_1stime // FIXEDGROVE: renamed from flag_triathalon_passed_1stime
 
 VAR_INT mtbikerace_best_times[5]
 VAR_INT triathalon_selection
@@ -1052,7 +1052,7 @@ triathalon_selection =1
 
 
 
-flag_triathalon_passed_1stime = 0
+flags_triathalon_passed_1stime = 0 // FIXEDGROVE: renamed from flag_triathalon_passed_1stime
 
 flag_cycling_skill_help = 0
 

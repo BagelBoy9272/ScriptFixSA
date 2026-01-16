@@ -27,9 +27,9 @@ CLEAR_THIS_PRINT_BIG_NOW 1
 
 flag_player_on_mission = 1
 
-IF flag_triathalon_passed_1stime = 0
+IF NOT IS_BIT_SET flags_triathalon_passed_1stime triathalon_selection // FIXEDGROVE: check bitflag
 	REGISTER_MISSION_GIVEN
-ENDIF
+ENDIF // FIXEDGROVE
 
 
 
@@ -139,9 +139,6 @@ LVAR_INT get_in_water start_swim end_swim get_on_bike start_bike end_bike get_on
 
 
 LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_EMPTY dm_racers_triathalon
-
-
-//VAR_INT flag_triathalon_passed_1stime
 					
 
 
@@ -3322,18 +3319,18 @@ mission_triathalon_passed:
 	seconds = triathalon_timer - temp_int_triathalon
 
 
-	IF flag_triathalon_passed_1stime = 0
+	IF NOT IS_BIT_SET flags_triathalon_passed_1stime triathalon_selection // FIXEDGROVE: check if current triathlon hasn't been completed, instead of just any
+	   	REGISTER_ODDJOB_MISSION_PASSED
+	    PLAYER_MADE_PROGRESS 1 // FIXEDGROVE: uncomment
+	    SET_BIT flags_triathalon_passed_1stime triathalon_selection // FIXEDGROVE: use bitflags
 
-		IF triathalon_selection =2
+		// FIXEDGROVE: START - check if both triathlons were completed, instead of just the second one
+		IF IS_BIT_SET flags_triathalon_passed_1stime 1
+		AND IS_BIT_SET flags_triathalon_passed_1stime 2
+		// FIXEDGROVE: END
 		   //	SET_PLAYER_NEVER_GETS_TIRED Player1 TRUE
 		   SET_INT_STAT STAMINA 1000
-		 
 		ENDIF
-
-
-	   	REGISTER_ODDJOB_MISSION_PASSED
-	//    PLAYER_MADE_PROGRESS 1
-	    flag_triathalon_passed_1stime = 1
 	ENDIF 
 			 
 
