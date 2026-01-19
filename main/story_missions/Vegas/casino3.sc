@@ -2543,7 +2543,7 @@ ENDIF
 
 
 IF ca3_begingrease = 0
-	IF ca3_MachinesDestroyed = 3
+	IF ca3_MachinesDestroyed > 2 // FIXEDGROVE: changed from = 3 to fix a bug where you could skip this if the value was never equal
 
 	//Camera coordinates
 	//1018.9890 2077.7812 21.5002 1019.9006 2077.7725 21.0893 
