@@ -80,6 +80,8 @@ LVAR_INT r3_empty
 
 LVAR_TEXT_LABEL r3_print
 
+LVAR_INT r3_speaker // FIXEDGROVE
+
 mission_ryder3_start:	  
 
 REGISTER_MISSION_GIVEN
@@ -95,6 +97,8 @@ r3_rnd = 0
 r3_playing = 2
 
 r3_spawn_train = 0
+
+r3_speaker = 0 // FIXEDGROVE
 
 // *****************************************************************************************
 
@@ -150,6 +154,7 @@ SWITCH_CAR_GENERATOR gen_car6 0
 
 REQUEST_MODEL picador
 REQUEST_MODEL MICRO_UZI
+REQUEST_MODEL TEC9 // FIXEDGROVE
 REQUEST_MODEL COLT45
 REQUEST_MODEL CR_GUNCRATE
 REQUEST_MODEL CR_AMMOBOX
@@ -162,7 +167,6 @@ REQUEST_MODEL LSV2
 REQUEST_MODEL LSV3
 REQUEST_MODEL FREIGHT
 REQUEST_MODEL FREIFLAT
-REQUEST_MODEL GREENWOO
 REQUEST_MODEL FAM1
 REQUEST_MODEL FAM2
 
@@ -172,6 +176,7 @@ LOAD_ALL_MODELS_NOW
 
 WHILE NOT HAS_MODEL_LOADED picador
    OR NOT HAS_MODEL_LOADED MICRO_UZI
+   OR NOT HAS_MODEL_LOADED TEC9 // FIXEDGROVE
    OR NOT HAS_MODEL_LOADED COLT45
    OR NOT HAS_MODEL_LOADED CR_GUNCRATE
    OR NOT HAS_MODEL_LOADED CR_AMMOBOX
@@ -193,8 +198,7 @@ WHILE NOT HAS_MODEL_LOADED LSV1
 	WAIT 0
 ENDWHILE
 
-WHILE NOT HAS_MODEL_LOADED GREENWOO
-   OR NOT HAS_MODEL_LOADED FAM1
+WHILE NOT HAS_MODEL_LOADED FAM1
    OR NOT HAS_MODEL_LOADED FAM2
    OR NOT HAS_ANIMATION_LOADED SWAT
 	WAIT 0
@@ -328,7 +332,7 @@ SET_CHAR_HEALTH	ryder 800
 SET_CHAR_MAX_HEALTH ryder 800
 SET_CHAR_SUFFERS_CRITICAL_HITS ryder FALSE
 SET_CHAR_NEVER_TARGETTED ryder TRUE
-GIVE_WEAPON_TO_CHAR	ryder WEAPONTYPE_MICRO_UZI 9999
+GIVE_WEAPON_TO_CHAR	ryder WEAPONTYPE_TEC9 9999 // FIXEDGROVE: changed weapon to tec9
 SET_CHAR_CANT_BE_DRAGGED_OUT ryder TRUE
 SET_ANIM_GROUP_FOR_CHAR ryder gang1
 SET_CHAR_RELATIONSHIP ryder ACQUAINTANCE_TYPE_PED_LIKE PEDTYPE_PLAYER1
@@ -434,11 +438,21 @@ PRINT_NOW ( RYD3_Z ) 6000 1 // ~s~Drive ~b~Ryder's Truck ~s~to the ~y~ammo train
 TIMERB = 0
 WHILE TIMERB < 4000
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from "is cross pressed"
+		GOTO r3_skip_the_cut_initial // FIXEDGROVE: skip the intro cutscene
 	ENDIF
 ENDWHILE
 
 r3_skip_the_cut_initial:
+
+// FIXEDGROVE: START
+GET_SCRIPT_TASK_STATUS scplayer TASK_ENTER_CAR_AS_DRIVER task_status
+
+IF NOT task_status = FINISHED_TASK
+	CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
+	WARP_CHAR_INTO_CAR scplayer ryders_car
+ENDIF
+// FIXEDGROVE: END
 
 GOSUB r3_restore_camera
 
@@ -650,6 +664,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			IF IS_CHAR_IN_CAR scplayer ryders_car
 
+				r3_converse_good = 0 // FIXEDGROVE: reset here so the conversation resumes playing
+
 				IF NOT r3_switch = 1
 
 					CHANGE_BLIP_DISPLAY r3_ryders_car_blip NEITHER
@@ -665,29 +681,24 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				IF r3_switch = 1
 
-					IF NOT IS_CHAR_DEAD ryder
-
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder FALSE
-
-					ENDIF
-
-					IF NOT IS_CHAR_DEAD scplayer
-
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-
-					ENDIF
-
 					CHANGE_BLIP_DISPLAY mission_blip NEITHER
 					CHANGE_BLIP_DISPLAY r3_ryders_car_blip BOTH
+
+					// FIXEDGROVE: START - added to properly cutoff the voiceline, facial anim and all
+					CLEAR_MISSION_AUDIO 1
+					GOSUB r3_play_sample
+					// FIXEDGROVE: END
 
 					GENERATE_RANDOM_INT_IN_RANGE 0 3 r3_rnd
 					
 					SWITCH r3_rnd
 
+						// FIXEDGROVE: assigned speakers
 						CASE 0
 
 							$r3_print = &RYD3_NA	// Hey, CJ, don't you run out on me!
 							r3_audio = SOUND_RYD3_NA
+							r3_speaker = ryder
 							GOSUB r3_load_sample
 
 						BREAK
@@ -696,6 +707,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 							$r3_print = &RYD3_NB	// You getting the buster itch again?
 							r3_audio = SOUND_RYD3_NB
+							r3_speaker = ryder
 							GOSUB r3_load_sample
 
 						BREAK
@@ -704,6 +716,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 							$r3_print = &RYD3_NC	// Don't you bust out on me, CJ!
 							r3_audio = SOUND_RYD3_NC
+							r3_speaker = ryder
 							GOSUB r3_load_sample
 
 						BREAK
@@ -738,20 +751,10 @@ WHILE NOT IS_CHAR_DEAD scplayer
 			IF r3_playing = 2
 			AND r3_time_left = 0
 
-				IF NOT IS_CHAR_DEAD ryder
-
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder TRUE
-
-				ENDIF
-
-				IF NOT IS_CHAR_DEAD scplayer
-
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-
-				ENDIF
-				   
+				// FIXEDGROVE: assigned speaker   
 				$r3_print = &RYD3_AD	// Cool, you drive CJ, seeing as you’s ‘Mister Driver’.
 				r3_audio = SOUND_RYD3_AD
+				r3_speaker = ryder
 				GOSUB r3_load_sample
 
 				r3_time_left = 1
@@ -762,6 +765,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_AE	// Not this shit again...
 				r3_audio = SOUND_RYD3_AE
+				r3_speaker = scplayer
 				GOSUB r3_load_sample
 
 				r3_time_left = 2
@@ -773,6 +777,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BA	// Don’t give me a hard time about my driving, I ain’t got the energy.
 				r3_audio = SOUND_RYD3_BA
+				r3_speaker = scplayer
 				GOSUB r3_load_sample
 
 				r3_time_left = 3
@@ -784,6 +789,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BB	// Well, don’t go rolling us over and over in flames, then.
 				r3_audio = SOUND_RYD3_BB
+				r3_speaker = ryder
 				GOSUB r3_load_sample
 	
 				r3_time_left = 4
@@ -795,6 +801,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BC	// I ain’t risin’ to it, man.
 				r3_audio = SOUND_RYD3_BC
+				r3_speaker = scplayer
 				GOSUB r3_load_sample
 
 				r3_time_left = 5
@@ -806,6 +813,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BD	// Good, means you’ll concentrate on the road!
 				r3_audio = SOUND_RYD3_BD
+				r3_speaker = ryder
 				GOSUB r3_load_sample
 
 				r3_time_left = 6
@@ -817,6 +825,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BE	// Shit, man, you love to give a homie a hard time.
 				r3_audio = SOUND_RYD3_BE
+				r3_speaker = scplayer
 				GOSUB r3_load_sample
 
 				r3_time_left = 7
@@ -828,6 +837,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BG	// Just trying to keep my soldiers alive!	
 				r3_audio = SOUND_RYD3_BG
+				r3_speaker = ryder
 				GOSUB r3_load_sample
 
 				r3_time_left = 8
@@ -839,6 +849,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BH	// By nagging them to death?	
 				r3_audio = SOUND_RYD3_BH
+				r3_speaker = scplayer
 				GOSUB r3_load_sample
 
 				r3_time_left = 9
@@ -850,19 +861,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 				$r3_print = &RYD3_BJ	// The road, motherfucker, the road!	
 				r3_audio = SOUND_RYD3_BJ
+				r3_speaker = ryder
 				GOSUB r3_load_sample
-
-				IF NOT IS_CHAR_DEAD ryder
-
-					SHUT_CHAR_UP ryder FALSE
-
-				ENDIF
-
-				IF NOT IS_CHAR_DEAD scplayer
-
-					SHUT_CHAR_UP scplayer FALSE
-
-				ENDIF
 
 				r3_time_left = 10
 
@@ -942,7 +942,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					ELSE
 
-					   	GIVE_WEAPON_TO_CHAR r3_goon[v] WEAPONTYPE_MICRO_UZI 9999
+					   	GIVE_WEAPON_TO_CHAR r3_goon[v] WEAPONTYPE_TEC9 9999 // FIXEDGROVE: changed weapon to tec9
 
 					  	SET_CURRENT_CHAR_WEAPON r3_goon[v] WEAPONTYPE_MICRO_UZI
 					
@@ -1006,7 +1006,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			IF IS_CHAR_IN_CAR scplayer ryders_car
 
-			//	r3_converse_good = 0
+				r3_converse_good_1 = 0 // FIXEDGROVE: reset here so the conversation resumes playing
 
 			ELSE
 
@@ -1136,8 +1136,10 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				IF r3_playing = 2
 				AND r3_time_left = 0
 
+					// FIXEDGROVE: assigned speakers
 					$r3_print = &RYD3_CA	// Here we are.
 					r3_audio = SOUND_RYD3_CA
+					r3_speaker = ryder
 					GOSUB r3_load_sample
 
 					r3_time_left = 1
@@ -1149,6 +1151,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					$r3_print = &RYD3_CB	// That’s our train alright.
 					r3_audio = SOUND_RYD3_CB
+					r3_speaker = scplayer
 					GOSUB r3_load_sample
 
 					r3_time_left = 2
@@ -1220,6 +1223,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					$r3_print = &RYD3_CC	// Shit, looks like some Northside Vagos got there first!
 					r3_audio = SOUND_RYD3_CC
+					r3_speaker = scplayer
 					GOSUB r3_load_sample
 
 				ENDIF
@@ -1374,13 +1378,13 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		
 		GOSUB r3_fade_out
 		
-		REQUEST_MODEL GREENWOO
+		REQUEST_MODEL TAHOMA // FIXEDGROVE: changed to tahoma
 		REQUEST_MODEL micro_uzi
 		REQUEST_MODEL ballas1
 		REQUEST_MODEL ballas3
 		REQUEST_MODEL COLT45
 
-		WHILE NOT HAS_MODEL_LOADED GREENWOO
+		WHILE NOT HAS_MODEL_LOADED TAHOMA // FIXEDGROVE: changed to tahoma
 		OR NOT HAS_MODEL_LOADED micro_uzi
 		OR NOT HAS_MODEL_LOADED ballas1
 		OR NOT HAS_MODEL_LOADED ballas3
@@ -1389,7 +1393,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		ENDWHILE
 
 		LVAR_INT gang2_car
-		CREATE_CAR GREENWOO 2340.0549 -1151.4324 25.9546 gang2_car
+		CREATE_CAR TAHOMA 2340.0549 -1151.4324 25.9546 gang2_car // FIXEDGROVE: changed to tahoma
 		SET_CAR_HEADING gang2_car 92.6857  
 		CAR_GOTO_COORDINATES gang2_car 2313.4141 -1150.0930 25.7997 
 		SET_CAR_DRIVING_STYLE gang2_car 3
@@ -1539,6 +1543,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 		$r3_print = &RYD3_DA	// We got Ballas trying to crash the party!
 		r3_audio = SOUND_RYD3_DA
+		r3_speaker = ryder // FIXEDGROVE: assigned speaker
 		GOSUB r3_load_sample
 
 		r3_time_left = 0
@@ -1601,6 +1606,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$r3_print = &RYD3_DB	// Looks like Tenpennny told every gang in South Central!
 			r3_audio = SOUND_RYD3_DB
+			r3_speaker = scplayer // FIXEDGROVE: assigned speaker
 			GOSUB r3_load_sample
 	
 			IF NOT IS_CHAR_DEAD	r3_ballas[0]
@@ -1628,6 +1634,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$r3_print = &RYD3_DC	// Ice those Ballassholes!
 			r3_audio = SOUND_RYD3_DC
+			r3_speaker = ryder // FIXEDGROVE: assigned speaker
 			GOSUB r3_load_sample
 			
 			r3_time_left = 2 			
@@ -1646,6 +1653,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$r3_print = &RYD3_EA	// Go check out the train, CJ.
 			r3_audio = SOUND_RYD3_EA
+			r3_speaker = ryder // FIXEDGROVE: assigned speaker
 			GOSUB r3_load_sample
 
 			r3_time_left = 0
@@ -1814,7 +1822,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 						
 					SET_CHAR_NEVER_TARGETTED ryders_goon1 TRUE
 
-					GIVE_WEAPON_TO_CHAR	ryders_goon1 WEAPONTYPE_MICRO_UZI 9999
+					GIVE_WEAPON_TO_CHAR	ryders_goon1 WEAPONTYPE_TEC9 9999 // FIXEDGROVE: changed weapon to tec9
 
 				ENDIF
 
@@ -1851,7 +1859,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			IF NOT IS_CAR_DEAD ryders_car
 
-				ATTACH_CHAR_TO_CAR ryder ryders_car 0.0 -0.85 0.65 FACING_LEFT 360.0 WEAPONTYPE_MICRO_UZI
+				ATTACH_CHAR_TO_CAR ryder ryders_car 0.0 -0.85 0.65 FACING_LEFT 360.0 WEAPONTYPE_TEC9 // FIXEDGROVE: changed weapon to tec9
 
 			ENDIF
 
@@ -1940,9 +1948,13 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			PLAY_MISSION_AUDIO 1
 
+			START_CHAR_FACIAL_TALK scplayer 10000 // FIXEDGROVE
+
 			PRINT_NOW ( RYD3_FA ) 2000 1 // Oh shit!
 			
 			WAIT 2000
+
+			STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 
 			CLEAR_MISSION_AUDIO 1
 
@@ -1984,6 +1996,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$r3_print = &RYD3_GA	// Throw me some boxes, CJ!
 			r3_audio = SOUND_RYD3_GA
+			r3_speaker = ryder // FIXEDGROVE: assigned speaker
 			GOSUB r3_load_sample
 
 			TIMERB = 0
@@ -2150,7 +2163,6 @@ WHILE NOT IS_CHAR_DEAD scplayer
 					IF LOCATE_OBJECT_3D new_guns[check_index] x y z 1.00 1.00 1.00 0
 
 						IF goons_flag = 0
-						AND NOT IS_CHAR_DEAD ryder
 						AND NOT collected_guns = 10
 
 							SET_OBJECT_COLLISION new_guns[check_index] FALSE
@@ -2161,19 +2173,22 @@ WHILE NOT IS_CHAR_DEAD scplayer
 							GENERATE_RANDOM_INT_IN_RANGE 0 2 r3_rnd
 								
 							SWITCH collected_guns
-
+								
+								// FIXEDGROVE: assigned speakers
 								CASE 1
 									
 									IF r3_rnd = 0
 									
 										$r3_print = &RYD3_HA	// Damn! Not so hard!
 										r3_audio = SOUND_RYD3_HA
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ELSE
 
 										$r3_print = &RYD3_HB	// I got it!
 										r3_audio = SOUND_RYD3_HB
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ENDIF
@@ -2186,12 +2201,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 									
 										$r3_print = &RYD3_HC	// Nice throw, fool!
 										r3_audio = SOUND_RYD3_HC
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ELSE
 
 										$r3_print = &RYD3_HD	// Keep ‘em coming!
 										r3_audio = SOUND_RYD3_HD
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ENDIF
@@ -2204,12 +2221,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 									
 										$r3_print = &RYD3_HE	// Shit! I nearly dropped that one!
 										r3_audio = SOUND_RYD3_HE
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ELSE
 
 										$r3_print = &RYD3_HF	// Bull’s eye!
 										r3_audio = SOUND_RYD3_HF
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ENDIF
@@ -2222,12 +2241,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 									
 										$r3_print = &RYD3_HG	// You trying to kill me?
 										r3_audio = SOUND_RYD3_HG
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ELSE
 
 										$r3_print = &RYD3_HH	// Oh, yeah!
 										r3_audio = SOUND_RYD3_HH
+										r3_speaker = ryder
 										GOSUB r3_load_sample	 
 
 									ENDIF
@@ -2240,12 +2261,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 									
 										$r3_print = &RYD3_HJ	// Can’t stop me!
 										r3_audio = SOUND_RYD3_HJ
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ELSE
 
 										$r3_print = &RYD3_HK	// And another one!
 										r3_audio = SOUND_RYD3_HK
+										r3_speaker = ryder
 										GOSUB r3_load_sample
 
 									ENDIF
@@ -2257,6 +2280,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 									$r3_print = &RYD3_HM	// Ok, CJ! That’s all I can carry!
 									r3_audio = SOUND_RYD3_HM
+									r3_speaker = ryder
 									GOSUB r3_load_sample
 
 								BREAK
@@ -2272,9 +2296,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 							IF collected_guns = 5
 								
-								IF NOT IS_CHAR_DEAD ryder
-									SET_CHAR_HEALTH	ryder 5000
-								ENDIF
+								SET_CHAR_HEALTH	ryder 5000
 
 								IF NOT IS_CHAR_DEAD ryders_goon1
 									SET_CHAR_HEALTH	ryders_goon1 5000
@@ -2294,67 +2316,6 @@ WHILE NOT IS_CHAR_DEAD scplayer
 						ENDIF
 					ELSE
 						IF new_guns_model[check_index] = CR_AMMOBOX
-						AND NOT IS_CHAR_DEAD ryder
-
-							IF HAS_CHAR_BEEN_DAMAGED_BY_WEAPON ryder WEAPONTYPE_EXPLOSION
-
-								GENERATE_RANDOM_INT_IN_RANGE 0 6 r3_rnd
-								
-								SWITCH r3_rnd
-
-									CASE 0
-
-										$r3_print = &RYD3_JA	// Watch what the fuck you're doing!
-										r3_audio = SOUND_RYD3_JA
-										GOSUB r3_load_sample
-
-									BREAK
-
-									CASE 1
-
-										$r3_print = &RYD3_JB	// CJ, I swear you're trying to kill me!
-										r3_audio = SOUND_RYD3_JB
-										GOSUB r3_load_sample
-
-									BREAK
-
-									CASE 2
-
-										$r3_print = &RYD3_JC	// CAREFUL with these damn things!
-										r3_audio = SOUND_RYD3_JC
-										GOSUB r3_load_sample
-
-									BREAK
-
-									CASE 3
-
-										$r3_print = &RYD3_JD  // Hey, EASY, CJ, EASY!
-										r3_audio = SOUND_RYD3_JD
-										GOSUB r3_load_sample
-
-									BREAK
-
-									CASE 4
-
-										$r3_print = &RYD3_JE	// You throw like a girl!
-										r3_audio = SOUND_RYD3_JE
-										GOSUB r3_load_sample
-
-									BREAK
-
-									CASE 5
-
-										$r3_print = &RYD3_JF	// Carl, do you understand the concept, here?
-										r3_audio = SOUND_RYD3_JF
-										GOSUB r3_load_sample
-
-									BREAK
-
-								ENDSWITCH
-
-								CLEAR_CHAR_LAST_WEAPON_DAMAGE ryder
-
-							ENDIF
 
 							IF HAS_OBJECT_COLLIDED_WITH_ANYTHING new_guns[check_index]
 
@@ -2362,17 +2323,19 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 								IF box_collisions > 4
 
-									IF NOT IS_CHAR_DEAD ryder
-									AND NOT IS_CHAR_DEAD ryders_goon1
+									IF NOT IS_CHAR_DEAD ryders_goon1
 
 										IF NOT IS_CHAR_TOUCHING_OBJECT ryder new_guns[check_index]
 											IF NOT IS_CHAR_TOUCHING_OBJECT ryders_goon1 new_guns[check_index]
 
 												GET_OBJECT_COORDINATES new_guns[check_index] x y z
 												BREAK_OBJECT new_guns[check_index] TRUE
-												REPORT_MISSION_AUDIO_EVENT_AT_OBJECT new_guns[check_index] SOUND_EXPLOSION
-												CREATE_FX_SYSTEM EXPLOSION_SMALL X Y Z TRUE r3_fx
-												PLAY_AND_KILL_FX_SYSTEM r3_fx
+												// FIXEDGROVE: START - comment out original FX implementation, now use actual explosions
+												//REPORT_MISSION_AUDIO_EVENT_AT_OBJECT new_guns[check_index] SOUND_EXPLOSION
+												//CREATE_FX_SYSTEM EXPLOSION_SMALL X Y Z TRUE r3_fx
+												//PLAY_AND_KILL_FX_SYSTEM r3_fx
+												ADD_EXPLOSION x y z EXPLOSION_GRENADE
+												// FIXEDGROVE: END
 												MARK_OBJECT_AS_NO_LONGER_NEEDED	new_guns[check_index]
 												new_guns[check_index] = 0
 
@@ -2386,6 +2349,81 @@ WHILE NOT IS_CHAR_DEAD scplayer
 							ELSE
 
 								box_collisions = 0
+
+							ENDIF
+
+							// FIXEDGROVE: moved this block so the lines trigger when the explosion happens
+							IF HAS_CHAR_BEEN_DAMAGED_BY_WEAPON ryder WEAPONTYPE_EXPLOSION
+
+								GENERATE_RANDOM_INT_IN_RANGE 0 7 r3_rnd // FIXEDGROVE: increased range for new line
+
+								SWITCH r3_rnd
+
+									// FIXEDGROVE: assigned speakers
+									CASE 0
+
+										$r3_print = &RYD3_JA	// Watch what the fuck you're doing!
+										r3_audio = SOUND_RYD3_JA
+										r3_speaker = ryder
+										GOSUB r3_load_sample
+
+									BREAK
+
+									CASE 1
+
+										$r3_print = &RYD3_JB	// CJ, I swear you're trying to kill me!
+										r3_audio = SOUND_RYD3_JB
+										r3_speaker = ryder
+										GOSUB r3_load_sample
+
+									BREAK
+
+									CASE 2
+
+										$r3_print = &RYD3_JC	// CAREFUL with these damn things!
+										r3_audio = SOUND_RYD3_JC
+										r3_speaker = ryder
+										GOSUB r3_load_sample
+
+									BREAK
+
+									CASE 3
+
+										$r3_print = &RYD3_JD  // Hey, EASY, CJ, EASY!
+										r3_audio = SOUND_RYD3_JD
+										r3_speaker = ryder
+										GOSUB r3_load_sample
+
+									BREAK
+
+									CASE 4
+
+										$r3_print = &RYD3_JE	// You throw like a girl!
+										r3_audio = SOUND_RYD3_JE
+										r3_speaker = ryder
+										GOSUB r3_load_sample
+
+									BREAK
+
+									CASE 5
+
+										$r3_print = &RYD3_JF	// Carl, do you understand the concept, here?
+										r3_audio = SOUND_RYD3_JF
+										r3_speaker = ryder
+										GOSUB r3_load_sample
+
+									CASE 6
+
+										$r3_print = &RYD3_GC	// Careful, CJ! It's explosives in those crates! // FIXEDGROVE: added unused line
+										r3_audio = SOUND_RYD3_GC
+										r3_speaker = ryder
+										GOSUB r3_load_sample
+
+									BREAK
+
+								ENDSWITCH
+
+								CLEAR_CHAR_LAST_WEAPON_DAMAGE ryder
 
 							ENDIF
 
@@ -2607,7 +2645,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			DETACH_CHAR_FROM_CAR ryder
 
-			ATTACH_CHAR_TO_CAR ryder ryders_car 0.0 -1.30 0.80 FACING_BACK 15.0 WEAPONTYPE_MICRO_UZI
+			ATTACH_CHAR_TO_CAR ryder ryders_car 0.0 -1.30 0.80 FACING_BACK 15.0 WEAPONTYPE_TEC9 // FIXEDGROVE: changed weapon to tec9
 
 		ENDIF
 
@@ -2650,7 +2688,26 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		
 		ENDIF
 
-		WAIT 4000
+		// FIXEDGROVE: START - add facial anim, replace wait with timer method for anim synching
+		IF NOT IS_CHAR_DEAD ryder
+			START_CHAR_FACIAL_TALK ryder 10000
+		ENDIF
+
+		TIMERA = 0
+
+		WHILE TIMERA < 4000
+			IF HAS_MISSION_AUDIO_FINISHED 1
+				IF NOT IS_CHAR_DEAD ryder
+					STOP_CHAR_FACIAL_TALK ryder
+				ENDIF
+				CLEAR_PRINTS
+				CLEAR_MISSION_AUDIO 1
+			ENDIF
+			WAIT 0
+		ENDWHILE
+
+		//WAIT 4000
+		// FIXEDGROVE: END
 
 		GOSUB r3_restore_camera
 
@@ -2754,6 +2811,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 		$r3_print = &RYD3_KA	// Man, we got a berry on our tail!
 		r3_audio = SOUND_RYD3_KA
+		r3_speaker = ryder // FIXEDGROVE: assigned speaker
 		GOSUB r3_load_sample
 		
 		TIMERB = 0
@@ -2870,13 +2928,15 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				TIMERB = 0
 
 				GENERATE_RANDOM_INT_IN_RANGE 0 8 r3_rnd
-					
+
+				// FIXEDGROVE: assigned speaker for facial anim	
 				SWITCH r3_rnd
 
 					CASE 0
 
 						$r3_print = &RYD3_LA	// Take this you cop bastards!
 						r3_audio = SOUND_RYD3_LA
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 					BREAK
@@ -2885,6 +2945,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						$r3_print = &RYD3_LB	// You’re dealing with a kung fu master!
 						r3_audio = SOUND_RYD3_LB
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 					BREAK
@@ -2893,6 +2954,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						$r3_print = &RYD3_LC	// Ninja style!
 						r3_audio = SOUND_RYD3_LC
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 					BREAK
@@ -2901,6 +2963,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 					   
 						$r3_print = &RYD3_LD	// You ain’t never gonna catch this gangsta!
 						r3_audio = SOUND_RYD3_LD
+						r3_speaker = ryder
 						GOSUB r3_load_sample
  
 					BREAK
@@ -2909,6 +2972,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 					   
 						$r3_print = &RYD3_LE	// Fuck off, cops!
 						r3_audio = SOUND_RYD3_LE
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 					BREAK
@@ -2917,6 +2981,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						$r3_print = &RYD3_LF	// I’m getting tired of this – fuck off!
 						r3_audio = SOUND_RYD3_LF
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 					BREAK
@@ -2925,6 +2990,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						$r3_print = &RYD3_LG	// You guys got nothing better to do?
 						r3_audio = SOUND_RYD3_LG
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 					BREAK
@@ -2933,6 +2999,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						$r3_print = &RYD3_LH	// I’m a cop killer!
 						r3_audio = SOUND_RYD3_LH
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 					BREAK
@@ -2974,6 +3041,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						$r3_print = &RYD3_KB	// Back to Grove Street!
 						r3_audio = SOUND_RYD3_KB
+						r3_speaker = ryder
 						GOSUB r3_load_sample
 
 						TIMERA = 0
@@ -3045,7 +3113,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						DETACH_CHAR_FROM_CAR ryder
 
-						ATTACH_CHAR_TO_CAR ryder ryders_car 0.0 -1.30 0.80 FACING_FORWARD 15.0 WEAPONTYPE_MICRO_UZI
+						ATTACH_CHAR_TO_CAR ryder ryders_car 0.0 -1.30 0.80 FACING_FORWARD 15.0 WEAPONTYPE_TEC9 // FIXEDGROVE: changed weapon to tec9
 
 					ENDIF
 
@@ -3101,12 +3169,24 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					PLAY_MISSION_AUDIO 1
 
+					// FIXEDGROVE: START
+					IF NOT IS_CHAR_DEAD ryder 
+						START_CHAR_FACIAL_TALK ryder 10000
+					ENDIF
+					// FIXEDGROVE: END
+
 					PRINT_NOW ( RYD3_MA ) 8000 1 // Damn, homie, your stuff was tight!
 
 					TIMERB = 0
 					WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 						WAIT 0
 					ENDWHILE
+
+					// FIXEDGROVE: START
+					IF NOT IS_CHAR_DEAD ryder 
+						STOP_CHAR_FACIAL_TALK ryder
+					ENDIF
+					// FIXEDGROVE: END
 
 					CLEAR_PRINTS
 
@@ -3123,12 +3203,16 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					PLAY_MISSION_AUDIO 1
 
+					START_CHAR_FACIAL_TALK scplayer 10000 // FIXEDGROVE
+
 					PRINT_NOW ( RYD3_MB ) 8000 1 // You too, homie!
 
 					TIMERB = 0
 					WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 						WAIT 0
 					ENDWHILE
+
+					STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 
 					CLEAR_PRINTS
 
@@ -3144,12 +3228,24 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					PLAY_MISSION_AUDIO 1
 
+					// FIXEDGROVE: START
+					IF NOT IS_CHAR_DEAD ryder
+						START_CHAR_FACIAL_TALK ryder 10000
+					ENDIF
+					// FIXEDGROVE: END
+
 					PRINT_NOW ( RYD3_MC ) 8000 1 // LB's coming over to stash the shit.
 
 					TIMERB = 0
 					WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 						WAIT 0
 					ENDWHILE
+
+					// FIXEDGROVE: START
+					IF NOT IS_CHAR_DEAD ryder
+						STOP_CHAR_FACIAL_TALK ryder
+					ENDIF
+					// FIXEDGROVE: END
 
 					CLEAR_PRINTS
 
@@ -3178,6 +3274,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 							GET_OFFSET_FROM_CAR_IN_WORLD_COORDS	ryders_car 0.0 10.0 0.0 x y z
 
 							TASK_GO_STRAIGHT_TO_COORD scplayer x y z PEDMOVE_WALK -2
+
+							// FIXEDGROVE: detach command should be here, but it makes ryder fall through his car
 							
 							TASK_GO_STRAIGHT_TO_COORD ryder x y z PEDMOVE_WALK -2
 
@@ -3197,10 +3295,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						PRINT_NOW ( RYD3_MD ) 8000 1 // Okay, later then.
 
+						START_CHAR_FACIAL_TALK scplayer 10000
+
 						TIMERB = 0
 						WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 							WAIT 0
 						ENDWHILE
+
+						STOP_CHAR_FACIAL_TALK scplayer
 
 						CLEAR_PRINTS
 
@@ -3208,7 +3310,10 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						WAIT 1500
 
-						IF HAS_ANIMATION_LOADED GANGS
+						// FIXEDGROVE: made this check a proper wait loop
+						WHILE NOT HAS_ANIMATION_LOADED GANGS
+							WAIT 0
+						ENDWHILE
 
 						IF NOT IS_CHAR_DEAD scplayer
 
@@ -3240,7 +3345,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 								TASK_CHAR_SLIDE_TO_COORD_AND_PLAY_ANIM -1 2471.3433 -1684.3064 12.5159 238.6571 0.4 PRTIAL_HNDSHK_01 GANGS 4.0 FALSE FALSE FALSE FALSE -1
 
-								TASK_LOOK_AT_CHAR -1 ryder 3000
+								TASK_LOOK_AT_CHAR -1 ryder 2700 // FIXEDGROVE: slightly decrease to make him stop looking before the fade out
 
 							CLOSE_SEQUENCE_TASK sequence_task
 
@@ -3277,12 +3382,24 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						PLAY_MISSION_AUDIO 1
 
+						// FIXEDGROVE: START
+						IF NOT IS_CHAR_DEAD ryder
+							START_CHAR_FACIAL_TALK ryder 10000
+						ENDIF
+						// FIXEDGROVE: END
+
 						PRINT_NOW ( RYD3_ME ) 8000 1 // For life, CJ, for life – you heard?
 
 						TIMERB = 0
 						WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 							WAIT 0
 						ENDWHILE
+
+						// FIXEDGROVE: START
+						IF NOT IS_CHAR_DEAD ryder
+							STOP_CHAR_FACIAL_TALK ryder
+						ENDIF
+						// FIXEDGROVE: END
 
 						CLEAR_PRINTS
 
@@ -3291,12 +3408,6 @@ WHILE NOT IS_CHAR_DEAD scplayer
 						WAIT 1000
 
 						GOSUB r3_fade_out
-						
-						ELSE
-
-							REQUEST_ANIMATION GANGS
-
-						ENDIF
 
 						DELETE_CHAR ryder
 
@@ -3343,14 +3454,6 @@ mission_ryder3_failed:
 
 	IF NOT IS_CHAR_DEAD scplayer
 
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-
-	ENDIF
-
-	SET_WANTED_MULTIPLIER 1.0
-
-	IF NOT IS_CHAR_DEAD scplayer
-
 		SET_CHAR_PROOFS scplayer FALSE FALSE FALSE FALSE FALSE
 
 	ENDIF
@@ -3363,17 +3466,7 @@ RETURN
 
 mission_ryder3_passed:
 
-	IF NOT IS_CHAR_DEAD scplayer
-
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-
-	ENDIF
-
 	GOSUB r3_restore_camera
-
-	SET_WANTED_MULTIPLIER 1.0
-
-	SET_CAMERA_BEHIND_PLAYER
 
 	GOSUB r3_fade_in
 
@@ -3382,8 +3475,6 @@ mission_ryder3_passed:
 	AWARD_PLAYER_MISSION_RESPECT 7
 
 	PLAY_MISSION_PASSED_TUNE 1
-
-	CLEAR_WANTED_LEVEL player1
 
 	flag_ryder_mission_counter ++
 
@@ -3397,11 +3488,9 @@ RETURN
 
 mission_ryder3_cleanup:
 
-	IF NOT IS_CHAR_DEAD scplayer
+	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-
-	ENDIF
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
 
 	IF NOT IS_CHAR_DEAD ryder
 
@@ -3497,6 +3586,7 @@ mission_ryder3_cleanup:
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED picador
 	MARK_MODEL_AS_NO_LONGER_NEEDED MICRO_UZI
+	MARK_MODEL_AS_NO_LONGER_NEEDED TEC9 // FIXEDGROVE
 	MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
 	MARK_MODEL_AS_NO_LONGER_NEEDED CR_GUNCRATE
 	MARK_MODEL_AS_NO_LONGER_NEEDED CR_AMMOBOX
@@ -3509,12 +3599,10 @@ mission_ryder3_cleanup:
 	MARK_MODEL_AS_NO_LONGER_NEEDED LSV3
 	MARK_MODEL_AS_NO_LONGER_NEEDED FREIGHT
 	MARK_MODEL_AS_NO_LONGER_NEEDED FREIFLAT
-	MARK_MODEL_AS_NO_LONGER_NEEDED GREENWOO
+	MARK_MODEL_AS_NO_LONGER_NEEDED TAHOMA // FIXEDGROVE: changed to tahoma
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED ballas1
 	MARK_MODEL_AS_NO_LONGER_NEEDED ballas3
-
-	MARK_MODEL_AS_NO_LONGER_NEEDED micro_uzi
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED SANCHEZ
 
@@ -3676,7 +3764,6 @@ ryder3_keys:
 
 		REQUEST_MODEL FREIGHT
 		REQUEST_MODEL FREIFLAT
-		REQUEST_MODEL GREENWOO
 
 		REQUEST_CAR_RECORDING 106
 
@@ -3686,7 +3773,6 @@ ryder3_keys:
 
 		WHILE NOT HAS_MODEL_LOADED FREIGHT	
 		OR NOT HAS_MODEL_LOADED FREIFLAT
-		OR NOT HAS_MODEL_LOADED GREENWOO
 			WAIT 0
 		ENDWHILE
 
@@ -3807,6 +3893,13 @@ r3_play_sample:
 
 		PRINT_NOW ( $r3_print ) 10000 1  
 
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD r3_speaker
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH r3_speaker TRUE
+			START_CHAR_FACIAL_TALK r3_speaker 10000
+		ENDIF
+		// FIXEDGROVE: END
+
 		r3_playing = 1
 
 	ENDIF
@@ -3817,6 +3910,13 @@ r3_play_sample:
 		CLEAR_MISSION_AUDIO 1	
 
 		CLEAR_THIS_PRINT $r3_print
+
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD r3_speaker
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH r3_speaker FALSE
+			STOP_CHAR_FACIAL_TALK r3_speaker
+		ENDIF
+		// FIXEDGROVE: END
 
 		r3_playing = 2
 
