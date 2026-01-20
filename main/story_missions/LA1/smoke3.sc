@@ -94,12 +94,11 @@ LVAR_INT outoffirstgroup_s3flag
 LVAR_INT smokegroupchase_s3flag
 LVAR_INT trainspeed_s3flag///////////////////////////////////////////////////////////////////////
 LVAR_INT speedlimit_s3flag
-LVAR_INT difficulty_s3flag		//do not reset this flag
+VAR_INT difficulty_s3flag		//do not reset this flag // FIXEDGROVE: made global
 LVAR_INT run_s2flag
 LVAR_INT drivebyfirsttime_s3flag
 LVAR_INT skipcutscene_s3flag
 LVAR_INT smokeincar_s3flag
-LVAR_INT dialogue_s3flag
 LVAR_INT duck_s3flag
 LVAR_INT mex2_s3flag
 LVAR_INT mex4_s3flag
@@ -109,7 +108,6 @@ LVAR_INT missionplaying_s3flag
 LVAR_INT progressaudio_s3flag
 LVAR_INT handlingudio_s3flag
 LVAR_INT playerinbike_s3flag
-LVAR_INT audiowayback_s3flag
 LVAR_INT bikecreated_s3flag
 LVAR_INT getsmoke_s3flag
 LVAR_INT mexdead_s3counter
@@ -129,6 +127,7 @@ LVAR_INT bike_s3blip
 LVAR_TEXT_LABEL $text_label_s3
 LVAR_INT audio_label_s3
 LVAR_TEXT_LABEL $input_text_s3
+LVAR_INT speaker_s3 // FIXEDGROVE
 
 
 //debug
@@ -235,8 +234,6 @@ REQUEST_MODEL IMMMCRAN
 REQUEST_MODEL GLENDALE
 REQUEST_MODEL TEC9
 
-CLEAR_MISSION_AUDIO 1
-LOAD_MISSION_AUDIO 1 SOUND_SMO3_AA	//Where to, Smoke?
 CLEAR_MISSION_AUDIO 2
 LOAD_MISSION_AUDIO 2 SOUND_SMOX_AD //Come on, playa, get in!
 
@@ -248,8 +245,7 @@ LOAD_SPECIAL_CHARACTER 1 SMOKE
 
 LOAD_ALL_MODELS_NOW
 
-WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-	OR NOT HAS_MISSION_AUDIO_LOADED 2
+WHILE NOT HAS_MISSION_AUDIO_LOADED 2
 	WAIT 0
 ENDWHILE
 
@@ -337,9 +333,6 @@ SET_RAILTRACK_RESISTANCE_MULT 0.3
 
 DO_FADE 500 FADE_IN
 
-SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke TRUE
-SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-
 
 //  ************************************ DECLARE VARIABLES ********************************
 
@@ -364,7 +357,6 @@ run_s2flag = 0
 drivebyfirsttime_s3flag = 0
 skipcutscene_s3flag = 0
 smokeincar_s3flag = 0
-dialogue_s3flag = 0	
 duck_s3flag = 0
 speedlimit_s3flag = 0
 locatesmoke_s3flag = 0
@@ -374,6 +366,7 @@ explode_s3flag = 0
 missionplaying_s3flag = 0
 progressaudio_s3flag = 0
 handlingudio_s3flag	= 0
+speaker_s3 = 0 // FIXEDGROVE
 playerinbike_s3flag = 0
 bikecreated_s3flag = 0
 getsmoke_s3flag = 0
@@ -383,8 +376,8 @@ infotext_s3flag = 0
 
 IF smoke_s3flag = 0	
 	ADD_BLIP_FOR_COORD 1783.211 -1933.133 12.597 trainstation_s3blip
-	dialogue_s3flag = 1
 	smoke_s3flag = 1
+	TIMERA = 0 // FIXEDGROVE
 ENDIF
 
 
@@ -417,46 +410,35 @@ ENDIF
 
 ///////////////////////////////////////////////////////////////////////////group stuff before the train station
 
+// FIXEDGROVE: reworked to use load_audio sub
 IF smoke_s3flag = 1
-	IF NOT IS_CHAR_DEAD	big_smoke
-		IF NOT IS_CAR_DEAD smokecar_s3
-			IF IS_CHAR_SITTING_IN_CAR scplayer smokecar_s3
 
-				IF dialogue_s3flag = 1
-					PLAY_MISSION_AUDIO 1
-					PRINT_NOW SMO3_AA 5000 1 //Where to
-					dialogue_s3flag = 2
-				ENDIF
-				IF dialogue_s3flag = 2
-					IF HAS_MISSION_AUDIO_FINISHED 1
-						CLEAR_PRINTS
-						CLEAR_MISSION_AUDIO 1
-						LOAD_MISSION_AUDIO 1 SOUND_SMO3_AB //Unity Station.
-						dialogue_s3flag = 3
-					ENDIF
-				ENDIF
-				IF dialogue_s3flag = 3
-					IF IS_CHAR_SITTING_IN_CAR scplayer smokecar_s3
-						IF HAS_MISSION_AUDIO_LOADED 1
-							PLAY_MISSION_AUDIO 1
-							PRINT_NOW SMO3_AB 5000 1 //Unity Station.
-							dialogue_s3flag = 4
-							
-						ENDIF
-					ENDIF
+	GOSUB process_audio_s3
 
-				
-				ENDIF
-				IF dialogue_s3flag = 4
-					IF HAS_MISSION_AUDIO_FINISHED 1
-						CLEAR_PRINTS
-						CLEAR_MISSION_AUDIO 1
-						PRINT_NOW SMK3_1 5000 1 //The Mexicans are meeting up at the Los Santos Central Train Station, go with Smoke and see what they are up to.
-						dialogue_s3flag = 5
-					ENDIF
-				ENDIF
-
+	IF progressaudio_s3flag = 0
+		IF handlingudio_s3flag = 0
+			IF TIMERA > 500 // FIXEDGROVE: added small pause before the dialogue starts
+				audio_label_s3 = SOUND_SMO3_AA	//Where to
+				$input_text_s3 = SMO3_AA	//Where to
+				speaker_s3 = scplayer
+				GOSUB load_audio_s3
 			ENDIF
+		ENDIF
+	ENDIF
+
+	IF progressaudio_s3flag = 1
+		IF handlingudio_s3flag = 0
+			audio_label_s3 = SOUND_SMO3_AB	//Unity Station.
+			$input_text_s3 = SMO3_AB	//Unity Station.
+			speaker_s3 = BIG_SMOKE
+			GOSUB load_audio_s3
+		ENDIF
+	ENDIF
+
+	IF progressaudio_s3flag = 2
+		IF handlingudio_s3flag = 0
+			PRINT_NOW SMK3_1 8000 1 //The Mexicans are meeting up at the Los Santos Central Train Station, go with Smoke and see what they are up to.
+			progressaudio_s3flag++
 		ENDIF
 	ENDIF
 ENDIF
@@ -465,43 +447,69 @@ ENDIF
 IF outoffirstgroup_s3flag = 0
 	IF smoke_s3flag = 1
 	OR smoke_s3flag = 10
+	OR smoke_s3flag = 11 // FIXEDGROVE: player is out of the car and smoke's line is playing
 
-		IF smokegroupstation_s3flag = 0
-			IF NOT IS_CAR_DEAD smokecar_s3
+	// FIXEDGROVE: slight refactoring
+		IF NOT IS_CAR_DEAD smokecar_s3
+
+			IF smokegroupstation_s3flag = 0
 				IF NOT IS_CHAR_SITTING_IN_CAR scplayer smokecar_s3
 					ADD_BLIP_FOR_CAR smokecar_s3 smokecar_s3blip
 					SET_BLIP_AS_FRIENDLY smokecar_s3blip TRUE
 					REMOVE_BLIP trainstation_s3blip
-					CLEAR_PRINTS
+
 					CLEAR_MISSION_AUDIO 1
-					//PRINT SMK3_19 5000 1 //Get back in the car!
+					// FIXEDGROVE: START
+					GOSUB process_audio_s3
+					IF NOT IS_CHAR_DEAD big_smoke
+						START_CHAR_FACIAL_TALK big_smoke 10000
+					ENDIF
+					// FIXEDGROVE: END
 					PLAY_MISSION_AUDIO 2
 					PRINT_NOW SMOX_AD 2000 1 //Come on, playa, get in!
-					smoke_s3flag = 10
+
+					smoke_s3flag = 11 // FIXEDGROVE: player is out of the car and smoke's line is playing
 					smokegroupstation_s3flag = 1
 				ENDIF
 			ENDIF
-		ENDIF
 
-		IF smokegroupstation_s3flag = 1
-			IF NOT IS_CAR_DEAD smokecar_s3
+			IF smokegroupstation_s3flag = 1
 				IF IS_CHAR_SITTING_IN_CAR scplayer smokecar_s3
 					REMOVE_BLIP smokecar_s3blip
 					ADD_BLIP_FOR_COORD 1783.211 -1933.133 12.597 trainstation_s3blip
-					IF dialogue_s3flag = 5
-						PRINT_NOW SMK3_1 12000 1 //The Mexicans are meeting up at the Los Santos Central Train Station, go with Smoke and see what they are up to.
+					IF progressaudio_s3flag > 1 // FIXEDROVE: previously used now deprecated dialogue_s3flag var
+						PRINT_NOW SMK3_1 8000 1 //The Mexicans are meeting up at the Los Santos Central Train Station, go with Smoke and see what they are up to.
 					ENDIF
+					// FIXEDGROVE: START
+					IF NOT IS_CHAR_DEAD big_smoke
+						STOP_CHAR_FACIAL_TALK big_smoke
+					ENDIF
+					// FIXEDGROVE: END
 					smoke_s3flag = 1
 					smokegroupstation_s3flag = 0
+				ELSE
+					// FIXEDGROVE: START
+					IF smoke_s3flag = 11
+						IF HAS_MISSION_AUDIO_FINISHED 2
+							IF NOT IS_CHAR_DEAD big_smoke
+								STOP_CHAR_FACIAL_TALK big_smoke
+							ENDIF
+							PRINT SMK3_19 5000 1 //Get back in the car! // FIXEDGROVE: added commented line here
+							smoke_s3flag = 10
+						ENDIF
+					ENDIF
+					// FIXEDGROVE: END
 				ENDIF
 			ENDIF
 		ENDIF
-
 	ENDIF	
-ENDIF	
+ENDIF
+
+
 
 IF smoke_s3flag = 1
 OR smoke_s3flag = 10
+OR smoke_s3flag = 11 // FIXEDGROVE: player is out of the car and smoke's line is playing
 	IF IS_CHAR_DEAD big_smoke
 		PRINT_NOW SMK3_21 5000 1 //~r~Smoke died!
 		GOTO mission_smoke3_failed
@@ -523,7 +531,6 @@ IF smoke_s3flag = 1
 					IF IS_CHAR_SITTING_IN_CAR scplayer smokecar_s3
 						IF LOCATE_CAR_2D smokecar_s3 1783.211 -1933.133 4.2 4.2 TRUE
 							
-							SWITCH_WIDESCREEN ON
 							SET_PLAYER_CONTROL PLAYER1 OFF
 
 							DO_FADE 500 FADE_OUT
@@ -531,6 +538,8 @@ IF smoke_s3flag = 1
 							WHILE GET_FADING_STATUS
 								WAIT 0
 							ENDWHILE
+
+							SWITCH_WIDESCREEN ON // FIXEDGROVE: moved this line here so the fade out looks nicer
 
 							IF NOT IS_CAR_DEAD smokecar_s3
 								SET_CAR_COORDINATES smokecar_s3 1783.4182 -1933.0547 12.3862 
@@ -1147,6 +1156,7 @@ IF smoke_s3flag = 1
 					SET_CHAR_PROOFS mex1_s3 FALSE FALSE TRUE FALSE FALSE
 					SET_CHAR_PROOFS mex2_s3 FALSE FALSE TRUE FALSE FALSE
 					SET_CHAR_PROOFS mex3_s3 FALSE FALSE TRUE FALSE FALSE
+					SET_CHAR_PROOFS mex4_s3 FALSE FALSE TRUE FALSE FALSE // FIXEDGROVE: made him vulnerable
 
 					ATTACH_CHAR_TO_CAR mex1_s3 train_s3 0.0 5.0 3.0 FACING_FORWARD 360.0 WEAPONTYPE_MP5
 					ATTACH_CHAR_TO_CAR mex2_s3 train_s3 0.0 2.0 3.0 FACING_FORWARD 360.0 WEAPONTYPE_MP5
@@ -1208,8 +1218,6 @@ IF smoke_s3flag = 1
 						SET_CHAR_HEALTH mex2_s3	300
 						SET_CHAR_HEALTH mex3_s3 300
 					ENDIF
-
-					SET_CHAR_PROOFS mex4_s3 TRUE TRUE TRUE TRUE TRUE
 
 					ADD_BLIP_FOR_CHAR mex1_s3 mex1_s3blip
 					ADD_BLIP_FOR_CHAR mex2_s3 mex2_s3blip
@@ -1300,6 +1308,7 @@ IF smoke_s3flag = 1
 					SET_CHAR_PROOFS mex1_s3 FALSE FALSE TRUE FALSE FALSE
 					SET_CHAR_PROOFS mex2_s3 FALSE FALSE TRUE FALSE FALSE
 					SET_CHAR_PROOFS mex3_s3 FALSE FALSE TRUE FALSE FALSE
+					SET_CHAR_PROOFS mex4_s3 FALSE FALSE TRUE FALSE FALSE // FIXEDGROVE: made him vulnerable
 
 					ATTACH_CHAR_TO_CAR mex1_s3 train_s3 0.0 5.0 3.0 FACING_FORWARD 360.0 WEAPONTYPE_MP5
 					ATTACH_CHAR_TO_CAR mex2_s3 train_s3 0.0 2.0 3.0 FACING_FORWARD 360.0 WEAPONTYPE_MP5
@@ -1381,7 +1390,6 @@ IF smoke_s3flag = 1
 						SET_CAR_HEALTH smokecar_s3 10000
 						SET_CAN_BURST_CAR_TYRES smokecar_s3 FALSE
 					ENDIF
-					SET_CHAR_PROOFS mex4_s3 TRUE TRUE TRUE TRUE TRUE
 
 					IF NOT IS_CHAR_DEAD big_smoke
 						IF IS_CHAR_IN_ANY_CAR big_smoke
@@ -1478,6 +1486,8 @@ IF smoke_s3flag = 1
 				smoke_s3flag = 2
 				difficulty_s3flag++ //increment difficulty
 				smokeincar_s3flag = 1
+				progressaudio_s3flag = 0 // FIXEDGROVE: reset them since they are used previously
+				handlingudio_s3flag = 0 // FIXEDGROVE: reset them since they are used previously
 				ADD_CHAR_DECISION_MAKER_EVENT_RESPONSE smoke3mex_DM EVENT_ACQUAINTANCE_PED_HATE TASK_COMPLEX_KILL_PED_ON_FOOT 0.0 100.0 0.0 0.0 FALSE TRUE
 				DO_FADE 1000 FADE_IN
 				MARK_CAR_AS_NO_LONGER_NEEDED smokecar_s3
@@ -1977,6 +1987,7 @@ IF smoke_s3flag = 2
 							missionplaying_s3flag = 1
 							progressaudio_s3flag = 0
 							handlingudio_s3flag = 0
+							CLEAR_MISSION_AUDIO 1
 							getsmoke_s3flag = 1
 						ELSE
 							getsmoke_s3flag = 2
@@ -1994,6 +2005,8 @@ IF smoke_s3flag = 2
 					MARK_MODEL_AS_NO_LONGER_NEEDED MP5LNG
 					MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
 					MARK_MODEL_AS_NO_LONGER_NEEDED STREAKC
+					MARK_OBJECT_AS_NO_LONGER_NEEDED barrier_s3
+					MARK_MODEL_AS_NO_LONGER_NEEDED imy_track_barrier
 					MARK_MISSION_TRAIN_AS_NO_LONGER_NEEDED train_s3
 					SET_CAR_DENSITY_MULTIPLIER 1.0
 					SET_PED_DENSITY_MULTIPLIER 1.0
@@ -2198,11 +2211,13 @@ IF smoke_s3flag = 2
 
 					GOSUB process_audio_s3
 
+					// FIXEDGROVE: assigned speakers
 					//play mission audio
 					IF progressaudio_s3flag = 0
 						IF handlingudio_s3flag = 0
 							audio_label_s3 = SOUND_SMO3_CA //Follow that train!
 							$input_text_s3 = SMO3_CA //Follow that train!
+							speaker_s3 = big_smoke
 							GOSUB load_audio_s3
 							TIMERB = 0
 						ENDIF
@@ -2213,6 +2228,7 @@ IF smoke_s3flag = 2
 							IF TIMERB > 4000
 								audio_label_s3 = SOUND_SMO3_EB //Get me close, CJ, I'm gonnna cap those mothers!
 								$input_text_s3 = SMO3_EB //Get me close, CJ, I'm gonnna cap those mothers!
+								speaker_s3 = big_smoke
 								GOSUB load_audio_s3
 								TIMERB = 0
 							ENDIF
@@ -2225,6 +2241,7 @@ IF smoke_s3flag = 2
 								IF LOCATE_CHAR_ANY_MEANS_CAR_2D big_smoke train_s3 50.0 50.0 FALSE
 									audio_label_s3 = SOUND_SMO3_EA	//Pull alongside, I can get a shot!
 									$input_text_s3 = SMO3_EA	//Pull alongside, I can get a shot!
+									speaker_s3 = big_smoke
 									infotext_s3flag = 1
 									GOSUB load_audio_s3
 								ENDIF
@@ -2232,46 +2249,80 @@ IF smoke_s3flag = 2
 						ENDIF
 					ENDIF
 
+					// FIXEDGROVE: START - add unused line if the last vagos member dies by the railing, otherwise, skip it
 					IF progressaudio_s3flag = 3
+						IF handlingudio_s3flag = 0
+							IF mex4_s3flag > 0
+								audio_label_s3 = SOUND_SMO3_GA	//Damn, that boy's gonna be shittin' his kidneys for a week!
+								$input_text_s3 = SMO3_GA	//Damn, that boy's gonna be shittin' his kidneys for a week!
+								speaker_s3 = big_smoke
+								GOSUB load_audio_s3
+							ELSE
+								IF mex4dead_s3flag = 1
+									progressaudio_s3flag++
+								ENDIF
+							ENDIF
+						ENDIF
+					ENDIF
+					// FIXEDGROVE: END
+
+					IF progressaudio_s3flag = 4
 						IF handlingudio_s3flag = 0
 							IF NOT IS_CAR_DEAD opptrain_s3
 								IF LOCATE_CHAR_ANY_MEANS_CAR_2D big_smoke opptrain_s3 165.0.0 165.0 FALSE
 									audio_label_s3 = SOUND_SMO3_FA	//Holy fuck! On-coming train
 									$input_text_s3 = SMO3_FA	//Holy fuck! On-coming train
+									speaker_s3 = big_smoke
 									GOSUB load_audio_s3
 								ENDIF
-							ENDIF
-						ENDIF
-					ENDIF
-
-					IF progressaudio_s3flag = 4
-						IF handlingudio_s3flag = 0
-							IF LOCATE_CHAR_ANY_MEANS_2D big_smoke 2180.22 -689.43 60.0 60.0 FALSE
-								audio_label_s3 = SOUND_SMO3_HA	//Take the high road on the right, CJ!
-								$input_text_s3 = SMO3_HA	//Take the high road on the right, CJ!
-								GOSUB load_audio_s3
 							ENDIF
 						ENDIF
 					ENDIF
 
 					IF progressaudio_s3flag = 5
 						IF handlingudio_s3flag = 0
-							IF NOT IS_CAR_DEAD opptrain_s3
-								IF LOCATE_CHAR_ANY_MEANS_CAR_2D big_smoke opptrain_s3 100.0 100.0 FALSE
-									audio_label_s3 = SOUND_SMO3_FC	//Look-the-fuck-out – TRAIN!
-									$input_text_s3 = SMO3_FC	//Look-the-fuck-out – TRAIN!
-									GOSUB load_audio_s3
-									TIMERB = 0
-								ENDIF
+							IF LOCATE_CHAR_ANY_MEANS_2D big_smoke 2180.22 -689.43 60.0 60.0 FALSE
+								audio_label_s3 = SOUND_SMO3_HA	//Take the high road on the right, CJ!
+								$input_text_s3 = SMO3_HA	//Take the high road on the right, CJ!
+								speaker_s3 = big_smoke
+								GOSUB load_audio_s3
 							ENDIF
 						ENDIF
 					ENDIF
 
 					IF progressaudio_s3flag = 6
 						IF handlingudio_s3flag = 0
+							IF NOT IS_CAR_DEAD opptrain_s3
+								IF LOCATE_CHAR_ANY_MEANS_CAR_2D big_smoke opptrain_s3 100.0 100.0 FALSE
+									// FIXEDGROVE: START - check z coord to play the correct voiceline
+									GET_CHAR_COORDINATES scplayer x y z
+									IF z < 74.0
+									// FIXEDGROVE: END
+										audio_label_s3 = SOUND_SMO3_FC	//Look-the-fuck-out – TRAIN!
+										$input_text_s3 = SMO3_FC	//Look-the-fuck-out – TRAIN!
+										speaker_s3 = big_smoke
+										GOSUB load_audio_s3
+										TIMERB = 0
+									// FIXEDGROVE: START
+									ELSE
+										audio_label_s3 = SOUND_SMO3_JA	//CJ, keep us up here.
+										$input_text_s3 = SMO3_JA	//CJ, keep us up here.
+										speaker_s3 = big_smoke
+										GOSUB load_audio_s3
+										TIMERB = 0
+									ENDIF
+									// FIXEDGROVE: END
+								ENDIF
+							ENDIF
+						ENDIF
+					ENDIF
+
+					IF progressaudio_s3flag = 7
+						IF handlingudio_s3flag = 0
 							IF TIMERB > 11000
 								audio_label_s3 = SOUND_SMO3_EC	//Match their speed and I’ll ice those fools!
 								$input_text_s3 = SMO3_EC	//Match their speed and I’ll ice those fools!
+								speaker_s3 = big_smoke
 								IF DOES_OBJECT_EXIST barrier_s3
 									IF NOT IS_OBJECT_ON_SCREEN barrier_s3
 										DELETE_OBJECT barrier_s3
@@ -2300,113 +2351,95 @@ ENDIF
 IF smoke_s3flag = 3
 	IF getsmoke_s3flag = 1
 
-		IF audiowayback_s3flag = 0
-			CLEAR_MISSION_AUDIO	1
-			LOAD_MISSION_AUDIO 1 SOUND_SMO3_PC //Let’s hightail it back to mine before the cops show! 
-			MARK_OBJECT_AS_NO_LONGER_NEEDED barrier_s3
-			MARK_MODEL_AS_NO_LONGER_NEEDED imy_track_barrier
-			audiowayback_s3flag = 1
-		ENDIF
-		IF audiowayback_s3flag = 1
-			IF HAS_MISSION_AUDIO_LOADED 1
-				PRINT_NOW ( SMO3_PC ) 4000 1
-				PLAY_MISSION_AUDIO 1
-				audiowayback_s3flag = 2
-			ENDIF
-		ENDIF
-		IF audiowayback_s3flag = 2
-			IF HAS_MISSION_AUDIO_FINISHED 1
-				CLEAR_PRINTS
-				CLEAR_MISSION_AUDIO 1
-				audiowayback_s3flag = 3
-				TIMERB = 0
-			ENDIF
-		ENDIF
-		IF audiowayback_s3flag = 3
-			IF TIMERB > 500
-				PRINT_NOW SMK3_22 6000 1 //~s~Drive Big Smoke back to his ~y~house~s~.
-				TIMERB = 0
-				audiowayback_s3flag = 4
-			ENDIF
-		ENDIF
-
 		IF NOT IS_CHAR_DEAD big_smoke
-			IF audiowayback_s3flag = 4
-				IF IS_GROUP_MEMBER big_smoke Players_Group
-					IF IS_CHAR_SITTING_IN_ANY_CAR big_smoke
-						IF IS_CHAR_SITTING_IN_ANY_CAR scplayer 
+			IF IS_GROUP_MEMBER big_smoke Players_Group
 
-							GOSUB process_audio_s3
+				GOSUB process_audio_s3
 
-							//play mission audio
-							IF progressaudio_s3flag = 0
-								IF handlingudio_s3flag = 0
-									IF TIMERB > 7000
-										audio_label_s3 = SOUND_SMO3_RA	//Was it always like this?
-										$input_text_s3 = SMO3_RA	//Was it always like this?
-										GOSUB load_audio_s3
-										TIMERB = 0
-									ENDIF
-								ENDIF
-							ENDIF
-
-							IF progressaudio_s3flag = 1
-								IF handlingudio_s3flag = 0
-									audio_label_s3 = SOUND_SMO3_RB	//Was what?
-									$input_text_s3 = SMO3_RB	//Was what?
-									GOSUB load_audio_s3
-								ENDIF
-							ENDIF
-
-							IF progressaudio_s3flag = 2
-								IF handlingudio_s3flag = 0
-									audio_label_s3 = SOUND_SMO3_RC	//Always fucked up around here.  Or is it because of the drugs?
-									$input_text_s3 = SMO3_RC	//Always fucked up around here.  Or is it because of the drugs?
-									GOSUB load_audio_s3
-								ENDIF
-							ENDIF
-
-							IF progressaudio_s3flag = 3
-								IF handlingudio_s3flag = 0
-									audio_label_s3 = SOUND_SMO3_RD //What do you think?
-									$input_text_s3 = SMO3_RD //What do you think?
-									GOSUB load_audio_s3
-								ENDIF
-							ENDIF
-
-							IF progressaudio_s3flag = 4
-								IF handlingudio_s3flag = 0
-									audio_label_s3 = SOUND_SMO3_RE	//I don’t know. That’s why I’m asking you.
-									$input_text_s3 = SMO3_RE	//I don’t know. That’s why I’m asking you.
-									GOSUB load_audio_s3
-								ENDIF
-							ENDIF
-
-							IF progressaudio_s3flag = 5
-								IF handlingudio_s3flag = 0
-									audio_label_s3 = SOUND_SMO3_RF	//Don’t ask a wise man, friend. Ask a fool.
-									$input_text_s3 = SMO3_RF	//Don’t ask a wise man, friend. Ask a fool.
-									GOSUB load_audio_s3
-								ENDIF
-							ENDIF
-
-							IF progressaudio_s3flag = 6
-								IF handlingudio_s3flag = 0
-									audio_label_s3 = SOUND_SMO3_RG	//That’s what I was doing.
-									$input_text_s3 = SMO3_RG	//That’s what I was doing.
-									GOSUB load_audio_s3
-								ENDIF
-							ENDIF
-
-							IF progressaudio_s3flag = 7
-								IF handlingudio_s3flag = 0
-									audio_label_s3 = SOUND_SMO3_RH	//Well, if you’re going to make it personal, I ain’t speaking no more.
-									$input_text_s3 = SMO3_RH	//Well, if you’re going to make it personal, I ain’t speaking no more.
-									GOSUB load_audio_s3
-								ENDIF
-							ENDIF
-
+				// FIXEDGROVE: assigned speakers, made first line use load_audio sub
+				//play mission audio
+				IF progressaudio_s3flag = 0
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_PC	//Let’s hightail it back to mine before the cops show!
+						$input_text_s3 = SMO3_PC	//Let’s hightail it back to mine before the cops show!
+						speaker_s3 = big_smoke
+						GOSUB load_audio_s3
+						TIMERB = 0
+					ENDIF
+				ENDIF							
+				
+				IF progressaudio_s3flag = 1
+					IF handlingudio_s3flag = 0
+						IF TIMERB > 7000
+							audio_label_s3 = SOUND_SMO3_RA	//Was it always like this?
+							$input_text_s3 = SMO3_RA	//Was it always like this?
+							speaker_s3 = scplayer
+							GOSUB load_audio_s3
+							TIMERB = 0
 						ENDIF
+					ENDIF
+				ENDIF
+
+				IF progressaudio_s3flag = 2
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_RB	//Was what?
+						$input_text_s3 = SMO3_RB	//Was what?
+						speaker_s3 = big_smoke
+						GOSUB load_audio_s3
+					ENDIF
+				ENDIF
+
+				IF progressaudio_s3flag = 3
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_RC	//Always fucked up around here.  Or is it because of the drugs?
+						$input_text_s3 = SMO3_RC	//Always fucked up around here.  Or is it because of the drugs?
+						speaker_s3 = scplayer
+						GOSUB load_audio_s3
+					ENDIF
+				ENDIF
+
+				IF progressaudio_s3flag = 4
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_RD //What do you think?
+						$input_text_s3 = SMO3_RD //What do you think?
+						speaker_s3 = big_smoke
+						GOSUB load_audio_s3
+					ENDIF
+				ENDIF
+
+				IF progressaudio_s3flag = 5
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_RE	//I don’t know. That’s why I’m asking you.
+						$input_text_s3 = SMO3_RE	//I don’t know. That’s why I’m asking you.
+						speaker_s3 = scplayer
+						GOSUB load_audio_s3
+					ENDIF
+				ENDIF
+
+				IF progressaudio_s3flag = 6
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_RF	//Don’t ask a wise man, friend. Ask a fool.
+						$input_text_s3 = SMO3_RF	//Don’t ask a wise man, friend. Ask a fool.
+						speaker_s3 = big_smoke
+						GOSUB load_audio_s3
+					ENDIF
+				ENDIF
+
+				IF progressaudio_s3flag = 7
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_RG	//That’s what I was doing.
+						$input_text_s3 = SMO3_RG	//That’s what I was doing.
+						speaker_s3 = scplayer
+						GOSUB load_audio_s3
+					ENDIF
+				ENDIF
+
+				IF progressaudio_s3flag = 8
+					IF handlingudio_s3flag = 0
+						audio_label_s3 = SOUND_SMO3_RH	//Well, if you’re going to make it personal, I ain’t speaking no more.
+						$input_text_s3 = SMO3_RH	//Well, if you’re going to make it personal, I ain’t speaking no more.
+						speaker_s3 = big_smoke
+						GOSUB load_audio_s3
 					ENDIF
 				ENDIF
 			ENDIF
@@ -2420,14 +2453,13 @@ IF smoke_s3flag = 3
 
 						SET_PLAYER_CONTROL PLAYER1 OFF
 						DO_FADE 1000 FADE_OUT
-						SWITCH_WIDESCREEN ON
-						audiowayback_s3flag = 5
 						CLEAR_MISSION_AUDIO 1
 						CLEAR_MISSION_AUDIO 2
 
 						WHILE GET_FADING_STATUS
 							WAIT 0
 						ENDWHILE
+						SWITCH_WIDESCREEN ON // FIXEDGROVE: moved this line here so the fade out looks nicer
 						CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
 						SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
 						IF NOT IS_CHAR_DEAD big_smoke
@@ -2497,6 +2529,9 @@ IF smoke_s3flag = 4
 	ENDWHILE
 	CLEAR_PRINTS
 	CLEAR_MISSION_AUDIO 1
+
+	SKIP_CUTSCENE_START // FIXEDGROVE
+
 	LOAD_MISSION_AUDIO 1 SOUND_SMO3_SC	//Alright, homie.  You be careful with those cats.
 	PLAY_MISSION_AUDIO 2 //I don’t want those CRASH fools getting their claws into you.
 	PRINT_NOW SMO3_SB 4000 1 //I don’t want those CRASH fools getting their claws into you.
@@ -2546,12 +2581,23 @@ IF smoke_s3flag = 4
 
 	DELETE_CHAR big_smoke
 	CLEAR_CHAR_TASKS_IMMEDIATELY scplayer 
+
+	SKIP_CUTSCENE_END // FIXEDGROVE
+
 	SET_CHAR_COORDINATES scplayer 2072.723 -1694.359 12.54
 	SET_CHAR_HEADING scplayer 272.637
 	SWITCH_WIDESCREEN OFF
 	SET_PLAYER_CONTROL PLAYER1 OFF
 	RESTORE_CAMERA_JUMPCUT
 	SET_CAMERA_BEHIND_PLAYER
+	// FIXEDGROVE: START - have to do this for the fade in after the skip to work
+	DO_FADE 0 FADE_OUT
+
+	WHILE GET_FADING_STATUS
+		WAIT 0
+	ENDWHILE
+	// FIXEDGROVE: END
+
 	DO_FADE 500 FADE_IN
 	CLEAR_PRINTS
 	GOTO mission_smoke3_passed
@@ -2663,6 +2709,12 @@ IF handlingudio_s3flag = 1
 	IF HAS_MISSION_AUDIO_LOADED 1
 		PRINT_NOW $text_label_s3 4000 1 //Dummy message"
 		PLAY_MISSION_AUDIO 1
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD speaker_s3
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH speaker_s3 TRUE
+			START_CHAR_FACIAL_TALK speaker_s3 10000
+		ENDIF
+		// FIXEDGROVE: END
 		handlingudio_s3flag = 2
 	ENDIF
 ENDIF
@@ -2675,6 +2727,12 @@ IF handlingudio_s3flag = 2
 			PRINT_NOW SMK3_25 6000 1 //~s~Keep up with the front carriage of the train so Big Smoke can shoot the ~r~Vagos gang members~s~.
 			infotext_s3flag = 2
 		ENDIF
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD speaker_s3
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH speaker_s3 FALSE
+			STOP_CHAR_FACIAL_TALK speaker_s3
+		ENDIF
+		// FIXEDGROVE: END
 		handlingudio_s3flag = 0
 	ENDIF
 ENDIF
@@ -2815,8 +2873,9 @@ IF NOT IS_CAR_DEAD bike_s3
 	SET_CAR_HEALTH bike_s3 1000
 	SET_CAN_BURST_CAR_TYRES bike_s3 TRUE
 	SET_CAR_PROOFS bike_s3 FALSE FALSE FALSE FALSE FALSE
-	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 ENDIF
+SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE: moved this out of the above check
+STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
 RELEASE_WEATHER
 IF NOT IS_CAR_DEAD smokecar_s3
 	SET_CAR_HEALTH smokecar_s3 1000
