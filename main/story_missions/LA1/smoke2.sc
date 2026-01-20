@@ -62,6 +62,7 @@ LVAR_TEXT_LABEL s2_audio_text[9]
 LVAR_INT s2_audio_sound[9]
 LVAR_INT s2_audio_is_playing s2_audio_index s2_total_audio_to_play s2_started_talking
 LVAR_INT s2_current_audio_needed
+LVAR_INT s2_speaker[9] // FIXEDGROVE
 CONST_INT S2_TIRED_AUDIO 0
 CONST_INT S2_CHASE_AUDIO 1
 CONST_INT S2_CAR_AUDIO 2
@@ -538,6 +539,11 @@ WAIT 0
 			IF s2_car_audio_finished = 1
 				PRINT_NOW ( SMK2_15 ) 5000 0
 			ENDIF
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD s2_smoke
+				STOP_CHAR_FACIAL_TALK s2_smoke
+			ENDIF
+			// FIXEDGROVE: END
 			s2_player_in_first_car = 1
 		ENDIF
 
@@ -546,9 +552,6 @@ WAIT 0
 			AND TIMERA > 10000
 				s2_current_audio_needed = S2_CAR_AUDIO
 				GOSUB s2_setup_audio_data
-				IF NOT IS_CHAR_DEAD s2_smoke
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH s2_smoke TRUE
-				ENDIF
 				s2_car_audio_started = 1
 			ENDIF
 			IF s2_car_audio_started = 1
@@ -556,9 +559,6 @@ WAIT 0
 				IF s2_audio_index < s2_total_audio_to_play
 					GOSUB s2_load_and_play_audio
 				ELSE
-					IF NOT IS_CHAR_DEAD s2_smoke
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH s2_smoke FALSE
-					ENDIF
 					s2_car_audio_finished = 1
 				ENDIF
 			ENDIF
@@ -574,10 +574,6 @@ WAIT 0
 				REMOVE_BLIP s2_weapon_pickup_blip
 
 				SWITCH_ROADS_BACK_TO_ORIGINAL 2488.0 -1431.93 25.41 2528.0 -1391.93 29.41
-
-				IF NOT IS_CHAR_DEAD s2_smoke
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH s2_smoke FALSE
-				ENDIF
 				
 				GOSUB s2_play_meet_cutscene
 
@@ -629,9 +625,6 @@ WAIT 0
 				AND NOT s2_smoke_started_to_play_chase_dialogue = 1
 					s2_current_audio_needed = S2_CHASE_AUDIO
 					GOSUB s2_setup_audio_data
-					IF NOT IS_CHAR_DEAD s2_smoke
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH s2_smoke TRUE
-					ENDIF
 					s2_smoke_started_to_play_chase_dialogue = 1
 				ENDIF
 			ENDIF
@@ -646,9 +639,6 @@ WAIT 0
 						s2_smoke_played_chase_dialogue = 1
 					ENDIF
 				ELSE
-					IF NOT IS_CHAR_DEAD s2_smoke
-						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH s2_smoke FALSE
-					ENDIF
 					s2_smoke_played_chase_dialogue = 1
 				ENDIF
 			ENDIF
@@ -942,6 +932,11 @@ GOTO smoke2_loop
 		CLEAR_ALL_CHAR_RELATIONSHIPS s2_smoke ACQUAINTANCE_TYPE_PED_DISLIKE
 		CLEAR_ALL_CHAR_RELATIONSHIPS s2_smoke ACQUAINTANCE_TYPE_PED_HATE
 
+		// FIXEDGROVE: START
+		SET_CHAR_RELATIONSHIP s2_smoke ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_GANG_GROVE
+		SET_CHAR_RELATIONSHIP s2_smoke ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_PLAYER1
+		// FIXEDGROVE: END
+
 	RETURN
 
 // *************************************************************
@@ -1114,9 +1109,21 @@ GOTO smoke2_loop
 
 		PLAY_MISSION_AUDIO 1
 		PRINT_NOW $s2_audio_text[0] 10000 1
-		WAIT 4000
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_PRINTS
+		// FIXEDGROVE: START - preserve pause while also stopping the facial anim
+		TIMERA = 0
+
+		WHILE TIMERA < 4000
+			IF HAS_MISSION_AUDIO_FINISHED 1
+				IF NOT IS_CHAR_DEAD s2_smoke
+					STOP_CHAR_FACIAL_TALK s2_smoke
+				ENDIF
+				CLEAR_PRINTS
+				CLEAR_MISSION_AUDIO 1
+			ENDIF
+			WAIT 0
+		ENDWHILE
+		// FIXEDGROVE: END
+		//WAIT 4000 // FIXEDGROVE: comment out
 
 		IF NOT s2_random_car_model = -1
 			IF NOT IS_CHAR_DEAD s2_random_car_drivers[0]
@@ -1148,11 +1155,22 @@ GOTO smoke2_loop
 
 		PLAY_MISSION_AUDIO 2
 		PRINT_NOW $s2_audio_text[1] 10000 1
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD s2_smoke
+			START_CHAR_FACIAL_TALK s2_smoke 10000
+		ENDIF
+		// FIXEDGROVE: END
 		WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 			WAIT 0
 		ENDWHILE
 		CLEAR_MISSION_AUDIO 2
 		CLEAR_PRINTS
+
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD s2_smoke
+			STOP_CHAR_FACIAL_TALK s2_smoke
+		ENDIF
+		// FIXEDGROVE: END
 
 		WAIT 1000
 
@@ -1526,24 +1544,34 @@ GOTO smoke2_loop
 
 			CASE S2_CAR_AUDIO
 
+				// FIXEDGROVE: assigned speakers
 				$s2_audio_text[0] = &SMO2_BA
 				s2_audio_sound[0] = SOUND_SMO2_BA
+				s2_speaker[0] = scplayer
 				$s2_audio_text[1] = &SMO2_BB
 				s2_audio_sound[1] = SOUND_SMO2_BB
+				s2_speaker[1] = s2_smoke
 				$s2_audio_text[2] = &SMO2_BC
 				s2_audio_sound[2] = SOUND_SMO2_BC
+				s2_speaker[2] = scplayer
 				$s2_audio_text[3] = &SMO2_BD
 				s2_audio_sound[3] = SOUND_SMO2_BD
+				s2_speaker[3] = s2_smoke
 				$s2_audio_text[4] = &SMO2_BE
 				s2_audio_sound[4] = SOUND_SMO2_BE
+				s2_speaker[4] = scplayer
 				$s2_audio_text[5] = &SMO2_BF
 				s2_audio_sound[5] = SOUND_SMO2_BF
+				s2_speaker[5] = s2_smoke
 				$s2_audio_text[6] = &SMO2_BG
 				s2_audio_sound[6] = SOUND_SMO2_BG
+				s2_speaker[6] = scplayer
 				$s2_audio_text[7] = &SMO2_BH
 				s2_audio_sound[7] = SOUND_SMO2_BH
+				s2_speaker[7] = s2_smoke
 				$s2_audio_text[8] = &SMO2_BJ
 				s2_audio_sound[8] = SOUND_SMO2_BJ
+				s2_speaker[8] = s2_smoke
 
 				s2_total_audio_to_play = 9
 
@@ -1576,6 +1604,12 @@ GOTO smoke2_loop
 
 		IF s2_audio_is_playing = 2
 			IF HAS_MISSION_AUDIO_FINISHED 1
+				// FIXEDGROVE: START
+				IF NOT IS_CHAR_DEAD s2_speaker[s2_audio_index]
+					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH s2_speaker[s2_audio_index] FALSE
+					STOP_CHAR_FACIAL_TALK s2_speaker[s2_audio_index]
+				ENDIF
+				// FIXEDGROVE: START
 				s2_audio_is_playing = 0
 				s2_audio_index++
 				s2_started_talking = 0
@@ -1596,6 +1630,12 @@ GOTO smoke2_loop
 			IF HAS_MISSION_AUDIO_LOADED 1
 				PRINT_NOW $s2_audio_text[s2_audio_index] 10000 1
 				PLAY_MISSION_AUDIO 1
+				// FIXEDGROVE: START
+				IF NOT IS_CHAR_DEAD s2_speaker[s2_audio_index]
+					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH s2_speaker[s2_audio_index] TRUE
+					START_CHAR_FACIAL_TALK s2_speaker[s2_audio_index] 10000
+				ENDIF
+				// FIXEDGROVE: END
 				s2_audio_is_playing = 2
 			ENDIF
 		ENDIF	
@@ -1630,9 +1670,6 @@ GOTO smoke2_loop
 				BREAK
 		ENDSWITCH
 
-		STOP_CHAR_FACIAL_TALK scplayer
-		CLEAR_MISSION_AUDIO 1
-
 		WHILE NOT HAS_MISSION_AUDIO_LOADED 2
 			WAIT 0
 			IF IS_CHAR_DEAD s2_smoke
@@ -1646,6 +1683,9 @@ GOTO smoke2_loop
 				ENDIF
 			ENDIF
 		ENDWHILE
+
+		CLEAR_MISSION_AUDIO 1 // FIXEDGROVE: moved this after the wait loop
+		GOSUB s2_load_and_play_audio // FIXEDGROVE: added so facial anim stops properly
 
 		PLAY_MISSION_AUDIO 2
 
@@ -1669,6 +1709,12 @@ GOTO smoke2_loop
 				BREAK
 		ENDSWITCH
 
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD s2_smoke
+			START_CHAR_FACIAL_TALK s2_smoke 10000
+		ENDIF
+		// FIXEDGROVE: END
+
 		WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 			WAIT 0
 			IF IS_CHAR_DEAD s2_smoke
@@ -1682,6 +1728,12 @@ GOTO smoke2_loop
 				ENDIF
 			ENDIF
 		ENDWHILE
+
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD s2_smoke
+			STOP_CHAR_FACIAL_TALK s2_smoke
+		ENDIF
+		// FIXEDGROVE: END
 
 		s2_get_in_audio_stage++
 		IF s2_get_in_audio_stage > 4
@@ -1755,6 +1807,8 @@ SWITCH_PED_ROADS_BACK_TO_ORIGINAL 2082.91 -1107.01 4.53 2102.91 -1087.01 44.53
 // roads at first scripted cutscene
 SWITCH_ROADS_BACK_TO_ORIGINAL 2441.38 -1405.59 15.0 2460.42 -1368.34 40.0
 SWITCH_PED_ROADS_BACK_TO_ORIGINAL 2441.38 -1405.59 15.0 2460.42 -1368.34 40.0
+STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
+SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE: added for edge cases
 SET_CAR_DENSITY_MULTIPLIER 1.0
 FLUSH_ROUTE
 GET_GAME_TIMER timer_mobile_start
