@@ -5651,7 +5651,7 @@ CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1291.7604 -803.4566 1089.9297 pic
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1715.12 -1673.51 20.22 pickup_armour[37]//armour, bedroom
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 943.0120 -939.8284 57.7345 	 pickup_armour[38]				 //chatuex marmount balcony in la
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 275.169 1859.699 9.81 	 pickup_armour[39] //body armour at inside area51 	
-CREATE_PICKUP bodyarmour PICKUP_ONCE 1268.34 -804.33 1084.01 	 pickup_armour[40] //body armour at inside mansion mad dog
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1268.34 -804.33 1084.01 	 pickup_armour[40] //body armour at inside mansion mad dog // FIXEDGROVE: made respawn
 
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 263.52 83.14 1001.0391 	 pickup_armour[41] //police station 1
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 264.2632 117.0737 1008.8125 	 pickup_armour[42] //police station 1
