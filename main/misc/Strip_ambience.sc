@@ -198,9 +198,7 @@ STRIP_Loop:
 							
 							IF IS_BUTTON_PRESSED PAD1 TRIANGLE
 								ADD_SCORE player1 -100
-								GET_FLOAT_STAT STRIP_CLUB_BUDGET fH
-								fH += 100.0
-								GET_FLOAT_STAT STRIP_CLUB_BUDGET fH
+								INCREMENT_FLOAT_STAT STRIP_CLUB_BUDGET 100.0 // FIXEDGROVE: previously it stored the budget in a var, increased it, and stored it again
 								iPrivateDone = 1
 								iPrintDoorHelp = 0
 								//--- Co-ords and heading of the chair
