@@ -3288,10 +3288,19 @@ pl_stage_11:
 					IF NOT IS_CHAR_DEAD	opp 
 						SET_CHAR_MONEY opp 0
 					ENDIF
+					// FIXEDGROVE: START - increment wins stat and eight balls stat if player potted it
+					INCREMENT_INT_STAT WINS_IN_POOL 1 
+					IF ball_potted[8] = 1
+					AND player1_colour = POOL_COLOUR_BLACK
+					AND turn_player = 1
+						INCREMENT_INT_STAT EIGHT_BALLS_IN_POOL 1
+					ENDIF
+					// FIXEDGROVE: END
 				ELSE
 				// you lost
 					temp_int = pl_initial_stake * -1
 					START_NEW_SCRIPT display_win_text temp_int 5000	80
+					INCREMENT_INT_STAT LOSSES_IN_POOL 1  // FIXEDGROVE
 				ENDIF
 
 			ELSE
@@ -7233,11 +7242,6 @@ mission_cleanup_POOL2:
 	
 	IF IS_PLAYER_PLAYING player1
 		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-		CLEAR_LOOK_AT scplayer
 		OPEN_SEQUENCE_TASK temp_seq
 			TASK_STAND_STILL -1 1
 			TASK_PAUSE -1 1
