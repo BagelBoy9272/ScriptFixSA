@@ -5375,9 +5375,10 @@ ENDIF
 													WAIT 0 
 													ENDWHILE
 													IF NOT IS_CHAR_DEAD ryd1_ryder_ped										
-													START_CHAR_FACIAL_TALK ryd1_ryder_ped 5000
-													STOP_CHAR_FACIAL_TALK scplayer
+														START_CHAR_FACIAL_TALK ryd1_ryder_ped 5000
+														TASK_LOOK_AT_CHAR scplayer ryd1_ryder_ped 10000 // FIXEDGROVE: added so it looks a little more natural
 													ENDIF
+													STOP_CHAR_FACIAL_TALK scplayer
 													ryd1_audio_counter = 68 //PRINT (RYD1_KA) 5000 1//RYDER: CJ, you gotta get it into your head that this is every day shit.	//(RYD1_KA)	
 													ryd1_mobile = 3
 													GET_GAME_TIMER ryd1_text_timer_start
@@ -5391,10 +5392,6 @@ ENDIF
 										ryd1_text_timer_diff = ryd1_text_timer_end - ryd1_text_timer_start
 										IF ryd1_text_timer_diff > 1000
 											IF ryd1_audio_playing = 0
-											   CLEAR_CHAR_TASKS scplayer
-											   IF NOT IS_CHAR_DEAD ryd1_ryder_ped
-													CLEAR_CHAR_TASKS ryd1_ryder_ped
-											   ENDIF
 											   ryd1_text_loop_done = 1	
 											ENDIF
 										ENDIF
@@ -5418,6 +5415,12 @@ ENDIF
 						WHILE GET_FADING_STATUS
 							WAIT 0
 						ENDWHILE
+
+						// FIXEDGROVE: moved this tiny block here so the anims dont suddenly stop during the fade out
+						CLEAR_CHAR_TASKS scplayer
+						IF NOT IS_CHAR_DEAD ryd1_ryder_ped
+							CLEAR_CHAR_TASKS ryd1_ryder_ped
+						ENDIF
 						
 						SET_CHAR_COORDINATES scplayer 2161.0 -1664.0 22.0
 						
@@ -5695,6 +5698,8 @@ ENDIF
 						RESTORE_CAMERA_JUMPCUT
 
 						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+
+						DELETE_CHAR ryd1_ryder_ped // FIXEDGROVE: previously relied on cleanup vanish, which was visible in-game
 
 						GOTO mission_g1_passed
 
@@ -6016,7 +6021,7 @@ RETURN
 		REMOVE_ANIMATION ON_LOOKERS
 		REMOVE_ANIMATION CAR_CHAT
 
-		DELETE_CHAR ryd1_ryder_ped // FIXEDGROVE: was previously a vanish, which was visible in-game
+		REMOVE_CHAR_ELEGANTLY ryd1_ryder_ped
 
 		MARK_CHAR_AS_NO_LONGER_NEEDED ryd1_owner_ped
 		MARK_CHAR_AS_NO_LONGER_NEEDED ryd1_cop1_ped
