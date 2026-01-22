@@ -2181,33 +2181,45 @@ mission_mtbikerace_passed:
 	CLEAR_WANTED_LEVEL player1
 	//PLAY_MISSION_PASSED_TUNE 1 // FIXEDGROVE: commented out redundant line
 
-	// FIXEDGROVE: START - check if its the first time player completes these races
+	// FIXEDGROVE: START - check if its the first time player completes these races, switchcase necessary due to how the compiler calculates total progress %
 	IF flag_mtbike_passed_1stime = 0
 		REGISTER_ODDJOB_MISSION_PASSED
-		PLAYER_MADE_PROGRESS 1
+		SWITCH mtbikerace_selection
+			CASE 1
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 2
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 3
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+		ENDSWITCH
 	ENDIF
 	// FIXEDGROVE: END
 
-	IF mtbikerace_selection = 1
-        PRINT_BIG RACES18 500 1  // Winner!
-		ADD_SCORE player1 500
-		PRINT_NOW MTWIN1 5000 1	 // You won! The 'Birdseye Winder' is now available 
-		PLAY_MISSION_PASSED_TUNE 1
-	ENDIF
+	SWITCH mtbikerace_selection
+		CASE 1
+        	PRINT_BIG RACES18 500 1  // Winner!
+			ADD_SCORE player1 500
+			PRINT_NOW MTWIN1 5000 1	 // You won! The 'Birdseye Winder' is now available 
+			PLAY_MISSION_PASSED_TUNE 1
+			BREAK
 
-	IF mtbikerace_selection = 2
-		PRINT_NOW MTWIN2 5000 1	  // You won! The 'Cobra Run' is now available 
-		PRINT_BIG RACES18 1000 1  // Winner!
-		ADD_SCORE player1 1000
-	  	PLAY_MISSION_PASSED_TUNE 1
-	ENDIF
+		CASE 2
+			PRINT_NOW MTWIN2 5000 1	  // You won! The 'Cobra Run' is now available 
+			PRINT_BIG RACES18 1000 1  // Winner!
+			ADD_SCORE player1 1000
+	  		PLAY_MISSION_PASSED_TUNE 1
+			BREAK
 
-	IF mtbikerace_selection = 3
-		PRINT_BIG RACES18 2000 1  // Winner!
-		ADD_SCORE player1 2000
-	  	PRINT_NOW MTWIN3 5000 1	  // You have completed all routes for 'The Chiliad Challange'
-	    PLAY_MISSION_PASSED_TUNE 2	
-	ENDIF
+		CASE 3
+			PRINT_BIG RACES18 2000 1  // Winner!
+			ADD_SCORE player1 2000
+	  		PRINT_NOW MTWIN3 5000 1	  // You have completed all routes for 'The Chiliad Challange'
+	    	PLAY_MISSION_PASSED_TUNE 2	
+			BREAK
+	ENDSWITCH
 
 	//PLAY_MISSION_PASSED_TUNE 2
 

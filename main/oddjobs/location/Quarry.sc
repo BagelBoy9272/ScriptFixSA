@@ -4635,33 +4635,40 @@ Quarry_Mission_Passed:
 
 		// FIXEDGROVE: START - previously 'missions passed' stat & completion % was only increased in the last mission on first playthrough
 		REGISTER_ODDJOB_MISSION_PASSED 
-		PLAYER_MADE_PROGRESS 1
 		// FIXEDGROVE: END		  
 
 		// ...this is the player's first playthrough
 		// Work out the score
 		// NOTE: nTempInt used to hold the score
+		// FIXEDGROVE: due to how compiler calculates total progress %, multiple progress commands are necessary
 		SWITCH g_nQuarryMissionsPassed
 			CASE 1
 				nTempInt = 500
+				PLAYER_MADE_PROGRESS 1
 				BREAK
 			CASE 2
 				nTempInt = 1000
+				PLAYER_MADE_PROGRESS 1
 				BREAK
 			CASE 3
 				nTempInt = 2000
+				PLAYER_MADE_PROGRESS 1
 				BREAK
 			CASE 4
 				nTempInt = 3000
+				PLAYER_MADE_PROGRESS 1
 				BREAK
 			CASE 5
 				nTempInt = 5000
+				PLAYER_MADE_PROGRESS 1
 				BREAK
 			CASE 6
 				nTempInt = 7500
+				PLAYER_MADE_PROGRESS 1
 				BREAK
 			CASE 7
 				nTempInt = 10000
+				PLAYER_MADE_PROGRESS 1
 				BREAK
 		ENDSWITCH
 

@@ -3410,7 +3410,29 @@ Truck_Display_Mission_Passed_Text:
 	// FIXEDGROVE: START - previously 'missions passed' stat & completion % was only increased in the last mission on first playthrough
 	IF done_truck_progress = FALSE
 		REGISTER_ODDJOB_MISSION_PASSED
-		PLAYER_MADE_PROGRESS 1
+		SWITCH g_nTruckMissionsPassed
+			CASE 1
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 2
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 3
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 4
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 5
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 6
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+			CASE 7
+				PLAYER_MADE_PROGRESS 1
+				BREAK
+		ENDSWITCH 
 	ENDIF
 	// FIXEDGROVE: END
 

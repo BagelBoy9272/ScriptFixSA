@@ -3321,7 +3321,15 @@ mission_triathalon_passed:
 
 	IF NOT IS_BIT_SET flags_triathalon_passed_1stime triathalon_selection // FIXEDGROVE: check if current triathlon hasn't been completed, instead of just any
 	   	REGISTER_ODDJOB_MISSION_PASSED
-	    PLAYER_MADE_PROGRESS 1 // FIXEDGROVE: uncomment
+
+		// FIXEDGROVE: START - due to how compiler calculates total progress %, multiple progress commands are necessary
+		IF triathalon_selection = 1
+			PLAYER_MADE_PROGRESS 1
+		ELSE
+			PLAYER_MADE_PROGRESS 1
+		ENDIF
+		// FIXEDGROVE: END
+
 	    SET_BIT flags_triathalon_passed_1stime triathalon_selection // FIXEDGROVE: use bitflags
 
 		// FIXEDGROVE: START - check if both triathlons were completed, instead of just the second one
