@@ -930,7 +930,12 @@ refresh_char_weapon = 0
 					SET_CHAR_AMMO scplayer WEAPONTYPE_PISTOL 30000
 				ENDIF
 				
-				PRINT_HELP_FOREVER HOOD2B  
+				// FIXEDGROVE: only display "cycling through targets" help box if using a controller
+				IF IS_PC_USING_JOYPAD
+					PRINT_HELP_FOREVER HOOD2B  
+				ELSE
+					PRINT_HELP_FOREVER RECOIL
+				ENDIF
 				
 				PRINT_NOW ( SWE2_H ) 10000 1 // Shoot the bottles
 				smoke_group_spilt_blip = 0
@@ -1009,7 +1014,12 @@ refresh_char_weapon = 0
 					SET_PLAYER_CONTROL player1 ON
 					SET_CAMERA_BEHIND_PLAYER
 					
-					PRINT_HELP_FOREVER HOOD2B  
+					// FIXEDGROVE: only display "cycling through targets" help box if using a controller
+					IF IS_PC_USING_JOYPAD
+						PRINT_HELP_FOREVER HOOD2B  
+					ELSE
+						PRINT_HELP_FOREVER RECOIL
+					ENDIF  
    				    
 					tag_target_counter = 0
 					
