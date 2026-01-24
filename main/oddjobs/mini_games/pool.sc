@@ -4228,12 +4228,18 @@ pool_update_object_anims:
 		// if ped is just doing an idle stance, make him at least stand with pool cue
 		temp_int = 0
 		IF IS_CHAR_PLAYING_ANIM object_anim_char idle_stance
-		AND NOT current_char = object_anim_char
-			temp_int = 1
+		OR IS_CHAR_PLAYING_ANIM object_anim_char FatIdle // FIXEDGROVE
+		OR IS_CHAR_PLAYING_ANIM object_anim_char MuscleIdle // FIXEDGROVE
+			IF NOT current_char = object_anim_char
+				temp_int = 1
+			ENDIF
 		ENDIF
 		IF IS_CHAR_PLAYING_ANIM object_anim_char idle_stance
-		AND m_goals = 6
-			temp_int = 1
+		OR IS_CHAR_PLAYING_ANIM object_anim_char FatIdle // FIXEDGROVE
+		OR IS_CHAR_PLAYING_ANIM object_anim_char MuscleIdle // FIXEDGROVE
+			IF m_goals = 6
+				temp_int = 1
+			ENDIF
 		ENDIF
 		IF temp_int = 1
 			GET_SCRIPT_TASK_STATUS object_anim_char PERFORM_SEQUENCE_TASK temp_int2
