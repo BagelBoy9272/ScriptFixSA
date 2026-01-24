@@ -1276,7 +1276,7 @@ RETURN
 ********************************************/
 Dance_InstanceRandomPartner:
 
-	GENERATE_RANDOM_INT_IN_RANGE 1 5 iTemp
+	GENERATE_RANDOM_INT_IN_RANGE 1 6 iTemp // FIXEDGROVE: increased upper range since its exclusive
 
 	SWITCH iTemp
 		CASE 1
