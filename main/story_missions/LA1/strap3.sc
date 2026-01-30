@@ -93,7 +93,7 @@ flag_player_on_mission = 1
 REGISTER_MISSION_GIVEN
 LOAD_MISSION_TEXT STRAP3
 
-IF flag_player_on_mission = 0 
+GOTO m3_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	//COPY_CHAR_DECISION_MAKER m3_star m3_celeb_decisions
 	CREATE_OBJECT DYN_ROADBARRIER_2 1024.5 -1123.2 22.9 right_barrier1
 	CREATE_OBJECT DYN_ROADBARRIER_2 1024.5 -1127.2 22.9 right_barrier2
@@ -129,7 +129,7 @@ IF flag_player_on_mission = 0
 	CREATE_CHAR PEDTYPE_MISSION2 LAPD1 1023.4 -1121.0 22.9 wc1
 	CREATE_CHAR PEDTYPE_MISSION2 LAPD1 1023.4 -1121.0 22.9 m3_interviewer
 
-ENDIF
+m3_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 CLEAR_PRINTS
 WAIT 0

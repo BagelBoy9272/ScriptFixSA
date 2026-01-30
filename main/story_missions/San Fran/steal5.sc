@@ -55,10 +55,10 @@ mission_start_steal5:
 flag_player_on_mission = 1
 REGISTER_MISSION_GIVEN
 LOAD_MISSION_TEXT STEAL5
-IF flag_player_on_mission = 0 
+GOTO s5_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_OBJECT temp_stinger2 -2025.8 169.2 27.7 s5_stinger
 	ADD_BLIP_FOR_COORD -2025.8 169.2 27.7 s5_blip
-ENDIF
+s5_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 CLEAR_PRINTS
 WAIT 0
 // *************************************Set Flags/variables*********************************

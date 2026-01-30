@@ -91,7 +91,7 @@ mission_start_riot2:
 flag_player_on_mission = 1
 REGISTER_MISSION_GIVEN
 LOAD_MISSION_TEXT riot2
-IF flag_player_on_mission = 0
+GOTO r2_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_OBJECT BBALL_INGAME 0.0 0.0 0.0 r2_ball
 	ADD_BLIP_FOR_COORD 1774.9 -1974.9 13.1 r2_control_blip
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1831.9 -2004.6 12.6 r2_flats_lookout[0]
@@ -106,7 +106,7 @@ IF flag_player_on_mission = 0
 	ADD_BLIP_FOR_CHAR r2_SW_goons[0] r2_SW_goons_blips[0]
 	ADD_BLIP_FOR_CHAR r2_SE_goons[0] r2_SE_goons_blips[0]
 	ADD_BLIP_FOR_CHAR r2_climbers[0] r2_climbers_blips[0]
-ENDIF
+r2_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
  
 CLEAR_PRINTS 
 WAIT 0

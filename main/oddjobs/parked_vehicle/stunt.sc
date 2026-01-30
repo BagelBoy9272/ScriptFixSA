@@ -63,9 +63,9 @@ while a < total_coronas
 endwhile
 
 lvar_int stunt_vehicle_blip
-if flag_player_on_mission = 0
+GOTO stunt_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	add_blip_for_coord x y z stunt_vehicle_blip
-endif
+stunt_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 lvar_int stunt_timer_displayed
 stunt_timer_displayed = 0

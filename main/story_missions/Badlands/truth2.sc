@@ -62,11 +62,11 @@ mission_start_truth2:
 flag_player_on_mission = 1
 REGISTER_MISSION_GIVEN
 LOAD_MISSION_TEXT TRU2
-IF flag_player_on_mission = 0 
+GOTO t2_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	ADD_BLIP_FOR_COORD -1111.7 -1622.7 76.4 t2_truths_farm_blip
 	CREATE_PICKUP_WITH_AMMO ROCKETLA PICKUP_ONCE 10 -1100.3 -1640.4 76.4 t2_rocket_pickup
 	CREATE_PICKUP_WITH_AMMO ROCKETLA PICKUP_ONCE 10 -1100.3 -1640.4 76.4 t2_flame_pickup
-ENDIF
+t2_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 CLEAR_PRINTS
 WAIT 0
 // *************************************Set Flags/variables*********************************

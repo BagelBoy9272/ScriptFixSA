@@ -84,14 +84,14 @@ IF blood_passed_once = 0
 ENDIF
 LOAD_MISSION_TEXT blood
 
-IF flag_player_on_mission = 0 
+GOTO blood_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	ADD_BLIP_FOR_COORD blood_chckpnt_x blood_chckpnt_y blood_chckpnt_z blood_blip
 	CREATE_OBJECT bb_pickup blood_upgrade_x blood_upgrade_y blood_upgrade_z blood_upgrade
 	CREATE_CAR BLOODRA blood_x blood_y blood_z blood_rnd_car[0]
 	CREATE_CAR BLOODRA blood_x blood_y blood_z blood_rnd_car[1]
 	CREATE_CAR BLOODRA blood_x blood_y blood_z blood_rnd_car[2]
 	CREATE_CAR BLOODRA blood_x blood_y blood_z blood_closest_car_index
-ENDIF
+blood_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 SET_FADING_COLOUR 0 0 0
 CLEAR_PRINTS
 CLEAR_THIS_PRINT_BIG_NOW 1

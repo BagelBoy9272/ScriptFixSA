@@ -72,7 +72,7 @@ mission_start_wuzi5:
 flag_player_on_mission = 1
 REGISTER_MISSION_GIVEN
 LOAD_MISSION_TEXT WUZI4
-IF flag_player_on_mission = 0
+GOTO wuzi4_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_CHAR PEDTYPE_MISSION5 TRIADB -2433.5 1536.3 16.4 w5_goons[w5_creating_goons_flag] 
 	CREATE_CHAR PEDTYPE_MISSION5 TRIADB -2433.5 1536.3 16.4 w5_rocket_launcher
 	CREATE_CHAR PEDTYPE_MISSION5 TRIADB -2389.2 1537.1 1.1 w5_refugees[w5_refugees_flag]
@@ -82,7 +82,7 @@ IF flag_player_on_mission = 0
 	CREATE_CAR DINGHY -2430.7 1563.6 0.0 w5_dinghys[0]
 	CREATE_CAR DINGHY -2442.4 1564.6 0.0 w5_dinghys[1]
 	CREATE_CAR DINGHY -2426.9 1570.6 0.0 w5_dinghys[2]
-ENDIF
+wuzi4_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 CLEAR_PRINTS
 WAIT 0
 

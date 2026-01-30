@@ -490,9 +490,9 @@ DISPLAY_ONSCREEN_TIMER_WITH_STRING ped_time_limit TIMER_DOWN  AMBTIME //TIME LEF
 DISPLAY_NTH_ONSCREEN_COUNTER_WITH_STRING amb_free_seats COUNTER_DISPLAY_NUMBER 2 AMBSEAT
 DISPLAY_NTH_ONSCREEN_COUNTER_WITH_STRING db_ambulance_level	COUNTER_DISPLAY_NUMBER 1 ALEV
 
-IF flag_player_on_mission = 0
+GOTO ambulance_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	ADD_BLIP_FOR_COORD hospital_x hospital_y hospital_z hospital_blip
-ENDIF
+ambulance_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 
 mission_root:

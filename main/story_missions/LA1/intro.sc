@@ -32,11 +32,11 @@ mission_start_intro:
 flag_player_on_mission = 1
 DISPLAY_ZONE_NAMES FALSE
 // fool compiler
-IF flag_player_on_mission = 0
+GOTO intro_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_CHAR PEDTYPE_CIVMALE MALE01 0.0 0.0 0.0 random_char_CUT
 	CREATE_CAR COPCARLA 0.0 0.0 0.0 random_car_CUT
 	WRITE_DEBUG aa
-ENDIF 
+intro_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 // audio controller
 START_NEW_SCRIPT start_audio_controller

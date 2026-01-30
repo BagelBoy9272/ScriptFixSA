@@ -37,14 +37,13 @@ mission_start_bskool:
 	
 	WAIT 0
 
-// ---- Impossible 'IF'... 
-	IF flag_player_on_mission = 0
+	GOTO bskool_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 		CREATE_CAR BF400 car_posx car_posy perfect_positionz instructor_bike
 		CREATE_CHAR_INSIDE_CAR instructor_bike PEDTYPE_CIVFEMALE WMYMECH bs_instructor
 		CREATE_OBJECT_NO_OFFSET trafficcone 0.0 0.0 100.0 trafficcones[20]
 		CREATE_OBJECT_NO_OFFSET trafficcone 0.0 0.0 100.0 trafficcones[30]
 		CREATE_OBJECT landjump2 car_posx car_posy perfect_positionz bs_ramp
-	ENDIF
+	bskool_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 // ------------------------------------------------------------------------------------------------
 // Set Flags & Vars

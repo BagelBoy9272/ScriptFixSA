@@ -69,10 +69,10 @@ REGISTER_MISSION_GIVEN
 //DISPLAY_RADAR 5 // RADAR IGNORE SWITCHED OFF NODES
 
 LOAD_MISSION_TEXT SMOKE1
-IF flag_player_on_mission = 0 
+GOTO tw7_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_CHAR PEDTYPE_MISSION2 SPECIAL03 1543.2 -1687.0 12.5 mc_strap
 	ADD_BLIP_FOR_COORD 2454.4 -1284.5 22.7 tw7_control_blip
-ENDIF
+tw7_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 CLEAR_PRINTS
 WAIT 0
 // *************************************Set Flags/variables*********************************

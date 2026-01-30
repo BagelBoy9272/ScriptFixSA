@@ -238,7 +238,7 @@ SET_WANTED_MULTIPLIER 0.5
 
 
 
-IF flag_player_on_mission = 0
+GOTO firetruck_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	ADD_BLIP_FOR_COORD x y z onfire_car_blip
 	ADD_BLIP_FOR_COORD x y z onfire_car_1_blip
 	ADD_BLIP_FOR_COORD x y z onfire_car_2_blip
@@ -274,7 +274,7 @@ IF flag_player_on_mission = 0
 	 START_CHAR_FIRE onfire_ped onfire_ped_7_fire 
 	 START_CHAR_FIRE onfire_ped onfire_ped_8_fire 
 	 START_CHAR_FIRE onfire_ped onfire_ped_9_fire
-ENDIF
+firetruck_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 fire_generation_start:
 

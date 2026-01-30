@@ -76,7 +76,7 @@ mission_start_syn5:
 flag_player_on_mission = 1
 REGISTER_MISSION_GIVEN
 LOAD_MISSION_TEXT SYN5
-IF flag_player_on_mission = 0
+GOTO syn5_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1686.2 1393.2 20.5  syn5_tbone_goons[0]	
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1686.2 1393.2 20.5  syn5_tbone_goons[1]	
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1686.2 1393.2 20.5  syn5_tbone_goons[2]	
@@ -102,7 +102,7 @@ IF flag_player_on_mission = 0
 	CREATE_CHAR_AS_PASSENGER syn5_ryder_goon_cars[1] PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] 0 syn5_ryder_goons[5]    
 	CREATE_CAR maverick -1583.3 1420.2 25.7 syn5_toreno_chopper
 	CREATE_CHAR_AS_PASSENGER syn5_toreno_chopper PEDTYPE_MISSION2 SPECIAL03 0 syn5_toreno
-ENDIF	
+syn5_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check	
 CLEAR_PRINTS
 CLEAR_THIS_PRINT_BIG_NOW 1
 WAIT 0

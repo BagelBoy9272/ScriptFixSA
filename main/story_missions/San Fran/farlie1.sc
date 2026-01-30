@@ -23,7 +23,7 @@ AND f1_scripted_cut = 1 // FIXEDGROVE: only register mission given if the cutsce
 	REGISTER_MISSION_GIVEN
 ENDIF
 LOAD_MISSION_TEXT DS
-IF flag_player_on_mission = 0
+GOTO f1_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_CAR BANSHEE car_posx car_posy perfect_positionz instructor_car
 	CREATE_CAR BANSHEE car_posx car_posy perfect_positionz dummy_car1
 	CREATE_CAR BANSHEE car_posx car_posy perfect_positionz dummy_car2
@@ -34,7 +34,7 @@ IF flag_player_on_mission = 0
 	CREATE_OBJECT ad_jump car_posx car_posy perfect_positionz f1_stinger
 	CREATE_RANDOM_CHAR 0.0 0.0 100.0 f1_test_crash_dummy 
 	CREATE_RANDOM_CHAR 0.0 0.0 100.0 f1_test_crash_dummy2 
-ENDIF
+f1_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 SET_FADING_COLOUR 0 0 0
 CLEAR_PRINTS

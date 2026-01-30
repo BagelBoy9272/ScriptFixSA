@@ -611,7 +611,7 @@ CREATE_CHAR_INSIDE_CAR criminal1_car PEDTYPE_MISSION1 random_ped_model criminal1
 //POINT_CAMERA_AT_CHAR criminal1 FOLLOWPED JUMP_CUT //BEHINDCAR
 //SET_CAMERA_BEHIND_PLAYER
 
-IF flag_player_on_mission = 0
+GOTO copcar_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	ADD_BLIP_FOR_COORD x y z criminal1_blip
 	ADD_BLIP_FOR_COORD x y z criminal2_blip
 	ADD_BLIP_FOR_COORD x y z criminal3_blip
@@ -627,7 +627,7 @@ IF flag_player_on_mission = 0
 	CREATE_GROUP DEFAULT_TASK_ALLOCATOR_FOLLOW_ANY_MEANS criminal1_group
 	CREATE_GROUP DEFAULT_TASK_ALLOCATOR_FOLLOW_ANY_MEANS criminal2_group
 	CREATE_GROUP DEFAULT_TASK_ALLOCATOR_FOLLOW_ANY_MEANS criminal3_group
-ENDIF
+copcar_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 REMOVE_BLIP	criminal1_blip
 ADD_BLIP_FOR_CHAR criminal1 criminal1_blip

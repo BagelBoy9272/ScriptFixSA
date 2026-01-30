@@ -373,9 +373,9 @@ stored_check_index = -1
 LVAR_INT power_bar_increment
 power_bar_increment = 5
 
-IF flag_player_on_mission = 0
+GOTO r3_fool_compiler // FIXEDGROVE: remove flag_player_on_mission = 0 check
 	CREATE_OBJECT_NO_OFFSET GUNBOX x y z new_guns[gun_index]
-ENDIF
+r3_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission = 0 check
 
 r3_mission_flag = 0
 

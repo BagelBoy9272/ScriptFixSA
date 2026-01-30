@@ -15,33 +15,30 @@ GOSUB mission_cleanup_boat
 MISSION_END
 {
 
-IF flag_player_on_mission = 0
+GOTO boat_fool_compiler // FIXEDGROVE: remove flag_player_on_mission 0 and boat_compiler_fool = 13 check
 	
-	// fool compiler double check
-	
-	IF boat_compiler_fool = 13
-		CREATE_CAR cheetah 0.0 0.0 0.0 instructor_boat
-		CREATE_CAR cheetah 5.0 5.0 10.0 instructor_heli
-	  	CREATE_CHAR PEDTYPE_MISSION1 omoboat 20.0 20.0 20.0 instructor_helipilot
-		CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 instructor_captain
-	    CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 boat_blocker1driver
-		CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 boat_blocker2driver
-   		CREATE_CAR cheetah 0.0 0.0 0.0 boat_blocker1
-		CREATE_CAR cheetah 0.0 0.0 0.0 boat_blocker2
-		CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 boat_blocker3driver
-   		CREATE_CAR cheetah 0.0 0.0 0.0 boat_blocker3
+	CREATE_CAR cheetah 0.0 0.0 0.0 instructor_boat
+	CREATE_CAR cheetah 5.0 5.0 10.0 instructor_heli
+	CREATE_CHAR PEDTYPE_MISSION1 omoboat 20.0 20.0 20.0 instructor_helipilot
+	CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 instructor_captain
+	CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 boat_blocker1driver
+	CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 boat_blocker2driver
+   	CREATE_CAR cheetah 0.0 0.0 0.0 boat_blocker1
+	CREATE_CAR cheetah 0.0 0.0 0.0 boat_blocker2
+	CREATE_CHAR PEDTYPE_MISSION1 omoboat 30.0 30.0 20.0 boat_blocker3driver
+   	CREATE_CAR cheetah 0.0 0.0 0.0 boat_blocker3
 
 
-	   	buoy_counter = 0
-		WHILE buoy_counter < 13
-			//bouys - sic. It's written incorrectly in object.dat
-			CREATE_OBJECT_NO_OFFSET bouy 0.0 0.0 100.0 boat_buoys[buoy_counter] 
-			CREATE_OBJECT_NO_OFFSET waterjump1 0.0 0.0 150.0 boat_ramps[buoy_counter]
+	buoy_counter = 0
+	WHILE buoy_counter < 13
+		//bouys - sic. It's written incorrectly in object.dat
+		CREATE_OBJECT_NO_OFFSET bouy 0.0 0.0 100.0 boat_buoys[buoy_counter] 
+		CREATE_OBJECT_NO_OFFSET waterjump1 0.0 0.0 150.0 boat_ramps[buoy_counter]
 
-			buoy_counter ++
-		ENDWHILE
- 	ENDIF
-ENDIF
+		buoy_counter ++
+	ENDWHILE
+
+boat_fool_compiler: // FIXEDGROVE: remove flag_player_on_mission 0 and boat_compiler_fool = 13 check
 
 //Globals?
 VAR_INT boat_mission_selection
@@ -58,8 +55,6 @@ LVAR_INT sfx_video // tape noise
 LVAR_INT sfx_gull // gull screech
 
 // Local Variables for mission
-
-LVAR_INT boat_compiler_fool
 
 //peds and vehicles plus related
 LVAR_INT instructor_boat
@@ -249,7 +244,6 @@ sfx_gull = 0
 
 
 boat_help1 = 0
-boat_compiler_fool = 0
 boat_mission_selection = 1
 
 boat_tvx = -2215.5803  
