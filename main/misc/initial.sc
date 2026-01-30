@@ -3110,7 +3110,12 @@ SET_OBJECT_HEALTH g_trolley7 150
 DONT_REMOVE_OBJECT g_trolley7
 // FIXEDGROVE: END
 
-
+// FIXEDGROVE: START - crack lab front gate
+VAR_INT crackfact_front_gate
+CREATE_OBJECT_NO_OFFSET wongs_gate -2127.18 -80.8 38.24 crackfact_front_gate
+SET_OBJECT_HEADING crackfact_front_gate 180.0
+DONT_REMOVE_OBJECT crackfact_front_gate
+// FIXEDGROVE: END
 
 //VAR_INT cement_hole // used in the building site in san fran
 

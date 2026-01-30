@@ -34,7 +34,6 @@ LVAR_INT s7_bomb_car_blip
 LVAR_INT s7_bombshop_blip
 LVAR_INT s7_gates
 LVAR_INT s7_gate_guard[3]
-LVAR_INT s7_front_gate
 LVAR_INT s7_ramp
 LVAR_INT v
 LVAR_INT s7_mission
@@ -364,12 +363,6 @@ CREATE_PICKUP health PICKUP_ONCE -2182.6523 -247.3813 36.4000 s7_health
 DO_FADE 1000 FADE_IN
 
 SET_PLAYER_CONTROL player1 ON
-
-// ----------------------------------------------------------------------------------------------
-
-CREATE_OBJECT wongs_gate -2127.0000 -80.8000 34.3281 s7_front_gate
-
-SET_OBJECT_HEADING s7_front_gate 180.0
 
 // ----------------------------------------------------------------------------------------------
 
@@ -1569,7 +1562,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			//SKIP_CUTSCENE_END
 
-			REPORT_MISSION_AUDIO_EVENT_AT_OBJECT s7_front_gate SOUND_MESH_GATE_OPEN_START
+			REPORT_MISSION_AUDIO_EVENT_AT_OBJECT crackfact_front_gate SOUND_MESH_GATE_OPEN_START // FIXEDGROVE: use global object
 
 			s7_mission = 2
 
@@ -1587,19 +1580,19 @@ WHILE NOT IS_CHAR_DEAD scplayer
 	AND NOT IS_CAR_DEAD s7_bomb_car
 	AND NOT IS_CHAR_DEAD scplayer
 
-		IF DOES_OBJECT_EXIST s7_front_gate
+		IF DOES_OBJECT_EXIST crackfact_front_gate // FIXEDGROVE: use global object
 
-			GET_OBJECT_COORDINATES s7_front_gate x y z
+			GET_OBJECT_COORDINATES crackfact_front_gate x y z // FIXEDGROVE: use global object
 
-			IF x < -2117.0000  
+			IF x < -2117.0 
 				
-				SLIDE_OBJECT s7_front_gate -2117.0000 -80.8000 34.3281 0.20 0.0 0.0 FALSE
+				SLIDE_OBJECT crackfact_front_gate -2117.0 -80.8 38.24 0.2 0.0 0.0 FALSE // FIXEDGROVE: use global object, z coord was 34.3281
 
 			ELSE
 
 				IF s7_gate_stop = 0
 
-					REPORT_MISSION_AUDIO_EVENT_AT_OBJECT s7_front_gate SOUND_MESH_GATE_OPEN_STOP
+					REPORT_MISSION_AUDIO_EVENT_AT_OBJECT crackfact_front_gate SOUND_MESH_GATE_OPEN_STOP // FIXEDGROVE: use global object
 
 					s7_gate_stop = 1
 
@@ -2645,14 +2638,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 	// **********************************************************************************************
 
 
-	IF DOES_OBJECT_EXIST s7_front_gate
+	IF DOES_OBJECT_EXIST crackfact_front_gate // FIXEDGROVE: use global object
 
-		GET_OBJECT_COORDINATES s7_front_gate x y z
+		GET_OBJECT_COORDINATES crackfact_front_gate x y z // FIXEDGROVE: use global object
 
-		IF x > -2127.0000  
+		IF x > -2127.18 // FIXEDGROVE: coords were -2127.0
 		AND s7_gate_closing = 1
 
-			SLIDE_OBJECT s7_front_gate -2127.0000 -80.8000 34.3281 0.20 0.0 0.0 FALSE
+			SLIDE_OBJECT crackfact_front_gate -2127.18 -80.8 38.24 0.2 0.0 0.0 FALSE // FIXEDGROVE: use global object, coords were -2127 -80.8 34.3281
 
 		ENDIF
 
@@ -2977,6 +2970,12 @@ mission_cleanup_syn7:
 		STOP_CHAR_FACIAL_TALK scplayer
 
 	ENDIF
+
+	// FIXEDGROVE: START - reset front gate
+	IF DOES_OBJECT_EXIST crackfact_front_gate
+		SET_OBJECT_COORDINATES crackfact_front_gate -2127.18 -80.8 38.24
+	ENDIF
+	// FIXEDGROVE: END
 
 	// Density Multipliers
 	REMOVE_CAR_RECORDING 483
