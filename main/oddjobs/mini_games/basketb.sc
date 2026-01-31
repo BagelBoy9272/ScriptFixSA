@@ -23,7 +23,7 @@ SCRIPT_NAME BBALL
 LVAR_INT bbhoop
 
 // objects
-LVAR_INT m_ball 
+VAR_INT m_ball // FIXEDGROVE: made global so other instances of the script can check if the ball exists
 VAR_INT char_obj
 
 // floats
@@ -65,15 +65,20 @@ VAR_INT bball_player_has_brassknuckle
 
 //GENERATE_RANDOM_INT_IN_RANGE 1 320000 this_script_id
 
-LVAR_INT iStreamedScriptInstances // FIXEDGROVE: add var
+// fake creates
+GOTO bball_fool_compiler // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
+	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 bbhoop
+	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 m_ball
+	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 char_obj
+bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 
-// FIXEDGROVE: START - check if the script is running already, if so, terminate, else, reset bball_active flag
-IF NOT bball_active = 0
-	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc iStreamedScriptInstances
-		IF iStreamedScriptInstances > 1
-			TERMINATE_THIS_SCRIPT
-		ENDIF
-	bball_active = 0
+// FIXEDGROVE: START - check that the ball actually exists, if so, terminate, else, reset bball_active flag
+IF bball_active = 1
+	IF DOES_OBJECT_EXIST m_ball
+		TERMINATE_THIS_SCRIPT
+	ELSE
+		bball_active = 0
+	ENDIF
 ENDIF
 // FIXEDGROVE: END
 		   
@@ -91,13 +96,6 @@ cross_pressed		= 0
 // set any global flags
 
 bball_help = 0
-
-// fake creates
-IF m_stage = -1
-	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 bbhoop
-	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 m_ball
-	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 char_obj
-ENDIF
 
 
 // constants
@@ -129,32 +127,10 @@ bball_loop:
 			IF DOES_OBJECT_EXIST bbhoop
 				IF IS_PLAYER_PLAYING player1 
 				AND flag_player_on_mission = 0
-					IF DOES_OBJECT_HAVE_THIS_MODEL	bbhoop BSKBALL_LAX
-						IF HAS_MODEL_LOADED BSKBALL_LAX
-							this_hoop_model = BSKBALL_LAX
-							temp_int = 1
-						ENDIF 
-					ELSE
-						IF DOES_OBJECT_HAVE_THIS_MODEL	bbhoop BSKBALLHUB_LAX01
-							IF HAS_MODEL_LOADED BSKBALLHUB_LAX01
-								this_hoop_model = BSKBALLHUB_LAX01 
-								temp_int = 1
-							ENDIF 
-						ELSE
-							IF DOES_OBJECT_HAVE_THIS_MODEL	bbhoop VGSXREFBBALLNET
-								IF HAS_MODEL_LOADED VGSXREFBBALLNET
-									this_hoop_model = VGSXREFBBALLNET 
-									temp_int = 1
-								ENDIF 
-							ELSE
-								IF DOES_OBJECT_HAVE_THIS_MODEL	bbhoop VGSXREFBBALLNET2
-									IF HAS_MODEL_LOADED VGSXREFBBALLNET2
-										this_hoop_model = VGSXREFBBALLNET2 
-										temp_int = 1
-									ENDIF 
-								ENDIF
-							ENDIF
-						ENDIF
+					// FIXEDGROVE: swapped if else chain with a command
+					GET_OBJECT_MODEL bbhoop this_hoop_model
+					IF HAS_MODEL_LOADED this_hoop_model
+						temp_int = 1
 					ENDIF
 				ENDIF	
 			ENDIF
