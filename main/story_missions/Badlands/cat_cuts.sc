@@ -188,6 +188,8 @@ GOTO mission_catcut_passed
 
 mission_catcut_failed:
 
+	flag_trigger_trailor_cut = 1 // FIXEDGROVE: fixes a softlock if you get killed during the phone call
+
 	PRINT_BIG ( M_FAIL ) 5000 1 //"Mission Failed"
 
 RETURN
