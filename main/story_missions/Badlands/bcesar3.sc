@@ -175,7 +175,8 @@ WAIT 0
 	IF IS_PS2_KEYBOARD_KEY_JUST_PRESSED PS2_KEY_S
 		GOTO bcesar3_cleanup
 	ENDIF
-	IF flag_player_on_mission = 1	
+	IF flag_player_on_mission = 1
+	AND flag_cell_nation = 0 // FIXEDGROVE: check that allows phonecalls to passthrough without cancelling the mission
 		hide_text = 1
 		GOTO bcesar3_cleanup
 	ENDIF
