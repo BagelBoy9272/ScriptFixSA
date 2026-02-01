@@ -3297,6 +3297,7 @@ REGISTER_MISSION_PASSED SYND_5
 PLAYER_MADE_PROGRESS 1
 REMOVE_BLIP garage_contact_blip
 ADD_SPRITE_BLIP_FOR_CONTACT_POINT garageX garageY garageZ garage_blip_icon garage_contact_blip
+SWITCH_CAR_GENERATOR gen_car6 0 // FIXEDGROVE: turn ryder's car off
 
 //START_NEW_SCRIPT syn5_mission_loop
 RETURN

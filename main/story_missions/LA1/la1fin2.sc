@@ -3280,8 +3280,6 @@ mission_la1fin2_passed:
 
 	SET_GANG_WARS_ACTIVE FALSE
 
-	SWITCH_CAR_GENERATOR gen_car6 0 // FIXEDGROVE: turn ryder's car off
-
 	START_NEW_SCRIPT bcrash_mission_loop
 
 
