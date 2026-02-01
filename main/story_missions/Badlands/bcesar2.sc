@@ -288,7 +288,7 @@ $bce2_text[7] = MCES06D // Then every Wednesday and Saturday  a courier takes th
 $bce2_text[8] = MCES06E // Ok, I'll keep an eye out for them.
 $bce2_text[9] = MCES06F // See if I can't spoil the party.
 $bce2_text[10] = MCES06G // Later, dude.
-$bce2_text[11] = MCES07D
+$bce2_text[11] = MCES07D // Gonna have to let this one slide, man, got too much shit on my plate.
 
 bce2_audio[1] = SOUND_MCES07A // Yo.
 bce2_audio[2] = SOUND_MCES07B // The cash is leaving Los Santos again.
@@ -300,7 +300,7 @@ bce2_audio[7] = SOUND_MCES06D // Then every Wednesday and Saturday  a courier ta
 bce2_audio[8] = SOUND_MCES06E // Ok, I'll keep an eye out for them.
 bce2_audio[9] = SOUND_MCES06F // See if I can't spoil the party.
 bce2_audio[10] = SOUND_MCES06G // Later, dude.
-bce2_audio[11] = SOUND_MCES07D
+bce2_audio[11] = SOUND_MCES07D // Gonna have to let this one slide, man, got too much shit on my plate.
 
 
 
@@ -388,7 +388,6 @@ IF bce2_played > 0
 			IF bce2_audio_playing = 0
 				bce2_counter = 2	// The cash is leaving Los Santos again.
 				bce2_mobile = 2
-				bce2_response = 0
 				GET_GAME_TIMER bce2_text_timer_start
 				CLEAR_HELP
 				PRINT_HELP_FOREVER TALK_1
@@ -400,17 +399,18 @@ IF bce2_played > 0
 		IF IS_BUTTON_PRESSED PAD1 DPADLEFT
 
 			CLEAR_HELP
-			bce2_response = 2
+			bce2_mobile = 3
 		ENDIF
 		IF IS_BUTTON_PRESSED PAD1 DPADRIGHT
 
 			CLEAR_HELP
 			bce2_response = 1
+			bce2_mobile = 3
 		ENDIF
 
 	ENDIF
-	IF bce2_response = 1 
-		IF bce2_mobile = 2
+	IF bce2_mobile = 3
+		IF bce2_response = 1 		
 			GET_GAME_TIMER bce2_text_timer_end
 			bce2_text_timer_diff = bce2_text_timer_end - bce2_text_timer_start
 			IF bce2_text_timer_diff > 1000
@@ -420,15 +420,12 @@ IF bce2_played > 0
 					GET_GAME_TIMER bce2_text_timer_start
 				ENDIF
 			ENDIF
-		ENDIF
-	ENDIF
-	IF bce2_response = 2 
-		IF bce2_mobile = 2
+		ELSE
 			GET_GAME_TIMER bce2_text_timer_end
 			bce2_text_timer_diff = bce2_text_timer_end - bce2_text_timer_start
 			IF bce2_text_timer_diff > 1000
 				IF bce2_audio_playing = 0
-					bce2_counter = 11 // Ok, I'm on it! 
+					bce2_counter = 11 // Gonna have to let this one slide, man, got too much shit on my plate.
 					bce2_mobile = 7
 					GET_GAME_TIMER bce2_text_timer_start
 				ENDIF
@@ -440,6 +437,7 @@ ELSE
 		IF bce2_audio_playing = 0
 			bce2_counter = 4	// Yo, Cesar, whattup?
 			bce2_mobile = 1
+			bce2_response = 1
 			GET_GAME_TIMER bce2_text_timer_start
 		ENDIF
 	ENDIF
@@ -529,7 +527,7 @@ OR bce2_mobile = 8
 				IF NOT bce2_player_status = FINISHED_TASK
 					TASK_USE_MOBILE_PHONE scplayer FALSE
 				ENDIF
-				IF bce2_response < 2
+				IF bce2_response = 1
 					// FIXEDGROVE: START - only increase 'missions attempted' stat and add blip if player accepts
 					IF flag_bce2_passed_1stime = 0 
 						REGISTER_MISSION_GIVEN
@@ -548,9 +546,6 @@ OR bce2_mobile = 8
 ENDIF
 
 IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-	IF bce2_played > 0
-		bce2_response = 2
-	ENDIF
 	bce2_mobile = 8
 ENDIF
 
@@ -567,8 +562,10 @@ IF IS_PS2_KEYBOARD_KEY_JUST_PRESSED PS2_KEY_ESC
 ENDIF
 
 IF flag_player_on_mission = 1
+AND flag_cell_nation = 0 // FIXEDGROVE: check that allows phonecalls to passthrough without cancelling the mission
 	bce2_next = 0
 	bce2_crate_check = 6
+	bce2_response = 0 // FIXEDGROVE: effectively hides the text and stops difficulty increasing
 ENDIF
 
 IF IS_PLAYER_PLAYING player1
@@ -606,6 +603,7 @@ IF IS_PLAYER_PLAYING player1
 				IF bce2_task_status[0] = FINISHED_TASK
 					TASK_DRIVE_BY bce2_goon[0] scplayer -1 0.0 0.0 0.0 50.0 DRIVEBY_AI_ALL_DIRN TRUE 30
 					SET_CURRENT_CHAR_WEAPON bce2_goon[0] WEAPONTYPE_MICRO_UZI
+					SET_CHAR_KEEP_TASK bce2_goon[0] TRUE // FIXEDGROVE: added so they will continue shooting the player after the mission ends
 				ENDIF
 			ENDIF
 			IF bce2_played > 1
@@ -614,6 +612,7 @@ IF IS_PLAYER_PLAYING player1
 					IF bce2_task_status[1] = FINISHED_TASK
 						TASK_DRIVE_BY bce2_goon[1] scplayer -1 0.0 0.0 0.0 50.0 DRIVEBY_AI_ALL_DIRN TRUE 30
 						SET_CURRENT_CHAR_WEAPON bce2_goon[1] WEAPONTYPE_MICRO_UZI
+						SET_CHAR_KEEP_TASK bce2_goon[1] TRUE // FIXEDGROVE: added so they will continue shooting the player after the mission ends
 					ENDIF
 				ENDIF
 				IF bce2_played > 2
@@ -622,6 +621,7 @@ IF IS_PLAYER_PLAYING player1
 						IF bce2_task_status[2] = FINISHED_TASK
 							TASK_DRIVE_BY bce2_goon[2] scplayer -1 0.0 0.0 0.0 50.0 DRIVEBY_AI_ALL_DIRN TRUE 30
 							SET_CURRENT_CHAR_WEAPON bce2_goon[2] WEAPONTYPE_MICRO_UZI
+							SET_CHAR_KEEP_TASK bce2_goon[2] TRUE // FIXEDGROVE: added so they will continue shooting the player after the mission ends
 						ENDIF
 					ENDIF
 				ENDIF
@@ -803,12 +803,22 @@ GOTO bce2_main_loop
 mission_cleanup_bce2:
 
 	IF flag_on_courier_mission = 1
-	AND bce2_response < 2 // FIXEDGROVE: check if mission was accepted
+	AND bce2_response = 1 // FIXEDGROVE: check if mission was accepted
 		PRINT_WITH_NUMBER_BIG BCE2_04 bce2_earnings 7500 5 
 		PRINT_NOW ( BCE2_05 ) 7500 1
 		bce2_played++
 	ENDIF
 
+
+	// FIXEDGROVE: START - turn off proofs
+	IF NOT IS_CHAR_DEAD bce2_courier
+		SET_CHAR_PROOFS bce2_courier FALSE FALSE FALSE FALSE FALSE
+	ENDIF
+
+	IF NOT IS_CAR_DEAD bce2_courier_car
+		SET_CAR_PROOFS bce2_courier_car FALSE FALSE FALSE FALSE FALSE
+	ENDIF
+	// FIXEDGROVE: END
 
 // Cash Courier Cleanup
 // ---- Entities
@@ -849,8 +859,14 @@ mission_cleanup_bce2:
 	//flag_player_on_mission = 0
   	GET_GAME_TIMER timer_mobile_start
   	//MISSION_HAS_FINISHED
-	IF bce2_response < 2 // FIXEDGROVE: check if mission was accepted
+	IF bce2_response = 1 // FIXEDGROVE: check if mission was accepted
 		IF bce2_crate_check = 6 // FIXEDGROVE: check if mission was passed
+			// FIXEDGROVE: START - make courier pursue player if all crates were collected
+			IF NOT IS_CAR_DEAD bce2_courier_car
+			AND NOT IS_CHAR_DEAD bce2_courier
+				TASK_CAR_MISSION bce2_courier bce2_courier_car -1 MISSION_RAMPLAYER_FARAWAY 50.0 DRIVINGMODE_AVOIDCARS
+			ENDIF
+			// FIXEDGROVE: END
 			IF flag_bce2_passed_1stime = 0
 			    REGISTER_ODDJOB_MISSION_PASSED
 			    flag_bce2_passed_1stime = 1
