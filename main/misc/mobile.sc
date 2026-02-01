@@ -4021,7 +4021,6 @@ cell_phone_GF_inner:
 
 	IF IS_PLAYER_PLAYING player1
 		IF player_is_completely_safe_for_mobile = 1
-		AND flag_on_courier_mission = 0 // FIXEDGROVE: if a gf call triggers during a courier missions it causes issues
 			IF timer_mobile_diff > call_delay
 				SET_BIT iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEGROVE
 				// COOCHIE PHONE CALL. ************************************************************************************ 					
