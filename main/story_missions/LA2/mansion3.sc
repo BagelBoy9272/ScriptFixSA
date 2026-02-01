@@ -1463,6 +1463,8 @@ mission_mansion3_passed:
 
 	m3_has_been_passed = 1
 
+	SWITCH_CAR_GENERATOR gen_car7 101 // FIXEDGROVE: enable sweet's car
+
 RETURN
 
 // ***********************************************************************************************

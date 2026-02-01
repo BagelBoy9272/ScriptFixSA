@@ -8955,6 +8955,8 @@ PLAY_MISSION_PASSED_TUNE 1
 CLEAR_WANTED_LEVEL player1
 PLAYER_MADE_PROGRESS 1
 
+SWITCH_CAR_GENERATOR gen_car7 0 // FIXEDGROVE: switch off sweet's car 
+
 flag_la1fin1_mission_counter ++
 
 RETURN
