@@ -1396,6 +1396,7 @@ ryder2_m_stage_2:
 		ENDIF
 
 		IF m_goals = 13
+		AND dialogue_flag > 7 // FIXEDGROVE: added check to ensure all lines are played before the cutscene ends
 			IF TIMERA > 2000
 			AND audio_line_is_active = 0
 				m_goals = 99
