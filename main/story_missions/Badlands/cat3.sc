@@ -646,7 +646,7 @@ ENDIF
 
 IF c3_stage = 0
 	IF c3_cut < 6
-		IF IS_BUTTON_PRESSED PAD1 CROSS
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 			c3_timer_start -= 10000 
 			//CLEAR_PRINTS
 			c3_cut = 7
@@ -980,7 +980,7 @@ IF c3_stage = 3
 			GET_GAME_TIMER c3_timer_end
 			c3_timer_diff = c3_timer_end - c3_timer_start
 			IF c3_timer_diff > 1000
-				IF IS_BUTTON_PRESSED PAD1 CROSS
+				IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 					c3_timer_start -= 5000
 					c3_cut = 4
 				ENDIF
@@ -1896,7 +1896,7 @@ IF c3_stage = 5
 			
 
 		IF c3_cut > 0
-			IF IS_BUTTON_PRESSED PAD1 CROSS 
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 				DO_FADE 500 FADE_OUT
 				WHILE GET_FADING_STATUS
 				WAIT 0

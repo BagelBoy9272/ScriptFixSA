@@ -974,8 +974,7 @@ PRINT_NOW ( PD_01 ) 4500 1 // Enter the Quarry and steal the dynamite.
 TIMERA = 0
 WHILE TIMERA < 4500
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		GOTO c2_skip_the_cutscene
 	ENDIF
 ENDWHILE
@@ -990,8 +989,7 @@ PRINT_NOW ( PD_20 ) 5000 1 // The dynamite is rigged to blow!
 TIMERA = 0
 WHILE TIMERA < 2000
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		GOTO c2_skip_the_cutscene
 	ENDIF
 ENDWHILE
@@ -1008,8 +1006,7 @@ ENDIF
 TIMERA = 0
 WHILE TIMERA < 3000
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		GOTO c2_skip_the_cutscene
 	ENDIF
 ENDWHILE
@@ -1028,8 +1025,7 @@ ENDIF
 TIMERA = 0
 WHILE TIMERA < 4000
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		GOTO c2_skip_the_cutscene
 	ENDIF
 ENDWHILE 
@@ -1042,8 +1038,7 @@ PRINT_NOW ( PD_27 ) 6000 1 // You'll need something heavy to smash those crates!
 TIMERA = 0
 WHILE TIMERA < 6000
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		GOTO c2_skip_the_cutscene
 	ENDIF
 ENDWHILE
@@ -1281,8 +1276,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 2000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1295,8 +1289,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 1000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1310,8 +1303,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 500
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1325,8 +1317,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 2000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1339,8 +1330,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 4000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1351,8 +1341,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 100
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1365,8 +1354,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 5000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE 
@@ -1377,8 +1365,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 100
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1391,8 +1378,7 @@ cavalry_arrives:
 	TIMERA = 0
 	WHILE TIMERA < 4000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO c2_skip_the_cutscene1
 		ENDIF
 	ENDWHILE
@@ -1665,8 +1651,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 			TIMERA = 0
 			WHILE TIMERA < 1000
 				WAIT 0
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-				OR IS_BUTTON_PRESSED PAD1 CIRCLE
+				IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 					GOTO c2_skip_the_dynamite
 				ENDIF
 			ENDWHILE
@@ -1686,8 +1671,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 			TIMERA = 0
 			WHILE TIMERA < 2000
 				WAIT 0
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-				OR IS_BUTTON_PRESSED PAD1 CIRCLE
+				IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 					GOTO c2_skip_the_dynamite
 				ENDIF
 			ENDWHILE
@@ -2694,8 +2678,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				TIMERA = 0
 				WHILE TIMERA < 2000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						GOTO c2_skip_the_last_cut_1
 					ENDIF
 				ENDWHILE
@@ -2732,8 +2715,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				TIMERA = 0
 				WHILE TIMERA < 10
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						GOTO c2_skip_the_last_cut_1
 					ENDIF
 				ENDWHILE
@@ -2743,8 +2725,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				TIMERA = 0
 				WHILE TIMERA < 3000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						GOTO c2_skip_the_last_cut_1
 					ENDIF
 				ENDWHILE
@@ -3630,8 +3611,7 @@ casino2_keys:
 			TIMERA = 0
 			WHILE TIMERA < 3000
 				WAIT 0
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-				OR IS_BUTTON_PRESSED PAD1 CIRCLE
+				IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 					GOTO c2_skip_the_last_cut_11
 				ENDIF
 			ENDWHILE
@@ -3667,8 +3647,7 @@ casino2_keys:
 			TIMERA = 0
 			WHILE TIMERA < 10
 				WAIT 0
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-				OR IS_BUTTON_PRESSED PAD1 CIRCLE
+				IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 					GOTO c2_skip_the_last_cut_1
 				ENDIF
 			ENDWHILE			    
@@ -3678,8 +3657,7 @@ casino2_keys:
 			TIMERA = 0
 			WHILE TIMERA < 2000
 				WAIT 0
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-				OR IS_BUTTON_PRESSED PAD1 CIRCLE
+				IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 					GOTO c2_skip_the_last_cut_1
 				ENDIF
 			ENDWHILE

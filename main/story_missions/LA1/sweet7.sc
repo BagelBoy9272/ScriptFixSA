@@ -2034,7 +2034,7 @@ ENDIF
 
 
 IF sw7_ctskip_needed = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 		IF sw7_missionprogress < 10
 			sw7_missionprogress = 10
 			sw7_ctskip_needed = 0 // Don't want to read PS2 joypad anymore
@@ -2043,7 +2043,7 @@ IF sw7_ctskip_needed = 1
 ENDIF
 
 IF sw7_newctskip_needed = 1
-	IF IS_BUTTON_PRESSED PAD1 CROSS
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 		sw7_newcutscene = 15
 	ENDIF
 ENDIF

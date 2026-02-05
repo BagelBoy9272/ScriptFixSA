@@ -768,15 +768,13 @@ STEAL4_m_stage_2:
 	AND m_goals < 6
 		IF cross_is_pressed = 0
 			
-			IF IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				GOSUB steal4_quit_current_conversation_now
 				m_goals = 6
 				cross_is_pressed = 1
 			ENDIF
 		ELSE
-			IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF NOT IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				cross_is_pressed = 0
 			ENDIF
 		ENDIF
@@ -847,16 +845,14 @@ STEAL4_m_stage_3:
 	AND m_goals < 3
 		IF cross_is_pressed = 0
 			
-			IF IS_BUTTON_PRESSED PAD1 CROSS 
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				magno_camera_type = 1
 				reset_crane_camera = 1
 				cross_is_pressed = 1
 				m_goals = 3
 			ENDIF
 		ELSE
-			IF NOT IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF NOT IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				cross_is_pressed = 0
 			ENDIF
 		ENDIF
@@ -1155,8 +1151,7 @@ STEAL4_m_stage_3:
 		CASE 7
 			
 			IF TIMERA > 5000  
-			OR IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			OR IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 
 				reset_crane_camera = 1
 				disable_crane = 0
@@ -1531,8 +1526,7 @@ STEAL4_m_stage_4:
 
 			WHILE temp_int = 0
 				
-				IF IS_BUTTON_PRESSED PAD1 CROSS
-				OR IS_BUTTON_PRESSED PAD1 CIRCLE
+				IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				OR TIMERA  > 5000
 					DO_FADE 0 FADE_IN
 					m_goals++
@@ -1610,8 +1604,7 @@ STEAL4_m_stage_4:
 		IF TIMERA > 1000
 			
 			IF NOT IS_MESSAGE_BEING_DISPLAYED
-			OR IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			OR IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				DO_FADE 0 FADE_IN
 
 				IF NOT IS_CAR_DEAD steal_car
@@ -1954,8 +1947,7 @@ STEAL4_m_stage_5:
 		IF TIMERA > 1000
 			
 			IF NOT IS_MESSAGE_BEING_DISPLAYED
-			OR IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			OR IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				DO_FADE 0 FADE_IN
 
 				IF NOT IS_CAR_DEAD steal_car
@@ -2011,8 +2003,7 @@ STEAL4_m_stage_6:
 
 	IF m_goals > 0
 		
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			m_goals = 99
 		ENDIF
 	ENDIF

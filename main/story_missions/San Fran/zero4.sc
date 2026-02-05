@@ -1115,8 +1115,7 @@ invincible_timer+= m_time_diff
 		ENDIF
 
 		IF m_goals > 0
-			IF IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				m_goals = 99
 			ENDIF
 		ENDIF

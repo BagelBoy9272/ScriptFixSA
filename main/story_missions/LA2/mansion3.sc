@@ -709,8 +709,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				TIMERB = 0
 				WHILE TIMERB < 4000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						IF has_seen_this_cutscene = 1
 							GOTO m3_skip_the_cut_2
 						ENDIF
@@ -725,8 +724,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				TIMERB = 0
 				WHILE TIMERB < 5000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						IF has_seen_this_cutscene = 1
 							GOTO m3_skip_the_cut_2
 						ENDIF
@@ -1277,8 +1275,7 @@ m3_end_cutscene:
 	TIMERB = 0
 	WHILE TIMERB < 4000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO m3_skip_the_cut_10
 		ENDIF
 	ENDWHILE
@@ -1306,8 +1303,7 @@ m3_end_cutscene:
 	TIMERB = 0
 	WHILE TIMERB < 3000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO m3_skip_the_cut_10
 		ENDIF
 	ENDWHILE
@@ -1335,8 +1331,7 @@ m3_end_cutscene:
 	TIMERB = 0
 	WHILE TIMERB < 3000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO m3_skip_the_cut_10
 		ENDIF
 	ENDWHILE
@@ -1356,8 +1351,7 @@ m3_end_cutscene:
 	TIMERB = 0
 	WHILE TIMERB < 3000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO m3_skip_the_cut_10
 		ENDIF
 	ENDWHILE
@@ -1385,8 +1379,7 @@ m3_end_cutscene:
 	TIMERB = 0
 	WHILE TIMERB < 2000
 		WAIT 0
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			GOTO m3_skip_the_cut_10
 		ENDIF
 	ENDWHILE

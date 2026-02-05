@@ -511,7 +511,7 @@ IF st1_stage = 0
 		GET_GAME_TIMER st1_timer_end
 		st1_timer_diff = st1_timer_end - st1_timer_start
 		IF st1_timer_diff >	1000
-			IF IS_BUTTON_PRESSED PAD1 CROSS
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 				st1_timer_start	-= 10000
 				st1_cut = 5
 			ENDIF

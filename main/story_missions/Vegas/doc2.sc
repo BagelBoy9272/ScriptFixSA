@@ -545,8 +545,7 @@ PRINT_NOW ( DOC2_X ) 5000 1 // ~s~Find a way to save Madd Dogg before he jumps!
 TIMERB = 0
 WHILE TIMERB < 2000
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		GOTO d2_skip_the_cut
 	ENDIF
 ENDWHILE
@@ -562,8 +561,7 @@ ENDIF
 TIMERB = 0
 WHILE TIMERB < 2000
 	WAIT 0
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		GOTO d2_skip_the_cut
 	ENDIF
 ENDWHILE
@@ -959,8 +957,7 @@ AND NOT IS_CHAR_DEAD thedoc
 				TIMERB = 0
 				WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle checkE
 						d2_when_he_jumps = 1
 						GOTO d2_skip_the_cut_1
 					ENDIF
@@ -975,8 +972,7 @@ AND NOT IS_CHAR_DEAD thedoc
 				TIMERB = 0
 				WHILE TIMERB < 2000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						d2_when_he_jumps = 1
 						GOTO d2_skip_the_cut_1
 					ENDIF
@@ -990,8 +986,7 @@ AND NOT IS_CHAR_DEAD thedoc
 				TIMERB = 0
 				WHILE TIMERB < 2000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						d2_when_he_jumps = 1
 						GOTO d2_skip_the_cut_1
 					ENDIF
@@ -1005,8 +1000,7 @@ AND NOT IS_CHAR_DEAD thedoc
 				TIMERB = 0
 				WHILE TIMERB < 1000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						d2_when_he_jumps = 1
 						GOTO d2_skip_the_cut_1
 					ENDIF
@@ -1017,8 +1011,7 @@ AND NOT IS_CHAR_DEAD thedoc
 				TIMERB = 0
 				WHILE TIMERB < 3000
 					WAIT 0
-					IF IS_BUTTON_PRESSED PAD1 CROSS
-					OR IS_BUTTON_PRESSED PAD1 CIRCLE
+					IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 						d2_when_he_jumps = 1
 						GOTO d2_skip_the_cut_1
 					ENDIF
@@ -1901,8 +1894,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE TIMERB <  2000
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -1962,8 +1954,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -1983,8 +1974,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -1992,8 +1982,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE TIMERB < 1000
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2013,8 +2002,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2034,8 +2022,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2043,8 +2030,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE TIMERB < 1000
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2064,8 +2050,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2085,8 +2070,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2094,8 +2078,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE TIMERB < 1000
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2129,8 +2112,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE NOT HAS_MISSION_AUDIO_FINISHED 1	
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE
@@ -2138,8 +2120,7 @@ AND NOT IS_CHAR_DEAD thedoc
 								TIMERB = 0
 								WHILE TIMERB < 1000
 									WAIT 0
-									IF IS_BUTTON_PRESSED PAD1 CROSS
-									OR IS_BUTTON_PRESSED PAD1 CIRCLE
+									IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 										GOTO d2_skip_the_cut_2
 									ENDIF
 								ENDWHILE

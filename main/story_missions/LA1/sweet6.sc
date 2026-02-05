@@ -568,8 +568,7 @@ sweet6_m_stage_2:
 		// skip
 		IF m_goals > 2
 		AND m_goals < 17
-	        IF IS_BUTTON_PRESSED PAD1 CROSS
-	        OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	        IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			m_goals = 17
 		    ENDIF
 		ENDIF
@@ -2247,8 +2246,7 @@ sweet6_m_stage_4:
 		IF m_goals = 2
 			
 			IF TIMERA > 5000
-			OR IS_BUTTON_PRESSED PAD1 CROSS
-	        OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			OR IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				IF NOT IS_CHAR_DEAD meet_ped[18]
 					CLEAR_CHAR_TASKS_IMMEDIATELY meet_ped[18]
 					SET_CHAR_COORDINATES meet_ped[18] 1792.6309 -1909.2736 12.4371
@@ -2305,8 +2303,7 @@ sweet6_m_stage_4:
 		IF m_goals = 4
 			
 			IF audio_line_is_active = 0
-			OR IS_BUTTON_PRESSED PAD1 CROSS
-	        OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			OR IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				m_goals++
 				cross_pressed = 1
 				START_NEW_SCRIPT cleanup_audio_lines
@@ -2898,7 +2895,7 @@ sweet6_m_stage_5:
 		// wait for girl to get in car ---------------------------------------------------
 		IF m_goals = 3
 			
-			IF NOT IS_BUTTON_PRESSED PAD1 CROSS
+			IF NOT IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 				IF NOT IS_CHAR_DEAD bounce_girl
 					IF NOT IS_CAR_DEAD pickup_car
 						IF IS_CHAR_IN_CAR bounce_girl pickup_car

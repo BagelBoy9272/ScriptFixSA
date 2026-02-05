@@ -1446,14 +1446,12 @@ wz1_cutscene_2:
 
 	IF wz1_enter_cut = 0
 		wz1_enter_cut = 1
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			wz1_button_pressed = 1
 		ENDIF
 	ENDIF
 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		IF wz1_button_pressed = 0
 			IF TIMERA > wz1_skip_time
 				wz1_cut_flag = 13

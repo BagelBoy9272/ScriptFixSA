@@ -769,8 +769,7 @@ IF hei3_progress_flag = 1
 			
 				
 			/////////// if cut-scene skipped ///////////
-			IF IS_BUTTON_PRESSED PAD1 CROSS		
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE	
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check	
 				hei3_safety_flag = 1
 
 				IF NOT IS_CHAR_DEAD hei3_millie_ped
@@ -2292,8 +2291,7 @@ IF hei3_progress_flag = 5
 	
 	WHILE hei3_safety_flag = 0
 		
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			hei3_safety_flag = 1
 			hei3_x_button_can_be_pressed = 1
 		ENDIF
@@ -2335,8 +2333,7 @@ IF hei3_progress_flag = 5
 
 		hei3_safety_flag = 0
 		WHILE hei3_safety_flag = 0
-			IF IS_BUTTON_PRESSED PAD1 CROSS
-			OR IS_BUTTON_PRESSED PAD1 CIRCLE
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 				hei3_x_button_can_be_pressed = 1
 				hei3_safety_flag = 1
 			ENDIF

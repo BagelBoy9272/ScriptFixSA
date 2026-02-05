@@ -1426,8 +1426,7 @@ cat1_m_stage_1:
 	ENDSWITCH
 
 	IF m_goals > 1
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			m_goals = 99
 			skipped_cutscene = 1
 		ENDIF

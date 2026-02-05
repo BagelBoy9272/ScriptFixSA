@@ -1089,30 +1089,26 @@ ENDIF
 
 
 IF he1_ctskipfireneeded = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 	   he1_progress = 55
 	ENDIF
 ENDIF
 
 
 IF he1_ctskipsnitchneeded = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 	   he1_plansphotographed = 5
 	ENDIF
 ENDIF
 
 IF he1_ctskipcameraneeded = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 	   he1_cameracheck = 4
 	ENDIF
 ENDIF
 
 IF he1_finalskip = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		//WHILE IS_BUTTON_PRESSED PAD1 CROSS
 		//	WAIT 0
 		//ENDWHILE

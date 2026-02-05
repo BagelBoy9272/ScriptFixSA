@@ -518,8 +518,8 @@ IF NOT syn6_phonecut = -13
 			ENDIF
 		ENDIF
 		IF syn6_phonecutskip = 1
-			IF IS_BUTTON_PRESSED PAD1 CROSS
-			WHILE IS_BUTTON_PRESSED PAD1 CROSS
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
+			WHILE IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 				WAIT 0	
 			ENDWHILE		
 
@@ -798,7 +798,7 @@ ENDIF
 
 
 IF syn6_ctskip_needed = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 		mission_flag = 6
 		syn6_ctskip_needed = 0 // Don't want to read PS2 joypad anymore
 	ENDIF

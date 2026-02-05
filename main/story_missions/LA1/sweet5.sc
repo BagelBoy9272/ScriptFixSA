@@ -1089,14 +1089,12 @@ sw5_cutscene_3:
 
 	IF sw5_enter_cut = 0
 		sw5_enter_cut = 1
-		IF IS_BUTTON_PRESSED PAD1 CROSS
-		OR IS_BUTTON_PRESSED PAD1 CIRCLE
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 			sw5_button_pressed = 1
 		ENDIF
 	ENDIF
 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
-	OR IS_BUTTON_PRESSED PAD1 CIRCLE
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
 		IF sw5_button_pressed = 0
 			IF NOT IS_CHAR_DEAD sw5_sweet
 			AND NOT IS_CHAR_DEAD sw5_sweetsgf

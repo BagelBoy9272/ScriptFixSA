@@ -822,14 +822,14 @@ ENDIF
 
 
 IF bcou_ctskipneeded = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 	   bcou_cutscene = 50
 	ENDIF
 ENDIF
 
 
 IF bcou_paymentskip = 1 
-	IF IS_BUTTON_PRESSED PAD1 CROSS
+	IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 	   menudelay = 2
 	   SET_PLAYER_CONTROL player1 ON
 	   //bcou_progress = 50

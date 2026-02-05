@@ -1572,7 +1572,7 @@ IF sw4_stage = 4
 		GET_GAME_TIMER sw4_timer_end[0]
 		sw4_timer_diff[0] = sw4_timer_end[0] - sw4_timer_start[0]
 		IF sw4_timer_diff[0] > 2000
-			IF IS_BUTTON_PRESSED PAD1 CROSS
+			IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross check
 				CLEAR_PRINTS
 				sw4_text_timer_flag = 14
 				sw4_skip_flag = 1
