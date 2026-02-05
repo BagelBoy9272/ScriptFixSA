@@ -4456,9 +4456,9 @@ WAIT mission_trigger_wait_time
 				IF CAN_PLAYER_START_MISSION player1
 					
                 	GET_CURRENT_DAY_OF_WEEK	weekday
-					IF weekday = 0
-					OR weekday = 2
-					OR weekday = 4
+					IF weekday = 1 // FIXEDGROVE: increased by one
+					OR weekday = 3 // FIXEDGROVE: increased by one
+					OR weekday = 5 // FIXEDGROVE: increased by one
 						get_int_stat BIKE_SKILL	stat
 						IF stat > 199
 
