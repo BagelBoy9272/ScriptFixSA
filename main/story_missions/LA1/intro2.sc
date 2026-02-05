@@ -25,7 +25,7 @@ MISSION_END
 {
  
 // Variables for mission
-LVAR_INT rob_shop_blip hood_shop_keeper barber_text_finished ryders_car_blip ryders_car_blip_removed cigar_glow_object intro2_chat_switch skipped_pizza_cutscene
+LVAR_INT rob_shop_blip hood_shop_keeper barber_text_finished ryders_car_blip ryders_car_blip_removed cigar_glow_object intro2_chat_switch skipped_cutscene // changed skipped_pizza_cutscene to skipped_cutscene
 LVAR_INT intro2_sequence_4 shopkeeper_decision food_help player_sequence_1 ryders_ciggy ryders_blip menace_marker intro2_index intro2_cell_index_end
 LVAR_INT intro2_sequence_2 shite_haircut smoke_effect shop_keepers_shoots_outside exhale_smoke_effect intro2_audio_is_playing stop_playing_ryder_audio
 LVAR_INT new_visible_area print_help_intro2 print_into2_text played_ryder_freaking_out vomit_menace	flag_vomit_playing intro2_cutscene_flag
@@ -1347,7 +1347,7 @@ IF NOT IS_CHAR_DEAD ryder
 	ENDIF
 ENDIF
 
-skipped_pizza_cutscene = 0
+skipped_cutscene = 0 // FIXEDGROVE: was skipped_pizza_cutscene
 SKIP_CUTSCENE_START
 
 TIMERA = 0
@@ -1627,10 +1627,10 @@ WHILE NOT intro2_index = 7 //Motherfucker! RUN!
 
 ENDWHILE
 
-skipped_pizza_cutscene = 1
+skipped_cutscene = 1 // was skipped_pizza_cutscene
 SKIP_CUTSCENE_END
 
-IF skipped_pizza_cutscene = 0
+IF skipped_cutscene = 0 // was skipped_pizza_cutscene
 
 	DO_FADE 0 FADE_OUT //End cutscene
 
@@ -1974,6 +1974,11 @@ WHILE NOT intro2_index = 1 // You better drop by and see Sweet.
 
 ENDWHILE
 
+// FIXEDGROVE: START - add ability to skip ending cutscene
+skipped_cutscene = 0
+SKIP_CUTSCENE_START
+// FIXEDGROVE: END
+
 intro2_cutscene_flag = 0
 WHILE NOT intro2_index = 2 // He's been rapping on about that grafitti.
 	WAIT 0
@@ -2010,6 +2015,24 @@ ENDWHILE
 	ENDIF
 
 	WAIT 1000
+
+	// FIXEDGROVE: START - add ability to skip ending cutscene
+	skipped_cutscene = 1
+	SKIP_CUTSCENE_END
+
+	IF skipped_cutscene = 0
+
+		// calculate the heading based on the path the player would have taken
+        x = 2471.58 - 2468.3594
+        y = -1685.73 - -1687.3903
+        GET_HEADING_FROM_VECTOR_2D x y heading
+        
+        SET_CHAR_HEADING scplayer heading
+
+		SET_CHAR_COORDINATES scplayer 2471.58 -1685.73 12.51
+
+	ENDIF
+	// FIXEDGROVE: END
 
 	CLEAR_CHAR_TASKS scplayer
 	SET_CAMERA_BEHIND_PLAYER
