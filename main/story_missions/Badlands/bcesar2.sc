@@ -179,6 +179,7 @@ WAIT 0
 		CREATE_CHAR_INSIDE_CAR bce2_courier_car PEDTYPE_CIVMALE fam3 bce2_courier
 		SET_CHAR_SUFFERS_CRITICAL_HITS bce2_courier FALSE
 		SET_CHAR_PROOFS bce2_courier TRUE TRUE TRUE FALSE TRUE
+		GIVE_WEAPON_TO_CHAR bce2_courier WEAPONTYPE_MICRO_UZI 16000 // FIXEDGROVE: give weapon to courier in case he gets out of the vehicle
 		SET_CAR_PROOFS bce2_courier_car TRUE TRUE TRUE FALSE TRUE
 		SET_CAR_CRUISE_SPEED bce2_courier_car 40.0
 		ADD_STUCK_CAR_CHECK_WITH_WARP bce2_courier_car 2.0 2000 TRUE TRUE TRUE 2
@@ -775,8 +776,8 @@ WAIT 0
 						REMOVE_BLIP bce2_crate_blip[bce2_blipped]
 						DELETE_OBJECT bce2_crate[bce2_blipped]
 						ADD_ONE_OFF_SOUND bce2_player_x bce2_player_y bce2_player_z SOUND_PART_MISSION_COMPLETE
-						ADD_SCORE player1 300
-						bce2_earnings += 300
+						ADD_SCORE player1 1200 // FIXEDGROVE: increased from 300
+						bce2_earnings += 1200 // FIXEDGROVE: increased from 300
 					   	bce2_crate_status[bce2_blipped] = 3
 						bce2_crate_check++
 					ENDIF
@@ -813,6 +814,7 @@ mission_cleanup_bce2:
 	// FIXEDGROVE: START - turn off proofs
 	IF NOT IS_CHAR_DEAD bce2_courier
 		SET_CHAR_PROOFS bce2_courier FALSE FALSE FALSE FALSE FALSE
+		SET_CHAR_SUFFERS_CRITICAL_HITS bce2_courier TRUE
 	ENDIF
 
 	IF NOT IS_CAR_DEAD bce2_courier_car
