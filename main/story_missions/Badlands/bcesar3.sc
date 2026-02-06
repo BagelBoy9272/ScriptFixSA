@@ -690,17 +690,23 @@ WAIT 0
 				IF IS_PLAYER_PLAYING player1
 
 					IF IS_CHAR_DEAD coke_courier
-						// work out how much coke is left
-						STOP_FX_SYSTEM fx
-						temp_float =# TIMERA
-						IF temp_float > 180000.0
-							temp_float = 180000.0
+						// FIXEDGROVE: START - fix for edge case where the player kills the courier without damaging the coke, which would give you very little money since TIMERA is never reset
+						IF coke_damaged = -1
+							coke_damaged = 8000 // give maximum reward
+						// FIXEDGROVE: END
+						ELSE
+							// work out how much coke is left
+							STOP_FX_SYSTEM fx
+							temp_float =# TIMERA
+							IF temp_float > 180000.0
+								temp_float = 180000.0
+							ENDIF
+							temp_float /= 180000.0
+							temp_float -= 1.0
+							temp_float *= -1.0
+							temp_float *= 8000.0 // maximum $8000 // FIXEDGROVE: maximum was $2000
+							coke_damaged =# temp_float
 						ENDIF
-						temp_float /= 180000.0
-						temp_float -= 1.0
-						temp_float *= -1.0
-						temp_float *= 2000.0 // maximum $2000
-						coke_damaged =# temp_float
 						REMOVE_BLIP coke_blip
 						IF DOES_OBJECT_EXIST coke_bag
 							DELETE_OBJECT coke_bag
