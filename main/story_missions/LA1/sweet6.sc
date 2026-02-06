@@ -3455,6 +3455,8 @@ sweet6_m_stage_6:
 				//WRITE_DEBUG faded_out
 
 				// delete all stuff at gathering
+				// FIXEDGROVE: START - commented so the cutscene doesnt look barren
+				/*
 				temp_int = 0
 				WHILE temp_int < 7
 					IF DOES_VEHICLE_EXIST meet_car[temp_int]
@@ -3469,6 +3471,8 @@ sweet6_m_stage_6:
 					ENDIF
 				temp_int++
 				ENDWHILE
+				*/
+				// FIXEDGROVE: END
 
 				IF DOES_CHAR_EXIST bounce_girl
 					DELETE_CHAR bounce_girl
@@ -4429,6 +4433,7 @@ RETURN
 // FAIL
 mission_failed_SWEET6:
 
+	STOP_BEAT_TRACK // FIXEDGROVE: do this here since its no longer in cleanup
 	REMOVE_BLIP mod_garage_blip
 	stop_gargae_for_neil = 1
 	PRINT_BIG M_FAIL 5000 1
@@ -4442,6 +4447,7 @@ RETURN
 mission_passed_SWEET6:
 
 		SWITCH_AUDIO_ZONE LOWRIDE FALSE
+		STOP_BEAT_TRACK // FIXEDGROVE: do this before playing mission passed tune, since it clears it
 		REMOVE_BLIP mod_garage_blip
 		ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2644.2524 -2028.2457 12.5547 RADAR_SPRITE_MOD_GARAGE mod_garage_blip
 		REMOVE_BLIP mod_garage1
@@ -4460,7 +4466,6 @@ mission_passed_SWEET6:
 		
 		CLEAR_WANTED_LEVEL PLAYER1
         PLAYER_MADE_PROGRESS 1
-		CLEAR_WANTED_LEVEL PLAYER1
         flag_sweet_mission_counter ++
 		lowrider_minigame_unlocked = 1
 		stop_gargae_for_neil = 0 // unlock mod garage
@@ -4556,10 +4561,14 @@ mission_cleanup_SWEET6:
 	CLEAR_ONSCREEN_COUNTER lowrider_oscore
 	DISPLAY_RADAR TRUE
 
+	// FIXEDGROVE: START - comment out since it cleared the mission passed tune
+	/*
 	GET_BEAT_TRACK_STATUS temp_int
 	IF NOT temp_int = CUTSCENE_TRACK_STOPPED
 		STOP_BEAT_TRACK
 	ENDIF
+	*/
+	// FIXEDGROVE: END
 		
 	DONT_SUPPRESS_CAR_MODEL SAVANNA
 
