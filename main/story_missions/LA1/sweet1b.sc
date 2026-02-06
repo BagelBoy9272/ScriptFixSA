@@ -28,7 +28,7 @@ MISSION_END
 LVAR_INT crack_dealer crackhead1 crackhead2 crack_boss B_dups_blip ryders_blip seq_drug_buy1 crackhead1_attractor seq_drug_sell1 killed_all_crack_fucks
 LVAR_INT crackhead1_blip crack_boss_blip player_grove_gang ryder_group_spilt_blip drug_buyer1 crackhead5 crackboss_help	flag_player_killed_crackhead1
 LVAR_INT crackhead1_dead crack_boss_dead crackhead4 already_got_task_sweet1 already_got_task_sweet1_2 in_crack_locate sweet1b_index	crackhead10	when_crack_bosses_attack
-LVAR_INT crackhead6	crackhead7 create_crack_den crackhead8 crackhead9 first_dealer_cut ReturnStatus	sweet1a_crackboss skip_crack_cutscene special_death5
+LVAR_INT crackhead6	crackhead7 create_crack_den crackhead8 crackhead9 first_dealer_cut ReturnStatus	sweet1a_crackboss skip_cutscene special_death5 // FIXEDGROVE: changed skip_crack_cutscene to skip_cutscene
 LVAR_INT special_death1 special_death2 special_death3 special_death4 crack_fucks crack_bitches smoker1_attack new_visible_area pickup_baseballbat 
 LVAR_INT crack_ciggy1 crack_ciggy2 crack_ciggy3	whore_cower smoker2_attack seq_drug_run	flag_sweet1_chat sweet1b_chat_switch crackhead7_blip crackhead8_blip
 LVAR_INT flag_kill_the_player sweet1b_cell_index_end sweet1b_cutscene_flag sweet1b_audio_chat[8] sweet1b_audio_is_playing flag_sweet1b played_wee_sample
@@ -194,7 +194,7 @@ whore_cower = 0
 flag_sweet1_chat = 0
 flag_sweet1b = 0
 first_dealer_cut = 0
-skip_crack_cutscene = 0
+skip_cutscene = 0 // FIXEDGROVE: was skip_crack_cutscene
 flag_player_killed_crackhead1 = 0
 help_for_melee_combat = 0
 played_wee_sample = 0
@@ -265,6 +265,7 @@ CREATE_CHAR PEDTYPE_MISSION1 SPECIAL01 2516.3916 -1676.5172 13.0041 ryder
 SET_CHAR_HEADING ryder 45.7
 SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_MISSION1	PEDTYPE_PLAYER1
 SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_PLAYER1 PEDTYPE_MISSION1
+SET_CHAR_RELATIONSHIP ryder ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION2 // FIXEDGROVE: make ryder attack ballas and the drug dealer
 GIVE_WEAPON_TO_CHAR ryder WEAPONTYPE_BASEBALLBAT 3000
 SET_CURRENT_CHAR_WEAPON ryder WEAPONTYPE_BASEBALLBAT
 SET_CHAR_DECISION_MAKER ryder crack_fucks
@@ -464,7 +465,7 @@ ENDWHILE
 
 REMOVE_BLIP	B_dups_blip
 
-CREATE_CHAR PEDTYPE_MISSION2 fam3 2283.6565 -1645.5992 14.1598 drug_buyer1
+CREATE_CHAR PEDTYPE_MISSION1 fam3 2283.6565 -1645.5992 14.1598 drug_buyer1 // FIXEDGROVE: pedtype was PEDTYPE_MISSION2
 SET_CHAR_DECISION_MAKER drug_buyer1 crack_fucks
 
 CREATE_CHAR PEDTYPE_MISSION2 bmydrug 2284.9465 -1645.3959 14.1413 crackhead1
@@ -786,7 +787,7 @@ MARK_MODEL_AS_NO_LONGER_NEEDED BMYDRUG
 REMOVE_ANIMATION DEALER
 		   
 LOAD_SCENE 2283.0 -1644.4 14.2
-CLEAR_AREA 2285.17 -1644.74 14.08 4.0 TRUE
+CLEAR_AREA 2285.17 -1644.74 14.08 5.0 TRUE
 CLEAR_AREA_OF_CARS 2288.28 -1648.13 14.00 2274.92 -1641.33 14.31
 //CLEAR_AREA_OF_CHARS 2288.28 -1648.13 14.00 2274.92 -1641.33 14.31
 
@@ -812,8 +813,6 @@ WAIT 1000
 //CAMERA_PERSIST_FOV   TRUE
 //SET_CINEMA_CAMERA	TRUE
 //2281.7380 -1652.0873 14.1714
-
-CLEAR_AREA 2285.17 -1644.74 14.08 5.0 TRUE
 
 IF NOT IS_CHAR_IN_ANY_CAR scplayer
 	SET_CHAR_COORDINATES scplayer 2284.4619 -1645.9248 14.1362  
@@ -854,28 +853,14 @@ sweet1b_cutscene_flag = 0
 sweet1b_chat_switch = SWEET1B_CHAT2
 GOSUB sweet1b_chat_switch
 
-WAIT 200
+DELETE_CHAR crackhead1
 
-CLEAR_LOOK_AT scplayer
+CLEAR_CHAR_TASKS_IMMEDIATELY scplayer // FIXEDGROVE: changed from CLEAR_LOOK_AT
 TASK_LOOK_AT_COORD scplayer 2285.1 -1644.7 14.0 21000
 
 IF NOT IS_CHAR_DEAD ryder
-	CLEAR_LOOK_AT ryder
+	CLEAR_CHAR_TASKS_IMMEDIATELY ryder // FIXEDGROVE: changed from CLEAR_LOOK_AT
 	TASK_LOOK_AT_COORD ryder 2285.1 -1644.7 14.0 21000
-ENDIF
-
-DELETE_CHAR crackhead1
-
-IF NOT IS_CHAR_DEAD ryder
-	IF NOT LOCATE_CHAR_ON_FOOT_3D ryder 2283.27 -1645.8 14.15 0.5 0.5 2.0 FALSE
-		IF NOT IS_CHAR_IN_ANY_CAR ryder
-			SET_CHAR_COORDINATES ryder 2283.27 -1645.8 14.15  
-		ELSE
-			WARP_CHAR_FROM_CAR_TO_COORD ryder 2283.27 -1645.8 14.15
-		ENDIF
-
-		SET_CHAR_HEADING ryder 310.0
-	ENDIF
 ENDIF
 
 WAIT 200
@@ -883,18 +868,6 @@ WAIT 200
 DO_FADE 500 FADE_IN
 
 WAIT 700
-
-IF NOT IS_CHAR_DEAD ryder
-	IF NOT LOCATE_CHAR_ON_FOOT_3D ryder 2283.27 -1645.8 14.15 0.5 0.5 2.0 FALSE
-		IF NOT IS_CHAR_IN_ANY_CAR ryder
-			SET_CHAR_COORDINATES ryder 2283.27 -1645.8 14.15  
-		ELSE
-			WARP_CHAR_FROM_CAR_TO_COORD ryder 2283.27 -1645.8 14.15
-		ENDIF
-
-		SET_CHAR_HEADING ryder 310.0
-	ENDIF
-ENDIF
 
 CLEAR_PRINTS
 CLEAR_HELP
@@ -905,6 +878,7 @@ IF dealers_head_is_missing = 0
 	//CAMERA_SET_SHAKE_SIMULATION_SIMPLE 5 30000.0 20.0
 ENDIF
 
+skip_cutscene = 0 // FIXEDGROVE
 SKIP_CUTSCENE_START
 
 sweet1b_cutscene_flag = 0
@@ -1044,22 +1018,31 @@ ENDWHILE
 
 REPORT_MISSION_AUDIO_EVENT_AT_POSITION 2285.1775 -1644.7482 14.0885 SOUND_STAMP_PED
 
+SET_MUSIC_DOES_FADE FALSE
+
+skip_cutscene = 1 // FIXEDGROVE
 SKIP_CUTSCENE_END
+
+// FIXEDGROVE: START - fade out and skip wait if cutscene was skipped
+IF skip_cutscene = 0
+	DO_FADE 500 FADE_OUT
+	WHILE GET_FADING_STATUS
+		WAIT 0
+	ENDWHILE
+ELSE
+	DO_FADE 0 FADE_OUT
+	WAIT 1000
+ENDIF
+// FIXEDGROVE: END
 
 CLEAR_CHAR_TASKS scplayer
 
 CLEAR_PRINTS
 
-SET_MUSIC_DOES_FADE FALSE
-
-DO_FADE 0 FADE_OUT
-
 HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer FALSE
 IF NOT IS_CHAR_DEAD ryder
 	HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE ryder FALSE
 ENDIF
-
-WAIT 1000
 
 IF NOT IS_CHAR_DEAD ryder
 	CLEAR_LOOK_AT ryder
@@ -1305,18 +1288,21 @@ WHILE NOT killed_all_crack_fucks = 1
 				SET_CHAR_HEADING crackhead6 107.12	
 				TASK_PLAY_ANIM_NON_INTERRUPTABLE crackhead6 CRCKIDLE4 CRACK 4.0 TRUE FALSE FALSE FALSE -1
 				SET_CHAR_DECISION_MAKER crackhead6 crack_fucks
+				SHUT_CHAR_UP crackhead6 TRUE // FIXEDGROVE
 				
-				CREATE_CHAR PEDTYPE_MISSION2 hfypro 317.5892 1124.7773 1082.8672 crackhead2 //wall near kitchen
+				CREATE_CHAR PEDTYPE_CIVFEMALE hfypro 317.5892 1124.7773 1082.8672 crackhead2 //wall near kitchen // FIXEDGROVE: pedtype was PEDTYPE_MISSION2
 				SET_CHAR_AREA_VISIBLE crackhead2 5
 				SET_CHAR_HEADING crackhead2 180.0	
 				TASK_PLAY_ANIM_NON_INTERRUPTABLE crackhead2 CRCKIDLE2 CRACK 4.0 TRUE FALSE FALSE FALSE -1
 				SET_CHAR_DECISION_MAKER crackhead2 crack_fucks
+				SHUT_CHAR_UP crackhead2 TRUE // FIXEDGROVE
 
 				CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 325.0 1119.9750 1082.8750 crackhead4 //Long Sofa
 				SET_CHAR_AREA_VISIBLE crackhead4 5 
 				SET_CHAR_HEADING crackhead4 90.0	
 				TASK_PLAY_ANIM_NON_INTERRUPTABLE crackhead4 CRCKIDLE1 CRACK 4.0 TRUE FALSE FALSE FALSE -1
 				SET_CHAR_DECISION_MAKER crackhead4 crack_fucks
+				SHUT_CHAR_UP crackhead4 TRUE // FIXEDGROVE
 				CREATE_OBJECT cigar 2440.58 -1979.89 1082.2 crack_ciggy1
 				//SET_OBJECT_ROTATION crack_ciggy1 180.0 180.0 0.0
 				TASK_PICK_UP_OBJECT crackhead4 crack_ciggy1 0.0 0.0 0.0 PED_HANDR HOLD_ORIENTATE_BONE_FULL NULL NULL -1				
@@ -1325,6 +1311,7 @@ WHILE NOT killed_all_crack_fucks = 1
 				SET_CHAR_AREA_VISIBLE crackhead5 5
 				SET_CHAR_HEADING crackhead5 177.9659	
 				TASK_PLAY_ANIM_NON_INTERRUPTABLE crackhead5 CRCKIDLE3 CRACK 4.0 TRUE FALSE FALSE FALSE -1
+				SHUT_CHAR_UP crackhead5 TRUE // FIXEDGROVE
 				SET_CHAR_DECISION_MAKER crackhead5 crack_fucks
 				CREATE_OBJECT cigar 2440.58 -1979.89 1082.2 crack_ciggy2
 				TASK_PICK_UP_OBJECT crackhead5 crack_ciggy2 0.0 0.0 0.0 PED_HANDR HOLD_ORIENTATE_BONE_FULL NULL NULL -1
@@ -1383,12 +1370,12 @@ WHILE NOT killed_all_crack_fucks = 1
 				SET_BLIP_ENTRY_EXIT crack_boss_blip 2167.8354 -1672.9231 2.0
 
 
-				TIMERA = 0
 				LOAD_MISSION_AUDIO 1 SOUND_SWE1_YX
 				LOAD_MISSION_AUDIO 2 SOUND_SWE1_YY
-				WHILE NOT TIMERA > 1000
+
+				WHILE NOT HAS_MISSION_AUDIO_LOADED 1
+				OR NOT HAS_MISSION_AUDIO_LOADED 2
 					WAIT 0
-					DO_FADE 0 FADE_OUT
 				ENDWHILE
 
 				IF NOT IS_CHAR_DEAD ryder
@@ -1410,16 +1397,7 @@ WHILE NOT killed_all_crack_fucks = 1
 				
 				IF NOT IS_CHAR_DEAD ryder
 					TASK_GO_STRAIGHT_TO_COORD ryder 320.0 1122.3 1082.8 PEDMOVE_WALK 6000
-				ENDIF
-
-				WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-					WAIT 0
-					IF IS_CHAR_DEAD	ryder
-						PRINT_NOW (SW1B_G) 10000 1 //~r~Ryder is dead!
-						SWITCH_ENTRY_EXIT lacrak TRUE
-						GOTO mission_sweet1b_failed
-					ENDIF						   
-				ENDWHILE					   
+				ENDIF				   
 
 				PLAY_MISSION_AUDIO 1
 				PRINT_NOW ( SWE1_YX ) 10000 1 //Good afternoon, Ballas poison pushers!
@@ -1435,7 +1413,7 @@ WHILE NOT killed_all_crack_fucks = 1
 			
 			LOAD_MISSION_AUDIO 1 SOUND_BALLA_1 //Grove Street's going down!
 
-			skip_crack_cutscene = 0
+			skip_cutscene = 0 // FIXEDGROVE: was skip_crack_cutscene
 			SKIP_CUTSCENE_START
 
 				WHILE NOT HAS_MISSION_AUDIO_LOADED 2
@@ -1567,12 +1545,12 @@ WHILE NOT killed_all_crack_fucks = 1
 					ENDIF
 				ENDWHILE
 				
-				skip_crack_cutscene = 1
+				skip_cutscene = 1 // FIXEDGROVE: was skip_crack_cutscene
 				SKIP_CUTSCENE_END
 
 				LOAD_MISSION_AUDIO 2 SOUND_RYDX_BC //Ninja these motherfuckers!
 
-				IF skip_crack_cutscene = 0
+				IF skip_cutscene = 0 // FIXEDGROVE: was skip_crack_cutscene
 					SET_FADING_COLOUR 0 0 0
 					DO_FADE 500 FADE_OUT
 					WHILE GET_FADING_STATUS
@@ -1584,16 +1562,15 @@ WHILE NOT killed_all_crack_fucks = 1
 					LOAD_MISSION_AUDIO 2 SOUND_RYDX_BC //Ninja these motherfuckers!
 					IF NOT IS_CHAR_DEAD crack_boss		
 						//FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION crack_boss FALSE
-						SET_CHAR_COORDINATES crack_boss 310.1843 1122.5980 1082.8903  //CRACK DEALER
+						SET_CHAR_COORDINATES crack_boss 315.81 1122.30 1082.8  //CRACK DEALER // FIXEDGROVE: coords were 315.81 1122.30 1082.8
 						SET_CHAR_HEADING crack_boss 270.0
+						TASK_PLAY_ANIM crack_boss Bbalbat_Idle_01 CRACK 4.0 TRUE FALSE FALSE FALSE -1 // FIXEDGROVE
 						REMOVE_BLIP B_dups_blip
 						//REMOVE_BLIP crack_boss_blip
-						PERFORM_SEQUENCE_TASK crack_boss sweet1a_crackboss
 					ENDIF
 					IF NOT IS_CHAR_DEAD crackhead8
-						SET_CHAR_COORDINATES crackhead8 323.5565 1124.3616 1082.8828 
+						SET_CHAR_COORDINATES crackhead8 323.80 1124.35 1082.89 //BJ bloke // FIXEDGROVE: coords were 323.5565 1124.3616 1082.8828
 						SET_CHAR_HEADING crackhead8 132.0730
-						TASK_GO_STRAIGHT_TO_COORD crackhead8 323.80 1124.35 1082.89 PEDMOVE_WALK 10000 //BJ bloke
 						IF NOT IS_CHAR_DEAD crackhead9
 							CLEAR_CHAR_TASKS crackhead9
 							SET_CHAR_COORDINATES crackhead9 325.3923 1131.8882 1082.8828 
@@ -1602,9 +1579,8 @@ WHILE NOT killed_all_crack_fucks = 1
 						ENDIF
 					ENDIF
 					IF NOT IS_CHAR_DEAD crackhead7
-						SET_CHAR_COORDINATES crackhead7 326.96 1122.52 1082.89  
+						SET_CHAR_COORDINATES crackhead7 325.25 1122.50 1082.88 //kitchen smoker // FIXEDGROVE: coords were 326.96 1122.52 1082.89  
 						SET_CHAR_HEADING crackhead7 90.0
-						TASK_GO_STRAIGHT_TO_COORD crackhead7 325.25 1122.50 1082.88 PEDMOVE_WALK 10000 //kitchen smoker
 					ENDIF
 					IF NOT IS_CHAR_DEAD	crackhead5
 						TASK_DIE_NAMED_ANIM crackhead5 CRCKDETH3 CRACK 4.0 FALSE
@@ -1612,7 +1588,6 @@ WHILE NOT killed_all_crack_fucks = 1
 					//IF NOT IS_CHAR_DEAD	crackhead5
 						//DROP_OBJECT crackhead5 TRUE
 					//ENDIF
-					WAIT 1000
 					
 					CLEAR_LOOK_AT scplayer
 					DO_FADE 500 FADE_IN
@@ -1636,8 +1611,6 @@ WHILE NOT killed_all_crack_fucks = 1
 					IF NOT IS_CHAR_DEAD ryder
 						TASK_KILL_CHAR_ON_FOOT ryder crackhead7
 						TASK_KILL_CHAR_ON_FOOT crackhead7 ryder
-						SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_MISSION1	PEDTYPE_PLAYER1
-						SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_PLAYER1 PEDTYPE_MISSION1
 						DROP_OBJECT	crackhead7 TRUE
 					ENDIF
 				ENDIF
@@ -1969,6 +1942,8 @@ ELSE
 	WARP_CHAR_FROM_CAR_TO_COORD scplayer 2517.5244 -1678.4972 13.3912
 ENDIF
 
+CLEAR_CHAR_TASKS_IMMEDIATELY scplayer // FIXEDGROVE
+
 SET_CHAR_HEADING scplayer 328.5351
 //SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
 HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer TRUE
@@ -1977,8 +1952,6 @@ HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer TRUE
 IF NOT IS_CHAR_DEAD ryder
 	CLEAR_CHAR_TASKS_IMMEDIATELY ryder
 	REMOVE_CHAR_FROM_GROUP ryder
-	CLEAR_LOOK_AT ryder
-	CLEAR_CHAR_TASKS ryder 
 	
 	HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE ryder TRUE
 
@@ -1992,11 +1965,24 @@ IF NOT IS_CHAR_DEAD ryder
 	TASK_TURN_CHAR_TO_FACE_CHAR ryder scplayer
 	TASK_TURN_CHAR_TO_FACE_CHAR scplayer ryder
 	SET_CHAR_HEADING scplayer 180.0
+
+	TASK_LOOK_AT_CHAR ryder scplayer 20000 // FIXEDGROVE
+	TASK_LOOK_AT_CHAR scplayer ryder 20000 // FIXEDGROVE
+
 ENDIF
 
 WAIT 500
 
 DO_FADE 1000 FADE_IN
+
+// FIXEDGROVE: wait until the fade is completed to start the cutscene
+WHILE GET_FADING_STATUS
+	WAIT 0
+ENDWHILE
+
+skip_cutscene = 0
+SKIP_CUTSCENE_START
+// FIXEDGROVE: END
 
 /*
 TASK_PLAY_ANIM ryder prtial_gngtlkC GANGS 4.0 FALSE FALSE FALSE TRUE -1
@@ -2005,8 +1991,9 @@ TASK_PLAY_ANIM ryder prtial_gngtlkA GANGS 4.0 FALSE FALSE FALSE TRUE -1
 TASK_PLAY_ANIM ryder prtial_gngtlkD GANGS 4.0 FALSE FALSE FALSE TRUE -1
 TASK_PLAY_ANIM ryder prtial_gngtlkE GANGS 4.0 FALSE FALSE FALSE TRUE -1
 TASK_PLAY_ANIM ryder prtial_gngtlkG GANGS 4.0 FALSE FALSE FALSE TRUE -1
-TASK_PLAY_ANIM ryder prtial_gngtlkH GANGS 4.0 FALSE FALSE FALSE TRUE -1
 */
+TASK_PLAY_ANIM ryder prtial_gngtlkH GANGS 4.0 FALSE FALSE FALSE TRUE -1 // FIXEDGROVE: uncomment
+
 
 WHILE NOT sweet1b_index = 3
 	WAIT 0
@@ -2017,6 +2004,7 @@ ENDWHILE
 
 IF NOT IS_CHAR_DEAD ryder
 	TASK_GO_STRAIGHT_TO_COORD ryder 2522.9968 -1679.1956 14.4970 PEDMOVE_WALK 4000
+	CLEAR_LOOK_AT ryder // FIXEDGROVE
 ENDIF
 
 //SET_FIXED_CAMERA_POSITION 2514.4375 -1676.8171 14.4492 0.0 0.0 0.0
@@ -2030,6 +2018,16 @@ WHILE NOT sweet1b_index = 4
 ENDWHILE
 
 WAIT 1000
+
+// FIXEDGROVE: START - added ability to skip ending cutscene
+skip_cutscene = 1
+SKIP_CUTSCENE_END 
+
+IF skip_cutscene = 0
+	CLEAR_PRINTS
+	STOP_CHAR_FACIAL_TALK scplayer
+ENDIF
+// FIXEDGROVE: END
 
 RESTORE_CAMERA_JUMPCUT
 SWITCH_WIDESCREEN OFF
@@ -2155,6 +2153,8 @@ mission_cleanup_sweet1b:
 	REMOVE_CHAR_ELEGANTLY ryder
 	UNLOAD_SPECIAL_CHARACTER 1
 	ENABLE_AMBIENT_CRIME TRUE
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
+	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE
 	MISSION_HAS_FINISHED
 
 RETURN
