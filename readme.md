@@ -29,6 +29,12 @@ Intro cutscene:
 - Restored PS2 REV 1 size for text
 - Fixed stretched text
 
+Big Smoke/Sweet & Kendl:
+- Fixed drive-by Ballas standing still after the Mulholland Intersection cutscene, instead of being teleported and frozen under the map
+- Made Groves hate scripted ballas
+- Made Ballas respect scripted ballas
+- Deleted some useless code
+
 Ryder:
 - Fixed Ryder's car spawning only being turned ON on mission pass
 - Added ability to skip ending cutscene
