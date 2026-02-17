@@ -889,7 +889,7 @@ case LOAD_MODELS
 				LOAD_SPECIAL_CHARACTER 1 wuzimu
 			endif
 			if race_selection = BADLAND_RACE2
-				LOAD_SPECIAL_CHARACTER 1 claude//claude // FIXEDGROVE
+				LOAD_SPECIAL_CHARACTER 1 claude // FIXEDGROVE: model was wuzimu
 				LOAD_SPECIAL_CHARACTER 2 cat
 			endif
 		else
@@ -927,7 +927,7 @@ case LOAD_MODELS
 						all_models_loaded = false
 					endif
 					if race_selection = BADLAND_RACE2
-						load_special_character 1 claude//claude // FIXEDGROVE
+						load_special_character 1 claude // FIXEDGROVE: model was wuzimu
 						all_models_loaded = false
 					endif
 				endif
