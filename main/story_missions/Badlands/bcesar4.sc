@@ -270,7 +270,7 @@ WAIT 0
 		ENDIF
 		DO_FADE 1000 FADE_IN
 		REMOVE_BLIP bcesar_contact_blip
-		REGISTER_MISSION_PASSED ( BCESAR4 )
+		//REGISTER_MISSION_PASSED ( BCESAR4 ) // FIXEDGROVE: moved to RaceTour script to prevent 'missions passed' stat being increased twice
 		PRINT_WITH_NUMBER_BIG ( M_PASSD ) 3 5000 1 //"Mission Passed!"
 
 		flag_stage_of_bcesar_race = 0
@@ -361,7 +361,7 @@ WAIT 0
 		RESTORE_CAMERA_JUMPCUT
 		DO_FADE 1000 FADE_IN
 		REMOVE_BLIP bcesar_contact_blip
-		REGISTER_MISSION_PASSED ( BCES4_2 )
+		//REGISTER_MISSION_PASSED ( BCES4_2 ) // FIXEDGROVE: moved to RaceTour script to prevent 'missions passed' stat being increased twice
 		PRINT_WITH_NUMBER_BIG ( M_PASSD ) 3 5000 1 //"Mission Passed!"
 		start_the_bcesar_race = 0
 		GOTO mission_bc4_passed

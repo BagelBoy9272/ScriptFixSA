@@ -6463,7 +6463,13 @@ player_made_progress_cprace:///////////////////////////////////////////////
 				start_new_script display_win_text 5000 5000
 				add_score player1 5000
 				++ total_races_completed
-				register_mission_passed	$race_name[race_selection]
+				// FIXEDGROVE: START - fix for 'missions passed' stat being increased twice for this mission
+				if show_race_selection = false
+					REGISTER_MISSION_PASSED BCESAR4
+				else
+				// FIXEDGROVE: END
+					register_mission_passed	$race_name[race_selection]
+				endif
 				got_race_made_progress[7] = 1
 			endif
 		break
@@ -6471,7 +6477,13 @@ player_made_progress_cprace:///////////////////////////////////////////////
 			if got_race_made_progress[8] = 0//BADLAND_RACE2
 				PLAYER_MADE_PROGRESS 1
 				++ total_races_completed
-				register_mission_passed	$race_name[race_selection]
+				// FIXEDGROVE: START - fix for 'missions passed' stat being increased twice for this mission
+				if show_race_selection = false
+					REGISTER_MISSION_PASSED BCES4_2
+				else
+				// FIXEDGROVE: END
+					register_mission_passed	$race_name[race_selection]
+				endif
 				got_race_made_progress[8] = 1
 			endif
 		break
