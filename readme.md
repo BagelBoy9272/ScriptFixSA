@@ -21,16 +21,16 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 General:
 - Based on the latest official version (JP 2007), with merged changes from latest PC branch, without censorship
 - Refactored code bloat created by the Japanese support
-- Removed On Mission flag checks in some mission that were meant to bypass compiler errors
+- Removed On Mission flag checks in some missions that were meant to bypass compiler errors
 - Made cutscene skips consistently use IS_SKIP_CUTSCENE_BUTTON_PRESSED instead of a cross or circle button press check
-- Corrected stats for 'missions attempted' and 'missions passed'
+- Corrected 'missions attempted' and 'missions passed' stats.
 
 Intro cutscene:
 - Restored PS2 REV 1 size for text
 - Fixed stretched text
 
 Big Smoke/Sweet & Kendl:
-- Fixed drive-by Ballas standing still after the Mulholland Intersection cutscene, instead of being teleported and frozen under the map
+- Fixed drive-by Ballas standing still to the right of the player after the Mulholland Intersection cutscene, instead of being teleported and frozen under the map
 - Made Groves hate scripted ballas
 - Made Ballas respect scripted ballas
 - Deleted some useless code
@@ -47,11 +47,15 @@ Tagging Up Turf:
 Cleaning the Hood:
 - Fixed bat pickup clipping into the ground
 - Removed "IS_IN_CAR" checks for the dialogue, to make it flow more naturally
+- Made Ryder aggresive towards the drug dealer and the enemies inside the crack den
 - The cutscene with the dead drug dealer will fade out if skipped
 - Fixed chars not being set in their intended locations if you skip the cutscene inside the crack den
+- Made "drugged" chars inside the crack den silent
 - Added an anim to Ryder in the ending cutscene
 - Made player and Ryder look at eachother in the ending cutscene to make it look more natural
 - Added ability to skip ending cutscene
+- Set SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH for player to false in cleanup
+- Added STOP_CHAR_FACIAL_TALK for player in cleaup
 - Slight refactoring
 
 Drive-Thru:
@@ -67,6 +71,9 @@ Cesar Vialpando:
 - Lowrider meet peds are only deleted after the cutscene
 - Fixed mission passed tune not playing
 
+Sweet's Girl:
+- Fixed possible softlock in the initial cutscene
+
 Home Invasion:
 - Fixed Ryder vanishing in the ending cutscene
 - Made player look at Ryder during 'CJ, you gotta get it into your head...' line to make it look more natural
@@ -74,7 +81,7 @@ Home Invasion:
 
 Catalyst:
 - Removed check that prevented Ryder from teleporting to intended location in ending cutscene
-- Added facial talking anim to voicelines
+- Added facial talk anim to voicelines
 - Added ability to skip intro cutscene
 - Fixed a bug where the car conversation wouldn't resume if you got out of the car
 - Replaced fake explosion with real explosion, bringing back unused lines and the possibility to destroy the car in the box throwing section
@@ -89,7 +96,7 @@ Robbing Uncle Sam:
 - Fixed 'Now get in there and open the damn gate!' line not playing at 30 FPS due to the gate closing sooner at higher framerates
 
 OG Loc:
-- Added facial talking anim to voicelines
+- Added facial talk anim to voicelines
 - Deleted redundant SHUT_CHAR_UP calls, since now its handled by the audio code
 - Reverted a timer that was set to zero for debug
 - Deleted redundant DRAW_SPHERE calls, and moved it to after the cutscene where you go to Jeffrey's house ends
@@ -184,8 +191,23 @@ Farewell, My Love...:
 - Fixed Woozie ped model being used instead of Claude
 - Swapped an opponent's car with Claude's car, to match the cutscene
 
+Air Raid:
+- Fixed "stealing" of player's heavy weapons
+
+Supply Lines:
+- Fixed rural cops and streaming issues
+
+Beefy Baron:
+- Fixed rural cops and streaming issues
+
+Mountain Cloud Boys:
+- Fixed occasional softlock when you reached the meeting area
+
 Lure:
 - Now uses intended variant of Rancher
+
+Ice Cold Killa:
+- Fixed typo in coords for CREATE_BIRDS command 
 
 Customs Fast Track:
 - Fixed the ped model used for the guard not matching their voice
@@ -242,7 +264,7 @@ GFs:
 
 Parachute:
 - Fixed landing animation
-- Fixed a bug where the parachute 'fails to open' if you have the 'keep weapons after death' bonus and you die with a parachute in your inventory
+- Fixed a bug where the parachute "fails to open" if you have the "keep weapons after death" bonus and you die with a parachute in your inventory
 - Fixed weird twitch after landing
 - Fixed parachute going through the floor
 - Uncommented some code to allow the full "landing in water" anim for parachute to play
@@ -271,7 +293,7 @@ Misc:
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
 - Made Ryder's car stop spawning after 'Pier 69'
 - Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completd
-- Changed customs fast track reward vehicle to a Jester instead of a Savanna
+- Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
 - Changed Maverick in San Fierro police helipad to a police Maverick
 - Moved Hunter and Leviathan spawn coords in the abandoned airstrip to allow both of them to spawn simultaneously
 - Turn taxi lights off when the taxi submission ends
@@ -285,7 +307,7 @@ Misc:
 - Made crack factory front gate spawn in freeroam
 - Restored unique custom plates for import/export from PS2 REV 1
 - Each Trucking and Quarry mission now plays the mission complete tune (previously only the last one did)
-- Each Trucking and Quarry mission now increases total progress % (previously only the last one did)
+- Each Trucking and Quarry mission now counts towards total progress % (previously only the last one did)
 - Each mountain bike race now counts towards total progress % (previously only the last one did)
 - Burglary now counts towards total progress %
 - Triathlons now count towards total progress %
@@ -299,6 +321,8 @@ At this point it's incompatible with old save files made with original script. I
 ## Mod compatibility
 
 Not compatible with some CLEO scripts.
+
+If using SilentPatch, its recommended to set `EnableScriptFixes` to `-1` in its .ini file, although this is not strictly necessary because SilentPatch is designed to bail out any script fixes if the code doesn't match. Doing so also stops the save pickup inside Madd Dogg's mansion from being relocated since a different method is used to fix the "Basketball Bug".
 
 ## How to compile
 
