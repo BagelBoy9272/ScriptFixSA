@@ -296,6 +296,7 @@ Misc:
 - Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
 - Changed Maverick in San Fierro police helipad to a police Maverick
 - Moved Hunter and Leviathan spawn coords in the abandoned airstrip to allow both of them to spawn simultaneously
+- Moved Import/Export Huntley spawn coords outside the driving school so it doesn't override the reward Hotknife
 - Turn taxi lights off when the taxi submission ends
 - Made Bike Shool and Boat School use blank 'no medal' sprite in languages other than english
 - Made food carts use corresponding ped models
