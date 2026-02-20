@@ -66,32 +66,6 @@ SCRIPT_NAME COKEC
 		hide_text = 1
 	ENDIF
 
-	GET_AREA_VISIBLE current_visible_area_cell
-
-	IF IS_PLAYER_PLAYING player1
-		IF current_visible_area_cell = 0
-			IF IS_CHAR_ON_FOOT scplayer
-			AND NOT IS_CHAR_IN_AIR scplayer
-			AND flag_player_on_mission = 0
-			AND player_fall_state = 0
-				IF NOT IS_CHAR_IN_WATER scplayer
-				AND NOT IS_CHAR_SHOOTING scplayer
-				//AND NOT IS_GANG_WAR_GOING_ON
-				
-				ELSE	
-					WAIT 0
-					GOTO coke_courier_script_start
-				ENDIF
-			ELSE
-				WAIT 0
-				GOTO coke_courier_script_start
-			ENDIF
-		ELSE
-			WAIT 0
-			GOTO coke_courier_script_start
-		ENDIF
-	ENDIF
-
 	GOSUB check_player_is_safe_for_mobile
 	IF player_is_completely_safe_for_mobile = 0
 		WAIT 0
