@@ -303,6 +303,7 @@ Misc:
 - Fixed infrared goggles not respawning after being picked up
 - Fixed body armour inside Madd Dogg's mansion not respawning after being picked up
 - Fixed a country rifle pickup that was inside the stadium in SF
+- Fixed a knife pickup that was under the ground near an underpass in SF
 - Moved AK47 pickup in film studios closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
 - Made Ryder's car stop spawning after 'Pier 69'

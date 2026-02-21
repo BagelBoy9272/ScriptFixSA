@@ -5310,7 +5310,7 @@ CREATE_PICKUP POOLCUE PICKUP_ON_STREET_SLOW -2135.0 197.0 35.0  	 pickup_weapon[
 CREATE_PICKUP KATANA PICKUP_ON_STREET_SLOW -2208.0 696.0 50.0  	 	 pickup_weapon[93]			  //	- Katana //chinatown backalley
 CREATE_PICKUP brassknuckle PICKUP_ON_STREET_SLOW -2206.0 961.0 80.0  pickup_weapon[94]			//	- Brass Knuckles //beside a Calton Heights car park
 CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW -2222.0 -302.0 43.0	 pickup_weapon[95]			  	//- cane //Doherty overpass
-CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW -1871.0 351.0 26.0  	 pickup_weapon[96]				  //	- knife //Downtown underpass
+CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW -1877.1 353.1 26.0  	 pickup_weapon[96]				  //	- knife //Downtown underpass // FIXEDGROVE: x and y were -1871.0 351.0 26.0
 CREATE_PICKUP golfclub PICKUP_ON_STREET_SLOW -2715.0 -314.0 7.0 	 pickup_weapon[97]					//- golf club //front entrance Avispa country club
 CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -2359.0 -82.0 35.0  	 	 pickup_weapon[98]			 //	- Chainsaw //corner of Garcia consrucion plot
 																				 				 	
