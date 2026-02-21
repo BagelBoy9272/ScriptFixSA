@@ -252,11 +252,25 @@ GFs:
 - Fixed Katie not liking fast driving
 - Fixed Katie not liking the zone she lives in
 - Fixed Katie tai chi exit animation when meeting her
+- Fixed GF's door visibly snapping back in the initial cutscene when you pick her up
 - Fixed wrong variable usage for LIKES_PARKING_ROMANTIC check, restoring proper functionality
 - Fixed a diner that was marked as a bar
+- Now GFs that like fast driving will comment on it
+- Only play TAKE_HOME_HAPPY context if the date was actually good, otherwise play TAKE_HOME_ANGRY context
+- Play unused GFRIEND_OFFER_DANCE context while on a club if player is on a dancing date
 - Fixed Millie using a Feltzer instead of a Club in two-timing events
 - Fixed two-timing only working if you always rolled the chance for it, and never got caught
+- Fixed car bj increasing progress indefinitely
+- Fixed progress only increasing from kissing if the GF liked kissing in public
+- Fixed slightly lopsided two-timing chance
 - Fixed jealous girlfriend not being considered dead if the player destroyed her car
+- Fixed two-timing being triggered while exiting interiors, causing the cutscene to take place in the void
+- Two-timing cars will now appear with their correct license plates
+- Slightly changed timing of two-timing cutscenes to make them more natural
+- Don't loop two-timing cutscene anims, and make them play all the way through when changing camera angle
+- Fixed GF not running away in the "caught" two-timing cutscene, as was originally intended
+- Fixed jealous GF not being properly marked as dead (previously you could still go on a date with her, in which she dumped you)
+- Now when you kill a jealous GF, the ominous "Your girlfriend is dead." message will appear
 - Fixed special GF phonecall help box (It's a call from X) only working for the dump phonecall and the 1st conversation variation
 - Fixed date phonecalls reducing progress if the player couldn't answer
 - Made dump phonecalls retry if the player couldn't answer
@@ -296,6 +310,7 @@ Misc:
 - Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
 - Changed Maverick in San Fierro police helipad to a police Maverick
 - Moved Hunter and Leviathan spawn coords in the abandoned airstrip to allow both of them to spawn simultaneously
+- Moved Seasparrow spawn coords in the helipad near the boat school so it doesn't overide the Maverick spawn
 - Moved Import/Export Huntley spawn coords outside the driving school so it doesn't override the reward Hotknife
 - Turn taxi lights off when the taxi submission ends
 - Made Bike Shool and Boat School use blank 'no medal' sprite in languages other than english

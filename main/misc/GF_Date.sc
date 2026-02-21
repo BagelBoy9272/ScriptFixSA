@@ -25,6 +25,8 @@ CONST_INT DRIVE_BY_DONE							27
 CONST_INT GIFT_HELP_ON							28
 CONST_INT READY_FOR_RANDOM_SPEECH				29
 CONST_INT SKIP_BLOWJOB							30
+CONST_INT CAR_BLOW_ENDED						31 // FIXEDGROVE
+CONST_INT KISS_OR_BLOW_IS_PUBLIC				32 // FIXEDGROVE
 //--- KISS & GIFT FLAGS
 CONST_INT GF_PLAYER_GIVE_KISS 					1
 CONST_INT GF_PLAYER_GIVE_GIFT 					2
@@ -103,6 +105,7 @@ GF_Date:
 	iCurrentArea = 0
 	iFrozenTime = -1 // Init like so to request a validation as soon as possible
 	iCurrentCarHealth = -1 // Init like so to request a validation as soon as possible
+	iGF_TT_Status = 0 // FIXEDGROVE: they ran out of local vars in this script, so they probably just forgot to init this
 
 	//--- Fill the fun meter at start of date
 	iFun = 30 			
@@ -112,10 +115,10 @@ GF_Date:
 	//					TIMERB is used in each of the states. Clear before use. Be advised.
 
 	//--- Parameter passing Fudge
-	IF iDateFlags > 0
+	GOTO GF_Date_fool_compiler // FIXEDGROVE: replace impossible check with a GOTO
 	   CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iGF_ped
 	   STORE_CAR_CHAR_IS_IN_NO_SAVE iGF_ped iCurrentCar
-	ENDIF
+	GF_Date_fool_compiler: // FIXEDGROVE
 	
 	//--- Stream the animations
 	GOSUB GF_Date_SteamAnims
@@ -468,7 +471,7 @@ IF NOT IS_BIT_SET iDateFlags 1
 				GET_INT_STAT CURRENT_GIRLFRIENDS iTemp
 				IF iTemp > 1 // player is dating more than 1 girl
 					//--- Check if the player is outside
-					GET_AREA_VISIBLE iTemp
+					GET_CHAR_AREA_VISIBLE scplayer iTemp // FIXEDGROVE: was GET_AREA_VISIBLE, this stops two-timing from triggering while leaving ineriors
 					IF iTemp = 0 // player is outside   
 						//--- Check in what state the girl is actually in
 						IF iDateState = 1 // Idle on Foot
@@ -476,7 +479,7 @@ IF NOT IS_BIT_SET iDateFlags 1
 							IF NOT IS_BIT_SET iDateReport PLAYER_TWO_TIMING // Not already doing the two-timing stuff
 							AND TIMERA > GF_TIME_BEFORE_TRIGGERING_TWOTIME // It's time							
 								GENERATE_RANDOM_INT_IN_RANGE 0 100 iTemp
-								IF iTemp <= GF_CHANCE_TWOTIMING_PERCENT
+								IF iTemp < GF_CHANCE_TWOTIMING_PERCENT // FIXEDGROVE: comparison was <=, since GENERATE_RANDOM_INT_IN_RANGE has an exclusive upper bound, this was actually slightly lopsided
 									iGF_TT_Status = GF_TT_INIT 
 				 					SET_BIT iDateReport PLAYER_TWO_TIMING
 								ELSE
@@ -546,7 +549,7 @@ IF NOT IS_BIT_SET iDateFlags 1
 				IF iTemp < iCurrentCarHealth
 					//--- We have hit something. See if the GF likes it or not
 					IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_TO_CAUSE_ACCIDENTS_KILL_PEDS
-						//--- Se never dislikes damaging the car, and loves hitting other cars
+						//--- She never dislikes damaging the car, and loves hitting other cars
 						IF HAS_CAR_BEEN_DAMAGED_BY_CAR iCurrentCar -1
 							//--- Increment the fun 
 							fFunTemp += GF_FUN_INCREMENT_MEDIUM
@@ -578,14 +581,15 @@ IF NOT IS_BIT_SET iDateFlags 1
 						IF passenger_said_jump = 0
 							CLEAR_BIT iDateFlags REGISTER_STUNT 
 						ENDIF
-					ENDIF
-					//--- Fast driving check			
+					ENDIF			
 					GET_CAR_SPEED iCurrentCar fTemp[1] // <= 10.0 slow, 11.0-20.0 cruise, > 25.0 fast
+					//--- Fast driving check
 					IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_TO_GO_FAST
 						IF fTemp[1] > GF_FAST_CAR_SPEED
 							//--- Car is going fast
 							fFunTemp += GF_FUN_INCREMENT_MEDIUM
 							CLEAR_BIT iDateFlags REGISTER_CAR_SLOW
+							iGFSayContext = CONTEXT_GLOBAL_CAR_FAST // FIXEDGROVE
 						ELSE
 							//--- Car is going slow
 							IF NOT IS_BIT_SET iDateFlags REGISTER_CAR_SLOW 
@@ -626,24 +630,24 @@ IF NOT IS_BIT_SET iDateFlags 1
 		BREAK
 
 		CASE 14
-			//--- DRIVE TRHU CITY FUN: Special check for gang zones	
-			IF IS_CHAR_IN_ANY_CAR iGF_ped
-			AND NOT IS_CAR_DEAD iCurrentCar
-				IF NOT IS_CAR_STOPPED iCurrentCar					
-					IF NOT IS_BIT_SET iDateFlags BORED_TAKE_ME_HOME // Girl Got Bored\Annoyed				
-			   			IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_GANG_ZONES
-						   	GOSUB GF_Date_AreEnemiesHere // Returns iTemp  > 0 if this is gang area
+			//--- DRIVE TRHU CITY FUN: Special check for gang zones
+			IF NOT IS_BIT_SET iDateFlags BORED_TAKE_ME_HOME // Girl Got Bored\Annoyed		
+				IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_GANG_ZONES
+					IF IS_CHAR_IN_ANY_CAR iGF_ped
+					AND NOT IS_CAR_DEAD iCurrentCar
+						IF NOT IS_CAR_STOPPED iCurrentCar								
+							GOSUB GF_Date_AreEnemiesHere // Returns iTemp  > 0 if this is gang area
 							IF iTemp > 0 
 								fFunTemp += GF_FUN_INCREMENT_SMALL
 							ENDIF		
 						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-			//--- Check (again) if she is shooting
-			IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_GANG_FIGHTS
-				IF IS_CHAR_SHOOTING iGF_ped
-					fFunTemp += GF_FUN_INCREMENT_BIG
+					//--- Check (again) if she is shooting
+					IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_GANG_FIGHTS
+						IF IS_CHAR_SHOOTING iGF_ped
+							fFunTemp += GF_FUN_INCREMENT_BIG
+						ENDIF
+					ENDIF
 				ENDIF
 			ENDIF				
 			++iTransitionStages
@@ -651,12 +655,12 @@ IF NOT IS_BIT_SET iDateFlags 1
 
 		CASE 15
 			//--- PARKING FUN
-			IF IS_CHAR_IN_ANY_CAR iGF_ped
-			AND NOT IS_CAR_DEAD iCurrentCar
-				IF IS_CAR_STOPPED iCurrentCar
-					GET_CURRENT_POPULATION_ZONE_TYPE iTemp2
-					//--- Car Stopped 
-					IF IS_BIT_SET iGFLikesOnDate[iGFidx] 14	// LIKES_PARKING_ROMANTIC
+			IF IS_BIT_SET iGFLikesOnDate[iGFidx] 14	// LIKES_PARKING_ROMANTIC
+				IF IS_CHAR_IN_ANY_CAR iGF_ped
+				AND NOT IS_CAR_DEAD iCurrentCar
+					IF IS_CAR_STOPPED iCurrentCar
+						GET_CURRENT_POPULATION_ZONE_TYPE iTemp2
+						//--- Car Stopped 
 						IF iTemp2 = POPCYCLE_ZONE_PARK
 						OR iTemp2 = POPCYCLE_ZONE_COUNTRYSIDE
 							GET_MINUTES_TO_TIME_OF_DAY 6 0 iTemp2 // Sunrise
@@ -814,8 +818,6 @@ GF_Date_State0:
    
 		IF fTemp[0] <= 3.0		   			 		
 			POINT_CAMERA_AT_POINT fX[0] fY[0] fZ[0] INTERPOLATION
-			//--- Lock the door
-			LOCK_DOOR iGFdoor[iGFidx] TRUE
 			//--- See if previous check found that GF dilikes player in its current state (look, car, etc.)
 			IF IS_BIT_SET iDateFlags GIRL_DOES_NOT_LIKE_PLAYER
 				//--- Abort the date straight away
@@ -844,7 +846,9 @@ GF_Date_State0:
 			SWITCH_WIDESCREEN OFF
 			SET_ALL_CARS_CAN_BE_DAMAGED TRUE
 			SET_CAMERA_BEHIND_PLAYER
-			RESTORE_CAMERA_JUMPCUT			
+			RESTORE_CAMERA_JUMPCUT
+			//--- Lock the door
+			LOCK_DOOR iGFdoor[iGFidx] TRUE // FIXEDGROVE: moved so it isn't visible during the cutscene
 		   ++iSubStateStatus
 		ENDIF
 	BREAK
@@ -1049,8 +1053,14 @@ GF_Date_State2:
 	CASE 9
 		//--- Next speech request
 		IF iGFSayContext = -1
-		AND NOT IS_MESSAGE_BEING_DISPLAYED  
-			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_TAKE_HOME_HAPPY
+		AND NOT IS_MESSAGE_BEING_DISPLAYED
+			// FIXEDGROVE: START - only play TAKE_HOME_HAPPY context if the date was a success  
+			IF IS_BIT_SET iDateReport DATE_WAS_SUCCESS
+				iGFSayContext = CONTEXT_GLOBAL_GFRIEND_TAKE_HOME_HAPPY
+			ELSE
+				iGFSayContext = CONTEXT_GLOBAL_GFRIEND_TAKE_HOME_ANGRY
+			ENDIF
+			// FIXEDGROVE: END
 			CLEAR_BIT iDateFlags 1 // Allow transitions again
 			SET_BIT iDateFlags DESTINATION_BACK_HOME // Mark GF wants to go back home
 			//--- State Complete - Back to IDLE on Foot
@@ -1506,6 +1516,7 @@ GF_Date_State6:
 				GET_RANDOM_CHAR_IN_SPHERE fX[0] fY[0] fZ[0] GF_PROXIMITY_OF_PEDS_AS_PUBLIC TRUE TRUE TRUE iTempPed
 				IF iTempPed = -1 
 					//--- No one here
+					CLEAR_BIT iDateFlags KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE
 					IF iCensoredVersion = 0
 						//--- Uncensored game
 						++iSubStateStatus // move on to BJ
@@ -1517,6 +1528,7 @@ GF_Date_State6:
 				ELSE
 					//--- At least one ped here
 					MARK_CHAR_AS_NO_LONGER_NEEDED iTempPed // release the ped right away!!!
+					SET_BIT iDateFlags KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE
 					IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_SNOGGING_IN_PUBLIC						
 						IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_SEX_IN_PUBLIC
 							//--- Check if we are running a censored version of the game
@@ -1620,33 +1632,44 @@ GF_Date_State6:
 			//--- Compute the stats now
 			IF iGFLikesPlayer[iGFidx] > iTemp
 			AND iGFLikesPlayer[iGFidx] < iGFSelfRespect[iGFidx]
-				IF ARE_ANY_CHARS_NEAR_CHAR iGF_ped 20.0
-				AND IS_BIT_SET iGFLikesOnDate[iGFidx] 27	// LIKES_SNOGGING_IN_PUBLIC
-				   	++iGFLikesPlayer[iGFidx]
-					//GOSUB GF_Date_SynchStats
+			// FIXEDGROVE: originally the code checked if it was public AND she likes it, which meant that in most cases, kissing actually decreased progress
+				IF IS_BIT_SET iDateFlags KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE: use flag instead of ARE_ANY_CHARS_NEAR_CHAR check, which always returned true because it counted the player
+					IF IS_BIT_SET iGFLikesOnDate[iGFidx] 27	// LIKES_SNOGGING_IN_PUBLIC
+					   	++iGFLikesPlayer[iGFidx]
+						//GOSUB GF_Date_SynchStats
+					ELSE
+						//--- Decrement Likes Player
+						--iGFLikesPlayer[iGFidx]
+						//GOSUB GF_Date_SynchStats
+					ENDIF
 				ELSE
-					//--- Decrement Likes Player
-					--iGFLikesPlayer[iGFidx]
-					//GOSUB GF_Date_SynchStats
+					//--- Increment Likes Player
+					++iGFLikesPlayer[iGFidx] 	
+					//GOSUB GF_Date_SynchStats			   						
 				ENDIF								
 			ELSE
 				IF iGFLikesPlayer[iGFidx] > iTemp
 				AND iGFLikesPlayer[iGFidx] >= iGFSelfRespect[iGFidx]
-					IF ARE_ANY_CHARS_NEAR_CHAR iGF_ped 20.0
-					AND IS_BIT_SET iGFLikesOnDate[iGFidx] 27	// LIKES_SNOGGING_IN_PUBLIC						
-						//--- Increment Likes Player
-						++iGFLikesPlayer[iGFidx] 				   						
-						//GOSUB GF_Date_SynchStats
-						IF IS_BIT_SET iGFLikesOnDate[iGFidx] 28	// LIKES_SEX_IN_PUBLIC
+					IF IS_BIT_SET iDateFlags KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE: use flag instead of ARE_ANY_CHARS_NEAR_CHAR check, which always returned true because it counted the player
+						IF IS_BIT_SET iGFLikesOnDate[iGFidx] 27	// LIKES_SNOGGING_IN_PUBLIC						
+							//--- Increment Likes Player
+							++iGFLikesPlayer[iGFidx]
+							//GOSUB GF_Date_SynchStats
+						ELSE // Doesn't like snogging
+							//--- Decrement Likes Player
+							--iGFLikesPlayer[iGFidx]
+							//GOSUB GF_Date_SynchStats	
+						ENDIF				   						
+						IF IS_BIT_SET iGFLikesOnDate[iGFidx] 28	// LIKES_SEX_IN_PUBLIC // FIXEDGROVE: moved this block outside the above one
 							//--- Increment Likes Player
 							++iGFLikesPlayer[iGFidx]
 							//GOSUB GF_Date_SynchStats
 						ENDIF
-					ELSE // Doesn't like snogging
-						//--- Decrement Likes Player
-						--iGFLikesPlayer[iGFidx]	
-						//GOSUB GF_Date_SynchStats
-					ENDIF								
+					ELSE
+						//--- Increment Likes Player
+						++iGFLikesPlayer[iGFidx] 
+						//GOSUB GF_Date_SynchStats				   						
+					ENDIF
 				ENDIF
 			ENDIF
 		ENDIF
@@ -1758,10 +1781,12 @@ GF_Date_State7:
 					GET_RANDOM_CHAR_IN_SPHERE fX[0] fY[0] fZ[0] GF_PROXIMITY_OF_PEDS_AS_PUBLIC TRUE TRUE TRUE iTempPed
 					IF iTempPed = -1 
 						//--- No One here, go on...
+						CLEAR_BIT iDateFlags KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE
 						++iSubStateStatus
 					ELSE
 						//--- There is at least a ped around here...										
 						MARK_CHAR_AS_NO_LONGER_NEEDED iTempPed // release the ped right away!!!
+						SET_BIT iDateFlags KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE
 						IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_SEX_IN_PUBLIC
 							//--- She likes doing it with people around, so go on...
 							++iSubStateStatus
@@ -1856,17 +1881,21 @@ GF_Date_State7:
 
 	CASE 5
 		//--- Compute the statistics
-		IF iGFLikesPlayer[iGFidx] >= iGFSelfRespect[iGFidx]
-			//--- Increment Likes Player
-			++iGFLikesPlayer[iGFidx]
-			//GOSUB GF_Date_SynchStats
-			IF ARE_ANY_CHARS_NEAR_CHAR iGF_ped 20.0
-			AND IS_BIT_SET iGFLikesOnDate[iGFidx] 28	// LIKES_SEX_IN_PUBLIC
+		IF NOT IS_BIT_SET iDateFlags CAR_BLOW_ENDED // FIXEDGROVE: make sure the stats are only computed once
+			SET_BIT iDateFlags CAR_BLOW_ENDED // FIXEDGROVE
+			//--- Compute the stats now
+			IF iGFLikesPlayer[iGFidx] >= iGFSelfRespect[iGFidx]
 				//--- Increment Likes Player
 				++iGFLikesPlayer[iGFidx]
 				//GOSUB GF_Date_SynchStats
+				IF IS_BIT_SET iDateFlags KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE: use flag instead of ARE_ANY_CHARS_NEAR_CHAR check, which always returned true because it counted the player
+				AND IS_BIT_SET iGFLikesOnDate[iGFidx] 28	// LIKES_SEX_IN_PUBLIC
+					//--- Increment Likes Player
+					++iGFLikesPlayer[iGFidx]
+					//GOSUB GF_Date_SynchStats
+				ENDIF
 			ENDIF
-		ENDIF
+		ENDIF // FIXEDGROVE
 		//--- Now conclude the cut-scene
 		IF IS_CHAR_PLAYING_ANIM scplayer BJ_CAR_END_P
 			GET_CHAR_ANIM_CURRENT_TIME scplayer BJ_CAR_END_P fTemp[0]
@@ -2315,7 +2344,10 @@ GF_Date_State10:
 				//--- State Complete - Back to IDLE on Foot
 				iDateState = 1
 				iSubStateStatus = 0	 
-			ELSE 
+			ELSE
+				IF NOT IS_MINIGAME_IN_PROGRESS // FIXEDGROVE: check if the minigame hasn't started
+					iGFSayContext = CONTEXT_GLOBAL_GFRIEND_OFFER_DANCE // FIXEDGROVE
+				ENDIF // FIXEDGROVE
 				SET_BIT iDateFlags RESET_TIMER_THIS_FRAME //Request to reset TIMERA this frame 
 			ENDIF
 		ENDIF
@@ -3782,9 +3814,7 @@ GF_Date_CheckEnjoymentInCurrentZone:
 		CASE POPCYCLE_ZONE_PARK
 			IF IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_PARK_BEACH_ZONES
 				IF TIMERA >= GF_TIME_BEFORE_START_FUN_CHECKS
-					IF TIMERA >= GF_TIME_BEFORE_START_FUN_CHECKS
-						fFunTemp += GF_FUN_INCREMENT_SMALL
-					ENDIF
+					fFunTemp += GF_FUN_INCREMENT_SMALL
 				ENDIF
 				GOSUB GF_Date_CommentLikeCurrentZone
 			ELSE
@@ -4032,8 +4062,7 @@ GF_Date_TwoTiming:
 		CASE GF_TT_INIT 
 			//--- Find the GF, it might take a few attempts
 			GENERATE_RANDOM_INT_IN_RANGE 0 6 iGF_TT_PedModel
-			IF iGF_TT_PedModel < 6 // If this GF exists
-			AND IS_BIT_SET iActiveGF iGF_TT_PedModel // If she is active
+			IF IS_BIT_SET iActiveGF iGF_TT_PedModel // If this GF is active
 			AND NOT iGF_TT_PedModel = iGFidx // she must not the same girl we are on a date with!
 				//--- Read what random girl has been extracted
 				IF iGF_TT_PedModel = COOCHIE
@@ -4058,7 +4087,7 @@ GF_Date_TwoTiming:
 				ENDIF
 				IF iGF_TT_PedModel = MILLIE
 					iGF_TT_PedModel = CROGRL3
-					iGF_TT_CarModel = CLUB //126 1 // FIXEDGROVE
+					iGF_TT_CarModel = CLUB //126 1 // FIXEDGROVE: model was FELTZER
 				ENDIF
 				//--- Move on to do requests for the above
 				iGF_TT_Status = GF_TT_REQUESTS 
@@ -4080,7 +4109,33 @@ GF_Date_TwoTiming:
 			//--- Create and set up the car and the jelous girl
 			GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.0 25.0 0.0 fX[0] fY[0] fZ[0]
 			IF GET_CLOSEST_CAR_NODE_WITH_HEADING fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1] fTemp[0]
-				CLEAR_AREA fX[1] fY[1] fZ[1] 5.0 TRUE 
+				CLEAR_AREA fX[1] fY[1] fZ[1] 5.0 TRUE
+				// FIXEDGROVE: START - correct plates for GFs. This sucks, but putting it in GF_TT_INIT doesnt work
+				IF iGF_TT_CarModel = HUSTLER
+					CUSTOM_PLATE_FOR_NEXT_CAR HUSTLER HOMEGIRL
+					CUSTOM_PLATE_DESIGN_FOR_NEXT_CAR HUSTLER CARPLATE_DESIGN_LA
+				ENDIF
+				IF iGF_TT_CarModel = MONSTERB
+					CUSTOM_PLATE_FOR_NEXT_CAR MONSTERB &__NOS___ 
+					CUSTOM_PLATE_DESIGN_FOR_NEXT_CAR MONSTERB CARPLATE_DESIGN_SF
+				ENDIF
+				IF iGF_TT_CarModel = COPCARRU
+					CUSTOM_PLATE_FOR_NEXT_CAR COPCARRU &_CUFFS__
+					CUSTOM_PLATE_DESIGN_FOR_NEXT_CAR COPCARRU CARPLATE_DESIGN_VEGAS
+				ENDIF
+				IF iGF_TT_CarModel = BANDITO
+					CUSTOM_PLATE_FOR_NEXT_CAR BANDITO FULLAUTO
+					CUSTOM_PLATE_DESIGN_FOR_NEXT_CAR BANDITO CARPLATE_DESIGN_LA
+				ENDIF
+				IF iGF_TT_CarModel = ROMERO
+					CUSTOM_PLATE_FOR_NEXT_CAR ROMERO &_TRAUMA_
+					CUSTOM_PLATE_DESIGN_FOR_NEXT_CAR ROMERO CARPLATE_DESIGN_SF
+				ENDIF
+				IF iGF_TT_CarModel = CLUB
+					CUSTOM_PLATE_FOR_NEXT_CAR CLUB &_SPANK__
+					CUSTOM_PLATE_DESIGN_FOR_NEXT_CAR CLUB CARPLATE_DESIGN_VEGAS
+				ENDIF
+				// FIXEDGROVE: END 
 				CREATE_CAR iGF_TT_CarModel fX[1] fY[1] fZ[1] iGF_TT_Car
 				ADD_STUCK_CAR_CHECK_WITH_WARP iGF_TT_Car 1.0 1000 TRUE TRUE TRUE -1
 				IF iGF_TT_CarModel = HUSTLER 
@@ -4089,7 +4144,7 @@ GF_Date_TwoTiming:
 				IF iGF_TT_CarModel = ROMERO 
 					CHANGE_CAR_COLOUR iGF_TT_Car 1 1 
 				ENDIF
-				IF iGF_TT_CarModel = CLUB // FIXEDGROVE 
+				IF iGF_TT_CarModel = CLUB // FIXEDGROVE: model was FELTZER
 					CHANGE_CAR_COLOUR iGF_TT_Car 126 1 
 				ENDIF
 				CREATE_CHAR_INSIDE_CAR iGF_TT_Car PEDTYPE_CIVFEMALE iGF_TT_PedModel iGF_TT_driver
@@ -4113,7 +4168,7 @@ GF_Date_TwoTiming:
 			IF NOT IS_CAR_DEAD iGF_TT_Car				
 			AND NOT IS_CHAR_DEAD iGF_TT_driver 
 				ATTACH_CAMERA_TO_VEHICLE_LOOK_AT_CHAR iGF_TT_Car -1.5 1.5 1.5 iGF_TT_driver 6.0 JUMP_CUT
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_TT_driver GF_CarSpot KISSING 4.0 TRUE FALSE FALSE FALSE 5000
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_TT_driver GF_CarSpot KISSING 4.0 FALSE FALSE FALSE FALSE -2 // FIXEDGROVE: don't loop animation
 		  		PRINT_HELP GF_H014 //You've been spotted by another girlfriend. Quick, shake her off your tail!
 		  		iGF_TT_Status = GF_TT_CUT1_END			
 	  		ELSE
@@ -4233,8 +4288,7 @@ GF_Date_TwoTiming:
 					SWITCH_WIDESCREEN ON
 					SET_ALL_CARS_CAN_BE_DAMAGED FALSE					 
 					SET_CAMERA_IN_FRONT_OF_PLAYER
-					DO_FADE 500 FADE_IN
-					TIMERB = 0	// This will count if she is on foot and taking too long to reach the player 
+					DO_FADE 500 FADE_IN 
 					iGF_TT_Status = GF_TT_CUT2_START
 				ENDIF
 			ELSE
@@ -4257,11 +4311,12 @@ GF_Date_TwoTiming:
  					SET_CHAR_PROOFS iGF_TT_driver TRUE TRUE TRUE TRUE TRUE
 					SET_CAR_PROOFS iGF_TT_Car TRUE TRUE TRUE TRUE TRUE   
 				   	//--- Play anim
-				   	TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_TT_driver GF_CarArgue_01 KISSING 4.0 TRUE FALSE FALSE FALSE 5000
+				   	TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_TT_driver GF_CarArgue_01 KISSING 4.0 FALSE FALSE FALSE FALSE -2 // FIXEDGROVE: don't loop animation
 					//--- Make this 'extra' girlfriend speak
 					iGFSpeechStatus = GF_SPEECH_SPECIAL_TT_CONTEXT // Put the Speech Manager in the special state
 					iGFSayContext = CONTEXT_GLOBAL_GFRIEND_JEALOUS
-					//IDEA: pass into CJ but change speech manager free state to 'NEXT IS NOT CJ BUT ANOTHER GF'
+					// IDEA: pass into CJ but change speech manager free state to 'NEXT IS NOT CJ BUT ANOTHER GF'
+					TIMERB = 0	// This will count if she is on foot and taking too long to reach the player // FIXEDGROVE: moved this from GF_TT_REACHED_PLAYER, now its also used for cutscene timing
 					iGF_TT_Status = GF_TT_CUT2_MIDDLE
 				ENDIF	
 			ELSE
@@ -4274,8 +4329,7 @@ GF_Date_TwoTiming:
 		    //--- The girl on a date shouts back
 		    IF NOT IS_CHAR_DEAD iGF_TT_driver
 			AND NOT IS_CAR_DEAD iGF_TT_Car 
-			    GET_SCRIPT_TASK_STATUS iGF_TT_driver TASK_PLAY_ANIM_NON_INTERRUPTABLE iTemp2
-				IF iTemp2 = FINISHED_TASK		   							       					
+				IF TIMERB > 3000 // FIXEDGROVE: use timer rather than waiting for anim to end						       					
 				   	IF IS_CHAR_IN_ANY_CAR iGF_ped
 						//--- Set camera
 						GET_CHAR_COORDINATES iGF_ped fX[1] fY[1] fZ[1]
@@ -4283,9 +4337,10 @@ GF_Date_TwoTiming:
 						//--- Make the girl invincible
 						SET_CHAR_PROOFS iGF_ped TRUE TRUE TRUE TRUE TRUE
 						//--- Play anims
-					   	TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped GF_CarArgue_02 KISSING 4.0 TRUE FALSE FALSE FALSE 5000
+					   	TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped GF_CarArgue_02 KISSING 4.0 FALSE FALSE FALSE FALSE -2 // FIXEDGROVE: don't loop animation
 						//--- The current date girl speaks
 						iGFSayContext = CONTEXT_GLOBAL_GFRIEND_JEALOUS_REPLY
+						TIMERB = 0 // FIXEDGROVE: used for cutscene timing
 						iGF_TT_Status = GF_TT_CUT2_END
 					ELSE
 						//--- Girl is on foot
@@ -4298,7 +4353,7 @@ GF_Date_TwoTiming:
 							GET_CHAR_COORDINATES iGF_ped fX[1] fY[1] fZ[1]
 							POINT_CAMERA_AT_POINT fX[1] fY[1] fZ[1] INTERPOLATION
 							SET_CHAR_PROOFS iGF_ped TRUE TRUE TRUE TRUE TRUE
-							TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped GF_StreetArgue_02 KISSING 4.0 TRUE FALSE FALSE FALSE 5000
+							TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped GF_StreetArgue_02 KISSING 4.0 FALSE FALSE FALSE FALSE -2 // FIXEDGROVE: don't loop animation
 							//--- The current date girl speaks
 							iGFSayContext = CONTEXT_GLOBAL_GFRIEND_JEALOUS_REPLY
 							iGF_TT_Status = GF_TT_CUT2_END
@@ -4314,31 +4369,22 @@ GF_Date_TwoTiming:
 		BREAK
 		
 		CASE GF_TT_CUT2_END
-		    //--- Both angry girls leave the player
+		    //--- Both angry girls leave the player // FIXEDGROVE: reworked flow, removed useless checks
 		    IF NOT IS_CHAR_DEAD iGF_TT_driver
 			AND NOT IS_CAR_DEAD iGF_TT_Car 
 			    GET_SCRIPT_TASK_STATUS iGF_ped TASK_PLAY_ANIM_NON_INTERRUPTABLE iTemp2
-				IF iTemp2 = FINISHED_TASK		   									
-				    GET_SCRIPT_TASK_STATUS iGF_TT_driver TASK_CAR_DRIVE_WANDER iTemp2
-				    IF iTemp2 = FINISHED_TASK
-				    	FREEZE_CAR_POSITION iGF_TT_Car FALSE
-				    	TASK_CAR_DRIVE_WANDER iGF_TT_driver iGF_TT_Car 30.0 DRIVINGMODE_PLOUGHTHROUGH
-					ENDIF
-					IF NOT IS_CAR_DEAD iCurrentCar
-						IF IS_CHAR_IN_CAR iGF_ped iCurrentCar
-							GET_SCRIPT_TASK_STATUS iGF_ped TASK_LEAVE_CAR iTemp2
-							IF iTemp2 = FINISHED_TASK
-								TASK_LEAVE_CAR iGF_ped iCurrentCar								 
-							ENDIF
+				IF iTemp2 = FINISHED_TASK
+				    FREEZE_CAR_POSITION iGF_TT_Car FALSE
+				    TASK_CAR_DRIVE_WANDER iGF_TT_driver iGF_TT_Car 30.0 DRIVINGMODE_PLOUGHTHROUGH
+					IF NOT IS_CHAR_DEAD iGF_ped
+						IF IS_CHAR_IN_ANY_CAR iGF_ped
+							TASK_LEAVE_ANY_CAR iGF_ped					 
 						ELSE
-							GET_SCRIPT_TASK_STATUS iGF_ped TASK_FLEE_CHAR_ANY_MEANS iTemp2
-							IF iTemp2 = FINISHED_TASK
-								TASK_FLEE_CHAR_ANY_MEANS iGF_ped scplayer 100.0 5000 FALSE 0 0 30.0
-							ENDIF
+							TASK_FLEE_CHAR_ANY_MEANS iGF_ped scplayer 100.0 5000 FALSE 0 0 30.0
+							TIMERB = 0
+							iGF_TT_Status = GF_TT_END
 						ENDIF
 					ENDIF					
-					TIMERB = 0
-					iGF_TT_Status = GF_TT_END
 				ENDIF						
 			ELSE
 				//--- Go to end state
@@ -4451,7 +4497,10 @@ GF_Date_TwoTiming:
 						iTemp2 = MILLIE
 					ENDIF
 					//--- Mark this girl as dead
+					CLEAR_HELP // FIXEDGROVE
+					PRINT_HELP GF_0039 //Your girlfriend is dead. // FIXEDGROVE			
 					iGFLikesPlayer[iTemp2] = GF_IS_DEAD
+					CLEAR_BIT iActiveGF iTemp2 // FIXEDGROVE: remove the girl 
 				ENDIF
 			ENDIF 
 			//--- Clear this bit, as if nothing ever happened...
@@ -4695,7 +4744,9 @@ GF_Date_RetrieveSpeechSubtitleForThisContext:
 			PRINT_NOW GF_0072 5000 1
 		BREAK
 		CASE CONTEXT_GLOBAL_CAR_FAST
-			PRINT_NOW GF_0073 2500 1			
+			IF NOT IS_BIT_SET iGFLikesOnDate[iGFidx] LIKES_TO_GO_FAST // FIXEDGROVE: only show warning if she doesn't like it
+				PRINT_NOW GF_0073 2500 1			
+			ENDIF // FIXEDGROVE	
 		BREAK
 		CASE CONTEXT_GLOBAL_CAR_SLOW
 			PRINT_NOW GF_0076 2500 1			
@@ -4765,7 +4816,6 @@ GF_Date_Cleanup:
 	MARK_MODEL_AS_NO_LONGER_NEEDED iGF_TT_PedModel
 	MARK_CHAR_AS_NO_LONGER_NEEDED iGF_TT_driver 
 	MARK_CAR_AS_NO_LONGER_NEEDED iGF_TT_Car
-	iGF_TT_STATUS = 0 // FIXEDGROVE
 	
 	//--- Date nimations clean up
 	REMOVE_ANIMATION KISSING
