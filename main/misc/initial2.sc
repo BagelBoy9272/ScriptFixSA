@@ -2248,7 +2248,7 @@ CREATE_CAR_GENERATOR -1963.0	628.0	151.0 182.0 SPARROW -1 -1 FALSE 0 0 0 10000 g
 CREATE_CAR_GENERATOR -1681.0	705.0	31.0 90.0 POLMAV -1 -1 FALSE 0 0 0 10000 gen_car_flying[2] 	//Helipad near garage, used in Toreno's Last Flight. Accessible at any time, so probably shouldn't get a vehicle until after Pilot's License is obtained. // FIXEDGROVE: was MAVERICK
 CREATE_CAR_GENERATOR -2630.0	684.0	72.0 180.0 MAVERICK -1 -1 FALSE 0 0 0 10000 gen_car_flying[3]	//First of two helipads on hospital roof. Got a + symbol on it. Probably safe to always have a heli, as I don't think you could access this part of the hospital roof without flying anyway.
 CREATE_CAR_GENERATOR -2726.0	682.0	72.0 90.0 RAINDANC -1 -1 FALSE 0 0 0 10000 gen_car_flying[4]	//Second helipad on hospital roof. Same as above, but with an H symbol.
-CREATE_CAR_GENERATOR -2227.0	2329.0  8.0	180.0 SEASPAR -1 -1 FALSE 0 0 0 10000 gen_car_flying[5]		//Helipad near boat school. Accessible once the SF bridges are open, so probably shouldn't get a vehicle until the Pilot's License has been obtained.
+CREATE_CAR_GENERATOR -2203.6    2426.2  0.0	70.0 SEASPAR -1 -1 FALSE 0 0 0 10000 gen_car_flying[5]		//Pier near boat school. Accessible once the SF bridges are open, so probably shouldn't get a vehicle until the Pilot's License has been obtained. // FIXEDGROVE: coords were -2227.0 2329.0 8.0 180.0, moved because it was overriding an ipl helicoper
 
 
 //LAs Venuras Flying vehicles
