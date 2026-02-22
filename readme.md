@@ -17,6 +17,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 ## List of changes
 
 <details><summary>Click here to expand</summary>
+<br>
+
+Changes marked with ®️ were made in later official revisions (compared to PC 1.0). This only includes **some** of the changes made.
 
 General:
 - Based on the latest official version (JP 2007), with merged changes from latest PC branch, without censorship
@@ -313,6 +316,7 @@ Misc:
 - Moved Hunter and Leviathan spawn coords in the abandoned airstrip to allow both of them to spawn simultaneously
 - Moved Seasparrow spawn coords in the helipad near the boat school so it doesn't overide the Maverick spawn
 - Moved Import/Export Huntley spawn coords outside the driving school so it doesn't override the reward Hotknife
+- ®️ Moved NRG-500 and FCR-900 spawn coords outside the bike school to allow both of them to spawn simultaneously
 - Turn taxi lights off when the taxi submission ends
 - Made Bike Shool and Boat School use blank 'no medal' sprite in languages other than english
 - Made food carts use corresponding ped models
@@ -323,6 +327,8 @@ Misc:
 - Added the 'Reuniting The Families' motel props to freeroam
 - Made crack factory front gate spawn in freeroam
 - Restored unique custom plates for import/export from PS2 REV 1
+- ®️ Now you can quit the "Let's Get Ready to Bumble" arcade game mid-game
+- ®️ Now you can quit the "Go Go Space Monkey" arcade game mid-game
 - Each Trucking and Quarry mission now plays the mission complete tune (previously only the last one did)
 - Each Trucking and Quarry mission now counts towards total progress % (previously only the last one did)
 - Each mountain bike race now counts towards total progress % (previously only the last one did)
