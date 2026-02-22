@@ -19,7 +19,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 <details><summary>Click here to expand</summary>
 <br>
 
-Changes marked with ®️ were made in later official revisions (compared to PC 1.0). This only includes **some** of the changes made.
+®️ = (some) listed changes from official post PC 1.0 revisions.
 
 General:
 - Based on the latest official version (JP 2007), with merged changes from latest PC branch, without censorship
@@ -362,4 +362,5 @@ Notes and pro tips:
 Sergeanur for curing the original scripts.  
 Silent for help in implementing his script fixes.  
 bamspeedy1298 for his stats guide on GameFAQS.  
+
 OrionSR, TheoTTG, Deezire, Silent, Domiiniik, ArmanCan, StreetFonso, Nick007J, Vadim M and Kaizo M for documenting script bugs and oddities.
