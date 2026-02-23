@@ -297,6 +297,7 @@ Misc:
 - Fixed Quadruple Insane Stunt
 - Fixed crappy cone deletion code in bike school and driving school deleting random objects (Blackboard glitch)
 - Fixed missing Pizza Stack icon in Montgomery
+- ®️ Fixed missing barber shop icon in El Quebrados
 - Fixed duplicated Binco icon in Juniper Hill, SF
 - Fixed 'The Big Spread Ranch' private dance not counting towards 'strip club budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
