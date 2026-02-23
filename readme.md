@@ -1,5 +1,9 @@
 # ScriptFixSA
 
+<p align="center">
+  <img src="https://i.ibb.co/jkphV2dG/logo.png" alt="Logo">
+</p>
+
 ScriptFixSA aims to provide bugfixes and quality of life improvements to the original scripts. It also restores some of the cut content, but only the type that was cut unintentionally (due to a code bug) or something that developers likely forgot to add due to tight deadlines and that doesn't break the plot, characters or game's lore. There's no intent to reuse every bit of unused content for the sake of it, or to recreate cut/rumored missions. Based off of [UndefinifiedGrove](https://github.com/Sergeanur/UndefinifiedGrove). Heavily inspired by [SCFIX-Liberty](https://github.com/Sergeanur/SCFIX-Liberty), [SCFIX-Miami](https://github.com/Sergeanur/SCFIX-Miami), [GTA-SA---SCM-Fixes](https://github.com/Domiiniik/GTA-SA---SCM-Fixes) and [TTDISA](https://gtaforums.com/topic/939012-things-to-do-in-san-andreas-volume-ii/)
 
 Relevant or otherwise interesting changes to the scripts were marked with a `FIXEDGROVE` comment.
@@ -365,3 +369,4 @@ Silent for help in implementing his script fixes.
 bamspeedy1298 for his stats guide on GameFAQS.  
 
 OrionSR, TheoTTG, Deezire, Silent, Domiiniik, ArmanCan, StreetFonso, Nick007J, Vadim M and Kaizo M for documenting script bugs and oddities.
+
