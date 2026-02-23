@@ -1118,11 +1118,11 @@ GF_Dating_Agent_GetMeetingOrigin_X_Y_Z_H:
 			fOriginH	= 130.0
 		BREAK
 
-		CASE SUZIE // commented the co-ords inside the gym, temporarily set her in a park nearby
-			fOriginX 	= -2291.7075 //762.9347 
-			fOriginY 	= -233.0215 //-23.3127 
-			fOriginZ 	= 41.7185 //999.5938 
-			fOriginH	= 360.0 //360.0
+		CASE SUZIE // FIXEDGROVE: use commented coords, since her used ones were meant to be temporary
+			fOriginX 	= 762.9347
+			fOriginY 	= -23.3127
+			fOriginZ 	= 999.5938
+			fOriginH	= 360.0
 		BREAK
 
 		DEFAULT
