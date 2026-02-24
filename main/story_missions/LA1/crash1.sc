@@ -694,6 +694,13 @@ Crash1_Stage_GoToHouse:
 		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2350.1685 -1164.9385 300.0 300.0 FALSE
 			GOSUB Crash1_Create_Car_Being_Worked_On
 			GOSUB Crash1_Create_Outside_Gang_Members
+			// Delete the global Object Burning Desire door
+			DELETE_OBJECT g_BD_DOOR // FIXEDGROVE: moved from init so the objects aren't missing before the molotovs are obtained
+			// FIXEDGROVE: START - Delete the global Object Burning Desire windows
+			REPEAT 8 nLoop
+				DELETE_OBJECT g_BD_WINDOW[nLoop]
+			ENDREPEAT
+			// FIXEDGROVE: END
 			GOSUB Crash1_Create_Windows
 			GOSUB Crash1_Create_Front_Door
 
@@ -7671,10 +7678,6 @@ Crash1_Initialisation:
 	SWITCH_ENTRY_EXIT GANG FALSE
 
 
-	// Delete the global Object Burning Desire door
-	DELETE_OBJECT g_BD_DOOR
-
-
 	// Disband the player's group and prevent recruitment
 	REMOVE_GROUP Players_Group
 	SET_PLAYER_GROUP_RECRUITMENT player1 FALSE
@@ -8035,7 +8038,43 @@ Crash1_Create_Walls:
 
 RETURN
 
+Crash1_Recreate_Global_Windows:
+	// Front Downstairs Right Window
+	CREATE_OBJECT_NO_OFFSET bd_window 2345.914 -1188.633 28.969 g_BD_WINDOW[0]
+	DONT_REMOVE_OBJECT g_BD_WINDOW[0]
 
+	// Front Downstairs Left Window
+	CREATE_OBJECT_NO_OFFSET bd_window 2336.023 -1188.633 28.969 g_BD_WINDOW[1]
+	DONT_REMOVE_OBJECT g_BD_WINDOW[1]
+
+	// Front Downstairs Far Left Window
+	CREATE_OBJECT_NO_OFFSET bd_window 2326.164 -1188.633 28.969 g_BD_WINDOW[2]
+	DONT_REMOVE_OBJECT g_BD_WINDOW[2]
+
+	// Window by Front Door
+	CREATE_OBJECT_NO_OFFSET bd_window 2345.977 -1170.977 28.969 g_BD_WINDOW[3]
+	SET_OBJECT_HEADING g_BD_WINDOW[3] 180.0
+	DONT_REMOVE_OBJECT g_BD_WINDOW[3]
+
+	// Kitchen Window
+	CREATE_OBJECT_NO_OFFSET bd_window 2326.57 -1170.984 28.953 g_BD_WINDOW[4]
+	SET_OBJECT_HEADING g_BD_WINDOW[4] 180.0
+	DONT_REMOVE_OBJECT g_BD_WINDOW[4]
+
+	// Girls Window
+	CREATE_OBJECT_NO_OFFSET bd_window_shatter 2345.977 -1170.977 32.953 g_BD_WINDOW[5]
+	SET_OBJECT_HEADING g_BD_WINDOW[5] 180.0
+	DONT_REMOVE_OBJECT g_BD_WINDOW[5]
+
+	// Front Upstairs Left Window
+	CREATE_OBJECT_NO_OFFSET bd_window 2336.023 -1188.633 32.961 g_BD_WINDOW[6]
+	DONT_REMOVE_OBJECT g_BD_WINDOW[6]
+
+	// Front Upstairs Right Window
+	CREATE_OBJECT_NO_OFFSET bd_window 2345.914 -1188.633 32.961 g_BD_WINDOW[7]
+	DONT_REMOVE_OBJECT g_BD_WINDOW[7]
+	// FIXEDGROVE: END
+RETURN
 
 
 
@@ -8055,6 +8094,12 @@ mission_failed_Crash1:
 		PRINT_NOW CRA1_51 5000 1
 	ENDIF
 
+	// FIXEDGROVE: START - delete mission windows and recreate them globally
+	REPEAT 8 nLoop
+		DELETE_OBJECT objectWindow[nLoop]
+	ENDREPEAT
+	GOSUB Crash1_Recreate_Global_Windows
+	// FIXEDGROVE: END
 RETURN
 
 

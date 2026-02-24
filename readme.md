@@ -331,6 +331,7 @@ Misc:
 - Increased weekday check for Kick Start by one, now its avaliable on sundays, tuesdays and thursdays, instead of mondays and wednesdays (previously the first check was, if weekday = 0, which is impossible since the valid range for "weekday" is 1 thru 7)
 - Made the motel props from 'Reuniting The Families' spawn in freeroam
 - Made the storm drain grate from 'Just Business' spawn in freeroam
+- Made the house windows from 'Burning Desire' spawn in freeroam
 - Made crack factory front gate spawn in freeroam
 - Restored unique custom plates for import/export from PS2 REV 1
 - ®️ Now you can quit the "Let's Get Ready to Bumble" arcade game mid-game
