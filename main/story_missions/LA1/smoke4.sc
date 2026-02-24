@@ -133,7 +133,7 @@ LVAR_FLOAT cam_P_acc_X_s4 cam_P_acc_Y_s4 cam_P_acc_Z_s4 cam_P_speed_X_s4 cam_P_s
 LVAR_FLOAT cam_L_acc_X_s4 cam_L_acc_Y_s4 cam_L_acc_Z_s4 cam_L_speed_X_s4 cam_L_speed_Y_s4 cam_L_speed_Z_s4 
 LVAR_FLOAT cam_P_Y_cap_speed cam_L_Y_cap_speed cam_L_Z_cap_speed
 
-LVAR_INT timescale_status_s4 grate_s4 barrel1_s4 barrel2_s4 barrel3_s4 barrel4_s4 barrel5_s4
+LVAR_INT timescale_status_s4 barrel1_s4 barrel2_s4 barrel3_s4 barrel4_s4 barrel5_s4 // FIXEDGROVE: removed grate_s4 since now its global
 LVAR_FLOAT timescale_s4
 LVAR_INT camera_pos_status_s4
 LVAR_INT camera_look_status_s4
@@ -5946,6 +5946,7 @@ IF jumpchase_s4flag = 2
 				SET_CHAR_PROOFS big_smoke TRUE TRUE TRUE TRUE TRUE
 			ENDIF
 			SET_CHAR_PROOFS scplayer TRUE TRUE TRUE TRUE TRUE
+			DELETE_OBJECT grate_s4 // FIXEDGROVE: delete the global object
 			CREATE_OBJECT_NO_OFFSET storm_drain_cover 2631.852 -1482.75 18.109 grate_s4
 			grate_s4flag = 1
 			progressaudio_s4flag = 0
@@ -6952,6 +6953,12 @@ RETURN
 
 mission_drugs1_failed:
 PRINT_BIG ( M_FAIL ) 5000 1 //"Mission Failed"
+// FIXEDGROVE: START - delete the grate and recreate it
+DELETE_OBJECT grate_s4
+CREATE_OBJECT_NO_OFFSET storm_drain_cover 2631.852 -1482.75 18.109 grate_s4
+SET_OBJECT_HEALTH grate_s4 150
+DONT_REMOVE_OBJECT grate_s4
+// FIXEDGROVE: END
 RETURN
 
    

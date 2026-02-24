@@ -3042,6 +3042,13 @@ SET_OBJECT_COLLISION_DAMAGE_EFFECT carterwall FALSE
 FREEZE_OBJECT_POSITION carterwall TRUE
 DONT_REMOVE_OBJECT carterwall
 
+// FIXEDGROVE: START - storm drain grate
+VAR_INT grate_s4
+CREATE_OBJECT_NO_OFFSET storm_drain_cover 2631.852 -1482.75 18.109 grate_s4
+SET_OBJECT_HEALTH grate_s4 150
+DONT_REMOVE_OBJECT grate_s4
+// FIXEDGROVE: END
+
 // FIXEDGROVE: START - jefferson motel objects
 // skylight
 VAR_INT g_skylite
