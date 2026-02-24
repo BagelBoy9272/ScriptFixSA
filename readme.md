@@ -254,7 +254,6 @@ End Of The Line:
 
 GFs:
 - Disabled sex censorship
-- Made Katie use her unused spawn coords (moves her to the gym in SF), since her used coords were meant to be temporary
 - Made locked version of GFs' cars have the unlocked version's license plate
 - Fixed Katie not liking stunts
 - Fixed Katie not liking fast driving
