@@ -137,8 +137,10 @@ Just Bussiness:
 - Sligthly changed the order of STOP_CHAR_FACIAL_TALK commands to be more precise
 
 Burning Desire:
+- Now if player already has molotovs, they are not required to go pick them up in the alley
 - Added timers to ending cutscene to prevent softlocks
 - Proofed Denise in ending cutscene to prevent softlocks
+- Remove the alley molotov pickup in cleanup
 
 Los Sepulcros:
 - Removed respect requirement to enable unused part of the mission back

@@ -381,7 +381,7 @@ countNextTempCutscenePosition		= 0
 
 // ***** FAKE ENTITY CREATION TO FOOL THE COMPILER *****
 // The compiler just needs to verify there is a CREATE_ before usage
-IF m_stage = -99
+GOTO crash1_fool_compiler
 	
 	WRITE_DEBUG SHOULD_NEVER_BE_IN_FAKE_ENTITY_CREATION
 
@@ -449,7 +449,7 @@ IF m_stage = -99
  	ADD_BLIP_FOR_CHAR charCoochie blipCoochie
 	ADD_BLIP_FOR_PICKUP pickupMolotovsOnRoute blipMolotovsOnRoute
 
-ENDIF
+crash1_fool_compiler:
 
 
 
@@ -643,23 +643,28 @@ Crash1_Stage_GoToHouse:
 
    	// Initialisation for this stage
    	IF m_goals = 0
-		// INSTRUCTIONS: Go pick up some molotovs
-		PRINT_NOW CRA1_00 15000 1
+		IF NOT HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_MOLOTOV // FIXEDGROVE: skip picking up the molotov if player already has one
+			// INSTRUCTIONS: Go pick up some molotovs
+			PRINT_NOW CRA1_00 15000 1
 
-		// Generate molotov pickups and blip
-		GOSUB Crash1_Create_MolotovsOnRoute
+			// Generate molotov pickups and blip
+			GOSUB Crash1_Create_MolotovsOnRoute
 
-		flagDisplayedMolotovHelpText = FALSE
-		timerHelpText = 0
+			flagDisplayedMolotovHelpText = FALSE
+			timerHelpText = 0
 
-		m_goals++
+			m_goals++
+		ELSE
+			m_goals = 2 // FIXEDGROVE: skip picking up the molotov if player already has one
+		ENDIF
 	ENDIF
 
 
 	// Arrival at the Molotov pickup point
 	IF m_goals = 1
 		// Check if player has arrived at molotov pickup point
-		IF HAS_PICKUP_BEEN_COLLECTED pickupMolotovsOnRoute
+		IF HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_MOLOTOV // FIXEDGROVE: changed from HAS_PICKUP_BEEN_COLLECTED
+			REMOVE_PICKUP pickupMolotovsOnRoute // FIXEDGROVE: remove the molotov in case the player got it elsewhere
 			REMOVE_BLIP blipMolotovsOnRoute
 
 			flagDisplayedMolotovHelpText = FALSE
@@ -8152,6 +8157,8 @@ mission_cleanup_Crash1:
 
 		flagMolotovPickupsActive = 0
 	ENDIF
+
+	REMOVE_PICKUP pickupMolotovsOnRoute // FIXEDGROVE
 
 	// ...cash pickups
 	REPEAT CRASH1_MAX_CASH_PICKUPS nLoop
