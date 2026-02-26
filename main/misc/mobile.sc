@@ -11,8 +11,9 @@ VAR_INT flag_new_cont players_skipping_the_call	skip_the_mobile_call millies_lik
 VAR_INT call_delay cell_index_start	cell_index_end audio_slot_mobile
 VAR_INT mobile_audio_labels[20]	current_visible_area_cell
 VAR_TEXT_LABEL $mobile_print_labels[20]
-VAR_FLOAT Returnedfat
+VAR_INT mobile_speaker[20] // FIXEDGROVE: stores the current speaker for a line
 VAR_INT call_number_gf_variation // FIXEDGROVE: stores gf phonecall conversation variation
+VAR_FLOAT Returnedfat
    
 // SET FLAGS AND VARIABLES
 skip_the_mobile_call = 0
@@ -25,6 +26,8 @@ call_delay = 20000
 
 SET_DEATHARREST_STATE OFF //stops script being terminated if Player dies/arrested
 
+CONST_INT SPEAKER_NULL 0 // FIXEDGROVE
+CONST_INT SPEAKER_PLAYER 1 // FIXEDGROVE
 //CATALINA 
 CONST_INT CATALINA_MOBILE_CUT2 0
 CONST_INT CATALINA_MOBILE_CUT3 1
@@ -187,6 +190,30 @@ MISSION_END
 
 mobile_chat_switch:
 
+// FIXEDGROVE: START - clean the array so we only have to set it when the player talks
+mobile_speaker[0] = SPEAKER_NULL
+mobile_speaker[1] = SPEAKER_NULL
+mobile_speaker[2] = SPEAKER_NULL
+mobile_speaker[3] = SPEAKER_NULL
+mobile_speaker[4] = SPEAKER_NULL
+mobile_speaker[5] = SPEAKER_NULL
+mobile_speaker[6] = SPEAKER_NULL
+mobile_speaker[7] = SPEAKER_NULL
+mobile_speaker[8] = SPEAKER_NULL
+mobile_speaker[9] = SPEAKER_NULL
+mobile_speaker[10] = SPEAKER_NULL
+mobile_speaker[11] = SPEAKER_NULL
+mobile_speaker[12] = SPEAKER_NULL
+mobile_speaker[13] = SPEAKER_NULL
+mobile_speaker[14] = SPEAKER_NULL
+mobile_speaker[15] = SPEAKER_NULL
+mobile_speaker[16] = SPEAKER_NULL
+mobile_speaker[17] = SPEAKER_NULL
+mobile_speaker[18] = SPEAKER_NULL
+mobile_speaker[19] = SPEAKER_NULL
+// FIXEDGROVE: END
+
+// FIXEDGROVE: assigned speakers
 IF call_number < COOCHIE_MOBILE
  
 	SWITCH call_number
@@ -219,6 +246,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[10] = SOUND_MSWE14L	//Uh-uh, this is your gig, CJ. You need to establish your rep.
 		mobile_audio_labels[11] = SOUND_MSWE14N	//Get over to AmmuNation and sort yourself with a proper strap.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+
 		cell_index_end = 11
 	BREAK
 
@@ -248,6 +280,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MSWE10K	//Yeah, I’m down.
 		mobile_audio_labels[8] = SOUND_MSWE10L	//Thanks for the heads up.
 		mobile_audio_labels[9] = SOUND_MSWE10N	//Don’t mention it.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER	
 
 		cell_index_end = 9
 	BREAK
@@ -281,6 +318,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[11] = SOUND_MSWE06N	//I’ll scope it out.
 		mobile_audio_labels[12] = SOUND_MSWE06M	//Later, man.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
 
 		cell_index_end = 12
 	BREAK
@@ -308,6 +351,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MSWE05H	//Go check it out.
 		mobile_audio_labels[8] = SOUND_MSWE05J	//Ok, I’m gonna see what’s up, man.
 		mobile_audio_labels[9] = SOUND_MSWE05K	//But with the fat jokes, you’re gonna give me a complex.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
 
 		cell_index_end = 9
 	BREAK
@@ -341,6 +390,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[11] = SOUND_MSWE08N	//Big love, bro.
 		mobile_audio_labels[12] = SOUND_MSWE08M	//Big love, yo.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
+
 		cell_index_end = 12
 	BREAK
 	
@@ -361,6 +415,9 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MSWE09F	//He’s hiding in Los Flores, or East Los Santos.
 		mobile_audio_labels[5] = SOUND_MSWE09G	//Time to saddle up, CJ!
 		mobile_audio_labels[6] = SOUND_MSWE09H	//Alright, I’ll get you, and then we’ll roll over there.
+
+		mobile_speaker[1] = SPEAKER_PLAYER	
+		mobile_speaker[6] = SPEAKER_PLAYER
 
 		cell_index_end = 6
 	BREAK
@@ -385,6 +442,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[6] = SOUND_MSWE11G	//I’m trying, man, just gotta make sure Kendl’s safe first.
 		mobile_audio_labels[7] = SOUND_MSWE11H	//Ok, man, I gotta go...
 		mobile_audio_labels[8] = SOUND_MSWE11J	//Don’t worry bro, I ain’t gonna leave you in there.
+
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
 
 		cell_index_end = 8
 	BREAK
@@ -431,6 +493,15 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[17] = SOUND_MSWE12S	//No, wait, I got all kinds of shit going down, just hang in there!
 		mobile_audio_labels[18] = SOUND_MSWE12T	//Sweet? SWEET?
 		mobile_audio_labels[19] = SOUND_MSWE12U	//Shit....
+
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+		mobile_speaker[13] = SPEAKER_PLAYER
+		mobile_speaker[14] = SPEAKER_PLAYER
+		mobile_speaker[17] = SPEAKER_PLAYER
+		mobile_speaker[18] = SPEAKER_PLAYER
+		mobile_speaker[19] = SPEAKER_PLAYER
 
 		cell_index_end = 19
 	BREAK
@@ -493,6 +564,10 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[6] = SOUND_MCAT02G //No more talk!
 		mobile_audio_labels[7] = SOUND_MCAT02H //Get your ass up here, now!
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+
 		cell_index_end = 7
 	BREAK
 		
@@ -503,6 +578,8 @@ IF call_number < COOCHIE_MOBILE
 
 		mobile_audio_labels[0] = SOUND_MCAT03A //PIG!
 		mobile_audio_labels[1] = SOUND_MCAT03B //Catalina? Is that you?
+
+		mobile_speaker[1] = SPEAKER_PLAYER
 
 		cell_index_end = 1
 	BREAK
@@ -523,6 +600,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MCAT04E	//Well hey, let’s just – <click>
 		mobile_audio_labels[5] = SOUND_MCAT04F	//Hello?
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+
 		cell_index_end = 5
 	BREAK
 
@@ -541,6 +623,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[3] = SOUND_MCAT05E	//Stupid games? This is my heart you play with!
 		mobile_audio_labels[4] = SOUND_MCAT05F	//What? Look, you – <click>
 		mobile_audio_labels[5] = SOUND_MCAT05G	//Damn! Gotta change my number!
+
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
 
 		cell_index_end = 5
 	BREAK
@@ -569,6 +656,10 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[8] = SOUND_MCAT06J	//Yeah, well I –
 		mobile_audio_labels[9] = SOUND_MCAT06K	//No time – byeeee! <click>
 
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+
 		cell_index_end = 9
 	BREAK
 
@@ -589,6 +680,10 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MCAT07E	//Oh, yes, yes, yes, YES!
 		mobile_audio_labels[5] = SOUND_MCAT07F	//Catalina! You’re sick! Get help!
 		mobile_audio_labels[6] = SOUND_MCAT07G	//And you, Carl, you are jealous! <click>
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
 
 		cell_index_end = 6
 	BREAK
@@ -616,6 +711,10 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MLOC03E	//I don’t know. I had plans tonight.
 		mobile_audio_labels[5] = SOUND_MLOC03F	//But we had a big disaster. I won’t be rappin’, my mic’s broken!
 		mobile_audio_labels[6] = SOUND_MLOC03H	//I’ll be over right away.
+
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
 
 		cell_index_end = 6
 	BREAK
@@ -651,6 +750,13 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[11] = SOUND_MCES01N	//	Ok, I’m in. When and where?
 		mobile_audio_labels[12] = SOUND_MCES01O	//	Drop by place in El Corona, I’ll take you to the meet, vouch for you. 
 		mobile_audio_labels[13] = SOUND_MCES01P	//	These guys can be very nervous with new racers, eh.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
 
 		cell_index_end = 13
 	BREAK
@@ -692,6 +798,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[14] = SOUND_MCES04Q	//	Meet them at the diner in Dillimore over in Red County. 
 		mobile_audio_labels[15] = SOUND_MCES04R	//	You won’t miss them.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+
 		cell_index_end = 15
 	BREAK
 
@@ -728,6 +840,10 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[12] = SOUND_MCES09O	//	Just get a fast car and meet me and Kendl just south of Montgomery. 
 		mobile_audio_labels[13] = SOUND_MCES09P	//	See you, man.
 
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+
 		cell_index_end = 13
 	BREAK
 
@@ -752,6 +868,13 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[6] = SOUND_MKND01G	//	Tell Cesar next time I’ll be in a faster car!
 		mobile_audio_labels[7] = SOUND_MKND01H	//	It won’t help you – LOSER!
 		mobile_audio_labels[8] = SOUND_MKND01J	//	Goodbye!
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
 
 		cell_index_end = 8
 	BREAK
@@ -782,6 +905,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MTEN01H	// Nice to hear it, Carl. 
 		mobile_audio_labels[8] = SOUND_MTEN01J	// Call in to the doughnut place in the middle of Market – we need to talk.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+
 		cell_index_end = 8
 	BREAK
 
@@ -802,39 +930,47 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MTEN02E	// I’ll find it.
 		mobile_audio_labels[5] = SOUND_MTEN02F	// I know you will, I’ll see you there.
 
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+
 		cell_index_end = 5
 	BREAK
 
 	CASE CRASH_MOBILE_CALL3
-		 $mobile_print_labels[0] = &MHRZ01A //Carl, it's officer Hernandez
-		 $mobile_print_labels[1] = &MHRZ01B //Who?
-		 $mobile_print_labels[2] = &MHRZ01C //Officer Hernandez.
-		 $mobile_print_labels[3] = &MHRZ01D //I work with Tenpenny and Pulaski.
-		 $mobile_print_labels[4] = &MHRZ01E //Oh, the bitch, what the hell you want?
-		 $mobile_print_labels[5] = &MHRZ01F //Hey, show me some respect, uh, boy.
-		 $mobile_print_labels[6] = &MHRZ01G //Go fuck yourself, you just they bitch!
-		 $mobile_print_labels[7] = &MHRZ01H //You watch your tone, boy.
-		 $mobile_print_labels[8] = &MHRZ01J //Now listen.  I've got a message from Officer Tenpenny.
-		 $mobile_print_labels[9] = &MHRZ01K //Don't try and leave town, that would be a big mistake.
-		 $mobile_print_labels[10] = &MHRZ01L //You hear me?
-		 $mobile_print_labels[11] = &MHRZ01M //We're watching you.
-		 $mobile_print_labels[12] = &MHRZ01N //Whatever you say, bitch.
-		 
+		$mobile_print_labels[0] = &MHRZ01A //Carl, it's officer Hernandez
+		$mobile_print_labels[1] = &MHRZ01B //Who?
+		$mobile_print_labels[2] = &MHRZ01C //Officer Hernandez.
+		$mobile_print_labels[3] = &MHRZ01D //I work with Tenpenny and Pulaski.
+		$mobile_print_labels[4] = &MHRZ01E //Oh, the bitch, what the hell you want?
+		$mobile_print_labels[5] = &MHRZ01F //Hey, show me some respect, uh, boy.
+		$mobile_print_labels[6] = &MHRZ01G //Go fuck yourself, you just they bitch!
+		$mobile_print_labels[7] = &MHRZ01H //You watch your tone, boy.
+		$mobile_print_labels[8] = &MHRZ01J //Now listen.  I've got a message from Officer Tenpenny.
+		$mobile_print_labels[9] = &MHRZ01K //Don't try and leave town, that would be a big mistake.
+		$mobile_print_labels[10] = &MHRZ01L //You hear me?
+		$mobile_print_labels[11] = &MHRZ01M //We're watching you.
+		$mobile_print_labels[12] = &MHRZ01N //Whatever you say, bitch.
+		
 
-		 mobile_audio_labels[0] = SOUND_MHRZ01A //Carl, it's officer Hernandez
-		 mobile_audio_labels[1] = SOUND_MHRZ01B //Who?
-		 mobile_audio_labels[2] = SOUND_MHRZ01C //Officer Hernandez.
-		 mobile_audio_labels[3] = SOUND_MHRZ01D //I work with Tenpenny and Pulaski.
-		 mobile_audio_labels[4] = SOUND_MHRZ01E //Oh, the bitch, what the hell you want?
-		 mobile_audio_labels[5] = SOUND_MHRZ01F //Hey, show me some respect, uh, boy.
-		 mobile_audio_labels[6] = SOUND_MHRZ01G //Go fuck yourself, you just they bitch!
-		 mobile_audio_labels[7] = SOUND_MHRZ01H //You watch your tone, boy.
-		 mobile_audio_labels[8] = SOUND_MHRZ01J //Now listen.  I've got a message from Officer Tenpenny.
-		 mobile_audio_labels[9] = SOUND_MHRZ01K //Don't try and leave town, that would be a big mistake.
-		 mobile_audio_labels[10] = SOUND_MHRZ01L //You hear me?
-		 mobile_audio_labels[11] = SOUND_MHRZ01M //We're watching you.
-		 mobile_audio_labels[12] = SOUND_MHRZ01N //Whatever you say, bitch.
+		mobile_audio_labels[0] = SOUND_MHRZ01A //Carl, it's officer Hernandez
+		mobile_audio_labels[1] = SOUND_MHRZ01B //Who?
+		mobile_audio_labels[2] = SOUND_MHRZ01C //Officer Hernandez.
+		mobile_audio_labels[3] = SOUND_MHRZ01D //I work with Tenpenny and Pulaski.
+		mobile_audio_labels[4] = SOUND_MHRZ01E //Oh, the bitch, what the hell you want?
+		mobile_audio_labels[5] = SOUND_MHRZ01F //Hey, show me some respect, uh, boy.
+		mobile_audio_labels[6] = SOUND_MHRZ01G //Go fuck yourself, you just they bitch!
+		mobile_audio_labels[7] = SOUND_MHRZ01H //You watch your tone, boy.
+		mobile_audio_labels[8] = SOUND_MHRZ01J //Now listen.  I've got a message from Officer Tenpenny.
+		mobile_audio_labels[9] = SOUND_MHRZ01K //Don't try and leave town, that would be a big mistake.
+		mobile_audio_labels[10] = SOUND_MHRZ01L //You hear me?
+		mobile_audio_labels[11] = SOUND_MHRZ01M //We're watching you.
+		mobile_audio_labels[12] = SOUND_MHRZ01N //Whatever you say, bitch.
 	
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
+
 		cell_index_end = 12
 	BREAK
 
@@ -867,6 +1003,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[9] = SOUND_MSMK01K	//Gimme a break.
 		mobile_audio_labels[10] = SOUND_MSMK01L	//I’m trying. Trying to help you help yourself, brother. The gym, you hear.
 		mobile_audio_labels[11] = SOUND_MSMK01M	//Screw you.
+
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
 
 		cell_index_end = 11
 	BREAK
@@ -907,6 +1049,14 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[13] = SOUND_MTRU01O	//So, I’ve got a room at a motel in Angel Pine.
 		mobile_audio_labels[14] = SOUND_MTRU01P	//Make sure nobody follows you.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[10] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
+
 		cell_index_end = 14
 
 	BREAK		
@@ -926,6 +1076,8 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MTRU02E	//I don’t know you! I don’t know you! 
 		mobile_audio_labels[5] = SOUND_MTRU02F	//Prank caller! Prank caller!
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+
 		cell_index_end = 5
 
 	BREAK
@@ -942,6 +1094,9 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[2] = SOUND_MTRU03C	//In about five minutes.
 		mobile_audio_labels[3] = SOUND_MTRU03D	//Where are you?
 		mobile_audio_labels[4] = SOUND_MTRU03E	//At the old airplane graveyard you’ve been hanging around.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
 
 		cell_index_end = 4
 
@@ -969,6 +1124,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[6] = SOUND_MWUZ00G	//My people will be expecting a visit.
 		mobile_audio_labels[7] = SOUND_MWUZ00H	//It’s a plan, man.
 		mobile_audio_labels[8] = SOUND_MWUZ00J	//Later, dude.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
 
 		cell_index_end = 8
 	BREAK
@@ -998,6 +1158,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[9] = SOUND_MWUZ03K	//I’ll see you soon, yeah?
 		mobile_audio_labels[10] = SOUND_MWUZ03L	//Sure thing, dude.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[10] = SPEAKER_PLAYER
+
 		cell_index_end = 10
 	BREAK
 
@@ -1022,6 +1187,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MWUZ05H //(laugh) okay, just gimme a call when you’ve got it.
 		mobile_audio_labels[8] = SOUND_MWUZ05J	//Will do.
 
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+
 		cell_index_end = 8
 	BREAK
 
@@ -1035,6 +1205,8 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[1] = SOUND_MWUZ07B	//You the man!
 		mobile_audio_labels[2] = SOUND_MWUZ07C	//Get back to the Four Dragons and we can get on with this thing!
 		mobile_audio_labels[3] = SOUND_MWUZ07D	//See you in five.
+
+		mobile_speaker[3] = SPEAKER_PLAYER
 
 		cell_index_end = 3
 	BREAK
@@ -1057,6 +1229,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[5] = SOUND_MWUZ04F	//I’ll meet you back at the ‘Dragons.
 		mobile_audio_labels[6] = SOUND_MWUZ04G	//Ok, cool.
 		mobile_audio_labels[7] = SOUND_MWUZ04H	//Later.   
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
 
 		cell_index_end = 7
 	BREAK
@@ -1096,6 +1273,17 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[13] = SOUND_MWUZ06M	//Shit, you’re right.
 		mobile_audio_labels[14] = SOUND_MWUZ06N	//I’ll call when I’ve got the card.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+		mobile_speaker[10] = SPEAKER_PLAYER
+		mobile_speaker[13] = SPEAKER_PLAYER
+		mobile_speaker[14] = SPEAKER_PLAYER
+
 		cell_index_end = 14
 	BREAK
 
@@ -1128,6 +1316,15 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[10] = SOUND_MWUZ06L	//You gotta break in and get it!
 		mobile_audio_labels[11] = SOUND_MWUZ06M	//Shit, you’re right.
 		mobile_audio_labels[12] = SOUND_MWUZ06N	//I’ll call when I’ve got the card.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
 
 		cell_index_end = 12
 	BREAK
@@ -1162,6 +1359,9 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[9] = SOUND_MTOR01K	//Now if you want brother to sleep tonight with his tongue intact get your ass over here, now. 
 		mobile_audio_labels[10] = SOUND_MTOR01L	//Goodbye.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
 
 		cell_index_end = 10
 	BREAK
@@ -1181,6 +1381,10 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[3] = SOUND_MTOR02D	//Can’t you just tell me now?
 		mobile_audio_labels[4] = SOUND_MTOR02E	//I guess not.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+
 		cell_index_end = 4
 	BREAK
 
@@ -1191,6 +1395,8 @@ IF call_number < COOCHIE_MOBILE
 
 		mobile_audio_labels[0] = SOUND_MTOR03A	//Here. Now. Don’t screw around.
 		mobile_audio_labels[1] = SOUND_MTOR03B	//Asshole!
+
+		mobile_speaker[1] = SPEAKER_PLAYER
 
 		cell_index_end = 1
 	BREAK
@@ -1217,6 +1423,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[6] = SOUND_MTOR05G	//you don’t don’t know the meaning of fear, okay?
 		mobile_audio_labels[7] = SOUND_MTOR05H	//Oh yeah?  Try going to the swap meet in Idlewood sometime.
 		mobile_audio_labels[8] = SOUND_MTOR05J	//Learn to fly, Carl.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
 
 		cell_index_end = 8
 
@@ -1249,6 +1460,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[9] = SOUND_MTOR06K	//Ok, ok, I’ll-
 		mobile_audio_labels[10] = SOUND_MTOR06L	//TORENO?
 		mobile_audio_labels[11] = SOUND_MTOR06M	//Oh shit…
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+		mobile_speaker[10] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
 
 		cell_index_end = 11
 	BREAK
@@ -1285,6 +1502,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[12] = SOUND_MTOR07J	//that was my last motivational speech, understand? Am I being too spiritual for you, Carl?
 		mobile_audio_labels[13] = SOUND_MTOR07K	//Ok, man, I get the message!
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
+		mobile_speaker[13] = SPEAKER_PLAYER
+
 		cell_index_end = 13
 	BREAK
 
@@ -1306,6 +1529,9 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[3] = SOUND_MKP01D	//and I think you’re the geezer to sort it out for us, ok, sunshine?
 		mobile_audio_labels[4] = SOUND_MKP01E	//Call around to the office.
 		mobile_audio_labels[5] = SOUND_MKP01F  //Thanks, man, I appreciate this opportunity.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
 
 		cell_index_end = 5
 	BREAK
@@ -1331,6 +1557,8 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MROS01H	//we’re screwed! It’s war for control of Venturas, man, War! WAR!
 		mobile_audio_labels[5] = SOUND_MROS01L	//there’s word of some Triad visit or something that should keep him busy. I’m calling from the bathroom, 
 		
+		mobile_speaker[0] = SPEAKER_PLAYER
+
 		cell_index_end = 5
 	BREAK
 
@@ -1352,6 +1580,9 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[5] = SOUND_MROS02F //Look, I haven’t forgotten you guys, just hang in there.
 		mobile_audio_labels[6] = SOUND_MROS02G //Easy for you to say, this Salvatore guy might whack me at any moment.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
 
 		cell_index_end = 6
 	BREAK
@@ -1388,6 +1619,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[12] = SOUND_MROS03O	//See you soon.
 		mobile_audio_labels[13] = SOUND_MROS03P //extra	Fucking amazing!
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
 
 		cell_index_end = 13
 	BREAK
@@ -1425,6 +1662,13 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[11] = SOUND_MSAL01N	//I’ll call you.
 		mobile_audio_labels[12] = SOUND_MSAL01O	//Thank you, Mr. Leone.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
+
 		cell_index_end = 12
 	BREAK
 
@@ -1453,6 +1697,12 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[8] = SOUND_MSAL02J	//so if you’ll excuse me.
 		mobile_audio_labels[9] = SOUND_MSAL02K	//You’re dead! DEAD!
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[3] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
 
 		cell_index_end = 9
 	BREAK
@@ -1485,6 +1735,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[8] = SOUND_MMILL2K	//Sure thing, Millie, sure thing. I’ll see you right.
 		mobile_audio_labels[9] = SOUND_MMILL2L	//Ok, I'll give you a call sometime.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+
 		cell_index_end = 9
 	BREAK
 
@@ -1506,6 +1761,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[4] = SOUND_MZER01E //I’ll have nowhere to live and no safe haven from Berkley...
 		mobile_audio_labels[5] = SOUND_MZER01F //I’m looking into property at the moment.
 		mobile_audio_labels[6] = SOUND_MZER01G //I’ll swing by and have a look see.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
 
 		cell_index_end = 6
 	BREAK
@@ -1532,6 +1792,13 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MZER02H	//I’ll have to tidy up a bit, this place is such a mess!
 		mobile_audio_labels[8] = SOUND_MZER02J	//Don’t worry about it.
 		mobile_audio_labels[9] = SOUND_MZER02K	//I’ll drop in soon.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
 
 		cell_index_end = 9
 	BREAK
@@ -1572,6 +1839,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[13] = SOUND_MJET_1O	//I think you’re, like, y’know, cool and shit. 
 		mobile_audio_labels[14] = SOUND_MJET_1P	//I better go, CJ, I’ll see you later.
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
+
 		cell_index_end = 14
 	BREAK
 
@@ -1600,6 +1872,11 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[9] = SOUND_MJET_2K	//Thanks, Jethro, I’ll give it some consideration.
 		mobile_audio_labels[10] = SOUND_MJET_2L	//Later, dude.
 
+		mobile_speaker[1] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
+		mobile_speaker[10] = SPEAKER_PLAYER
+
 		cell_index_end = 10
 	BREAK
 
@@ -1621,6 +1898,10 @@ IF call_number < COOCHIE_MOBILE
 		mobile_audio_labels[5] = SOUND_MJET_3F	//and I thought it would be a good idea to make things look as legitimate as possible.
 		mobile_audio_labels[6] = SOUND_MJET_3G	//Dude, that’s a great idea, I’ll look into it.
 		mobile_audio_labels[7] = SOUND_MJET_3H	//I’ll catch you later.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
 
 		cell_index_end = 7
 	BREAK
@@ -1790,6 +2071,8 @@ IF call_number < COOCHIE_MOBILE
 ELSE //call_number IS >= COOCHIE_MOBILE
 	
 // ***************************************GIRLFRIENDS************************************************************************************
+	mobile_speaker[1] = SPEAKER_PLAYER
+	
 	SWITCH call_number_gf_variation // FIXEDGROVE: was call_number
 
 
@@ -1892,6 +2175,12 @@ ELSE //call_number IS >= COOCHIE_MOBILE
 		mobile_audio_labels[8] = SOUND_MDEN_1J	//Only some base-pushing asshole would treat a girl like this!
 		mobile_audio_labels[9] = SOUND_MDEN_1K	//Now wait a minute!
 		mobile_audio_labels[10] = SOUND_MDEN_1L	//Can it, Carl. We’re over, finished.	 
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[1] = SPEAKER_NULL
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
 
 		cell_index_end = 10
 	BREAK 
@@ -2000,6 +2289,12 @@ ELSE //call_number IS >= COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MMICH1H	//We’re over, ok? Don’t bother coming ‘round any more!
 		mobile_audio_labels[8] = SOUND_MMICH1J	//Michelle, baby... Michelle?
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[1] = SPEAKER_NULL
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+
 		cell_index_end = 8
 	BREAK 
 
@@ -2107,6 +2402,13 @@ ELSE //call_number IS >= COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MHEL_1H	//Don’t you ‘girl’ me! I’m not one of your ghetto friends! In fact, I’m not your friend at all!
 		mobile_audio_labels[8] = SOUND_MHEL_1J	//Goodbye, Carl Johnson!
 		mobile_audio_labels[9] = SOUND_MHEL_1K	//Helena gimme a break! Helena? Shit.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[1] = SPEAKER_NULL
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
 
 		cell_index_end = 9
 	BREAK 
@@ -2230,6 +2532,16 @@ ELSE //call_number IS >= COOCHIE_MOBILE
 		mobile_audio_labels[15] = SOUND_MBARB1Q	//They’ll hunt you down! You’re going to jail, Carl, do you hear me, JAIL!
 		mobile_audio_labels[16] = SOUND_MBARB1R	//Shut the fuck up, bitch!
 
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[1] = SPEAKER_NULL
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[6] = SPEAKER_PLAYER
+		mobile_speaker[8] = SPEAKER_PLAYER
+		mobile_speaker[11] = SPEAKER_PLAYER
+		mobile_speaker[12] = SPEAKER_PLAYER
+		mobile_speaker[13] = SPEAKER_PLAYER
+		mobile_speaker[16] = SPEAKER_PLAYER
+
 		cell_index_end = 16
 	BREAK 
 
@@ -2335,6 +2647,12 @@ ELSE //call_number IS >= COOCHIE_MOBILE
 		mobile_audio_labels[6] = SOUND_MZAHN1G	//I deserve better than you!
 		mobile_audio_labels[7] = SOUND_MZAHN1H	//Katie, sweet baby, you gotta give me one last chance!
 	 	mobile_audio_labels[8] = SOUND_MZAHN1J	//Too late, Carl, you blew it!
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[1] = SPEAKER_NULL
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[4] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
 
 		cell_index_end = 8
 	BREAK 
@@ -2444,6 +2762,13 @@ ELSE //call_number IS >= COOCHIE_MOBILE
 		mobile_audio_labels[7] = SOUND_MMILL1H	//Do NOT say, “like a doughnut!”
 		mobile_audio_labels[8] = SOUND_MMILL1J	//Like a big round shit.
 		mobile_audio_labels[9] = SOUND_MMILL1K	//Shit.
+
+		mobile_speaker[0] = SPEAKER_PLAYER
+		mobile_speaker[1] = SPEAKER_NULL
+		mobile_speaker[2] = SPEAKER_PLAYER
+		mobile_speaker[5] = SPEAKER_PLAYER
+		mobile_speaker[7] = SPEAKER_PLAYER
+		mobile_speaker[9] = SPEAKER_PLAYER
 
 		cell_index_end = 9
 	BREAK 
@@ -4505,8 +4830,14 @@ load_and_play_mobile_calls:
 
 	audio_slot_mobile = 1
 	GOSUB loading_and_playing_audio
+	// FIXEDOGROVE: START - add facial talk anim
+	IF mobile_speaker[cell_index_start] = SPEAKER_PLAYER
+		START_CHAR_FACIAL_TALK scplayer 30000
+	ENDIF
+	// FIXEDGROVE: END
 	PRINT_NOW ( $mobile_print_labels[cell_index_start] ) 10000 1 //rhubarb rhubarb
 	GOSUB has_audio_finished
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 	
 	IF players_skipping_the_call = 2
 		RETURN
@@ -4517,8 +4848,14 @@ load_and_play_mobile_calls:
 	IF cell_index_start <= cell_index_end
 		audio_slot_mobile = 2
 		GOSUB loading_and_playing_audio
+		// FIXEDOGROVE: START - add facial talk anim
+		IF mobile_speaker[cell_index_start] = SPEAKER_PLAYER
+			START_CHAR_FACIAL_TALK scplayer 30000
+		ENDIF
+		// FIXEDOGROVE: END
 		PRINT_NOW ( $mobile_print_labels[cell_index_start] ) 10000 1 //rhubarb rhubarb
 		GOSUB has_audio_finished
+		STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 	ELSE
 		cell_index_start --
 	ENDIF
