@@ -25,33 +25,33 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 ®️ = (some) listed changes from official post PC 1.0 revisions.
 
-General:
+**General:**
 - Based on the latest official version (JP 2007), with merged changes from latest PC branch, without censorship
 - Refactored code bloat created by the Japanese support
 - Removed On Mission flag checks in some missions that were meant to bypass compiler errors
 - Made cutscene skips consistently use IS_SKIP_CUTSCENE_BUTTON_PRESSED instead of a cross or circle button press check
 - Corrected 'missions attempted' and 'missions passed' stats.
 
-Intro cutscene:
+**Intro cutscene:**
 - Restored PS2 REV 1 size for text
 - Fixed stretched text
 
-Big Smoke/Sweet & Kendl:
+**Big Smoke/Sweet & Kendl:**
 - Fixed drive-by Ballas standing still to the right of the player after the Mulholland Intersection cutscene, instead of being teleported and frozen under the map
 - Made Groves hate scripted ballas
 - Made Ballas respect scripted ballas
 - Deleted some useless code
 
-Ryder:
+**Ryder:**
 - Fixed Ryder's car spawning only being turned ON on mission pass
 - Added ability to skip ending cutscene
 
-Tagging Up Turf:
+**Tagging Up Turf:**
 - Sweet now switches to the driver's seat before driving off
 - Fixed Sweet being parked at Grove Street after driving off
 - Added ability to skip ending cutscene
 
-Cleaning the Hood:
+**Cleaning the Hood:**
 - Fixed bat pickup clipping into the ground
 - Removed "IS_IN_CAR" checks for the dialogue, to make it flow more naturally
 - Made Ryder aggresive towards the drug dealer and the enemies inside the crack den
@@ -65,28 +65,28 @@ Cleaning the Hood:
 - Added STOP_CHAR_FACIAL_TALK for player in cleaup
 - Slight refactoring
 
-Drive-Thru:
+**Drive-Thru:**
 - Fixed Sweet and Smoke changing seats after the drive-thru cutscene
 - Made freeroam Ballas respect scripted Ballas
 - Made Groves hate scripted Ballas
 
-Nines And AKs:
+**Nines And AKs:**
 - Made "cycling through targets" help box only show up if using a controller, otherwise display unused help box about gun recoil
 
-Cesar Vialpando:
+**Cesar Vialpando:**
 - Fixed ghost town after getting the Savanna and before entering Loco Low Co.
 - Lowrider meet peds are only deleted after the cutscene
 - Fixed mission passed tune not playing
 
-Sweet's Girl:
+**Sweet's Girl:**
 - Fixed possible softlock in the initial cutscene
 
-Home Invasion:
+**Home Invasion:**
 - Fixed Ryder vanishing in the ending cutscene
 - Made player look at Ryder during 'CJ, you gotta get it into your head...' line to make it look more natural
 - Moved task clearing after the fade out so they aren't stopped suddenly during it
 
-Catalyst:
+**Catalyst:**
 - Removed check that prevented Ryder from teleporting to intended location in ending cutscene
 - Added facial talk anim to voicelines
 - Added ability to skip intro cutscene
@@ -98,11 +98,11 @@ Catalyst:
 - Made player stop looking at Ryder before the fade out in the ending cutscene
 - Removed some pointless code
 
-Robbing Uncle Sam:
+**Robbing Uncle Sam:**
 - Added a fade in after the initial cutscene
 - Fixed 'Now get in there and open the damn gate!' line not playing at 30 FPS due to the gate closing sooner at higher framerates
 
-OG Loc:
+**OG Loc:**
 - Added facial talk anim to voicelines
 - Deleted redundant SHUT_CHAR_UP calls, since now its handled by the audio code
 - Reverted a timer that was set to zero for debug
@@ -112,13 +112,13 @@ OG Loc:
 - Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
 - Swapped an if chain with a switchcase
 
-Running Dog:
+**Running Dog:**
 - Added facial talk anim to voicelines
 - Fixed an animation check that was supposed to make the running vagos member faster
 - Made Smoke respect player and Grove members, so he doesn't shoot them if provoked
 - Set SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH for player to false in cleanup
 
-Wrong Side Of The Tracks:
+**Wrong Side Of The Tracks:**
 - Added facial talk anim to voicelines
 - Added small pause before the dialogue plays on the way to the train station
 - Now you can kill the 4th vagos member before he gets killed by the railing
@@ -130,22 +130,22 @@ Wrong Side Of The Tracks:
 - Restored objetive text when you get out of the car
 - Tweaked order of widescreen commands so they aren't set during a fadeout, only after one
 
-Just Bussiness:
+**Just Bussiness:**
 - Added facial talk anim to voicelines
 - Restored a possibly unintentionally unused line
 - Made difficulty flag global
 - Sligthly changed the order of STOP_CHAR_FACIAL_TALK commands to be more precise
 
-Burning Desire:
+**Burning Desire:**
 - Now if player already has molotovs, they are not required to go pick them up in the alley
 - Added timers to ending cutscene to prevent softlocks
 - Proofed Denise in ending cutscene to prevent softlocks
 - Remove the alley molotov pickup in cleanup
 
-Los Sepulcros:
+**Los Sepulcros:**
 - Removed respect requirement to enable unused part of the mission back
 
-Reuniting The Families:
+**Reuniting The Families:**
 - Added facial talk anim to voicelines 
 - Added facial talk anim to Grove members outside the motel
 - Added back missing subititles for swat lines
@@ -168,10 +168,10 @@ Reuniting The Families:
 - Fixed characters not using their intented animation groups 
 - Add 4 star wanted level if the player fails the mission after getting to the motel 
 
-Tanker Commander:
+**Tanker Commander:**
 - Proofed Whittaker in final cutscene to prevent softlocks
 
-Big Smoke's Cash:
+**Big Smoke's Cash:**
 - Fixed mission cancelling suddenly if player gets a phonecall
 - Courier blip is only added if the mission was accepted
 - Earnings and Weekday reminder are only displayed if the mission was accepted
@@ -184,7 +184,7 @@ Big Smoke's Cash:
 - The courier and his car are made vulnerable on mission cleanup
 - If the player completes the mission (collects all crates) the courier will try to pursue the player, and the goons will keep shooting the player
 
-Yay Courier:
+**Yay Courier:**
 - Fixed mission cancelling suddenly if the player got a phonecall
 - Fixed edge case where if the player kills the courier without damaging the coke, very little money will be awarded since the timer used for earnings calculations is never set to 0
 - Courier blip is only added if the mission was accepted
@@ -193,68 +193,68 @@ Yay Courier:
 - Use unused negative responde audio for phonecall choice (instead of reused one from 'Life's A Beach')
 - Removed some pointless cleanup
 
-King In Exile:
+**King In Exile:**
 - Fixed softlock if player dies during the phonecall after the cutscene
 
-Farewell, My Love...:
+**Farewell, My Love...:**
 - Fixed Woozie ped model being used instead of Claude
 - Swapped an opponent's car with Claude's car, to match the cutscene
 
-Air Raid:
+**Air Raid:**
 - Fixed "stealing" of player's heavy weapons
 
-Supply Lines:
+**Supply Lines:**
 - Fixed rural cops and streaming issues
 
-Beefy Baron:
+**Beefy Baron:**
 - Fixed rural cops and streaming issues
 
-Mountain Cloud Boys:
+**Mountain Cloud Boys:**
 - Fixed occasional softlock when you reached the meeting area
 
-Lure:
+**Lure:**
 - Now uses intended variant of Rancher
 
-Ice Cold Killa:
+**Ice Cold Killa:**
 - Fixed typo in coords for CREATE_BIRDS command 
 
-Customs Fast Track:
+**Customs Fast Track:**
 - Fixed the ped model used for the guard not matching their voice
 
-You've Had Your Chips:
+**You've Had Your Chips:**
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
 
-Fender Ketchup:
+**Fender Ketchup:**
 - Fixed right handbrake turns not counting 
 
-Up, Up And Away!:
+**Up, Up And Away!:**
 - Fixed stationary minigun removing the player's heavy weaponry
 - Fixed minigun not being removed if the player dies while using it
 
-Breaking The Bank At Caligula's:
+**Breaking The Bank At Caligula's:**
 - Fixed this mission permanently altering PEDTYPE_CIVMALE relationship towards player
 - Fixed the player's haircut being temporarily reset for no apparent reason
 
-Home Coming:
+**Home Coming:**
 - Fixed the player dying if he was still in the Vincent when the mission ended
 
-Cut Throat Bussiness:
+**Cut Throat Bussiness:**
 - Set camera behind the player and fade in after the initial cutscene
 
-Grove 4 Life:
+**Grove 4 Life:**
 - Fixed Sweet and player spawning outside CJ's house instead of Sweet's house
 
-Riot:
+**Riot:**
 - Fixed duplicated Sweet's car in Grove Street
 
-Los Desperados:
+**Los Desperados:**
 - Made Aztecas friendly to the Grove after this mission
 
-End Of The Line:
+**End Of The Line:**
 - Fixed swat member being spawned out of the map due to typo
 - Disabled mod garages to prevent issues
 
-GFs:
+**GFs:**
 - Disabled sex censorship
 - Made locked version of GFs' cars have the unlocked version's license plate
 - Fixed Katie not liking stunts
@@ -285,14 +285,14 @@ GFs:
 - Made dump phonecalls retry if the player couldn't answer
 - Refactored GF phonecalls related code
 
-Parachute:
+**Parachute:**
 - Fixed landing animation
 - Fixed a bug where the parachute "fails to open" if you have the "keep weapons after death" bonus and you die with a parachute in your inventory
 - Fixed weird twitch after landing
 - Fixed parachute going through the floor
 - Uncommented some code to allow the full "landing in water" anim for parachute to play
 
-Misc:
+**Misc:**
 - Fixed Ryder's car not spawning depending on mission order
 - Fixed pimp submission undoing the relationship change from Ballas towards player set in 'Drive-By'
 - Fixed Didier Sachs not being flagged as unlocked
@@ -369,9 +369,8 @@ Notes and pro tips:
 
 ## Thanks
 
-Sergeanur for curing the original scripts.  
-Silent for help in implementing his script fixes.  
-bamspeedy1298 for his stats guide on GameFAQS.  
-
-OrionSR, TheoTTG, Deezire, Silent, Domiiniik, ArmanCan, StreetFonso, Nick007J, Vadim M and Kaizo M for documenting script bugs and oddities.
+**Sergeanur** for curing the original scripts.  
+**Silent** for help in implementing his script fixes.  
+**bamspeedy1298** for his stats guide on GameFAQS.  
+**OrionSR**, **TheoTTG**, **Deezire**, **Silent**, **Domiiniik**, **ArmanCan**, **StreetFonso**, **Nick007J**, **Vadim M** and **Kaizo M** for documenting script bugs and oddities.
 
