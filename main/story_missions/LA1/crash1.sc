@@ -381,7 +381,7 @@ countNextTempCutscenePosition		= 0
 
 // ***** FAKE ENTITY CREATION TO FOOL THE COMPILER *****
 // The compiler just needs to verify there is a CREATE_ before usage
-GOTO crash1_fool_compiler
+GOTO crash1_fool_compiler // FIXEDGROVE: replace impossible check with a goto
 	
 	WRITE_DEBUG SHOULD_NEVER_BE_IN_FAKE_ENTITY_CREATION
 
@@ -449,7 +449,7 @@ GOTO crash1_fool_compiler
  	ADD_BLIP_FOR_CHAR charCoochie blipCoochie
 	ADD_BLIP_FOR_PICKUP pickupMolotovsOnRoute blipMolotovsOnRoute
 
-crash1_fool_compiler:
+crash1_fool_compiler: // FIXEDGROVE: replace impossible check with a goto
 
 
 
@@ -491,8 +491,8 @@ mission_loop_Crash1:
 
 
 	// Debug Stuff
-	GOSUB Crash1_Debug_Tools
-	GOSUB Crash1_Debug_Shortcuts
+//	GOSUB Crash1_Debug_Tools // FIXEDGROVE: comment out
+//	GOSUB Crash1_Debug_Shortcuts // FIXEDGROVE: comment out
 
 	IF m_quit = 1
 	OR m_pause = 1
