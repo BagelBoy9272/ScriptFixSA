@@ -309,6 +309,8 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
 - Fixed upper bound on a random number generator in the dance minigame, effectively bringing back an unintentionally unused partner model
 - Fixed typo in the license plate of Cesar's car
+- Fixed lines when you leave the chair for the tattoo artist only playing if the player was in the "back tattoo" state
+- Fixed Tattoo script not waiting for the needle sound effect to end before moving on to the next state (this mimics an official fix for barbershops)
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
 - Fixed infrared goggles not respawning after being picked up
 - Fixed body armour inside Madd Dogg's mansion not respawning after being picked up
