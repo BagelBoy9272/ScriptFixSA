@@ -265,8 +265,8 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed wrong variable usage for LIKES_PARKING_ROMANTIC check, restoring proper functionality
 - Fixed a diner that was marked as a bar
 - Now GFs that like fast driving will comment on it
-- Only play TAKE_HOME_HAPPY context if the date was actually good, otherwise play TAKE_HOME_ANGRY context
-- Play unused GFRIEND_OFFER_DANCE context while on a club if player is on a dancing date
+- Only play the "take home happy" voicelines if the date was actually good, otherwise play the "take home angry" lines
+- Added unused "OFFER_DANCE" lines for GFs, now these will play if the player is on a dancing date and they are inside a club
 - Fixed Millie using a Feltzer instead of a Club in two-timing events
 - Fixed two-timing only working if you always rolled the chance for it, and never got caught
 - Fixed car bj increasing progress indefinitely
