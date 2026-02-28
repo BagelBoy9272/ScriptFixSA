@@ -2285,6 +2285,8 @@ VAR_INT shopkeeper_model_shops
 
 VAR_INT sample_name_shops // FIXEDGROVE: moved from junkfud.sc
 
+CONST_INT SHOP_TIME_BEFORE_CHAT 8000 // FIXEDGROVE: used for the SHOP_CHAT speech context
+
 VAR_INT switch_the_gym_interiors_off
 switch_the_gym_interiors_off = 0
 

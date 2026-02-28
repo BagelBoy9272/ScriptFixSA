@@ -662,6 +662,13 @@ shop_ammunation_inner:
 
 				ENDIF
 
+				// FIXEDGROVE: START - play unused speech context
+				IF TIMERA > SHOP_TIME_BEFORE_CHAT
+					SET_CHAR_SAY_CONTEXT_IMPORTANT shop_keep_ammunation CONTEXT_GLOBAL_SHOP_CHAT FALSE FALSE TRUE sample_name_shops
+					TIMERA = 0
+				ENDIF
+				// FIXEDGROVE: END
+
 				IF shop_progress_ammunation < 1
 
 					IF main_menu_drawn_shops = 0
@@ -807,6 +814,13 @@ shop_ammunation_inner:
 					GOTO shop_ammunation_inner
 
 				ENDIF
+
+				// FIXEDGROVE: START - play unused speech context
+				IF TIMERA > SHOP_TIME_BEFORE_CHAT
+					SET_CHAR_SAY_CONTEXT_IMPORTANT shop_keep_ammunation CONTEXT_GLOBAL_SHOP_CHAT FALSE FALSE TRUE sample_name_shops
+					TIMERA = 0
+				ENDIF
+				// FIXEDGROVE: END
 
 				IF shop_progress_ammunation < 1
 
@@ -997,6 +1011,13 @@ shop_ammunation_inner:
 					GOTO shop_ammunation_inner
 
 				ENDIF
+
+				// FIXEDGROVE: START - play unused speech context
+				IF TIMERA > SHOP_TIME_BEFORE_CHAT
+					SET_CHAR_SAY_CONTEXT_IMPORTANT shop_keep_ammunation CONTEXT_GLOBAL_SHOP_CHAT FALSE FALSE TRUE sample_name_shops
+					TIMERA = 0
+				ENDIF
+				// FIXEDGROVE: END
 
 				IF shop_progress_ammunation < 1
 

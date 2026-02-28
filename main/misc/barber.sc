@@ -578,6 +578,13 @@ shop_barbers_inner:
 					GOTO shop_barbers_inner
 				ENDIF
 				
+				// FIXEDGROVE: START - play unused speech context
+				IF TIMERA > SHOP_TIME_BEFORE_CHAT
+					SET_CHAR_SAY_CONTEXT shop_keep_barbers CONTEXT_GLOBAL_SHOP_CHAT sample_name_shops
+					TIMERA = 0
+				ENDIF
+				// FIXEDGROVE: END
+
 				IF control_flag_barbers < 1 	   
 					IF main_menu_drawn_shops = 0
 						GOSUB fill_main_menu_barbers
@@ -863,6 +870,13 @@ shop_barbers_inner:
 
 					GOTO shop_barbers_inner
 				ENDIF
+
+				// FIXEDGROVE: START - play unused speech context
+				IF TIMERA > SHOP_TIME_BEFORE_CHAT
+					SET_CHAR_SAY_CONTEXT shop_keep_barbers CONTEXT_GLOBAL_SHOP_CHAT sample_name_shops
+					TIMERA = 0
+				ENDIF
+				// FIXEDGROVE: END
 
 				IF cost_menu_drawn_shops = 0
 					IF control_flag_barbers < 1
