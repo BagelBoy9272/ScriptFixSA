@@ -248,6 +248,8 @@ shop_barbers_inner:
 		
 			IF flag_barber = 0 
 				
+				GENERATE_RANDOM_INT_IN_RANGE 0 2 random_number_barbers // FIXEDGROVE: assign a random anim variation so the first time it isn't always the same
+
 				IF $shop_name = barbers	
 					
 					barber_shop_offsetX = 0.0
@@ -949,14 +951,6 @@ shop_barbers_inner:
 										$name_of_anim_barbers = BRB_beard_01
 									ELSE
 
-										IF random_number_barbers > 1
-											random_number_barbers = 0
-										ENDIF
-													
-										IF random_number_barbers < 0
-											random_number_barbers = 0
-										ENDIF
-										
 										IF random_number_barbers = 0
 											$name_of_anim_barbers = BRB_hair_01
 											++ random_number_barbers
@@ -970,14 +964,6 @@ shop_barbers_inner:
 								ENDIF
 
 								IF $shop_name = barber2
-																			  
-									IF random_number_barbers > 1
-										random_number_barbers = 0
-									ENDIF
-													
-									IF random_number_barbers < 0
-										random_number_barbers = 0
-									ENDIF
 										
 									IF random_number_barbers = 0
 										$name_of_anim_barbers = BRB_hair_01
@@ -996,14 +982,6 @@ shop_barbers_inner:
 									OR $hairstyle_name = BALDGOT
 										$name_of_anim_barbers = BRB_beard_01
 									ELSE
-
-										IF random_number_barbers > 1
-											random_number_barbers = 0
-										ENDIF
-													
-										IF random_number_barbers < 0
-											random_number_barbers = 0
-										ENDIF
 										
 										IF random_number_barbers = 0
 											$name_of_anim_barbers = BRB_hair_01

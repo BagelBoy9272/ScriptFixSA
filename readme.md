@@ -339,6 +339,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - ®️ Now you can quit the "Let's Get Ready to Bumble" arcade game mid-game
 - ®️ Now you can quit the "Go Go Space Monkey" arcade game mid-game
 - Added facial talking anim to phonecalls
+- Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Each Trucking and Quarry mission now plays the mission complete tune (previously only the last one did)
 - Each Trucking and Quarry mission now counts towards total progress % (previously only the last one did)
 - Each mountain bike race now counts towards total progress % (previously only the last one did)
