@@ -2283,6 +2283,8 @@ created_save_blips = 0
 // **************************************** SHOP MENU VARAIBLES ***********************************
 VAR_INT shopkeeper_model_shops
 
+VAR_INT sample_name_shops // FIXEDGROVE: moved from junkfud.sc
+
 VAR_INT switch_the_gym_interiors_off
 switch_the_gym_interiors_off = 0
 
