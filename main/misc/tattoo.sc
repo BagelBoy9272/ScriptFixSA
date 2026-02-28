@@ -656,6 +656,7 @@ shop_tattoo_inner:
 						ENDIF
 							
 						TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_tattoo tat_sit_out_t TATTOOS 1000.0 FALSE FALSE FALSE TRUE -1	
+						SET_CHAR_SAY_CONTEXT shop_keep_tattoo CONTEXT_GLOBAL_THANKS_FOR_CUSTOM sample_name_shops // FIXEDGROVE: missing line
 						shop_keep_animation_time_tattoo = 0.0
 
 						shop_progress_tattoo = 7
@@ -950,7 +951,6 @@ shop_tattoo_inner:
 				IF shop_progress_tattoo = 4
 					flag_in_remove_tattoo_section = 0
 					GOSUB start_out_anims_tattoo	
-					shop_progress_tattoo = 5
 				ENDIF
 				
 				IF shop_progress_tattoo = 5
@@ -1191,7 +1191,6 @@ shop_tattoo_inner:
 				IF shop_progress_tattoo = 7
 					flag_in_remove_tattoo_section = 1
 					GOSUB start_out_anims_tattoo
-					shop_progress_tattoo = 8
 				ENDIF
 
 				IF shop_progress_tattoo = 8
@@ -2061,16 +2060,22 @@ RETURN
 // starting the back out anims
 start_out_anims_tattoo:
 
-	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $name_of_player_out_anim_tattoo TATTOOS 1000.0 FALSE FALSE FALSE TRUE -1
-	return_animation_time_tattoo = 0.0
+	IF HAS_MISSION_AUDIO_FINISHED 4 // FIXEDGROVE: wait until the needle sound effect is finished, mimics the official barbershop fix
 
-	TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_tattoo $name_of_shop_out_anim_tattoo TATTOOS 1000.0 FALSE FALSE FALSE TRUE -1
-	shop_keep_animation_time_tattoo = 0.0
+		TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $name_of_player_out_anim_tattoo TATTOOS 1000.0 FALSE FALSE FALSE TRUE -1
+		return_animation_time_tattoo = 0.0
+	
+		TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_tattoo $name_of_shop_out_anim_tattoo TATTOOS 1000.0 FALSE FALSE FALSE TRUE -1
+		shop_keep_animation_time_tattoo = 0.0
+	
+		IF DOES_OBJECT_EXIST tattoo_needle							
+			PLAY_OBJECT_ANIM tattoo_needle $name_of_object_out_anim_tattoo TATTOOS 1000.0 FALSE TRUE
+			object_animation_time_tattoo = 0.0
+		ENDIF
 
-	IF DOES_OBJECT_EXIST tattoo_needle							
-		PLAY_OBJECT_ANIM tattoo_needle $name_of_object_out_anim_tattoo TATTOOS 1000.0 FALSE TRUE
-		object_animation_time_tattoo = 0.0
-	ENDIF
+		shop_progress_tattoo++ // FIXEDGROVE: increase this flag here rather than in the main loop
+
+	ENDIF // FIXEDGROVE: wait until the needle sound effect is finished, mimics the official barbershop fix
 
 RETURN
 
@@ -2091,11 +2096,7 @@ finish_out_anims_tattoo:
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer tat_back_sit_loop_p TATTOOS 1000.0 TRUE FALSE FALSE FALSE -1
 			return_animation_time_tattoo = 0.0
 			
-			IF flag_in_remove_tattoo_section = 1
-			   shop_progress_tattoo = 9
-			ELSE
-				shop_progress_tattoo = 6
-			ENDIF
+			shop_progress_tattoo++
 			
 		ENDIF
 
@@ -2116,11 +2117,7 @@ finish_out_anims_tattoo:
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer tat_sit_loop_p TATTOOS 1000.0 TRUE FALSE FALSE FALSE -1
 			return_animation_time_tattoo = 0.0
 
-			IF flag_in_remove_tattoo_section = 1
-				shop_progress_tattoo = 9
-			ELSE
-				shop_progress_tattoo = 6
-			ENDIF						
+			shop_progress_tattoo++					
 
 		ENDIF
 
