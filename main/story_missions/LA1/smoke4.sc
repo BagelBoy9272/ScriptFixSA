@@ -2022,7 +2022,9 @@ IF smoke_s4flag = 11
 
 			IF helpshoottext_s4flag = 2
 				IF TIMERB > 10000
-					PRINT_HELP DGS1_2 //If enemies are using cover it may be better to use precision aimong on the ~h~right analoge stick ~w~whilst shooting.
+					IF IS_PC_USING_JOYPAD // FIXEDGROVE
+						PRINT_HELP DGS1_2 //If enemies are using cover it may be better to use precision aimong on the ~h~right analoge stick ~w~whilst shooting.
+					ENDIF // FIXEDGROVE
 					TIMERB = 0
 					helpshoottext_s4flag = 3
 				ENDIF

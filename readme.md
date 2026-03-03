@@ -135,6 +135,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Restored a possibly unintentionally unused line
 - Made difficulty flag global
 - Sligthly changed the order of STOP_CHAR_FACIAL_TALK commands to be more precise
+- Made "manual aim" help box only show up if using a controller
 
 **Burning Desire:**
 - Now if player already has molotovs, they are not required to go pick them up in the alley
