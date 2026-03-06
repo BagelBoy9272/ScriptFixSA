@@ -1726,6 +1726,7 @@ bj_m_stage_4:
 						m_goals2 = 0
 						m_goals++
 						circle_is_pressed = 1
+						SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_GAMB_BJ_HIT temp_int // FIXEDGROVE
 						GOTO end_of_input2
 					ENDIF
 				ELSE
@@ -1741,6 +1742,7 @@ bj_m_stage_4:
 							player_has_split = 1
 							m_goals++
 							m_goals2 = 0
+							SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_GAMB_BJ_SPLIT temp_int // FIXEDGROVE
 							GOTO end_of_input2
 						ENDIF
 					ENDIF
@@ -1755,6 +1757,7 @@ bj_m_stage_4:
 							player_has_doubled2 = 1	
 						ENDIF
 						m_goals++
+						SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_GAMB_BJ_DOUBLE temp_int // FIXEDGROVE
 						GOTO end_of_input2
 					ENDIF
 				ENDIF
@@ -1769,6 +1772,7 @@ bj_m_stage_4:
 						ENDIF
 						cross_is_pressed = 1
 						m_goals++
+						SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_GAMB_BJ_STICK temp_int // FIXEDGROVE
 						GOTO end_of_input2	
 					ENDIF
 				ELSE
