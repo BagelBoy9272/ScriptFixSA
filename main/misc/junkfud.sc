@@ -345,10 +345,10 @@ shop_junkfud_inner:
 
 								IF flag_ate_too_much_food = 0
 
-									IF IS_CHAR_DEAD shop_keep_junkfud
+									IF NOT IS_CHAR_DEAD shop_keep_junkfud // FIXEDGROVE: was missing the NOT
 										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_BOUGHT_ENOUGH sample_name_shop
 										PRINT_NOW (FOOD1) 5000 1 //"You cannot buy any more food at the moment, you will be unwell!
-										REPORT_MISSION_AUDIO_EVENT_AT_POSITION player_x player_y player_z SOUND_SHOP_BUY_DENIED 
+										//REPORT_MISSION_AUDIO_EVENT_AT_POSITION player_x player_y player_z SOUND_SHOP_BUY_DENIED // FIXEDGROVE: comment out since this normally plays while on menus
 									ELSE
 										GOSUB junkfud_cleanup_small
 
@@ -1086,297 +1086,97 @@ shop_junkfud_inner:
 								ENDIF
 
 							ELSE
-
-								IF flag_ate_too_much_food = 0
-
-									IF NOT IS_CHAR_DEAD shop_keep_junkfud
-										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_BOUGHT_ENOUGH sample_name_shop
-										REPORT_MISSION_AUDIO_EVENT_AT_POSITION player_x player_y player_z SOUND_SHOP_BUY_DENIED
-										PRINT_NOW (FOOD1) 5000 1 //"You cannot buy any more food at the moment, you will be unwell!
-									ELSE
-										
-										GOSUB junkfud_cleanup_small
-
-										GET_LOADED_SHOP $shop_name
-
-										IF NOT $shop_name = $stored_shop
-											GOSUB junkfud_cleanup_big
-										ENDIF
-
-										GOTO shop_junkfud_inner
-									ENDIF
 																		
-									IF cost_menu_drawn_shops = 1
-										DELETE_MENU cost_menu_shops
-										CLEAR_HELP
-										cost_menu_drawn_shops = 0
-									ENDIF
+								IF cost_menu_drawn_shops = 1
+									DELETE_MENU cost_menu_shops
+									CLEAR_HELP
+									cost_menu_drawn_shops = 0
+								ENDIF
 
-									IF bought_menu_drawn_shops = 1
-										DELETE_MENU bought_menu_shops
-										CLEAR_HELP
-										bought_menu_drawn_shops = 0
-									ENDIF
+								IF bought_menu_drawn_shops = 1
+									DELETE_MENU bought_menu_shops
+									CLEAR_HELP
+									bought_menu_drawn_shops = 0
+								ENDIF
 
-									// skip stuff for filsh
-									IF flag_menace_buyfood = 2
-										SET_FADING_COLOUR 0 0 0
+								// skip stuff for filsh
+								IF flag_menace_buyfood = 2
+									SET_FADING_COLOUR 0 0 0
 
-										SET_MUSIC_DOES_FADE FALSE
+									SET_MUSIC_DOES_FADE FALSE
 
-										DO_FADE 0 FADE_OUT
+									DO_FADE 0 FADE_OUT
 
-										GOSUB delete_all_food
+									GOSUB delete_all_food
 
-										DELETE_CHAR shop_keep_junkfud
+									DELETE_CHAR shop_keep_junkfud
 
-										flag_menace_buyfood = 3
+									flag_menace_buyfood = 3
 
-										cost_menu_drawn_shops = 0
-										bought_menu_drawn_shops = 0
+									cost_menu_drawn_shops = 0
+									bought_menu_drawn_shops = 0
 
-										flag_no_money_shops = 0
+									flag_no_money_shops = 0
 
-										created_this_food = 0
-										current_food_item = 0
-										flag_food = 2
+									created_this_food = 0
+									current_food_item = 0
+									flag_food = 2
 
-										// stuff sets back player to normal if he is sick
-										SET_CHAR_HEALTH scplayer players_health
-										SET_FLOAT_STAT FAT players_fat
+									// stuff sets back player to normal if he is sick
+									SET_CHAR_HEALTH scplayer players_health
+									SET_FLOAT_STAT FAT players_fat
 
-										cj_vomits_for_menace = 1
+									cj_vomits_for_menace = 1
 
-										GOTO shop_junkfud_inner 
+									GOTO shop_junkfud_inner 
 
-									ENDIF
+								ENDIF
 
-									IF total_food_bought_per_day_shops >= 11
-									
-										GOSUB junkfud_cleanup_small
-										GOSUB delete_all_food 
+								IF total_food_bought_per_day_shops >= 11
+								
+									GOSUB junkfud_cleanup_small
+									GOSUB delete_all_food 
 
-										// stuff sets back player to normal if he is sick
+									// stuff sets back player to normal if he is sick
+
+									IF players_health < 10
+										players_health = players_health
+									ELSE
+										players_health = players_health - 10
 
 										IF players_health < 10
-											players_health = players_health
-										ELSE
-											players_health = players_health - 10
-
-											IF players_health < 10
-												players_health = 10
-											ENDIF
-
+											players_health = 10
 										ENDIF
 
-										SET_CHAR_HEALTH scplayer players_health
-										SET_FLOAT_STAT FAT players_fat 
-											 									 
-										SET_FIXED_CAMERA_POSITION vomit_camX vomit_camY vomit_camZ 0.0 0.0 0.0 // 374.717 -122.550 1002.572 
-										POINT_CAMERA_AT_POINT vomit_cam_point_junkfudX vomit_cam_point_junkfudY vomit_cam_point_junnkfudZ JUMP_CUT
-										
-										IF IS_PLAYER_PLAYING player1
-											GET_CHAR_COORDINATES scplayer player_X player_Y player_Z 
-										   	vomitX = player_X + 0.355
-											vomitY = player_Y - 0.116
-										   	vomitZ = player_Z - 0.048
-											CREATE_FX_SYSTEM puke vomitX vomitY vomitZ TRUE vomit_foodshop
-											TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer Eat_Vomit_P FOOD 4.0 FALSE FALSE FALSE FALSE -1
-											return_animation_time_food = 0.0
-											SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_CJ_PUKE sample_name_shop
-																						
-										ELSE
-											GOSUB junkfud_cleanup_big
-											GOTO shop_junkfud_inner 
-										ENDIF
+									ENDIF
 
-										IF NOT IS_CHAR_DEAD shop_keep_junkfud
-										   	TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud Eat_Vomit_SK FOOD 1000.0 FALSE FALSE FALSE FALSE -1
-											SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_PLAYER_SICK sample_name_shop
-										ELSE
-											GOSUB junkfud_cleanup_small
-
-											GET_LOADED_SHOP $shop_name
-
-											IF NOT $shop_name = $stored_shop
-												GOSUB junkfud_cleanup_big
-											ENDIF
-
-											GOTO shop_junkfud_inner
-										ENDIF
-
-										IF IS_CHAR_PLAYING_ANIM scplayer Eat_Vomit_P
-											GET_CHAR_ANIM_CURRENT_TIME scplayer Eat_Vomit_P return_animation_time_food
-										ENDIF
-
-										WHILE NOT return_animation_time_food = 1.0
-										
-											WAIT 0
-																					   
-											IF flag_vomit_playing_food = 0
-
-												IF return_animation_time_food >= 0.463
-													
-													IF HAS_MISSION_AUDIO_LOADED 4
-														REPORT_MISSION_AUDIO_EVENT_AT_CHAR scplayer SOUND_RESTAURANT_CJ_PUKE
-													ENDIF
-
-													flag_vomit_playing_food = 1
-
-												ENDIF
-
-											ENDIF
-
-											IF flag_vomit_playing_food = 1 
-												
-												IF return_animation_time_food >= 0.52
-													PLAY_FX_SYSTEM vomit_foodshop
-													flag_vomit_playing_food = 2
-												ENDIF
-												
-											ENDIF	 
-
-											IF IS_PLAYER_PLAYING player1
-												GET_CHAR_ANIM_CURRENT_TIME scplayer Eat_Vomit_P return_animation_time_food
-											ELSE
-												GOSUB junkfud_cleanup_big
-												GOTO shop_junkfud_inner 
-											ENDIF
-
-											IF NOT IS_CHAR_DEAD shop_keep_junkfud
-												
-											ELSE
-												GOSUB junkfud_cleanup_small
-
-												GET_LOADED_SHOP $shop_name
-
-												IF NOT $shop_name = $stored_shop
-													GOSUB junkfud_cleanup_big
-												ENDIF
-
-												GOTO shop_junkfud_inner
-											ENDIF
-
-										ENDWHILE
-
-										STOP_FX_SYSTEM vomit_foodshop
-										KILL_FX_SYSTEM vomit_foodshop
-
+									SET_CHAR_HEALTH scplayer players_health
+									SET_FLOAT_STAT FAT players_fat 
+										 									 
+									SET_FIXED_CAMERA_POSITION vomit_camX vomit_camY vomit_camZ 0.0 0.0 0.0 // 374.717 -122.550 1002.572 
+									POINT_CAMERA_AT_POINT vomit_cam_point_junkfudX vomit_cam_point_junkfudY vomit_cam_point_junnkfudZ JUMP_CUT
+									
+									IF IS_PLAYER_PLAYING player1
+										GET_CHAR_COORDINATES scplayer player_X player_Y player_Z 
+									   	vomitX = player_X + 0.355
+										vomitY = player_Y - 0.116
+									   	vomitZ = player_Z - 0.048
+										CREATE_FX_SYSTEM puke vomitX vomitY vomitZ TRUE vomit_foodshop
+										TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer Eat_Vomit_P FOOD 4.0 FALSE FALSE FALSE FALSE -1
+										return_animation_time_food = 0.0
+										SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_CJ_PUKE sample_name_shop
+																					
 									ELSE
-
-										IF NOT IS_CHAR_DEAD shop_keep_junkfud
-
-											TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud SHP_Tray_Return FOOD 4.0 FALSE FALSE FALSE TRUE -1	
-											return_animation_time_food = 0.0
-											
-											IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Return
-												GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Return return_animation_time_food
-											ENDIF
-										ELSE
-											GOSUB junkfud_cleanup_small
-													
-											GET_LOADED_SHOP $shop_name
-
-											IF NOT $shop_name = $stored_shop
-												GOSUB junkfud_cleanup_big
-											ENDIF
-
-											GOTO shop_junkfud_inner
-										ENDIF
-
-										// shop keeper putting the tray away animation
-										WHILE NOT return_animation_time_food = 1.0
-
-											WAIT 0
-											
-											IF NOT IS_PLAYER_PLAYING player1
-												GOSUB junkfud_cleanup_big
-												GOTO shop_junkfud_inner  
-											ENDIF
-
-											IF IS_CHAR_DEAD shop_keep_junkfud
-												GOSUB junkfud_cleanup_small
-
-												GET_LOADED_SHOP $shop_name
-
-											   	IF NOT $shop_name = $stored_shop
-													GOSUB junkfud_cleanup_big
-												ENDIF
-
-												GOTO shop_junkfud_inner
-											ELSE
-
-												IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Return
-													GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Return return_animation_time_food
-												ENDIF
-
-											ENDIF
-										
-										ENDWHILE
-
-										GOSUB delete_all_food
-
-										IF NOT IS_CHAR_DEAD shop_keep_junkfud
-											TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud SHP_Tray_Lift_Out FOOD 1000.0 FALSE FALSE FALSE TRUE -1	
-											return_animation_time_food = 0.0
-
-											IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Lift_Out
-												GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Lift_Out return_animation_time_food
-											ENDIF
-										ELSE
-											GOSUB junkfud_cleanup_small
-													
-											GET_LOADED_SHOP $shop_name
-
-											IF NOT $shop_name = $stored_shop
-												GOSUB junkfud_cleanup_big
-											ENDIF
-
-											GOTO shop_junkfud_inner
-										ENDIF
-
-										// shop keeper putting the tray away animation
-										WHILE NOT return_animation_time_food = 1.0
-
-											WAIT 0
-											
-											IF NOT IS_PLAYER_PLAYING player1
-												GOSUB junkfud_cleanup_big
-												GOTO shop_junkfud_inner  
-											ENDIF
-
-											IF IS_CHAR_DEAD shop_keep_junkfud
-												GOSUB junkfud_cleanup_small
-
-												GET_LOADED_SHOP $shop_name
-
-											   	IF NOT $shop_name = $stored_shop
-													GOSUB junkfud_cleanup_big
-												ENDIF
-
-												GOTO shop_junkfud_inner
-											ELSE
-
-												IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Lift_Out
-													GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Lift_Out return_animation_time_food
-												ENDIF
-
-											ENDIF
-										
-										ENDWHILE
-																			
+										GOSUB junkfud_cleanup_big
+										GOTO shop_junkfud_inner 
 									ENDIF
 
 									IF NOT IS_CHAR_DEAD shop_keep_junkfud
-										TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud SHP_Tray_Pose FOOD 1000.0 FALSE FALSE FALSE TRUE -1	
-										return_animation_time_food = 0.0
-
-										IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Pose
-											GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Pose return_animation_time_food
-										ENDIF
+									   	TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud Eat_Vomit_SK FOOD 1000.0 FALSE FALSE FALSE FALSE -1
+										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_PLAYER_SICK sample_name_shop
 									ELSE
 										GOSUB junkfud_cleanup_small
-												
+
 										GET_LOADED_SHOP $shop_name
 
 										IF NOT $shop_name = $stored_shop
@@ -1386,13 +1186,39 @@ shop_junkfud_inner:
 										GOTO shop_junkfud_inner
 									ENDIF
 
-									// shop keeper goes back into default pose
+									IF IS_CHAR_PLAYING_ANIM scplayer Eat_Vomit_P
+										GET_CHAR_ANIM_CURRENT_TIME scplayer Eat_Vomit_P return_animation_time_food
+									ENDIF
+
 									WHILE NOT return_animation_time_food = 1.0
 									
 										WAIT 0
+																				   
+										IF flag_vomit_playing_food = 0
+
+											IF return_animation_time_food >= 0.463
+												
+												IF HAS_MISSION_AUDIO_LOADED 4
+													REPORT_MISSION_AUDIO_EVENT_AT_CHAR scplayer SOUND_RESTAURANT_CJ_PUKE
+												ENDIF
+
+												flag_vomit_playing_food = 1
+
+											ENDIF
+
+										ENDIF
+
+										IF flag_vomit_playing_food = 1 
+											
+											IF return_animation_time_food >= 0.52
+												PLAY_FX_SYSTEM vomit_foodshop
+												flag_vomit_playing_food = 2
+											ENDIF
+											
+										ENDIF	 
 
 										IF IS_PLAYER_PLAYING player1
-											
+											GET_CHAR_ANIM_CURRENT_TIME scplayer Eat_Vomit_P return_animation_time_food
 										ELSE
 											GOSUB junkfud_cleanup_big
 											GOTO shop_junkfud_inner 
@@ -1400,10 +1226,6 @@ shop_junkfud_inner:
 
 										IF NOT IS_CHAR_DEAD shop_keep_junkfud
 											
-											IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Pose
-												GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Pose return_animation_time_food
-											ENDIF
-												
 										ELSE
 											GOSUB junkfud_cleanup_small
 
@@ -1418,16 +1240,36 @@ shop_junkfud_inner:
 
 									ENDWHILE
 
-									// new stuff to kick player out need a being sick animation.
-									SET_PLAYER_CONTROL player1 ON
-									SET_MINIGAME_IN_PROGRESS FALSE
-									SET_CAMERA_BEHIND_PLAYER
-									RESTORE_CAMERA_JUMPCUT
-								
-									WHILE LOCATE_CHAR_ON_FOOT_3D scplayer keep_offX keep_offY keep_offZ shop_locate_sizeX shop_locate_sizeY shop_locate_sizeZ FALSE
-										
-										WAIT 0
+									STOP_FX_SYSTEM vomit_foodshop
+									KILL_FX_SYSTEM vomit_foodshop
 
+								ELSE
+
+									IF NOT IS_CHAR_DEAD shop_keep_junkfud
+
+										TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud SHP_Tray_Return FOOD 4.0 FALSE FALSE FALSE TRUE -1	
+										return_animation_time_food = 0.0
+										
+										IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Return
+											GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Return return_animation_time_food
+										ENDIF
+									ELSE
+										GOSUB junkfud_cleanup_small
+												
+										GET_LOADED_SHOP $shop_name
+
+										IF NOT $shop_name = $stored_shop
+											GOSUB junkfud_cleanup_big
+										ENDIF
+
+										GOTO shop_junkfud_inner
+									ENDIF
+
+									// shop keeper putting the tray away animation
+									WHILE NOT return_animation_time_food = 1.0
+
+										WAIT 0
+										
 										IF NOT IS_PLAYER_PLAYING player1
 											GOSUB junkfud_cleanup_big
 											GOTO shop_junkfud_inner  
@@ -1438,39 +1280,177 @@ shop_junkfud_inner:
 
 											GET_LOADED_SHOP $shop_name
 
-											   IF NOT $shop_name = $stored_shop
+										   	IF NOT $shop_name = $stored_shop
 												GOSUB junkfud_cleanup_big
 											ENDIF
 
-										   	GOTO shop_junkfud_inner
-
+											GOTO shop_junkfud_inner
 										ELSE
 
-											IF flag_attacked_keeper_food = 0
-											
-												IF IS_CHAR_SHOOTING scplayer
-												OR IS_PLAYER_TARGETTING_CHAR player1 shop_keep_junkfud
-												OR HAS_CHAR_BEEN_DAMAGED_BY_WEAPON shop_keep_junkfud WEAPONTYPE_ANYWEAPON
-												OR iSetPizzaPanic = 1
-													SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shop
-													TASK_HANDS_UP shop_keep_junkfud -2
-													iSetPizzaPanic = 1
-													flag_attacked_keeper_food = 1
-												ENDIF
+											IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Return
+												GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Return return_animation_time_food
+											ENDIF
 
+										ENDIF
+									
+									ENDWHILE
+
+									GOSUB delete_all_food
+
+									IF NOT IS_CHAR_DEAD shop_keep_junkfud
+										TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud SHP_Tray_Lift_Out FOOD 1000.0 FALSE FALSE FALSE TRUE -1	
+										return_animation_time_food = 0.0
+
+										IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Lift_Out
+											GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Lift_Out return_animation_time_food
+										ENDIF
+									ELSE
+										GOSUB junkfud_cleanup_small
+												
+										GET_LOADED_SHOP $shop_name
+
+										IF NOT $shop_name = $stored_shop
+											GOSUB junkfud_cleanup_big
+										ENDIF
+
+										GOTO shop_junkfud_inner
+									ENDIF
+
+									// shop keeper putting the tray away animation
+									WHILE NOT return_animation_time_food = 1.0
+
+										WAIT 0
+										
+										IF NOT IS_PLAYER_PLAYING player1
+											GOSUB junkfud_cleanup_big
+											GOTO shop_junkfud_inner  
+										ENDIF
+
+										IF IS_CHAR_DEAD shop_keep_junkfud
+											GOSUB junkfud_cleanup_small
+
+											GET_LOADED_SHOP $shop_name
+
+										   	IF NOT $shop_name = $stored_shop
+												GOSUB junkfud_cleanup_big
+											ENDIF
+
+											GOTO shop_junkfud_inner
+										ELSE
+
+											IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Lift_Out
+												GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Lift_Out return_animation_time_food
+											ENDIF
+
+										ENDIF
+									
+									ENDWHILE
+																		
+								ENDIF
+
+								IF NOT IS_CHAR_DEAD shop_keep_junkfud
+									TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud SHP_Tray_Pose FOOD 1000.0 FALSE FALSE FALSE TRUE -1	
+									return_animation_time_food = 0.0
+
+									IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Pose
+										GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Pose return_animation_time_food
+									ENDIF
+								ELSE
+									GOSUB junkfud_cleanup_small
+											
+									GET_LOADED_SHOP $shop_name
+
+									IF NOT $shop_name = $stored_shop
+										GOSUB junkfud_cleanup_big
+									ENDIF
+
+									GOTO shop_junkfud_inner
+								ENDIF
+
+								// shop keeper goes back into default pose
+								WHILE NOT return_animation_time_food = 1.0
+								
+									WAIT 0
+
+									IF IS_PLAYER_PLAYING player1
+										
+									ELSE
+										GOSUB junkfud_cleanup_big
+										GOTO shop_junkfud_inner 
+									ENDIF
+
+									IF NOT IS_CHAR_DEAD shop_keep_junkfud
+										
+										IF IS_CHAR_PLAYING_ANIM shop_keep_junkfud SHP_Tray_Pose
+											GET_CHAR_ANIM_CURRENT_TIME shop_keep_junkfud SHP_Tray_Pose return_animation_time_food
+										ENDIF
+											
+									ELSE
+										GOSUB junkfud_cleanup_small
+
+										GET_LOADED_SHOP $shop_name
+
+										IF NOT $shop_name = $stored_shop
+											GOSUB junkfud_cleanup_big
+										ENDIF
+
+										GOTO shop_junkfud_inner
+									ENDIF
+
+								ENDWHILE
+
+								// new stuff to kick player out need a being sick animation.
+								SET_PLAYER_CONTROL player1 ON
+								SET_MINIGAME_IN_PROGRESS FALSE
+								SET_CAMERA_BEHIND_PLAYER
+								RESTORE_CAMERA_JUMPCUT
+							
+								WHILE LOCATE_CHAR_ON_FOOT_3D scplayer keep_offX keep_offY keep_offZ shop_locate_sizeX shop_locate_sizeY shop_locate_sizeZ FALSE
+									
+									WAIT 0
+
+									IF NOT IS_PLAYER_PLAYING player1
+										GOSUB junkfud_cleanup_big
+										GOTO shop_junkfud_inner  
+									ENDIF
+
+									IF IS_CHAR_DEAD shop_keep_junkfud
+										GOSUB junkfud_cleanup_small
+
+										GET_LOADED_SHOP $shop_name
+
+										   IF NOT $shop_name = $stored_shop
+											GOSUB junkfud_cleanup_big
+										ENDIF
+
+									   	GOTO shop_junkfud_inner
+
+									ELSE
+
+										IF flag_attacked_keeper_food = 0
+										
+											IF IS_CHAR_SHOOTING scplayer
+											OR IS_PLAYER_TARGETTING_CHAR player1 shop_keep_junkfud
+											OR HAS_CHAR_BEEN_DAMAGED_BY_WEAPON shop_keep_junkfud WEAPONTYPE_ANYWEAPON
+											OR iSetPizzaPanic = 1
+												SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shop
+												TASK_HANDS_UP shop_keep_junkfud -2
+												iSetPizzaPanic = 1
+												flag_attacked_keeper_food = 1
 											ENDIF
 
 										ENDIF
 
-									ENDWHILE									
+									ENDIF
 
-									cost_menu_drawn_shops = 0
-									bought_menu_drawn_shops = 0
-									created_this_food = 0
-									current_food_item = 0
-									flag_food = 2
-									flag_ate_too_much_food = 1
-								ENDIF
+								ENDWHILE									
+
+								cost_menu_drawn_shops = 0
+								bought_menu_drawn_shops = 0
+								created_this_food = 0
+								current_food_item = 0
+								flag_food = 2
+								flag_ate_too_much_food = 1
 
 							ENDIF
 									

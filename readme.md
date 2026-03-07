@@ -310,6 +310,8 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
 - Fixed upper bound on a random number generator in the dance minigame, effectively bringing back an unintentionally unused partner model
 - Fixed typo in the license plate of Cesar's car
+- Fixed lines for a restaurant shopkeeper reacting to the player vomiting being overriden by the "BOUGHT_ENOUGH" lines
+- Fixed a bug in the code for restaurants that made the cleanup always run if the player bought more than 11 food items
 - Fixed lines when you leave the chair for the tattoo artist only playing if the player was in the "back tattoo" state
 - Fixed Tattoo script not waiting for the needle sound effect to end before moving on to the next state (this mimics an official fix for barbershops)
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
@@ -343,8 +345,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - ®️ Now you can quit the "Go Go Space Monkey" arcade game mid-game
 - Added facial talking anim to phonecalls
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
-- Added unused "SHOP_CHAT" lines for barbers, now these will play randomly while browsing haircuts to get
-- Added unused "SHOP_CHAT" lines for the Ammu-Nation guy, now these will play randomly while browsing weapons to buy
+- Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy
 - Added unused "hit", "stick, "double" and "split" lines for the player while playing blackjack
 - Each Trucking and Quarry mission now plays the mission complete tune (previously only the last one did)
 - Each Trucking and Quarry mission now counts towards total progress % (previously only the last one did)
