@@ -197,6 +197,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **King In Exile:**
 - Fixed softlock if player dies during the phonecall after the cutscene
 
+**Small Town Bank:**
+- Fixed incorrect facial talk anim assignment for some lines
+
 **Farewell, My Love...:**
 - Fixed Woozie ped model being used instead of Claude
 - Swapped an opponent's car with Claude's car, to match the cutscene

@@ -2106,6 +2106,7 @@ ENDIF
 
 IF mission_flag = 34
 	IF NOT GET_FADING_STATUS
+		audio_actor[6] = copcar2_cop1 // FIXEDGROVE
 		play_audio = 29
 		SET_PLAYER_CONTROL player1 ON
 		HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer FALSE
@@ -5000,11 +5001,11 @@ cat2_audio:
 			audio_for_char[18] = 1
 			audio_for_char[19] = 1
 			audio_for_char[20] = 1
-			audio_for_char[21] = 5
-			audio_for_char[22] = 5
-			audio_for_char[23] = 1
+			audio_for_char[21] = 1 // FIXEDGROVE: was 5
+			audio_for_char[22] = 0 // FIXEDGROVE: was 5
+			audio_for_char[23] = 0 // FIXEDGROVE: was 1
 			audio_for_char[24] = 1
-			audio_for_char[25] = 6
+			audio_for_char[25] = 0 // FIXEDGROVE: was 6
 			audio_for_char[26] = 1
 			audio_for_char[27] = 1
 			audio_for_char[28] = 1
@@ -5024,8 +5025,8 @@ cat2_audio:
 			audio_actor[1] = catalina
 			audio_actor[2] = scplayer
 
-			audio_actor[5] = scplayer //alley cop1
-			audio_actor[6] = scplayer //alley cop2
+			//audio_actor[5] = scplayer //alley cop1 // FIXEDGROVE: comment out
+			//audio_actor[6] = scplayer //alley cop2 // FIXEDGROVE: comment out
 
 
 			
@@ -5098,8 +5099,6 @@ CASE 1 //waiting to play audio
 										IF NOT IS_CHAR_TALKING this_actor
 											play_audio_now = 1
 											START_CHAR_FACIAL_TALK this_actor 15000
-										ELSE
-											DISABLE_CHAR_SPEECH this_actor FALSE
 										ENDIF
 
 										IF NOT this_actor = 0
@@ -5164,6 +5163,7 @@ CASE 1 //waiting to play audio
 			IF HAS_MISSION_AUDIO_FINISHED play_slot
 				IF NOT IS_CHAR_DEAD this_actor
 					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH this_actor FALSE
+					STOP_CHAR_FACIAL_TALK this_actor
 				ENDIF
 				audio_flag++
 			ELSE
@@ -5176,24 +5176,15 @@ CASE 1 //waiting to play audio
 		BREAK
 
 		CASE 3 //clear audio
-				IF NOT IS_CHAR_DEAD this_actor
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH this_actor FALSE
-				ENDIF
 //			fake_flag = 14
 			CLEAR_MISSION_AUDIO play_slot
 			audio_slot[play_slot] = 0
 			CLEAR_PRINTS 
-			IF NOT IS_CHAR_DEAD this_actor
-				ENABLE_CHAR_SPEECH this_actor
-			ENDIF
 			audio_flag++
 		BREAK
 
 		CASE 4 //request next audio
 //			fake_flag = 15
-				IF NOT IS_CHAR_DEAD this_actor
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH this_actor FALSE
-				ENDIF
 			play_audio ++
 			IF NOT audio_sound[play_audio] = 0 
 				LOAD_MISSION_AUDIO play_slot audio_sound[play_audio]
@@ -5210,18 +5201,16 @@ CASE 1 //waiting to play audio
 		BREAK
 
 		CASE 5 // clear all for cut scene skip
-				IF NOT IS_CHAR_DEAD this_actor
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH this_actor FALSE
-				ENDIF
+			IF NOT IS_CHAR_DEAD this_actor
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH this_actor FALSE
+				STOP_CHAR_FACIAL_TALK this_actor
+			ENDIF
 			audio_flag = 1
 			play_audio = 0
 			play_audio_for = 0
 			CLEAR_MISSION_AUDIO play_slot
 			audio_slot[play_slot] = 0
 			CLEAR_PRINTS
-			IF NOT IS_CHAR_DEAD this_actor
-				ENABLE_CHAR_SPEECH this_actor
-			ENDIF
 
 		BREAK
 	ENDSWITCH
