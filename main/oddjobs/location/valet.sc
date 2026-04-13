@@ -2317,6 +2317,8 @@ car_control:
 						IF flag_player_on_mission = 1
 							TASK_CAR_DRIVE_TO_COORD -1 drop_off_car drop_off_point_x[val_area] drop_off_point_y[val_area] drop_off_point_z[val_area] 17.0 MODE_NORMAL FALSE DRIVINGMODE_AVOIDCARS	
 						ENDIF
+						TASK_LEAVE_CAR -1 drop_off_car // FIXEDGROVE: needed so the ped speaks after leaving the car
+						TASK_SAY -1 CONTEXT_GLOBAL_VALET_PARK_CAR // FIXEDGROVE
 						TASK_WANDER_STANDARD -1
 					CLOSE_SEQUENCE_TASK valet_seq
 
