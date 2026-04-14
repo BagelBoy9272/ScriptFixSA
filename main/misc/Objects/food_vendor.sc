@@ -98,6 +98,7 @@ food_vendor_loop:
 										INCREMENT_INT_STAT CALORIES 10
 										timer = game_timer + 3000
 										add_score player1 -1
+										INCREMENT_FLOAT_STAT FOOD_BUDGET 1.0 // FIXEDGROVE
 										++ flag
 									endif
 								endif

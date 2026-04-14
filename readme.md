@@ -311,6 +311,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - ®️ Fixed missing barber shop icon in El Quebrados
 - Fixed duplicated Binco icon in Juniper Hill, SF
 - Fixed 'The Big Spread Ranch' private dance not counting towards 'strip club budget' stat
+- Fixed street food not counting towards 'food budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
 - Fixed upper bound on a random number generator in the dance minigame, effectively bringing back an unintentionally unused partner model
 - Fixed typo in the license plate of Cesar's car

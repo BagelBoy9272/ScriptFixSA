@@ -95,6 +95,7 @@ vending_machine_loop:
 											PERFORM_SEQUENCE_TASK scplayer sequence_task_obj
 											CLEAR_SEQUENCE_TASK sequence_task_obj
 											ADD_SCORE player1 -1
+											INCREMENT_FLOAT_STAT FOOD_BUDGET 1.0 // FIXEDGROVE
 											CLEAR_HELP
 
 											if DOES_OBJECT_HAVE_THIS_MODEL vending_machine VENDIN3
