@@ -51,7 +51,7 @@ VAR_INT gym_lv_defeated
 LVAR_TEXT_LABEL lv_print
 LVAR_INT lv_audio
 LVAR_INT lv_playing
-
+LVAR_INT lv_cheering // FIXEDGROVE
 LVAR_INT lv_cheer[3]
 
 
@@ -572,6 +572,41 @@ IF NOT IS_CHAR_DEAD LV_white_boxer
 				WHILE NOT IS_CHAR_DEAD scplayer
 
 					WAIT 0	
+
+					// FIXEDGROVE: START - play cheer context for a random boxer every 3 seconds, based off the original code in gymLS.sc
+					IF TIMERB > 3000
+
+						GENERATE_RANDOM_INT_IN_RANGE 0 3 lv_cheering
+
+	  	 				IF NOT IS_CHAR_DEAD LV_boxer_A		
+		 				AND lv_cheering = 0
+
+							SET_CHAR_SAY_CONTEXT LV_boxer_A CONTEXT_GLOBAL_BOXING_CHEER temp_integer_4
+
+							TIMERB = 0
+
+						ENDIF
+
+						IF NOT IS_CHAR_DEAD LV_boxer_B
+						AND lv_cheering = 1
+
+							SET_CHAR_SAY_CONTEXT LV_boxer_B CONTEXT_GLOBAL_BOXING_CHEER temp_integer_4
+
+							TIMERB = 0
+
+						ENDIF		
+
+						IF NOT IS_CHAR_DEAD LV_boxer_C
+						AND lv_cheering = 2
+
+							SET_CHAR_SAY_CONTEXT LV_boxer_C CONTEXT_GLOBAL_BOXING_CHEER temp_integer_4
+							
+							TIMERB = 0
+
+						ENDIF		
+
+					ENDIF  
+					// FIXEDGROVE: END
 
 					IF player_been_taught_move[2] = 1
 

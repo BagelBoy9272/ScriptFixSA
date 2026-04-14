@@ -715,13 +715,13 @@ AND LOCATE_CHAR_ANY_MEANS_3D sensei1_lsgym 767.2571 14.4044 999.6998 1.0 1.0 1.2
 				IF TIMERB > 3000
 		 		AND ls_cheering = 0
 
-				//	SET_CHAR_SAY_CONTEXT boxer1_lsgym CONTEXT_GLOBAL_BOXING_CHEER ls_sfx 
+					SET_CHAR_SAY_CONTEXT boxer1_lsgym CONTEXT_GLOBAL_BOXING_CHEER ls_sfx // FIXEDGROVE: uncomment
 
 					ls_cheering = 1
 
-				ENDIF
+					TIMERB = 0 // FIXEDGROVE: this was outside the IF statement, which made the cheer never trigger
 
-				TIMERB = 0
+				ENDIF
 
 			ENDIF
 
@@ -730,13 +730,13 @@ AND LOCATE_CHAR_ANY_MEANS_3D sensei1_lsgym 767.2571 14.4044 999.6998 1.0 1.0 1.2
 				IF TIMERB > 3000
 				AND ls_cheering = 1
 
-				//	SET_CHAR_SAY_CONTEXT boxer2_lsgym CONTEXT_GLOBAL_BOXING_CHEER ls_sfx 
+					SET_CHAR_SAY_CONTEXT boxer2_lsgym CONTEXT_GLOBAL_BOXING_CHEER ls_sfx // FIXEDGROVE: uncomment
 
 					ls_cheering = 0
 
-				ENDIF
+					TIMERB = 0 // FIXEDGROVE: this was outside the IF statement, which made the cheer never trigger
 
-				TIMERB = 0
+				ENDIF		
 
 			ENDIF  
 
