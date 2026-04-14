@@ -3146,7 +3146,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 					SET_FIXED_CAMERA_POSITION 2444.7961 -1650.0048 24.6868 0.0 0.0 0.0
 					POINT_CAMERA_AT_POINT 2445.6292 -1650.4827 24.4081 JUMP_CUT
 
-					DELETE_CHAR ryders_goon1
+					//DELETE_CHAR ryders_goon1 // FIXEDGROVE: moved
 
 					IF NOT IS_CHAR_DEAD ryder
 
@@ -3280,6 +3280,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						ENDIF
 
+						// FIXEDGROVE: START
+						IF NOT IS_CHAR_DEAD ryders_goon1
+
+							TASK_GO_STRAIGHT_TO_COORD ryders_goon1 2476.1 -1684.8 13.4 PEDMOVE_WALK -2
+						
+						ENDIF
+						// FIXEDGROVE: END
+
 						// *****************************************************************************************
 
 						CLEAR_MISSION_AUDIO 1
@@ -3365,6 +3373,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 							CLEAR_SEQUENCE_TASK sequence_task
 						
 						ENDIF
+
+						DELETE_CHAR ryders_goon1 // FIXEDGROVE: now the goon is deleted after the camera cut
 
 						SET_FIXED_CAMERA_POSITION 2472.5212 -1683.4700 14.0526 0.0 0.0 0.0//2471.5955 -1686.8521 14.1658 
 						POINT_CAMERA_AT_POINT 2472.0012 -1684.3237 14.0313 JUMP_CUT//2471.6270 -1687.8485 14.0891 

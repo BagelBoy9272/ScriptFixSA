@@ -95,6 +95,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed a now revealed bug where the unused quotes in the box throwing section would trigger when a box was thrown, and not when it exploded
 - Changed Grove's Uzis to Tec9s
 - Changed Balla's Greenwood to a Tahoma
+- Made the Grove member get out of the car instead of disappearing in the ending cutscene
 - Made player stop looking at Ryder before the fade out in the ending cutscene
 - Removed some pointless code
 
