@@ -341,7 +341,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made food carts use corresponding ped models
 - Swapped NOT HAS_MISSION_AUDIO_LOADED check for 'At least it was before I fucked everything up' voice line to before the actual audio plays
 - Made triad members spawn as bouncers in Four Dragons casino
-- Pool now increases previously unused win, losses, and 8 balls stats
+- Pool now increases previously unused 'Wins in Pool', 'Losses in Pool', and '8-Balls in Pool' stats
 - Increased weekday check for Kick Start by one, now its avaliable on sundays, tuesdays and thursdays, instead of mondays and wednesdays (previously the first check was, if weekday = 0, which is impossible since the valid range for "weekday" is 1 thru 7)
 - Made the motel props from 'Reuniting The Families' spawn in freeroam
 - Made the storm drain grate from 'Just Business' spawn in freeroam
@@ -350,6 +350,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Restored unique custom plates for import/export from PS2 REV 1
 - ®️ Now you can quit the "Let's Get Ready to Bumble" arcade game mid-game
 - ®️ Now you can quit the "Go Go Space Monkey" arcade game mid-game
+- Now wearing a police uniform will let you roam police impounds, and police stations while armed
 - Added facial talking anim to phonecalls
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')

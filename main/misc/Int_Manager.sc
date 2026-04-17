@@ -534,6 +534,7 @@ Int_Manager_EXIT:
 		//--- Player is still in the same area code
 		IF iCheckForWeapons = 1
 			IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_ANYMELEE
+			AND NOT IS_PLAYER_WEARING Player1 CLOTHES_TEX_EXTRA1 policetr // FIXEDGROVE
 				ALTER_WANTED_LEVEL_NO_DROP PLAYER1 2
 			ENDIF
 		ENDIF

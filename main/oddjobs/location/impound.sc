@@ -15,6 +15,7 @@ police_impound_script:
 SCRIPT_NAME IMPND
 
 LVAR_INT  start_impound request_models im_cop_Dec revise_ai_time revise_ai_timeb player_is_dangerous 
+LVAR_INT disguise_broken // FIXEDGROVE
 VAR_INT imp_cop[8] alarm_on last_cop_task[8] cop_task_flag[8] cop_timer[8] player_is_threat[8]
 VAR_INT activate_doors
 
@@ -685,12 +686,14 @@ IF IS_PLAYER_PLAYING player1
 							cop_event[imp_i] = -2
 							GET_CHAR_COORDINATES scplayer last_player_x last_player_y last_player_z
 						ENDIF
-						IF cop_event[imp_i] = EVENT_SOUND_QUIET
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_3D imp_cop[imp_I] scplayer 5.0 5.0 3.0 FALSE
-								cop_event[imp_i] = -1
-								GET_CHAR_COORDINATES scplayer last_player_x last_player_y last_player_z
-							ENDIF
-						ENDIF													
+						IF disguise_broken = 1 // FIXEDGROVE
+							IF cop_event[imp_i] = EVENT_SOUND_QUIET
+								IF LOCATE_CHAR_ANY_MEANS_CHAR_3D imp_cop[imp_I] scplayer 5.0 5.0 3.0 FALSE
+									cop_event[imp_i] = -1
+									GET_CHAR_COORDINATES scplayer last_player_x last_player_y last_player_z
+								ENDIF
+							ENDIF													
+						ENDIF
  					ENDIF
 				ENDIF
 			ENDIF
@@ -1610,6 +1613,7 @@ do_cop_task:
 
 			IF i_see_you = 1
 			AND player_in_impound = 1
+			AND disguise_broken = 1 // FIXEDGROVE
 				last_cop_task[cop_i] = WARN_PLAYER
 				cop_task_flag[cop_i] = 0
 			ENDIF
@@ -2684,7 +2688,16 @@ check_cop_see_player:
 LVAR_FLOAT xcomp ycomp imp_heading cop_heading
 VAR_FLOAT last_player_x last_player_y last_player_z
 
-	IF NOT IS_CHAR_IN_ANY_POLICE_VEHICLE scplayer
+	// FIXEDGROVE: START - now also checks if the player is wearing a police uniform
+	IF IS_CHAR_IN_ANY_POLICE_VEHICLE scplayer
+	OR IS_PLAYER_WEARING Player1 CLOTHES_TEX_EXTRA1 policetr
+		disguise_broken = 0
+	ELSE
+		disguise_broken = 1
+	ENDIF
+	// FIXEDGROVE: END
+
+	IF disguise_broken = 1 // FIXEDGROVE: use a variable to check
 	OR player_is_threat[cop_i] = 1
 		IF HAS_CHAR_SPOTTED_CHAR imp_cop[cop_i] scplayer 
 
