@@ -140,6 +140,8 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Burning Desire:**
 - Now if player already has molotovs, they are not required to go pick them up in the alley
+- Fixed Vagos using a speech table that didn't have any lines for them
+- Added ability to skip ending cutscene
 - Added timers to ending cutscene to prevent softlocks
 - Proofed Denise in ending cutscene to prevent softlocks
 - Remove the alley molotov pickup in cleanup

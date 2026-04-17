@@ -2692,7 +2692,7 @@ RETURN
 // ****************************************
 // STAGE 7: Take the Lady Home
 
-Crash1_Stage_TakeTheLadyHome:
+Crash1_Stage_TakeTheLadyHome: // FIXEDGROVE: added ability to skip ending cutscene
 
    	// Initialisation for this stage
 	IF m_goals = 0
@@ -2798,6 +2798,8 @@ Crash1_Stage_TakeTheLadyHome:
 				CLEAR_AREA xposTemp yposTemp zposTemp 5.0 TRUE
 			ENDIF
 
+			flagCutscenePlaying = 1 // FIXEDGROVE
+
 			// Cut to camera position
 			SET_FIXED_CAMERA_POSITION 2392.5417 -1727.9492 14.9910 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT 2393.4580 -1727.5577 14.9067 JUMP_CUT
@@ -2811,154 +2813,189 @@ Crash1_Stage_TakeTheLadyHome:
 
 	// Prepare and Play the 'Coochie Name' speech
 	IF m_goals = 3
-		nRequiredConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
-		GOSUB Crash1_Conversation_Command_Prepare
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			nRequiredConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
+			GOSUB Crash1_Conversation_Command_Prepare
 
-		IF nCurrentConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
-			GOSUB Crash1_Conversation_Command_Play
+			IF nCurrentConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
+				GOSUB Crash1_Conversation_Command_Play
 
-			// If the player is not in a car then make him face Coochie
-			IF NOT IS_CHAR_IN_ANY_CAR scplayer
-				TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
+				// If the player is not in a car then make him face Coochie
+				IF NOT IS_CHAR_IN_ANY_CAR scplayer
+					TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
+				ENDIF
+
+				m_goals++
 			ENDIF
-
-			m_goals++
 		ENDIF
 	ENDIF
 
 
 	// Wait for the Coochie Name speech to finish
 	IF m_goals = 4
-		IF IS_BIT_SET bitsConversationsPlayed CRASH1_CONVERSATION_COOCHIE_NAME
-			m_goals++
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			IF IS_BIT_SET bitsConversationsPlayed CRASH1_CONVERSATION_COOCHIE_NAME
+				m_goals++
+			ENDIF
 		ENDIF
 	ENDIF
 
 
 	// Prepare and Play the 'Go Out' speech
 	IF m_goals = 5
-		nRequiredConversationID = CRASH1_CONVERSATION_GO_OUT
-		GOSUB Crash1_Conversation_Command_Prepare
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			nRequiredConversationID = CRASH1_CONVERSATION_GO_OUT
+			GOSUB Crash1_Conversation_Command_Prepare
 
-		IF nCurrentConversationID = CRASH1_CONVERSATION_GO_OUT
-			GOSUB Crash1_Conversation_Command_Play
+			IF nCurrentConversationID = CRASH1_CONVERSATION_GO_OUT
+				GOSUB Crash1_Conversation_Command_Play
 
-			m_goals++
+				m_goals++
+			ENDIF
 		ENDIF
 	ENDIF
 
 
 	// Make Coochie leave the car if she is in one
 	IF m_goals = 6
-		// Make Coochie get out of the car if she is in one
-		IF IS_CHAR_IN_ANY_CAR charCoochie
-			// ...she is in a car
-			TASK_LEAVE_ANY_CAR charCoochie
-			m_goals++
+		IF flagSkipCutscene = 1
+			m_goals = 50
 		ELSE
-			// ...not in a car, so skip the next goal
-			m_goals = 8
+			// Make Coochie get out of the car if she is in one
+			IF IS_CHAR_IN_ANY_CAR charCoochie
+				// ...she is in a car
+				TASK_LEAVE_ANY_CAR charCoochie
+				m_goals++
+			ELSE
+				// ...not in a car, so skip the next goal
+				m_goals = 8
+			ENDIF
 		ENDIF
 	ENDIF
 
 	
 	// Check if Coochie has left the car
 	IF m_goals = 7
-		GET_SCRIPT_TASK_STATUS charCoochie TASK_LEAVE_ANY_CAR m_status
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			GET_SCRIPT_TASK_STATUS charCoochie TASK_LEAVE_ANY_CAR m_status
 
-		IF m_status = FINISHED_TASK
-			m_goals++
+			IF m_status = FINISHED_TASK
+				m_goals++
+			ENDIF
 		ENDIF
 	ENDIF
 
 
 	// Make Coochie go to coords and make the player face her if not in a car
 	IF m_goals = 8
-		TASK_GO_STRAIGHT_TO_COORD charCoochie 2402.0522 -1719.7156 12.6181 PEDMOVE_RUN -2
-
-		IF NOT IS_CHAR_IN_ANY_CAR scplayer
-			TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
-		ENDIF
-		
-		timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
-		m_goals++
-	ENDIF
-
-
-	// Check if Coochie reached wave position, and make player turn again to face her
-	IF m_goals = 9
-		GET_SCRIPT_TASK_STATUS charCoochie TASK_GO_STRAIGHT_TO_COORD m_status
-
-		// FIXEDGROVE: START - added timer failsafe to prevent softlocks
-		IF timerCutscene < m_mission_timer
-			SET_CHAR_COORDINATES charCoochie 2402.0522 -1719.7156 12.6181
-			m_status = FINISHED_TASK	
-		ENDIF
-		// FIXEDGROVE: END
-
-		IF m_status = FINISHED_TASK
-			// The wave anim starts 180 degrees away from the actual wave heading, so calculate this heading
-			// ...player coords
-			GET_CHAR_COORDINATES scplayer xposTemp yposTemp zposTemp
-			xhiTemp = xposTemp
-			yhiTemp = yposTemp
-
-			// ...coochie coords
-			GET_CHAR_COORDINATES charCoochie xposTemp yposTemp zposTemp
-			xloTemp = xposTemp
-			yloTemp = yposTemp
-
-			// ...calculate vector
-			xposTemp = xloTemp - xhiTemp
-			yposTemp = yloTemp - yhiTemp
-			GET_HEADING_FROM_VECTOR_2D xposTemp yposTemp headTemp
-
-			// Play Wave Anim
-			TASK_CHAR_SLIDE_TO_COORD_AND_PLAY_ANIM charCoochie 2402.0522 -1719.7156 12.6181 headTemp 0.2 BD_GF_Wave BD_FIRE 4.0 FALSE FALSE FALSE FALSE -1
-//			TASK_PLAY_ANIM_NON_INTERRUPTABLE charCoochie BD_GF_Wave BD_FIRE 4.0 false false false false -1
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			TASK_GO_STRAIGHT_TO_COORD charCoochie 2402.0522 -1719.7156 12.6181 PEDMOVE_RUN -2
 
 			IF NOT IS_CHAR_IN_ANY_CAR scplayer
 				TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
 			ENDIF
 
+			timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
 			m_goals++
+		ENDIF
+	ENDIF
+
+
+	// Check if Coochie reached wave position, and make player turn again to face her
+	IF m_goals = 9
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			GET_SCRIPT_TASK_STATUS charCoochie TASK_GO_STRAIGHT_TO_COORD m_status
+
+			// FIXEDGROVE: START - added timer failsafe to prevent softlocks
+			IF timerCutscene < m_mission_timer
+				SET_CHAR_COORDINATES charCoochie 2402.0522 -1719.7156 12.6181
+				m_status = FINISHED_TASK	
+			ENDIF
+			// FIXEDGROVE: END
+
+			IF m_status = FINISHED_TASK
+				// The wave anim starts 180 degrees away from the actual wave heading, so calculate this heading
+				// ...player coords
+				GET_CHAR_COORDINATES scplayer xposTemp yposTemp zposTemp
+				xhiTemp = xposTemp
+				yhiTemp = yposTemp
+
+				// ...coochie coords
+				GET_CHAR_COORDINATES charCoochie xposTemp yposTemp zposTemp
+				xloTemp = xposTemp
+				yloTemp = yposTemp
+
+				// ...calculate vector
+				xposTemp = xloTemp - xhiTemp
+				yposTemp = yloTemp - yhiTemp
+				GET_HEADING_FROM_VECTOR_2D xposTemp yposTemp headTemp
+
+				// Play Wave Anim
+				TASK_CHAR_SLIDE_TO_COORD_AND_PLAY_ANIM charCoochie 2402.0522 -1719.7156 12.6181 headTemp 0.2 BD_GF_Wave BD_FIRE 4.0 FALSE FALSE FALSE FALSE -1
+//				TASK_PLAY_ANIM_NON_INTERRUPTABLE charCoochie BD_GF_Wave BD_FIRE 4.0 false false false false -1
+
+				IF NOT IS_CHAR_IN_ANY_CAR scplayer
+					TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
+				ENDIF
+
+				m_goals++
+			ENDIF
 		ENDIF
 	ENDIF
 
 
 	// Prepare and Play the 'CYA' speech
 	IF m_goals = 10
-		nRequiredConversationID = CRASH1_CONVERSATION_CYA
-		GOSUB Crash1_Conversation_Command_Prepare
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			nRequiredConversationID = CRASH1_CONVERSATION_CYA
+			GOSUB Crash1_Conversation_Command_Prepare
 
-		IF nCurrentConversationID = CRASH1_CONVERSATION_CYA
-			GOSUB Crash1_Conversation_Command_Play
+			IF nCurrentConversationID = CRASH1_CONVERSATION_CYA
+				GOSUB Crash1_Conversation_Command_Play
 
-			timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
+				timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
 
-			m_goals++
+				m_goals++
+			ENDIF
 		ENDIF
 	ENDIF
 
 
 	// Check if animation finished
 	IF m_goals = 11
-
-		// FIXEDGROVE: START - added timer failsafe to prevent softlocks
-		IF timerCutscene < m_mission_timer
-			SET_CHAR_COORDINATES charCoochie 2401.8574 -1717.0104 12.6334
-			m_goals++
-		ENDIF
-		// FIXEDGROVE: END
-
-		IF IS_CHAR_PLAYING_ANIM charCoochie BD_GF_Wave
- 			GET_CHAR_ANIM_CURRENT_TIME charCoochie BD_GF_Wave fTempFloat
-			IF fTempFloat = 1.0000
-				// Walk away
-				TASK_GO_STRAIGHT_TO_COORD charCoochie 2401.8574 -1717.0104 12.6334 PEDMOVE_RUN -2
-
-				timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			// FIXEDGROVE: START - added timer failsafe to prevent softlocks
+			IF timerCutscene < m_mission_timer
+				SET_CHAR_COORDINATES charCoochie 2401.8574 -1717.0104 12.6334
 				m_goals++
+			ENDIF
+			// FIXEDGROVE: END
+
+			IF IS_CHAR_PLAYING_ANIM charCoochie BD_GF_Wave
+ 				GET_CHAR_ANIM_CURRENT_TIME charCoochie BD_GF_Wave fTempFloat
+				IF fTempFloat = 1.0000
+					// Walk away
+					TASK_GO_STRAIGHT_TO_COORD charCoochie 2401.8574 -1717.0104 12.6334 PEDMOVE_RUN -2
+
+					timerCutscene = m_mission_timer + 6000 // FIXEDGROVE: set up timer for next m_goals
+					m_goals++
+				ENDIF
 			ENDIF
 		ENDIF
 	ENDIF
@@ -2966,26 +3003,30 @@ Crash1_Stage_TakeTheLadyHome:
 
 	// Check if girl disappeared from view
 	IF m_goals = 12
-		GET_SCRIPT_TASK_STATUS charCoochie TASK_GO_STRAIGHT_TO_COORD m_status
+		IF flagSkipCutscene = 1
+			m_goals = 50
+		ELSE
+			GET_SCRIPT_TASK_STATUS charCoochie TASK_GO_STRAIGHT_TO_COORD m_status
 
-		// FIXEDGROVE: START - added timer failsafe to prevent softlocks
-		IF timerCutscene < m_mission_timer
-			m_status = FINISHED_TASK	
-		ENDIF
-		// FIXEDGROVE: END
+			// FIXEDGROVE: START - added timer failsafe to prevent softlocks
+			IF timerCutscene < m_mission_timer
+				m_status = FINISHED_TASK	
+			ENDIF
+			// FIXEDGROVE: END
 
-		IF m_status = FINISHED_TASK
-			DELETE_CHAR charCoochie
+			IF m_status = FINISHED_TASK
+				DELETE_CHAR charCoochie
 
-			// Restore camera
-			SWITCH_WIDESCREEN OFF
-			SET_CAMERA_BEHIND_PLAYER
-			RESTORE_CAMERA_JUMPCUT
+				// Restore camera
+				SWITCH_WIDESCREEN OFF
+				SET_CAMERA_BEHIND_PLAYER
+				RESTORE_CAMERA_JUMPCUT
 
-			// Allow CJ to talk again
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+				// Allow CJ to talk again
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 
-			m_goals++
+				m_goals++
+			ENDIF
 		ENDIF
 	ENDIF
 
@@ -2999,6 +3040,39 @@ Crash1_Stage_TakeTheLadyHome:
 		m_goals = 99
 	ENDIF
 
+	// Skipped Cutscene stuff
+	// ----------------------
+
+	// Check if the cutscene was skipped
+	// NOTE: Should never enter here unless skipped
+	IF flagCutscenePlaying = 1
+		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED
+		AND flagSkipCutscene = 0
+			// Cutscene was skipped
+			flagSkipCutscene = 1
+		ENDIF
+	ENDIF
+
+	IF m_goals = 50
+		DO_FADE 500 FADE_OUT
+		m_goals++
+	ENDIF
+
+	IF m_goals = 51
+		IF NOT GET_FADING_STATUS
+			DELETE_CHAR charCoochie
+
+			// Restore camera
+			SWITCH_WIDESCREEN OFF
+			SET_CAMERA_BEHIND_PLAYER
+			RESTORE_CAMERA_JUMPCUT
+
+			// Allow CJ to talk again
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+
+			m_goals = 13
+		ENDIF
+	ENDIF
 
 	// Continuous Updates
 	// If the player gets in a car then remove Coochie's Follow_Footsteps so that she gets in too
@@ -3553,7 +3627,7 @@ RETURN
 Crash1_GangOutside_Insult_And_Go_Closer:
 
 	// SHOUT: Take this punk down
-	SET_CHAR_SAY_CONTEXT charGangOutside[nTempPed] CONTEXT_GLOBAL_ABUSE_GANG_LSV nIgnore
+	SET_CHAR_SAY_CONTEXT charGangOutside[nTempPed] CONTEXT_GLOBAL_ABUSE_GANG_FAMILIES nIgnore // FIXEDGROVE: context was ABUGE_GANG_LSV, which doesn't make sense
 
 	// ...the tree guy should not run to the player because he looks really stupid, all others should
 	//		unless the player is in a car
