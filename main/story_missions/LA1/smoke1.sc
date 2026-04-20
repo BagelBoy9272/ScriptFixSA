@@ -2463,7 +2463,7 @@ WAIT 0
 				timera = 0
 				tw7_control_flag = 0
 				tw7_speech_flag = 0
-				tw7_goals = 15
+				tw7_goals = 50 // FIXEDGROVE: new stage that skips the cutscene and plays its dialogue while freeroaming instead
 			ENDIF
 		ENDIF
 	ENDIF
@@ -2827,6 +2827,107 @@ WAIT 0
 		ENDIF
 	ENDIF
 
+// FIXEDGROVE: START: ass bandit was killed before he reached his destination
+	IF tw7_goals = 50
+		IF tw7_control_flag = 0
+			CLEAR_PRINTS
+
+			CLEAR_MISSION_AUDIO 1
+			CLEAR_MISSION_AUDIO 2
+			tw7_speech_goals = 0
+
+			DELETE_CHAR tw7_goon[0]
+			DELETE_CHAR tw7_goon[1]
+			DELETE_CHAR tw7_goon[2]
+
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2563.7 -1435.0 10.0 2580.3 -1266.4 100.6
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2635.0 -1434.4 10.0 2652.0 -1263.6 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2714.9 -1501.6 10.0 2746.1 -1266.4 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2713.9 -1499.3 10.0 2746.6 -1266.3 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2714.6 -1249.9 10.0 2744.7 -1332.9 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2634.6 -1396.6 10.0 2651.0 -1264.2 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2635.1 -1248.0 10.0 2651.0 -1055.3 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2651.5 -1263.8 10.0 2579.5 -1248.7 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2563.7 -1248.6 10.0 2578.9 -1192.2 100.6
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2443.7 -1249.2 10.0 2459.1 -1191.9 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2363.5 -1253.4 10.0 2378.7 -1145.5 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2311.2 -1144.7 10.0 2379.1 -1162.1 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2239.9 -1130.0 10.0 2017.6 -928.3 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 1930.6 -1031.9 10.0 1574.4 -879.9 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 1879.6 -1024.3 10.0 1552.0 -1521.7 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 1725.8 -1433.3 10.0 1838.0 -1459.4 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 1838.4 -1453.6 10.0 1853.7 -1303.4 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 1979.3 -1468.7 10.0 1853.5 -1452.5 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2334.0 -1556.1 10.0 2350.5 -1489.7 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2350.1 -1516.0 10.0 2423.9 -1532.5 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2379.8 -1373.3 10.0 2423.7 -1452.6 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2363.5 -1291.7 10.0 2379.5 -1181.2 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2295.9 -1291.5 10.0 2311.5 -1162.3 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
+			SWITCH_ROADS_BACK_TO_ORIGINAL 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
+
+			MARK_CAR_AS_NO_LONGER_NEEDED tw7_players_bike
+			MARK_CAR_AS_NO_LONGER_NEEDED tw7_ass_bandit_bike
+			MARK_MODEL_AS_NO_LONGER_NEEDED LSV2
+			MARK_MODEL_AS_NO_LONGER_NEEDED LSV3
+			MARK_MODEL_AS_NO_LONGER_NEEDED PCJ600
+
+			REMOVE_BLIP tw7_control_blip
+
+			// needed for edge cases
+			IF NOT IS_GROUP_MEMBER mc_strap Players_Group
+                MAKE_ROOM_IN_PLAYER_GANG_FOR_MISSION_PEDS 1
+                SET_GROUP_MEMBER Players_Group mc_strap
+                tw7_flag_mc_strap_in_group = 1
+            ENDIF
+
+			timera = 0
+			tw7_control_flag = 1
+		ENDIF
+
+		IF tw7_control_flag = 1
+			IF timera > 500
+				ADD_BLIP_FOR_COORD 783.2 -1630.3 12.2 tw7_control_blip
+				SET_BLIP_AS_FRIENDLY tw7_control_blip TRUE	
+				PRINT_NOW ( SMK1_13 ) 8500 1 //Take OG Loc to the Burger Shot.
+				timera = 0
+				tw7_control_flag = 2
+			ENDIF
+		ENDIF
+
+		IF tw7_control_flag = 2
+			IF TIMERA > 5300
+				IF tw7_speech_goals = 0 
+					IF tw7_speech_flag = 0
+						tw7_speech_goals = 8
+						tw7_speech_control_flag = 0
+						GOSUB tw7_dialogue_setup
+						tw7_speech_flag = 1 
+					ENDIF
+				ENDIF
+			ENDIF
+
+			IF tw7_speech_goals = 0 
+				IF tw7_speech_flag = 1
+					timera = 0
+					PRINT_NOW ( SMK1_13 ) 8500 1 //Take OG Loc to the Burger Shot.
+					tw7_speech_flag = 2
+				ENDIF
+
+				IF tw7_speech_flag = 2
+					IF TIMERA > 1000
+						tw7_control_flag = 0
+						tw7_speech_flag = 0
+						tw7_goals = 16
+					ENDIF
+				ENDIF
+			ENDIF
+		
+			GOSUB tw7_mc_strap_group 	
+		ENDIF
+		
+	ENDIF
+// FIXEDGROVE: END
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////setting up the drive-by shooting////////////////////////////////////////////////////////////////
@@ -3720,7 +3821,8 @@ ENDIF
 
 IF tw7_goals > 3
 	IF tw7_goals < 14
-	OR tw7_goals = 16 
+	OR tw7_goals = 16
+	OR tw7_goals = 50 // FIXEDGROVE
 		IF IS_GROUP_MEMBER mc_strap Players_Group 
 			
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D mc_strap scplayer 10.0 10.0 8.0 FALSE
