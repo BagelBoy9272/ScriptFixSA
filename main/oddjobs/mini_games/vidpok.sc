@@ -95,7 +95,7 @@ LVAR_INT time_diff
 // commonly used temporary variables
 LVAR_INT temp_int temp_int2 temp_int3
 LVAR_FLOAT temp_float temp_float2 temp_float3
-LVAR_INT temp_seq
+LVAR_INT temp_ped // FIXEDGROVE: renamed from temp_seq
 LVAR_FLOAT vec_x vec_y vec_z
 LVAR_FLOAT vec2_x vec2_y vec2_z
 
@@ -2016,6 +2016,17 @@ button_text_offset = 2.5
 
 					vp_cross_is_pressed = 1
 					vp_initial_stake = 0
+
+					// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
+					GET_CHAR_COORDINATES scplayer x y z
+					GET_RANDOM_CHAR_IN_SPHERE x y z GAMB_PROXIMITY_FOR_CONGRATS TRUE FALSE FALSE temp_ped
+
+					IF NOT IS_CHAR_DEAD temp_ped
+						SET_CHAR_SAY_CONTEXT temp_ped CONTEXT_GLOBAL_GAMB_CONGRATS temp_integer_4
+						TASK_LOOK_AT_CHAR temp_ped scplayer 2000
+					ENDIF
+					// FIXEDGROVE: END
+
 				ENDIF
 			ELSE
 				IF TIMERA > 4000

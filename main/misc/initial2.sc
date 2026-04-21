@@ -601,6 +601,7 @@ player_gets_credit_w[0] = SOUND_W_LEND1	//An offer of credit has been made, sir.
 player_gets_credit_w[1] = SOUND_W_LEND2	//The house is prepared to offer you credit, sir.
 player_gets_credit_w[2] = SOUND_W_LEND3	//The house recognises sir's credit rating.
 
+CONST_FLOAT GAMB_PROXIMITY_FOR_CONGRATS     12.0 // FIXEDGROVE: used for GAMB_CONGRATS speech context
 
 // ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
 // º CASINO GAME GLOBALS  CR º

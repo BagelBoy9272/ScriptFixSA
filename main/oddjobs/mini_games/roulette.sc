@@ -11,6 +11,7 @@ SCRIPT_NAME ROULETE
 
 LVAR_INT roulette_table
 LVAR_INT flag
+LVAR_INT temp_ped // FIXEDGROVE
 
 flag = 0
 IF flag = 1
@@ -627,6 +628,17 @@ roulette_script_loop:
 									set_text_colour	temp_integer_2 temp_integer_3 temp_integer_4 255
 									DISPLAY_TEXT_with_number 320.0 155.333 WINNER temp_integer_1
 									REGISTER_INT_STAT BIGGEST_GAMBLING_WIN temp_integer_1
+
+									// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
+									GET_CHAR_COORDINATES scplayer x y z
+									GET_RANDOM_CHAR_IN_SPHERE x y z GAMB_PROXIMITY_FOR_CONGRATS TRUE FALSE FALSE temp_ped
+
+									IF NOT IS_CHAR_DEAD temp_ped
+										SET_CHAR_SAY_CONTEXT temp_ped CONTEXT_GLOBAL_GAMB_CONGRATS temp_integer_4
+										TASK_LOOK_AT_CHAR temp_ped scplayer 2000
+									ENDIF
+									// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
+									
 								else
 									temp_integer_1 *= -1
 									GOSUB setup_text_roulette

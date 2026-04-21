@@ -2539,6 +2539,16 @@ bj_m_stage_6:
 			SHOW_UPDATE_STATS FALSE
 			IF temp_int > 0
 
+				// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
+				GET_CHAR_COORDINATES scplayer temp_float temp_float2 temp_float3
+				GET_RANDOM_CHAR_IN_SPHERE temp_float temp_float2 temp_float3 GAMB_PROXIMITY_FOR_CONGRATS TRUE FALSE FALSE temp_ped
+
+				IF NOT IS_CHAR_DEAD temp_ped
+					SET_CHAR_SAY_CONTEXT temp_ped CONTEXT_GLOBAL_GAMB_CONGRATS temp_int
+					TASK_LOOK_AT_CHAR temp_ped scplayer 2000
+				ENDIF
+				// FIXEDGROVE: END
+
 				REGISTER_INT_STAT BIGGEST_GAMBLING_WIN temp_int
 
 				temp_float  =# temp_int 

@@ -68,6 +68,7 @@ wof_script: 	////////////////////////////////////////////////////////////////
 	LVAR_INT m_stand
 	LVAR_INT m_stage m_goals
 	LVAR_INT croupier
+	LVAR_INT temp_ped // FIXEDGROVE
 
 	LVAR_FLOAT temp_float temp_float2
 	LVAR_INT temp_int temp_int2 temp_int3
@@ -1107,6 +1108,16 @@ wof_m_stage_5:
 		
 		IF temp_int > 0
 		
+			// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
+			GET_CHAR_COORDINATES scplayer x y z
+			GET_RANDOM_CHAR_IN_SPHERE x y z GAMB_PROXIMITY_FOR_CONGRATS TRUE FALSE FALSE temp_ped
+
+			IF NOT IS_CHAR_DEAD temp_ped
+				SET_CHAR_SAY_CONTEXT temp_ped CONTEXT_GLOBAL_GAMB_CONGRATS temp_integer_4
+				TASK_LOOK_AT_CHAR temp_ped scplayer 2000
+			ENDIF
+			// FIXEDGROVE: END
+
 			REGISTER_INT_STAT BIGGEST_GAMBLING_WIN temp_int
 			
 			// play win dialogue

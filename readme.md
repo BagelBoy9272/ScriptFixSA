@@ -369,6 +369,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
 - Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy
 - Added unused "hit", "stick, "double" and "split" lines for the player while playing blackjack
+- Added unused "GAMB_CONGRATS" lines for random peds nearby when the player wins in a gambling game
 - Added unused "BOXING_CHEER" for boxers outside the ring when fighting the LS and LV gym instructor (based on almost finished OG code)
 - Each Trucking and Quarry mission now plays the mission complete tune (previously only the last one did)
 - Each Trucking and Quarry mission now counts towards total progress % (previously only the last one did)

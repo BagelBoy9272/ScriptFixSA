@@ -10,6 +10,7 @@ SCRIPT_NAME BANDIT
 LVAR_INT slot_machine
 LVAR_INT reel[3]
 LVAR_INT flag timer	reel_to_slow
+LVAR_INT temp_ped // FIXEDGROVE
 flag = 0
 reel_to_slow = 0
 LVAR_FLOAT reel_rotation[3] reel_speed[3]
@@ -314,6 +315,17 @@ slot_machine_loop:
 					temp_integer_3 =# temp_float_1
 					IF reel1_winnings[temp_integer_1] = reel2_winnings[temp_integer_2]
 					AND reel1_winnings[temp_integer_1] = reel3_winnings[temp_integer_3]
+
+						// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
+						GET_CHAR_COORDINATES scplayer x y z
+						GET_RANDOM_CHAR_IN_SPHERE x y z GAMB_PROXIMITY_FOR_CONGRATS TRUE FALSE FALSE temp_ped
+			
+						IF NOT IS_CHAR_DEAD temp_ped
+							SET_CHAR_SAY_CONTEXT temp_ped CONTEXT_GLOBAL_GAMB_CONGRATS temp_integer_4
+							TASK_LOOK_AT_CHAR temp_ped scplayer 2000
+						ENDIF
+						// FIXEDGROVE: END
+
 						temp_integer_4 = slot_cost * reel1_winnings[temp_integer_1]
 						start_new_script display_win_text temp_integer_4
 						ADD_SCORE player1 temp_integer_4
