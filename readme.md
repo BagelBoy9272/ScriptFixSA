@@ -111,6 +111,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Commented a tiny bit of debug code
 - Removed "IS_IN_CAR" checks for the dialogue after killing Jeffrey, to make it flow more naturally
 - Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
+- If you kill Freddy before he reaches his destination, the cutsene at the basketball court will play as dialogue instead, and you won't be teleported away
 - Swapped an if chain with a switchcase
 
 **Running Dog:**
@@ -291,6 +292,17 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed date phonecalls reducing progress if the player couldn't answer
 - Made dump phonecalls retry if the player couldn't answer
 - Refactored GF phonecalls related code
+- Improved coffee
+  - Fixed "changing position" animation
+  - Fixed head speech context not playing if standing up
+  - Fixed good performance speech context and the "CLIMAX_HIGH" context conflicting due to being played at almost the same time
+  - Fixed the characters standing up for a frame at the start of the minigame
+  - Play bad performance speech context if the performance was bad (this originally only played in the special date with Millie)
+  - Improved good ending cutscene, now it has a fade out, the camera angle changes and black bars are added
+  - Now the starting position is randomized
+  - Now the radar is hidden during coffee
+  - Now the excitement bar is hidden during an ending
+  - Removed censorship for Xbox version
 
 **Parachute:**
 - Fixed landing animation

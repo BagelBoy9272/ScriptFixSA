@@ -53,19 +53,20 @@ GF_Sex:
 				11 	// SPANKING RELEASE PERFECT!
 				12 	// SPANKING RELEASE GOOD!
 				13	// Excitement counter on screen
-				14  // POWER_BAR_TOP_REACHED	
+				14  // POWER_BAR_TOP_REACHED
+				15  // Change position in progress	// FIXEDGROVE: added bit flag for changing position
 	*/
 
-	//--- Parameter passing Fudge
-	IF iSexMachineFlags > 0
+	//--- Parameter passing Fudge // FIXEDGROVE: replace impossible check with a GOTO
+	GOTO GF_Sex_fool_compiler
 	   CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iGF_ped
-	ENDIF
+	GF_Sex_fool_compiler:
 	
 	
-	//--- Streaming requests   	 
-	GOSUB GF_Sex_SteamGFModel // Uses iGFidx to retrieve the proper sexy version
-	IF iCensoredVersion = 0
-		GOSUB GF_Sex_SteamAnims
+	//--- Streaming requests 
+	IF iCensoredVersion = 0  	 
+		GOSUB GF_Sex_StreamGFModel // Uses iGFidx to retrieve the proper sexy version // FIXEDGROVE: was outside this check
+		GOSUB GF_Sex_StreamAnims
 	ENDIF
 	 
 	//---MAIN LOOP---
@@ -110,7 +111,7 @@ IF NOT IS_BIT_SET iSexMachineFlags 1
 	//--- Set up the censored verison of the script	(just a cut-scene over the house)
 	IF iCensoredVersion = 1
 		SET_BIT iSexMachineFlags 1
-		iSexState = 9
+		iSexState = 10
 		iSubStateStatus = 0
 		RETURN
 	ENDIF
@@ -130,6 +131,8 @@ IF NOT IS_BIT_SET iSexMachineFlags 1
 	IF IS_BUTTON_PRESSED PAD1 SQUARE		
 		//--- Sex Position Change
 		IF NOT IS_BIT_SET iSexMachineFlags 3 // Is SQUARE Button Down
+		AND NOT IS_BIT_SET iSexMachineFlags 15 // FIXEDGROVE: Change position is NOT in progress
+			SET_BIT iSexMachineFlags 15 // FIXEDGROVE: Change position in progress
 			GOSUB GF_Sex_PositionChange
 			SET_BIT iSexMachineFlags 3 
 		ENDIF
@@ -162,8 +165,7 @@ GF_Sex_DoCurrentState:
 		CASE 1 //--- INTRO SEATED BLOWJOB
 			GOSUB GF_Sex_State1
 		BREAK
-		CASE 2
-			//--- TOTAL FADE AND END
+		CASE 2 //--- TOTAL FADE AND END
 			GOSUB GF_Sex_State2
 		BREAK
 		CASE 3	//--- SPANKING
@@ -184,15 +186,18 @@ GF_Sex_DoCurrentState:
 		CASE 8	//--- END SEX BAD
 		   GOSUB GF_Sex_State8
 		BREAK
-		CASE 9 //--- CENSORED VERSION: CUT-SCENE
+		CASE 9 //--- END SEX GOOD 
 			GOSUB GF_Sex_State9	
+		BREAK
+		CASE 10	//--- CENSORED VERSION: CUT-SCENE
+		   GOSUB GF_Sex_State10
 		BREAK
 	ENDSWITCH
 
 
 RETURN
 /********************************************
-			STATE 0: 
+			STATE 0: FADE AND INIT
 ********************************************/
 GF_Sex_State0: 
 	SWITCH iSubStateStatus	 				
@@ -209,6 +214,7 @@ GF_Sex_State0:
 			HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer TRUE
 			HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE iGF_ped TRUE
 			DISPLAY_RADAR FALSE
+			DISPLAY_HUD FALSE // FIXEDGROVE
 			SET_EVERYONE_IGNORE_PLAYER player1 TRUE
 			SWITCH_WIDESCREEN ON
 			SET_ALL_CARS_CAN_BE_DAMAGED FALSE 
@@ -309,7 +315,7 @@ GF_Sex_State1:
 	ENDSWITCH		
 RETURN
 /********************************************
-			STATE 2: 
+		  STATE 2: TOTAL FADE AND END
 ********************************************/
 GF_Sex_State2: 
 	SWITCH iSubStateStatus	 				
@@ -708,50 +714,62 @@ GF_Sex_State6:
 			GOSUB GF_Sex_CameraViewChange
 						
 			PRINT_HELP_FOREVER GF_0020  
-			  			 
-			DO_FADE	500 FADE_IN
 			
 			CLEAR_BIT iSexMachineFlags 1
-			++iSubStateStatus	
+
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 shaggin_position // FIXEDGROVE: assign random starting position, the high blend speed also 
+															  // 			 fixes the player and the gf standing up for a frame
+			IF shaggin_position = 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1_W SEX 1000.4 TRUE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1_P SEX 1000.4 TRUE FALSE FALSE TRUE 0
+			ENDIF
+
+			IF shaggin_position = 1
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_2_W SEX 1000.4 TRUE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_2_P SEX 1000.4 TRUE FALSE FALSE TRUE 0
+			ENDIF
+
+			IF shaggin_position = 2
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_3_W SEX 1000.4 TRUE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_3_P SEX 1000.4 TRUE FALSE FALSE TRUE 0	
+			ENDIF
+
+			DO_FADE	500 FADE_IN
+			iSubStateStatus = 2 // FIXEDGROVE: since the changing position logic was reworked, this now jumps straight into the loop
 		ENDIF
 	BREAK
 	
-	CASE 1
+	CASE 1 // FIXEDGROVE: reworked logic for changing position
 		TIMERB = 0 // Reset the timer 
 
 		IF shaggin_position = 0
-			TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1_W SEX 4.0 TRUE FALSE FALSE FALSE 0
-			TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1_P SEX 4.0 TRUE FALSE FALSE FALSE 0
-    
-			++iSubStateStatus
+			GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_3to1_P fTemp[0]
+			IF fTemp[0] = 1.0
+				CLEAR_BIT iSexMachineFlags 15 // Change position DONE
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1_W SEX 4.0 TRUE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1_P SEX 4.0 TRUE FALSE FALSE TRUE 0
+				++iSubStateStatus		
+			ENDIF
 		ENDIF
 
 		IF shaggin_position = 1
-			IF IS_CHAR_PLAYING_ANIM scplayer SEX_1to2_P
-				GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_1to2_P fTemp[0]
-				IF fTemp[0] >= 1.0
-					TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_2_W SEX 4.0 TRUE FALSE FALSE FALSE 0
-					TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_2_P SEX 4.0 TRUE FALSE FALSE FALSE 0
-				ENDIF																				  
-			ELSE
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_2_W SEX 4.0 TRUE FALSE FALSE FALSE 0
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_2_P SEX 4.0 TRUE FALSE FALSE FALSE 0
-			ENDIF
-			++iSubStateStatus
+			GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_1to2_P fTemp[0]
+			IF fTemp[0] = 1.0
+				CLEAR_BIT iSexMachineFlags 15 // Change position DONE
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_2_W SEX 4.0 TRUE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_2_P SEX 4.0 TRUE FALSE FALSE TRUE 0
+				++iSubStateStatus
+			ENDIF																				  
 		ENDIF
 
 		IF shaggin_position = 2
-			IF IS_CHAR_PLAYING_ANIM scplayer SEX_2to3_P
-				GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_2to3_P fTemp[0]
-				IF fTemp[0] >= 1.0
-					TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_3_W SEX 4.0 TRUE FALSE FALSE FALSE 0
-					TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_3_P SEX 4.0 TRUE FALSE FALSE FALSE 0
-				ENDIF																				  
-			ELSE			
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_3_W SEX 4.0 TRUE FALSE FALSE FALSE 0
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_3_P SEX 4.0 TRUE FALSE FALSE FALSE 0
+			GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_2to3_P fTemp[0]
+			IF fTemp[0] = 1.0
+				CLEAR_BIT iSexMachineFlags 15 // Change position DONE
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_3_W SEX 4.0 TRUE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_3_P SEX 4.0 TRUE FALSE FALSE TRUE 0				
+				++iSubStateStatus
 			ENDIF
-			++iSubStateStatus
 		ENDIF			
 
 	BREAK
@@ -765,60 +783,40 @@ GF_Sex_State6:
 	 			
 		//--- See if the girl had enough plasure...
 		IF excitement = 100
-			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_CLIMAX_HIGH
-			SET_PLAYER_CONTROL player1 OFF
 			SET_BIT iSexMachineFlags 1 // Set the next state as NON TRANSITABLE
-			SET_BIT iDateReport SEX_WAS_GOOD // Mark SEX as Good for the Dating Agent			
-			++iSubStateStatus
+			SET_BIT iDateReport SEX_WAS_GOOD // Mark SEX as Good for the Dating Agent
+
+			// FIXEDGROVE: START - remove the excitement counter for the "cutscenes"
+			IF IS_BIT_SET iSexMachineFlags 13	// Excitement counter on screen
+				CLEAR_ONSCREEN_COUNTER excitement
+				CLEAR_BIT iSexMachineFlags 13 
+			ENDIF
+			// FIXEDGROVE: END
+
+			CLEAR_HELP
+
+			DO_FADE 1000 FADE_OUT
+			iSexState = 9 // FIXEDGROVE: moved the logic for the good ending to a new state
+			iSubStateStatus = 0
 		ENDIF
 
 		IF excitement = 0 // Your excitement meter has dropped
 			//--- Mark that sex was bad
 			CLEAR_BIT iDateReport SEX_WAS_GOOD 
-			//--- Botched sex 
-			CLEAR_HELP			
+			// FIXEDGROVE: START - remove the excitement counter for the "cutscenes"
+			IF IS_BIT_SET iSexMachineFlags 13	// Excitement counter on screen
+				CLEAR_ONSCREEN_COUNTER excitement
+				CLEAR_BIT iSexMachineFlags 13 
+			ENDIF
+			// FIXEDGROVE: END
+			CLEAR_HELP
+			//--- Botched sex			
 			iSexState = 8
 			iSubStateStatus = 0
 		ENDIF
 		
 	BREAK
-
-	CASE 3   	
-		IF shaggin_position = 0
-			++iSubStateStatus		
-		ENDIF
-
-	   	IF shaggin_position = 1
-			GOSUB GF_Sex_CameraViewChange
-			shaggin_position = 0
-			++iSubStateStatus
-		ENDIF
-
-		IF shaggin_position = 2
-			GOSUB GF_Sex_CameraViewChange
-			shaggin_position = 0
-			++iSubStateStatus
-		ENDIF
-
-	BREAK
-
-	CASE 4
-	
-		TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1_Cum_W SEX 4.0 FALSE FALSE FALSE TRUE 0
-		TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1_Cum_P SEX 4.0 FALSE FALSE FALSE TRUE 0
-		iGFSayContext = CONTEXT_GLOBAL_GFRIEND_SEX_GOOD
-		++iSubStateStatus
-	BREAK
-
-	CASE 5
-		GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_1_Cum_P fTemp[0]
-		IF fTemp[0] = 1.0		
-			//--- Sex Finished			
-			iSexState = 2
-			iSubStateStatus = 0
-		ENDIF		
-	BREAK
-	ENDSWITCH	
+	ENDSWITCH
 RETURN
 /********************************************
 		STATE 7: ALTERNATIVE INTRO
@@ -864,7 +862,8 @@ GF_Sex_State7:
 
 		IF fTemp[0] = 1.0
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer BJ_STAND_LOOP_P BLOWJOBZ 4.0 TRUE FALSE FALSE TRUE 6000
-			TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped BJ_STAND_LOOP_W BLOWJOBZ 4.0 TRUE FALSE FALSE TRUE 6000 
+			TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped  BJ_STAND_LOOP_W BLOWJOBZ 4.0 TRUE FALSE FALSE TRUE 6000 
+			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_HEAD // FIXEDGROVE: this didn't play originally
 			TIMERB = 0
 			++iSubStateStatus
 		ENDIF
@@ -907,7 +906,7 @@ GF_Sex_State7:
 	ENDSWITCH		
 RETURN
 /********************************************
-		STATE 8: SEX END BAD
+			STATE 8: SEX END BAD
 ********************************************/
 GF_Sex_State8: 
 	SWITCH iSubStateStatus	 				
@@ -916,27 +915,29 @@ GF_Sex_State8:
 		IF shaggin_position = 0		
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1_Fail_W SEX 4.0 FALSE FALSE FALSE TRUE 0
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1_Fail_P SEX 4.0 FALSE FALSE FALSE TRUE 0
-			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_CLIMAX_LOW
-			++iSubStateStatus
-			BREAK
 		ENDIF
 		IF shaggin_position = 1		
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_2_Fail_W SEX 4.0 FALSE FALSE FALSE TRUE 0
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_2_Fail_P SEX 4.0 FALSE FALSE FALSE TRUE 0
-			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_CLIMAX_LOW
-			++iSubStateStatus
-			BREAK
 		ENDIF
 		IF shaggin_position = 2		
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_3_Fail_W SEX 4.0 FALSE FALSE FALSE TRUE 0
 			TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_3_Fail_P SEX 4.0 FALSE FALSE FALSE TRUE 0
-			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_CLIMAX_LOW
-			++iSubStateStatus
-			BREAK
 		ENDIF
+		iGFSayContext = CONTEXT_GLOBAL_GFRIEND_CLIMAX_LOW
+		TIMERB = 0
+		++iSubStateStatus
 	BREAK
 
+	// FIXEDGROVE: START - play this partially unused context here
 	CASE 1
+		IF TIMERB > 2300
+			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_SEX_BAD
+			++iSubStateStatus
+		ENDIF
+	BREAK
+	// FIXEDGROVE: END
+	CASE 2
 		IF shaggin_position = 0
 			GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_1_Fail_P fTemp[0]
 		ELSE
@@ -957,9 +958,48 @@ GF_Sex_State8:
 	ENDSWITCH
 RETURN  
 /********************************************
-			STATE 9: 
+			STATE 9: SEX END GOOD
 ********************************************/
-GF_Sex_State9: 
+GF_Sex_State9:
+
+	SWITCH iSubStateStatus	 				
+
+	CASE 0
+		GOSUB GF_Sex_LoopSexAtGivenSpeed
+		IF NOT GET_FADING_STATUS
+			GOSUB GF_Sex_CameraViewChange
+			SWITCH_WIDESCREEN ON
+			DO_FADE 1000 FADE_IN
+			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_CLIMAX_HIGH
+			TIMERB = 0
+			++iSubStateStatus
+		ENDIF
+	BREAK
+
+	CASE 1
+		TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1_Cum_W SEX 1000.0 FALSE FALSE FALSE TRUE 0
+		TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1_Cum_P SEX 1000.0 FALSE FALSE FALSE TRUE 0
+		IF TIMERB > 3200
+			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_SEX_GOOD
+			++iSubStateStatus
+		ENDIF
+	BREAK
+
+	CASE 2
+		GET_CHAR_ANIM_CURRENT_TIME scplayer SEX_1_Cum_P fTemp[0]
+		IF fTemp[0] = 1.0		
+			//--- Sex Finished			
+			iSexState = 2
+			iSubStateStatus = 0
+		ENDIF		
+	BREAK
+	ENDSWITCH	
+RETURN
+
+/********************************************
+	STATE 10: CENSORED VERSION: CUT-SCENE
+********************************************/
+GF_Sex_State10: 
 	SWITCH iSubStateStatus	 				
 
 	CASE 0
@@ -1008,9 +1048,7 @@ GF_Sex_State9:
 			SET_FIXED_CAMERA_POSITION fX[0] fY[0] fZ[0] 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT fX[1] fY[1] fZ[1] JUMP_CUT
 
-			IF NOT IS_XBOX_VERSION
-				CAMERA_SET_SHAKE_SIMULATION_SIMPLE 5 5000.0 10.0
-			ENDIF
+			CAMERA_SET_SHAKE_SIMULATION_SIMPLE 5 5000.0 10.0
 
 			GET_TIME_OF_DAY iTemp iTemp2
 			iTemp2 += 30
@@ -1037,9 +1075,7 @@ GF_Sex_State9:
 		IF TIMERB > 3000
 			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_MOAN_MUFFLED
 			TIMERB = 0
-			IF NOT IS_XBOX_VERSION
-				CAMERA_SET_SHAKE_SIMULATION_SIMPLE 5 3000.0 15.0
-			ENDIF
+			CAMERA_SET_SHAKE_SIMULATION_SIMPLE 5 3000.0 15.0
 			++iSubStateStatus
 		ENDIF
 	BREAK
@@ -1052,9 +1088,7 @@ GF_Sex_State9:
 			ELSE
 				iCJSayContext = CONTEXT_GLOBAL_HAVING_SEX_MUFFLED			 
 			ENDIF
-			IF NOT IS_XBOX_VERSION
-				CAMERA_SET_SHAKE_SIMULATION_SIMPLE 5 3000.0 20.0
-			ENDIF
+			CAMERA_SET_SHAKE_SIMULATION_SIMPLE 5 3000.0 20.0
 			TIMERB = 0
 			++iSubStateStatus
 		ENDIF
@@ -1096,7 +1130,7 @@ RETURN
 /*******************************************
 		LOAD GF MODEL FROM STREAM
 ********************************************/
-GF_Sex_SteamGFModel:
+GF_Sex_StreamGFModel:
 
 	SWITCH iGFIdx_par
 		
@@ -1159,10 +1193,9 @@ RETURN
 /*******************************************
 		LOAD ANIMATIONS FROM STREAM
 ********************************************/
-GF_Sex_SteamAnims:
+GF_Sex_StreamAnims:
 		
 	REQUEST_ANIMATION BLOWJOBZ
-	REQUEST_ANIMATION KISSING
 	REQUEST_ANIMATION SEX	  
 	REQUEST_ANIMATION SNM
 	
@@ -1171,12 +1204,10 @@ GF_Sex_StreamLoop:
 
 	IF HAS_ANIMATION_LOADED BLOWJOBZ
 	AND HAS_ANIMATION_LOADED SEX
-	AND HAS_ANIMATION_LOADED KISSING
 	AND HAS_ANIMATION_LOADED SNM
 		RETURN
 	ELSE
 		REQUEST_ANIMATION BLOWJOBZ
-		REQUEST_ANIMATION KISSING
  		REQUEST_ANIMATION SEX	  
  		REQUEST_ANIMATION SNM
 		GOTO GF_Sex_StreamLoop
@@ -1453,21 +1484,22 @@ GF_Sex_PositionChange:
 
 		++shaggin_position 	
 
+		// FIXEDGROVE: changed the keepLastFrame param to TRUE so the animation transition is smoother
 		SWITCH shaggin_position
 			CASE 1
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1to2_W SEX 4.0 FALSE FALSE FALSE FALSE 0
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1to2_P SEX 4.0 FALSE FALSE FALSE FALSE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_1to2_W SEX 4.0 FALSE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_1to2_P SEX 4.0 FALSE FALSE FALSE TRUE 0
 			BREAK
 
 			CASE 2
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_2to3_W SEX 4.0 FALSE FALSE FALSE FALSE 0
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_2to3_P SEX 4.0 FALSE FALSE FALSE FALSE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_2to3_W SEX 4.0 FALSE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_2to3_P SEX 4.0 FALSE FALSE FALSE TRUE 0
 			BREAK
 
 			CASE 3
 				shaggin_position = 0 // Loop around
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_3to1_W SEX 4.0 FALSE FALSE FALSE FALSE 0
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_3to1_P SEX 4.0 FALSE FALSE FALSE FALSE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_ped SEX_3to1_W SEX 4.0 FALSE FALSE FALSE TRUE 0
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer SEX_3to1_P SEX 4.0 FALSE FALSE FALSE TRUE 0
 			BREAK
 				
 		ENDSWITCH
@@ -1628,8 +1660,10 @@ GF_Sex_GetStickSynchToSexAnim:
 
 	IF IS_BIT_SET iSexMachineFlags 5  // End Sex Anim Reached		
 		SHAKE_PAD PAD1 200 100
-		iGFSayContext = CONTEXT_GLOBAL_GFRIEND_MOAN
-		iCJSayContext = CONTEXT_GLOBAL_HAVING_SEX 
+		IF NOT IS_BIT_SET iSexMachineFlags 1 // Non transitable state // FIXEDGROVE: check added so these contexts don't override the ones in the end states
+			iGFSayContext = CONTEXT_GLOBAL_GFRIEND_MOAN
+			iCJSayContext = CONTEXT_GLOBAL_HAVING_SEX
+		ENDIF 
 		//--- STICK DOWN: The closer we get to -1 the better
 		IF fTemp[1] < -0.8 
 			GOSUB GF_Sex_IncrementExcitement
@@ -2020,7 +2054,6 @@ GF_Sex_Cleanup:
 	REMOVE_ANIMATION SNM
 	REMOVE_ANIMATION SEX
 	REMOVE_ANIMATION BLOWJOBZ
-	REMOVE_ANIMATION KISSING
 	
 	//--- Remove the model
 	UNLOAD_SPECIAL_CHARACTER 1
@@ -2040,6 +2073,7 @@ GF_Sex_Cleanup:
 	ENDIF
 
 	DISPLAY_RADAR TRUE
+	DISPLAY_HUD TRUE // FIXEDGROVE
 
 	SET_BIT iDateReport MEET_TOMORROW // Sex took place, so don't date again until tomorrow 
 	CLEAR_BIT iDateReport SEX_IN_PROGRESS // Clear SEX_IN_PROGRESS for the Dating Agent
