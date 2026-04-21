@@ -49,6 +49,15 @@ CONST_INT SPRITE_GOOD							56
 
 CONST_INT LOWRIDER_SCORE_TOTAL_BEATS_TO_REPORT	4
 
+//FIXEDGROVE: START - SPEECH FEEDBACK
+CONST_INT LOWRIDER_SPEECH_IDLE					0
+CONST_INT LOWRIDER_SPEECH_PLAYBACK				1
+CONST_INT LOWRIDER_SPEECH_GOOD					2
+CONST_INT LOWRIDER_SPEECH_BAD					3
+CONST_INT LOWRIDER_SPEECH_REQUEST_GOOD			6
+CONST_INT LOWRIDER_SPEECH_REQUEST_BAD			8
+CONST_INT LOWRIDER_TIME_TO_TRIGGER_SPEECH		10000
+//FIXEDGROVE: END
 
 VAR_INT lowr_perfect_beat_counter
 VAR_INT lowr_good_beat_counter
@@ -91,6 +100,12 @@ LVAR_INT last_print
 LVAR_INT consecutive_goods
 LVAR_INT consecutive_bads
 
+//FIXEDGROVE: START - speech related
+VAR_INT lowr_speech_state
+VAR_INT lowr_speech_request
+VAR_INT lowr_speech_counter
+//FIXEDGROVE: END
+
 // set initial flags
 force_multiplier = 0.01
 lowrider_level = 0
@@ -105,16 +120,22 @@ last_scored_beat = -1
 last_opp_scored_beat = 0
 last_stick_position = 0
 
+//FIXEDGROVE: START - speech related vars
+TIMERB = LOWRIDER_TIME_TO_TRIGGER_SPEECH
+lowr_speech_state = LOWRIDER_SPEECH_IDLE
+lowr_speech_request = -1
+lowr_speech_counter = 1
+//FIXEDGROVE: END
 
 // fake creates
-IF flag = -1
+GOTO lowrider_game_fool_compiler // FIXEDGROVE: replaced impossible check with a GOTO
 	CREATE_CAR PONY 0.0 0.0 0.0 pcar
 	CREATE_CAR PONY 0.0 0.0 0.0 ocar
 	CREATE_CHAR PEDTYPE_CIVMALE MALE01 0.0 0.0 0.0 bounce_girl
 	WAIT 0
 	WAIT 0
 	WAIT 0
-ENDIF
+lowrider_game_fool_compiler:
 
 // check input is valid
 IF DOES_VEHICLE_EXIST pcar
@@ -273,7 +294,9 @@ WAIT 0
 				GOSUB LOWR_get_stick_position
 				GET_BEAT_PROXIMITY 0 beat_time beat_type beat_num
 				//WRITE_DEBUG_WITH_INT beat_num beat_num
-				 
+
+				GOSUB LOWR_play_state_feedback_speech // FIXEDGROVE: Handles the spoken feedback for the current overall status 
+
 // scoring system ---------------------------------------
 
 				IF NOT beat_num = last_scored_beat
@@ -1151,31 +1174,57 @@ LOWR_Update_Overall_Report:
 	temp_int = lowr_good_beat_counter + lowr_bad_beat_counter 
 	temp_int += lowr_perfect_beat_counter
 
+	// FIXEDGROVE: added speech feedback using unused lines
 	IF temp_int > 0
 		IF temp_int >= LOWRIDER_SCORE_TOTAL_BEATS_TO_REPORT
-			IF lowr_perfect_beat_counter = LOWRIDER_SCORE_TOTAL_BEATS_TO_REPORT 
+			//--- Time to update the overall status report
+			IF lowr_perfect_beat_counter = LOWRIDER_SCORE_TOTAL_BEATS_TO_REPORT
+				//--- Player has scored perfect on all beats 
 			 	IF lowr_overall_state = LOWRIDER_OVERALL_GOOD
 				OR lowr_overall_state = LOWRIDER_OVERALL_PERFECT
 					//--- Can enter perfect
+					lowr_speech_request = LOWRIDER_SPEECH_GOOD
+					TIMERB = 0 // Reset the timer used to count the time limit to trigger same context
 					PRINT_BIG DNC_002 50000 7 // PERFECT! //use a big number, the next state will brak it
 					lowr_overall_state = LOWRIDER_OVERALL_PERFECT
 				ELSE
+					//--- Last state was bad, so we can only move up to good
+					lowr_speech_request = LOWRIDER_SPEECH_GOOD
+					TIMERB = 0 // Reset the timer used to count the time limit to trigger same context
 					PRINT_BIG DNC_004 50000 7 // GOOD! //use a big number, the next state will brak it
 					lowr_overall_state = LOWRIDER_OVERALL_GOOD
 				ENDIF
 			ELSE
 				IF lowr_good_beat_counter > lowr_bad_beat_counter
+					//--- Player has scored more good beats than bad beats
+					IF lowr_overall_state = LOWRIDER_OVERALL_BAD
+						//--- If the current state was bad trigger speech
+						IF TIMERB >= LOWRIDER_TIME_TO_TRIGGER_SPEECH	
+							lowr_speech_request = LOWRIDER_SPEECH_GOOD
+							TIMERB = 0
+						ENDIF
+					ENDIF
 					PRINT_BIG DNC_004 50000 7 // GOOD! //use a big number, the next state will brak it
 					lowr_overall_state = LOWRIDER_OVERALL_GOOD
 				ELSE
+					//--- Player has scored more bad beats than good beats
 					IF lowr_overall_state = LOWRIDER_OVERALL_PERFECT
+						lowr_speech_request = LOWRIDER_SPEECH_BAD
+						TIMERB = 0 // Reset the timer used to count the time limit to trigger same context
 						PRINT_BIG DNC_004 50000 7 // GOOD! //use a big number, the next state will brak it
 						lowr_overall_state = LOWRIDER_OVERALL_GOOD
 					ELSE
 						IF lowr_overall_state = LOWRIDER_OVERALL_GOOD 
+							lowr_speech_request = LOWRIDER_SPEECH_BAD
+							TIMERB = 0 // Reset the timer used to count the time limit to trigger same context 
 							PRINT_BIG DNC_003 50000 7 // BAD! //use a big number, the next state will brak it
 							lowr_overall_state = LOWRIDER_OVERALL_BAD
 						ELSE
+							//--- Player has never moved away from his BAD state
+							IF TIMERB >= LOWRIDER_TIME_TO_TRIGGER_SPEECH
+								lowr_speech_request = LOWRIDER_SPEECH_BAD
+								TIMERB = 0 // Reset the timer used to count the time limit to trigger same context
+							ENDIF
 							PRINT_BIG DNC_003 50000 7 // BAD! //use a big number, the next state will brak it
 							lowr_overall_state = LOWRIDER_OVERALL_BAD
 						ENDIF
@@ -1190,6 +1239,121 @@ LOWR_Update_Overall_Report:
 	ENDIF
 
 RETURN
+
+// FIXEDGROVE: START - subroutines for speech feedback
+/*******************************************
+		PLAY STATE FEEDBACK SPEECH
+********************************************/
+LOWR_play_state_feedback_speech:
+
+SWITCH lowr_speech_state
+
+	CASE LOWRIDER_SPEECH_IDLE
+		IF lowr_speech_request = LOWRIDER_SPEECH_GOOD
+			lowr_speech_state = LOWRIDER_SPEECH_REQUEST_GOOD
+			lowr_speech_request = -1
+			BREAK
+		ENDIF  
+		IF lowr_speech_request = LOWRIDER_SPEECH_BAD
+			lowr_speech_state = LOWRIDER_SPEECH_REQUEST_BAD
+			lowr_speech_request = -1
+			BREAK
+		ENDIF    
+	BREAK 
+
+	CASE LOWRIDER_SPEECH_REQUEST_GOOD
+		IF HAS_MISSION_AUDIO_FINISHED 1
+			CLEAR_MISSION_AUDIO 1
+			GOSUB lowr_retrieve_speech_good
+			lowr_speech_state = LOWRIDER_SPEECH_PLAYBACK		 
+		ENDIF
+	BREAK
+
+	CASE LOWRIDER_SPEECH_REQUEST_BAD
+		IF HAS_MISSION_AUDIO_FINISHED 1
+			CLEAR_MISSION_AUDIO 1
+			GOSUB lowr_retrieve_speech_bad
+			lowr_speech_state = LOWRIDER_SPEECH_PLAYBACK		 
+		ENDIF
+	BREAK
+
+	CASE LOWRIDER_SPEECH_PLAYBACK 
+		IF HAS_MISSION_AUDIO_LOADED 1
+			ATTACH_MISSION_AUDIO_TO_CHAR 1 scplayer
+			PLAY_MISSION_AUDIO 1
+			lowr_speech_state = LOWRIDER_SPEECH_IDLE			
+		ENDIF
+	BREAK
+
+ENDSWITCH
+RETURN
+/*******************************************
+			RETRIEVE SPEECH GOOD
+********************************************/
+lowr_retrieve_speech_good:
+
+SWITCH lowr_speech_counter
+
+	CASE 1
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_EA
+		++lowr_speech_counter 
+	BREAK 
+	CASE 2
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_EB
+		++lowr_speech_counter 
+	BREAK 
+	CASE 3
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_EC
+		++lowr_speech_counter
+	BREAK
+	CASE 4
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_ED 
+		++lowr_speech_counter
+	BREAK 
+	CASE 5
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_EE
+		++lowr_speech_counter
+	BREAK 
+	DEFAULT
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_EF
+		lowr_speech_counter = 1
+	BREAK 
+ENDSWITCH
+RETURN
+/*******************************************
+			RETRIEVE SPEECH BAD
+********************************************/
+lowr_retrieve_speech_bad:
+
+SWITCH lowr_speech_counter
+
+	CASE 1
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_FA
+		++lowr_speech_counter
+	BREAK
+	CASE 2
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_FB
+		++lowr_speech_counter 
+	BREAK 
+	CASE 3
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_FC
+		++lowr_speech_counter 
+	BREAK 
+	CASE 4
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_FD 
+		++lowr_speech_counter
+	BREAK
+	CASE 5
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_FE 
+		++lowr_speech_counter
+	BREAK 
+	DEFAULT
+		LOAD_MISSION_AUDIO 1 SOUND_LOWR_FF
+		lowr_speech_counter = 1
+	BREAK 
+ENDSWITCH
+RETURN
+// FIXEDGROVE: END
 
 LOWR_update_score_and_stats:
 

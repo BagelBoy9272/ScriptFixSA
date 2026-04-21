@@ -365,6 +365,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Now wearing a police uniform will let you roam police impounds, and police stations while armed
 - Added facial talking anim to phonecalls
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
+- Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
 - Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy
 - Added unused "hit", "stick, "double" and "split" lines for the player while playing blackjack
