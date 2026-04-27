@@ -778,7 +778,7 @@ AND NOT IS_CHAR_DEAD thedoc
 
 						TASK_KILL_CHAR_ON_FOOT d2_driver scplayer
 
-						GENERATE_RANDOM_INT_IN_RANGE 0 2 d2_rnd
+						GENERATE_RANDOM_INT_IN_RANGE 0 3 d2_rnd // FIXEDGROVE: increase upper bound since its exclusive
 
 						SWITCH d2_rnd
 

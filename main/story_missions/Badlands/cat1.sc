@@ -1963,7 +1963,7 @@ cat1_m_stage_2:
 
 		SET_CREATE_RANDOM_GANG_MEMBERS FALSE
 
-		GENERATE_RANDOM_INT_IN_RANGE 0 8 cat_they_are_getting_away_dialogue
+		GENERATE_RANDOM_INT_IN_RANGE 0 9 cat_they_are_getting_away_dialogue // FIXEDGROVE: increased upper bound since its exclusive
 
 		temp_int = 0
 		WHILE temp_int < 3
@@ -2050,7 +2050,7 @@ cat1_m_stage_2:
 
 		disable_group = 0
 
-		GENERATE_RANDOM_INT_IN_RANGE 1 3 temp_int
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 temp_int // FIXEDGROVE: decreased lower bound from 1
 		IF temp_int = 0
 			$audio_string    = &CAT1_BA
 			audio_sound_file = SOUND_CAT1_BA

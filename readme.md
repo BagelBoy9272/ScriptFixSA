@@ -110,10 +110,10 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Added facial talk anim to voicelines
 - Deleted redundant SHUT_CHAR_UP calls, since now its handled by the audio code
 - Reverted a timer that was set to zero for debug
-- Deleted redundant DRAW_SPHERE calls, and moved it to after the cutscene where you go to Jeffrey's house ends
+- Deleted redundant DRAW_SPHERE calls, and moved it to after the cutscene where you go to Freddy's house ends
 - Commented a tiny bit of debug code
-- Removed "IS_IN_CAR" checks for the dialogue after killing Jeffrey, to make it flow more naturally
-- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
+- Removed "IS_IN_CAR" checks for the dialogue after killing Freddy, to make it flow more naturally
+- Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 - If you kill Freddy before he reaches his destination, the cutsene at the basketball court will play as dialogue instead, and you won't be teleported away
 - Swapped an if chain with a switchcase
 
@@ -151,7 +151,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Remove the alley molotov pickup in cleanup
 
 **House Party:**
-- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
+- Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Los Sepulcros:**
 - Removed respect requirement to enable unused part of the mission back
@@ -179,8 +179,15 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed characters not using their intented animation groups 
 - Add 4 star wanted level if the player fails the mission after getting to the motel 
 
+**Local Liquor Store:**
+- Increased upper bound of random number generator, improving randomness for the 'they are getting away' line selection
+- Decreased lower bound of a random number generator, bringing back an unintentionally unused line when you get in the quadbike
+
 **Tanker Commander:**
 - Proofed Whittaker in final cutscene to prevent softlocks
+
+**Small Town Bank:**
+- Fixed facial talk anim
 
 **Big Smoke's Cash:**
 - Fixed mission cancelling suddenly if player gets a phonecall
@@ -207,9 +214,6 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **King In Exile:**
 - Fixed softlock if player dies during the phonecall after the cutscene
 
-**Small Town Bank:**
-- Fixed incorrect facial talk anim assignment for some lines
-
 **Farewell, My Love...:**
 - Fixed Woozie ped model being used instead of Claude
 - Swapped an opponent's car with Claude's car, to match the cutscene
@@ -232,14 +236,17 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Ice Cold Killa:**
 - Fixed typo in coords for CREATE_BIRDS command 
 
+**Pier 69:**
+- Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
+
 **Test Drive:**
-- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
+- Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Customs Fast Track:**
-- Fixed the ped model used for the guard not matching their voice
+- Fixed the ped mosdel used for the guard not matching their voice
 
 **Puncture Wounds:**
-- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
+- Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **You've Had Your Chips:**
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
@@ -248,7 +255,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed right handbrake turns not counting 
 
 **Intensive Care:**
-- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
+- Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Up, Up And Away!:**
 - Fixed stationary minigun removing the player's heavy weaponry
@@ -260,6 +267,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Vertical Bird:**
 - Increased upper limit in random number generator, bringing back an unused route for a forklift
+
+**Madd Dogg:**
+- Increased upper bound in a random number generator, bringing back an unused line for the truck owner
 
 **Home Coming:**
 - Fixed the player dying if he was still in the Vincent when the mission ended
