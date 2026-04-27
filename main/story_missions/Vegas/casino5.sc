@@ -1075,7 +1075,7 @@ LVAR_INT ambulance_health_C5
 mission_casino5_SUB_setup_mafia_ambulance:
 
 	// chose a random ambulance ot hold the mafia
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 random_C5		
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 random_C5 // FIXEDGROVE: increassed upper limit
 	SWITCH pointer_C5
 		CASE 0
 			IF random_C5 = 0

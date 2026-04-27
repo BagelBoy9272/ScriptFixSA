@@ -2134,7 +2134,7 @@ IF sw4_stage = 5
 			IF IS_CAR_STOPPED sw4_player_car
 			AND IS_CHAR_IN_CAR scplayer sw4_player_car
 				GET_GAME_TIMER sw4_timer_start[0]
-				GENERATE_RANDOM_INT_IN_RANGE 0 5 sw4_stopped_text
+				GENERATE_RANDOM_INT_IN_RANGE 0 6 sw4_stopped_text // FIXEDGROVE: increase upper limit
 				sw4_hood_acc = 50
 				IF NOT IS_CHAR_DEAD sw4_flat_hood[0]
 					SET_CHAR_ACCURACY sw4_flat_hood[0] sw4_hood_acc
@@ -2843,7 +2843,7 @@ AND sw4_stage < 8
 			sw4_timer_remaining_secs = sw4_timer_remaining / 1000
 			IF sw4_in_car = 0
 				GET_GAME_TIMER sw4_timer_start[0]
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 sw4_stopped_text
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_stopped_text // FIXEDGROVE: increase upper limit
 				sw4_in_car = 1
 			ENDIF
 			IF sw4_in_car = 1

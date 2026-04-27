@@ -73,6 +73,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Nines And AKs:**
 - Made "cycling through targets" help box only show up if using a controller, otherwise display unused help box about gun recoil
 
+**Drive-By:**
+- Increased upper limit in random number generator, bringing back 2 unused voice lines
+
 **Cesar Vialpando:**
 - Fixed ghost town after getting the Savanna and before entering Loco Low Co.
 - Lowrider meet peds are only deleted after the cutscene
@@ -146,6 +149,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Added timers to ending cutscene to prevent softlocks
 - Proofed Denise in ending cutscene to prevent softlocks
 - Remove the alley molotov pickup in cleanup
+
+**House Party:**
+- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
 
 **Los Sepulcros:**
 - Removed respect requirement to enable unused part of the mission back
@@ -226,14 +232,23 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Ice Cold Killa:**
 - Fixed typo in coords for CREATE_BIRDS command 
 
+**Test Drive:**
+- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
+
 **Customs Fast Track:**
 - Fixed the ped model used for the guard not matching their voice
+
+**Puncture Wounds:**
+- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
 
 **You've Had Your Chips:**
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
 
 **Fender Ketchup:**
 - Fixed right handbrake turns not counting 
+
+**Intensive Care:**
+- Increased upper limit in random number generator, effectively bringing back an unintentionally unused random car plate
 
 **Up, Up And Away!:**
 - Fixed stationary minigun removing the player's heavy weaponry
@@ -242,6 +257,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Breaking The Bank At Caligula's:**
 - Fixed this mission permanently altering PEDTYPE_CIVMALE relationship towards player
 - Fixed the player's haircut being temporarily reset for no apparent reason
+
+**Vertical Bird:**
+- Increased upper limit in random number generator, bringing back an unused route for a forklift
 
 **Home Coming:**
 - Fixed the player dying if he was still in the Vincent when the mission ended
