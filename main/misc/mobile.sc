@@ -2929,8 +2929,7 @@ cell_phone_LA1_inner:
 						    ENDWHILE
 
 							IF IS_PLAYER_PLAYING player1
-								player_Z = player_Z - 0.5
-								SET_CHAR_COORDINATES scplayer player_X player_Y player_Z
+								SET_CHAR_COORDINATES_NO_OFFSET scplayer player_X player_Y player_Z // FIXEDGROVE: changed from SET_CHAR_COORDS, since the original coords dont have an offset
 								LOAD_SCENE player_X player_Y player_Z
 								RESTORE_CAMERA_JUMPCUT
 								SET_PLAYER_CONTROL player1 ON
