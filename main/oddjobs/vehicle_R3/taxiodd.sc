@@ -336,7 +336,7 @@ nCleanupTest_MissionPeds = 0
 
 // ***** FAKE ENTITY CREATION TO FOOL THE COMPILER *****
 // The compiler just needs to verify there is a CREATE_ before usage
-IF m_stage = -99
+GOTO taxi_fool_compiler // FIXEDGROVE: remove m_stage = -99 check
 	
 	WRITE_DEBUG SHOULD_NEVER_BE_IN_FAKE_ENTITY_CREATION
 
@@ -360,7 +360,7 @@ IF m_stage = -99
 		ADD_BLIP_FOR_COORD 0.0 0.0 0.0 blipPayAndSpray[nLoop]
 	ENDREPEAT
 
-ENDIF
+taxi_fool_compiler: // FIXEDGROVE: remove m_stage = -99 check
 
 
 
@@ -369,7 +369,7 @@ LOAD_MISSION_TEXT TAXI1
 
 
 // Intro Cutscene
-GOSUB Taxiodd_Intro_Cutscene
+//GOSUB Taxiodd_Intro_Cutscene FIXEDGROVE: comment out empty gosub
 
 
 // Load Char Mission Decision Makers
@@ -517,6 +517,17 @@ Taxiodd_Mission_Loop:
 		GOTO Taxiodd_End_Of_Main_Loop
 	ENDIF
 
+	// FIXEDGROVE: START - moved to main loop, now waits until the submission text is over before showing the help box
+	// Display help? (first time only)
+	IF done_taxi_help = FALSE
+		IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+			IF TIMERA > 6000		
+				PRINT_HELP TX_H1  
+				done_taxi_help = TRUE
+			ENDIF
+		ENDIF
+	ENDIF
+	// FIXEDGROVE: END
 
 	// ...Stage 1: Pickup a Customer
 	IF m_stage = 1
@@ -842,9 +853,13 @@ Taxiodd_Stage_Go_To_Destination:
 
 	// Tip bar help
 	IF flagDisplayedTipBarHelp = FALSE
-		IF timerTipBarHelp < m_mission_timer
-			PRINT_HELP TX_TIP
-			flagDisplayedTipBarHelp = TRUE
+		IF done_taxi_help = TRUE // FIXEDGROVE: needed in case the player picks up a passenger too quickly
+			IF timerTipBarHelp < m_mission_timer
+				PRINT_HELP TX_TIP
+				flagDisplayedTipBarHelp = TRUE
+			ENDIF
+		ELSE
+			timerTipBarHelp = m_mission_timer + 7000 // FIXEDGROVE: needed in case the player picks up a passenger too quickly
 		ENDIF
 	ENDIF
 
@@ -3255,12 +3270,15 @@ Taxiodd_Initialisation:
 	GOSUB Taxiodd_Load_All_Models
 	GOSUB Taxiodd_Load_All_Anims
 
-
+	// FIXEDGROVE: removed since the submission text doesn't allow help boxes to show
+	/*
 	// Display help? (first time only)
 	IF done_taxi_help = FALSE
 		PRINT_HELP TX_H1
 		done_taxi_help = TRUE
 	ENDIF
+	*/
+	// FIXEDGROVE: END
 
 
 	// Get the taxi the player is in
