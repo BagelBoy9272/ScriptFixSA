@@ -83,6 +83,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Sweet's Girl:**
 - Fixed possible softlock in the initial cutscene
+- Fixed overlapping icons for Emmet
 
 **Home Invasion:**
 - Fixed Ryder vanishing in the ending cutscene
@@ -121,6 +122,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Added facial talk anim to voicelines
 - Fixed an animation check that was supposed to make the running vagos member faster
 - Made Smoke respect player and Grove members, so he doesn't shoot them if provoked
+- Fixed overlapping icons for Emmet
 - Set SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH for player to false in cleanup
 
 **Wrong Side Of The Tracks:**
@@ -345,6 +347,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed Didier Sachs not being flagged as unlocked
 - Fixed possible softlock if the player answered a loanshark phone call while 'Are You Going To San Fierro?' wasn't unlocked
 - Fixed script not checking if player answered Rosenberg's phone call before enabling 'Vertical Bird'
+- Fixed player not being set in their original coordinates correctly after Sweet's gym call
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
