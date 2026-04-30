@@ -199,6 +199,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Gave a weapon to the courier, in case he ever gets out of the car
 - Increased upper limit in a random number generator, effectively bringing back a unintentionally unused route
 - Increased cash reward: each crate rewards you with $1200, for a total of $7200
+- If no crates are on the road, the 'Pick up the cash' text is cleared
 - The mission can no longer be rejected if the player cancels the phonecall the first time around
 - If player starts another mission, the mission will be considered "cancelled" and will effectively be treated as if it wasn't accepted
 - The courier and his car are made vulnerable on mission cleanup

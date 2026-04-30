@@ -780,6 +780,7 @@ WAIT 0
 						bce2_earnings += 1200 // FIXEDGROVE: increased from 300
 					   	bce2_crate_status[bce2_blipped] = 3
 						bce2_crate_check++
+						GOSUB clear_print_if_crates_collected // FIXEDGROVE clear 'Pick up the cash' text if no crates are on the road
 					ENDIF
 				ENDIF
 				IF DOES_OBJECT_EXIST bce2_crate[bce2_blipped]
@@ -798,6 +799,16 @@ ENDWHILE
 
 GOTO bce2_main_loop 
 
+// FIXEDGROVE: START - clear 'Pick up the cash' text if no crates are on the road
+clear_print_if_crates_collected:
+	REPEAT 6 temp_integer_1
+		IF bce2_crate_status[temp_integer_1] = 2
+			RETURN	
+		ENDIF
+	ENDREPEAT
+	CLEAR_THIS_PRINT ( BCE2_03 )
+RETURN
+// FIXEDGROVE: END
 
 // ------------------------------------------------------------------------------------------------
 // Mission Cleanup
