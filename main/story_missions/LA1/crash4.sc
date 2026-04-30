@@ -282,7 +282,7 @@ LOAD_ALL_MODELS_NOW
 
 SWITCH_WIDESCREEN ON
 
-IF played_cut1_before_crash4 = 1 
+IF played_cut1_before_crash4 = 1
 	SKIP_CUTSCENE_START
 ENDIF
 
@@ -878,9 +878,9 @@ IF played_cut2_before_crash4 = 1
 
 	ENDIF
 	
-ENDIF
+// ENDIF
 
-played_cut2_before_crash4 = 1 
+played_cut2_before_crash4 = 1
 
 //// ********************************************* CUT SCENE SHOWING ENEMY RUNNING AWAY ***********************
 
@@ -888,6 +888,10 @@ SET_FIXED_CAMERA_POSITION 1914.1069 -1130.9935 27.8685 0.0 0.0 0.0
 POINT_CAMERA_AT_POINT 1914.8413 -1130.3322 27.7162 JUMP_CUT
 
 //SWITCH_WIDESCREEN ON
+
+// FIXEDGROVE: START - moved random number here
+GENERATE_RANDOM_INT_IN_RANGE 0 3 flag_end_guy_audio_crash4
+// FIXEDGROVE: END
 
 IF flag_end_guy_audio_crash4 = 0
 	LOAD_MISSION_AUDIO 1 SOUND_CRA2_ZA 
@@ -1082,11 +1086,15 @@ IF watched_baddie_cut_crash4 = 0
 
 ENDIF
 
+// FIXEDGROVE: START - replace with random number, moved before the audio is loaded
+/*
 ++ flag_end_guy_audio_crash4
 
 IF flag_end_guy_audio_crash4 > 2
 	flag_end_guy_audio_crash4 = 0
 ENDIF
+*/
+// FIXEDGROVE: END
 	  
 PRINT_NOW (CM2_8) 8000 1 //"You have flushed him out, kill him and take over the territory!"
 
