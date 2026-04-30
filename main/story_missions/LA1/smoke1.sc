@@ -1318,1135 +1318,1116 @@ WAIT 0
 	IF tw7_goals > 3
 		IF tw7_goals < 15 
 			IF NOT IS_CHAR_DEAD tw7_ass_bandit
-				IF NOT IS_CAR_DEAD tw7_ass_bandit_bike  
-			
-					IF tw7_goals = 4
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF tw7_speech_goals = 0 
-								IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-								OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-								//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-								//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-									IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-										tw7_speech_goals = 6 
-										tw7_speech_control_flag = 0
-										tw7_random_last_label = 1 
-										GOSUB tw7_dialogue_setup
-									ENDIF	
-									tw7_speech_flag = 1
-								ENDIF
-							ENDIF
-						ENDIF
-
-					
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//road at end of first alleyway 
-							SWITCH_ROADS_OFF 2563.7 -1435.0 10.0 2580.3 -1266.4 100.6
-
-							//road at end of second alleyway
-							SWITCH_ROADS_OFF 2635.0 -1434.4 10.0 2652.0 -1263.6 100.0
-							
-							//road at end of third alleyway
-							SWITCH_ROADS_OFF 2714.9 -1501.6 10.0 2746.1 -1266.4 100.0
-
-							//create_random_ped to look dead
-							CREATE_RANDOM_CHAR 2579.8 -1348.3 35.5 tw7_lying_down_ped
-							TASK_DIE tw7_lying_down_ped
-							
-							CREATE_RANDOM_CHAR 2578.8 -1348.3 35.5 tw7_friend_of_lying_down_ped
-							SET_CHAR_HEADING tw7_friend_of_lying_down_ped 260.0  
-							TASK_PLAY_ANIM tw7_friend_of_lying_down_ped weapon_crouch PED 4.0 FALSE FALSE FALSE TRUE -1	 
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on road at end of first alleyway 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2582.6 -1351.8 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2563.7 -1435.0 10.0 2580.3 -1266.4 100.6
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-							
-						IF tw7_car_nodes = 2
-							//switching on road at end of second alleyway 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2653.0 -1329.8 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2635.0 -1434.4 10.0 2652.0 -1263.6 100.0
-								tw7_car_nodes = 3	
-							ENDIF
-						ENDIF
-
-						IF tw7_car_nodes = 3
-							//switching on road at end of second alleyway 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2748.3 -1320.3 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2714.9 -1501.6 10.0 2746.1 -1266.4 100.0
-								tw7_car_nodes = 4	
-							ENDIF
-						ENDIF
-
-						///// main bit ////////
-						IF tw7_control_flag = 0									 
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer  
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 31 
-								REMOVE_CAR_RECORDING 30
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 2563.7 -1435.0 10.0 2580.3 -1266.4 100.6
-								SWITCH_ROADS_ON 2635.0 -1434.4 10.0 2652.0 -1263.6 100.0
-								SWITCH_ROADS_ON 2714.9 -1501.6 10.0 2746.1 -1266.4 100.0
-								timera = 0
-								tw7_speech_flag = 0
-								tw7_control_flag = 0
-								tw7_car_nodes = 0
-								tw7_goals = 5
-							ENDIF
-						ENDIF
-						
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-						
-					ENDIF
-
-
-
-				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// 32 - up the steep alleyway ////////////////////////////////////////////////////////////////////
-
-					IF tw7_goals = 5
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
+			AND NOT IS_CAR_DEAD tw7_ass_bandit_bike // FIXEDGROVE: combined these checks since they had the same outcome
+				IF tw7_goals = 4
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF tw7_speech_goals = 0 
 							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
 							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
 							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
 							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
 								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
 									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 1
-									tw7_random_last_label = 2 
+									tw7_speech_control_flag = 0
+									tw7_random_last_label = 1 
 									GOSUB tw7_dialogue_setup
 								ENDIF	
 								tw7_speech_flag = 1
 							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
 						ENDIF
-
-
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//first left road 
-							SWITCH_ROADS_OFF 2713.9 -1499.3 10.0 2746.6 -1266.3 100.0
-
-							//first right road
-							SWITCH_ROADS_OFF 2714.6 -1249.9 10.0 2744.7 -1332.9 100.0
-							
-							//second left road 
-							SWITCH_ROADS_OFF 2634.6 -1396.6 10.0 2651.0 -1264.2 100.0
-
-							//second right road
-							SWITCH_ROADS_OFF 2635.1 -1248.0 10.0 2651.0 -1055.3 100.0
-
-							//second straight on road
-							SWITCH_ROADS_OFF 2651.5 -1263.8 10.0 2579.5 -1248.7 100.0
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on road at end of first road 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2712.7 -1265.7 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2713.9 -1499.3 10.0 2746.6 -1266.3 100.0
-								SWITCH_ROADS_ON 2714.6 -1249.9 10.0 2744.7 -1332.9 100.0
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-							
-						IF tw7_car_nodes = 2
-							//switching on road at end of second road 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2630.5 -1248.3 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2634.6 -1396.6 10.0 2651.0 -1264.2 100.0
-								SWITCH_ROADS_ON 2635.1 -1248.0 10.0 2651.0 -1055.3 100.0
-								SWITCH_ROADS_ON 2651.5 -1263.8 10.0 2579.5 -1248.7 100.0
-								tw7_car_nodes = 3	
-							ENDIF
-						ENDIF
-
-						///// main bit ////////
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit 
-									SET_CHAR_PROOFS tw7_ass_bandit FALSE FALSE FALSE FALSE FALSE
-								ENDIF   
-								IF NOT IS_CAR_DEAD tw7_ass_bandit_bike
-									SET_CAR_PROOFS tw7_ass_bandit_bike FALSE FALSE FALSE FALSE FALSE   
-								ENDIF									 
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 32 
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF
-					
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_friend_of_lying_down_ped
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_lying_down_ped	
-								SWITCH_ROADS_ON 2713.9 -1499.3 10.0 2746.6 -1266.3 100.0
-								SWITCH_ROADS_ON 2714.6 -1249.9 10.0 2744.7 -1332.9 100.0
-								SWITCH_ROADS_ON 2634.6 -1396.6 10.0 2651.0 -1264.2 100.0
-								SWITCH_ROADS_ON 2635.1 -1248.0 10.0 2651.0 -1055.3 100.0
-								SWITCH_ROADS_ON 2651.5 -1263.8 10.0 2579.5 -1248.7 100.0
-								timera = 0
-								tw7_speech_flag = 0
-								tw7_car_nodes = 0
-								tw7_control_flag = 0
-								tw7_goals = 6
-							ENDIF
-						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-					
 					ENDIF
 
-				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// 33 - fast road section and stops just before the wee hill                                  ///
+				
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//road at end of first alleyway 
+						SWITCH_ROADS_OFF 2563.7 -1435.0 10.0 2580.3 -1266.4 100.6
 
-					IF tw7_goals = 6
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							OR LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 35.0 35.0 FALSE
-								timerb = 0
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 2
-									tw7_random_last_label = 3 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
-						ENDIF
+						//road at end of second alleyway
+						SWITCH_ROADS_OFF 2635.0 -1434.4 10.0 2652.0 -1263.6 100.0
 						
+						//road at end of third alleyway
+						SWITCH_ROADS_OFF 2714.9 -1501.6 10.0 2746.1 -1266.4 100.0
+
+						//create_random_ped to look dead
+						CREATE_RANDOM_CHAR 2579.8 -1348.3 35.5 tw7_lying_down_ped
+						TASK_DIE tw7_lying_down_ped
 						
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//first left road 
-							SWITCH_ROADS_OFF 2563.7 -1248.6 10.0 2578.9 -1192.2 100.0
-
-							//second left road
-							SWITCH_ROADS_OFF 2443.7 -1249.2 10.0 2459.1 -1191.9 100.0
-
-							//third left road
-							SWITCH_ROADS_OFF 2363.5 -1253.4 10.0 2378.7 -1145.5 100.0
-
-							//long road
-							SWITCH_ROADS_OFF 2311.2 -1144.7 10.0 2379.1 -1162.1 100.0
-
-							///////nodes for NEXT playback section//////////
-							SWITCH_ROADS_OFF 2239.9 -1130.0 10.0 2017.6 -928.3 100.0
-
-
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on first left road 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2563.2 -1191.8 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2563.7 -1248.6 10.0 2578.9 -1192.2 100.6
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-							
-						IF tw7_car_nodes = 2
-							//switching on second left road 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2442.4 -1191.4 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2443.7 -1249.2 10.0 2459.1 -1191.9 100.0
-								tw7_car_nodes = 3	
-							ENDIF
-						ENDIF
-
-						IF tw7_car_nodes = 3
-							//switching on third left road
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2360.1 -1164.8 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2363.5 -1253.4 10.0 2378.7 -1145.5 100.0
-								tw7_car_nodes = 4	
-							ENDIF
-						ENDIF
-
-						IF tw7_car_nodes = 4
-							//switching on road next to railway 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2315.0 -1145.9 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2311.2 -1144.7 10.0 2379.1 -1162.1 100.0
-								tw7_car_nodes = 5	
-							ENDIF
-						ENDIF
-
-						///// main bit ////////
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 33 
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF
-					
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 2563.7 -1248.6 10.0 2578.9 -1192.2 100.6
-								SWITCH_ROADS_ON 2443.7 -1249.2 10.0 2459.1 -1191.9 100.0
-								SWITCH_ROADS_ON 2363.5 -1253.4 10.0 2378.7 -1145.5 100.0
-								SWITCH_ROADS_ON 2311.2 -1144.7 10.0 2379.1 -1162.1 100.0
-								timera = 0
-								tw7_speech_flag = 0
-								tw7_car_nodes = 0
-								tw7_control_flag = 0
-								tw7_goals = 7
-							ENDIF
-						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
+						CREATE_RANDOM_CHAR 2578.8 -1348.3 35.5 tw7_friend_of_lying_down_ped
+						SET_CHAR_HEADING tw7_friend_of_lying_down_ped 260.0  
+						TASK_PLAY_ANIM tw7_friend_of_lying_down_ped weapon_crouch PED 4.0 FALSE FALSE FALSE TRUE -1	 
+						tw7_car_nodes = 1							 
 					ENDIF
 
-				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// 34 - the wee hill just before the BIG road bit (bike start @ 2224.0 -1125.8 24.2, 347.0) /////
-
-					IF tw7_goals = 7
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								timerb = 0
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 3
-									tw7_random_last_label = 4 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
+					IF tw7_car_nodes = 1
+						//switching on road at end of first alleyway 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2582.6 -1351.8 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2563.7 -1435.0 10.0 2580.3 -1266.4 100.6
+							tw7_car_nodes = 2	
 						ENDIF
-					
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							///////nodes for NEXT playback section//////////
-							//road straight ahead 
-							SWITCH_ROADS_OFF 1930.6 -1031.9 10.0 1574.4 -879.9 100.0
-							tw7_car_nodes = 1							 
-						ENDIF
+					ENDIF
 						
-						IF tw7_car_nodes = 1
-							//switching on first left road 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2149.8 -996.1 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2239.9 -1130.0 10.0 2017.6 -928.3 100.0
-								tw7_car_nodes = 2	
-							ENDIF
+					IF tw7_car_nodes = 2
+						//switching on road at end of second alleyway 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2653.0 -1329.8 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2635.0 -1434.4 10.0 2652.0 -1263.6 100.0
+							tw7_car_nodes = 3	
 						ENDIF
-					
+					ENDIF
 
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 34 
-								tw7_control_flag = 1
-							ENDIF
+					IF tw7_car_nodes = 3
+						//switching on road at end of second alleyway 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2748.3 -1320.3 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2714.9 -1501.6 10.0 2746.1 -1266.4 100.0
+							tw7_car_nodes = 4	
 						ENDIF
+					ENDIF
+
+					///// main bit ////////
+					IF tw7_control_flag = 0									 
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer  
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 31 
+							REMOVE_CAR_RECORDING 30
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 2563.7 -1435.0 10.0 2580.3 -1266.4 100.6
+							SWITCH_ROADS_ON 2635.0 -1434.4 10.0 2652.0 -1263.6 100.0
+							SWITCH_ROADS_ON 2714.9 -1501.6 10.0 2746.1 -1266.4 100.0
+							timera = 0
+							tw7_speech_flag = 0
+							tw7_control_flag = 0
+							tw7_car_nodes = 0
+							tw7_goals = 5
+						ENDIF
+					ENDIF
 					
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+					
+				ENDIF
+
+
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// 32 - up the steep alleyway ////////////////////////////////////////////////////////////////////
+
+				IF tw7_goals = 5
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 1
+								tw7_random_last_label = 2 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
 						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 2239.9 -1130.0 10.0 2017.6 -928.3 100.0
-								timera = 0
-								tw7_speech_flag = 0
-								tw7_car_nodes = 0
-								tw7_control_flag = 0
-								tw7_goals = 8
-							ENDIF
+							tw7_speech_flag = 1
 						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-					
 					ENDIF
 
 
-				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// 35 - THE big road bit (bike start @ 1942.5 -1016.2 31.8, 87.4) ///////////////////////////
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//first left road 
+						SWITCH_ROADS_OFF 2713.9 -1499.3 10.0 2746.6 -1266.3 100.0
 
-					IF tw7_goals = 8
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 4
-									tw7_random_last_label = 5 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
+						//first right road
+						SWITCH_ROADS_OFF 2714.6 -1249.9 10.0 2744.7 -1332.9 100.0
+						
+						//second left road 
+						SWITCH_ROADS_OFF 2634.6 -1396.6 10.0 2651.0 -1264.2 100.0
+
+						//second right road
+						SWITCH_ROADS_OFF 2635.1 -1248.0 10.0 2651.0 -1055.3 100.0
+
+						//second straight on road
+						SWITCH_ROADS_OFF 2651.5 -1263.8 10.0 2579.5 -1248.7 100.0
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on road at end of first road 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2712.7 -1265.7 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2713.9 -1499.3 10.0 2746.6 -1266.3 100.0
+							SWITCH_ROADS_ON 2714.6 -1249.9 10.0 2744.7 -1332.9 100.0
+							tw7_car_nodes = 2	
 						ENDIF
+					ENDIF
+						
+					IF tw7_car_nodes = 2
+						//switching on road at end of second road 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2630.5 -1248.3 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2634.6 -1396.6 10.0 2651.0 -1264.2 100.0
+							SWITCH_ROADS_ON 2635.1 -1248.0 10.0 2651.0 -1055.3 100.0
+							SWITCH_ROADS_ON 2651.5 -1263.8 10.0 2579.5 -1248.7 100.0
+							tw7_car_nodes = 3	
+						ENDIF
+					ENDIF
+
+					///// main bit ////////
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit 
+								SET_CHAR_PROOFS tw7_ass_bandit FALSE FALSE FALSE FALSE FALSE
+							ENDIF   
+							IF NOT IS_CAR_DEAD tw7_ass_bandit_bike
+								SET_CAR_PROOFS tw7_ass_bandit_bike FALSE FALSE FALSE FALSE FALSE   
+							ENDIF									 
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 32 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_friend_of_lying_down_ped
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_lying_down_ped	
+							SWITCH_ROADS_ON 2713.9 -1499.3 10.0 2746.6 -1266.3 100.0
+							SWITCH_ROADS_ON 2714.6 -1249.9 10.0 2744.7 -1332.9 100.0
+							SWITCH_ROADS_ON 2634.6 -1396.6 10.0 2651.0 -1264.2 100.0
+							SWITCH_ROADS_ON 2635.1 -1248.0 10.0 2651.0 -1055.3 100.0
+							SWITCH_ROADS_ON 2651.5 -1263.8 10.0 2579.5 -1248.7 100.0
+							timera = 0
+							tw7_speech_flag = 0
+							tw7_car_nodes = 0
+							tw7_control_flag = 0
+							tw7_goals = 6
+						ENDIF
+					ENDIF
+
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				
+				ENDIF
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// 33 - fast road section and stops just before the wee hill                                  ///
+
+				IF tw7_goals = 6
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 35.0 35.0 FALSE
+							timerb = 0
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 2
+								tw7_random_last_label = 3 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
 					
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//whole of freeway
-							SWITCH_ROADS_OFF 1879.6 -1024.3 10.0 1600.0 -1521.7 100.0
+					
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//first left road 
+						SWITCH_ROADS_OFF 2563.7 -1248.6 10.0 2578.9 -1192.2 100.0
 
-							tw7_car_nodes = 1							 
+						//second left road
+						SWITCH_ROADS_OFF 2443.7 -1249.2 10.0 2459.1 -1191.9 100.0
+
+						//third left road
+						SWITCH_ROADS_OFF 2363.5 -1253.4 10.0 2378.7 -1145.5 100.0
+
+						//long road
+						SWITCH_ROADS_OFF 2311.2 -1144.7 10.0 2379.1 -1162.1 100.0
+
+						///////nodes for NEXT playback section//////////
+						SWITCH_ROADS_OFF 2239.9 -1130.0 10.0 2017.6 -928.3 100.0
+
+
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on first left road 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2563.2 -1191.8 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2563.7 -1248.6 10.0 2578.9 -1192.2 100.6
+							tw7_car_nodes = 2	
 						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on road straight ahead 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 1819.4 -1034.0 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 1930.6 -1031.9 10.0 1574.4 -879.9 100.0
-								tw7_car_nodes = 2	
-							ENDIF
+					ENDIF
+						
+					IF tw7_car_nodes = 2
+						//switching on second left road 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2442.4 -1191.4 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2443.7 -1249.2 10.0 2459.1 -1191.9 100.0
+							tw7_car_nodes = 3	
 						ENDIF
-							
-						IF tw7_car_nodes = 2
-							//switching on whole of freeway 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 1755.3 -1489.1 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 1879.6 -1024.3 10.0 1552.0 -1521.7 100.0
-								tw7_car_nodes = 3	
-							ENDIF
+					ENDIF
+
+					IF tw7_car_nodes = 3
+						//switching on third left road
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2360.1 -1164.8 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2363.5 -1253.4 10.0 2378.7 -1145.5 100.0
+							tw7_car_nodes = 4	
 						ENDIF
+					ENDIF
+
+					IF tw7_car_nodes = 4
+						//switching on road next to railway 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2315.0 -1145.9 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2311.2 -1144.7 10.0 2379.1 -1162.1 100.0
+							tw7_car_nodes = 5	
+						ENDIF
+					ENDIF
+
+					///// main bit ////////
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 33 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 2563.7 -1248.6 10.0 2578.9 -1192.2 100.6
+							SWITCH_ROADS_ON 2443.7 -1249.2 10.0 2459.1 -1191.9 100.0
+							SWITCH_ROADS_ON 2363.5 -1253.4 10.0 2378.7 -1145.5 100.0
+							SWITCH_ROADS_ON 2311.2 -1144.7 10.0 2379.1 -1162.1 100.0
+							timera = 0
+							tw7_speech_flag = 0
+							tw7_car_nodes = 0
+							tw7_control_flag = 0
+							tw7_goals = 7
+						ENDIF
+					ENDIF
+
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				ENDIF
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// 34 - the wee hill just before the BIG road bit (bike start @ 2224.0 -1125.8 24.2, 347.0) /////
+
+				IF tw7_goals = 7
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							timerb = 0
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 3
+								tw7_random_last_label = 4 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+				
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						///////nodes for NEXT playback section//////////
+						//road straight ahead 
+						SWITCH_ROADS_OFF 1930.6 -1031.9 10.0 1574.4 -879.9 100.0
+						tw7_car_nodes = 1							 
+					ENDIF
+					
+					IF tw7_car_nodes = 1
+						//switching on first left road 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2149.8 -996.1 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2239.9 -1130.0 10.0 2017.6 -928.3 100.0
+							tw7_car_nodes = 2	
+						ENDIF
+					ENDIF
+				
+
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 34 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 2239.9 -1130.0 10.0 2017.6 -928.3 100.0
+							timera = 0
+							tw7_speech_flag = 0
+							tw7_car_nodes = 0
+							tw7_control_flag = 0
+							tw7_goals = 8
+						ENDIF
+					ENDIF
+
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				
+				ENDIF
 
 
-						///// main bit ////////
-						IF tw7_control_flag = 0
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								tw7_no_plates = MANANA
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// 35 - THE big road bit (bike start @ 1942.5 -1016.2 31.8, 87.4) ///////////////////////////
+
+				IF tw7_goals = 8
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 4
+								tw7_random_last_label = 5 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+				
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//whole of freeway
+						SWITCH_ROADS_OFF 1879.6 -1024.3 10.0 1600.0 -1521.7 100.0
+
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on road straight ahead 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 1819.4 -1034.0 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 1930.6 -1031.9 10.0 1574.4 -879.9 100.0
+							tw7_car_nodes = 2	
+						ENDIF
+					ENDIF
+						
+					IF tw7_car_nodes = 2
+						//switching on whole of freeway 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 1755.3 -1489.1 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 1879.6 -1024.3 10.0 1552.0 -1521.7 100.0
+							tw7_car_nodes = 3	
+						ENDIF
+					ENDIF
+
+
+					///// main bit ////////
+					IF tw7_control_flag = 0
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							tw7_no_plates = MANANA
+							GOSUB tw7_my_number_plates
+							CREATE_CAR MANANA 1688.5 -1111.7 58.5 tw7_car[0]	   //front car 	- car rec 50
+							CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[0] tw7_char[0]
+							SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[0] TRUE
+							SET_CAR_HEADING tw7_car[0] 322.3 
+							START_PLAYBACK_RECORDED_CAR tw7_car[0] 50								   
+
+							tw7_no_plates = MANANA
+							GOSUB tw7_my_number_plates
+							CREATE_CAR MANANA 1679.7 -1131.6 59.7 tw7_car[1]	   //second car - car rec 51 
+							CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[1] tw7_char[1] 
+							SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[1] TRUE
+							SET_CAR_HEADING tw7_car[1] 321.2 
+							START_PLAYBACK_RECORDED_CAR tw7_car[1] 51
+
+							CREATE_CAR PCJ600 1644.8 -1177.5 54.3 tw7_car[2]	   //third car - first bike - car rec 52 
+							CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[2] tw7_char[2] 
+							SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[2] TRUE
+							SET_CAR_HEADING tw7_car[2] 320.8 								   
+							START_PLAYBACK_RECORDED_CAR tw7_car[2] 52
+
+							tw7_no_plates = MANANA
+							GOSUB tw7_my_number_plates
+							CREATE_CAR MANANA 1637.0 -1203.8 51.5 tw7_car[3]	   //fourth car - car rec 53 
+							CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[3] tw7_char[3] 
+							SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[3] TRUE
+							SET_CAR_HEADING tw7_car[3] 350.3 								   
+							START_PLAYBACK_RECORDED_CAR tw7_car[3] 53
+
+							GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
+							IF tw7_model >= 0 
+								tw7_no_plates = tw7_model
 								GOSUB tw7_my_number_plates
-								CREATE_CAR MANANA 1688.5 -1111.7 58.5 tw7_car[0]	   //front car 	- car rec 50
-								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[0] tw7_char[0]
-								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[0] TRUE
-								SET_CAR_HEADING tw7_car[0] 322.3 
-								START_PLAYBACK_RECORDED_CAR tw7_car[0] 50								   
+								CREATE_CAR tw7_model 1618.2 -1306.4 35.6 tw7_car[4]	   //first car left on dual carriageway - car rec 54 
+								SET_CAR_HEADING tw7_car[4] 343.7 
+								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[4] TRUE
+								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[4] tw7_char[4] 
+								START_PLAYBACK_RECORDED_CAR tw7_car[4] 54
+							ENDIF
 
-								tw7_no_plates = MANANA
+							GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
+							IF tw7_model >= 0 
+								tw7_no_plates = tw7_model
 								GOSUB tw7_my_number_plates
-								CREATE_CAR MANANA 1679.7 -1131.6 59.7 tw7_car[1]	   //second car - car rec 51 
-								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[1] tw7_char[1] 
-								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[1] TRUE
-								SET_CAR_HEADING tw7_car[1] 321.2 
-								START_PLAYBACK_RECORDED_CAR tw7_car[1] 51
+								CREATE_CAR tw7_model 1621.8 -1317.9 33.0 tw7_car[5]	   //second car left on dual carriageway - car rec 55 
+								SET_CAR_HEADING tw7_car[5] 348.7 
+								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[5] TRUE
+								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[5] tw7_char[5] 
+								START_PLAYBACK_RECORDED_CAR tw7_car[5] 55
+							ENDIF
 
-								CREATE_CAR PCJ600 1644.8 -1177.5 54.3 tw7_car[2]	   //third car - first bike - car rec 52 
-								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[2] tw7_char[2] 
-								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[2] TRUE
-								SET_CAR_HEADING tw7_car[2] 320.8 								   
-								START_PLAYBACK_RECORDED_CAR tw7_car[2] 52
-
-								tw7_no_plates = MANANA
+							GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
+							IF tw7_model >= 0 
+								tw7_no_plates = tw7_model
 								GOSUB tw7_my_number_plates
-								CREATE_CAR MANANA 1637.0 -1203.8 51.5 tw7_car[3]	   //fourth car - car rec 53 
-								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[3] tw7_char[3] 
-								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[3] TRUE
-								SET_CAR_HEADING tw7_car[3] 350.3 								   
-								START_PLAYBACK_RECORDED_CAR tw7_car[3] 53
-
-								GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
-								IF tw7_model >= 0 
-									tw7_no_plates = tw7_model
-									GOSUB tw7_my_number_plates
-									CREATE_CAR tw7_model 1618.2 -1306.4 35.6 tw7_car[4]	   //first car left on dual carriageway - car rec 54 
-									SET_CAR_HEADING tw7_car[4] 343.7 
-									SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[4] TRUE
-									CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[4] tw7_char[4] 
-									START_PLAYBACK_RECORDED_CAR tw7_car[4] 54
-								ENDIF
-
-								GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
-								IF tw7_model >= 0 
-									tw7_no_plates = tw7_model
-									GOSUB tw7_my_number_plates
-									CREATE_CAR tw7_model 1621.8 -1317.9 33.0 tw7_car[5]	   //second car left on dual carriageway - car rec 55 
-									SET_CAR_HEADING tw7_car[5] 348.7 
-									SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[5] TRUE
-									CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[5] tw7_char[5] 
-									START_PLAYBACK_RECORDED_CAR tw7_car[5] 55
-								ENDIF
-
-								GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
-								IF tw7_model >= 0 
-									tw7_no_plates = tw7_model
-									GOSUB tw7_my_number_plates
-									CREATE_CAR tw7_model 1615.6 -1327.7 31.5 tw7_car[6]	   //second car right on dual carriageway - car rec 56 
-									SET_CAR_HEADING tw7_car[6] 352.1 
-									SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[6] TRUE
-									CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[6] tw7_char[6] 
-									START_PLAYBACK_RECORDED_CAR tw7_car[6] 56
-								ENDIF
-
-								GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
-								IF tw7_model >= 0 
-									tw7_no_plates = tw7_model
-									GOSUB tw7_my_number_plates
-									CREATE_CAR tw7_model 1612.3 -1394.0 27.6 tw7_car[7]	   //third car right on dual carriageway - car rec 57 
-									SET_CAR_HEADING tw7_car[7] 353.6 
-									SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[7] TRUE
-									CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[7] tw7_char[7] 
-									START_PLAYBACK_RECORDED_CAR tw7_car[7] 57
-								ENDIF
-
-								GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
-								IF tw7_model >= 0 
-									tw7_no_plates = tw7_model
-									GOSUB tw7_my_number_plates
-									CREATE_CAR tw7_model 1612.3 -1462.2 27.1 tw7_car[8]	   //fourth car right on dual carriageway - car rec 58 
-									SET_CAR_HEADING tw7_car[8] 357.2 
-									SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[8] TRUE
-									CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[8] tw7_char[8] 
-									START_PLAYBACK_RECORDED_CAR tw7_car[8] 58
-								ENDIF
-
-								GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
-								IF tw7_model >= 0 
-									tw7_no_plates = tw7_model
-									GOSUB tw7_my_number_plates
-									CREATE_CAR tw7_model 1663.4 -1457.0 24.3 tw7_car[9]	   //car that crashes - car rec 60 
-									SET_CAR_HEADING tw7_car[9] 51.9 
-									SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[9] TRUE
-									CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[9] tw7_char[9] 																  
-									START_PLAYBACK_RECORDED_CAR tw7_car[9] 60
-								ENDIF
-
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 35
-								tw7_control_flag = 1
+								CREATE_CAR tw7_model 1615.6 -1327.7 31.5 tw7_car[6]	   //second car right on dual carriageway - car rec 56 
+								SET_CAR_HEADING tw7_car[6] 352.1 
+								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[6] TRUE
+								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[6] tw7_char[6] 
+								START_PLAYBACK_RECORDED_CAR tw7_car[6] 56
 							ENDIF
+
+							GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
+							IF tw7_model >= 0 
+								tw7_no_plates = tw7_model
+								GOSUB tw7_my_number_plates
+								CREATE_CAR tw7_model 1612.3 -1394.0 27.6 tw7_car[7]	   //third car right on dual carriageway - car rec 57 
+								SET_CAR_HEADING tw7_car[7] 353.6 
+								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[7] TRUE
+								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[7] tw7_char[7] 
+								START_PLAYBACK_RECORDED_CAR tw7_car[7] 57
+							ENDIF
+
+							GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
+							IF tw7_model >= 0 
+								tw7_no_plates = tw7_model
+								GOSUB tw7_my_number_plates
+								CREATE_CAR tw7_model 1612.3 -1462.2 27.1 tw7_car[8]	   //fourth car right on dual carriageway - car rec 58 
+								SET_CAR_HEADING tw7_car[8] 357.2 
+								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[8] TRUE
+								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[8] tw7_char[8] 
+								START_PLAYBACK_RECORDED_CAR tw7_car[8] 58
+							ENDIF
+
+							GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE tw7_model tw7_class
+							IF tw7_model >= 0 
+								tw7_no_plates = tw7_model
+								GOSUB tw7_my_number_plates
+								CREATE_CAR tw7_model 1663.4 -1457.0 24.3 tw7_car[9]	   //car that crashes - car rec 60 
+								SET_CAR_HEADING tw7_car[9] 51.9 
+								SET_LOAD_COLLISION_FOR_CAR_FLAG tw7_car[9] TRUE
+								CREATE_RANDOM_CHAR_AS_DRIVER tw7_car[9] tw7_char[9] 																  
+								START_PLAYBACK_RECORDED_CAR tw7_car[9] 60
+							ENDIF
+
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 35
+							tw7_control_flag = 1
 						ENDIF
-									  
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								tw7_control_flag = 2
-							ENDIF
-							
-							IF NOT IS_CAR_DEAD tw7_car[9] 
-								IF LOCATE_CAR_2D tw7_car[9] 1601.4 -1389.5 5.0 5.0 FALSE  
-									STOP_PLAYBACK_RECORDED_CAR tw7_car[9]
-									//EXPLODE_CAR tw7_car[9]
-									//ADD_EXPLOSION 1601.4 -1389.5 30.4 EXPLOSION_GRENADE	
-									//ADD_EXPLOSION 1601.4 -1389.5 30.4 EXPLOSION_OBJECT
-									//ADD_EXPLOSION 1601.4 -1389.5 30.4 EXPLOSION_MOLOTOV
-									tw7_control_flag = 2
-								ENDIF
-							ENDIF
-						ENDIF
-
-						IF tw7_control_flag = 2
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 1930.6 -1031.9 10.0 1574.4 -879.9 100.0
-								SWITCH_ROADS_ON 1879.6 -1024.3 10.0 1552.0 -1521.7 100.0
-								timera = 0
-								tw7_car_nodes = 0
-								tw7_speech_flag = 0
-								tw7_control_flag = 0
-								tw7_goals = 9
-							ENDIF
-						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
 					ENDIF
-
-				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////// 36 - Through Little School bit with snogging peeps (bike start @ 1762.6 -1474.1 12.0, 0.0) ///
-
-					IF tw7_goals = 9
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								timerb = 0
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 5
-									tw7_random_last_label = 6 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
+								  
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							tw7_control_flag = 2
 						ENDIF
 						
-						
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//only road to cross
-							SWITCH_ROADS_OFF 1725.8 -1433.3 10.0 1838.0 -1459.4 100.0
-
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on road straight ahead 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 1781.3 -1437.9 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 1725.8 -1433.3 10.0 1838.0 -1459.4 100.0
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-
-						///// main bit ////////
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[0]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[1]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[2]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[3]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[4]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[5]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[6]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[7]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[8]
-								MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[9] 
-
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[0]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[1]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[2]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[3]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[4]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[5]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[6]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[7]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[8]
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[9] 
-												
-								CREATE_RANDOM_CHAR 1778.4 -1343.1 14.7 tw7_bj_male
-								SET_CHAR_HEADING tw7_bj_male 180.0 
-								CREATE_RANDOM_CHAR 1778.4 -1344.1 14.7 tw7_bj_female
-								SET_CHAR_HEADING tw7_bj_female 0.0 
-
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 36 
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF
-					
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 1725.8 -1433.3 10.0 1838.0 -1459.4 100.0
-								timera = 0
-								tw7_car_nodes = 0
-								tw7_speech_flag = 0
-								tw7_control_flag = 0
-								tw7_goals = 10
-							ENDIF
-						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-					
-					
-					ENDIF
-
-
-				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// 37 - Through Skate Park (bike start @ 1828.8 -1342.5 13.0, 276.3) ////////////////////////
-
-					IF tw7_goals = 10
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								timerb = 0
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 6
-									tw7_random_last_label = 7 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
-						ENDIF
-					
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//road straight ahead 
-							SWITCH_ROADS_OFF 1838.4 -1453.6 10.0 1853.7 -1303.4 100.0
-
-							//road that you jump over
-							SWITCH_ROADS_OFF 1979.3 -1468.7 10.0 1853.5 -1452.5 100.0
-
-							////// SWITCHING OFF ROAD FOR NEXT PLAYBACK /////////////
-							SWITCH_ROADS_OFF 2334.0 -1556.1 10.0 2350.5 -1489.7 100.0
-
-
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on road straight ahead 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 1855.7 -1379.0 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 1838.4 -1453.6 10.0 1853.7 -1303.4 100.0
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-							
-						IF tw7_car_nodes = 2
-							//switching on road that you jump over 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 1971.5 -1474.6 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 1979.3 -1468.7 10.0 1853.5 -1452.5 100.0
-								tw7_car_nodes = 3	
-							ENDIF
-						ENDIF
-
-						///// main bit ////////
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer
-							OR timera > 4000
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 37 
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF
-					
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_bj_male
-								MARK_CHAR_AS_NO_LONGER_NEEDED tw7_bj_female
-								SWITCH_ROADS_ON 1838.4 -1453.6 10.0 1853.7 -1303.4 100.0
-								SWITCH_ROADS_ON 1979.3 -1468.7 10.0 1853.5 -1452.5 100.0
-								timera = 0
-								tw7_car_nodes = 0
-								tw7_speech_flag = 0
-								tw7_control_flag = 0
-								tw7_goals = 11
-							ENDIF
-						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-					
-					
-					ENDIF			  
-
-
-				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// 38 - Through Taco Bell (bike start @ 2333.3 -1551.2 22.6, 344.6) /////////////////////////
-
-					IF tw7_goals = 11
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								timerb = 0
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 7
-									tw7_random_last_label = 8 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
-						ENDIF
-						
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//road next to taco bell 
-							SWITCH_ROADS_OFF 2350.1 -1516.0 10.0 2423.9 -1532.5 100.0
-
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on road next to taco bell
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2394.8 -1508.7 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2350.1 -1516.0 10.0 2423.9 -1532.5 100.0
-								SWITCH_ROADS_ON 2334.0 -1556.1 10.0 2350.5 -1489.7 100.0
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-							
-
-						///// main bit ////////
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 38 
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF
-					
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 2350.1 -1516.0 10.0 2423.9 -1532.5 100.0
-								SWITCH_ROADS_ON 2334.0 -1556.1 10.0 2350.5 -1489.7 100.0
-								timera = 0
-								tw7_car_nodes = 0
-								tw7_speech_flag = 0
-								tw7_control_flag = 0
-								tw7_goals = 12
-							ENDIF
-						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-					
-					
-					ENDIF
-
-
-				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// 39 - Past Chris Police Bit (bike start @ 2424.5 -1483.3 22.6, 354.8) /////////////////////
-
-					IF tw7_goals = 12
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								timerb = 0
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 8
-									tw7_random_last_label = 9 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
-						ENDIF
-					
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//all roads  
-							SWITCH_ROADS_OFF 2379.8 -1373.3 10.0 2423.7 -1452.6 100.0
-
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on all roads
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2398.6 -1432.4 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2379.8 -1373.3 10.0 2423.7 -1452.6 100.0
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-							
-
-						///// main bit ////////
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 39 
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF
-					
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 2379.8 -1373.3 10.0 2423.7 -1452.6 100.0
-								timera = 0
-								tw7_car_nodes = 0
-								tw7_speech_flag = 0
-								tw7_control_flag = 0
-								tw7_goals = 13
-							ENDIF
-						ENDIF
-
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-					
-					
-					ENDIF
-
-
-				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////// 40 - Last bit, stop at basketball courts (phew) (bike start @ 2408.7 -1260.7 22.5, 96.2) /////
-
-					IF tw7_goals = 13
-						GOSUB tw7_sorting_speed
-						GOSUB tw7_mc_strap_group
-					
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								timerb = 0
-								IF NOT IS_CHAR_DEAD tw7_ass_bandit  
-									tw7_speech_goals = 6 
-									tw7_speech_control_flag = 9
-									tw7_random_last_label = 10 
-									GOSUB tw7_dialogue_setup
-								ENDIF	
-								tw7_speech_flag = 1
-							ENDIF
-							IF tw7_control_flag = 1
-								tw7_speech_flag = 1
-							ENDIF
-						ENDIF
-					
-					
-						////// car nodes jiggery pokery ///////
-						IF tw7_car_nodes = 0
-							//road just before the jump through the persons backyard 
-							SWITCH_ROADS_OFF 2363.5 -1291.7 10.0 2379.5 -1181.2 100.0
-
-							//road just after the jump through the persons backyard 
-							SWITCH_ROADS_OFF 2295.9 -1291.5 10.0 2311.5 -1162.3 100.0
-
-							//road just after the jump over the railway thing
-							SWITCH_ROADS_OFF 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
-							 
-							//last road
-							SWITCH_ROADS_OFF 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
-							  
-
-							tw7_car_nodes = 1							 
-						ENDIF
-
-						IF tw7_car_nodes = 1
-							//switching on road just before the jump through the persons backyard 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2362.8 -1259.3 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2363.5 -1291.7 10.0 2379.5 -1181.2 100.0
-								tw7_car_nodes = 2	
-							ENDIF
-						ENDIF
-							
-						IF tw7_car_nodes = 2
-							//switching on road just after the jump through the persons backyard 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2294.5 -1263.5 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2295.9 -1291.5 10.0 2311.5 -1162.3 100.0
-								tw7_car_nodes = 3	
-							ENDIF
-						ENDIF
-
-						IF tw7_car_nodes = 3
-							//switching on road just after the jump over the railway thing 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2284.2 -1393.8 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
-								tw7_car_nodes = 4	
-							ENDIF
-						ENDIF
-
-						IF tw7_car_nodes = 4
-							//switching on last road 
-							IF LOCATE_CAR_2D tw7_ass_bandit_bike 2293.8 -1491.7 5.0 5.0 FALSE 
-								SWITCH_ROADS_ON 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
-								tw7_car_nodes = 5	
-							ENDIF
-						ENDIF
-											   
-						///// main bit ////////
-						IF tw7_control_flag = 0	
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-							OR timera > 4000
-								//creating guys at the basketball court for the ass bandit to run too
-								IF HAS_MODEL_LOADED LSV3
-									CREATE_CHAR PEDTYPE_MISSION2 LSV3 2301.9 -1504.1 24.3 tw7_goon[0]  //hoop shooter
-									SET_CHAR_HEADING tw7_goon[0] 358.5  
-									GIVE_WEAPON_TO_CHAR tw7_goon[0] WEAPONTYPE_TEC9 30000 
-									SET_CHAR_KINDA_STAY_IN_SAME_PLACE tw7_goon[0] TRUE
-									SET_CHAR_DECISION_MAKER tw7_goon[0] tw7_empty_decision_maker
-								ENDIF
-										 
-								IF HAS_MODEL_LOADED LSV3
-									CREATE_CHAR PEDTYPE_MISSION2 LSV3 2302.5 -1502.3 24.3 tw7_goon[1]  //left guy watching 
-									SET_CHAR_HEADING tw7_goon[1] 18.5
-									GIVE_WEAPON_TO_CHAR tw7_goon[1] WEAPONTYPE_TEC9 30000 
-									SET_CHAR_KINDA_STAY_IN_SAME_PLACE tw7_goon[1] TRUE
-									SET_CHAR_DECISION_MAKER tw7_goon[1] tw7_empty_decision_maker
-								ENDIF
-								
-								IF HAS_MODEL_LOADED LSV3
-									CREATE_CHAR PEDTYPE_MISSION2 LSV3 2300.6 -1503.9 24.3 tw7_goon[2]  //right guy watching
-									SET_CHAR_HEADING tw7_goon[2] 5.9
-									GIVE_WEAPON_TO_CHAR tw7_goon[2] WEAPONTYPE_TEC9 30000 
-									SET_CHAR_KINDA_STAY_IN_SAME_PLACE tw7_goon[2] TRUE
-									SET_CHAR_DECISION_MAKER tw7_goon[2] tw7_empty_decision_maker
-								ENDIF
-								
-								START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 40 
-								tw7_control_flag = 1
-							ENDIF
-						ENDIF			   
-					
-						IF tw7_control_flag = 1
-							IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
-								SWITCH_ROADS_ON 2363.5 -1291.7 10.0 2379.5 -1181.2 100.0
-								SWITCH_ROADS_ON 2295.9 -1291.5 10.0 2311.5 -1162.3 100.0
-								SWITCH_ROADS_ON 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
-								SWITCH_ROADS_ON 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
-								OPEN_SEQUENCE_TASK tw7_seq
-									TASK_LEAVE_ANY_CAR -1
-									TASK_GO_STRAIGHT_TO_COORD -1 2300.3 -1502.8 24.3 PEDMOVE_RUN -1
-									TASK_ACHIEVE_HEADING -1 205.1
-								CLOSE_SEQUENCE_TASK tw7_seq
-								PERFORM_SEQUENCE_TASK tw7_ass_bandit tw7_seq
-								CLEAR_SEQUENCE_TASK tw7_seq
-
-								IF NOT IS_CAR_DEAD tw7_ass_bandit_bike
-									SET_CAR_ALWAYS_CREATE_SKIDS tw7_ass_bandit_bike FALSE
-								ENDIF
+						IF NOT IS_CAR_DEAD tw7_car[9] 
+							IF LOCATE_CAR_2D tw7_car[9] 1601.4 -1389.5 5.0 5.0 FALSE  
+								STOP_PLAYBACK_RECORDED_CAR tw7_car[9]
+								//EXPLODE_CAR tw7_car[9]
+								//ADD_EXPLOSION 1601.4 -1389.5 30.4 EXPLOSION_GRENADE	
+								//ADD_EXPLOSION 1601.4 -1389.5 30.4 EXPLOSION_OBJECT
+								//ADD_EXPLOSION 1601.4 -1389.5 30.4 EXPLOSION_MOLOTOV
 								tw7_control_flag = 2
 							ENDIF
 						ENDIF
+					ENDIF
 
-						IF tw7_control_flag = 2 
-							IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
-							OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
-							OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
-								IF IS_GROUP_MEMBER mc_strap Players_Group
-									REMOVE_CHAR_FROM_GROUP mc_strap
-								ENDIF 
-																
-								IGNORE_HEIGHT_DIFFERENCE_FOLLOWING_NODES mc_strap TRUE 
-								SET_FOLLOW_NODE_THRESHOLD_DISTANCE mc_strap 50.0
-
-								OPEN_SEQUENCE_TASK tw7_seq
-									TASK_LEAVE_ANY_CAR -1
-									TASK_KILL_CHAR_ON_FOOT -1 tw7_ass_bandit
-								CLOSE_SEQUENCE_TASK tw7_seq
-								PERFORM_SEQUENCE_TASK mc_strap tw7_seq
-								CLEAR_SEQUENCE_TASK tw7_seq
-
-								tw7_speech_flag = 0
-								tw7_car_nodes = 0
-								tw7_control_flag = 0
-								tw7_goals = 14
-							ENDIF
+					IF tw7_control_flag = 2
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 1930.6 -1031.9 10.0 1574.4 -879.9 100.0
+							SWITCH_ROADS_ON 1879.6 -1024.3 10.0 1552.0 -1521.7 100.0
+							timera = 0
+							tw7_car_nodes = 0
+							tw7_speech_flag = 0
+							tw7_control_flag = 0
+							tw7_goals = 9
 						ENDIF
 					ENDIF
 
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				ENDIF
 
-				/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				////////////////// guys at the basketball court /////////////////////////////////////////////////////////////
-					IF tw7_goals = 14
-						/////////////////// SPEECH FOR THIS SECTION //////////////////////
-						IF tw7_speech_flag = 0	
-							IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
-							OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
-							//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
-							//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
-								tw7_speech_goals = 7
-								tw7_speech_control_flag = 0
-								GOSUB tw7_dialogue_setup 
-								timerb = 0
-								tw7_speech_flag = 1
-							ENDIF
-						ENDIF
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////// 36 - Through Little School bit with snogging peeps (bike start @ 1762.6 -1474.1 12.0, 0.0) ///
 
-						IF tw7_speech_flag = 1
-							IF tw7_speech_goals = 0  
-								// I'm gonna kill that cheeky motherfucker!
-								tw7_speech_goals = 17
-								tw7_speech_control_flag = 0
-								GOSUB tw7_dialogue_setup 
-								tw7_speech_flag = 2
-							ENDIF
+				IF tw7_goals = 9
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							timerb = 0
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 5
+								tw7_random_last_label = 6 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
 						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+					
+					
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//only road to cross
+						SWITCH_ROADS_OFF 1725.8 -1433.3 10.0 1838.0 -1459.4 100.0
+
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on road straight ahead 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 1781.3 -1437.9 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 1725.8 -1433.3 10.0 1838.0 -1459.4 100.0
+							tw7_car_nodes = 2	
+						ENDIF
+					ENDIF
+
+					///// main bit ////////
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[0]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[1]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[2]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[3]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[4]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[5]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[6]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[7]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[8]
+							MARK_CAR_AS_NO_LONGER_NEEDED tw7_car[9] 
+
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[0]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[1]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[2]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[3]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[4]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[5]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[6]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[7]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[8]
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_char[9] 
+											
+							CREATE_RANDOM_CHAR 1778.4 -1343.1 14.7 tw7_bj_male
+							SET_CHAR_HEADING tw7_bj_male 180.0 
+							CREATE_RANDOM_CHAR 1778.4 -1344.1 14.7 tw7_bj_female
+							SET_CHAR_HEADING tw7_bj_female 0.0 
+
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 36 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 1725.8 -1433.3 10.0 1838.0 -1459.4 100.0
+							timera = 0
+							tw7_car_nodes = 0
+							tw7_speech_flag = 0
+							tw7_control_flag = 0
+							tw7_goals = 10
+						ENDIF
+					ENDIF
+
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				
+				
+				ENDIF
+
+
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// 37 - Through Skate Park (bike start @ 1828.8 -1342.5 13.0, 276.3) ////////////////////////
+
+				IF tw7_goals = 10
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							timerb = 0
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 6
+								tw7_random_last_label = 7 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+				
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//road straight ahead 
+						SWITCH_ROADS_OFF 1838.4 -1453.6 10.0 1853.7 -1303.4 100.0
+
+						//road that you jump over
+						SWITCH_ROADS_OFF 1979.3 -1468.7 10.0 1853.5 -1452.5 100.0
+
+						////// SWITCHING OFF ROAD FOR NEXT PLAYBACK /////////////
+						SWITCH_ROADS_OFF 2334.0 -1556.1 10.0 2350.5 -1489.7 100.0
+
+
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on road straight ahead 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 1855.7 -1379.0 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 1838.4 -1453.6 10.0 1853.7 -1303.4 100.0
+							tw7_car_nodes = 2	
+						ENDIF
+					ENDIF
 						
-						IF tw7_control_flag = 0
-							REMOVE_BLIP tw7_control_blip
-							ADD_BLIP_FOR_CHAR tw7_ass_bandit tw7_control_blip
+					IF tw7_car_nodes = 2
+						//switching on road that you jump over 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 1971.5 -1474.6 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 1979.3 -1468.7 10.0 1853.5 -1452.5 100.0
+							tw7_car_nodes = 3	
+						ENDIF
+					ENDIF
+
+					///// main bit ////////
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer
+						OR timera > 4000
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 37 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_bj_male
+							MARK_CHAR_AS_NO_LONGER_NEEDED tw7_bj_female
+							SWITCH_ROADS_ON 1838.4 -1453.6 10.0 1853.7 -1303.4 100.0
+							SWITCH_ROADS_ON 1979.3 -1468.7 10.0 1853.5 -1452.5 100.0
+							timera = 0
+							tw7_car_nodes = 0
+							tw7_speech_flag = 0
+							tw7_control_flag = 0
+							tw7_goals = 11
+						ENDIF
+					ENDIF
+
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				
+				
+				ENDIF			  
+
+
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// 38 - Through Taco Bell (bike start @ 2333.3 -1551.2 22.6, 344.6) /////////////////////////
+
+				IF tw7_goals = 11
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							timerb = 0
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 7
+								tw7_random_last_label = 8 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+					
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//road next to taco bell 
+						SWITCH_ROADS_OFF 2350.1 -1516.0 10.0 2423.9 -1532.5 100.0
+
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on road next to taco bell
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2394.8 -1508.7 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2350.1 -1516.0 10.0 2423.9 -1532.5 100.0
+							SWITCH_ROADS_ON 2334.0 -1556.1 10.0 2350.5 -1489.7 100.0
+							tw7_car_nodes = 2	
+						ENDIF
+					ENDIF
+						
+
+					///// main bit ////////
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 38 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 2350.1 -1516.0 10.0 2423.9 -1532.5 100.0
+							SWITCH_ROADS_ON 2334.0 -1556.1 10.0 2350.5 -1489.7 100.0
+							timera = 0
+							tw7_car_nodes = 0
+							tw7_speech_flag = 0
+							tw7_control_flag = 0
+							tw7_goals = 12
+						ENDIF
+					ENDIF
+
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				
+				
+				ENDIF
+
+
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// 39 - Past Chris Police Bit (bike start @ 2424.5 -1483.3 22.6, 354.8) /////////////////////
+
+				IF tw7_goals = 12
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							timerb = 0
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 8
+								tw7_random_last_label = 9 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+				
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//all roads  
+						SWITCH_ROADS_OFF 2379.8 -1373.3 10.0 2423.7 -1452.6 100.0
+
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on all roads
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2398.6 -1432.4 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2379.8 -1373.3 10.0 2423.7 -1452.6 100.0
+							tw7_car_nodes = 2	
+						ENDIF
+					ENDIF
+						
+
+					///// main bit ////////
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 39 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 2379.8 -1373.3 10.0 2423.7 -1452.6 100.0
+							timera = 0
+							tw7_car_nodes = 0
+							tw7_speech_flag = 0
+							tw7_control_flag = 0
+							tw7_goals = 13
+						ENDIF
+					ENDIF
+
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				
+				
+				ENDIF
+
+
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////// 40 - Last bit, stop at basketball courts (phew) (bike start @ 2408.7 -1260.7 22.5, 96.2) /////
+
+				IF tw7_goals = 13
+					GOSUB tw7_sorting_speed
+					GOSUB tw7_mc_strap_group
+				
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							timerb = 0
+							IF NOT IS_CHAR_DEAD tw7_ass_bandit  
+								tw7_speech_goals = 6 
+								tw7_speech_control_flag = 9
+								tw7_random_last_label = 10 
+								GOSUB tw7_dialogue_setup
+							ENDIF	
+							tw7_speech_flag = 1
+						ENDIF
+						IF tw7_control_flag = 1
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+				
+				
+					////// car nodes jiggery pokery ///////
+					IF tw7_car_nodes = 0
+						//road just before the jump through the persons backyard 
+						SWITCH_ROADS_OFF 2363.5 -1291.7 10.0 2379.5 -1181.2 100.0
+
+						//road just after the jump through the persons backyard 
+						SWITCH_ROADS_OFF 2295.9 -1291.5 10.0 2311.5 -1162.3 100.0
+
+						//road just after the jump over the railway thing
+						SWITCH_ROADS_OFF 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
+						 
+						//last road
+						SWITCH_ROADS_OFF 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
+						  
+
+						tw7_car_nodes = 1							 
+					ENDIF
+
+					IF tw7_car_nodes = 1
+						//switching on road just before the jump through the persons backyard 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2362.8 -1259.3 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2363.5 -1291.7 10.0 2379.5 -1181.2 100.0
+							tw7_car_nodes = 2	
+						ENDIF
+					ENDIF
+						
+					IF tw7_car_nodes = 2
+						//switching on road just after the jump through the persons backyard 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2294.5 -1263.5 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2295.9 -1291.5 10.0 2311.5 -1162.3 100.0
+							tw7_car_nodes = 3	
+						ENDIF
+					ENDIF
+
+					IF tw7_car_nodes = 3
+						//switching on road just after the jump over the railway thing 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2284.2 -1393.8 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
+							tw7_car_nodes = 4	
+						ENDIF
+					ENDIF
+
+					IF tw7_car_nodes = 4
+						//switching on last road 
+						IF LOCATE_CAR_2D tw7_ass_bandit_bike 2293.8 -1491.7 5.0 5.0 FALSE 
+							SWITCH_ROADS_ON 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
+							tw7_car_nodes = 5	
+						ENDIF
+					ENDIF
+										   
+					///// main bit ////////
+					IF tw7_control_flag = 0	
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+						OR timera > 4000
+							//creating guys at the basketball court for the ass bandit to run too
+							IF HAS_MODEL_LOADED LSV3
+								CREATE_CHAR PEDTYPE_MISSION2 LSV3 2301.9 -1504.1 24.3 tw7_goon[0]  //hoop shooter
+								SET_CHAR_HEADING tw7_goon[0] 358.5  
+								GIVE_WEAPON_TO_CHAR tw7_goon[0] WEAPONTYPE_TEC9 30000 
+								SET_CHAR_KINDA_STAY_IN_SAME_PLACE tw7_goon[0] TRUE
+								SET_CHAR_DECISION_MAKER tw7_goon[0] tw7_empty_decision_maker
+							ENDIF
+									 
+							IF HAS_MODEL_LOADED LSV3
+								CREATE_CHAR PEDTYPE_MISSION2 LSV3 2302.5 -1502.3 24.3 tw7_goon[1]  //left guy watching 
+								SET_CHAR_HEADING tw7_goon[1] 18.5
+								GIVE_WEAPON_TO_CHAR tw7_goon[1] WEAPONTYPE_TEC9 30000 
+								SET_CHAR_KINDA_STAY_IN_SAME_PLACE tw7_goon[1] TRUE
+								SET_CHAR_DECISION_MAKER tw7_goon[1] tw7_empty_decision_maker
+							ENDIF
 							
-							SET_CHAR_ONLY_DAMAGED_BY_PLAYER tw7_ass_bandit FALSE
+							IF HAS_MODEL_LOADED LSV3
+								CREATE_CHAR PEDTYPE_MISSION2 LSV3 2300.6 -1503.9 24.3 tw7_goon[2]  //right guy watching
+								SET_CHAR_HEADING tw7_goon[2] 5.9
+								GIVE_WEAPON_TO_CHAR tw7_goon[2] WEAPONTYPE_TEC9 30000 
+								SET_CHAR_KINDA_STAY_IN_SAME_PLACE tw7_goon[2] TRUE
+								SET_CHAR_DECISION_MAKER tw7_goon[2] tw7_empty_decision_maker
+							ENDIF
+							
+							START_PLAYBACK_RECORDED_CAR tw7_ass_bandit_bike 40 
+							tw7_control_flag = 1
+						ENDIF
+					ENDIF			   
+				
+					IF tw7_control_flag = 1
+						IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR tw7_ass_bandit_bike
+							SWITCH_ROADS_ON 2363.5 -1291.7 10.0 2379.5 -1181.2 100.0
+							SWITCH_ROADS_ON 2295.9 -1291.5 10.0 2311.5 -1162.3 100.0
+							SWITCH_ROADS_ON 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
+							SWITCH_ROADS_ON 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
 							OPEN_SEQUENCE_TASK tw7_seq
 								TASK_LEAVE_ANY_CAR -1
-								TASK_TURN_CHAR_TO_FACE_CHAR -1 mc_strap 
-								TASK_KILL_CHAR_ON_FOOT -1 mc_strap
+								TASK_GO_STRAIGHT_TO_COORD -1 2300.3 -1502.8 24.3 PEDMOVE_RUN -1
+								TASK_ACHIEVE_HEADING -1 205.1
 							CLOSE_SEQUENCE_TASK tw7_seq
 							PERFORM_SEQUENCE_TASK tw7_ass_bandit tw7_seq
 							CLEAR_SEQUENCE_TASK tw7_seq
 
-							IF NOT IS_CHAR_DEAD tw7_goon[0] 
-								GET_SCRIPT_TASK_STATUS tw7_goon[0] TASK_KILL_CHAR_ON_FOOT task_status
-								IF task_status = FINISHED_TASK
-						 			TASK_KILL_CHAR_ON_FOOT tw7_goon[0] scplayer	
-								ENDIF
-						 	ENDIF	
-							IF NOT IS_CHAR_DEAD tw7_goon[1] 
-								GET_SCRIPT_TASK_STATUS tw7_goon[1] TASK_KILL_CHAR_ON_FOOT task_status
-								IF task_status = FINISHED_TASK
-						 			TASK_KILL_CHAR_ON_FOOT tw7_goon[1] scplayer	
-								ENDIF
-						 	ENDIF	
-							IF NOT IS_CHAR_DEAD tw7_goon[2] 
-								GET_SCRIPT_TASK_STATUS tw7_goon[2] TASK_KILL_CHAR_ON_FOOT task_status
-								IF task_status = FINISHED_TASK
-						 			TASK_KILL_CHAR_ON_FOOT tw7_goon[2] scplayer	
-								ENDIF
-						 	ENDIF
-							tw7_control_flag = 1
-						ENDIF	
-					ENDIF			   
-				ELSE
-					REMOVE_BLIP tw7_control_blip
-					IF NOT IS_CHAR_DEAD tw7_goon[0]
-						TASK_FLEE_CHAR tw7_goon[0] scplayer 20.0 -2
-					ENDIF 	
-					IF NOT IS_CHAR_DEAD tw7_goon[1]
-						TASK_FLEE_CHAR tw7_goon[1] scplayer 20.0 -2
-					ENDIF 	
-					IF NOT IS_CHAR_DEAD tw7_goon[2]
-						TASK_FLEE_CHAR tw7_goon[2] scplayer 20.0 -2
-					ENDIF 	
-					CLEAR_MISSION_AUDIO 1
-					CLEAR_MISSION_AUDIO 2
-					timera = 0
-					tw7_control_flag = 0
-					tw7_speech_flag = 0
-					tw7_goals = 15
+							IF NOT IS_CAR_DEAD tw7_ass_bandit_bike
+								SET_CAR_ALWAYS_CREATE_SKIDS tw7_ass_bandit_bike FALSE
+							ENDIF
+							tw7_control_flag = 2
+						ENDIF
+					ENDIF
+
+					IF tw7_control_flag = 2 
+						IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer tw7_ass_bandit 30.0 30.0 FALSE 
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit scplayer 
+						OR HAS_CAR_BEEN_DAMAGED_BY_CHAR tw7_ass_bandit_bike scplayer 
+							IF IS_GROUP_MEMBER mc_strap Players_Group
+								REMOVE_CHAR_FROM_GROUP mc_strap
+							ENDIF 
+															
+							IGNORE_HEIGHT_DIFFERENCE_FOLLOWING_NODES mc_strap TRUE 
+							SET_FOLLOW_NODE_THRESHOLD_DISTANCE mc_strap 50.0
+
+							OPEN_SEQUENCE_TASK tw7_seq
+								TASK_LEAVE_ANY_CAR -1
+								TASK_KILL_CHAR_ON_FOOT -1 tw7_ass_bandit
+							CLOSE_SEQUENCE_TASK tw7_seq
+							PERFORM_SEQUENCE_TASK mc_strap tw7_seq
+							CLEAR_SEQUENCE_TASK tw7_seq
+
+							tw7_speech_flag = 0
+							tw7_car_nodes = 0
+							tw7_control_flag = 0
+							tw7_goals = 14
+						ENDIF
+					ENDIF
 				ENDIF
+
+
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			////////////////// guys at the basketball court /////////////////////////////////////////////////////////////
+				IF tw7_goals = 14
+					/////////////////// SPEECH FOR THIS SECTION //////////////////////
+					IF tw7_speech_flag = 0	
+						IF HAS_CHAR_SPOTTED_CHAR mc_strap tw7_ass_bandit
+						OR HAS_CHAR_SPOTTED_CHAR tw7_ass_bandit mc_strap
+						//IF IS_CHAR_RESPONDING_TO_EVENT mc_strap EVENT_ACQUAINTANCE_PED_HATE
+						//OR IS_CHAR_RESPONDING_TO_EVENT tw7_ass_bandit EVENT_ACQUAINTANCE_PED_HATE
+							tw7_speech_goals = 7
+							tw7_speech_control_flag = 0
+							GOSUB tw7_dialogue_setup 
+							timerb = 0
+							tw7_speech_flag = 1
+						ENDIF
+					ENDIF
+
+					IF tw7_speech_flag = 1
+						IF tw7_speech_goals = 0  
+							// I'm gonna kill that cheeky motherfucker!
+							tw7_speech_goals = 17
+							tw7_speech_control_flag = 0
+							GOSUB tw7_dialogue_setup 
+							tw7_speech_flag = 2
+						ENDIF
+					ENDIF
+					
+					IF tw7_control_flag = 0
+						REMOVE_BLIP tw7_control_blip
+						ADD_BLIP_FOR_CHAR tw7_ass_bandit tw7_control_blip
+						
+						SET_CHAR_ONLY_DAMAGED_BY_PLAYER tw7_ass_bandit FALSE
+						OPEN_SEQUENCE_TASK tw7_seq
+							TASK_LEAVE_ANY_CAR -1
+							TASK_TURN_CHAR_TO_FACE_CHAR -1 mc_strap 
+							TASK_KILL_CHAR_ON_FOOT -1 mc_strap
+						CLOSE_SEQUENCE_TASK tw7_seq
+						PERFORM_SEQUENCE_TASK tw7_ass_bandit tw7_seq
+						CLEAR_SEQUENCE_TASK tw7_seq
+
+						IF NOT IS_CHAR_DEAD tw7_goon[0] 
+							GET_SCRIPT_TASK_STATUS tw7_goon[0] TASK_KILL_CHAR_ON_FOOT task_status
+							IF task_status = FINISHED_TASK
+					 			TASK_KILL_CHAR_ON_FOOT tw7_goon[0] scplayer	
+							ENDIF
+					 	ENDIF	
+						IF NOT IS_CHAR_DEAD tw7_goon[1] 
+							GET_SCRIPT_TASK_STATUS tw7_goon[1] TASK_KILL_CHAR_ON_FOOT task_status
+							IF task_status = FINISHED_TASK
+					 			TASK_KILL_CHAR_ON_FOOT tw7_goon[1] scplayer	
+							ENDIF
+					 	ENDIF	
+						IF NOT IS_CHAR_DEAD tw7_goon[2] 
+							GET_SCRIPT_TASK_STATUS tw7_goon[2] TASK_KILL_CHAR_ON_FOOT task_status
+							IF task_status = FINISHED_TASK
+					 			TASK_KILL_CHAR_ON_FOOT tw7_goon[2] scplayer	
+							ENDIF
+					 	ENDIF
+						tw7_control_flag = 1
+					ENDIF	
+				ENDIF			   
 			ELSE
 				REMOVE_BLIP tw7_control_blip
 				IF NOT IS_CHAR_DEAD tw7_goon[0]
@@ -2463,7 +2444,12 @@ WAIT 0
 				timera = 0
 				tw7_control_flag = 0
 				tw7_speech_flag = 0
-				tw7_goals = 50 // FIXEDGROVE: new stage that skips the cutscene and plays its dialogue while freeroaming instead
+
+				IF tw7_goals > 13 // FIXEDGROVE: if freddy has reached the basketball court, the original cutscene plays
+					tw7_goals = 15 
+				ELSE
+					tw7_goals = 50 // FIXEDGROVE: new stage that skips the cutscene and plays its dialogue while freeroaming instead
+				ENDIF
 			ENDIF
 		ENDIF
 	ENDIF
@@ -2886,7 +2872,7 @@ WAIT 0
 		ENDIF
 
 		IF tw7_control_flag = 1
-			IF timera > 500
+			IF timera > 1500
 				ADD_BLIP_FOR_COORD 783.2 -1630.3 12.2 tw7_control_blip
 				SET_BLIP_AS_FRIENDLY tw7_control_blip TRUE	
 				PRINT_NOW ( SMK1_13 ) 8500 1 //Take OG Loc to the Burger Shot.
@@ -2923,8 +2909,9 @@ WAIT 0
 				ENDIF
 			ENDIF
 		
-			GOSUB tw7_mc_strap_group 	
 		ENDIF
+
+		GOSUB tw7_mc_strap_group 	
 		
 	ENDIF
 // FIXEDGROVE: END
@@ -3810,12 +3797,14 @@ OR tw7_speech_goals = 4 //cutscene at the house
 OR tw7_speech_goals = 5 //first convo as player and mcstrap get on the bike
 OR tw7_speech_goals = 8 //cutscene after killing ass bandit 
 OR tw7_speech_goals = 10 //cutscene at burger shot 
-	IF tw7_speech_control_flag < tw7_last_label
-		GOSUB tw7_loading_dialogue
-		GOSUB tw7_playing_dialogue
-		GOSUB tw7_finishing_dialogue  
-	ELSE
-		tw7_speech_goals = 0
+	IF tw7_goals < 50 // FIXEDGROVE: not in the special 'kill ass bandit early' stage
+		IF tw7_speech_control_flag < tw7_last_label
+			GOSUB tw7_loading_dialogue
+			GOSUB tw7_playing_dialogue
+			GOSUB tw7_finishing_dialogue  
+		ELSE
+			tw7_speech_goals = 0
+		ENDIF
 	ENDIF
 ENDIF
 
@@ -3827,6 +3816,7 @@ IF tw7_goals > 3
 			
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D mc_strap scplayer 10.0 10.0 8.0 FALSE
 				IF tw7_speech_goals = 9 //strap talking to player about where to go
+				OR tw7_speech_goals = 8 // FIXEDGROVE: dialogue after killing ass bandit
 					IF tw7_speech_control_flag < tw7_last_label
 						GOSUB tw7_loading_dialogue
 						GOSUB tw7_playing_dialogue
