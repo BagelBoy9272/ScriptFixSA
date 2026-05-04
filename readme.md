@@ -236,11 +236,15 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Lure:**
 - Now uses intended variant of Rancher
 
+**The Da Nang Thang:**
+- Added an extra member variant
+
 **Ice Cold Killa:**
 - Fixed typo in coords for CREATE_BIRDS command 
 
 **Pier 69:**
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
+- Added an extra member variant
 
 **Test Drive:**
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
@@ -288,6 +292,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Los Desperados:**
 - Made Aztecas friendly to the Grove after this mission
+- Added an extra member variant
 
 **End Of The Line:**
 - Fixed swat member being spawned out of the map due to typo

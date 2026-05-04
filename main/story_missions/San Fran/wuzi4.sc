@@ -36,7 +36,7 @@ LVAR_INT w5_blip w5_goons_blip[9]  //w5_blip2
 LVAR_INT w5_goals w5_control_flag w5_skip_cutscene_flag w5_deathcheck_flag  
 LVAR_INT w5_creating_goons_flag w5_has_goons_been_created  
 LVAR_INT w5_refugees_flag  
-LVAR_INT w5_char_select[2] w5_char_select_flag w5_player_health
+LVAR_INT w5_char_select[3] w5_char_select_flag w5_player_health // FIXEDGROVE: w5_char_select 2 -> 3
 LVAR_INT w5_where_player_control_flag w5_random_number 
 LVAR_INT w5_water_flag
 LVAR_INT w5_goons_AI_flag[9]
@@ -98,6 +98,7 @@ w5_refugees_flag = 0
 w5_char_select[0] = DNB1
 w5_char_select[1] = DNB2
 //w5_char_select[2] = DNB2OS
+w5_char_select[2] = DNB3 // FIXEDGROVE: extra member variant
 w5_char_select_flag = 0
 w5_player_health = 0
 w5_where_player_control_flag = 0
@@ -369,6 +370,7 @@ WAIT 0
 				REQUEST_MODEL DNB1
 				REQUEST_MODEL DNB2
 				//REQUEST_MODEL DNB2OS
+				REQUEST_MODEL DNB3 // FIXEDGROVE: extra member variant
 
 				REQUEST_CAR_RECORDING 25
 				
@@ -488,7 +490,7 @@ WAIT 0
 			IF w5_control_flag = 1		
 				IF LOCATE_CHAR_ANY_MEANS_2D scplayer -2483.3 1509.6 3.0 3.0 FALSE	
 					
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CLEAR_AREA -2429.5 1536.8 30.8 1.0 TRUE 
 					CREATE_CHAR PEDTYPE_MISSION5 w5_char_select[w5_char_select_flag] -2429.5 1536.8 30.8 w5_rocket_launcher
 					GIVE_WEAPON_TO_CHAR w5_rocket_launcher WEAPONTYPE_ROCKETLAUNCHER 12
@@ -829,7 +831,7 @@ WAIT 0
 			
 				//left hand side of boat, start of mazey bit
 				DELETE_CHAR w5_goons[2] 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2388.3 1553.1 25.0 1.0 TRUE
 				CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2388.3 1553.1 25.0 w5_goons[2]  
 				SET_CHAR_HEADING w5_goons[2] 0.0
@@ -839,7 +841,7 @@ WAIT 0
 
 				//right hand side of boat, start of mazey bit
 				DELETE_CHAR w5_goons[3] 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2390.9 1552.6 25.0 1.0 TRUE
 				CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2390.9 1552.6 25.0 w5_goons[3]  
 				SET_CHAR_HEADING w5_goons[3] 0.0
@@ -849,7 +851,7 @@ WAIT 0
 
 				//middle of maze - guy who is going to inform everyone
 				DELETE_CHAR w5_goons[4] 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2389.8 1554.9 25.0 1.0 TRUE
 				CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2389.8 1554.9 25.0 w5_goons[4]  
 				SET_CHAR_HEADING w5_goons[4] 220.6
@@ -867,7 +869,7 @@ WAIT 0
 		
 				//hiding next to the grenades
 				DELETE_CHAR w5_goons[5] 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2407.3 1547.6 25.0 1.0 TRUE
 				CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2407.3 1547.6 25.0 w5_goons[5]  
 				SET_CHAR_HEADING w5_goons[5] 319.2
@@ -877,7 +879,7 @@ WAIT 0
 
 				//left hand side of last bit of maze popping in/out
 				DELETE_CHAR w5_goons[6] 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2420.4 1553.4 25.0 1.0 TRUE
 				CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2420.4 1553.4 25.0 w5_goons[6]  
 				SET_CHAR_HEADING w5_goons[6] 180.0
@@ -887,7 +889,7 @@ WAIT 0
 															
 				//at end of long bit at start of last bit of maze											 
 				DELETE_CHAR w5_goons[7] 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2427.6 1532.3 25.0 1.0 TRUE
 				CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2427.6 1532.3 25.0 w5_goons[7]  
 				SET_CHAR_HEADING w5_goons[7] 275.0
@@ -897,7 +899,7 @@ WAIT 0
 														    
 				//right hand side of last bit of maze
 				DELETE_CHAR w5_goons[8] 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2427.9 1553.9 25.0 1.0 TRUE
 				CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2427.9 1553.9 25.0 w5_goons[8]  
 				SET_CHAR_HEADING w5_goons[8] 183.8
@@ -916,7 +918,7 @@ WAIT 0
 				SET_CHAR_DECISION_MAKER w5_goons[10] w5_ped_decisions
 			
 				//guy on top of the boxes that won't move
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2401.8 1530.3 30.8 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2401.8 1530.3 30.8 w5_goons[11]  
 				SET_CHAR_HEADING w5_goons[11] 0.0
@@ -925,7 +927,7 @@ WAIT 0
 				//SET_CHAR_KINDA_STAY_IN_SAME_PLACE w5_goons[11] TRUE
 				
 				//guy on top of the box that will move
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2405.5 1530.3 30.8 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2405.5 1530.3 30.8 w5_goons[12]  
 				SET_CHAR_HEADING w5_goons[12] 0.0
@@ -934,7 +936,7 @@ WAIT 0
 				GIVE_WEAPON_TO_CHAR w5_goons[12] WEAPONTYPE_TEC9 30000
 
 				//first guy hiding in hole at end of maze  
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2426.5 1548.8 22.2 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2426.5 1548.8 22.2 w5_goons[13]  
 				SET_CHAR_HEADING w5_goons[13] 180.0
@@ -943,7 +945,7 @@ WAIT 0
 				GIVE_WEAPON_TO_CHAR w5_goons[13] WEAPONTYPE_TEC9 30000
 
 				//second guy hiding in hole at end of maze  
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2422.5 1548.8 22.2 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2422.5 1548.8 22.2 w5_goons[14]  
 				SET_CHAR_HEADING w5_goons[14] 180.0
@@ -952,7 +954,7 @@ WAIT 0
 				GIVE_WEAPON_TO_CHAR w5_goons[14] WEAPONTYPE_TEC9 30000
 			
 				//guy standing on the small boxes at front righthandside of the first bit of boxes
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2339.2 1555.5 24.7 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2339.2 1555.5 24.7 w5_goons[15]  
 				SET_CHAR_HEADING w5_goons[15] 348.3
@@ -962,7 +964,7 @@ WAIT 0
 				TASK_LOOK_ABOUT w5_goons[15] -2
 
 				//guy standing at far righthandside of the first bit of boxes
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CLEAR_AREA -2360.0 1560.3 25.0 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2360.0 1560.3 25.0 w5_goons[16]  
 				SET_CHAR_HEADING w5_goons[16] 26.4
@@ -1244,7 +1246,7 @@ WAIT 0
 				
 
 				//second guy with box who runs to hide behind the boxes
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2404.8 1555.1 1.1 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2404.8 1555.1 1.1 w5_goons[1]  
 				SET_ANIM_GROUP_FOR_CHAR w5_goons[1] gang2
@@ -1254,7 +1256,7 @@ WAIT 0
 				GIVE_WEAPON_TO_CHAR w5_goons[1] WEAPONTYPE_TEC9 30000
 	
 				//third guy with box who runs to tell the warden
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2401.3 1555.1 1.1 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2401.3 1555.1 1.1 w5_goons[2]  
 				SET_ANIM_GROUP_FOR_CHAR w5_goons[2] gang1
@@ -1264,7 +1266,7 @@ WAIT 0
 				GIVE_WEAPON_TO_CHAR w5_goons[2] WEAPONTYPE_TEC9 30000
 	
 				//guy hiding in the middle of the maze by himself 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2389.4 1553.4 1.1 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2389.4 1553.4 1.1 w5_goons[3]  
 				SET_CHAR_HEADING w5_goons[3] 180.0
@@ -1273,7 +1275,7 @@ WAIT 0
 				GIVE_WEAPON_TO_CHAR w5_goons[3] WEAPONTYPE_TEC9 30000
 	
 				//2 guys who are going to blow up the box and come through
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2404.7 1545.5 1.1 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2404.7 1545.5 1.1 w5_goons[4]  
 				SET_CHAR_HEADING w5_goons[4] 266.2
@@ -1281,7 +1283,7 @@ WAIT 0
 				//SET_CHAR_KINDA_STAY_IN_SAME_PLACE w5_goons[4] TRUE 
 				GIVE_WEAPON_TO_CHAR w5_goons[4] WEAPONTYPE_TEC9 30000
 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2406.4 1544.7 1.1 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2406.4 1544.7 1.1 w5_goons[5]  
 				SET_CHAR_HEADING w5_goons[5] 256.3
@@ -1816,7 +1818,7 @@ WAIT 0
 				//creating last guys
 				/*
 				//bodyguard 1 in cabin leaning against the wall 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2477.0 1550.6 32.2 w5_cabin_crew[0] 
 				SET_CHAR_HEADING w5_cabin_crew[0] 162.8
 				SET_CHAR_DECISION_MAKER w5_cabin_crew[0] w5_empty_decisions
@@ -1824,7 +1826,7 @@ WAIT 0
 				SET_CHAR_STAY_IN_SAME_PLACE w5_cabin_crew[0] TRUE
 
 				//bodyguard 2 in cabin next to head honcho 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2470.8 1544.8 32.2 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2470.8 1544.8 32.2 w5_cabin_crew[1] 
 				SET_CHAR_HEADING w5_cabin_crew[1] 270.0
@@ -1836,7 +1838,7 @@ WAIT 0
 				*/
 
 				//bodyguard 3 on stairs right  
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2473.3 1536.3 27.8 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2473.3 1536.3 27.8 w5_cabin_crew[2] 
 				SET_CHAR_HEADING w5_cabin_crew[2] 12.6
@@ -1845,7 +1847,7 @@ WAIT 0
 				SET_CHAR_KINDA_STAY_IN_SAME_PLACE w5_cabin_crew[2] TRUE
 
 				//bodyguard 4 on stairs left 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2476.3 1536.3 27.8 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2476.3 1536.3 27.8 w5_cabin_crew[3] 
 				SET_CHAR_HEADING w5_cabin_crew[3] 321.5
@@ -1854,7 +1856,7 @@ WAIT 0
 				SET_CHAR_KINDA_STAY_IN_SAME_PLACE w5_cabin_crew[3] TRUE
 
 				//bodyguard 5 on walkway 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			 	CLEAR_AREA -2470.3 1546.9 22.6 1.0 TRUE
 			 	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2470.3 1546.9 22.6 w5_cabin_crew[4] 
 				SET_CHAR_HEADING w5_cabin_crew[4] 265.4
@@ -2907,6 +2909,7 @@ MARK_MODEL_AS_NO_LONGER_NEEDED OMOBOAT
 MARK_MODEL_AS_NO_LONGER_NEEDED DNB1
 MARK_MODEL_AS_NO_LONGER_NEEDED DNB2
 //MARK_MODEL_AS_NO_LONGER_NEEDED DNB2OS
+MARK_MODEL_AS_NO_LONGER_NEEDED DNB3 // FIXEDGROVE: extra member variant
 MARK_MODEL_AS_NO_LONGER_NEEDED kmb_container_red
 MARK_MODEL_AS_NO_LONGER_NEEDED Katana_Anim
 MARK_MODEL_AS_NO_LONGER_NEEDED Katana_LHand
@@ -2975,7 +2978,7 @@ IF w5_has_goons_been_created = 0
 
 	//guy who runs to the left side of first bit of boxes
 	CLEAR_AREA -2355.2 1547.0 25.0 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2355.2 1547.0 25.0 w5_goons[0]  
 	SET_CHAR_HEADING w5_goons[0] 198.7
 	SET_CHAR_DECISION_MAKER w5_goons[0] w5_ped_decisions
@@ -2983,7 +2986,7 @@ IF w5_has_goons_been_created = 0
 
 	//guy who runs to the right side of first bit of boxes
 	CLEAR_AREA -2355.1 1545.0 25.0 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2355.1 1545.0 25.0 w5_goons[1]  
 	SET_CHAR_HEADING w5_goons[1] 0.6
 	SET_CHAR_DECISION_MAKER w5_goons[1] w5_ped_decisions
@@ -2995,7 +2998,7 @@ IF w5_has_goons_been_created = 0
 
 	//first guy on second set of crates
 	CLEAR_AREA -2373.0 1549.3 30.8 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2373.0 1549.3 30.8 w5_goons[2]  
 	SET_CHAR_HEADING w5_goons[2] 355.7
 	SET_CHAR_DECISION_MAKER w5_goons[2] w5_ped_decisions
@@ -3003,7 +3006,7 @@ IF w5_has_goons_been_created = 0
 
 	//second guy on second set of crates
 	CLEAR_AREA -2396.3 1560.26 30.8 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2396.3 1560.26 30.8 w5_goons[3]  
 	SET_CHAR_HEADING w5_goons[3] 356.2
 	SET_CHAR_DECISION_MAKER w5_goons[3] w5_ped_decisions
@@ -3011,7 +3014,7 @@ IF w5_has_goons_been_created = 0
 
 	//First guy next to cabins
 	CLEAR_AREA -2478.2 1560.9 16.3 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2478.2 1560.9 16.3 w5_goons[4]  
 	SET_CHAR_HEADING w5_goons[4] 11.0
 	SET_CHAR_DECISION_MAKER w5_goons[4] w5_ped_decisions
@@ -3019,7 +3022,7 @@ IF w5_has_goons_been_created = 0
 
 	//standing on the platform at the back of the boat
 	CLEAR_AREA -2500.5 1551.0 23.2 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2500.5 1551.0 23.2 w5_goons[5]  
 	SET_CHAR_HEADING w5_goons[5] 339.2
 	SET_CHAR_DECISION_MAKER w5_goons[5] w5_ped_decisions
@@ -3027,7 +3030,7 @@ IF w5_has_goons_been_created = 0
 
 	//lead guy of last two on platform coming out to shoot at player 
 	CLEAR_AREA -2493.7 1537.4 23.2 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2493.7 1537.4 23.2 w5_goons[6]  
 	SET_CHAR_HEADING w5_goons[6] 82.5
 	SET_CHAR_DECISION_MAKER w5_goons[6] w5_empty_decisions
@@ -3035,7 +3038,7 @@ IF w5_has_goons_been_created = 0
 											 
 	//rear guy of last two on platform coming out to shoot at player 
 	CLEAR_AREA -2492.2 1537.3 23.2 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2492.2 1537.3 23.2 w5_goons[7]  
 	SET_CHAR_HEADING w5_goons[7] 78.2
 	SET_CHAR_DECISION_MAKER w5_goons[7] w5_ped_decisions 
@@ -3043,7 +3046,7 @@ IF w5_has_goons_been_created = 0
 										    
 	//last guy before the Rocket Launcher dude
 	CLEAR_AREA -2453.8 1529.6 27.9 1.0 TRUE
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 w5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 w5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
  	CREATE_CHAR PEDTYPE_MISSION2 w5_char_select[w5_char_select_flag] -2453.8 1529.6 27.9 w5_goons[8]  
 	SET_CHAR_HEADING w5_goons[8] 174.6
 	SET_CHAR_DECISION_MAKER w5_goons[8] w5_ped_decisions

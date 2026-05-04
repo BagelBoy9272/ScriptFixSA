@@ -46,7 +46,7 @@ LVAR_INT r2_car_mechanics_blips[6] r2_climbers_blips[6] r2_garage_blips[4]
 
 //flags
 LVAR_INT r2_goals r2_control_flag r2_skip_cutscene_flag r2_deathcheck_flag 
-LVAR_INT r2_char_select[2] r2_char_select_flag
+LVAR_INT r2_char_select[3] r2_char_select_flag // FIXEDGROVE: r2_char_select 2 -> 3
 LVAR_INT r2_runner_control_flag
 LVAR_INT r2_flats_lookout_control_flag 
 LVAR_INT r2_flats_lookout_flag
@@ -119,6 +119,7 @@ r2_deathcheck_flag = 0
 r2_speech_flag = 0
 r2_char_select[0] = LSV1
 r2_char_select[1] = LSV2 
+r2_char_select[2] = LSV3 // FIXEDGROVE: extra member variant
 r2_char_select_flag = 0
 r2_runner_control_flag = 2
 r2_flats_lookout_control_flag = 0
@@ -222,7 +223,7 @@ REQUEST_MODEL VLA3 //Katana OG - guy with sunglasses
 //REQUEST_MODEL MEX //main baddie  
 REQUEST_MODEL LSV1  
 REQUEST_MODEL LSV2 
-//REQUEST_MODEL LSV3 
+REQUEST_MODEL LSV3 // FIXEDGROVE: uncommented
 
 REQUEST_MODEL KATANA 
 REQUEST_MODEL DESERT_EAGLE 
@@ -2220,7 +2221,7 @@ WAIT 0
 			LOCK_CAR_DOORS r2_junk[1] CARLOCK_LOCKED 
 
 			//guy underneath car
-			GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1860.9 -2099.6 12.6 r2_car_mechanics[0]
 			SET_CHAR_HEADING r2_car_mechanics[0] 270.0
 			GIVE_WEAPON_TO_CHAR r2_car_mechanics[0] WEAPONTYPE_TEC9 3000 
@@ -2232,7 +2233,7 @@ WAIT 0
 			ADD_ARMOUR_TO_CHAR r2_car_mechanics[0] 50
 
 			//guy watching guy under the car
-			GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1859.9 -2102.5 12.5 r2_car_mechanics[1]
 			SET_CHAR_HEADING r2_car_mechanics[1] 48.0
 			GIVE_WEAPON_TO_CHAR r2_car_mechanics[1] WEAPONTYPE_TEC9 3000 
@@ -2242,7 +2243,7 @@ WAIT 0
 			SET_CHAR_ACCURACY r2_car_mechanics[1] r2_char_accuracy
 
 			//guy ducking behind car (right as you look towards player)
-			GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1855.6 -2102.6 12.5 r2_car_mechanics[2]
 			SET_CHAR_HEADING r2_car_mechanics[2] 282.0
 			GIVE_WEAPON_TO_CHAR r2_car_mechanics[2] WEAPONTYPE_TEC9 3000 
@@ -2254,7 +2255,7 @@ WAIT 0
 			ADD_ARMOUR_TO_CHAR r2_car_mechanics[2] 50
 
 			//guy ducking behind car (left as you look towards player)
-			GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 			CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1855.6 -2099.6 12.5 r2_car_mechanics[3]
 			SET_CHAR_HEADING r2_car_mechanics[3] 282.0
 			GIVE_WEAPON_TO_CHAR r2_car_mechanics[3] WEAPONTYPE_TEC9 3000 
@@ -2625,7 +2626,7 @@ WAIT 0
 					ENDIF
 
 					//guards coming from house (right of the door as you look at it)
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1806.1 -2121.7 12.5 r2_car_mechanics[4]
 					SET_CHAR_HEADING r2_car_mechanics[4] 357.8
 					GIVE_WEAPON_TO_CHAR r2_car_mechanics[4] WEAPONTYPE_TEC9 3000 
@@ -2642,7 +2643,7 @@ WAIT 0
 					SET_CHAR_ACCURACY r2_car_mechanics[4] r2_char_accuracy
 
 					//guards coming from house (left of the door as you look at it)
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1801.5 -2120.7 12.5 r2_car_mechanics[5]
 					SET_CHAR_HEADING r2_car_mechanics[5] 357.8
 					GIVE_WEAPON_TO_CHAR r2_car_mechanics[5] WEAPONTYPE_TEC9 3000 
@@ -2660,7 +2661,7 @@ WAIT 0
 					ADD_ARMOUR_TO_CHAR r2_car_mechanics[5] 50
 
 					//first guy will go to the wall and pop in and out
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1879.7 -2094.9 12.5  r2_garage[0]
 					SET_CHAR_HEADING r2_garage[0] 180.0
 					GIVE_WEAPON_TO_CHAR r2_garage[0] WEAPONTYPE_TEC9 3000 
@@ -2669,7 +2670,7 @@ WAIT 0
 					SET_CHAR_ACCURACY r2_garage[0] r2_char_accuracy
 					 
 					//second guy 
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1878.7 -2094.9 12.5  r2_garage[1]
 					SET_CHAR_HEADING r2_garage[1] 180.0
 					GIVE_WEAPON_TO_CHAR r2_garage[1] WEAPONTYPE_TEC9 3000 
@@ -2679,7 +2680,7 @@ WAIT 0
 					ADD_ARMOUR_TO_CHAR r2_garage[1] 50
 
 					//third guy will duck walk out
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1876.7 -2094.9 12.5  r2_garage[2]
 					SET_CHAR_HEADING r2_garage[2] 180.0
 					GIVE_WEAPON_TO_CHAR r2_garage[2] WEAPONTYPE_TEC9 3000 
@@ -2688,7 +2689,7 @@ WAIT 0
 					SET_CHAR_ACCURACY r2_garage[2] r2_char_accuracy
 
 					//fourth guy will duck but stay in same place
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1875.2 -2094.9 12.5  r2_garage[3]
 					SET_CHAR_HEADING r2_garage[3] 180.0
 					GIVE_WEAPON_TO_CHAR r2_garage[3] WEAPONTYPE_TEC9 3000 
@@ -3238,7 +3239,7 @@ WAIT 0
 					CLEAR_SEQUENCE_TASK r2_seq2
 
 					//two guys that kill Launcher dude
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1913.7 -2109.2 12.6 r2_car_mechanics[0]
 					SET_CHAR_HEADING r2_car_mechanics[0] 90.5
 					GIVE_WEAPON_TO_CHAR r2_car_mechanics[0] WEAPONTYPE_TEC9 3000 
@@ -3248,7 +3249,7 @@ WAIT 0
 					SET_CHAR_ACCURACY r2_car_mechanics[0] r2_char_accuracy
 					ADD_ARMOUR_TO_CHAR r2_car_mechanics[0] 50
 					
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1916.5 -2113.1 12.6 r2_car_mechanics[1]
 					SET_CHAR_HEADING r2_car_mechanics[1] 20.1
 					GIVE_WEAPON_TO_CHAR r2_car_mechanics[1] WEAPONTYPE_TEC9 3000 
@@ -3258,7 +3259,7 @@ WAIT 0
 					SET_CHAR_ACCURACY r2_car_mechanics[1] r2_char_accuracy
 
 					//guards coming from house (right of the door as you look at it)
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1806.1 -2121.7 12.5 r2_car_mechanics[4]
 					SET_CHAR_HEADING r2_car_mechanics[4] 357.8
 					GIVE_WEAPON_TO_CHAR r2_car_mechanics[4] WEAPONTYPE_TEC9 3000 
@@ -3276,7 +3277,7 @@ WAIT 0
 					SET_CHAR_ACCURACY r2_car_mechanics[4] r2_char_accuracy
 
 					//guards coming from house (left of the door as you look at it)
-					GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 					CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1801.5 -2120.7 12.5 r2_car_mechanics[5]
 					SET_CHAR_HEADING r2_car_mechanics[5] 357.8
 					GIVE_WEAPON_TO_CHAR r2_car_mechanics[5] WEAPONTYPE_TEC9 3000 
@@ -3579,7 +3580,7 @@ WAIT 0
 				ADD_ARMOUR_TO_CHAR r2_car_mechanics[0] 100
 
 				//flamethrower enemy
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1811.8 -2124.0 12.6 r2_car_mechanics[1]
 				SET_CHAR_HEADING r2_car_mechanics[1] 287.5
 				SET_CHAR_STAY_IN_SAME_PLACE r2_car_mechanics[1] TRUE 
@@ -3590,7 +3591,7 @@ WAIT 0
 				SET_CHAR_ACCURACY r2_car_mechanics[1] r2_char_accuracy
 				 
 				//two guards coming from the garage area of cesars house 
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1795.0 -2126.7 12.5 r2_car_mechanics[2]
 				SET_CHAR_HEADING r2_car_mechanics[2] 358.6
 				GIVE_WEAPON_TO_CHAR r2_car_mechanics[2] WEAPONTYPE_TEC9 3000 
@@ -3601,7 +3602,7 @@ WAIT 0
 				SET_CHAR_ACCURACY r2_car_mechanics[2] r2_char_accuracy
 
 			
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1795.0 -2130.7 12.5 r2_car_mechanics[3]
 				SET_CHAR_HEADING r2_car_mechanics[3] 357.8
 				GIVE_WEAPON_TO_CHAR r2_car_mechanics[3] WEAPONTYPE_TEC9 3000 
@@ -3612,7 +3613,7 @@ WAIT 0
 				SET_CHAR_ACCURACY r2_car_mechanics[3] r2_char_accuracy
 
 				//guards coming from house (right of the door as you look at it)
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1806.1 -2121.7 12.5 r2_car_mechanics[4]
 				SET_CHAR_HEADING r2_car_mechanics[4] 357.8
 				GIVE_WEAPON_TO_CHAR r2_car_mechanics[4] WEAPONTYPE_TEC9 3000 
@@ -3624,7 +3625,7 @@ WAIT 0
 				ADD_ARMOUR_TO_CHAR r2_car_mechanics[4] 100
 
 				//guards coming from house (left of the door as you look at it)
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1801.5 -2120.7 12.5 r2_car_mechanics[5]
 				SET_CHAR_HEADING r2_car_mechanics[5] 357.8
 				GIVE_WEAPON_TO_CHAR r2_car_mechanics[5] WEAPONTYPE_TEC9 3000 
@@ -4141,7 +4142,7 @@ MARK_MODEL_AS_NO_LONGER_NEEDED VLA3
 //MARK_MODEL_AS_NO_LONGER_NEEDED MEX 
 MARK_MODEL_AS_NO_LONGER_NEEDED LSV1
 MARK_MODEL_AS_NO_LONGER_NEEDED LSV2
-//MARK_MODEL_AS_NO_LONGER_NEEDED LSV3
+MARK_MODEL_AS_NO_LONGER_NEEDED LSV3 // FIXEDGROVE: uncommented
 //MARK_MODEL_AS_NO_LONGER_NEEDED SENTINEL
 SWITCH_EMERGENCY_SERVICES ON
 MARK_MODEL_AS_NO_LONGER_NEEDED KATANA 
@@ -4273,7 +4274,7 @@ RETURN//////////////////////////////////////////////////////////////////////
 creating_flats_lookouts:////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 //lookout 0	- leaning agaisnt the wall smoking - RUNNER!!!
-GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1831.6 -2004.6 12.6 r2_flats_lookout[0]
 SET_INFORM_RESPECTED_FRIENDS r2_flats_lookout[0] 8.0 6 
 SET_CHAR_HEADING r2_flats_lookout[0] 90.0
@@ -4286,7 +4287,7 @@ SET_CHAR_ACCURACY r2_flats_lookout[0] r2_char_accuracy
 ADD_ARMOUR_TO_CHAR r2_flats_lookout[0] 100
 
 //lookout 1 - playing basketball offense
-GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1825.5 -2002.4 12.6 r2_flats_lookout[1]
 SET_INFORM_RESPECTED_FRIENDS r2_flats_lookout[1] 8.0 6 
 SET_CHAR_HEADING r2_flats_lookout[1] 89.7
@@ -4300,7 +4301,7 @@ SET_CHAR_DECISION_MAKER r2_flats_lookout[1] r2_ped_decisions
 SET_CHAR_KINDA_STAY_IN_SAME_PLACE r2_flats_lookout[1] TRUE 
 
 //lookout 2 - playing basketball defense
-GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1824.3 -2002.4 12.6 r2_flats_lookout[2]
 SET_INFORM_RESPECTED_FRIENDS r2_flats_lookout[2] 8.0 6 
 SET_CHAR_HEADING r2_flats_lookout[2] 270.0
@@ -4314,7 +4315,7 @@ SET_CHAR_ACCURACY r2_flats_lookout[2] r2_char_accuracy
 ADD_ARMOUR_TO_CHAR r2_flats_lookout[2] 100
 
 //lookout 3 - watching the basketball right 
-GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1827.7 -1999.1 12.6 r2_flats_lookout[3]
 SET_INFORM_RESPECTED_FRIENDS r2_flats_lookout[3] 8.0 6 
 SET_CHAR_HEADING r2_flats_lookout[3] 133.6
@@ -4326,7 +4327,7 @@ CHANGE_BLIP_SCALE r2_flats_lookout_blips[3] 1
 SET_CHAR_ACCURACY r2_flats_lookout[3] r2_char_accuracy
 
 //lookout 4	- watching the basketball left
-GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1828.2 -2000.4 12.6 r2_flats_lookout[4]
 SET_INFORM_RESPECTED_FRIENDS r2_flats_lookout[4] 8.0 6 
 SET_CHAR_HEADING r2_flats_lookout[4] 108.2
@@ -4339,7 +4340,7 @@ SET_CHAR_ACCURACY r2_flats_lookout[4] r2_char_accuracy
 ADD_ARMOUR_TO_CHAR r2_flats_lookout[4] 100
 
 //lookout 5 - walking to the fence then starting to smoke 
-GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1834.3 -1995.9 12.6 r2_flats_lookout[5]
 SET_INFORM_RESPECTED_FRIENDS r2_flats_lookout[5] 8.0 6 
 SET_CHAR_HEADING r2_flats_lookout[5] 88.1
@@ -4428,7 +4429,7 @@ IF r2_NW_control_flag[0] = 1
 	ROTATE_OBJECT riot2_door[3] 270.0 360.0 FALSE
 
 	//House 0 - Goon 0
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1850.3 -1990.0 12.6 r2_NW_goons[0]
 	SET_INFORM_RESPECTED_FRIENDS r2_NW_goons[0] 8.0 6 
 	SET_CHAR_HEADING r2_NW_goons[0] 270.0
@@ -4451,7 +4452,7 @@ IF r2_NW_control_flag[0] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 0 - Goon 1
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1851.7 -1989.9 12.6 r2_NW_goons[1]
 	SET_INFORM_RESPECTED_FRIENDS r2_NW_goons[1] 8.0 6 
 	SET_CHAR_HEADING r2_NW_goons[1] 270.7
@@ -4479,7 +4480,7 @@ IF r2_NW_control_flag[1] = 1
 	ROTATE_OBJECT riot2_door[4] 180.0 360.0 FALSE
 
 	//House 1 - Goon 2
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1867.7 -1983.7 12.6 r2_NW_goons[2]
 	SET_INFORM_RESPECTED_FRIENDS r2_NW_goons[2] 8.0 6 
 	SET_CHAR_HEADING r2_NW_goons[2] 180.0
@@ -4502,7 +4503,7 @@ IF r2_NW_control_flag[1] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 1 - Goon 3 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1867.7 -1984.7 12.6 r2_NW_goons[3]
 	SET_INFORM_RESPECTED_FRIENDS r2_NW_goons[3] 8.0 6 
 	SET_CHAR_HEADING r2_NW_goons[3] 180.0
@@ -4530,7 +4531,7 @@ IF r2_NW_control_flag[2] = 1
 	ROTATE_OBJECT riot2_door[5] 0.0 360.0 FALSE
 
 	//House 2 - Goon 4
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1866.2 -1999.7 12.6 r2_NW_goons[4]
 	SET_INFORM_RESPECTED_FRIENDS r2_NW_goons[4] 8.0 6 
 	SET_CHAR_HEADING r2_NW_goons[4] 0.0
@@ -4553,7 +4554,7 @@ IF r2_NW_control_flag[2] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 2 - Goon 5
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1865.9 -1998.7 12.6 r2_NW_goons[5]
 	SET_INFORM_RESPECTED_FRIENDS r2_NW_goons[5] 8.0 6 
 	SET_CHAR_HEADING r2_NW_goons[5] 0.0
@@ -4587,7 +4588,7 @@ IF r2_NE_control_flag[0] = 1
 	ROTATE_OBJECT riot2_door[6] 180.0 360.0 FALSE
 	
 	//House 0 - Goon 0
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1900.1 -1983.5 12.6 r2_NE_goons[0]
 	SET_INFORM_RESPECTED_FRIENDS r2_NE_goons[0] 8.0 6 
 	SET_CHAR_HEADING r2_NE_goons[0] 180.0
@@ -4610,7 +4611,7 @@ IF r2_NE_control_flag[0] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 0 - Goon 1
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1900.1 -1984.5 12.6 r2_NE_goons[1]
 	SET_INFORM_RESPECTED_FRIENDS r2_NE_goons[1] 8.0 6 
 	SET_CHAR_HEADING r2_NE_goons[1] 180.7
@@ -4638,7 +4639,7 @@ IF r2_NE_control_flag[1] = 1
 	ROTATE_OBJECT riot2_door[7] 90.0 360.0 FALSE
 
 	//House 1 - Goon 2
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1915.8 -1993.5 12.6 r2_NE_goons[2]
 	SET_INFORM_RESPECTED_FRIENDS r2_NE_goons[2] 8.0 6 
 	SET_CHAR_HEADING r2_NE_goons[2] 90.0
@@ -4661,7 +4662,7 @@ IF r2_NE_control_flag[1] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 	
 	//House 1 - Goon 3 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1914.8 -1993.5 12.6 r2_NE_goons[3]
 	SET_INFORM_RESPECTED_FRIENDS r2_NE_goons[3] 8.0 6 
 	SET_CHAR_HEADING r2_NE_goons[3] 90.0
@@ -4689,7 +4690,7 @@ IF r2_NE_control_flag[2] = 1
 	ROTATE_OBJECT riot2_door[8] 0.0 360.0 FALSE
 
 	//House 2 - Goon 4
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1898.3 -1999.9 12.6 r2_NE_goons[4]
 	SET_INFORM_RESPECTED_FRIENDS r2_NE_goons[4] 8.0 6 
 	SET_CHAR_HEADING r2_NE_goons[4] 0.0
@@ -4712,7 +4713,7 @@ IF r2_NE_control_flag[2] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 2 - Goon 5
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1898.3 -1998.9 12.6 r2_NE_goons[5]
 	SET_INFORM_RESPECTED_FRIENDS r2_NE_goons[5] 8.0 6 
 	SET_CHAR_HEADING r2_NE_goons[5] 0.0
@@ -4746,7 +4747,7 @@ IF r2_SW_control_flag[0] = 1
 	ROTATE_OBJECT riot2_door[12] 270.0 360.0 FALSE
 
 	//House 0 - Goon 0
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1850.4 -2019.5 12.6 r2_SW_goons[0]
 	SET_INFORM_RESPECTED_FRIENDS r2_SW_goons[0] 8.0 6 
 	SET_CHAR_HEADING r2_SW_goons[0] 270.0
@@ -4769,7 +4770,7 @@ IF r2_SW_control_flag[0] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 0 - Goon 1
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1851.7 -2019.5 12.6 r2_SW_goons[1]
 	SET_INFORM_RESPECTED_FRIENDS r2_SW_goons[1] 8.0 6 
 	SET_CHAR_HEADING r2_SW_goons[1] 270.7
@@ -4797,7 +4798,7 @@ IF r2_SW_control_flag[1] = 1
 	ROTATE_OBJECT riot2_door[13] 90.0 360.0 FALSE
 
 	//House 1 - Goon 2
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1866.7 -2021.1 12.6 r2_SW_goons[2]
 	SET_INFORM_RESPECTED_FRIENDS r2_SW_goons[2] 8.0 6 
 	SET_CHAR_HEADING r2_SW_goons[2] 90.0
@@ -4820,7 +4821,7 @@ IF r2_SW_control_flag[1] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 1 - Goon 3 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1865.5 -2021.3 12.6 r2_SW_goons[3]
 	SET_INFORM_RESPECTED_FRIENDS r2_SW_goons[3] 8.0 6 
 	SET_CHAR_HEADING r2_SW_goons[3] 90.0
@@ -4848,7 +4849,7 @@ IF r2_SW_control_flag[2] = 1
 	ROTATE_OBJECT riot2_door[14] 0.0 360.0 FALSE
 
 	//House 2 - Goon 4
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1857.2 -2036.9 12.6 r2_SW_goons[4]
 	SET_INFORM_RESPECTED_FRIENDS r2_SW_goons[4] 8.0 6 
 	SET_CHAR_HEADING r2_SW_goons[4] 0.0
@@ -4871,7 +4872,7 @@ IF r2_SW_control_flag[2] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 2 - Goon 5
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1857.1 -2035.8 12.6 r2_SW_goons[5]
 	SET_INFORM_RESPECTED_FRIENDS r2_SW_goons[5] 8.0 6 
 	SET_CHAR_HEADING r2_SW_goons[5] 0.0
@@ -4904,7 +4905,7 @@ IF r2_SE_control_flag[0] = 1
 	ROTATE_OBJECT riot2_door[9] 270.0 360.0 FALSE
 
 	//House 0 - Goon 0
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1899.3 -2019.5 12.6 r2_SE_goons[0]
 	SET_INFORM_RESPECTED_FRIENDS r2_SE_goons[0] 8.0 6 
 	SET_CHAR_HEADING r2_SE_goons[0] 270.0
@@ -4927,7 +4928,7 @@ IF r2_SE_control_flag[0] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 	
 	//House 0 - Goon 1
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1900.3 -2019.5 12.6 r2_SE_goons[1]
 	SET_INFORM_RESPECTED_FRIENDS r2_SE_goons[1] 8.0 6 
 	SET_CHAR_HEADING r2_SE_goons[1] 270.7
@@ -4955,7 +4956,7 @@ IF r2_SE_control_flag[1] = 1
 	ROTATE_OBJECT riot2_door[10] 90.0 360.0 FALSE
 
 	//House 1 - Goon 2
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1915.8 -2021.5 12.6 r2_SE_goons[2]
 	SET_INFORM_RESPECTED_FRIENDS r2_SE_goons[2] 8.0 6 
 	SET_CHAR_HEADING r2_SE_goons[2] 90.0
@@ -4978,7 +4979,7 @@ IF r2_SE_control_flag[1] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 1 - Goon 3 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1914.8 -2021.5 12.6 r2_SE_goons[3]
 	SET_INFORM_RESPECTED_FRIENDS r2_SE_goons[3] 8.0 6 
 	SET_CHAR_HEADING r2_SE_goons[3] 90.0
@@ -5006,7 +5007,7 @@ IF r2_SE_control_flag[2] = 1
 	ROTATE_OBJECT riot2_door[11] 0.0 360.0 FALSE
 
 	//House 2 - Goon 4
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1906.1 -2036.9 12.6 r2_SE_goons[4]
 	SET_INFORM_RESPECTED_FRIENDS r2_SE_goons[4] 8.0 6 
 	SET_CHAR_HEADING r2_SE_goons[4] 0.0
@@ -5029,7 +5030,7 @@ IF r2_SE_control_flag[2] = 1
 	CLEAR_SEQUENCE_TASK r2_seq	
 
 	//House 2 - Goon 5
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1906.1 -2035.9 12.6 r2_SE_goons[5]
 	SET_INFORM_RESPECTED_FRIENDS r2_SE_goons[5] 8.0 6 
 	SET_CHAR_HEADING r2_SE_goons[5] 0.0
@@ -5090,7 +5091,7 @@ r2_creating_climbers:///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 	IF IS_CHAR_DEAD r2_climbers[0] 
 		//climber 0 - 1st set right front 
-		GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 		CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1860.1 -2094.8 14.0 r2_climbers[0]
 		SET_CHAR_HEADING r2_climbers[0] 187.0
 		GIVE_WEAPON_TO_CHAR r2_climbers[0] WEAPONTYPE_TEC9 3000 
@@ -5112,7 +5113,7 @@ r2_creating_climbers:///////////////////////////////////////////////////////
 
 	IF IS_CHAR_DEAD r2_climbers[1] 
 		//climber 1 - 1st set right middle
-		GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 		CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1857.3 -2094.8 14.0 r2_climbers[1]
 		SET_CHAR_HEADING r2_climbers[1] 187.0
 		GIVE_WEAPON_TO_CHAR r2_climbers[1] WEAPONTYPE_TEC9 3000 
@@ -5134,7 +5135,7 @@ r2_creating_climbers:///////////////////////////////////////////////////////
 
 	IF IS_CHAR_DEAD r2_climbers[2] 
 		//climber 2 - 1st set right back
-		GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 		CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1854.3 -2094.8 14.0 r2_climbers[2]
 		SET_CHAR_HEADING r2_climbers[2] 187.0
 		GIVE_WEAPON_TO_CHAR r2_climbers[2] WEAPONTYPE_TEC9 3000 
@@ -5157,7 +5158,7 @@ r2_creating_climbers:///////////////////////////////////////////////////////
 
 	IF IS_CHAR_DEAD r2_climbers[3] 
 		//climber 3 - 1st set left front
-		GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 		CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1859.1 -2108.8 14.0 r2_climbers[3]
 		SET_CHAR_HEADING r2_climbers[3] 2.0
 		GIVE_WEAPON_TO_CHAR r2_climbers[3] WEAPONTYPE_TEC9 3000 
@@ -5178,7 +5179,7 @@ r2_creating_climbers:///////////////////////////////////////////////////////
 
 	IF IS_CHAR_DEAD r2_climbers[4] 
 		//climber 4 - 1st set left middle
-		GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 		CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1856.3 -2108.8 14.0 r2_climbers[4]
 		SET_CHAR_HEADING r2_climbers[4] 2.0
 		GIVE_WEAPON_TO_CHAR r2_climbers[4] WEAPONTYPE_TEC9 3000 
@@ -5200,7 +5201,7 @@ r2_creating_climbers:///////////////////////////////////////////////////////
 
 	IF IS_CHAR_DEAD r2_climbers[5] 
 		//climber 5 - 1st set left back
-		GENERATE_RANDOM_INT_IN_RANGE 0 2 r2_char_select_flag
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 r2_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 		CREATE_CHAR PEDTYPE_MISSION2 r2_char_select[r2_char_select_flag] 1853.3 -2108.8 14.0 r2_climbers[5]
 		SET_CHAR_HEADING r2_climbers[5] 2.0
 		GIVE_WEAPON_TO_CHAR r2_climbers[5] WEAPONTYPE_TEC9 3000 

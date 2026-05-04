@@ -133,8 +133,11 @@ syn5_sniper_number_flag = 0
 
 syn5_char_select[0] = SFR1
 syn5_char_select[1] = SFR2 
+syn5_char_select[2] = SFR3 // FIXEDGROVE: extra member variant
 syn5_char_select[3] = BALLAS1
 syn5_char_select[4] = BALLAS2 
+syn5_char_select[5] = BALLAS3 // FIXEDGROVE: extra member variant
+//syn5_char_select[6] = // FIXEDGROVE: this variable is not used
 
 syn5_sniper_control_flag[0] = 0
 syn5_sniper_control_flag[1] = 0
@@ -194,6 +197,7 @@ REQUEST_MODEL SNIPER_anim
 REQUEST_ANIMATION MISC
 REQUEST_MODEL SFR1
 REQUEST_MODEL SFR2
+REQUEST_MODEL SFR3 // FIXEDGROVE: extra member variant
 REQUEST_MODEL CELLPHONE 
 REQUEST_MODEL TEC9 
 REQUEST_MODEL TRIBOSS 
@@ -1483,6 +1487,7 @@ WAIT 0
 
 			REQUEST_MODEL BALLAS1 
 			REQUEST_MODEL BALLAS2 
+			REQUEST_MODEL BALLAS3 // FIXEDGROVE: extra member variant
 
 			LOAD_SPECIAL_CHARACTER 2 ryder2
 			LOAD_SPECIAL_CHARACTER 3 torino
@@ -2402,7 +2407,7 @@ WAIT 0
 			
 				//RANDOM GOONS ADDED IN MIDDLE OF PIER 69
 				//on top of last boardwalk before player reaches ryder
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1645.8 1401.5 8.8 syn5_random_goons[0]	
 				SET_CHAR_ACCURACY syn5_random_goons[0] syn5_accuracy
 				SET_CHAR_HEADING syn5_random_goons[0] 129.4
@@ -2413,7 +2418,7 @@ WAIT 0
 				TASK_KILL_CHAR_ON_FOOT syn5_random_goons[0] scplayer
 
 				//behind bin on the left as you look towards sniping point
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1670.5 1364.8 6.2 syn5_random_goons[1]	
 				SET_CHAR_ACCURACY syn5_random_goons[1] syn5_accuracy
 				SET_CHAR_HEADING syn5_random_goons[1] 129.4
@@ -2424,7 +2429,7 @@ WAIT 0
 				TASK_KILL_CHAR_ON_FOOT syn5_random_goons[1] scplayer
 
 				//behind bin on the right as you look towards sniping point
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1687.5 1367.8 6.2 syn5_random_goons[2]	
 				SET_CHAR_ACCURACY syn5_random_goons[2] syn5_accuracy
 				SET_CHAR_HEADING syn5_random_goons[2] 124.5
@@ -2435,7 +2440,7 @@ WAIT 0
 				TASK_KILL_CHAR_ON_FOOT syn5_random_goons[2] scplayer
 
 				//on top of middle boardwalk
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 				CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1657.3 1379.8 8.8 syn5_random_goons[3]	
 				SET_CHAR_ACCURACY syn5_random_goons[3] syn5_accuracy
 				SET_CHAR_HEADING syn5_random_goons[3] 140.5
@@ -3009,9 +3014,11 @@ WAIT 0
 
 			MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS1
 			MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS2
+			MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS3 // FIXEDGROVE: extra member variant
 
 			MARK_MODEL_AS_NO_LONGER_NEEDED SFR1
 			MARK_MODEL_AS_NO_LONGER_NEEDED SFR2
+			MARK_MODEL_AS_NO_LONGER_NEEDED SFR3 // FIXEDGROVE: extra member variant
 
 			TASK_GO_STRAIGHT_TO_COORD cesar -1616.5 1402.9 6.2 PEDMOVE_WALK -2
 			TASK_GO_STRAIGHT_TO_COORD wuzi -1615.5 1398.4 6.2 PEDMOVE_WALK -2
@@ -3335,10 +3342,12 @@ MARK_MODEL_AS_NO_LONGER_NEEDED maverick
 MARK_MODEL_AS_NO_LONGER_NEEDED SPEEDER
 MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS1 
 MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS2 
+MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS3 // FIXEDGROVE: extra member variant
 MARK_MODEL_AS_NO_LONGER_NEEDED TRIBOSS
 MARK_MODEL_AS_NO_LONGER_NEEDED TRIADA 
 MARK_MODEL_AS_NO_LONGER_NEEDED SFR1
-MARK_MODEL_AS_NO_LONGER_NEEDED SFR2
+MARK_MODEL_AS_NO_LONGER_NEEDED SFR2 
+MARK_MODEL_AS_NO_LONGER_NEEDED SFR3 // FIXEDGROVE: extra member variant
 MARK_MODEL_AS_NO_LONGER_NEEDED SNIPER 
 MARK_MODEL_AS_NO_LONGER_NEEDED TEC9 
 MARK_MODEL_AS_NO_LONGER_NEEDED PONY 
@@ -3422,7 +3431,7 @@ syn5_creating_snipers://////////////////////////////////////////////////////////
 //TBONE'S ROOFTOP GOONS
 //southwest roof
 IF IS_CHAR_DEAD syn5_tbone_goons[0] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1713.16 1356.57 16.2 syn5_tbone_goons[0]	
 	SET_CHAR_HEADING syn5_tbone_goons[0] 44.5
 	GIVE_WEAPON_TO_CHAR syn5_tbone_goons[0] WEAPONTYPE_TEC9 300000 
@@ -3433,7 +3442,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[0]
 ENDIF
 //west roof
 IF IS_CHAR_DEAD syn5_tbone_goons[1] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1682.9 1379.8 13.8 syn5_tbone_goons[1]	
 	SET_CHAR_HEADING syn5_tbone_goons[1] 36.8
 	GIVE_WEAPON_TO_CHAR syn5_tbone_goons[1] WEAPONTYPE_TEC9 300000 
@@ -3444,7 +3453,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[1]
 ENDIF
 //northwest roof																				 
 IF IS_CHAR_DEAD syn5_tbone_goons[2] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1686.2 1393.2 20.5  syn5_tbone_goons[2]	
 	SET_CHAR_HEADING syn5_tbone_goons[2] 276.9
 	GIVE_WEAPON_TO_CHAR syn5_tbone_goons[2] WEAPONTYPE_TEC9 300000 
@@ -3455,7 +3464,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[2]
 ENDIF
 //southeast roof 
 IF IS_CHAR_DEAD syn5_tbone_goons[3] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1686.4 1345.6 16.2 syn5_tbone_goons[3]	
 	SET_CHAR_HEADING syn5_tbone_goons[3] 4.0
 	GIVE_WEAPON_TO_CHAR syn5_tbone_goons[3] WEAPONTYPE_TEC9 300000 
@@ -3466,7 +3475,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[3]
 ENDIF
 //east roof
 IF IS_CHAR_DEAD syn5_tbone_goons[4] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1661.0 1362.2 17.4 syn5_tbone_goons[4]	
 	SET_CHAR_HEADING syn5_tbone_goons[4] 236.8
 	GIVE_WEAPON_TO_CHAR syn5_tbone_goons[4] WEAPONTYPE_TEC9 300000 
@@ -3477,7 +3486,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[4]
 ENDIF
 //northeast roof
 IF IS_CHAR_DEAD syn5_tbone_goons[5] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1641.6 1369.9 17.4 syn5_tbone_goons[5]	
 	SET_CHAR_HEADING syn5_tbone_goons[5] 211.1
 	GIVE_WEAPON_TO_CHAR syn5_tbone_goons[5] WEAPONTYPE_TEC9 300000 
@@ -3584,7 +3593,7 @@ IF IS_CHAR_DEAD syn5_tbone
 	SET_CHAR_STAY_IN_SAME_PLACE syn5_tbone TRUE
 ENDIF
 IF IS_CHAR_DEAD syn5_tbone_goons[0] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1716.8 1351.6 6.2 syn5_tbone_goons[0]	
 	SET_CHAR_ACCURACY syn5_tbone_goons[0] syn5_accuracy
 	SET_CHAR_HEADING syn5_tbone_goons[0] 229.4
@@ -3593,7 +3602,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[0]
 	SET_CHAR_ONLY_DAMAGED_BY_PLAYER syn5_tbone_goons[0] TRUE
 ENDIF
 IF IS_CHAR_DEAD syn5_tbone_goons[1] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1720.5 1353.7 6.2 syn5_tbone_goons[1]			////
 	SET_CHAR_ACCURACY syn5_tbone_goons[1] syn5_accuracy
 	SET_ANIM_GROUP_FOR_CHAR syn5_tbone_goons[1] gang2
@@ -3603,7 +3612,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[1]
 	SET_CHAR_ONLY_DAMAGED_BY_PLAYER syn5_tbone_goons[1] TRUE
 ENDIF
 IF IS_CHAR_DEAD syn5_tbone_goons[2] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1718.4 1351.3 6.2 syn5_tbone_goons[2]		////
 	SET_CHAR_ACCURACY syn5_tbone_goons[2] syn5_accuracy
 	SET_CHAR_HEADING syn5_tbone_goons[2] 236.0
@@ -3613,7 +3622,7 @@ IF IS_CHAR_DEAD syn5_tbone_goons[2]
 	SET_CHAR_ONLY_DAMAGED_BY_PLAYER syn5_tbone_goons[2] TRUE
 ENDIF
 IF IS_CHAR_DEAD syn5_tbone_goons[3] 
-	GENERATE_RANDOM_INT_IN_RANGE 0 2 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1718.2 1353.3 6.2 syn5_tbone_goons[3]	
 	SET_CHAR_ACCURACY syn5_tbone_goons[3] syn5_accuracy
 	SET_ANIM_GROUP_FOR_CHAR syn5_tbone_goons[3] gang1
@@ -3649,7 +3658,7 @@ IF IS_CHAR_DEAD ryder
 	ADD_ARMOUR_TO_CHAR ryder 100
 ENDIF
 IF IS_CHAR_DEAD syn5_ryder_goons[0]  
-	GENERATE_RANDOM_INT_IN_RANGE 3 5 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 3 6 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR_AS_PASSENGER syn5_ryders_car PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1 syn5_ryder_goons[0]    
 	SET_CHAR_ACCURACY syn5_ryder_goons[0] syn5_accuracy
 	GIVE_WEAPON_TO_CHAR syn5_ryder_goons[0] WEAPONTYPE_TEC9 30000
@@ -3660,7 +3669,7 @@ ENDIF
 /*
 IF IS_CHAR_DEAD syn5_ryder_goons[1]  
 	//guy attached to back of car
-	GENERATE_RANDOM_INT_IN_RANGE 3 5 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 3 6 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR_AS_PASSENGER syn5_ryders_car PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] -1 syn5_ryder_goons[1]    
 	SET_CHAR_DECISION_MAKER syn5_ryder_goons[1] syn5_empty_ped_decision_maker
 	//SET_CHAR_STAY_IN_SAME_PLACE syn5_ryder_goons[1] TRUE
@@ -3674,7 +3683,7 @@ IF IS_CAR_DEAD syn5_ryder_goon_cars[0]
 	LOCK_CAR_DOORS syn5_ryder_goon_cars[0] CARLOCK_LOCKOUT_PLAYER_ONLY
 ENDIF
 IF IS_CHAR_DEAD syn5_ryder_goons[2]  
-	GENERATE_RANDOM_INT_IN_RANGE 3 5 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 3 6 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR_INSIDE_CAR syn5_ryder_goon_cars[0] PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] syn5_ryder_goons[2]
 	SET_CHAR_ACCURACY syn5_ryder_goons[2] syn5_accuracy
 	GIVE_WEAPON_TO_CHAR syn5_ryder_goons[2] WEAPONTYPE_TEC9 30000
@@ -3683,7 +3692,7 @@ IF IS_CHAR_DEAD syn5_ryder_goons[2]
 	SET_CHAR_ONLY_DAMAGED_BY_PLAYER syn5_ryder_goons[2] TRUE
 ENDIF
 IF IS_CHAR_DEAD syn5_ryder_goons[3]  
-	GENERATE_RANDOM_INT_IN_RANGE 3 5 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 3 6 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR_AS_PASSENGER syn5_ryder_goon_cars[0] PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] 0 syn5_ryder_goons[3]    
 	SET_CHAR_ACCURACY syn5_ryder_goons[3] syn5_accuracy
 	GIVE_WEAPON_TO_CHAR syn5_ryder_goons[3] WEAPONTYPE_TEC9 30000
@@ -3698,7 +3707,7 @@ IF IS_CAR_DEAD syn5_ryder_goon_cars[1]
 	LOCK_CAR_DOORS syn5_ryder_goon_cars[1] CARLOCK_LOCKOUT_PLAYER_ONLY
 ENDIF
 IF IS_CHAR_DEAD syn5_ryder_goons[4]  
-	GENERATE_RANDOM_INT_IN_RANGE 3 5 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 3 6 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR_INSIDE_CAR syn5_ryder_goon_cars[1] PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] syn5_ryder_goons[4]
 	SET_CHAR_ACCURACY syn5_ryder_goons[4] syn5_accuracy
 	GIVE_WEAPON_TO_CHAR syn5_ryder_goons[4] WEAPONTYPE_TEC9 30000
@@ -3707,7 +3716,7 @@ IF IS_CHAR_DEAD syn5_ryder_goons[4]
 	SET_CHAR_ONLY_DAMAGED_BY_PLAYER syn5_ryder_goons[4] TRUE
 ENDIF
 IF IS_CHAR_DEAD syn5_ryder_goons[5]  
-	GENERATE_RANDOM_INT_IN_RANGE 3 5 syn5_char_select_flag
+	GENERATE_RANDOM_INT_IN_RANGE 3 6 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
 	CREATE_CHAR_AS_PASSENGER syn5_ryder_goon_cars[1] PEDTYPE_MISSION2 syn5_char_select[syn5_char_select_flag] 0 syn5_ryder_goons[5]    
 	SET_CHAR_ACCURACY syn5_ryder_goons[5] syn5_accuracy
 	GIVE_WEAPON_TO_CHAR syn5_ryder_goons[5] WEAPONTYPE_TEC9 30000
