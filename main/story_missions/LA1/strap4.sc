@@ -43,6 +43,7 @@ LVAR_TEXT_LABEL m5_print_label[9]
 LVAR_INT m5_audio_label[9] 
 LVAR_INT m5_last_label 
 LVAR_INT m5_slot1 m5_slot2 m5_slot_load m5_play_which_slot
+LVAR_INT m5_speaker[9]
 
 
 //coords
@@ -77,10 +78,10 @@ triggering_original_enemy_cars = 0
 m5_gang1_recieved_orders = 0 
 m5_blip_flag = 0
 
-m5_char_select[0] = FAM2 
-m5_char_select[1] = FAM3 
+m5_char_select[0] = FAM1 // FIXEDGROVE: was FAM2 
+m5_char_select[1] = FAM2 // FIXEDGROVE: was FAM3 
 m5_char_select[2] = FAM3 
-m5_char_select[3] = BALLAS2 
+m5_char_select[3] = BALLAS1 // FIXEDGROVE: was BALLAS2
 m5_char_select[4] = BALLAS2 
 m5_char_select[5] = BALLAS3 
 m5_char_select_flag = 0
@@ -211,15 +212,18 @@ IF strap4_mission_passed_once_flag = 0
 	GOTO mission_music5_passed
 ENDIF  
 
+REQUEST_MODEL FAM1 // FIXEDGROVE
 REQUEST_MODEL FAM2
 REQUEST_MODEL FAM3
+REQUEST_MODEL BALLAS1 // FIXEDGROVE
 REQUEST_MODEL BALLAS2
 REQUEST_MODEL BALLAS3
 REQUEST_MODEL GREENWOO
 REQUEST_MODEL TAHOMA
 REQUEST_MODEL VOODOO
-REQUEST_MODEL MOLOTOV
+//REQUEST_MODEL MOLOTOV // FIXEDGROVE: not used in the final version
 REQUEST_MODEL TEC9
+REQUEST_MODEL MICRO_UZI // FIXEDGROVE
 LOAD_SPECIAL_CHARACTER 1 sweet
 LOAD_SPECIAL_CHARACTER 2 ryder2
 
@@ -316,6 +320,7 @@ SET_CAR_PROOFS blocking_car2 TRUE TRUE FALSE FALSE FALSE
 
 //ryder																								
 CREATE_CHAR PEDTYPE_MISSION3 SPECIAL02 2484.1 -1641.2 13.5 ryder
+SET_ANIM_GROUP_FOR_CHAR ryder gang1 // FIXEDGROVE: set intended animation group
 SET_CHAR_STAY_IN_SAME_PLACE ryder TRUE
 SET_CHAR_NEVER_TARGETTED ryder TRUE  
 SET_CHAR_HEADING ryder 180.0 	
@@ -362,7 +367,7 @@ LOCK_CAR_DOORS attcar[0] CARLOCK_LOCKOUT_PLAYER_ONLY
 GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag
 CREATE_CHAR_INSIDE_CAR attcar[0] PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] bad_gang_member[0]
 SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[0] TRUE
-GIVE_WEAPON_TO_CHAR bad_gang_member[0] WEAPONTYPE_TEC9 3000
+GIVE_WEAPON_TO_CHAR bad_gang_member[0] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9
 SET_CHAR_DECISION_MAKER bad_gang_member[0] m5_empty_ped_decision_maker
 CREATE_GROUP DEFAULT_TASK_ALLOCATOR_STAND_STILL m5_bad_group 
 SET_GROUP_SEPARATION_RANGE m5_bad_group 300.0
@@ -372,7 +377,7 @@ SET_CHAR_ACCURACY bad_gang_member[0] m5_enemy_accuracy
 
 GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag
 CREATE_CHAR_AS_PASSENGER attcar[0] PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 0 bad_gang_member[1]  					   
-GIVE_WEAPON_TO_CHAR bad_gang_member[1] WEAPONTYPE_TEC9 3000 
+GIVE_WEAPON_TO_CHAR bad_gang_member[1] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9
 SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[1] TRUE
 SET_CHAR_DECISION_MAKER bad_gang_member[1] m5_empty_ped_decision_maker
 SET_GROUP_MEMBER m5_bad_group bad_gang_member[1] 
@@ -383,7 +388,7 @@ CREATE_CHAR_AS_PASSENGER attcar[0] PEDTYPE_MISSION1 m5_char_select[m5_char_selec
 SET_CHAR_ONLY_DAMAGED_BY_PLAYER bad_gang_member[2] TRUE 
 SET_CHAR_SUFFERS_CRITICAL_HITS bad_gang_member[2] FALSE		    
 ADD_ARMOUR_TO_CHAR bad_gang_member[2] 100
-GIVE_WEAPON_TO_CHAR bad_gang_member[2] WEAPONTYPE_TEC9 3000 
+GIVE_WEAPON_TO_CHAR bad_gang_member[2] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9
 //GIVE_WEAPON_TO_CHAR bad_gang_member[2] WEAPONTYPE_MOLOTOV 1 
 //SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[2] TRUE
 SET_CHAR_DECISION_MAKER bad_gang_member[2] m5_empty_ped_decision_maker
@@ -391,7 +396,7 @@ SET_CHAR_ACCURACY bad_gang_member[2] m5_enemy_accuracy
 
 GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag
 CREATE_CHAR_AS_PASSENGER attcar[0] PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2 bad_gang_member[3]  
-GIVE_WEAPON_TO_CHAR bad_gang_member[3] WEAPONTYPE_TEC9 3000 
+GIVE_WEAPON_TO_CHAR bad_gang_member[3] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 //SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[3] TRUE
 SET_CHAR_DECISION_MAKER bad_gang_member[3] m5_empty_ped_decision_maker
 SET_GROUP_MEMBER m5_bad_group bad_gang_member[3] 
@@ -407,7 +412,7 @@ LOCK_CAR_DOORS attcar[1] CARLOCK_LOCKOUT_PLAYER_ONLY
 
 GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag
 CREATE_CHAR_INSIDE_CAR attcar[1] PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] bad_gang_member[4]
-GIVE_WEAPON_TO_CHAR bad_gang_member[4] WEAPONTYPE_TEC9 3000 
+GIVE_WEAPON_TO_CHAR bad_gang_member[4] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[4] TRUE
 SET_CHAR_DECISION_MAKER bad_gang_member[4] m5_empty_ped_decision_maker
 SET_GROUP_MEMBER m5_bad_group bad_gang_member[4] 
@@ -415,7 +420,7 @@ SET_CHAR_ACCURACY bad_gang_member[4] m5_enemy_accuracy
 
 GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag
 CREATE_CHAR_AS_PASSENGER attcar[1] PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 0 bad_gang_member[5]  
-GIVE_WEAPON_TO_CHAR bad_gang_member[5] WEAPONTYPE_TEC9 3000 
+GIVE_WEAPON_TO_CHAR bad_gang_member[5] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 //SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[5] TRUE
 SET_CHAR_DECISION_MAKER bad_gang_member[5] m5_empty_ped_decision_maker
 SET_GROUP_MEMBER m5_bad_group bad_gang_member[5] 
@@ -423,7 +428,7 @@ SET_CHAR_ACCURACY bad_gang_member[5] m5_enemy_accuracy
 
 GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag
 CREATE_CHAR_AS_PASSENGER attcar[1] PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 1 bad_gang_member[6]  
-GIVE_WEAPON_TO_CHAR bad_gang_member[6] WEAPONTYPE_TEC9 3000 
+GIVE_WEAPON_TO_CHAR bad_gang_member[6] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[6] TRUE
 SET_CHAR_DECISION_MAKER bad_gang_member[6] m5_empty_ped_decision_maker
 SET_GROUP_MEMBER m5_bad_group bad_gang_member[6] 
@@ -431,7 +436,7 @@ SET_CHAR_ACCURACY bad_gang_member[6] m5_enemy_accuracy
 
 GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag
 CREATE_CHAR_AS_PASSENGER attcar[1] PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2 bad_gang_member[7]  
-GIVE_WEAPON_TO_CHAR bad_gang_member[7] WEAPONTYPE_TEC9 3000 
+GIVE_WEAPON_TO_CHAR bad_gang_member[7] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[7] TRUE
 SET_CHAR_DECISION_MAKER bad_gang_member[7] m5_empty_ped_decision_maker
 SET_GROUP_MEMBER m5_bad_group bad_gang_member[7] 
@@ -1188,11 +1193,12 @@ WAIT 0
 					SET_CAR_HEADING attcar[2] 166.8
 											
 					CLEAR_AREA 2441.6 -1658.6 25.2 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2441.6 -1658.6 25.2 bad_gang_member[0]
 					SET_CHAR_ACCURACY bad_gang_member[0] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[0] 262.7
 					SET_CHAR_ONLY_DAMAGED_BY_PLAYER bad_gang_member[0] TRUE   
-					GIVE_WEAPON_TO_CHAR bad_gang_member[0] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[0] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[0] TRUE
 					CREATE_GROUP DEFAULT_TASK_ALLOCATOR_STAND_STILL m5_bad_group2 
 					SET_GROUP_SEPARATION_RANGE m5_bad_group2 300.0
@@ -1213,11 +1219,12 @@ WAIT 0
 					CLEAR_SEQUENCE_TASK m5_seq
 
 					CLEAR_AREA 2441.6 -1660.2 25.1 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2441.6 -1660.2 25.1 bad_gang_member[1]  
 					SET_CHAR_ACCURACY bad_gang_member[1] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[1] 265.9
 					SET_CHAR_ONLY_DAMAGED_BY_PLAYER bad_gang_member[1] TRUE   
-					GIVE_WEAPON_TO_CHAR bad_gang_member[1] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[1] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_HEALTH bad_gang_member[1] 10 
 					SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[1] TRUE
 					SET_CHAR_DECISION_MAKER bad_gang_member[1] m5_empty_ped_decision_maker
@@ -1234,12 +1241,13 @@ WAIT 0
 					CLEAR_SEQUENCE_TASK m5_seq
 
 					CLEAR_AREA 2441.6 -1665.2 24.6 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2441.6 -1665.2 24.6 bad_gang_member[2]  
 					SET_CHAR_ACCURACY bad_gang_member[2] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[2] 273.6
 					SET_CHAR_ONLY_DAMAGED_BY_PLAYER bad_gang_member[2] TRUE   
 					SET_CHAR_HEALTH bad_gang_member[2] 10 
-					GIVE_WEAPON_TO_CHAR bad_gang_member[2] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[2] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[2] TRUE
 					SET_CHAR_DECISION_MAKER bad_gang_member[2] m5_empty_ped_decision_maker
 					SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[2] 
@@ -1255,11 +1263,12 @@ WAIT 0
 					CLEAR_SEQUENCE_TASK m5_seq
 
 					CLEAR_AREA 2441.6 -1655.4 25.6 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2441.6 -1655.4 25.6 bad_gang_member[3]
 					SET_CHAR_ACCURACY bad_gang_member[3] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[3] 280.0
 					SET_CHAR_ONLY_DAMAGED_BY_PLAYER bad_gang_member[3] TRUE   
-					GIVE_WEAPON_TO_CHAR bad_gang_member[3] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[3] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_HEALTH bad_gang_member[3] 10 
 					SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[3] TRUE
 					SET_CHAR_DECISION_MAKER bad_gang_member[3] m5_empty_ped_decision_maker
@@ -1447,10 +1456,11 @@ WAIT 0
 											
 					//goes to left of alleyway and sits there
 					CLEAR_AREA 2481.2 -1718.2 12.5 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2481.2 -1718.2 12.5 bad_gang_member[0]
 					SET_CHAR_ACCURACY bad_gang_member[0] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[0] 353.4
-					GIVE_WEAPON_TO_CHAR bad_gang_member[0] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[0] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[0] TRUE
 					SET_CHAR_DECISION_MAKER bad_gang_member[0] m5_empty_ped_decision_maker
 					CREATE_GROUP DEFAULT_TASK_ALLOCATOR_STAND_STILL m5_bad_group2 
@@ -1471,10 +1481,11 @@ WAIT 0
 					
 					//goes to left in cutscene, standing behind ducking guy then goes to kill sweet
 					CLEAR_AREA 2482.1 -1720.2 12.5 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2482.1 -1720.2 12.5 bad_gang_member[1]
 					SET_CHAR_ACCURACY bad_gang_member[1] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[1] 352.8
-					GIVE_WEAPON_TO_CHAR bad_gang_member[1] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[1] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_DECISION_MAKER bad_gang_member[1] m5_empty_ped_decision_maker
 					SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[1] 
 					ADD_BLIP_FOR_CHAR bad_gang_member[1] bad_gang_member_blip[1]		
@@ -1489,10 +1500,11 @@ WAIT 0
 
 					//goes to right ducking down in same place
 					CLEAR_AREA 2481.0 -1718.2 12.5 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2481.0 -1718.2 12.5 bad_gang_member[2]
 					SET_CHAR_ACCURACY bad_gang_member[2] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[2] 352.8
-					GIVE_WEAPON_TO_CHAR bad_gang_member[2] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[2] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[2] TRUE
 					SET_CHAR_DECISION_MAKER bad_gang_member[2] m5_empty_ped_decision_maker
 					SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[2] 
@@ -1510,10 +1522,11 @@ WAIT 0
 									
 					//goes to right in cutscene, standing behind ducking guy then goes to kill player
 					CLEAR_AREA 2480.3 -1719.2 12.5 5.0 TRUE
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 					CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2480.3 -1719.2 12.5 bad_gang_member[3]
 					SET_CHAR_ACCURACY bad_gang_member[3] m5_enemy_accuracy
 					SET_CHAR_HEADING bad_gang_member[3] 352.8
-					GIVE_WEAPON_TO_CHAR bad_gang_member[3] WEAPONTYPE_TEC9 3000 
+					GIVE_WEAPON_TO_CHAR bad_gang_member[3] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 					SET_CHAR_DECISION_MAKER bad_gang_member[3] m5_empty_ped_decision_maker
 					SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[3] 
 					ADD_BLIP_FOR_CHAR bad_gang_member[3] bad_gang_member_blip[3]		
@@ -1688,11 +1701,12 @@ WAIT 0
 				
 				//behind ryders house at front  
 				CLEAR_AREA 2469.4 -1708.9 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2469.4 -1708.9 12.5 bad_gang_member[4]
 				SET_CHAR_ACCURACY bad_gang_member[4] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[4] 352.8
 				//SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[4] TRUE
-				GIVE_WEAPON_TO_CHAR bad_gang_member[4] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[4] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_DECISION_MAKER bad_gang_member[4] m5_ped_decisions
 				SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[4] 
 				ADD_BLIP_FOR_CHAR bad_gang_member[4] bad_gang_member_blip[4]		
@@ -1710,11 +1724,12 @@ WAIT 0
 			
 				//behind ryders house at front  
 				CLEAR_AREA 2467.1 -1710.8 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2467.1 -1710.8 12.5 bad_gang_member[5]
 				SET_CHAR_ACCURACY bad_gang_member[5] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[5] 352.8
 				//SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[5] TRUE
-				GIVE_WEAPON_TO_CHAR bad_gang_member[5] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[5] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_DECISION_MAKER bad_gang_member[5] m5_ped_decisions
 				SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[5] 
 				ADD_BLIP_FOR_CHAR bad_gang_member[5] bad_gang_member_blip[5]		
@@ -1732,11 +1747,12 @@ WAIT 0
 
 				//up beside sweets at front  
 				CLEAR_AREA 2529.3 -1691.6 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2529.3 -1691.6 12.5 bad_gang_member[6]
 				SET_CHAR_ACCURACY bad_gang_member[6] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[6] 352.8
 				//SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[6] TRUE
-				GIVE_WEAPON_TO_CHAR bad_gang_member[6] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[6] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_DECISION_MAKER bad_gang_member[6] m5_ped_decisions
 				SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[6] 
 				ADD_BLIP_FOR_CHAR bad_gang_member[6] bad_gang_member_blip[6]		
@@ -1754,11 +1770,12 @@ WAIT 0
 
 				//up beside sweets at back  
 				CLEAR_AREA 2529.7 -1690.1 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2529.7 -1690.1 12.5 bad_gang_member[7]
 				SET_CHAR_ACCURACY bad_gang_member[7] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[7] 352.8
 				//SET_CHAR_KINDA_STAY_IN_SAME_PLACE bad_gang_member[7] TRUE
-				GIVE_WEAPON_TO_CHAR bad_gang_member[7] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[7] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_DECISION_MAKER bad_gang_member[7] m5_ped_decisions
 				SET_GROUP_MEMBER m5_bad_group2 bad_gang_member[7] 
 				ADD_BLIP_FOR_CHAR bad_gang_member[7] bad_gang_member_blip[7]		
@@ -1773,34 +1790,38 @@ WAIT 0
 
 				//Guys coming from behind strap's house
 				CLEAR_AREA 2478.7 -1645.7 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2478.7 -1645.7 12.5 bad_gang_member[8]
 				SET_CHAR_ACCURACY bad_gang_member[8] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[8] 180.0
-				GIVE_WEAPON_TO_CHAR bad_gang_member[8] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[8] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[8] TRUE
 				SET_CHAR_DECISION_MAKER bad_gang_member[8] m5_empty_ped_decision_maker
 
 				CLEAR_AREA 2477.7 -1645.7 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2477.7 -1645.7 12.5 bad_gang_member[9]
 				SET_CHAR_ACCURACY bad_gang_member[9] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[9] 180.0
-				GIVE_WEAPON_TO_CHAR bad_gang_member[9] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[9] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[9] TRUE
 				SET_CHAR_DECISION_MAKER bad_gang_member[9] m5_empty_ped_decision_maker
 
 				CLEAR_AREA 2478.7 -1644.7 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2478.7 -1644.7 12.5 bad_gang_member[10]
 				SET_CHAR_ACCURACY bad_gang_member[10] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[10] 180.0
-				GIVE_WEAPON_TO_CHAR bad_gang_member[10] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[10] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[10] TRUE
 				SET_CHAR_DECISION_MAKER bad_gang_member[10] m5_empty_ped_decision_maker
 
 				CLEAR_AREA 2477.7 -1644.7 12.5 5.0 TRUE
+				GENERATE_RANDOM_INT_IN_RANGE 3 6 m5_char_select_flag // FIXEDGROVE
 				CREATE_CHAR PEDTYPE_MISSION1 m5_char_select[m5_char_select_flag] 2477.7 -1644.7 12.5 bad_gang_member[11]
 				SET_CHAR_ACCURACY bad_gang_member[11] m5_enemy_accuracy
 				SET_CHAR_HEADING bad_gang_member[11] 180.0
-				GIVE_WEAPON_TO_CHAR bad_gang_member[11] WEAPONTYPE_TEC9 3000 
+				GIVE_WEAPON_TO_CHAR bad_gang_member[11] WEAPONTYPE_MICRO_UZI 3000 // FIXEDGROVE: weapon was TEC9 
 				SET_CHAR_STAY_IN_SAME_PLACE bad_gang_member[11] TRUE
 				SET_CHAR_DECISION_MAKER bad_gang_member[11] m5_empty_ped_decision_maker
 
@@ -2253,19 +2274,23 @@ REMOVE_BLIP bad_gang_member_blip[13]
 LA_hub_activity = 0 //ambient shit turned off
 IF NOT IS_CHAR_DEAD scplayer 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: needed for edge cases
 ENDIF
 SHUT_ALL_CHARS_UP FALSE
 REMOVE_CHAR_ELEGANTLY sweet 
 REMOVE_CHAR_ELEGANTLY ryder
+MARK_MODEL_AS_NO_LONGER_NEEDED FAM1 // FIXEDGROVE
 MARK_MODEL_AS_NO_LONGER_NEEDED FAM2
 MARK_MODEL_AS_NO_LONGER_NEEDED FAM3
+MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS1 // FIXEDGROVE
 MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS2
 MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS3
 MARK_MODEL_AS_NO_LONGER_NEEDED GREENWOO
 MARK_MODEL_AS_NO_LONGER_NEEDED TAHOMA
 MARK_MODEL_AS_NO_LONGER_NEEDED VOODOO
-MARK_MODEL_AS_NO_LONGER_NEEDED MOLOTOV
+//MARK_MODEL_AS_NO_LONGER_NEEDED MOLOTOV // FIXEDGROVE: not used in the final version
 MARK_MODEL_AS_NO_LONGER_NEEDED TEC9
+MARK_MODEL_AS_NO_LONGER_NEEDED MICRO_UZI
 //switching on car gens
 UNLOAD_SPECIAL_CHARACTER 1																		   
 UNLOAD_SPECIAL_CHARACTER 2
@@ -2433,6 +2458,10 @@ IF m5_speech_goals = 1
 	m5_audio_label[0] = SOUND_LOC4_CA
 	m5_audio_label[1] = SOUND_LOC4_CB
 	m5_audio_label[2] = SOUND_LOC4_CC
+
+	m5_speaker[0] = ryder
+	m5_speaker[1] = ryder
+	m5_speaker[2] = ryder
 	m5_last_label = m5_random_last_label
 ENDIF
 
@@ -2453,7 +2482,16 @@ IF m5_speech_goals = 2
 	//m5_audio_label[4] = SOUND_LOC4_AD 
 	m5_audio_label[5] = SOUND_LOC4_AF 
 	m5_audio_label[6] = SOUND_LOC4_AG 
-	m5_audio_label[7] = SOUND_LOC4_AH 
+	m5_audio_label[7] = SOUND_LOC4_AH
+
+	m5_speaker[0] = sweet
+	m5_speaker[1] = sweet
+	m5_speaker[2] = sweet
+	m5_speaker[3] = sweet
+	m5_speaker[4] = sweet
+	m5_speaker[5] = sweet
+	m5_speaker[6] = sweet
+	m5_speaker[7] = sweet
 	m5_last_label = m5_random_last_label
 ENDIF
 
@@ -2472,7 +2510,15 @@ IF m5_speech_goals = 3
 	m5_audio_label[3] = SOUND_LOC4_BD 
 	m5_audio_label[4] = SOUND_LOC4_BE 
 	//m5_audio_label[5] = SOUND_LOC4_BF 
-	m5_audio_label[5] = SOUND_LOC4_BG 
+	m5_audio_label[5] = SOUND_LOC4_BG
+
+	m5_speaker[0] = sweet
+	m5_speaker[1] = scplayer
+	m5_speaker[2] = sweet
+	m5_speaker[3] = scplayer
+	m5_speaker[4] = sweet
+	//m5_speaker[5] = sweet
+	m5_speaker[5] = scplayer
 	m5_last_label = 6
 ENDIF
 
@@ -2549,6 +2595,12 @@ IF m5_play_which_slot = 1
 	IF m5_slot1 = 1
 		IF HAS_MISSION_AUDIO_LOADED 1	 
 			PLAY_MISSION_AUDIO 1
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD m5_speaker[m5_speech_control_flag]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH m5_speaker[m5_speech_control_flag] TRUE
+				START_CHAR_FACIAL_TALK m5_speaker[m5_speech_control_flag] 10000
+			ENDIF
+			// FIXEDGROVE: END
 			PRINT_NOW ( $m5_print_label[m5_speech_control_flag] ) 4500 1 //
 			m5_slot1 = 2
 		ENDIF
@@ -2560,6 +2612,12 @@ IF m5_play_which_slot = 2
 	IF m5_slot2 = 1
 		IF HAS_MISSION_AUDIO_LOADED 2	 
 			PLAY_MISSION_AUDIO 2
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD m5_speaker[m5_speech_control_flag]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH m5_speaker[m5_speech_control_flag] TRUE
+				START_CHAR_FACIAL_TALK m5_speaker[m5_speech_control_flag] 10000
+			ENDIF
+			// FIXEDGROVE: END
 			PRINT_NOW ( $m5_print_label[m5_speech_control_flag] ) 4500 1 //
 			m5_slot2 = 2
 		ENDIF
@@ -2575,6 +2633,12 @@ m5_finishing_dialogue://////////////////////////////////////////////////////
 //slot 1
 IF m5_slot1 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 1
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD m5_speaker[m5_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH m5_speaker[m5_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK m5_speaker[m5_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: END
 		CLEAR_THIS_PRINT $m5_print_label[m5_speech_control_flag]
 		m5_speech_control_flag ++		
 		m5_play_which_slot = 2
@@ -2585,6 +2649,12 @@ ENDIF
 //slot 2
 IF m5_slot2 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 2
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD m5_speaker[m5_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH m5_speaker[m5_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK m5_speaker[m5_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: END
 		CLEAR_THIS_PRINT $m5_print_label[m5_speech_control_flag]
 		m5_speech_control_flag ++		
 		m5_play_which_slot = 1

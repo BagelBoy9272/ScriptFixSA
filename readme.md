@@ -153,7 +153,12 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Remove the alley molotov pickup in cleanup
 
 **House Party:**
+- Added facial talk anim to voicelines
+- Fixed repeated gang member skins
+- Added extra gang member skin variant
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
+- Gave correct animation group to ryder
+- Changed Balla's Tec9s to Uzis
 
 **Los Sepulcros:**
 - Removed respect requirement to enable unused part of the mission back
