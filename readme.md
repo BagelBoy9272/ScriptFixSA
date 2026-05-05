@@ -245,6 +245,15 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Pier 69:**
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 - Added an extra member variant
+- Fix Rifa members popping in during the cutscene
+- Made Cesar and player look at eachother in the opening cutscene
+- Made it so Cesar's car no longer despawns after the initial sniper rifle section
+- Commented debug code that disabled ped spawning when the player was in the pier
+- Bring back screen shaking effectt when the player is near the teargas that was cut for debugging purposes
+- Now Toreno's chopper uses the colors from 'Toreno's Last Flight'
+- Reverted another minor change that was made for debug
+- Made T-bone unheadshottable
+- Made it so voicelines and subtitles don't cut out during the fade out after a cutscene skip
 
 **Test Drive:**
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate

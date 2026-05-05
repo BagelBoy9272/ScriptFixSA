@@ -314,6 +314,8 @@ WAIT 0
 					GOSUB syn5_dialogue_setup 
 					syn5_speech_flag = 1
 			
+					TASK_LOOK_AT_CHAR cesar scplayer 30000 // FIXEDGROVE
+					TASK_LOOK_AT_CHAR scplayer cesar 30000 // FIXEDGROVE
 					syn5_skip_cutscene_flag = 1
 					SKIP_CUTSCENE_START
 			
@@ -343,6 +345,8 @@ WAIT 0
 				
 				//if cutscene has been skipped ////////////////////////////////////////////
 				IF syn5_skip_cutscene_flag = 1
+					CLEAR_CHAR_TASKS_IMMEDIATELY scplayer // FIXEDGROVE: needed for the look at
+					CLEAR_CHAR_TASKS_IMMEDIATELY cesar // FIXEDGROVE: needed for the look at
 					CLEAR_MISSION_AUDIO 1
 					CLEAR_MISSION_AUDIO 2
 					CLEAR_PRINTS
@@ -351,7 +355,9 @@ WAIT 0
 				
 				CLEAR_AREA -1721.4 1276.2 16.9 1.0 TRUE
 				SET_CHAR_COORDINATES cesar -1721.4 1276.2 16.9
-				SET_CHAR_HEADING cesar 326.3 
+				SET_CHAR_HEADING cesar 326.3
+				CLEAR_LOOK_AT cesar // FIXEDGROVE
+				CLEAR_LOOK_AT scplayer // FIXEDGROVE
 				//TASK_AIM_GUN_AT_COORD cesar -1715.4 1287.5 16.5 -1  
 
 				PRINT_NOW ( SYN5_01 ) 7000 1 // Go upstairs and meet Cesar.
@@ -380,8 +386,8 @@ WAIT 0
 				CLEAR_MISSION_AUDIO 2
 				syn5_speech_goals = 0
 			
-				MARK_CAR_AS_NO_LONGER_NEEDED syn5_cesars_car
-				MARK_MODEL_AS_NO_LONGER_NEEDED SAVANNA 
+				//MARK_CAR_AS_NO_LONGER_NEEDED syn5_cesars_car // FIXEDGROVE: added later so the car doesn't despawn after the cutscene
+				//MARK_MODEL_AS_NO_LONGER_NEEDED SAVANNA // FIXEDGROVE: added later so the car doesn't despawn after the cutscene
 				
 				SET_PLAYER_CONTROL player1 OFF
 				SWITCH_WIDESCREEN ON
@@ -420,6 +426,8 @@ WAIT 0
 					syn5_does_player_have_sniperrifle = 1
 				ENDIF
 				
+				GOSUB syn5_creating_snipers // FIXEDGROVE: create snipers here to avoid popping during the cutscene
+
 				syn5_skip_cutscene_flag = 1
 				SKIP_CUTSCENE_START
 				
@@ -585,7 +593,7 @@ WAIT 0
 
 			TASK_ACHIEVE_HEADING cesar 332.1
 
-			GOSUB syn5_creating_snipers
+			//GOSUB syn5_creating_snipers // FIXEDGROVE: moved earlier to avoid popping
 
 			timera = 0
 			syn5_control_flag = 5
@@ -2101,7 +2109,12 @@ WAIT 0
 			IF timera > 5000
 				syn5_skip_cutscene_flag = 0
 				SKIP_CUTSCENE_END
-				
+
+				DO_FADE 500 FADE_OUT
+				WHILE GET_FADING_STATUS
+					WAIT 0
+				ENDWHILE
+
 				//if cutscene has been skipped ////////////////////////////////////////////
 				IF syn5_skip_cutscene_flag = 1
 					CLEAR_MISSION_AUDIO 1
@@ -2110,10 +2123,6 @@ WAIT 0
 					syn5_speech_goals = 0
 				ENDIF
 
-				DO_FADE 500 FADE_OUT
-				WHILE GET_FADING_STATUS
-					WAIT 0
-				ENDWHILE
 				GOSUB syn5_death_checks
 				IF syn5_goals = 10 
 					GOTO syn_goals10
@@ -2460,6 +2469,8 @@ WAIT 0
 				//UNLOAD_SPECIAL_CHARACTER 4
 				REMOVE_ANIMATION GRENADE
 
+				MARK_CAR_AS_NO_LONGER_NEEDED syn5_cesars_car // FIXEDGROVE: added later so the car doesn't despawn after the cutscene
+				MARK_MODEL_AS_NO_LONGER_NEEDED SAVANNA // FIXEDGROVE: added later so the car doesn't despawn after the cutscene
 				MARK_CAR_AS_NO_LONGER_NEEDED syn5_toreno_chopper
 				MARK_MODEL_AS_NO_LONGER_NEEDED MAVERICK
 				MARK_MODEL_AS_NO_LONGER_NEEDED PICADOR
@@ -2519,12 +2530,14 @@ WAIT 0
 	IF syn5_goals = 5
 		IF syn5_control_flag = 0 
 
-			//debug to stop cunting chars getting created for no reason 
+			//debug to stop cunting chars getting created for no reason
+			/* 
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer -1708.6 1331.1 200.0 200.0 FALSE
 				SET_PED_DENSITY_MULTIPLIER 0.0
 			ELSE
 				SET_PED_DENSITY_MULTIPLIER 1.0
 			ENDIF
+			*/
 			
 			GOSUB syn5_cesar_group 
 			
@@ -2537,7 +2550,7 @@ WAIT 0
 			ENDIF
 			///////////////////DEBUG//////////////////////////////////////
 			
-			//GOSUB syn5_teargas_effect	  ----- debug.... switch back on drunken filter
+			GOSUB syn5_teargas_effect	//  ----- debug.... switch back on drunken filter
 			
 			IF IS_CHAR_DEAD syn5_tbone 
 				GOSUB check_player_is_safe
@@ -2970,15 +2983,15 @@ WAIT 0
 
 			//if cutscene has been skipped ////////////////////////////////////////////
 			IF syn5_skip_cutscene_flag = 1											   
-				CLEAR_MISSION_AUDIO 1
-				CLEAR_MISSION_AUDIO 2
-				CLEAR_PRINTS
-				syn5_speech_goals = 0
 				
 				DO_FADE 500 FADE_OUT
 				WHILE GET_FADING_STATUS
 				    WAIT 0
 				ENDWHILE
+				CLEAR_MISSION_AUDIO 1
+				CLEAR_MISSION_AUDIO 2
+				CLEAR_PRINTS
+				syn5_speech_goals = 0
 				GOSUB syn5_death_checks		
 				IF syn5_goals = 10 
 					GOTO syn_goals10
@@ -3206,7 +3219,7 @@ WAIT 0
 					IF task_status = FINISHED_TASK
 						OPEN_SEQUENCE_TASK syn5_seq	
 							TASK_STAY_IN_SAME_PLACE -1 TRUE
-							TASK_GO_STRAIGHT_TO_COORD -1 -1497.2 1383.5 1.6 PEDMOVE_RUN 1 /////debug - needs to be -1
+							TASK_GO_STRAIGHT_TO_COORD -1 -1497.2 1383.5 1.6 PEDMOVE_RUN -1 /////debug - needs to be -1
 							TASK_ACHIEVE_HEADING -1 64.5
 							TASK_KILL_CHAR_ON_FOOT -1 scplayer   	
 						CLOSE_SEQUENCE_TASK syn5_seq
@@ -3591,6 +3604,7 @@ IF IS_CHAR_DEAD syn5_tbone
 	GIVE_WEAPON_TO_CHAR syn5_tbone WEAPONTYPE_AK47 30000 
 	SET_CHAR_DECISION_MAKER syn5_tbone syn5_empty_ped_decision_maker
 	SET_CHAR_STAY_IN_SAME_PLACE syn5_tbone TRUE
+	SET_CHAR_SUFFERS_CRITICAL_HITS syn5_tbone FALSE // FIXEDGROVE
 ENDIF
 IF IS_CHAR_DEAD syn5_tbone_goons[0] 
 	GENERATE_RANDOM_INT_IN_RANGE 0 3 syn5_char_select_flag // FIXEDGROVE: increase upper limit for extra member variant
@@ -3738,6 +3752,7 @@ IF IS_CAR_DEAD syn5_toreno_chopper
 	SET_HELI_REACHED_TARGET_DISTANCE syn5_toreno_chopper 3
 	SET_HELI_BLADES_FULL_SPEED syn5_toreno_chopper
 	SET_CAR_FORWARD_SPEED syn5_toreno_chopper 10.0
+	CHANGE_CAR_COLOUR syn5_toreno_chopper 10 125 // FIXEDGROVE: added colors from syn6
 	HELI_GOTO_COORDS syn5_toreno_chopper -1600.9 1424.6 300.0 0.0 300.0
 ENDIF
 IF IS_CHAR_DEAD syn5_toreno
@@ -4163,7 +4178,7 @@ syn5_my_number_plates:///////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
-/*
+
 ////////////////////////////////////////////////////////////////////////////
 syn5_teargas_effect:////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
@@ -4209,7 +4224,7 @@ syn5_teargas_effect:////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-*/
+
 
 ////////////////////////////////////////////////////////////////////////////
 syn5_dialogue_setup://////////////////////////////////////////////////////////
