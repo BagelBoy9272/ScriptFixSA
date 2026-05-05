@@ -1318,7 +1318,6 @@ WAIT 0
 	IF tw7_goals > 3
 		IF tw7_goals < 15 
 			IF NOT IS_CHAR_DEAD tw7_ass_bandit
-			AND NOT IS_CAR_DEAD tw7_ass_bandit_bike // FIXEDGROVE: combined these checks since they had the same outcome
 				IF tw7_goals = 4
 					/////////////////// SPEECH FOR THIS SECTION //////////////////////
 					IF tw7_speech_flag = 0	
