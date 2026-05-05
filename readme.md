@@ -333,6 +333,8 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
   - Fixed head speech context not playing if standing up
   - Fixed good performance speech context and the "CLIMAX_HIGH" context conflicting due to being played at almost the same time
   - Fixed the characters standing up for a frame at the start of the minigame
+  - Fixed radar and hud not showing up after the minigame until after the fade is done
+  - Fixed subitles showing after the minigame is over
   - Play bad performance speech context if the performance was bad (this originally only played in the special date with Millie)
   - Improved good ending cutscene, now it has a fade out, the camera angle changes and black bars are added
   - Now the starting position is randomized
