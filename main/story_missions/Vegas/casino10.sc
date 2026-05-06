@@ -35,6 +35,13 @@ LVAR_INT player_leap_casino10
 LVAR_INT roll_left_casino10 // roll left task
 LVAR_INT roll_right_casino10 // roll right task
 
+// FIXEDGROVE: START - used for the taunts timer
+LVAR_INT 	m_this_frame_time
+LVAR_INT 	m_last_frame_time
+LVAR_INT 	m_time_diff	
+LVAR_INT 	casino10_dialogue_timer
+// FIXEDGROVE: END
+
 // Forelli
 LVAR_INT forelli_casino10 blip_forelli_casino10 flag_forelli_dead_casino10 forelli_run_count_casino10
 
@@ -138,6 +145,8 @@ LVAR_INT casino10_index casino10_audio_is_playing casino10_cutscene_flag casino1
 
 VAR_TEXT_LABEL $casino10_chat[17]
 
+LVAR_INT casino10_speaker[17] // FIXEDGROVE: variable used for facial anim
+
 // counter for the dead gang members
 LVAR_INT counter_dead_casino10
 
@@ -158,6 +167,7 @@ LVAR_INT dummy6_casino10 dummy7_casino10 dummy8_casino10 dummy9_casino10 dummy10
 
 casino10_chat_switch:
 
+// FIXEDGROVE: assigned speakers
 SWITCH casino10_chat_switch		   
 
 	CONST_INT casino10_CHAT1 0
@@ -175,6 +185,11 @@ SWITCH casino10_chat_switch
 		casino10_audio_chat[2] = SOUND_CAS11BC	//Stay on current heading and await final approach instructions...
 		casino10_audio_chat[3] = SOUND_CAS11CA	//Welcome to Liberty City, CJ101...
 
+		casino10_speaker[0] = scplayer
+		casino10_speaker[1] = -1
+		casino10_speaker[2] = -1
+		casino10_speaker[3] = -1
+
 		cell_index_end = 3
 	BREAK
 
@@ -188,6 +203,10 @@ SWITCH casino10_chat_switch
 		casino10_audio_chat[1] = SOUND_CAS11GB	//requesting final approach to Las Venturas International, over.
 		casino10_audio_chat[2] = SOUND_CAS11GC	//Flight CJ101, you are clear for laanding on runway 3.
 	   
+		casino10_speaker[0] = scplayer
+		casino10_speaker[1] = scplayer
+		casino10_speaker[2] = -1
+
 		cell_index_end = 2
 	BREAK
 
@@ -725,7 +744,7 @@ ENDIF
 IF NOT IS_CAR_DEAD car_casino10
 
 	IF NOT IS_CHAR_DEAD macca_casino10
-		 TASK_ENTER_CAR_AS_PASSENGER macca_casino10 car_casino10 10000 0
+		TASK_ENTER_CAR_AS_PASSENGER macca_casino10 car_casino10 10000 0
 	ELSE
 		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
 		GOTO mission_casino10_failed 
@@ -783,6 +802,7 @@ IF NOT IS_CAR_DEAD car_casino10
 	CAR_GOTO_COORDINATES car_casino10 2148.048 1703.466 9.727
 	SET_CAR_DRIVING_STYLE car_casino10 2
 	SET_CAR_CRUISE_SPEED car_casino10 30.0
+	TASK_LOOK_AT_VEHICLE scplayer car_casino10 30000 // FIXEDGROVE
 ELSE
 	PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
 	GOTO mission_casino10_failed 
@@ -809,6 +829,7 @@ CAMERA_RESET_NEW_SCRIPTABLES
 RESTORE_CAMERA_JUMPCUT
 SET_EVERYONE_IGNORE_PLAYER player1 OFF
 SET_POLICE_IGNORE_PLAYER player1 OFF
+CLEAR_LOOK_AT scplayer // FIXEDGROVE: needed since the player looks at the car during the cutscene now
 
  UNLOAD_SPECIAL_CHARACTER 1
  UNLOAD_SPECIAL_CHARACTER 2
@@ -821,10 +842,6 @@ flag_watched_1stcut_casino10 = 1
 SKIP_CUTSCENE_END
 
 IF flag_watched_1stcut_casino10 = 0
-
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	CLEAR_PRINTS
 
 	SET_FADING_COLOUR 0 0 0
 
@@ -855,6 +872,10 @@ IF flag_watched_1stcut_casino10 = 0
 //		ENDIF
 		
 	ENDWHILE
+
+	CLEAR_MISSION_AUDIO 1
+	CLEAR_MISSION_AUDIO 2
+	CLEAR_PRINTS
 
 	MAKE_PLAYER_GANG_REAPPEAR
 
@@ -889,15 +910,15 @@ IF flag_watched_1stcut_casino10 = 0
 
 	DO_FADE 1000 FADE_IN
 
+	SET_PLAYER_CONTROL player1 ON
+	SET_EVERYONE_IGNORE_PLAYER player1 OFF
+	SET_POLICE_IGNORE_PLAYER player1 OFF
+
 	WHILE GET_FADING_STATUS
 
 		WAIT 0
 		
 	ENDWHILE 	  
- 
-	SET_PLAYER_CONTROL player1 ON
-	SET_EVERYONE_IGNORE_PLAYER player1 OFF
-	SET_POLICE_IGNORE_PLAYER player1 OFF
 
 ENDIF
 
@@ -1006,6 +1027,55 @@ OR NOT IS_CHAR_SITTING_IN_CAR scplayer jet_casino10
 ENDWHILE
 
 REMOVE_BLIP liberty_blip_casino10 
+
+// FIXEDGROVE: START - play unused dialogue after reaching the blip
+casino10_index = 0
+casino10_audio_is_playing = 0
+casino10_cutscene_flag = 0
+casino10_chat_switch = casino10_CHAT1
+GOSUB casino10_chat_switch
+
+WHILE casino10_index <= cell_index_end
+
+	WAIT 0
+
+	IF IS_CAR_DEAD jet_casino10
+		PRINT_NOW (CM10_17) 8000 1 //"You have destroyed the jet!"
+		GOTO mission_casino10_failed
+	ELSE
+
+		IF IS_CHAR_IN_CAR scplayer jet_casino10				
+
+			GOSUB load_and_play_audio_casino10
+
+			IF had_plane_message_casino10 = 1  
+				REMOVE_BLIP airport_blip_casino10 
+				blob_flag = 1
+				had_plane_message_casino10 = 0
+			ENDIF
+	
+		ELSE
+
+			IF had_plane_message_casino10 = 0
+
+				CLEAR_MISSION_AUDIO 1
+				CLEAR_MISSION_AUDIO 2
+
+				CLEAR_PRINTS
+
+				ADD_BLIP_FOR_CAR jet_casino10 airport_blip_casino10
+				SET_BLIP_AS_FRIENDLY airport_blip_casino10 TRUE
+				PRINT_NOW (IN_VEH) 5000 1 //"Get back in the helicopter!"
+				blob_flag = 0 
+				had_plane_message_casino10 = 1
+			ENDIF 
+
+		ENDIF 
+
+	ENDIF
+
+ENDWHILE
+// FIXEDGROVE: END
 
 SET_FADING_COLOUR 0 0 0
 
@@ -1319,12 +1389,26 @@ IF NOT IS_CAR_DEAD cutscene_car2_casino10
 ENDIF
 
 // checks to see if the player has a gun and if not gives him one then aims it at the mafia goons. 
+// FIXEDGROVE: new method, check if player has a handgun instead of specifically a pistol
+GET_CHAR_WEAPON_IN_SLOT scplayer 3 temp_integer_1 temp_integer_2 temp_integer_2
+
+IF temp_integer_1 = 0 // FIXEDGROVE: if the player doesn't have a handgun
+	GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_PISTOL 60
+	SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PISTOL
+ELSE
+	SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1
+ENDIF
+
+// FIXEDGROVE: START - comment out old method
+/* 
 IF NOT HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_PISTOL
 	GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_PISTOL 60
 	SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PISTOL
 ELSE
 	SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PISTOL
 ENDIF
+*/
+// FIXEDGROVE: END
 
 REMOVE_CAR_RECORDING 602
 REMOVE_CAR_RECORDING 603 
@@ -1801,6 +1885,16 @@ SKIP_CUTSCENE_END
 
 IF flag_played_cut_casino10 = 0
 
+	// FIXEDGROVE: START - added fade out
+	DO_FADE 500 FADE_OUT 
+
+	WHILE GET_FADING_STATUS
+
+		WAIT 0
+
+	ENDWHILE
+	// FIXEDGROVE: END
+
 	CLEAR_PRINTS
 	CLEAR_MISSION_AUDIO 1
 	CLEAR_MISSION_AUDIO 2
@@ -1849,10 +1943,13 @@ IF flag_played_cut_casino10 = 0
 	SET_CHAR_COORDINATES scplayer -780.806 495.717 1375.0
 	SET_CHAR_HEADING scplayer 100.0
 
-//	TASK_TOGGLE_DUCK scplayer TRUE
-//	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer WEAPON_CROUCH PED 1000.0 FALSE FALSE FALSE FALSE -1
+	TASK_TOGGLE_DUCK scplayer TRUE // FIXEDGROVE: uncomment
+	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer WEAPON_CROUCH PED 1000.0 FALSE FALSE FALSE FALSE -1 // FIXEDGROVE: uncomment
  
 	RESTORE_CAMERA_JUMPCUT
+
+	DO_FADE 500 FADE_IN // FIXEDGROVE
+
 ENDIF
 
 SWITCH_WIDESCREEN OFF
@@ -1967,9 +2064,41 @@ ENDIF
 
 PRINT_NOW (CM10_2) 10000 1 //"Kill Forelli and his bodyguards."
 
+// FIXEDGROVE: START - setting things up for taunts
+casino10_index = 0
+cell_index_end = -1
+casino10_audio_is_playing = 0
+casino10_cutscene_flag = 0
+casino10_dialogue_timer = 0
+
+GET_GAME_TIMER m_last_frame_time // fixes bug where a taunt would trigger instantly after the cutscene
+// FIXEDGROVE: END
+
 WHILE NOT counter_dead_casino10 = 19
 
 	WAIT 0
+
+	// FIXEDGROVE: START - play player taunts
+	GOSUB load_and_play_audio_casino10
+
+	GOSUB dialogue_timer_casino10
+
+	IF casino10_dialogue_timer > 12000
+
+		IF ARE_ANY_CHARS_NEAR_CHAR scplayer 9.0
+
+			GOSUB random_line_casino10
+
+			casino10_dialogue_timer = 0
+
+		ELSE
+
+			casino10_dialogue_timer = 10000
+
+		ENDIF
+		
+	ENDIF
+	// FIXEDGROVE: END
 
 	IF flag_mid_cleanup_done_casino10 = 0
 
@@ -2175,30 +2304,29 @@ WHILE NOT counter_dead_casino10 = 19
 				IF IS_CHAR_IN_AREA_ON_FOOT_3D scplayer -777.827 510.0 1369.0 -797.0 494.0 1373.0 FALSE
 					player_downstairs_casino10 = 1	
 				ENDIF
-							
-				IF LOCATE_CHAR_ON_FOOT_3D forelli_casino10 -791.749 491.447 1370.782 0.5 0.5 2.0 FALSE			  	 
+
+				// FIXEDGROVE: now this whole block doesn't depend on forelli being inside a tiny radius, which often failed
+				IF time_forelli_casino10 = 0			
+					IF LOCATE_CHAR_ON_FOOT_3D forelli_casino10 -791.749 491.447 1370.782 0.5 0.5 2.0 FALSE			  	 
 					
-					IF time_forelli_casino10 = 0
 						SET_CHAR_HEADING forelli_casino10 0.0
 						TASK_STAY_IN_SAME_PLACE forelli_casino10 TRUE
 						TASK_KILL_CHAR_ON_FOOT forelli_casino10 scplayer
 						TIMERB = 0
 						time_forelli_casino10 = 1
 					ENDIF
+				ENDIF
 
+				// FIXEDGROVE: now this whole block doesn't depend on forelli being inside a tiny radius, which often failed
+				IF time_forelli_casino10 = 1
 					IF player_downstairs_casino10 = 1
-
-						IF time_forelli_casino10 = 1
-
-							IF TIMERB >= 6000
-							OR forelli_health_casino10 <= 800
-								CLEAR_CHAR_TASKS forelli_casino10
-								TASK_STAY_IN_SAME_PLACE forelli_casino10 FALSE  
-								TASK_FOLLOW_PATH_NODES_TO_COORD forelli_casino10 -779.844 492.670 1367.616 PEDMOVE_RUN 10000
-								forelli_run_count_casino10 = 3
-							ENDIF					
-
-						ENDIF
+						IF TIMERB >= 6000
+						OR forelli_health_casino10 <= 800
+							CLEAR_CHAR_TASKS forelli_casino10
+							TASK_STAY_IN_SAME_PLACE forelli_casino10 FALSE  
+							TASK_FOLLOW_PATH_NODES_TO_COORD forelli_casino10 -779.844 492.670 1367.616 PEDMOVE_RUN 10000
+							forelli_run_count_casino10 = 3
+						ENDIF					
 
 					ENDIF
 
@@ -2349,7 +2477,7 @@ ENDWHILE
 
 WAIT 3000
 
-SET_PLAYER_CONTROL player1 OFF
+//SET_PLAYER_CONTROL player1 OFF // FIXEDGROVE: comment out to make fade out feel nicer
 SET_EVERYONE_IGNORE_PLAYER player1 ON
 SET_POLICE_IGNORE_PLAYER player1 ON
 //SWITCH_WIDESCREEN ON
@@ -2576,7 +2704,7 @@ OR NOT IS_CHAR_IN_AREA_3D scplayer 1636.3195 1144.4778 7.0 1261.4111 1780.6724 1
 				IF had_plane_message_casino10 = 0
 					REMOVE_BLIP landing_blip_casino10
 					ADD_BLIP_FOR_CAR jet_casino10 jet_blip_casino10
-					SET_BLIP_AS_FRIENDLY airport_blip_casino10 TRUE
+					SET_BLIP_AS_FRIENDLY jet_blip_casino10 TRUE // FIXEDGROVE: was airport_blip_casino10
 					PRINT_NOW (IN_VEH) 5000 1 //"Get back in the helicopter!"
 					blob_flag = 0 
 					had_plane_message_casino10 = 1
@@ -2727,6 +2855,9 @@ REMOVE_ANIMATION SWAT
 SET_ALWAYS_DRAW_3D_MARKERS FALSE
 
 SET_PLAYER_IS_IN_STADIUM FALSE
+
+STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: needed for edge cases
+SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE: needed for edge cases
 
 MISSION_HAS_FINISHED
  
@@ -3532,6 +3663,12 @@ load_and_play_audio_casino10:
 
 	IF casino10_audio_is_playing = 2
 		IF HAS_MISSION_AUDIO_FINISHED 1
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD casino10_speaker[casino10_index]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH casino10_speaker[casino10_index] FALSE
+				STOP_CHAR_FACIAL_TALK casino10_speaker[casino10_index]
+			ENDIF
+			// FIXEDGROVE: START
 			casino10_audio_is_playing = 0
 			casino10_index ++
 			casino10_cutscene_flag = 0
@@ -3551,11 +3688,106 @@ play_casino10_audio:
 		IF HAS_MISSION_AUDIO_LOADED 1
 			PRINT_NOW ( $casino10_chat[casino10_index] ) 4000 1 //Dummy message"
 			PLAY_MISSION_AUDIO 1
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD casino10_speaker[casino10_index]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH casino10_speaker[casino10_index] TRUE
+				START_CHAR_FACIAL_TALK casino10_speaker[casino10_index] 10000
+			ENDIF
+			// FIXEDGROVE: END
 			casino10_audio_is_playing = 2
 		ENDIF
 	ENDIF	
 	
 RETURN
+
+// FIXEDGROVE: START - get random taunt
+random_line_casino10:
+
+	IF flag_forelli_dead_casino10 = 0 // Forelli is alive
+
+		GENERATE_RANDOM_INT_IN_RANGE 0 7 temp_integer_1
+
+		SWITCH temp_integer_1
+
+			CASE 0
+				$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
+				casino10_audio_chat[0] = SOUND_CAS11EA	//Salvatore sends his regards!
+			BREAK
+
+			CASE 1
+				$casino10_chat[0] = &CAS11EB	//The Forelli's are finished in this town!
+				casino10_audio_chat[0] = SOUND_CAS11EB	//The Forelli's are finished in this town!
+			BREAK
+
+			CASE 2
+				$casino10_chat[0] = &CAS11EC	//I'm here to spill pasta sauce!
+				casino10_audio_chat[0] = SOUND_CAS11EC	//I'm here to spill pasta sauce!
+			BREAK
+
+			CASE 3
+				$casino10_chat[0] = &CAS11ED	//Marco Forelli, I'm here for you!
+				casino10_audio_chat[0] = SOUND_CAS11ED	//Marco Forelli, I'm here for you!
+			BREAK
+
+			CASE 4
+				$casino10_chat[0] = &CAS11EE	//Marco, I'm coming for you!
+				casino10_audio_chat[0] = SOUND_CAS11EE	//Marco, I'm coming for you!
+			BREAK
+
+			CASE 5
+				$casino10_chat[0] = &CAS11EF	//Mafia assholes!
+				casino10_audio_chat[0] = SOUND_CAS11EF	//Mafia assholes!
+			BREAK
+
+			CASE 6
+				$casino10_chat[0] = &CAS11EG	//I'm your worst egg plant nightmare!
+				casino10_audio_chat[0] = SOUND_CAS11EG	//I'm your worst egg plant nightmare!
+			BREAK
+
+		ENDSWITCH
+
+	ELSE // Forelli is dead
+
+		GENERATE_RANDOM_INT_IN_RANGE 0 5 temp_integer_1
+
+		SWITCH temp_integer_1
+
+			CASE 0
+				$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
+				casino10_audio_chat[0] = SOUND_CAS11EA	//Salvatore sends his regards!
+			BREAK
+
+			CASE 1
+				$casino10_chat[0] = &CAS11EB	//The Forelli's are finished in this town!
+				casino10_audio_chat[0] = SOUND_CAS11EB	//The Forelli's are finished in this town!
+			BREAK
+
+			CASE 2
+				$casino10_chat[0] = &CAS11EC	//I'm here to spill pasta sauce!
+				casino10_audio_chat[0] = SOUND_CAS11EC	//I'm here to spill pasta sauce!
+			BREAK
+
+			CASE 3
+				$casino10_chat[0] = &CAS11EF	//Mafia assholes!
+				casino10_audio_chat[0] = SOUND_CAS11EF	//Mafia assholes!
+			BREAK
+
+			CASE 4
+				$casino10_chat[0] = &CAS11EG	//I'm your worst egg plant nightmare!
+				casino10_audio_chat[0] = SOUND_CAS11EG	//I'm your worst egg plant nightmare!
+			BREAK
+
+		ENDSWITCH
+
+	ENDIF
+
+	casino10_speaker[0] = scplayer
+
+	cell_index_end = 0
+	casino10_index = 0
+
+RETURN
+// FIXEDGROVE: END
 
 end_guys_death_check_casino10:
 
@@ -3621,6 +3853,23 @@ end_guys_death_check_casino10:
 	 
 RETURN
 
+// FIXEDGROVE: START - used for the taunts timer
+dialogue_timer_casino10:
+
+	GET_GAME_TIMER m_this_frame_time
+	m_time_diff = m_this_frame_time - m_last_frame_time 
+	m_last_frame_time = m_this_frame_time
+
+	temp_integer_1 = m_time_diff
+
+	IF IS_CHAR_SHOOTING scplayer
+        temp_integer_1 += 500 
+    ENDIF
+
+	casino10_dialogue_timer += temp_integer_1
+
+RETURN
+// FIXEDGROVE: END
 
 			    
 }

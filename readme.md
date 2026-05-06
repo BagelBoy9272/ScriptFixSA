@@ -289,6 +289,19 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Vertical Bird:**
 - Increased upper limit in random number generator, bringing back an unused route for a forklift
 
+**Saint Mark's Bistro:**
+- Added facial talk anim to voicelines
+- Fixed the jet's arrow not being set as friendly on the way back
+- Fixed the player's handgun being replaced by a colt45
+- Dialogue is not cut off if a cutscene is skipped
+- Controls are not disabled during fade ins/out
+- Made player look at the car after maccer and the rest leaves
+- The player crouches if the cutscene inside the bistro is skipped
+- Added a fade out/in if the cutscene inside the bistro is skipped
+- Added unused dialogue for the player after reaching the blip (the dialogue data was already set up)
+- Added unused taunts for the player in the bistro:
+  * These play every 12 seconds only if you're near an enemy, shooting speeds up the timer
+
 **Madd Dogg:**
 - Increased upper bound in a random number generator, bringing back an unused line for the truck owner
 
