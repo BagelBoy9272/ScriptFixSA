@@ -191,26 +191,9 @@ MISSION_END
 mobile_chat_switch:
 
 // FIXEDGROVE: START - clean the array so we only have to set it when the player talks
-mobile_speaker[0] = SPEAKER_NULL
-mobile_speaker[1] = SPEAKER_NULL
-mobile_speaker[2] = SPEAKER_NULL
-mobile_speaker[3] = SPEAKER_NULL
-mobile_speaker[4] = SPEAKER_NULL
-mobile_speaker[5] = SPEAKER_NULL
-mobile_speaker[6] = SPEAKER_NULL
-mobile_speaker[7] = SPEAKER_NULL
-mobile_speaker[8] = SPEAKER_NULL
-mobile_speaker[9] = SPEAKER_NULL
-mobile_speaker[10] = SPEAKER_NULL
-mobile_speaker[11] = SPEAKER_NULL
-mobile_speaker[12] = SPEAKER_NULL
-mobile_speaker[13] = SPEAKER_NULL
-mobile_speaker[14] = SPEAKER_NULL
-mobile_speaker[15] = SPEAKER_NULL
-mobile_speaker[16] = SPEAKER_NULL
-mobile_speaker[17] = SPEAKER_NULL
-mobile_speaker[18] = SPEAKER_NULL
-mobile_speaker[19] = SPEAKER_NULL
+REPEAT 20 temp_integer_1
+	mobile_speaker[temp_integer_1] = SPEAKER_NULL
+ENDREPEAT
 // FIXEDGROVE: END
 
 // FIXEDGROVE: assigned speakers
