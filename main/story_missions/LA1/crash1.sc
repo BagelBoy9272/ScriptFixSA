@@ -154,6 +154,7 @@ LVAR_INT		flagDisplaySpeechSubtitle
 LVAR_INT		nAudioSlotStatus[CRASH1_AUDIO_SLOT_ARRAY_SIZE]
 LVAR_INT		nConversationSequenceSpeechID[CRASH1_MAX_CONVERSATION_LINES]
 LVAR_TEXT_LABEL	tlConversationSequenceSubtitle[CRASH1_MAX_CONVERSATION_LINES]
+LVAR_INT		charConversationSequenceSpeaker[CRASH1_MAX_CONVERSATION_LINES] // FIXEDGROVE
 // ...clear audio variables
 nSpeechCurrentSlot					= CRASH1_FIRST_SPEECH_SLOT
 nConversationStatus					= CRASH1_CONVERSATION_STATUS_NONE
@@ -411,6 +412,13 @@ GOTO crash1_fool_compiler // FIXEDGROVE: replace impossible check with a goto
 	// ...house guys on way in
 	CREATE_CHAR PEDTYPE_GANG_SMEX LSV2 0.0 0.0 0.0 charHouseCower
 	CREATE_CHAR PEDTYPE_GANG_SMEX LSV2 0.0 0.0 0.0 charHouseStairs
+
+	// FIXEDGROVE: START - conversation speakers
+	REPEAT CRASH1_MAX_CONVERSATION_LINES nLoop
+		CREATE_CHAR PEDTYPE_GANG_SMEX LSV3 0.0 0.0 0.0 charConversationSequenceSpeaker[nLoop]
+	ENDREPEAT
+	// FIXEDGROVE: END
+
 
 	// Objects
 	// ...windows
@@ -2722,8 +2730,8 @@ Crash1_Stage_TakeTheLadyHome: // FIXEDGROVE: added ability to skip ending cutsce
 		GOSUB Crash1_Conversation_Command_Prepare
 
 		// Make sure neither CJ nor the girl talks during the ride home
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH charCoochie TRUE
+		//SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE // FIXEDGROVE: now its done in the dialogue code
+		//SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH charCoochie TRUE // FIXEDGROVE: now its done in the dialogue code
 
 		m_goals++
 	ENDIF
@@ -2813,34 +2821,26 @@ Crash1_Stage_TakeTheLadyHome: // FIXEDGROVE: added ability to skip ending cutsce
 
 	// Prepare and Play the 'Coochie Name' speech
 	IF m_goals = 3
-		IF flagSkipCutscene = 1
-			m_goals = 50
-		ELSE
-			nRequiredConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
-			GOSUB Crash1_Conversation_Command_Prepare
+		nRequiredConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
+		GOSUB Crash1_Conversation_Command_Prepare
 
-			IF nCurrentConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
-				GOSUB Crash1_Conversation_Command_Play
+		IF nCurrentConversationID = CRASH1_CONVERSATION_COOCHIE_NAME
+			GOSUB Crash1_Conversation_Command_Play
 
-				// If the player is not in a car then make him face Coochie
-				IF NOT IS_CHAR_IN_ANY_CAR scplayer
-					TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
-				ENDIF
-
-				m_goals++
+			// If the player is not in a car then make him face Coochie
+			IF NOT IS_CHAR_IN_ANY_CAR scplayer
+				TASK_TURN_CHAR_TO_FACE_CHAR scplayer charCoochie
 			ENDIF
+
+			m_goals++
 		ENDIF
 	ENDIF
 
 
 	// Wait for the Coochie Name speech to finish
 	IF m_goals = 4
-		IF flagSkipCutscene = 1
-			m_goals = 50
-		ELSE
-			IF IS_BIT_SET bitsConversationsPlayed CRASH1_CONVERSATION_COOCHIE_NAME
-				m_goals++
-			ENDIF
+		IF IS_BIT_SET bitsConversationsPlayed CRASH1_CONVERSATION_COOCHIE_NAME
+			m_goals++
 		ENDIF
 	ENDIF
 
@@ -5554,7 +5554,7 @@ Crash1_Update_HouseGuyIn_Cowering:
 					GOSUB Crash1_Conversation_Command_Play
 				ELSE
 					// ...it didn't get prepared, so issue generic speech and set the 'issued bit' manually
-					SET_CHAR_SAY_CONTEXT charHouseCower CONTEXT_GLOBAL_ABUSE_GANG_LSV nIgnore
+					SET_CHAR_SAY_CONTEXT charHouseCower CONTEXT_GLOBAL_ABUSE_GANG_FAMILIES nIgnore // FIXEDGROVE: context was ABUGE_GANG_LSV, which doesn't make sense
 					SET_BIT bitsConversationsPlayed CRASH1_CONVERSATION_INSIDE_GUY
 				ENDIF
 
@@ -6388,6 +6388,13 @@ Crash1_Playing_Conversation:
 				PRINT_NOW $tlConversationSequenceSubtitle[nCurrentConversationLine] 10000 1
 			ENDIF
 
+			// FIXEDGROVE: START - add facial talk anim
+			IF NOT IS_CHAR_DEAD charConversationSequenceSpeaker[nCurrentConversationLine]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH charConversationSequenceSpeaker[nCurrentConversationLine] TRUE
+				START_CHAR_FACIAL_TALK charConversationSequenceSpeaker[nCurrentConversationLine] 30000
+			ENDIF
+			// FIXEDGROVE: END
+
 			nAudioSlotStatus[nSpeechCurrentSlot] = CRASH1_AUDIO_SLOT_PLAYING
 			RETURN
 			BREAK
@@ -6398,6 +6405,13 @@ Crash1_Playing_Conversation:
 				// ...still playing
 				RETURN
 			ENDIF
+
+			// FIXEDGROVE: START - stop facial talk anim
+			IF NOT IS_CHAR_DEAD charConversationSequenceSpeaker[nCurrentConversationLine]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH charConversationSequenceSpeaker[nCurrentConversationLine] FALSE
+				STOP_CHAR_FACIAL_TALK charConversationSequenceSpeaker[nCurrentConversationLine]
+			ENDIF
+			// FIXEDGROVE: END
 
 			// Speech has finished playing, so move on to the next piece
 			GOSUB Crash1_Current_Speech_Finished			
@@ -6414,6 +6428,13 @@ RETURN
 // ****************************************
 // Current Conversation has been interrupted
 Crash1_Interrupt_Conversation:
+
+	// FIXEDGROVE: START - stop facial talk anim
+	IF NOT IS_CHAR_DEAD charConversationSequenceSpeaker[nCurrentConversationLine]
+        SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH charConversationSequenceSpeaker[nCurrentConversationLine] FALSE
+        STOP_CHAR_FACIAL_TALK charConversationSequenceSpeaker[nCurrentConversationLine]
+    ENDIF
+	// FIXEDGROVE: START
 
 	// Clear mission audio
 	nTempInt = CRASH1_FIRST_SPEECH_SLOT
@@ -6727,7 +6748,7 @@ Crash1_Check_If_Interrupt_Conversation:
 
 RETURN
 
-
+// FIXEDGROVE: assigned speakers to all conversations
 // ****************************************
 // Prepare Conversation: Coochie Shouts
 Crash1_Prepare_Conversation_Coochie_Shouts:
@@ -6783,6 +6804,8 @@ Crash1_Prepare_Conversation_Coochie_Shouts:
 
 	ENDSWITCH
 
+	charConversationSequenceSpeaker[0] = charCoochie
+
 	nCurrentMaxConversationLines = 1
 RETURN
 
@@ -6821,6 +6844,8 @@ Crash1_Prepare_Conversation_Coochie_Screams:
 			BREAK
 	ENDSWITCH
 
+	charConversationSequenceSpeaker[0] = charCoochie
+
 	nCurrentMaxConversationLines = 1
 RETURN
 
@@ -6844,6 +6869,8 @@ Crash1_Prepare_Conversation_Carl_Help:
 			BREAK
 
 	ENDSWITCH
+
+	charConversationSequenceSpeaker[0] = charCoochie
 
 	nCurrentMaxConversationLines = 1
 RETURN
@@ -6882,6 +6909,8 @@ Crash1_Prepare_Conversation_Inside_Guy:
 
 	ENDSWITCH
 
+	charConversationSequenceSpeaker[0] = charHouseCower
+
 	nCurrentMaxConversationLines = 1
 RETURN
 */
@@ -6896,10 +6925,12 @@ Crash1_Prepare_Conversation_No_Way_Out:
 	nTempInt = 0
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_EA
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_EA
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_EB
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_EB
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	IF nTempInt > CRASH1_MAX_CONVERSATION_LINES
@@ -6919,6 +6950,7 @@ Crash1_Prepare_Conversation_Fire_Ex:
 
 	nConversationSequenceSpeechID[0] = SOUND_CRA1_EC
 	$tlConversationSequenceSubtitle[0] = CRA1_EC
+	charConversationSequenceSpeaker[0] = scplayer
 
 	nCurrentMaxConversationLines = 1
 
@@ -6933,6 +6965,7 @@ Crash1_Prepare_Conversation_I_Be_Back:
 
 	nConversationSequenceSpeechID[0] = SOUND_CRA1_ED
 	$tlConversationSequenceSubtitle[0] = CRA1_ED
+	charConversationSequenceSpeaker[0] = scplayer
 
 	nCurrentMaxConversationLines = 1
 
@@ -6948,10 +6981,12 @@ Crash1_Prepare_Conversation_Outside_Room:
 	nTempInt = 0
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_FA
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_FA
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_FB
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_FB
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	IF nTempInt > CRASH1_MAX_CONVERSATION_LINES
@@ -6971,6 +7006,7 @@ Crash1_Prepare_Conversation_Reach_Coochie:
 
 	nConversationSequenceSpeechID[0] = SOUND_CRA1_GA
 	$tlConversationSequenceSubtitle[0] = CRA1_GA
+	charConversationSequenceSpeaker[0] = charCoochie
 
 	nCurrentMaxConversationLines = 1
 
@@ -6986,10 +7022,12 @@ Crash1_Prepare_Conversation_Building_Collapse:
 	nTempInt = 0
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_GB
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_GB
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_GC
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_GC
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	IF nTempInt > CRASH1_MAX_CONVERSATION_LINES
@@ -7012,56 +7050,67 @@ Crash1_Prepare_Conversation_Put_Out_Fire:
 		CASE 0
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HA
 			$tlConversationSequenceSubtitle[0] = CRA1_HA
+			charConversationSequenceSpeaker[0] = charCoochie
 			BREAK
 
 		CASE 1
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HB
 			$tlConversationSequenceSubtitle[0] = CRA1_HB
+			charConversationSequenceSpeaker[0] = charCoochie
 			BREAK
 
 		CASE 2
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HC
 			$tlConversationSequenceSubtitle[0] = CRA1_HC
+			charConversationSequenceSpeaker[0] = charCoochie
 			BREAK
 
 		CASE 3
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HD
 			$tlConversationSequenceSubtitle[0] = CRA1_HD
+			charConversationSequenceSpeaker[0] = charCoochie
 			BREAK
 
 		CASE 4
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HE
 			$tlConversationSequenceSubtitle[0] = CRA1_HE
+			charConversationSequenceSpeaker[0] = scplayer
 			BREAK
 
 		CASE 5
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HF
 			$tlConversationSequenceSubtitle[0] = CRA1_HF
+			charConversationSequenceSpeaker[0] = scplayer
 			BREAK
 
 		CASE 6
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HG
 			$tlConversationSequenceSubtitle[0] = CRA1_HG
+			charConversationSequenceSpeaker[0] = scplayer
 			BREAK
 
 		CASE 7
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HH
 			$tlConversationSequenceSubtitle[0] = CRA1_HH
+			charConversationSequenceSpeaker[0] = scplayer
 			BREAK
 
 		CASE 8
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HJ
 			$tlConversationSequenceSubtitle[0] = CRA1_HJ
+			charConversationSequenceSpeaker[0] = charCoochie
 			BREAK
 
 		CASE 9
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HK
 			$tlConversationSequenceSubtitle[0] = CRA1_HK
+			charConversationSequenceSpeaker[0] = charCoochie
 			BREAK
 
 		CASE 10
 			nConversationSequenceSpeechID[0] = SOUND_CRA1_HL
 			$tlConversationSequenceSubtitle[0] = CRA1_HL
+			charConversationSequenceSpeaker[0] = charCoochie
 			BREAK
 
 	ENDSWITCH
@@ -7078,6 +7127,7 @@ Crash1_Prepare_Conversation_Coochie_Hero:
 
 	nConversationSequenceSpeechID[0] = SOUND_CRA1_JA
 	$tlConversationSequenceSubtitle[0] = CRA1_JA
+	charConversationSequenceSpeaker[0] = charCoochie
 
 	nCurrentMaxConversationLines = 1
 
@@ -7093,14 +7143,17 @@ Crash1_Prepare_Conversation_Drive_Coochie_Home:
 	nTempInt = 0
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_JB
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_JB
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_JC
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_JC
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_JD
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_JD
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	IF nTempInt > CRASH1_MAX_CONVERSATION_LINES
@@ -7121,38 +7174,47 @@ Crash1_Prepare_Conversation_On_Ride_Home:
 	nTempInt = 0
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KA
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KA
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KB
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KB
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KC
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KC
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KD
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KD
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KE
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KE
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KF
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KF
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KG
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KG
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KH
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KH
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_KJ
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_KJ
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	IF nTempInt > CRASH1_MAX_CONVERSATION_LINES
@@ -7172,6 +7234,7 @@ Crash1_Prepare_Conversation_Coochie_House:
 
 	nConversationSequenceSpeechID[0] = SOUND_CRA1_LA
 	$tlConversationSequenceSubtitle[0] = CRA1_LA
+	charConversationSequenceSpeaker[0] = charCoochie
 
 	nCurrentMaxConversationLines = 1
 
@@ -7187,10 +7250,12 @@ Crash1_Prepare_Conversation_Coochie_Name:
 	nTempInt = 0
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_MA
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_MA
+	charConversationSequenceSpeaker[nTempInt] = scplayer
 
 	nTempInt++
 	nConversationSequenceSpeechID[nTempInt] = SOUND_CRA1_MB
 	$tlConversationSequenceSubtitle[nTempInt] = CRA1_MB
+	charConversationSequenceSpeaker[nTempInt] = charCoochie
 
 	nTempInt++
 	IF nTempInt > CRASH1_MAX_CONVERSATION_LINES
@@ -7210,6 +7275,7 @@ Crash1_Prepare_Conversation_Go_Out:
 
 	nConversationSequenceSpeechID[0] = SOUND_CRA1_MC
 	$tlConversationSequenceSubtitle[0] = CRA1_MC
+	charConversationSequenceSpeaker[0] = scplayer
 
 	nCurrentMaxConversationLines = 1
 
@@ -7224,6 +7290,7 @@ Crash1_Prepare_Conversation_Cya:
 
 	nConversationSequenceSpeechID[0] = SOUND_CRA1_MD
 	$tlConversationSequenceSubtitle[0] = CRA1_MD
+	charConversationSequenceSpeaker[0] = charCoochie
 
 	nCurrentMaxConversationLines = 1
 
@@ -8312,6 +8379,9 @@ mission_cleanup_Crash1:
 
 		// ...make sure player is allowed to talk again
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+
+		// ...make sure player is not moving his mouth
+		STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 	ENDIF
 
 

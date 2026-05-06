@@ -145,6 +145,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made "manual aim" help box only show up if using a controller
 
 **Burning Desire:**
+- Added facial talk anim to voicelines
 - Now if player already has molotovs, they are not required to go pick them up in the alley
 - Fixed Vagos using a speech table that didn't have any lines for them
 - Added ability to skip ending cutscene
