@@ -1143,7 +1143,7 @@ IF smoke_s3flag = 1
 					GOSUB ontopoftrain_labels3
 					SET_CHAR_SUFFERS_CRITICAL_HITS mex2_s3 FALSE
 
-					CREATE_CHAR PEDTYPE_MISSION1 LSV3 1681.6184 -1957.8800 20.9453 mex3_s3
+					CREATE_CHAR PEDTYPE_MISSION1 LSV2 1681.6184 -1957.8800 20.9453 mex3_s3 // FIXEDGROVE: skin was LSV3
 					enemy_s3 = mex3_s3
 					GOSUB ontopoftrain_labels3
 					SET_CHAR_SUFFERS_CRITICAL_HITS mex3_s3 FALSE
@@ -1295,7 +1295,7 @@ IF smoke_s3flag = 1
 					GOSUB ontopoftrain_labels3
 					SET_CHAR_SUFFERS_CRITICAL_HITS mex2_s3 FALSE
 
-					CREATE_CHAR PEDTYPE_MISSION1 LSV3 1681.6184 -1957.8800 20.9453 mex3_s3
+					CREATE_CHAR PEDTYPE_MISSION1 LSV2 1681.6184 -1957.8800 20.9453 mex3_s3 // FIXEDGROVE: skin was LSV3
 					enemy_s3 = mex3_s3
 					GOSUB ontopoftrain_labels3
 					SET_CHAR_SUFFERS_CRITICAL_HITS mex3_s3 FALSE
@@ -1481,7 +1481,7 @@ IF smoke_s3flag = 1
 
 				PRINT_NOW SMK3_2 7000 1 //~s~Get on the motorbike and chase down the ~r~Vagos gang members ~s~and take them out!
 				REMOVE_ANIMATION GANGS
-				MARK_MODEL_AS_NO_LONGER_NEEDED LSV2
+				//MARK_MODEL_AS_NO_LONGER_NEEDED LSV2 // FIXEDGROVE: this skin is used again now
 				trainspeed_s3flag = 1
 				smoke_s3flag = 2
 				difficulty_s3flag++ //increment difficulty

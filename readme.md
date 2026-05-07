@@ -128,6 +128,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Wrong Side Of The Tracks:**
 - Added facial talk anim to voicelines
 - Added small pause before the dialogue plays on the way to the train station
+- Made the 3rd vagos member use his skin from the cutscene
 - Now you can kill the 4th vagos member before he gets killed by the railing
 - In case of the railing killing him, an unused voice line plays
 - Now smoke's warning for the second train will only play if you choose the lower path, otherwise, an unused voice line plays
