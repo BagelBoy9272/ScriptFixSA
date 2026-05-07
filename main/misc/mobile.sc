@@ -3125,19 +3125,6 @@ cell_phone_cat_inner:
 						ENDIF
 						IF flag_player_answered_phone = 1	
 							flag_mob_cat[5] = 1
-							SET_ZONE_GANG_STRENGTH ELCO1 GANG_NMEX 40
-	                        SET_ZONE_GANG_STRENGTH ELCO2 GANG_NMEX 40
-	                        SET_ZONE_GANG_STRENGTH ELCO1 GANG_SMEX 0
-	                        SET_ZONE_GANG_STRENGTH ELCO2 GANG_SMEX 0
-	                        SET_ZONE_GANG_STRENGTH ELCO1 GANG_GROVE 0
-	                        SET_ZONE_GANG_STRENGTH ELCO2 GANG_GROVE 0
-
-	                        SET_ZONE_GANG_STRENGTH LMEX1a GANG_NMEX 30
-	                        SET_ZONE_GANG_STRENGTH LMEX1b GANG_NMEX 30
-	                        SET_ZONE_GANG_STRENGTH LMEX1a GANG_SMEX 0
-	                        SET_ZONE_GANG_STRENGTH LMEX1b GANG_SMEX 0
-	                        SET_ZONE_GANG_STRENGTH LMEX1a GANG_GROVE 0
-	                        SET_ZONE_GANG_STRENGTH LMEX1b GANG_GROVE 0
 						ENDIF
 						GOSUB mobile_message_cleanup
 						GOTO cell_phone_cat_inner
