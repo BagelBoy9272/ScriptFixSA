@@ -1118,6 +1118,7 @@ mission_casino5_SUB_setup_mafia_ambulance:
 		GIVE_WEAPON_TO_CHAR driver_C5[mafia_ID_C5] WEAPONTYPE_MP5 30000
 		SET_CURRENT_CHAR_WEAPON driver_C5[mafia_ID_C5] WEAPONTYPE_MP5
 		SET_CHAR_DECISION_MAKER driver_C5[mafia_ID_C5] tough_dm_C5
+		TASK_CAR_DRIVE_WANDER driver_C5[mafia_ID_C5] ambulance_C5[mafia_ID_C5] 15.0 DRIVINGMODE_STOPFORCARS // FIXEDGROVE: otherwise will be stuck in place
 
 		// mafia passenger
 		IF NOT IS_CHAR_DEAD passenger_C5[mafia_ID_C5]
