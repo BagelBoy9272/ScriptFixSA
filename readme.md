@@ -272,6 +272,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **You've Had Your Chips:**
+- Moved parked car at beginning of mission to a parking spot
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
 
 **Fender Ketchup:**
