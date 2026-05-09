@@ -245,6 +245,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **The Da Nang Thang:**
 - Added an extra member variant
+- Fixed a cutscene softlock
 
 **Ice Cold Killa:**
 - Fixed typo in coords for CREATE_BIRDS command 

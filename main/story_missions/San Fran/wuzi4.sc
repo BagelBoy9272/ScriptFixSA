@@ -2339,8 +2339,8 @@ WAIT 0
 				ENDIF
 				OPEN_SEQUENCE_TASK w5_seq
 					TASK_GO_STRAIGHT_TO_COORD -1 -2477.9 1543.7 31.7 PEDMOVE_WALK -1
-					TASK_GO_STRAIGHT_TO_COORD -1 w5_x w5_y w5_z PEDMOVE_WALK -1
-					IF NOT IS_CHAR_DEAD w5_head_honcho 
+					IF NOT IS_CHAR_DEAD w5_head_honcho
+						TASK_GO_STRAIGHT_TO_COORD -1 w5_x w5_y w5_z PEDMOVE_WALK -1 // FIXEDGROVE: moved this here
 						TASK_TURN_CHAR_TO_FACE_CHAR -1 w5_head_honcho
 					ENDIF
 				CLOSE_SEQUENCE_TASK w5_seq
@@ -2432,6 +2432,7 @@ WAIT 0
 				IF timera > 8000 
 					w5_skip_cutscene_flag = 0
 					SKIP_CUTSCENE_END
+					w5_cutscene_skipped: // FIXEDGROVE: added label
 					GOSUB w5_death_checks
 					IF w5_deathcheck_flag = 1
 						GOTO mission_wuzi5_failed
@@ -2561,6 +2562,13 @@ WAIT 0
 		IF IS_CHAR_DEAD w5_head_honcho
 			CLEAR_PRINTS 
 			//
+
+			// FIXEDGROVE: START - finish the cutscene if it's stuck
+			IF w5_control_flag < 5
+				w5_skip_cutscene_flag = 1
+				GOTO w5_cutscene_skipped
+			ENDIF
+			// FIXEDGROVE: END
 			
 			REMOVE_BLIP w5_blip
 			IF NOT IS_CHAR_DEAD w5_refugees[3]
