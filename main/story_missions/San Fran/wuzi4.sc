@@ -2431,8 +2431,8 @@ WAIT 0
 			IF w5_speech_goals = 0 
 				IF timera > 8000 
 					w5_skip_cutscene_flag = 0
-					SKIP_CUTSCENE_END
 					w5_cutscene_skipped: // FIXEDGROVE: added label
+					SKIP_CUTSCENE_END
 					GOSUB w5_death_checks
 					IF w5_deathcheck_flag = 1
 						GOTO mission_wuzi5_failed
@@ -2560,15 +2560,16 @@ WAIT 0
 		*/
 
 		IF IS_CHAR_DEAD w5_head_honcho
-			CLEAR_PRINTS 
-			//
-
 			// FIXEDGROVE: START - finish the cutscene if it's stuck
 			IF w5_control_flag < 5
+			AND IS_CHAR_IN_AREA_3D scplayer -2476.4 1538.0 29.8 -2479.2 1550.5 35.2 FALSE
 				w5_skip_cutscene_flag = 1
 				GOTO w5_cutscene_skipped
 			ENDIF
 			// FIXEDGROVE: END
+
+			CLEAR_PRINTS 
+			//
 			
 			REMOVE_BLIP w5_blip
 			IF NOT IS_CHAR_DEAD w5_refugees[3]
