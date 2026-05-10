@@ -878,7 +878,7 @@ IF played_cut2_before_crash4 = 1
 
 	ENDIF
 	
-// ENDIF
+ENDIF
 
 played_cut2_before_crash4 = 1
 
