@@ -183,6 +183,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Replaced reused nonsensical 'Hey CJ, watch to the left' line with unused Smoke line 
 - Added back commented fences in heli setpiece 
 - Fixed heli going limp in the next camera shot
+- Restored unused car recording near the end of the mission
 - Opened front passanger seat of sweet's car in final cutscene
 - Fixed jarring time shift in ending cutscene caused by the script setting the time to 7:00 AM 
 - Fixed characters not using their intented animation groups 
