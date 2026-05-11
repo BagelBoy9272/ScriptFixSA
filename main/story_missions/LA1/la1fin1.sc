@@ -6135,6 +6135,8 @@ IF motelchase_f1flag = 2
 	REQUEST_CAR_RECORDING 380
 	REQUEST_CAR_RECORDING 381
 
+	REQUEST_CAR_RECORDING 379 // FIXEDGROVE: missing car recording
+
 	REQUEST_MODEL munch_donut
 	LOAD_SPECIAL_CHARACTER 1 SWEET // FIXEDGROVE: load sweet
 	LOAD_SPECIAL_CHARACTER 2 SMOKE
@@ -6176,6 +6178,7 @@ IF motelchase_f1flag = 2
 		OR NOT HAS_CAR_RECORDING_BEEN_LOADED 372
 		OR NOT HAS_CAR_RECORDING_BEEN_LOADED 378
 		OR NOT HAS_CAR_RECORDING_BEEN_LOADED 380
+		OR NOT HAS_CAR_RECORDING_BEEN_LOADED 379 // FIXEDGROVE: missing car recording
 		WAIT 0
 	ENDWHILE
 
@@ -7115,22 +7118,24 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CHAR_SUFFERS_CRITICAL_HITS cop13_f1 FALSE
 				CAR_SET_IDLE policecar6_f1
 
-//				CREATE_CAR COPCARLA 2330.692 -1304.53 23.9 policecar7_f1 // opposite the alley entrance
-//				SET_CAR_HEADING policecar7_f1 87.107
-//				SET_CAR_HEALTH policecar7_f1 750
-//				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar7_f1 TRUE
-//				CREATE_CHAR_INSIDE_CAR policecar7_f1 PEDTYPE_MISSION1 LAPD1 cop14_f1
-//				SET_CHAR_DECISION_MAKER cop14_f1 motel_DM
-//				SET_CHAR_SUFFERS_CRITICAL_HITS cop14_f1 FALSE
-//				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop14_f1 TRUE
-//				CREATE_CHAR_AS_PASSENGER policecar7_f1 PEDTYPE_MISSION1 LAPD1 0 cop15_f1
-//				SET_CHAR_DECISION_MAKER cop15_f1 motel_dm
-//				SET_CHAR_HEALTH cop15_f1 200
-//				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop15_f1 TRUE
+// FIXEDGROVE: START - uncomment
+				CREATE_CAR COPCARLA 2330.692 -1304.53 23.9 policecar7_f1 // opposite the alley entrance
+				SET_CAR_HEADING policecar7_f1 87.107
+				SET_CAR_HEALTH policecar7_f1 750
+				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar7_f1 TRUE
+				CREATE_CHAR_INSIDE_CAR policecar7_f1 PEDTYPE_MISSION1 LAPD1 cop14_f1
+				SET_CHAR_DECISION_MAKER cop14_f1 motel_DM
+				SET_CHAR_SUFFERS_CRITICAL_HITS cop14_f1 FALSE
+				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop14_f1 TRUE
+				CREATE_CHAR_AS_PASSENGER policecar7_f1 PEDTYPE_MISSION1 LAPD1 0 cop15_f1
+				SET_CHAR_DECISION_MAKER cop15_f1 motel_dm
+				SET_CHAR_HEALTH cop15_f1 200
+				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop15_f1 TRUE
 
-//				GIVE_WEAPON_TO_CHAR cop15_f1 WEAPONTYPE_MP5 9999
-//				SET_CHAR_SUFFERS_CRITICAL_HITS cop15_f1 FALSE
-//				CAR_SET_IDLE policecar7_f1
+				GIVE_WEAPON_TO_CHAR cop15_f1 WEAPONTYPE_MP5 9999
+				SET_CHAR_SUFFERS_CRITICAL_HITS cop15_f1 FALSE
+				CAR_SET_IDLE policecar7_f1
+// FIXEDGROVE: END
    				copcars_f1flag = 3
 			ENDIF
 		ENDIF
@@ -7174,20 +7179,24 @@ IF NOT IS_CAR_DEAD sweet_car
 					policecar5_f1flag = 1
 					policecar5swap_f1flag = 1
 				ENDIF
-//				IF NOT IS_CAR_DEAD policecar7_f1
-//					START_PLAYBACK_RECORDED_CAR policecar7_f1 379
-//					ADD_BLIP_FOR_CAR policecar7_f1 policecar7_f1blip
-//					CHANGE_BLIP_DISPLAY policecar7_f1blip BLIP_ONLY
-//					SWITCH_CAR_SIREN policecar7_f1 ON
-//					policecar7_f1flag = 1
-//					policecar7swap_f1flag = 1
-//				ENDIF
+// FIXEDGROVE: START - uncomment
+				IF NOT IS_CAR_DEAD policecar7_f1
+					START_PLAYBACK_RECORDED_CAR policecar7_f1 379
+					ADD_BLIP_FOR_CAR policecar7_f1 policecar7_f1blip
+					CHANGE_BLIP_DISPLAY policecar7_f1blip BLIP_ONLY
+					SWITCH_CAR_SIREN policecar7_f1 ON
+					policecar7_f1flag = 1
+					policecar7swap_f1flag = 1
+				ENDIF
+// FIXEDGROVE: END
 				IF NOT IS_CHAR_DEAD cop10_f1
 					TASK_DRIVE_BY cop10_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
 				ENDIF
-//				IF NOT IS_CHAR_DEAD cop15_f1
-//					TASK_DRIVE_BY cop15_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
-//				ENDIF
+// FIXEDGROVE: START - uncomment
+				IF NOT IS_CHAR_DEAD cop15_f1
+					TASK_DRIVE_BY cop15_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+				ENDIF
+// FIXEDGROVE: END
 				DELETE_CHAR bikerjumper3_f1
 				copcars_f1flag = 5
 			ENDIF
@@ -7884,50 +7893,52 @@ IF NOT IS_CAR_DEAD sweet_car
 		ENDIF
 
 		//swap seat
-//		IF policecar7swap_f1flag = 1
-//			IF NOT IS_CAR_DEAD policecar7_f1
-//				IF NOT IS_CHAR_DEAD cop14_f1
-//				ELSE
-//					IF NOT IS_CHAR_DEAD cop15_f1
-//						IF IS_CHAR_IN_CAR cop15_f1 policecar7_f1
-//							GET_DRIVER_OF_CAR policecar7_f1 driverofcar_f1
-//							IF driverofcar_f1 = -1
-//								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop15_f1 policecar7_f1
-//								policecar7swap_f1flag = 2
-//							ENDIF
-//						ENDIF
-//					ELSE
-//						STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-//						policecar7swap_f1flag = 2
-//					ENDIF
-//				ENDIF
-//			ENDIF
-//		ENDIF
-//		IF policecar7swap_f1flag = 2
-//			IF IS_CHAR_DEAD cop15_f1
-//				STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-//				policecar7swap_f1flag = 3
-//			ENDIF 
-//		ENDIF
-//
-//		IF policecar7_f1flag = 1
-//			IF NOT IS_CAR_DEAD policecar7_f1
-//				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar7_f1
-//					MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
-//					MARK_CHAR_AS_NO_LONGER_NEEDED cop14_f1
-//					MARK_CHAR_AS_NO_LONGER_NEEDED cop15_f1
-//					REMOVE_BLIP policecar7_f1blip 
-//					policecar7_f1flag = 2
-//				ENDIF
-//			ELSE
-//				STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-//				MARK_CHAR_AS_NO_LONGER_NEEDED cop14_f1
-//				MARK_CHAR_AS_NO_LONGER_NEEDED cop15_f1
-//				MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
-//				REMOVE_BLIP policecar7_f1blip 
-//				policecar7_f1flag = 2
-//			ENDIF
-//		ENDIF
+// FIXEDGROVE: START - uncomment
+		IF policecar7swap_f1flag = 1
+			IF NOT IS_CAR_DEAD policecar7_f1
+				IF NOT IS_CHAR_DEAD cop14_f1
+				ELSE
+					IF NOT IS_CHAR_DEAD cop15_f1
+						IF IS_CHAR_IN_CAR cop15_f1 policecar7_f1
+							GET_DRIVER_OF_CAR policecar7_f1 driverofcar_f1
+							IF driverofcar_f1 = -1
+								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop15_f1 policecar7_f1
+								policecar7swap_f1flag = 2
+							ENDIF
+						ENDIF
+					ELSE
+						STOP_PLAYBACK_RECORDED_CAR policecar7_f1
+						policecar7swap_f1flag = 2
+					ENDIF
+				ENDIF
+			ENDIF
+		ENDIF
+		IF policecar7swap_f1flag = 2
+			IF IS_CHAR_DEAD cop15_f1
+				STOP_PLAYBACK_RECORDED_CAR policecar7_f1
+				policecar7swap_f1flag = 3
+			ENDIF 
+		ENDIF
+
+		IF policecar7_f1flag = 1
+			IF NOT IS_CAR_DEAD policecar7_f1
+				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar7_f1
+					MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
+					MARK_CHAR_AS_NO_LONGER_NEEDED cop14_f1
+					MARK_CHAR_AS_NO_LONGER_NEEDED cop15_f1
+					REMOVE_BLIP policecar7_f1blip 
+					policecar7_f1flag = 2
+				ENDIF
+			ELSE
+				STOP_PLAYBACK_RECORDED_CAR policecar7_f1
+				MARK_CHAR_AS_NO_LONGER_NEEDED cop14_f1
+				MARK_CHAR_AS_NO_LONGER_NEEDED cop15_f1
+				MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
+				REMOVE_BLIP policecar7_f1blip 
+				policecar7_f1flag = 2
+			ENDIF
+		ENDIF
+// FIXEDGROVE: END
 
 		//swap seat
 		IF policecar8swap_f1flag = 1
