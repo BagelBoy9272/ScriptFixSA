@@ -1215,7 +1215,7 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		SET_CHAR_ACCURACY f4_driver[7] 30
 
-		TASK_DRIVE_BY f4_driver[6] scplayer -1 0.0 0.0 0.0 999.0 DRIVEBY_AI_ALL_DIRN FALSE 50 
+		TASK_DRIVE_BY f4_driver[7] scplayer -1 0.0 0.0 0.0 999.0 DRIVEBY_AI_ALL_DIRN FALSE 50 // FIXEDGROVE: char was f4_driver[6]
 
 	  	SET_CHAR_DECISION_MAKER f4_driver[7] f4_decision
 		 
@@ -1223,7 +1223,7 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		IF NOT IS_CAR_DEAD f4_objective_car
 
-			TASK_CAR_MISSION f4_driver[7] f4_car[3] f4_objective_car MISSION_ESCORT_LEFT 100.0 DRIVINGMODE_AVOIDCARS
+			TASK_CAR_MISSION f4_driver[6] f4_car[3] f4_objective_car MISSION_ESCORT_LEFT 100.0 DRIVINGMODE_AVOIDCARS  // FIXEDGROVE: char was f4_driver[7]
 
 		ENDIF
 

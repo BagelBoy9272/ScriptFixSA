@@ -244,6 +244,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Mountain Cloud Boys:**
 - Fixed occasional softlock when you reached the meeting area
 
+**Ran Fa Li:**
+- Fixed the enemy Sabre driver doing the drive-by task instead of the passenger
+
 **Lure:**
 - Now uses intended variant of Rancher
 
