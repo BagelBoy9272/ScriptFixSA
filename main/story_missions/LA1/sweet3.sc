@@ -1114,6 +1114,32 @@ OR NOT IS_CHAR_DEAD drive_by_bloke[1]
 						ENDIF
 					ENDIF
 
+					// FIXEDGROVE: START - ending cutscene has audio
+					CLEAR_MISSION_AUDIO 1
+					CLEAR_MISSION_AUDIO 2
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 sweet3_index
+					SWITCH sweet3_index
+						CASE 0
+							audio_sound_file = SOUND_SWE2_LA
+							$audio_string = SWE2_LA
+						BREAK
+						CASE 1
+							audio_sound_file = SOUND_SWE2_LB
+							$audio_string = SWE2_LB
+						BREAK
+						CASE 2
+							audio_sound_file = SOUND_SWE2_LC
+							$audio_string = SWE2_LC
+						BREAK
+					ENDSWITCH
+					LOAD_MISSION_AUDIO 2 audio_sound_file
+					WHILE NOT HAS_MISSION_AUDIO_LOADED 2
+						WAIT 0
+					ENDWHILE
+					PLAY_MISSION_AUDIO 2
+					PRINT_NOW $audio_string 5000 1
+					// FIXEDGROVE: END
+
 					TIMERA = 0
 					WHILE NOT TIMERA > 3000
 						WAIT 0
