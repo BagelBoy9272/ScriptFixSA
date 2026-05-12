@@ -697,7 +697,22 @@ WHILE NOT IS_CHAR_DEAD crackhead1
 
 	IF first_dealer_cut = 0
 		IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2284.9465 -1645.3959 14.1413 20.0 15.0 5.0 FALSE
-			LOAD_MISSION_AUDIO 1 SOUND_SWE1_YK
+			//LOAD_MISSION_AUDIO 1 SOUND_SWE1_YK
+			// FIXEDGROVE: START - comment out above line and change it to switch-case
+			GENERATE_RANDOM_INT_IN_RANGE 0 2 sweet1b_index
+			SWITCH sweet1b_index
+				CASE 0
+					audio_sound_file = SOUND_SWE1_YK
+					$audio_string = &SWE1_YL
+				BREAK
+				CASE 1
+					audio_sound_file = SOUND_SWE1_YL
+					$audio_string = &SWE1_YL
+				BREAK
+			ENDSWITCH
+			LOAD_MISSION_AUDIO 1 audio_sound_file
+			// FIXEDGROVE: END
+				
 			SET_PLAYER_CONTROL player1 OFF
 			WAIT 1000
 
@@ -718,7 +733,9 @@ WHILE NOT IS_CHAR_DEAD crackhead1
 					ENDWHILE
 
 					PLAY_MISSION_AUDIO 1
-					PRINT_NOW SWE1_YK 5000 1 //Yo, check it. Pusher dealing to Grove Street boys!
+					//PRINT_NOW SWE1_YK 5000 1 //Yo, check it. Pusher dealing to Grove Street boys!
+					// FIXEDGROVE: comment out above line and use the result from previous switch-case
+					PRINT_NOW $audio_string 5000 1
 
 					WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 						WAIT 0
@@ -1087,7 +1104,21 @@ DO_FADE 1000 FADE_IN
 CLEAR_PRINTS
 
 IF NOT HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_BASEBALLBAT
-	LOAD_MISSION_AUDIO 2 SOUND_SWE1_ZC	//Hey! Grab hold of that bat over there!			
+	//LOAD_MISSION_AUDIO 2 SOUND_SWE1_ZC	//Hey! Grab hold of that bat over there!			
+	// FIXEDGROVE: START - comment out above line and change it to switch-case
+	generate_random_int_in_range 0 3 temp_int
+	switch temp_int
+		case 0
+			audio_sound_file = SOUND_SWE1_YK
+			$audio_string = &SWE1_YL
+		break
+		case 1
+			audio_sound_file = SOUND_SWE1_YL
+			$audio_string = &SWE1_YL
+		break
+	endswitch
+	LOAD_MISSION_AUDIO 1 audio_sound_file
+	// FIXEDGROVE: END
 
 	WAIT 500
 
@@ -1109,7 +1140,9 @@ IF NOT HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_BASEBALLBAT
 	ENDWHILE
 
 	PLAY_MISSION_AUDIO 2   	
-	PRINT_NOW ( SWE1_ZC ) 3000 1 //Hey! Grab hold of that bat over there!
+	//PRINT_NOW ( SWE1_ZC ) 3000 1 //Hey! Grab hold of that bat over there!
+	// FIXEDGROVE: comment out above line and use the result from previous switch-case
+	PRINT_NOW $audio_string 3000 1
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0   	
