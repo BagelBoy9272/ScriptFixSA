@@ -1106,18 +1106,22 @@ CLEAR_PRINTS
 IF NOT HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_BASEBALLBAT
 	//LOAD_MISSION_AUDIO 2 SOUND_SWE1_ZC	//Hey! Grab hold of that bat over there!			
 	// FIXEDGROVE: START - comment out above line and change it to switch-case
-	generate_random_int_in_range 0 3 temp_int
-	switch temp_int
-		case 0
-			audio_sound_file = SOUND_SWE1_YK
-			$audio_string = &SWE1_YL
-		break
-		case 1
-			audio_sound_file = SOUND_SWE1_YL
-			$audio_string = &SWE1_YL
-		break
-	endswitch
-	LOAD_MISSION_AUDIO 1 audio_sound_file
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 sweet1b_index
+	SWITCH sweet1b_index
+		CASE 0
+			audio_sound_file = SOUND_SWE1_ZA
+			$audio_string = &SWE1_ZA
+		BREAK
+		CASE 1
+			audio_sound_file = SOUND_SWE1_ZB
+			$audio_string = &SWE1_ZB
+		BREAK
+		CASE 2
+			audio_sound_file = SOUND_SWE1_ZC
+			$audio_string = &SWE1_ZC
+		BREAK
+	ENDSWITCH
+	LOAD_MISSION_AUDIO 2 audio_sound_file
 	// FIXEDGROVE: END
 
 	WAIT 500
