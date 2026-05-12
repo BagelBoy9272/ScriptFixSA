@@ -2264,6 +2264,8 @@ IF ca1_stage = 4
 						GOSUB ca1_goon_create2
 						ca1_stage = 5
 						ca1_cut = 0
+						ca1_random_dialogue = 0 // FIXEDGROVE
+						ca1_counter = 0 // FIXEDGROVE
 				 	ENDIF
 				ENDIF
 		  	ENDIF
@@ -2277,6 +2279,28 @@ IF ca1_stage = 5
 	AND	ca1_cut < 3
 		SLIDE_OBJECT fourdragons_door 1903.383 967.62 15.438 0.0 0.0 0.1 FALSE
 	ENDIF
+	// FIXEDGROVE: START - ending cutscene has audio
+	IF ca1_cut = 0
+		CLEAR_MISSION_AUDIO 1
+		CLEAR_MISSION_AUDIO 2
+		ca1_audio_playing = 0
+		CLEAR_PRINTS
+	ENDIF
+	IF ca1_random_dialogue = 0
+		IF ca1_audio_playing = 0
+		AND ca1_counter = 0
+			ca1_counter = 59
+			ca1_random_dialogue++
+		ENDIF
+	ENDIF
+	IF ca1_random_dialogue = 1
+		IF ca1_audio_playing = 0
+		AND ca1_counter = 0
+			ca1_counter = 60
+			ca1_random_dialogue++
+		ENDIF
+	ENDIF
+	// FIXEDGROVE: END
 	IF ca1_cut = 0
 		IF NOT IS_CAR_DEAD ca1_truck
 		AND NOT IS_CHAR_DEAD ca1_goon
