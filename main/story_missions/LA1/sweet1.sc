@@ -610,7 +610,25 @@ WHILE NOT HAS_ANIMATION_LOADED GRAFFITI
 ENDWHILE
 
 LOAD_MISSION_AUDIO 1 SOUND_SWE1_CA //There's another two Balla tags in this hood.
-LOAD_MISSION_AUDIO 2 SOUND_SWE1_AR //Yo, watch my back while I tag this sucker.
+//LOAD_MISSION_AUDIO 2 SOUND_SWE1_AR //Yo, watch my back while I tag this sucker.
+// FIXEDGROVE: START - comment out above line and change it to switch-case
+GENERATE_RANDOM_INT_IN_RANGE 0 3 sweet1_index
+SWITCH sweet1_index
+	CASE 0
+		audio_sound_file = SOUND_SWE1_AP
+		$audio_string = &SWE1_AP
+	BREAK
+	CASE 1
+		audio_sound_file = SOUND_SWE1_AQ
+		$audio_string = &SWE1_AQ
+	BREAK
+	CASE 2
+		audio_sound_file = SOUND_SWE1_AR
+		$audio_string = &SWE1_AR
+	BREAK
+ENDSWITCH
+LOAD_MISSION_AUDIO 2 audio_sound_file
+// FIXEDGROVE: END
 
 IF IS_CHAR_IN_ANY_CAR scplayer
 	WARP_CHAR_FROM_CAR_TO_COORD scplayer 2094.70 -1652.05 12.65  
@@ -675,7 +693,10 @@ POINT_CAMERA_AT_POINT 2101.3691 -1648.3153 13.3438 JUMP_CUT
 	ENDWHILE
 
 	PLAY_MISSION_AUDIO 2
-	PRINT_NOW (SWE1_AR) 10000 1 //Yo, watch my back while I tag this sucker
+//	PRINT_NOW (SWE1_AR) 10000 1 //Yo, watch my back while I tag this sucker
+// FIXEDGROVE: comment out above line and use the result from previous switch-case
+PRINT_NOW $audio_string 10000 1
+
 	IF NOT IS_CHAR_DEAD sweet
 		START_CHAR_FACIAL_TALK sweet 3000
 	ENDIF
@@ -1015,7 +1036,25 @@ IF IS_CHAR_DEAD	sweet
 	GOTO mission_sweet1_failed
 ENDIF
 
-LOAD_MISSION_AUDIO 1 SOUND_SWE1_AS //C’mon, let’s cruise into Ballas territory.
+//LOAD_MISSION_AUDIO 1 SOUND_SWE1_AS //C’mon, let’s cruise into Ballas territory.
+// FIXEDGROVE: START - comment out above line and change it to switch-case
+GENERATE_RANDOM_INT_IN_RANGE 0 3 sweet1_index
+SWITCH sweet1_index
+	CASE 0
+		audio_sound_file = SOUND_SWE1_AS
+		$audio_string = &SWE1_AS
+	BREAK
+	CASE 1
+		audio_sound_file = SOUND_SWE1_AT
+		$audio_string = &SWE1_AT
+	BREAK
+	CASE 2
+		audio_sound_file = SOUND_SWE1_AU
+		$audio_string = &SWE1_AU
+	BREAK
+ENDSWITCH
+LOAD_MISSION_AUDIO 1 audio_sound_file
+// FIXEDGROVE: END
 
 WHILE NOT IS_CHAR_IN_CAR scplayer sweet_car
 	WAIT 0
@@ -1072,7 +1111,9 @@ WHILE NOT HAS_MISSION_AUDIO_LOADED 1
 ENDWHILE
 
 PLAY_MISSION_AUDIO 1
-PRINT_NOW ( SWE1_AS ) 3000 1 // C’mon, let’s cruise into Ballas territory.
+//PRINT_NOW ( SWE1_AS ) 3000 1 // C’mon, let’s cruise into Ballas territory.
+// FIXEDGROVE: comment out above line and use the result from previous switch-case
+PRINT_NOW $audio_string 3000 1
 
 WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 	WAIT 0
@@ -1644,7 +1685,37 @@ DO_FADE 300 FADE_IN
 
 TIMERA = 0
 
-LOAD_MISSION_AUDIO 1 SOUND_SWE1_BH
+//LOAD_MISSION_AUDIO 1 SOUND_SWE1_BH
+// FIXEDGROVE: START - comment out above line and change it to switch-case
+GENERATE_RANDOM_INT_IN_RANGE 0 6 sweet1_index
+SWITCH sweet1_index
+	CASE 0
+		audio_sound_file = SOUND_SWE1_BG
+		$audio_string = &SWE1_BG
+	BREAK
+	CASE 1
+		audio_sound_file = SOUND_SWE1_BH
+		$audio_string = &SWE1_BH
+	BREAK
+	CASE 2
+		audio_sound_file = SOUND_SWE1_BJ
+		$audio_string = &SWE1_BJ
+	BREAK
+	CASE 3
+		audio_sound_file = SOUND_SWE1_BK
+		$audio_string = &SWE1_BK
+	BREAK
+	CASE 4
+		audio_sound_file = SOUND_SWE1_BL
+		$audio_string = &SWE1_BL
+	BREAK
+	CASE 5
+		audio_sound_file = SOUND_SWE1_BM
+		$audio_string = &SWE1_BM
+	BREAK
+ENDSWITCH
+LOAD_MISSION_AUDIO 1 audio_sound_file
+// FIXEDGROVE: END
 
 WHILE NOT TIMERA > 3500	
 	WAIT 0
@@ -1691,7 +1762,9 @@ IF NOT IS_CAR_DEAD sweet_car
 ENDIF
 
 PLAY_MISSION_AUDIO 1
-PRINT_NOW ( SWE1_BH ) 10000 1 // CARL, QUICK, GET IN!
+//PRINT_NOW ( SWE1_BH ) 10000 1 // CARL, QUICK, GET IN!
+// FIXEDGROVE: comment out above line and use the result from previous switch-case
+PRINT_NOW $audio_string 10000 1
 
 WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 	WAIT 0
@@ -2140,21 +2213,27 @@ RETURN
 get_back_in_the_car:
 	
 	CLEAR_MISSION_AUDIO 2
-	IF get_in_counter_swee1 = 0
-		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BM	//Get in, nigga!
-	ENDIF
-
-	IF get_in_counter_swee1 = 1
-		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BS	//CJ, for once, don't be a punk!
-	ENDIF
-
-	IF get_in_counter_swee1 = 2
-		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BP	//Don't be a buster, CJ!
-	ENDIF
-
-	IF get_in_counter_swee1 = 3			
-		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BG // CJ, GET IN!
-	ENDIF
+	// FIXEDGROVE: START - change from IF to SWITCH and make it random
+GENERATE_RANDOM_INT_IN_RANGE 0 4 get_in_counter_swee1
+SWITCH get_in_counter_swee1
+	CASE 0
+		audio_sound_file = SOUND_SWE1_BM
+		$audio_string = SWE1_BM
+	BREAK
+	CASE 1
+		audio_sound_file = SOUND_SWEX_BS
+		$audio_string = SWEX_BS
+	BREAK
+	CASE 2
+		audio_sound_file = SOUND_SWEX_BP
+		$audio_string = SWEX_BP
+	BREAK
+	CASE 3
+		audio_sound_file = SOUND_SWE1_BG
+		$audio_string = SWE1_BG
+	BREAK
+ENDSWITCH
+LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -2183,19 +2262,7 @@ get_back_in_the_car:
 	ENDWHILE
 
 	PLAY_MISSION_AUDIO 2 
-	  	
-	IF get_in_counter_swee1 = 0
-		PRINT_NOW ( SWE1_BM ) 3000 1 //Get in, nigga!	
-	ENDIF
-	IF get_in_counter_swee1 = 1
-		PRINT_NOW ( SWEX_BS ) 3000 1 //	CJ, for once, don't be a punk!
-	ENDIF
-	IF get_in_counter_swee1 = 2
-		PRINT_NOW ( SWEX_BP ) 3000 1 //Don't be a buster, CJ!
-	ENDIF
-	IF get_in_counter_swee1 = 3
-		PRINT_NOW ( SWE1_BG ) 3000 1 // CJ, GET IN!
-	ENDIF
+	PRINT_NOW $audio_string 3000 1 // FIXEDGROVE: changed from IF to use the result
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0
@@ -2219,11 +2286,14 @@ get_back_in_the_car:
 
 	ENDWHILE
 
+	// FIXEDGROVE: comment out not needed
+	/*
 	get_in_counter_swee1 ++
 
 	IF get_in_counter_swee1 > 3
 		get_in_counter_swee1 = 0
 	ENDIF
+	*/
 
 RETURN
 
