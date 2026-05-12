@@ -304,7 +304,7 @@ help_text_cat4 = 0
 flag_dont_make_cat_leave_car = 1
 
 flag_text_otb = 0
-flag_text_cat_police_killing_cat4 = 0
+flag_text_cat_police_killing_cat4 = -1 // FIXEDGROVE: changed from 0 to -1
 
 flag_has_otb_door_been_open = 0
 
@@ -3518,211 +3518,70 @@ RETURN
 
 cat_talks_nasty_to_cops_cat4:
 
-IF flag_text_cat_police_killing_cat4 = 0
-	
-	flag_text_cat_police_killing_cat4 = 1
+// FIXEDGROVE: START - change from IF to SWITCH and make it random
+temp_cop_cat4 = flag_text_cat_police_killing_cat4 // which one played previously
+WHILE NOT temp_cop_cat4 = flag_text_cat_police_killing_cat4
+	GENERATE_RANDOM_INT_IN_RANGE 0 11 flag_text_cat_police_killing_cat4
+ENDWHILE
+SWITCH flag_text_cat_police_killing_cat4
+	CASE 0
+		audio_sound_file = SOUND_CATX_SA
+		$audio_string = CATX_SA
+	BREAK
+	CASE 1
+		audio_sound_file = SOUND_CATX_SB
+		$audio_string = CATX_SB
+	BREAK
+	CASE 2
+		audio_sound_file = SOUND_CATX_SC
+		$audio_string = CATX_SC
+	BREAK
+	CASE 3
+		audio_sound_file = SOUND_CATX_SD
+		$audio_string = CATX_SD
+	BREAK
+	CASE 4
+		audio_sound_file = SOUND_CATX_SE
+		$audio_string = CATX_SE
+	BREAK
+	CASE 5
+		audio_sound_file = SOUND_CATX_SF
+		$audio_string = CATX_SF
+	BREAK
+	CASE 6
+		audio_sound_file = SOUND_CATX_SG
+		$audio_string = CATX_SG
+	BREAK
+	CASE 7
+		audio_sound_file = SOUND_CATX_SH
+		$audio_string = CATX_SH
+	BREAK
+	CASE 8
+		audio_sound_file = SOUND_CATX_TD
+		$audio_string = CATX_TD
+	BREAK
+	CASE 9
+		audio_sound_file = SOUND_CATX_TJ
+		$audio_string = CATX_TJ
+	BREAK
+	CASE 10
+		audio_sound_file = SOUND_CATX_TQ
+		$audio_string = CATX_TQ
+	BREAK
+ENDSWITCH
+LOAD_MISSION_AUDIO 1 audio_sound_file
+WHILE NOT HAS_MISSION_AUDIO_LOADED 1
+	WAIT 0
+ENDWHILE
+PRINT_NOW $audio_string 10000 1
+PLAY_MISSION_AUDIO 1
+WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
+	WAIT 0
+ENDWHILE
+CLEAR_THIS_PRINT $audio_string
 
-
-	LOAD_MISSION_AUDIO 1 SOUND_CATX_SA
-	 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-	 	WAIT 0
-	 ENDWHILE  
-
-	PRINT_NOW CATX_SA 10000 1 
-	PLAY_MISSION_AUDIO 1
-	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-		WAIT 0
-	ENDWHILE
-	CLEAR_THIS_PRINT CATX_SA
-	RETURN
-
-ENDIF
-
-
-IF flag_text_cat_police_killing_cat4 = 1
-
-	LOAD_MISSION_AUDIO 1 SOUND_CATX_SB
-	 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-	 	WAIT 0
-	 ENDWHILE  
-
-	PRINT_NOW CATX_SB 10000 1 
-	PLAY_MISSION_AUDIO 1
-	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-		WAIT 0
-	ENDWHILE
-	CLEAR_THIS_PRINT CATX_SB
-
-
-	flag_text_cat_police_killing_cat4 = 2
-	RETURN
-ENDIF
-
-
-IF flag_text_cat_police_killing_cat4 = 2
-
-	LOAD_MISSION_AUDIO 1 SOUND_CATX_SC
-	 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-	 	WAIT 0
-	 ENDWHILE  
-
-	PRINT_NOW CATX_SC 10000 1 
-	PLAY_MISSION_AUDIO 1
-	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-		WAIT 0
-	ENDWHILE
-	CLEAR_THIS_PRINT CATX_SC
-
-
- 	flag_text_cat_police_killing_cat4 = 3
-	RETURN
-ENDIF
-
-
-IF flag_text_cat_police_killing_cat4 = 3
-	 	flag_text_cat_police_killing_cat4 = 4
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_SD
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_SD 10000 1 
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_SD
-		RETURN
-
-	
-ENDIF
-
-
-IF flag_text_cat_police_killing_cat4 = 4
-	 	flag_text_cat_police_killing_cat4 = 5
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_SE
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_SE 10000 1 
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_SE
-		RETURN
-ENDIF
-
-
-IF flag_text_cat_police_killing_cat4 = 5
-
-
-	 	flag_text_cat_police_killing_cat4 = 6
-
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_SF
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_SF 10000 1 // cat	get in the car
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_SF
-		RETURN
-ENDIF
-
-
-IF flag_text_cat_police_killing_cat4 = 6
-	 	flag_text_cat_police_killing_cat4 = 7
-
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_SG
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_SG 10000 1 // cat	get in the car
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_SG
-		RETURN
-ENDIF
-
-
-IF flag_text_cat_police_killing_cat4 = 7
-
-	 	flag_text_cat_police_killing_cat4 = 8
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_SH
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_SH 10000 1 // cat	get in the car
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_SH
-		RETURN
-ENDIF
-
-IF flag_text_cat_police_killing_cat4 = 8
-
-	 	flag_text_cat_police_killing_cat4 = 9
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_TD
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_TD 10000 1 // cat	get in the car
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_TD
-		RETURN
-ENDIF
-
-IF flag_text_cat_police_killing_cat4 = 9
-
-	 	flag_text_cat_police_killing_cat4 = 10
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_TJ
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_TJ 10000 1 // cat	get in the car
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_TJ
-		RETURN
-ENDIF
-
-IF flag_text_cat_police_killing_cat4 = 10
-
-	 	flag_text_cat_police_killing_cat4 = 0
-		LOAD_MISSION_AUDIO 1 SOUND_CATX_TQ
-		 WHILE NOT HAS_MISSION_AUDIO_LOADED 1
-		 	WAIT 0
-		 ENDWHILE  
-
-		PRINT_NOW CATX_TQ 10000 1 // cat	get in the car
-		PLAY_MISSION_AUDIO 1
-		WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-			WAIT 0
-		ENDWHILE
-		CLEAR_THIS_PRINT CATX_TQ
-		RETURN
-ENDIF
-
-
-
+RETURN
+// FIXEDGROVE: END
 
 
 				
