@@ -829,7 +829,22 @@ GOTO driv2_loop
 							ENDIF
 
 						ENDIF
- 
+
+					// FIXEDGROVE: START - disable drive-by if player is near package
+					// allows the animation to play and prevents accidentally blowing up the bike
+						LVAR_INT d2_player_cant_driveby
+						IF d2_player_cant_driveby = 0
+							SET_PLAYER_CAN_DO_DRIVE_BY player1 FALSE
+							d2_player_cant_driveby = 1
+						ENDIF
+					ELSE
+					// if player is not near package, re-enable drive-by
+						IF d2_player_cant_driveby = 1
+							SET_PLAYER_CAN_DO_DRIVE_BY player1 TRUE
+							d2_player_cant_driveby = 0
+						ENDIF
+					// FIXEDGROVE: END
+
 					ENDIF
 
 					IF NOT d2_package_collected[d2_index] = 1
