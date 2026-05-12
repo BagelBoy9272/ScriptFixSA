@@ -1185,9 +1185,11 @@ CLEAR_HELP
 			WHILE temp_int < 7
 				IF DOES_VEHICLE_EXIST mission_vehicle[temp_int]
 					IF NOT IS_CAR_DEAD mission_vehicle[temp_int]
-						IF LOCATE_CAR_3D mission_vehicle[temp_int] -2054.4736 222.6438 35.8767 6.0 6.0 3.0 mission_vehicle[temp_int]
-							DELETE_CAR mission_vehicle[temp_int]
-						ENDIF
+						IF NOT mission_vehicle[temp_int] = pcar // FIXEDGROVE: check if it's the car the player is in
+							IF LOCATE_CAR_3D mission_vehicle[temp_int] -2054.4736 222.6438 35.8767 6.0 6.0 3.0 mission_vehicle[temp_int]
+								DELETE_CAR mission_vehicle[temp_int]
+							ENDIF
+						ENDIF // FIXEDGROVE: check if it's the car the player is in
 					ELSE
 						DELETE_CAR mission_vehicle[temp_int]
 					ENDIF
