@@ -1205,6 +1205,7 @@ SET_PED_DENSITY_MULTIPLIER 0.0
 
 
 		IF flag_cutscene1_cat4 = 1
+		SKIP_CUTSCENE_START // FIXEDGROVE
 
 			IF NOT IS_CHAR_DEAD catalina
 			  //	CLEAR_CHAR_TASKS catalina
@@ -1370,6 +1371,7 @@ SET_PED_DENSITY_MULTIPLIER 0.0
 
 
 			IF TIMERB > 10000
+				SKIP_CUTSCENE_END // FIXEDGROVE
 				flag_cutscene1_cat4 = 10
 			ENDIF
 
@@ -1377,6 +1379,15 @@ SET_PED_DENSITY_MULTIPLIER 0.0
 			CLEAR_MISSION_AUDIO 1
 			flag_cutscene1_cat4 = 10
 		ENDIF
+
+		// FIXEDGROVE: START
+		IF flag_cutscene1_cat4 = 10
+			CLEAR_MISSION_AUDIO 1
+			IF NOT IS_CHAR_DEAD catalina
+				CLEAR_CHAR_TASKS catalina
+			ENDIF
+		ENDIF
+		// FIXEDGROVE: END
 
 	ENDWHILE
 
@@ -2360,6 +2371,7 @@ SET_PED_DENSITY_MULTIPLIER 0.0
 
 		IF flag_safe_explosion_delay = 1
 			IF TIMERA > 500
+				CLEAR_PRINTS // FIXEDGROVE
 				ADD_EXPLOSION 820.5 9.7 1003.2164 EXPLOSION_GRENADE
 
 				index_cat4 = 4
@@ -2685,8 +2697,13 @@ SET_PED_DENSITY_MULTIPLIER 0.0
 					//	ENDIF
 					ENDIF
 
-
-					
+					// FIXEDGROVE: START - added to make black screen time shorter
+					IF flag_cutscene1_cat4 = 5
+						IF TIMERA > 1000
+							flag_cutscene1_cat4 = 10
+						ENDIF
+					ENDIF
+					// FIXEDGROVE: END
 
 					IF TIMERB > 14800
 						flag_cutscene1_cat4 = 10
