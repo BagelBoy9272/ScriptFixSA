@@ -232,6 +232,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed Woozie ped model being used instead of Claude
 - Swapped an opponent's car with Claude's car, to match the cutscene
 
+**Deconstruction:**
+- Added check to not delete a mission car if the player is using it
+
 **Air Raid:**
 - Fixed "stealing" of player's heavy weapons
 
