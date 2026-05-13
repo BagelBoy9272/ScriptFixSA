@@ -254,6 +254,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Ice Cold Killa:**
 - Fixed typo in coords for CREATE_BIRDS command 
 
+**T-Bone Mendez:**
+- Disable drive-by when near a package to allow the animation to play and prevent accidentally blowing up the bike
+
 **Pier 69:**
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 - Added an extra member variant
