@@ -717,7 +717,7 @@ GOTO driv2_loop
 			IF DOES_OBJECT_EXIST d2_packages[d2_index]
 			AND NOT d2_package_collected[d2_index] = 1
 				IF IS_OBJECT_ATTACHED d2_packages[d2_index]
-					IF LOCATE_CHAR_ANY_MEANS_OBJECT_3D scplayer d2_packages[d2_index] 6.0 6.0 6.0 TRUE
+					IF LOCATE_CHAR_ANY_MEANS_OBJECT_3D scplayer d2_packages[d2_index] 6.0 6.0 6.0 FALSE
 						d2_player_near_package = 1
 					ENDIF
 				ENDIF
