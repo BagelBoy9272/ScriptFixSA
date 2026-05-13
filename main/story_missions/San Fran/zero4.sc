@@ -1495,6 +1495,7 @@ invincible_timer+= m_time_diff
 							ENDIF
 							*/
 							temp_int3 = obstruct_audio1 // which one played previously
+							GENERATE_RANDOM_INT_IN_RANGE 0 5 obstruct_audio1
 							WHILE temp_int3 = obstruct_audio1
 								GENERATE_RANDOM_INT_IN_RANGE 0 5 obstruct_audio1
 							ENDWHILE
@@ -1633,6 +1634,7 @@ invincible_timer+= m_time_diff
 							ENDIF
 							*/
 							temp_int3 = bomb_tank_dialogue // which one played previously
+							GENERATE_RANDOM_INT_IN_RANGE 0 6 bomb_tank_dialogue
 							WHILE temp_int3 = bomb_tank_dialogue
 								GENERATE_RANDOM_INT_IN_RANGE 0 6 bomb_tank_dialogue
 							ENDWHILE
@@ -1802,6 +1804,7 @@ invincible_timer+= m_time_diff
 								ENDIF	
 								*/
 								temp_int3 = nearly_dead_dialogue // which one played previously
+								GENERATE_RANDOM_INT_IN_RANGE 0 3 nearly_dead_dialogue
 								WHILE temp_int3 = nearly_dead_dialogue
 									GENERATE_RANDOM_INT_IN_RANGE 0 3 nearly_dead_dialogue
 								ENDWHILE
@@ -2055,6 +2058,7 @@ invincible_timer+= m_time_diff
 							ENDIF
 							*/
 							temp_int3 = dead_dialogue // which one played previously
+							GENERATE_RANDOM_INT_IN_RANGE 0 3 dead_dialogue
 							WHILE temp_int3 = dead_dialogue
 								GENERATE_RANDOM_INT_IN_RANGE 0 3 dead_dialogue
 							ENDWHILE

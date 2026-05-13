@@ -3520,7 +3520,8 @@ cat_talks_nasty_to_cops_cat4:
 
 // FIXEDGROVE: START - change from IF to SWITCH and make it random
 temp_cop_cat4 = flag_text_cat_police_killing_cat4 // which one played previously
-WHILE NOT temp_cop_cat4 = flag_text_cat_police_killing_cat4
+GENERATE_RANDOM_INT_IN_RANGE 0 11 flag_text_cat_police_killing_cat4
+WHILE temp_cop_cat4 = flag_text_cat_police_killing_cat4
 	GENERATE_RANDOM_INT_IN_RANGE 0 11 flag_text_cat_police_killing_cat4
 ENDWHILE
 SWITCH flag_text_cat_police_killing_cat4

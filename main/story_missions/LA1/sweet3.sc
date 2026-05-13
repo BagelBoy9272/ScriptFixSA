@@ -1121,15 +1121,15 @@ OR NOT IS_CHAR_DEAD drive_by_bloke[1]
 					SWITCH sweet3_index
 						CASE 0
 							audio_sound_file = SOUND_SWE2_LA
-							$audio_string = SWE2_LA
+							$audio_string = &SWE2_LA
 						BREAK
 						CASE 1
 							audio_sound_file = SOUND_SWE2_LB
-							$audio_string = SWE2_LB
+							$audio_string = &SWE2_LB
 						BREAK
 						CASE 2
 							audio_sound_file = SOUND_SWE2_LC
-							$audio_string = SWE2_LC
+							$audio_string = &SWE2_LC
 						BREAK
 					ENDSWITCH
 					LOAD_MISSION_AUDIO 2 audio_sound_file
