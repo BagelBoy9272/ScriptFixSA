@@ -202,6 +202,10 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Small Town Bank:**
 - Fixed facial talk anim
 
+**Against All Odds:**
+- Added ability to skip first cutscene after the first voiceline played
+- Made the black screen before exiting the interior in cutscene shorter
+
 **Big Smoke's Cash:**
 - Fixed mission cancelling suddenly if player gets a phonecall
 - Courier blip is only added if the mission was accepted
