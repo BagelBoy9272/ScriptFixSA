@@ -268,6 +268,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made it so voicelines and subtitles don't cut out during the fade out after a cutscene skip
 
 **Test Drive:**
+- Restored a few cars driving around
+- Restored Cesar voiceline about a motorbike on the road
+- Restored peds that would enter a bus
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Customs Fast Track:**
