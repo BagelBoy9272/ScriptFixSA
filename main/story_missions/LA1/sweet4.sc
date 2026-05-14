@@ -149,12 +149,14 @@ MISSION_END
 		LVAR_FLOAT sw4_hood_car_x[4] sw4_hood_car_y[4] sw4_hood_car_z[4] sw4_hood_car_h[4]
 		REQUEST_MODEL ballas1
 		REQUEST_MODEL ballas2
+		REQUEST_MODEL ballas3 // FIXEDGROVE
 		REQUEST_MODEL COLT45
 		REQUEST_MODEL VOODOO
 		REQUEST_MODEL SPRAYCAN
 		LOAD_ALL_MODELS_NOW
 		WHILE NOT HAS_MODEL_LOADED ballas1
 		OR NOT HAS_MODEL_LOADED ballas2
+		OR NOT HAS_MODEL_LOADED ballas3 // FIXEDGROVE
 		OR NOT HAS_MODEL_LOADED COLT45
 		OR NOT HAS_MODEL_LOADED VOODOO
 		OR NOT HAS_MODEL_LOADED SPRAYCAN
@@ -169,6 +171,14 @@ MISSION_END
 		OR NOT HAS_ANIMATION_LOADED GHETTO_DB
 		WAIT 0
 		ENDWHILE
+
+		// FIXEDGROVE: START - random model variations
+		LVAR_INT sw4_char_model[10] sw4_char_select
+		sw4_char_model[0] = BALLAS1
+		sw4_char_model[1] = BALLAS2
+		sw4_char_model[2] = BALLAS3
+		// FIXEDGROVE: END
+
 		sw4_create = 1
 	RETURN
 	ADD_BLIP_FOR_COORD 2075.55 -1831.09 12.21 sw4_spray_marker
@@ -190,8 +200,9 @@ MISSION_END
 		sw4_flat_hood_h[0] = 314.1323
 
 		CLEAR_AREA sw4_hood_car_x[0] sw4_hood_car_y[0] sw4_hood_car_z[0] 0.5 TRUE
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
 		CREATE_CAR VOODOO sw4_hood_car_x[0] sw4_hood_car_y[0] sw4_hood_car_z[0] sw4_hood_car[0]
-		CREATE_CHAR_INSIDE_CAR sw4_hood_car[0] PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood[0]
+		CREATE_CHAR_INSIDE_CAR sw4_hood_car[0] PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood[0] // FIXEDGROVE: was ballas1
 		SET_CAR_HEADING sw4_hood_car[0]	sw4_hood_car_h[0]
 		SUPPRESS_CAR_MODEL VOODOO
 		OPEN_CAR_DOOR sw4_hood_car[0] FRONT_LEFT_DOOR
@@ -208,7 +219,8 @@ MISSION_END
 		sw4_flat_hood_z[1] = 24.02
 		sw4_flat_hood_h[1] = 315.85 
 		CLEAR_AREA sw4_flat_hood_x[1] sw4_flat_hood_y[1] sw4_flat_hood_z[1] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[1] sw4_flat_hood_y[1] sw4_flat_hood_z[1] sw4_flat_hood[1]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[1] sw4_flat_hood_y[1] sw4_flat_hood_z[1] sw4_flat_hood[1] // FIXEDGROVE: was ballas2
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[1] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[1] sw4_flat_hood_h[1]
 		SET_CHAR_ACCURACY sw4_flat_hood[1] sw4_hood_acc
@@ -222,7 +234,8 @@ MISSION_END
 		sw4_flat_hood_z[2] = 24.02
 		sw4_flat_hood_h[2] = 54.15 
 		CLEAR_AREA sw4_flat_hood_x[2] sw4_flat_hood_y[2] sw4_flat_hood_z[2] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[2] sw4_flat_hood_y[2] sw4_flat_hood_z[2] sw4_flat_hood[2]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[2] sw4_flat_hood_y[2] sw4_flat_hood_z[2] sw4_flat_hood[2] // FIXEDGROVE: was ballas1
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[2] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[2] sw4_flat_hood_h[2]
 		SET_CHAR_ACCURACY sw4_flat_hood[2] sw4_hood_acc
@@ -235,7 +248,8 @@ MISSION_END
 		sw4_flat_hood_z[3] = 24.02
 		sw4_flat_hood_h[3] = 214.36 
 		CLEAR_AREA sw4_flat_hood_x[3] sw4_flat_hood_y[3] sw4_flat_hood_z[3] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[3] sw4_flat_hood_y[3] sw4_flat_hood_z[3] sw4_flat_hood[3]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[3] sw4_flat_hood_y[3] sw4_flat_hood_z[3] sw4_flat_hood[3] // FIXEDGROVE: was ballas1
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[3] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[3] sw4_flat_hood_h[3]
 		SET_CHAR_ACCURACY sw4_flat_hood[3] sw4_hood_acc
@@ -258,8 +272,9 @@ MISSION_END
 		sw4_flat_hood_h[4] = 5.0
 		
 		CLEAR_AREA sw4_flat_hood_x[4] sw4_flat_hood_y[4] sw4_flat_hood_z[4] 0.5 TRUE
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
 		CREATE_CAR VOODOO sw4_hood_car_x[1] sw4_hood_car_y[1] sw4_hood_car_z[1] sw4_hood_car[1]
-		CREATE_CHAR_INSIDE_CAR sw4_hood_car[1] PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood[4]
+		CREATE_CHAR_INSIDE_CAR sw4_hood_car[1] PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood[4] // FIXEDGROVE: was ballas1
 		SET_CAR_HEADING sw4_hood_car[1]	sw4_hood_car_h[1]
 		POP_CAR_BOOT sw4_hood_car[1] 
 		//CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[4] sw4_flat_hood_y[4] sw4_flat_hood_z[4] sw4_flat_hood[4]
@@ -276,7 +291,8 @@ MISSION_END
 		sw4_flat_hood_z[5] = 24.02
 		sw4_flat_hood_h[5] = 182.8706 
 		CLEAR_AREA sw4_flat_hood_x[5] sw4_flat_hood_y[5] sw4_flat_hood_z[5] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[5] sw4_flat_hood_y[5] sw4_flat_hood_z[5] sw4_flat_hood[5]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[5] sw4_flat_hood_y[5] sw4_flat_hood_z[5] sw4_flat_hood[5] // FIXEDGROVE: was ballas2
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[5] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[5] sw4_flat_hood_h[5]
 		SET_CHAR_ACCURACY sw4_flat_hood[5] sw4_hood_acc
@@ -290,7 +306,8 @@ MISSION_END
 		sw4_flat_hood_z[6] = 24.02
 		sw4_flat_hood_h[6] = 105.53 
 		CLEAR_AREA sw4_flat_hood_x[6] sw4_flat_hood_y[6] sw4_flat_hood_z[6] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[6] sw4_flat_hood_y[6] sw4_flat_hood_z[6] sw4_flat_hood[6]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[6] sw4_flat_hood_y[6] sw4_flat_hood_z[6] sw4_flat_hood[6] // FIXEDGROVE: was ballas1
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[6] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[6] sw4_flat_hood_h[6]
 		SET_CHAR_ACCURACY sw4_flat_hood[6] sw4_hood_acc
@@ -304,7 +321,8 @@ MISSION_END
 		sw4_flat_hood_z[7] = 23.15
 		sw4_flat_hood_h[7] = 58.035 
 		CLEAR_AREA sw4_flat_hood_x[7] sw4_flat_hood_y[7] sw4_flat_hood_z[7] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[7] sw4_flat_hood_y[7] sw4_flat_hood_z[7] sw4_flat_hood[7]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[7] sw4_flat_hood_y[7] sw4_flat_hood_z[7] sw4_flat_hood[7] // FIXEDGROVE: was ballas2
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[7] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[7] sw4_flat_hood_h[7]
 		SET_CHAR_ACCURACY sw4_flat_hood[7] sw4_hood_acc
@@ -321,7 +339,8 @@ MISSION_END
 		sw4_flat_hood_z[8] = 23.02  
 		sw4_flat_hood_h[8] = 257.59 
 		CLEAR_AREA sw4_flat_hood_x[8] sw4_flat_hood_y[8] sw4_flat_hood_z[8] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[8] sw4_flat_hood_y[8] sw4_flat_hood_z[8] sw4_flat_hood[8]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[8] sw4_flat_hood_y[8] sw4_flat_hood_z[8] sw4_flat_hood[8] // FIXEDGROVE: was ballas1
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[8] WEAPONTYPE_TEC9 sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[8] sw4_flat_hood_h[8]
 		SET_CHAR_ACCURACY sw4_flat_hood[8] sw4_hood_acc
@@ -334,7 +353,8 @@ MISSION_END
 		sw4_flat_hood_z[9] = 23.03  
 		sw4_flat_hood_h[9] = 238.46 
 		CLEAR_AREA sw4_flat_hood_x[9] sw4_flat_hood_y[9] sw4_flat_hood_z[9] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[9] sw4_flat_hood_y[9] sw4_flat_hood_z[9] sw4_flat_hood[9]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[9] sw4_flat_hood_y[9] sw4_flat_hood_z[9] sw4_flat_hood[9] // FIXEDGROVE: was ballas1
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[9] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[9] sw4_flat_hood_h[9]
 		SET_CHAR_ACCURACY sw4_flat_hood[9] sw4_hood_acc
@@ -347,7 +367,8 @@ MISSION_END
 		sw4_flat_hood_z[10] = 23.02  
 		sw4_flat_hood_h[10] = 45.33 
 		CLEAR_AREA sw4_flat_hood_x[10] sw4_flat_hood_y[10] sw4_flat_hood_z[10] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[10] sw4_flat_hood_y[10] sw4_flat_hood_z[10] sw4_flat_hood[10]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[10] sw4_flat_hood_y[10] sw4_flat_hood_z[10] sw4_flat_hood[10] // FIXEDGROVE: was ballas2
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[10] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[10] sw4_flat_hood_h[10]
 		SET_CHAR_ACCURACY sw4_flat_hood[10] sw4_hood_acc
@@ -360,7 +381,8 @@ MISSION_END
 		sw4_flat_hood_z[11] = 23.03  
 		sw4_flat_hood_h[11] = 18.46 
 		CLEAR_AREA sw4_flat_hood_x[11] sw4_flat_hood_y[11] sw4_flat_hood_z[11] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[11] sw4_flat_hood_y[11] sw4_flat_hood_z[11] sw4_flat_hood[11]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[11] sw4_flat_hood_y[11] sw4_flat_hood_z[11] sw4_flat_hood[11] // FIXEDGROVE: was ballas2
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[11] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[11] sw4_flat_hood_h[11]
 		SET_CHAR_ACCURACY sw4_flat_hood[11] sw4_hood_acc
@@ -376,7 +398,8 @@ MISSION_END
 		sw4_flat_hood_z[12] = 20.17  
 		sw4_flat_hood_h[12] = 318.72 
 		CLEAR_AREA sw4_flat_hood_x[12] sw4_flat_hood_y[12] sw4_flat_hood_z[12] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[12] sw4_flat_hood_y[12] sw4_flat_hood_z[12] sw4_flat_hood[12]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[12] sw4_flat_hood_y[12] sw4_flat_hood_z[12] sw4_flat_hood[12] // FIXEDGROVE: was ballas1
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[12] WEAPONTYPE_TEC9 sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[12] sw4_flat_hood_h[12]
 		SET_CHAR_ACCURACY sw4_flat_hood[12] sw4_hood_acc
@@ -389,7 +412,8 @@ MISSION_END
 		sw4_flat_hood_z[13] = 20.04  
 		sw4_flat_hood_h[13] = 254.99
 		CLEAR_AREA sw4_flat_hood_x[13] sw4_flat_hood_y[13] sw4_flat_hood_z[13] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[13] sw4_flat_hood_y[13] sw4_flat_hood_z[13] sw4_flat_hood[13]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[13] sw4_flat_hood_y[13] sw4_flat_hood_z[13] sw4_flat_hood[13] // FIXEDGROVE: was ballas2
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[13] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[13] sw4_flat_hood_h[13]
 		SET_CHAR_ACCURACY sw4_flat_hood[13] sw4_hood_acc
@@ -402,7 +426,8 @@ MISSION_END
 		sw4_flat_hood_z[14] = 19.17  
 		sw4_flat_hood_h[14] = 98.28
 		CLEAR_AREA sw4_flat_hood_x[14] sw4_flat_hood_y[14] sw4_flat_hood_z[14] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[14] sw4_flat_hood_y[14] sw4_flat_hood_z[14] sw4_flat_hood[14]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[14] sw4_flat_hood_y[14] sw4_flat_hood_z[14] sw4_flat_hood[14] // FIXEDGROVE: was ballas1
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[14] WEAPONTYPE_SPRAYCAN sw4_ammo
 		TASK_STAY_IN_SAME_PLACE sw4_flat_hood[14] TRUE
 		SET_CHAR_HEADING sw4_flat_hood[14] sw4_flat_hood_h[14]
@@ -416,7 +441,8 @@ MISSION_END
 		sw4_flat_hood_z[15] = 20.07  
 		sw4_flat_hood_h[15] = 143.42 
 		CLEAR_AREA sw4_flat_hood_x[15] sw4_flat_hood_y[15] sw4_flat_hood_z[15] 0.5 TRUE
-		CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[15] sw4_flat_hood_y[15] sw4_flat_hood_z[15] sw4_flat_hood[15]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 sw4_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_GANG_FLAT sw4_char_model[sw4_char_select] sw4_flat_hood_x[15] sw4_flat_hood_y[15] sw4_flat_hood_z[15] sw4_flat_hood[15] // FIXEDGROVE: was ballas2
 		GIVE_WEAPON_TO_CHAR sw4_flat_hood[15] WEAPONTYPE_PISTOL sw4_ammo
 		SET_CHAR_HEADING sw4_flat_hood[15] sw4_flat_hood_h[15]
 		SET_CHAR_ACCURACY sw4_flat_hood[15] sw4_hood_acc
@@ -3266,6 +3292,7 @@ mission_cleanup_sweet4:
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED ballas1
 	MARK_MODEL_AS_NO_LONGER_NEEDED ballas2
+	MARK_MODEL_AS_NO_LONGER_NEEDED ballas3 // FIXEDGROVE
 	MARK_MODEL_AS_NO_LONGER_NEEDED TEC9
 	MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
 	MARK_MODEL_AS_NO_LONGER_NEEDED VOODOO
