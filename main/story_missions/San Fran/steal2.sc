@@ -2868,8 +2868,8 @@ WAIT 0
 			IF IS_CAR_ON_SCREEN st2_cars[3] 
 				TASK_ENTER_CAR_AS_PASSENGER st2_peds[19] st2_cars[3] -1 1 // FIXEDGROVE: changed from st2_peds[9]
 				TASK_ENTER_CAR_AS_PASSENGER st2_peds[20] st2_cars[3] -1 2 // FIXEDGROVE: changed from st2_peds[10]
+				st2_temp_int = 1
 			ENDIF
-			st2_temp_int = 1
 		ENDIF
 		// FIXEDGROVE: END
 	
