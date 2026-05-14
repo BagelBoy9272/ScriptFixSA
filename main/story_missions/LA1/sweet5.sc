@@ -300,9 +300,9 @@ SWITCH_CAR_GENERATOR gen_car7 0
 
 	// FIXEDGROVE: START - random model variations
 	LVAR_INT sw5_char_model[3] sw5_char_select
-	sweet1b_char_model[0] = BALLAS1
-	sweet1b_char_model[1] = BALLAS2
-	sweet1b_char_model[2] = BALLAS3
+	sw5_char_model[0] = FAM1
+	sw5_char_model[1] = FAM2
+	sw5_char_model[2] = FAM3
 	// FIXEDGROVE: END
 	
 RETURN
