@@ -2213,27 +2213,21 @@ RETURN
 get_back_in_the_car:
 	
 	CLEAR_MISSION_AUDIO 2
-	// FIXEDGROVE: START - change from IF to SWITCH and make it random
-GENERATE_RANDOM_INT_IN_RANGE 0 4 get_in_counter_swee1
-SWITCH get_in_counter_swee1
-	CASE 0
-		audio_sound_file = SOUND_SWE1_BM
-		$audio_string = SWE1_BM
-	BREAK
-	CASE 1
-		audio_sound_file = SOUND_SWEX_BS
-		$audio_string = SWEX_BS
-	BREAK
-	CASE 2
-		audio_sound_file = SOUND_SWEX_BP
-		$audio_string = SWEX_BP
-	BREAK
-	CASE 3
-		audio_sound_file = SOUND_SWE1_BG
-		$audio_string = SWE1_BG
-	BREAK
-ENDSWITCH
-LOAD_MISSION_AUDIO 2 audio_sound_file
+	IF get_in_counter_swee1 = 0
+		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BM	//Get in, nigga!
+	ENDIF
+
+	IF get_in_counter_swee1 = 1
+		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BS	//CJ, for once, don't be a punk!
+	ENDIF
+
+	IF get_in_counter_swee1 = 2
+		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BP	//Don't be a buster, CJ!
+	ENDIF
+
+	IF get_in_counter_swee1 = 3			
+		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BG // CJ, GET IN!
+	ENDIF
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -2262,7 +2256,19 @@ LOAD_MISSION_AUDIO 2 audio_sound_file
 	ENDWHILE
 
 	PLAY_MISSION_AUDIO 2 
-	PRINT_NOW $audio_string 3000 1 // FIXEDGROVE: changed from IF to use the result
+	  	
+	IF get_in_counter_swee1 = 0
+		PRINT_NOW ( SWE1_BM ) 3000 1 //Get in, nigga!	
+	ENDIF
+	IF get_in_counter_swee1 = 1
+		PRINT_NOW ( SWEX_BS ) 3000 1 //	CJ, for once, don't be a punk!
+	ENDIF
+	IF get_in_counter_swee1 = 2
+		PRINT_NOW ( SWEX_BP ) 3000 1 //Don't be a buster, CJ!
+	ENDIF
+	IF get_in_counter_swee1 = 3
+		PRINT_NOW ( SWE1_BG ) 3000 1 // CJ, GET IN!
+	ENDIF
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0
@@ -2286,14 +2292,11 @@ LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	ENDWHILE
 
-	// FIXEDGROVE: comment out not needed
-	/*
 	get_in_counter_swee1 ++
 
 	IF get_in_counter_swee1 > 3
 		get_in_counter_swee1 = 0
 	ENDIF
-	*/
 
 RETURN
 

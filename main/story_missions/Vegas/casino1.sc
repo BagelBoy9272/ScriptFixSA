@@ -1279,7 +1279,7 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 0 7 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 0 6 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1868,7 +1868,7 @@ IF ca1_stage = 3
 				IF ca1_text_timer_diff > 10000
 					IF ca1_spooked >= 0
 					AND ca1_spooked < 34
-						GENERATE_RANDOM_INT_IN_RANGE 28 33 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 28 32 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1883,7 +1883,7 @@ IF ca1_stage = 3
 					ENDIF
 					IF ca1_spooked > 33
 					AND ca1_spooked < 67
-						GENERATE_RANDOM_INT_IN_RANGE 33 38 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 33 37 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1898,7 +1898,7 @@ IF ca1_stage = 3
 					ENDIF
 					IF ca1_spooked > 66
 					AND ca1_spooked < 100
-						GENERATE_RANDOM_INT_IN_RANGE 38 43 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 38 42 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1918,7 +1918,7 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 7 10 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 7 9 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1938,7 +1938,7 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 14 17 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 14 16 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1959,7 +1959,7 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 17 25 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 17 24 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1979,7 +1979,7 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 10 14 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 10 13 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last
@@ -1999,7 +1999,7 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 25 28 ca1_random_dialogue // FIXEDGROVE: increase upper limit
+						GENERATE_RANDOM_INT_IN_RANGE 25 27 ca1_random_dialogue
 						GET_GAME_TIMER ca1_text_timer_start
 						ca1_dialogue_playing = 1
 						IF ca1_random_dialogue = ca1_random_dialogue_last

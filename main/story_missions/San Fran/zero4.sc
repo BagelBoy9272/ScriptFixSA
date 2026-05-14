@@ -442,8 +442,8 @@ invincible_timer+= m_time_diff
 		bomb_blip						   = 0
 		first_time_taking_damage_from_tank = 0	
 		bomb_tank_dialogue				   = 0
-		dead_dialogue			= -1 // FIXEDGROVE: changed from 0 to -1
-		nearly_dead_dialogue	= -1 // FIXEDGROVE: changed from 0 to -1
+		dead_dialogue			= 0
+		nearly_dead_dialogue	= 0
 		stuck_at_river			= 0
 		control_help_flag 		= 0
 		tanks_are_all_dead		= 0
@@ -1487,18 +1487,10 @@ invincible_timer+= m_time_diff
 					AND audio_line_is_active = 0
 						// barrels only
 						IF obstruction_type = 1
-							// FIXEDGROVE: START - comment out and change to a random number
-							/*
 							obstruct_audio1++
 							IF obstruct_audio1 > 4
 								obstruct_audio1 = 0
 							ENDIF
-							*/
-							temp_int3 = obstruct_audio1 // which one played previously
-							GENERATE_RANDOM_INT_IN_RANGE 0 5 obstruct_audio1
-							WHILE temp_int3 = obstruct_audio1
-								GENERATE_RANDOM_INT_IN_RANGE 0 5 obstruct_audio1
-							ENDWHILE
 							SWITCH obstruct_audio1
 								CASE 0
 									$audio_string    = &ZER4_DA	
@@ -1626,19 +1618,10 @@ invincible_timer+= m_time_diff
 						AND dialogue_timer > 10000
 						AND audio_line_is_active = 0
 					   	AND taking_damage_from_tank = 1		
-							// FIXEDGROVE: START - comment out and change to a random number
-							/*
 							bomb_tank_dialogue++
 							IF bomb_tank_dialogue > 5
 								bomb_tank_dialogue = 0
 							ENDIF
-							*/
-							temp_int3 = bomb_tank_dialogue // which one played previously
-							GENERATE_RANDOM_INT_IN_RANGE 0 6 bomb_tank_dialogue
-							WHILE temp_int3 = bomb_tank_dialogue
-								GENERATE_RANDOM_INT_IN_RANGE 0 6 bomb_tank_dialogue
-							ENDWHILE
-							// FIXEDGROVE: END						
 							temp_int = 0
 							WHILE temp_int < 3
 								IF NOT IS_CAR_DEAD otank[temp_int]
@@ -1795,20 +1778,13 @@ invincible_timer+= m_time_diff
 							z3 = z + 5.0
 
 							IF NOT IS_EXPLOSION_IN_AREA EXPLOSION_SMALL x2 y2 z2 x3 y3 z3
-
-								// FIXEDGROVE: START - comment out and change to a random number
-								/*
+							
+							 
+														 
 								nearly_dead_dialogue++
 								IF nearly_dead_dialogue > 2
 									nearly_dead_dialogue = 0
 								ENDIF	
-								*/
-								temp_int3 = nearly_dead_dialogue // which one played previously
-								GENERATE_RANDOM_INT_IN_RANGE 0 3 nearly_dead_dialogue
-								WHILE temp_int3 = nearly_dead_dialogue
-									GENERATE_RANDOM_INT_IN_RANGE 0 3 nearly_dead_dialogue
-								ENDWHILE
-								// FIXEDGROVE: END
 								SWITCH nearly_dead_dialogue
 									CASE 0
 										$audio_string    = &ZER4_KA	
@@ -2050,19 +2026,10 @@ invincible_timer+= m_time_diff
 						IF NOT IS_EXPLOSION_IN_AREA EXPLOSION_SMALL x2 y2 z2 x3 y3 z3
 		
 							// play dialogue
-							// FIXEDGROVE: START - comment out and change to a random number
-							/*
 							dead_dialogue++
 							IF dead_dialogue > 2
 								dead_dialogue = 0
 							ENDIF
-							*/
-							temp_int3 = dead_dialogue // which one played previously
-							GENERATE_RANDOM_INT_IN_RANGE 0 3 dead_dialogue
-							WHILE temp_int3 = dead_dialogue
-								GENERATE_RANDOM_INT_IN_RANGE 0 3 dead_dialogue
-							ENDWHILE
-							// FIXEDGROVE: END
 							SWITCH dead_dialogue
 								CASE 0
 									$audio_string    = &ZER4_LA	
