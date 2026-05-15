@@ -484,7 +484,7 @@ sweet1b_char_model[3] = fam1
 sweet1b_char_model[4] = fam2
 sweet1b_char_model[5] = fam3
 sweet1b_char_model[6] = hfypro
-sweet1b_char_model[7] = wfypro
+sweet1b_char_model[7] = bfypro
 sweet1b_char_model[8] = bmydrug
 sweet1b_char_model[9] = wmydrug
 // FIXEDGROVE: END
