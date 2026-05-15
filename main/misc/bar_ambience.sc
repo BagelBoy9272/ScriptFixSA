@@ -123,7 +123,8 @@ BAR_Loop:
 		AND flag_player_on_mission = 0 
 		AND iDoNotLocateDance = 0
 			IF $txtEntryExit = &BAR1				
-				IF LOCATE_STOPPED_CHAR_ON_FOOT_3D scplayer 488.0048 -14.0754 999.6797 1.5 1.5 1.5 TRUE	
+				IF LOCATE_STOPPED_CHAR_ON_FOOT_3D scplayer 488.0048 -14.0754 999.6797 1.5 1.5 1.5 TRUE
+				AND CAN_PLAYER_START_MISSION player1 // FIXEDGROVE: needed so minigame doesn't start until the player puts their phone down
 					//--- The player has stepped into the marker and we are allowed to fire the mini-game
 					CLEAR_HELP
 					CLEAR_PRINTS

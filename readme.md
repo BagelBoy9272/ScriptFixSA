@@ -443,6 +443,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - ®️ Now you can quit the "Go Go Space Monkey" arcade game mid-game
 - Now wearing a police uniform will let you roam police impounds, and police stations while armed
 - Added facial talking anim to phonecalls
+- Now you can get phonecalls while in interiors
 - Made Vagos taking over VLA turf happen after Cesar's call about going to Angel Pine instead of an unrelated missable Catalina phone call
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)

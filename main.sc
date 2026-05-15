@@ -316,6 +316,7 @@ VAR_FLOAT in_carX in_carY in_carZ
 //HELP MESSAGE VARS
 VAR_INT	bike_help drive_by_help
 VAR_INT	print_first_help car_help_played
+VAR_INT gym_help // FIXEDGROVE
 
 VAR_INT driving_test_passed pilot_test_passed
 
@@ -3485,6 +3486,18 @@ WAIT 125
 
 IF IS_PLAYER_PLAYING player1
     IF flag_player_on_mission = 0  
+		// FIXEDGROVE: START - open the ammu interiors if the player is not on a call
+		IF flag_sweet_mission_counter > 7 // if player has unlocked ammunation
+			IF switch_the_ammu_interiors_off = 0
+				SWITCH_ENTRY_EXIT ammun1 TRUE
+				SWITCH_ENTRY_EXIT ammun2 TRUE
+				SWITCH_ENTRY_EXIT ammun3 TRUE
+				SWITCH_ENTRY_EXIT ammun4 TRUE
+				SWITCH_ENTRY_EXIT ammun5 TRUE
+				switch_the_ammu_interiors_off = 1
+			ENDIF
+		ENDIF
+		// FIXEDGROVE: END
     	IF NOT main_visible_area = 0
 	    	IF flag_shooting_range_mission = 0                  
 		    	//find which range the player is in
@@ -3504,6 +3517,21 @@ IF IS_PLAYER_PLAYING player1
 			ENDIF
 		ENDIF
     ELSE
+		// FIXEDGROVE: START - shut the ammu interiors while on a call
+		IF flag_sweet_mission_counter > 7 // if player has unlocked ammunation
+			IF main_visible_area = 0
+				IF switch_the_ammu_interiors_off = 1
+					SWITCH_ENTRY_EXIT ammun1 FALSE
+					SWITCH_ENTRY_EXIT ammun2 FALSE
+					SWITCH_ENTRY_EXIT ammun3 FALSE
+					SWITCH_ENTRY_EXIT ammun4 FALSE
+					SWITCH_ENTRY_EXIT ammun5 FALSE
+					switch_the_ammu_interiors_off = 0
+				ENDIF
+			ENDIF
+		ENDIF
+		// FIXEDGROVE: END
+
 		IF NOT main_visible_area = 0
         	IF flag_dont_start_shooting_range = 0
 				flag_dont_start_shooting_range = 1	
@@ -6660,6 +6688,28 @@ game_help_loop_inner:
 										ENDIF
 									ENDIF
 								ENDIF
+
+								// FIXEDGROVE: START - play the gym tutorial help while freeroaming
+								// if the player answered sweet's call while on an interior
+								IF IS_PLAYER_PLAYING player1
+									IF flag_mob_la1[6] = 1
+										IF gym_help = 0		
+											WAIT 2000
+                    				    	PRINT_HELP GYMHELP  
+											WAIT 5000
+											PRINT_HELP DUMBELL
+											FLASH_HUD_OBJECT HUD_FLASH_RADAR
+
+											WAIT 5000
+
+											FLASH_HUD_OBJECT -1
+
+											gym_help = 1
+										ENDIF
+									ENDIF
+								ENDIF
+								// FIXEDGROVE: END
+
 							ENDIF
 						ENDIF
 					ENDIF
@@ -6673,7 +6723,9 @@ game_help_loop_inner:
 				IF car_help_played = 1
 					IF voice_over_at_hub = 1
 						IF chat_help1_flag = 1
-							TERMINATE_THIS_SCRIPT
+							IF gym_help = 1 // FIXEDGROVE: new help
+								TERMINATE_THIS_SCRIPT
+							ENDIF
 						ENDIF
 					ENDIF
 				ENDIF
@@ -7395,7 +7447,8 @@ VAR_TEXT_LABEL entry_exit_name
 
 		IF IS_PLAYER_PLAYING player1
 			IF flag_player_on_mission = 0
-				IF main_visible_area = 0
+				//IF main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls while in interiors
+				IF IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: extra check needed for some cases
 					IF flag_cell_nation = 0 //phone call not in progress
 						IF player_fall_state = 0 //Parachute
 							IF NOT IS_BIT_SET iDateReport DATE_IN_PROGRESS	

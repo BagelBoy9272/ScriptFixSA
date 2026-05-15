@@ -2874,62 +2874,80 @@ cell_phone_LA1_inner:
 						ENDIF
 						IF flag_player_answered_phone = 1	
 							flag_mob_la1[6] = 1
-							DO_FADE 500 FADE_OUT
-						    WHILE GET_FADING_STATUS
-						        WAIT 0
-						    ENDWHILE 
-							
-							IF IS_PLAYER_PLAYING player1
-								SET_PLAYER_CONTROL player1 OFF
-						    	GET_CHAR_COORDINATES scplayer player_X player_Y player_Z
-								SET_CHAR_COORDINATES scplayer 2228.8914 -1737.1276 12.3906
+
+							IF main_visible_area = 0 // FIXEDGROVE: only play cutscene if player is not in an interior. The script can't fully 
+													 //	restore the interior state without entering through an enex, so this is a compromise	
+
+								gym_help = 1 // FIXEDGROVE: stops the freeroam version from playing
+
+								DO_FADE 500 FADE_OUT
+						    	WHILE GET_FADING_STATUS
+						    	    WAIT 0
+						    	ENDWHILE 
+
+								IF IS_PLAYER_PLAYING player1
+									SET_PLAYER_CONTROL player1 OFF
+						    		GET_CHAR_COORDINATES scplayer player_X player_Y player_Z
+									SET_CHAR_COORDINATES scplayer 2228.8914 -1737.1276 12.3906
+								ENDIF
+						    	CLEAR_PRINTS
+						    	LOAD_SCENE 2228.5166 -1734.2740 15.7440
+								REMOVE_BLIP gym_contact_blip
+								ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2228.0002 -1722.8113 12.5543 RADAR_SPRITE_GYM gym_contact_blip
+
+								SET_FIXED_CAMERA_POSITION 2228.0945 -1735.1787 15.6865 0.0 0.0 0.0 //GYM
+								POINT_CAMERA_AT_POINT 2228.5166 -1734.2740 15.7440 JUMP_CUT
+
+								WAIT 500
+						    	DO_FADE 1000 FADE_IN
+
+								PRINT_HELP GYMHELP
+
+								WAIT 5000
+
+								PRINT_HELP DUMBELL
+								FLASH_HUD_OBJECT HUD_FLASH_RADAR
+
+								WAIT 5000
+
+								FLASH_HUD_OBJECT -1
+
+								DO_FADE 500 FADE_OUT
+						    	WHILE GET_FADING_STATUS
+						    	    WAIT 0
+						    	ENDWHILE
+
+								IF IS_PLAYER_PLAYING player1
+									SET_CHAR_COORDINATES_NO_OFFSET scplayer player_X player_Y player_Z // FIXEDGROVE: changed from SET_CHAR_COORDS, since the original coords dont have an offset
+									LOAD_SCENE player_X player_Y player_Z
+									RESTORE_CAMERA_JUMPCUT
+									SET_PLAYER_CONTROL player1 ON
+								ENDIF
+								SWITCH_ENTRY_EXIT gym1 TRUE
+								SWITCH_ENTRY_EXIT gym2 TRUE
+								SWITCH_ENTRY_EXIT gym3 TRUE
+								REMOVE_BLIP gym_contact_blip
+								ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT 2228.0002 -1722.8113 12.5543 RADAR_SPRITE_GYM gym_contact_blip
+								CHANGE_BLIP_DISPLAY gym_contact_blip BLIP_ONLY
+								ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT -2269.4, -155.6, 35.3 RADAR_SPRITE_GYM gym_blips[0] //GYM2
+								CHANGE_BLIP_DISPLAY gym_blips[0] BLIP_ONLY
+								ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT 1968.6, 2292.1, 16.4 RADAR_SPRITE_GYM gym_blips[1] //GYM3
+								CHANGE_BLIP_DISPLAY gym_blips[1] BLIP_ONLY
+
+								WAIT 500
+								DO_FADE 1000 FADE_IN
+							ELSE // FIXEDGROVE: enable the gym if the player is in an interior, the tutorial help box plays while freeroaming instead
+								SWITCH_ENTRY_EXIT gym1 TRUE
+								SWITCH_ENTRY_EXIT gym2 TRUE
+								SWITCH_ENTRY_EXIT gym3 TRUE
+								REMOVE_BLIP gym_contact_blip
+								ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT 2228.0002 -1722.8113 12.5543 RADAR_SPRITE_GYM gym_contact_blip
+								CHANGE_BLIP_DISPLAY gym_contact_blip BLIP_ONLY
+								ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT -2269.4, -155.6, 35.3 RADAR_SPRITE_GYM gym_blips[0] //GYM2
+								CHANGE_BLIP_DISPLAY gym_blips[0] BLIP_ONLY
+								ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT 1968.6, 2292.1, 16.4 RADAR_SPRITE_GYM gym_blips[1] //GYM3
+								CHANGE_BLIP_DISPLAY gym_blips[1] BLIP_ONLY
 							ENDIF
-						    CLEAR_PRINTS
-						    LOAD_SCENE 2228.5166 -1734.2740 15.7440
-							REMOVE_BLIP gym_contact_blip
-							ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2228.0002 -1722.8113 12.5543 RADAR_SPRITE_GYM gym_contact_blip
-
-							SET_FIXED_CAMERA_POSITION 2228.0945 -1735.1787 15.6865 0.0 0.0 0.0 //GYM
-							POINT_CAMERA_AT_POINT 2228.5166 -1734.2740 15.7440 JUMP_CUT
-
-							WAIT 500
-						    DO_FADE 1000 FADE_IN
-							
-							PRINT_HELP GYMHELP
-							
-							WAIT 5000
-
-							PRINT_HELP DUMBELL
-							FLASH_HUD_OBJECT HUD_FLASH_RADAR
-
-							WAIT 5000
-
-							FLASH_HUD_OBJECT -1
-
-							DO_FADE 500 FADE_OUT
-						    WHILE GET_FADING_STATUS
-						        WAIT 0
-						    ENDWHILE
-
-							IF IS_PLAYER_PLAYING player1
-								SET_CHAR_COORDINATES_NO_OFFSET scplayer player_X player_Y player_Z // FIXEDGROVE: changed from SET_CHAR_COORDS, since the original coords dont have an offset
-								LOAD_SCENE player_X player_Y player_Z
-								RESTORE_CAMERA_JUMPCUT
-								SET_PLAYER_CONTROL player1 ON
-							ENDIF
-							SWITCH_ENTRY_EXIT gym1 TRUE
-							SWITCH_ENTRY_EXIT gym2 TRUE
-							SWITCH_ENTRY_EXIT gym3 TRUE
-							REMOVE_BLIP gym_contact_blip
-							ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT 2228.0002 -1722.8113 12.5543 RADAR_SPRITE_GYM gym_contact_blip
-							CHANGE_BLIP_DISPLAY gym_contact_blip BLIP_ONLY
-							ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT -2269.4, -155.6, 35.3 RADAR_SPRITE_GYM gym_blips[0] //GYM2
-							CHANGE_BLIP_DISPLAY gym_blips[0] BLIP_ONLY
-							ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT 1968.6, 2292.1, 16.4 RADAR_SPRITE_GYM gym_blips[1] //GYM3
-							CHANGE_BLIP_DISPLAY gym_blips[1] BLIP_ONLY
-
-							WAIT 500
-							DO_FADE 1000 FADE_IN
 
 						ENDIF
 						GOSUB mobile_message_cleanup
@@ -4600,11 +4618,12 @@ loading_and_playing_audio:
 			flag_player_answered_phone = 2
 			RETURN
 		ELSE
+//			IF NOT main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls in interiors
 			IF IS_CHAR_IN_WATER scplayer
 			OR IS_CHAR_SHOOTING scplayer
 			OR NOT IS_CHAR_ON_FOOT scplayer
 			OR flag_player_on_mission = 0
-			OR NOT main_visible_area = 0
+			OR NOT IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: added for some cases
 			OR NOT player_fall_state = 0
 				flag_player_answered_phone = 2
 				CLEAR_HELP
@@ -4657,11 +4676,12 @@ has_audio_finished:
 			flag_player_answered_phone = 2
 			RETURN
 		ELSE
+//			IF NOT main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls in interiors
 			IF IS_CHAR_IN_WATER scplayer
 			OR IS_CHAR_SHOOTING scplayer
 			OR NOT IS_CHAR_ON_FOOT scplayer
 			OR flag_player_on_mission = 0
-			OR NOT main_visible_area = 0
+			OR NOT IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: added for some cases
 			OR NOT player_fall_state = 0
 				flag_player_answered_phone = 2
 				CLEAR_HELP
@@ -4705,11 +4725,12 @@ death_checker:
 		flag_player_answered_phone = 2
 		RETURN
 	ELSE
+//		IF NOT main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls in interiors
 		IF IS_CHAR_IN_WATER scplayer
 		OR IS_CHAR_SHOOTING scplayer
 		OR NOT IS_CHAR_ON_FOOT scplayer
 		OR flag_player_on_mission = 0
-		OR NOT main_visible_area = 0
+		OR NOT IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: added for some cases
 		OR NOT player_fall_state = 0
 			flag_player_answered_phone = 2
 			CLEAR_HELP
@@ -4760,7 +4781,7 @@ mobile_message_cleanup:
 		//IF NOT mobile_ReturnStatus = FINISHED_TASK
 			TASK_USE_MOBILE_PHONE scplayer FALSE
 		//ENDIF
-		SET_PLAYER_CONTROL player1 ON
+		//SET_PLAYER_CONTROL player1 ON // FIXEDGROVE: this should be fine to remove, conflicts with some minigames that take away player control
 		SET_EVERYONE_IGNORE_PLAYER player1 OFF
 		SHUT_CHAR_UP scplayer FALSE
 	ENDIF

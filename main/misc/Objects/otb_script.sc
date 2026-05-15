@@ -22,6 +22,7 @@ IF DOES_OBJECT_EXIST otb_object
 		IF IS_PLAYER_PLAYING player1
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS otb_object -1.0 0.0 0.0 x y z
 			IF LOCATE_CHAR_ON_FOOT_3D scplayer x y z 0.6 0.6 1.0 FALSE
+			AND CAN_PLAYER_START_MISSION player1 // FIXEDGROVE: moved this check here so the help box doesn't show while on a call
 				
 				IF IS_BUTTON_PRESSED PAD1 TRIANGLE
 					IF otb_help = 1
@@ -29,25 +30,25 @@ IF DOES_OBJECT_EXIST otb_object
 						otb_help = 0
 						IF flag_player_on_mission = 0
 							IF NOT IS_BIT_SET iDateReport DATE_IN_PROGRESS
-								IF CAN_PLAYER_START_MISSION player1
-									SET_PLAYER_CONTROL player1 OFF
-									SET_EVERYONE_IGNORE_PLAYER player1 TRUE
-									DO_FADE 500 FADE_OUT
-									WHILE GET_FADING_STATUS
-										WAIT 0
-									ENDWHILE
-									load_and_launch_mission_if_poss = OTB_SCRIPT
+//								IF CAN_PLAYER_START_MISSION player1 // FIXEDGROVE: moved
+								SET_PLAYER_CONTROL player1 OFF
+								SET_EVERYONE_IGNORE_PLAYER player1 TRUE
+								DO_FADE 500 FADE_OUT
+								WHILE GET_FADING_STATUS
 									WAIT 0
-									WAIT 0
-									WAIT 0
-									if is_player_playing player1
-										IF flag_player_on_mission = 0
-											SET_PLAYER_CONTROL player1 ON
-										ENDIF
-										GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS otb_object -2.0 0.0 -1.0 x y z
-										SET_CHAR_COORDINATES scplayer x y z
-									endif
+								ENDWHILE
+								load_and_launch_mission_if_poss = OTB_SCRIPT
+								WAIT 0
+								WAIT 0
+								WAIT 0
+								if is_player_playing player1
+									IF flag_player_on_mission = 0
+										SET_PLAYER_CONTROL player1 ON
+									ENDIF
+									GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS otb_object -2.0 0.0 -1.0 x y z
+									SET_CHAR_COORDINATES scplayer x y z
 								endif
+//								endif // FIXEDGROVE: moved
 							ELSE
 								PRINT_NOW BUSY 3000 1
 							ENDIF

@@ -1524,6 +1524,7 @@ junkfud_cleanup_small:
 
 	flag_no_money_shops = 0
 
+	SET_MINIGAME_IN_PROGRESS FALSE // FIXEDGROVE: this is needed so calls come in again
 		 
 	MARK_MODEL_AS_NO_LONGER_NEEDED foodsmall_junkfud 
 	MARK_MODEL_AS_NO_LONGER_NEEDED foodmed_junkfud
@@ -1809,6 +1810,7 @@ IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL
 	
 	
 	SET_PLAYER_CONTROL player1 ON
+	SET_MINIGAME_IN_PROGRESS FALSE // FIXEDGROVE: this is needed so calls come in again
 	RESTORE_CAMERA_JUMPCUT						   
 	
 	IF jfud_keep_created = 1

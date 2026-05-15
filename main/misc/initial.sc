@@ -2288,7 +2288,9 @@ VAR_INT sample_name_shops // FIXEDGROVE: moved from junkfud.sc
 CONST_INT SHOP_TIME_BEFORE_CHAT 8000 // FIXEDGROVE: used for the SHOP_CHAT speech context
 
 VAR_INT switch_the_gym_interiors_off
+VAR_INT switch_the_ammu_interiors_off // FIXEDGROVE: used to switch off ammunation interiors while the player is on a phonecall
 switch_the_gym_interiors_off = 0
+switch_the_ammu_interiors_off = 0 // FIXEDGROVE
 
 VAR_INT cost_menu_shops cost_menu_drawn_shops main_menu_shops main_menu_drawn_shops 
 VAR_INT bought_menu_shops bought_menu_drawn_shops sub_menu_shops sub_menu_drawn_shops
