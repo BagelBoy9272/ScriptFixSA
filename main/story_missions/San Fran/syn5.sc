@@ -4062,118 +4062,121 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 syn5_my_number_plates:///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-	GENERATE_RANDOM_INT_IN_RANGE 1 38 syn5_no_plates_flag // FIXEDGROVE: increase upper bound since its exclusive
-	IF syn5_no_plates_flag = 1 
+	GENERATE_RANDOM_INT_IN_RANGE 1 38 syn5_no_plates_flag // FIXEDGROVE: increassed upper limit since its exclusive
+// FIXEDGROVE: swapped if chain with switch case
+SWITCH syn5_no_plates_flag
+	CASE 1
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates got_m00_
-	ENDIF 
-	IF syn5_no_plates_flag = 2 
+		BREAK
+	CASE 2
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates m00tv_4u 
-	ENDIF
-	IF syn5_no_plates_flag = 3 
+		BREAK
+	CASE 3
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates mathew_2 
-	ENDIF 
-	IF syn5_no_plates_flag = 4 
+		BREAK
+	CASE 4
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates d4_dew0r 
-	ENDIF 
-	IF syn5_no_plates_flag = 5 
+		BREAK
+	CASE 5
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates d0de_777 
-	ENDIF 
-	IF syn5_no_plates_flag = 6 
+		BREAK
+	CASE 6
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates dam0_666 
-	ENDIF 
-	IF syn5_no_plates_flag = 7 
+		BREAK
+	CASE 7
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates C0NEY_88 
-	ENDIF 
-	IF syn5_no_plates_flag = 8 
+		BREAK
+	CASE 8
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates pre4cher 
-	ENDIF 
-	IF syn5_no_plates_flag = 9 
+		BREAK
+	CASE 9
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates dbp_4ndy 
-	ENDIF 
-	IF syn5_no_plates_flag = 10 
+		BREAK
+	CASE 10
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates ev1l_sly 
-	ENDIF 
-	IF syn5_no_plates_flag = 11 
+		BREAK
+	CASE 11
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates n1_r4v3n 
-	ENDIF 
-	IF syn5_no_plates_flag = 12 
+		BREAK
+	CASE 12
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates d1vx_z00 
-	ENDIF 
-	IF syn5_no_plates_flag = 13 
+		BREAK
+	CASE 13
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates mr_b3nn 
-	ENDIF 
-	IF syn5_no_plates_flag = 14 
+		BREAK
+	CASE 14
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates r3d_r4sp 
-	ENDIF 
-	IF syn5_no_plates_flag = 15 
+		BREAK
+	CASE 15
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates La_B0mba 
-	ENDIF 
-	IF syn5_no_plates_flag = 16 
+		BREAK
+	CASE 16
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates L3337_0g 
-	ENDIF 
-	IF syn5_no_plates_flag = 17 
+		BREAK
+	CASE 17
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates budd4h_X 
-	ENDIF 
-	IF syn5_no_plates_flag = 18 
+		BREAK
+	CASE 18
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates t3h_buck 
-	ENDIF 
-	IF syn5_no_plates_flag = 19 
+		BREAK
+	CASE 19
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates CHUNKY_1 
-	ENDIF 
-	IF syn5_no_plates_flag = 20 
+		BREAK
+	CASE 20
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates ev1l_bnz 
-	ENDIF 
-	IF syn5_no_plates_flag = 21 
+		BREAK
+	CASE 21
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates S4ND_M4N 
-	ENDIF 
-	IF syn5_no_plates_flag = 22 
+		BREAK
+	CASE 22
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates RKK_DBP1 
-	ENDIF 
-	IF syn5_no_plates_flag = 23 
+		BREAK
+	CASE 23
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates RE1_K0KU 
-	ENDIF 
-	IF syn5_no_plates_flag = 24 
+		BREAK
+	CASE 24
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates s3xy_jud 
-	ENDIF 
-	IF syn5_no_plates_flag = 25 
+		BREAK
+	CASE 25
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates sunra_93 
-	ENDIF 
-	IF syn5_no_plates_flag = 26 
+		BREAK
+	CASE 26
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates UG_FuX69 
-	ENDIF 
-	IF syn5_no_plates_flag = 27 
+		BREAK
+	CASE 27
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates Li0n_Cum 
-	ENDIF 
-	IF syn5_no_plates_flag = 28 
+		BREAK
+	CASE 28
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates rkk_pwnd 
-	ENDIF 
-	IF syn5_no_plates_flag = 29 
+		BREAK
+	CASE 29
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates haze_b0b 
-	ENDIF 
-	IF syn5_no_plates_flag = 30 
+		BREAK
+	CASE 30
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates t3h_fluf 
-	ENDIF 
-	IF syn5_no_plates_flag = 31 
+		BREAK
+	CASE 31
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates BM_4NDY_ 
-	ENDIF 
-	IF syn5_no_plates_flag = 32 
+		BREAK
+	CASE 32
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates BM_D34N_ 
-	ENDIF 
-	IF syn5_no_plates_flag = 33 
+		BREAK
+	CASE 33
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates BM_L4C3Y 
-	ENDIF 
-	IF syn5_no_plates_flag = 34 
+		BREAK
+	CASE 34
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates BM_D3V__ 
-	ENDIF 
-	IF syn5_no_plates_flag = 35 
+		BREAK
+	CASE 35
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates NU_SK00L 
-	ENDIF 
-	IF syn5_no_plates_flag = 36 
+		BREAK
+	CASE 36
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates G4L_AVET 
-	ENDIF 
-	IF syn5_no_plates_flag = 37 
+		BREAK
+	DEFAULT // CASE 37
 		CUSTOM_PLATE_FOR_NEXT_CAR syn5_no_plates M0j0_j0j 
-	ENDIF 
+		BREAK
+ENDSWITCH
 ////////////////////////////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
