@@ -1487,32 +1487,40 @@ invincible_timer+= m_time_diff
 					AND audio_line_is_active = 0
 						// barrels only
 						IF obstruction_type = 1
+							// FIXEDGROVE: START - comment out and change to a random number
+							/*
 							obstruct_audio1++
 							IF obstruct_audio1 > 4
 								obstruct_audio1 = 0
 							ENDIF
+							*/
+							temp_int3 = obstruct_audio1 // which one played previously
+							GENERATE_RANDOM_INT_IN_RANGE 1 6 obstruct_audio1
+							WHILE temp_int3 = obstruct_audio1
+								GENERATE_RANDOM_INT_IN_RANGE 1 6 obstruct_audio1
+							ENDWHILE
 							SWITCH obstruct_audio1
-								CASE 0
+								CASE 1
 									$audio_string    = &ZER4_DA	
 									audio_sound_file = SOUND_ZER4_DA	
 								BREAK
-								CASE 1
+								CASE 2
 									$audio_string    = &ZER4_DB	
 									audio_sound_file = SOUND_ZER4_DB
 								BREAK
-								CASE 2
+								CASE 3
 									$audio_string    = &ZER4_DC	
 									audio_sound_file = SOUND_ZER4_DC
 								BREAK
-								CASE 3
+								CASE 4
 									$audio_string    = &ZER4_DD	
 									audio_sound_file = SOUND_ZER4_DD
 								BREAK
-								CASE 4
+								CASE 5
 									$audio_string    = &ZER4_DE	
 									audio_sound_file = SOUND_ZER4_DE
 								BREAK
-//								CASE 5
+//								CASE 6
 //									$audio_string    = &ZER4_DF	
 //									audio_sound_file = SOUND_ZER4_DF
 //								BREAK
@@ -1618,10 +1626,19 @@ invincible_timer+= m_time_diff
 						AND dialogue_timer > 10000
 						AND audio_line_is_active = 0
 					   	AND taking_damage_from_tank = 1		
+							// FIXEDGROVE: START - comment out and change to a random number
+							/*
 							bomb_tank_dialogue++
 							IF bomb_tank_dialogue > 5
 								bomb_tank_dialogue = 0
 							ENDIF
+							*/
+							temp_int3 = bomb_tank_dialogue // which one played previously
+							GENERATE_RANDOM_INT_IN_RANGE 1 7 bomb_tank_dialogue
+							WHILE temp_int3 = bomb_tank_dialogue
+								GENERATE_RANDOM_INT_IN_RANGE 1 7 bomb_tank_dialogue
+							ENDWHILE
+							// FIXEDGROVE: END						
 							temp_int = 0
 							WHILE temp_int < 3
 								IF NOT IS_CAR_DEAD otank[temp_int]
@@ -1631,27 +1648,27 @@ invincible_timer+= m_time_diff
 							ENDWHILE
 							IF temp_int = 99
 								SWITCH bomb_tank_dialogue
-									CASE 0
+									CASE 1
 										$audio_string    = &ZER4_FA	
 										audio_sound_file = SOUND_ZER4_FA	
 									BREAK
-									CASE 1
+									CASE 2
 										$audio_string    = &ZER4_FB	
 										audio_sound_file = SOUND_ZER4_FB
 									BREAK
-									CASE 2
+									CASE 3
 										$audio_string    = &ZER4_FC	
 										audio_sound_file = SOUND_ZER4_FC
 									BREAK
-									CASE 3
+									CASE 4
 										$audio_string    = &ZER4_FD	
 										audio_sound_file = SOUND_ZER4_FD
 									BREAK
-									CASE 4
+									CASE 5
 										$audio_string    = &ZER4_FE	
 										audio_sound_file = SOUND_ZER4_FE
 									BREAK
-									CASE 5
+									CASE 6
 										$audio_string    = &ZER4_FF	
 										audio_sound_file = SOUND_ZER4_FF
 									BREAK
@@ -1778,23 +1795,30 @@ invincible_timer+= m_time_diff
 							z3 = z + 5.0
 
 							IF NOT IS_EXPLOSION_IN_AREA EXPLOSION_SMALL x2 y2 z2 x3 y3 z3
-							
-							 
-														 
+
+								// FIXEDGROVE: START - comment out and change to a random number
+								/*
 								nearly_dead_dialogue++
 								IF nearly_dead_dialogue > 2
 									nearly_dead_dialogue = 0
 								ENDIF	
+								*/
+								temp_int3 = nearly_dead_dialogue // which one played previously
+								GENERATE_RANDOM_INT_IN_RANGE 1 4 nearly_dead_dialogue
+								WHILE temp_int3 = nearly_dead_dialogue
+									GENERATE_RANDOM_INT_IN_RANGE 1 4 nearly_dead_dialogue
+								ENDWHILE
+								// FIXEDGROVE: END
 								SWITCH nearly_dead_dialogue
-									CASE 0
+									CASE 1
 										$audio_string    = &ZER4_KA	
 										audio_sound_file = SOUND_ZER4_KA
 									BREAK
-									CASE 1
+									CASE 2
 										$audio_string    = &ZER4_KB	
 										audio_sound_file = SOUND_ZER4_KB
 									BREAK
-									CASE 2
+									CASE 3
 										$audio_string    = &ZER4_KC	
 										audio_sound_file = SOUND_ZER4_KC	
 									BREAK
@@ -2026,20 +2050,29 @@ invincible_timer+= m_time_diff
 						IF NOT IS_EXPLOSION_IN_AREA EXPLOSION_SMALL x2 y2 z2 x3 y3 z3
 		
 							// play dialogue
+							// FIXEDGROVE: START - comment out and change to a random number
+							/*
 							dead_dialogue++
 							IF dead_dialogue > 2
 								dead_dialogue = 0
 							ENDIF
+							*/
+							temp_int3 = dead_dialogue // which one played previously
+							GENERATE_RANDOM_INT_IN_RANGE 1 4 dead_dialogue
+							WHILE temp_int3 = dead_dialogue
+								GENERATE_RANDOM_INT_IN_RANGE 1 4 dead_dialogue
+							ENDWHILE
+							// FIXEDGROVE: END
 							SWITCH dead_dialogue
-								CASE 0
+								CASE 1
 									$audio_string    = &ZER4_LA	
 									audio_sound_file = SOUND_ZER4_LA
 								BREAK
-								CASE 1
+								CASE 2
 									$audio_string    = &ZER4_LB	
 									audio_sound_file = SOUND_ZER4_LB
 								BREAK
-								CASE 2
+								CASE 3
 									$audio_string    = &ZER4_LD	
 									audio_sound_file = SOUND_ZER4_LD
 								BREAK
