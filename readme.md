@@ -288,7 +288,6 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Intensive Care:**
 - Fixed mafia driver not driving
-- Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Up, Up And Away!:**
 - Fixed stationary minigun removing the player's heavy weaponry
