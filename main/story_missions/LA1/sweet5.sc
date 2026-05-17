@@ -234,6 +234,7 @@ SWITCH_CAR_GENERATOR gen_car7 0
 	REQUEST_MODEL GREENWOO
 	REQUEST_MODEL FAM1
 	REQUEST_MODEL FAM2
+	REQUEST_MODEL FAM3 // FIXEDGROVE
 	LOAD_SPECIAL_CHARACTER 1 SWEET
 
 	LOAD_ALL_MODELS_NOW
@@ -249,6 +250,7 @@ SWITCH_CAR_GENERATOR gen_car7 0
 	WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
 		OR NOT HAS_MODEL_LOADED FAM1
 		OR NOT HAS_MODEL_LOADED FAM2
+		OR NOT HAS_MODEL_LOADED FAM3 // FIXEDGROVE
 		OR NOT HAS_MODEL_LOADED GREENWOO
 
 		WAIT 0
@@ -294,6 +296,14 @@ SWITCH_CAR_GENERATOR gen_car7 0
 
 	nearest_range_1 = 99999.0
 	nearest_range_2	= 99999.0
+
+
+	// FIXEDGROVE: START - random model variations
+	LVAR_INT sw5_char_model[3] sw5_char_select
+	sw5_char_model[0] = FAM1
+	sw5_char_model[1] = FAM2
+	sw5_char_model[2] = FAM3
+	// FIXEDGROVE: END
 	
 RETURN
 
@@ -464,7 +474,8 @@ LVAR_INT dont_skip
 
 		//	TASK_COWER sw5_sweetsgf
 
-			CREATE_CHAR PEDTYPE_MISSION2 FAM2 2751.5149 -1973.1781 16.3051 sw5_red[0]
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION2 sw5_char_model[sw5_char_select] 2751.5149 -1973.1781 16.3051 sw5_red[0] // FIXEDGROVE: was FAM2
 			SET_CHAR_ACCURACY sw5_red[0] 40
 			SET_CHAR_DECISION_MAKER sw5_red[0] sw5_empty_dec
 			GIVE_WEAPON_TO_CHAR sw5_red[0] WEAPONTYPE_PISTOL 99999
@@ -482,7 +493,8 @@ LVAR_INT dont_skip
 
 
 
-			CREATE_CHAR PEDTYPE_MISSION2 FAM1 2753.1973 -1973.9462 16.3051 sw5_red[1]
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION2 sw5_char_model[sw5_char_select] 2753.1973 -1973.9462 16.3051 sw5_red[1] // FIXEDGROVE: was FAM1
 			SET_CHAR_ACCURACY sw5_red[1] 40
 			GIVE_WEAPON_TO_CHAR sw5_red[1] WEAPONTYPE_PISTOL 99999
 			TASK_TOGGLE_DUCK sw5_red[1] TRUE
@@ -694,18 +706,21 @@ sw5_scene1:
 			sw5_red_x[0] = 2761.5156   
 			sw5_red_y[0] = -1972.0280 
 			sw5_red_z[0] = 12.5459
-			sw5_red_model[0] = FAM1
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			sw5_red_model[0] = sw5_char_model[sw5_char_select] // FIXEDGROVE: was FAM1
 
 			sw5_red_x[1] = 2761.5989 
 			sw5_red_y[1] = -1955.6726
 			sw5_red_z[1] = 12.5469 
-			sw5_red_model[1] = FAM2
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			sw5_red_model[1] = sw5_char_model[sw5_char_select] // FIXEDGROVE: was FAM2
 
 
 			sw5_red_x[2] = 2768.4514 							 
 			sw5_red_y[2] = -1972.6053
 			sw5_red_z[2] = 12.3837 		
-			sw5_red_model[2] = FAM1			 
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			sw5_red_model[2] = sw5_char_model[sw5_char_select] // FIXEDGROVE: was FAM1			 
 
 //2758.3027 
 //-1984.9614
@@ -715,17 +730,20 @@ sw5_scene1:
 			sw5_red_x[3] = 2761.551 
 			sw5_red_y[3] = -1980.0991 
 			sw5_red_z[3] = 12.5478 
-			sw5_red_model[3] = FAM2
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			sw5_red_model[3] = sw5_char_model[sw5_char_select] // FIXEDGROVE: was FAM2
 
 			sw5_red_x[4] = 2752.1594 
 			sw5_red_y[4] = -1979.5736
 			sw5_red_z[4] = 14.0469			 			    
-			sw5_red_model[4] = FAM2
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			sw5_red_model[4] = sw5_char_model[sw5_char_select] // FIXEDGROVE: was FAM2
 
 			sw5_red_x[5] = 2768.4514 
 			sw5_red_y[5] = -1972.6053
 			sw5_red_z[5] = 12.3837 			    
-			sw5_red_model[5] = FAM1
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			sw5_red_model[5] = sw5_char_model[sw5_char_select] // FIXEDGROVE: was FAM1
 
 			LVAR_INT sw5_a_car
 			CREATE_CAR GREENWOO 2766.9231 -1974.3475 12.3783 sw5_a_car
@@ -1166,8 +1184,10 @@ sw5_cutscene_3:
 			START_PLAYBACK_RECORDED_CAR sw5_ballascar[0] 153
 			START_PLAYBACK_RECORDED_CAR sw5_ballascar[1] 154
 
-			CREATE_CHAR_INSIDE_CAR sw5_ballascar[1] PEDTYPE_MISSION1 FAM1 sw5_reddriver[1]
-			CREATE_CHAR_INSIDE_CAR sw5_ballascar[0] PEDTYPE_MISSION1 FAM1 sw5_reddriver[0]
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			CREATE_CHAR_INSIDE_CAR sw5_ballascar[1] PEDTYPE_MISSION1 sw5_char_model[sw5_char_select] sw5_reddriver[1] // FIXEDGROVE: was FAM1
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 sw5_char_select // FIXEDGROVE
+			CREATE_CHAR_INSIDE_CAR sw5_ballascar[0] PEDTYPE_MISSION1 sw5_char_model[sw5_char_select] sw5_reddriver[0] // FIXEDGROVE: was FAM1
 	//		CREATE_CHAR_AS_PASSENGER sw5_ballascar[0] PEDTYPE_MISSION1 FAM2 0 sw5_redpas[0] 
 	//		CREATE_CHAR_AS_PASSENGER sw5_ballascar[1] PEDTYPE_MISSION1 FAM2 0 sw5_redpas[1]
 			
@@ -2776,6 +2796,7 @@ mission_cleanup_hood5:
 	MARK_MODEL_AS_NO_LONGER_NEEDED GREENWOO
 	MARK_MODEL_AS_NO_LONGER_NEEDED FAM1
 	MARK_MODEL_AS_NO_LONGER_NEEDED FAM2
+	MARK_MODEL_AS_NO_LONGER_NEEDED FAM3 // FIXEDGROVE
 	UNLOAD_SPECIAL_CHARACTER 1 
 
 	REMOVE_CAR_RECORDING 153
