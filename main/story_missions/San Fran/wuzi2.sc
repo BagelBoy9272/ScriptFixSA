@@ -58,6 +58,8 @@ LVAR_INT speech_ped_W2 speech_sample_W2 speech_context_W2 speech_priority_W2 boa
 LVAR_TEXT_LABEL $audio_text_label_W2[63]
 
 
+LVAR_INT char_model_W2[3] char_select_W2 // FIXEDGROVE
+
 
 
 // MISSION START############################################################################################# MISSION START
@@ -195,6 +197,12 @@ VAR_INT swim_stamina_check
 	OR NOT HAS_ANIMATION_LOADED DAM_JUMP
 		WAIT 0
 	ENDWHILE
+
+	// FIXEDGROVE: START - random model variation
+	char_model_W2[0] = DNB1
+	char_model_W2[1] = DNB2
+	char_model_W2[2] = DNB3
+	// FIXEDGROVE: END
 
 	LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_STEAL stealth_dm_W2
 	LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_EMPTY empty_dm_W2
@@ -1297,23 +1305,27 @@ mission_wuzi2_SUB_create_boats:
 	CREATE_CAR TROPIC -1585.0 1375.0 1.0 boat_W2[0]
 	ANCHOR_BOAT boat_W2[0] TRUE
 	 
-	CREATE_CHAR_INSIDE_CAR boat_W2[0] PEDTYPE_MISSION1 DNB1 boat_driver_W2[0]
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 char_select_W2 // FIXEDGROVE
+	CREATE_CHAR_INSIDE_CAR boat_W2[0] PEDTYPE_MISSION1 char_model_W2[char_select_W2] boat_driver_W2[0] // FIXEDGROVE: was DNB1
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB1 -1585.0 1375.0 4.0 boat_guards_W2[0]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_MISSION1 char_model_W2[char_select_W2] -1585.0 1375.0 4.0 boat_guards_W2[0] // FIXEDGROVE: was DNB1
 	ATTACH_CHAR_TO_CAR boat_guards_W2[0] boat_W2[0] 0.0 9.0 2.1 FACING_FORWARD 360.0 WEAPONTYPE_AK47
 	TASK_STAY_IN_SAME_PLACE boat_guards_W2[0] TRUE  
 	SET_CHAR_ACCURACY boat_guards_W2[0] 80
 	SET_CHAR_SHOOT_RATE boat_guards_W2[0] 20
 	guard_heading_W2[0] = 0.0
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB2 -1585.0 1375.0 4.0 boat_guards_W2[1]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1585.0 1375.0 4.0 boat_guards_W2[1] // FIXEDGROVE: was DNB2
 	ATTACH_CHAR_TO_CAR boat_guards_W2[1] boat_W2[0] -1.0 -1.0 3.70 FACING_FORWARD 360.0 WEAPONTYPE_AK47
 	TASK_STAY_IN_SAME_PLACE boat_guards_W2[1] TRUE 
 	SET_CHAR_ACCURACY boat_guards_W2[1] 80
 	SET_CHAR_SHOOT_RATE boat_guards_W2[1] 20
 	guard_heading_W2[1] = -90.0
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB3 -1585.0 1375.0 4.0 boat_guards_W2[2]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1585.0 1375.0 4.0 boat_guards_W2[2] // FIXEDGROVE: was DNB3
 	ATTACH_CHAR_TO_CAR boat_guards_W2[2] boat_W2[0] 1.0 -4.0 1.15 FACING_FORWARD 360.0 WEAPONTYPE_AK47
 	TASK_STAY_IN_SAME_PLACE boat_guards_W2[2] TRUE 
 	SET_CHAR_ACCURACY boat_guards_W2[2] 80
@@ -1327,23 +1339,27 @@ mission_wuzi2_SUB_create_boats:
 	// boat 1
 	CREATE_CAR TROPIC -1505.0 1335.0 1.0 boat_W2[1]
 	ANCHOR_BOAT boat_W2[1] TRUE
-	CREATE_CHAR_INSIDE_CAR boat_W2[1] PEDTYPE_MISSION1 DNB1 boat_driver_W2[1]
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 char_select_W2 // FIXEDGROVE
+	CREATE_CHAR_INSIDE_CAR boat_W2[1] PEDTYPE_MISSION1 char_model_W2[char_select_W2] boat_driver_W2[1] // FIXEDGROVE: was DNB1
 	
-	CREATE_CHAR PEDTYPE_MISSION1 DNB1 -1585.0 1375.0 4.0 boat_guards_W2[3]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_MISSION1 char_model_W2[char_select_W2] -1585.0 1375.0 4.0 boat_guards_W2[3] // FIXEDGROVE: was DNB1
 	ATTACH_CHAR_TO_CAR boat_guards_W2[3] boat_W2[1] 0.0 9.0 2.1 FACING_FORWARD 360.0 WEAPONTYPE_AK47 
 	TASK_STAY_IN_SAME_PLACE boat_guards_W2[3] TRUE 
 	SET_CHAR_ACCURACY boat_guards_W2[3] 80
 	SET_CHAR_SHOOT_RATE boat_guards_W2[3] 20
 	guard_heading_W2[3] = 0.0
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB2 -1585.0 1375.0 4.0 boat_guards_W2[4] 
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1585.0 1375.0 4.0 boat_guards_W2[4] // FIXEDGROVE: was DNB2
 	ATTACH_CHAR_TO_CAR boat_guards_W2[4] boat_W2[1] -1.0 -1.0 3.70 FACING_FORWARD 360.0 WEAPONTYPE_AK47
 	TASK_STAY_IN_SAME_PLACE boat_guards_W2[4] TRUE
 	SET_CHAR_ACCURACY boat_guards_W2[4] 80
 	SET_CHAR_SHOOT_RATE boat_guards_W2[4] 20
 	guard_heading_W2[4] = -90.0
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB3 -1585.0 1375.0 4.0 boat_guards_W2[5]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1585.0 1375.0 4.0 boat_guards_W2[5] // FIXEDGROVE: was DNB3
 	ATTACH_CHAR_TO_CAR boat_guards_W2[5] boat_W2[1] 1.0 -4.0 1.15 FACING_FORWARD 360.0 WEAPONTYPE_AK47
 	TASK_STAY_IN_SAME_PLACE boat_guards_W2[5] TRUE
 	SET_CHAR_ACCURACY boat_guards_W2[5] 80
@@ -2763,19 +2779,22 @@ mission_wuzi2_SUB_create_searchlights:
 	SET_CAR_HEADING s_boat_W2[0] 180.0
 	ANCHOR_BOAT s_boat_W2[0] TRUE 
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB3 -1521.0 1492.0 5.0 s_boat_guard_W2[0]
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 char_select_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1521.0 1492.0 5.0 s_boat_guard_W2[0] // FIXEDGROVE: was DNB3
 	ATTACH_CHAR_TO_CAR s_boat_guard_W2[0] s_boat_W2[0] 0.0 9.0 2.1 FACING_FORWARD 360.0 WEAPONTYPE_AK47 
 	TASK_STAY_IN_SAME_PLACE s_boat_guard_W2[0] TRUE 
 	SET_CHAR_ACCURACY s_boat_guard_W2[0] 80
 	SET_CHAR_SHOOT_RATE s_boat_guard_W2[0] 20
 	
-	CREATE_CHAR PEDTYPE_MISSION1 DNB2 -1521.0 1492.0 5.0 s_boat_guard_W2[1]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1521.0 1492.0 5.0 s_boat_guard_W2[1] // FIXEDGROVE: was DNB2
 	ATTACH_CHAR_TO_CAR s_boat_guard_W2[1] s_boat_W2[0] -1.0 -1.0 3.70 FACING_FORWARD 360.0 WEAPONTYPE_AK47 
 	TASK_STAY_IN_SAME_PLACE s_boat_guard_W2[1] TRUE 
 	SET_CHAR_ACCURACY s_boat_guard_W2[1] 80
 	SET_CHAR_SHOOT_RATE s_boat_guard_W2[1] 20
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB1 -1521.0 1492.0 5.0 s_boat_guard_W2[2]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_MISSION1 char_model_W2[char_select_W2] -1521.0 1492.0 5.0 s_boat_guard_W2[2] // FIXEDGROVE: was DNB1
 	ATTACH_CHAR_TO_CAR s_boat_guard_W2[2] s_boat_W2[0] 1.0 -4.0 1.15 FACING_FORWARD 360.0 WEAPONTYPE_AK47 
 	TASK_STAY_IN_SAME_PLACE s_boat_guard_W2[2] TRUE 
 	SET_CHAR_ACCURACY s_boat_guard_W2[2] 80
@@ -2786,19 +2805,22 @@ mission_wuzi2_SUB_create_searchlights:
 	SET_CAR_HEADING s_boat_W2[1] 0.0
 	ANCHOR_BOAT s_boat_W2[1] TRUE 
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB3 -1322.0 1489.5 5.0 s_boat_guard_W2[3]
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 char_select_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1322.0 1489.5 5.0 s_boat_guard_W2[3] // FIXEDGROVE: was DNB3
 	ATTACH_CHAR_TO_CAR s_boat_guard_W2[3] s_boat_W2[1] 0.0 9.0 2.1 FACING_FORWARD 360.0 WEAPONTYPE_AK47 
 	TASK_STAY_IN_SAME_PLACE s_boat_guard_W2[3] TRUE 
 	SET_CHAR_ACCURACY s_boat_guard_W2[3] 80
 	SET_CHAR_SHOOT_RATE s_boat_guard_W2[3] 20	  
 
-	CREATE_CHAR PEDTYPE_MISSION1 DNB2 -1322.0 1489.5 5.0 s_boat_guard_W2[4]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission1 char_model_W2[char_select_W2] -1322.0 1489.5 5.0 s_boat_guard_W2[4] // FIXEDGROVE: was DNB2
 	ATTACH_CHAR_TO_CAR s_boat_guard_W2[4] s_boat_W2[1] -1.0 -1.0 3.70 FACING_FORWARD 360.0 WEAPONTYPE_AK47 
 	TASK_STAY_IN_SAME_PLACE s_boat_guard_W2[4] TRUE 
 	SET_CHAR_ACCURACY s_boat_guard_W2[4] 80
 	SET_CHAR_SHOOT_RATE s_boat_guard_W2[4] 20	
 	
-	CREATE_CHAR PEDTYPE_MISSION1 DNB1 -1322.0 1489.5 5.0 s_boat_guard_W2[5]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_MISSION1 char_model_W2[char_select_W2] -1322.0 1489.5 5.0 s_boat_guard_W2[5] // FIXEDGROVE: was DNB1
 	ATTACH_CHAR_TO_CAR s_boat_guard_W2[5] s_boat_W2[1] 1.0 -4.0 1.15 FACING_FORWARD 360.0 WEAPONTYPE_AK47 
 	TASK_STAY_IN_SAME_PLACE s_boat_guard_W2[5] TRUE 
 	SET_CHAR_ACCURACY s_boat_guard_W2[5] 80
@@ -3202,7 +3224,8 @@ mission_wuzi2_SUB_start_boat:
 	idle_heading_W2[3] = 347.1257
 
 	// boat guards	
-	CREATE_CHAR PEDTYPE_MISSION2 DNB1 idle_X_W2[0] idle_Y_W2[0] idle_Z_W2[0] guard_W2[0]
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 char_select_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission2 char_model_W2[char_select_W2] idle_X_W2[0] idle_Y_W2[0] idle_Z_W2[0] guard_W2[0] // FIXEDGROVE: was DNB1
 	SET_CHAR_HEADING guard_W2[0] idle_heading_W2[0]
 	GIVE_WEAPON_TO_CHAR guard_W2[0] WEAPONTYPE_KNIFE 1
 	SET_CURRENT_CHAR_WEAPON guard_W2[0] WEAPONTYPE_KNIFE
@@ -3214,7 +3237,8 @@ mission_wuzi2_SUB_start_boat:
 	SET_SENSE_RANGE guard_W2[0] 80.0
 	idle_status_W2[0] = 0
 	
-	CREATE_CHAR PEDTYPE_MISSION2 DNB2 idle_X_W2[1] idle_Y_W2[1] idle_Z_W2[1] guard_W2[1]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission2 char_model_W2[char_select_W2] idle_X_W2[1] idle_Y_W2[1] idle_Z_W2[1] guard_W2[1] // FIXEDGROVE: was DNB2
 	SET_CHAR_HEADING guard_W2[1] idle_heading_W2[1]
 	GIVE_WEAPON_TO_CHAR guard_W2[1] WEAPONTYPE_KNIFE 1
 	SET_CURRENT_CHAR_WEAPON guard_W2[1] WEAPONTYPE_KNIFE
@@ -3226,7 +3250,8 @@ mission_wuzi2_SUB_start_boat:
 	SET_SENSE_RANGE guard_W2[1] 80.0
 	idle_status_W2[1] = 0
 	
-	CREATE_CHAR PEDTYPE_MISSION2 DNB3 idle_X_W2[2] idle_Y_W2[2] idle_Z_W2[2] guard_W2[2]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission2 char_model_W2[char_select_W2] idle_X_W2[2] idle_Y_W2[2] idle_Z_W2[2] guard_W2[2] // FIXEDGROVE: was DNB3
 	SET_CHAR_HEADING guard_W2[2] idle_heading_W2[2]
 	GIVE_WEAPON_TO_CHAR guard_W2[2] WEAPONTYPE_KNIFE 1
 	SET_CURRENT_CHAR_WEAPON guard_W2[2] WEAPONTYPE_KNIFE
@@ -3238,7 +3263,8 @@ mission_wuzi2_SUB_start_boat:
 	SET_SENSE_RANGE guard_W2[2] 80.0
 	idle_status_W2[2] = 0
 
-	CREATE_CHAR PEDTYPE_MISSION2 DNB1 idle_X_W2[3] idle_Y_W2[3] idle_Z_W2[3] guard_W2[3]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission2 char_model_W2[char_select_W2] idle_X_W2[3] idle_Y_W2[3] idle_Z_W2[3] guard_W2[3] // FIXEDGROVE: was DNB1
 	SET_CHAR_HEADING guard_W2[3] idle_heading_W2[3]
 	GIVE_WEAPON_TO_CHAR guard_W2[3] WEAPONTYPE_KNIFE 1
 	SET_CURRENT_CHAR_WEAPON guard_W2[3] WEAPONTYPE_KNIFE
@@ -3297,7 +3323,8 @@ mission_wuzi2_SUB_start_boat:
 	patrol_start_W2[0] = 0
 	patrol_stop_W2[0] = 1
 	pointer2_W2	= patrol_start_W2[0]
-	CREATE_CHAR PEDTYPE_MISSION2 DNB3 patrol_X_W2[pointer2_W2] patrol_Y_W2[pointer2_W2] patrol_Z_W2[pointer2_W2] guard_W2[4]
+	GENERATE_RANDOM_INT_IN_RANGE 0 3 char_select_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission2 char_model_W2[char_select_W2] patrol_X_W2[pointer2_W2] patrol_Y_W2[pointer2_W2] patrol_Z_W2[pointer2_W2] guard_W2[4] // FIXEDGROVE: was DNB3
 	SET_CHAR_HEADING guard_W2[4] patrol_heading_W2[pointer2_W2]
 	GIVE_WEAPON_TO_CHAR guard_W2[4] WEAPONTYPE_KNIFE 1
 	SET_CURRENT_CHAR_WEAPON guard_W2[4] WEAPONTYPE_KNIFE
@@ -3312,7 +3339,8 @@ mission_wuzi2_SUB_start_boat:
 	patrol_start_W2[1] = 2
 	patrol_stop_W2[1] = 3
 	pointer2_W2	= patrol_start_W2[1]
-	CREATE_CHAR PEDTYPE_MISSION2 DNB2 patrol_X_W2[pointer2_W2] patrol_Y_W2[pointer2_W2] patrol_Z_W2[pointer2_W2] guard_W2[5]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission2 char_model_W2[char_select_W2] patrol_X_W2[pointer2_W2] patrol_Y_W2[pointer2_W2] patrol_Z_W2[pointer2_W2] guard_W2[5] // FIXEDGROVE: was DNB2
 	SET_CHAR_HEADING guard_W2[5] patrol_heading_W2[pointer2_W2]
 	GIVE_WEAPON_TO_CHAR guard_W2[5] WEAPONTYPE_KNIFE 1
 	SET_CURRENT_CHAR_WEAPON guard_W2[5] WEAPONTYPE_KNIFE
@@ -3327,7 +3355,8 @@ mission_wuzi2_SUB_start_boat:
 	patrol_start_W2[2] = 4
 	patrol_stop_W2[2] = 9
 	pointer2_W2	= patrol_start_W2[2]
-	CREATE_CHAR PEDTYPE_MISSION2 DNB1 patrol_X_W2[pointer2_W2] patrol_Y_W2[pointer2_W2] patrol_Z_W2[pointer2_W2] guard_W2[6]
+	GOSUB random_char_W2 // FIXEDGROVE
+	CREATE_CHAR PEDTYPE_mission2 char_model_W2[char_select_W2] patrol_X_W2[pointer2_W2] patrol_Y_W2[pointer2_W2] patrol_Z_W2[pointer2_W2] guard_W2[6] // FIXEDGROVE: was DNB1
 	SET_CHAR_HEADING guard_W2[6] patrol_heading_W2[pointer2_W2]
 	GIVE_WEAPON_TO_CHAR guard_W2[6] WEAPONTYPE_KNIFE 1
 	SET_CURRENT_CHAR_WEAPON guard_W2[6] WEAPONTYPE_KNIFE
@@ -3736,6 +3765,13 @@ mission_wuzi2_SUB_return_players_weapons:
 
 RETURN
 
+
+random_char_W2:
+char_select_W2++
+IF char_select_W2 = 3
+	char_select_W2 = 0
+ENDIF
+RETURN
 
 
 // MISSION FAILED ########################################################################################### MISSION FAILED
