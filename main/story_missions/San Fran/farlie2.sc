@@ -80,6 +80,8 @@ LVAR_INT d2_package_immovable[4]
 
 LVAR_INT d2_fake_creates
 
+LVAR_INT d2_player_cant_driveby d2_player_near_package // FIXEDGROVE
+
 // blips
 
 LVAR_INT d2_package_blips[4] /*d2_player_bike_blip*/ d2_ambushed_van_blip d2_player_dest_blip
@@ -533,6 +535,12 @@ WAIT 0
 			ADD_BLIP_FOR_COORD d2_player_dest_x d2_player_dest_y d2_player_dest_z d2_player_dest_blip
 			PRINT_NOW ( DRV3_10 ) 7000 0
 			d2_all_packages_collected = 1
+			// FIXEDGROVE: START - re-enable drive-by
+			IF d2_player_cant_driveby = 1
+				SET_PLAYER_CAN_DO_DRIVE_BY player1 TRUE
+				d2_player_cant_driveby = 0
+			ENDIF
+			// FIXEDGROVE: END
 		ENDIF
 
 		// mission pass/fail conditions
@@ -701,7 +709,41 @@ GOTO driv2_loop
 // ************************************************************
 
 	d2_package_collect_check:
-
+	// FIXEDGROVE: START - disable drive-by if player is near package
+	// allows the animation to play and prevents accidentally blowing up the bike
+	d2_player_near_package = 0
+	d2_index = 0
+	WHILE d2_index < d2_num_of_packages
+		IF d2_player_near_package = 0
+			IF DOES_OBJECT_EXIST d2_packages[d2_index]
+			AND NOT d2_package_collected[d2_index] = 1
+				IF IS_OBJECT_ATTACHED d2_packages[d2_index]
+					IF LOCATE_CHAR_ANY_MEANS_OBJECT_3D scplayer d2_packages[d2_index] 6.0 6.0 6.0 FALSE
+						d2_player_near_package = 1
+					ENDIF
+				ENDIF
+			ENDIF
+		ENDIF
+		d2_index++
+	ENDWHILE
+	IF d2_player_near_package = 1
+		IF d2_player_cant_driveby = 0
+			SET_PLAYER_CAN_DO_DRIVE_BY player1 FALSE
+			d2_player_cant_driveby = 1
+		ENDIF
+	ELSE
+		IF d2_player_cant_driveby = 1
+			IF NOT IS_CHAR_PLAYING_ANIM scplayer pickup_box
+			AND NOT IS_CHAR_PLAYING_ANIM scplayer BIKEs_Snatch_L
+			AND NOT IS_CHAR_PLAYING_ANIM scplayer BIKEs_Snatch_R
+			AND NOT IS_CHAR_PLAYING_ANIM scplayer GRAB_L
+			AND NOT IS_CHAR_PLAYING_ANIM scplayer GRAB_R
+				SET_PLAYER_CAN_DO_DRIVE_BY player1 TRUE
+				d2_player_cant_driveby = 0
+			ENDIF
+		ENDIF
+	ENDIF
+	// FIXEDGROVE: END
 		d2_index = 0
 		WHILE d2_index < d2_num_of_packages
 			IF DOES_OBJECT_EXIST d2_packages[d2_index]
@@ -829,7 +871,7 @@ GOTO driv2_loop
 							ENDIF
 
 						ENDIF
- 
+
 					ENDIF
 
 					IF NOT d2_package_collected[d2_index] = 1
@@ -1803,6 +1845,7 @@ RETURN
 
 mission_cleanup_driv2:
 
+SET_PLAYER_CAN_DO_DRIVE_BY player1 TRUE // FIXEDGROVE: revert to default
 MARK_MODEL_AS_NO_LONGER_NEEDED BOXVILLE
 MARK_MODEL_AS_NO_LONGER_NEEDED FCR900
 MARK_MODEL_AS_NO_LONGER_NEEDED kmb_packet
