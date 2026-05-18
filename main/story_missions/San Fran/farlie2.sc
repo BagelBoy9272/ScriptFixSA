@@ -80,6 +80,8 @@ LVAR_INT d2_package_immovable[4]
 
 LVAR_INT d2_fake_creates
 
+LVAR_INT d2_player_cant_driveby d2_player_near_package // FIXEDGROVE
+
 // blips
 
 LVAR_INT d2_package_blips[4] /*d2_player_bike_blip*/ d2_ambushed_van_blip d2_player_dest_blip
@@ -709,7 +711,6 @@ GOTO driv2_loop
 	d2_package_collect_check:
 	// FIXEDGROVE: START - disable drive-by if player is near package
 	// allows the animation to play and prevents accidentally blowing up the bike
-	LVAR_INT d2_player_cant_driveby d2_player_near_package
 	d2_player_near_package = 0
 	d2_index = 0
 	WHILE d2_index < d2_num_of_packages
