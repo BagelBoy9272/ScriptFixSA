@@ -32,6 +32,7 @@ LVAR_INT st2_flag_cesar_in_group st2_car_check_flag st2_salesman_flag
 LVAR_INT st2_seq_progress
 LVAR_INT st2_model st2_class
 LVAR_INT st2_no_plates st2_no_plates_flag
+LVAR_INT st2_coach_flag // FIXEDGROVE
 
 
 //speech
@@ -2863,12 +2864,11 @@ WAIT 0
 		GOSUB st2_sorting_speed
 
 		// FIXEDGROVE: START - moved the ped tasks here
-		LVAR_INT st2_temp_int
-		IF st2_temp_int = 0
+		IF st2_coach_flag = 0
 			IF IS_CAR_ON_SCREEN st2_cars[3] 
 				TASK_ENTER_CAR_AS_PASSENGER st2_peds[19] st2_cars[3] -1 1 // FIXEDGROVE: changed from st2_peds[9]
 				TASK_ENTER_CAR_AS_PASSENGER st2_peds[20] st2_cars[3] -1 2 // FIXEDGROVE: changed from st2_peds[10]
-				st2_temp_int = 1
+				st2_coach_flag = 1
 			ENDIF
 		ENDIF
 		// FIXEDGROVE: END
