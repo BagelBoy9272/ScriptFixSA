@@ -76,7 +76,7 @@ LVAR_FLOAT wz1_float1 wz1_float2 wz1_float3 wuzi_x wuzi_y wuzi_z
 
 LVAR_INT temp_audio	wuzi_insult[6]
 
-
+LVAR_INT wz1_char_model[3] wz1_char_select // FIXEDGROVE
 
 
 // ****************************************Mission Start************************************
@@ -91,6 +91,12 @@ wuzi_insult[3] = 40
 wuzi_insult[4] = 41
 wuzi_insult[5] = 42
 lose_face_message_printed = 0
+
+// FIXEDGROVE: START - random model variation
+wz1_char_model[0] = DNB1
+wz1_char_model[1] = DNB2
+wz1_char_model[2] = DNB3
+// FIXEDGROVE: END
 
 //SET_PLAYER_GROUP_TO_FOLLOW_ALWAYS player1 TRUE
 
@@ -1836,7 +1842,7 @@ wz1_cutscene_2:
 			
 
 			CREATE_CHAR_INSIDE_CAR wz1_tongcar[0] PEDTYPE_MISSION1 DNB1 wz1_tong[0]
-			CREATE_CHAR_AS_PASSENGER wz1_tongcar[0] PEDTYPE_MISSION1 DNB2 0 wz1_tong[1] 
+			CREATE_CHAR_AS_PASSENGER wz1_tongcar[0] PEDTYPE_MISSION1 DNB2 0 wz1_tong[1]
 			CREATE_CHAR_AS_PASSENGER wz1_tongcar[0] PEDTYPE_MISSION1 DNB3 1 wz1_tong[2]
 			CREATE_CHAR_AS_PASSENGER wz1_tongcar[0] PEDTYPE_MISSION1 DNB2 2 wz1_tong[3]
 
@@ -2485,7 +2491,8 @@ wz1_cutscene_3:
 				ENDIF
 			ENDIF
 
-			CREATE_CHAR PEDTYPE_MISSION1 DNB1 -2218.2251 636.9910 53.9509 wz1_tong[8]
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2218.2251 636.9910 53.9509 wz1_tong[8] // FIXEDGROVE: was DNB1
 			SET_INFORM_RESPECTED_FRIENDS wz1_tong[8] 30.0 8
 			SET_CHAR_STAY_IN_SAME_PLACE wz1_tong[8]	TRUE
 			SET_CHAR_ACCURACY wz1_tong[8] 100 
@@ -2593,10 +2600,14 @@ wz1_cutscene_3:
 	IF wz1_cut_flag = 5
 		IF TIMERA > wz1_time	
 
-			CREATE_CHAR PEDTYPE_MISSION1 DNB2 -2219.5867 643.4511 48.4472 wz1_tong[9]
-			CREATE_CHAR PEDTYPE_MISSION1 DNB3 -2223.5867 642.4511 48.4472 wz1_tong[10]
-			CREATE_CHAR PEDTYPE_MISSION1 DNB2 -2227.5867 644.4511 48.4472 wz1_tong[11]
-			CREATE_CHAR PEDTYPE_MISSION1 DNB3 -2230.5867 643.4511 48.4472 wz1_tong[12]
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2219.5867 643.4511 48.4472 wz1_tong[9] // FIXEDGROVE: was DNB2
+			GOSUB wz1_random_char // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2223.5867 642.4511 48.4472 wz1_tong[10] // FIXEDGROVE: was DNB3
+			GOSUB wz1_random_char // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2227.5867 644.4511 48.4472 wz1_tong[11] // FIXEDGROVE: was DNB2
+			GOSUB wz1_random_char // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2230.5867 643.4511 48.4472 wz1_tong[12] // FIXEDGROVE: was DNB3
 
 			SET_INFORM_RESPECTED_FRIENDS wz1_tong[9] 30.0 8
 			SET_INFORM_RESPECTED_FRIENDS wz1_tong[10] 30.0 8
@@ -2662,7 +2673,8 @@ wz1_cutscene_3:
 
 	IF wz1_cut_flag = 8
 		IF NOT DOES_CHAR_EXIST wz1_tong[8]
-			CREATE_CHAR PEDTYPE_MISSION1 DNB3 -2218.2251 636.9910 53.9509 wz1_tong[8]
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+			CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2218.2251 636.9910 53.9509 wz1_tong[8] // FIXEDGROVE: was DNB3
 			SET_CHAR_STAY_IN_SAME_PLACE wz1_tong[8]	TRUE 
 			SET_CHAR_DECISION_MAKER wz1_tong[8] wz1_ped_decisions
 			GIVE_WEAPON_TO_CHAR wz1_tong[8] WEAPONTYPE_SNIPERRIFLE 9999
@@ -2680,10 +2692,14 @@ wz1_cutscene_3:
 		DELETE_CHAR wz1_tong[11]
 		DELETE_CHAR wz1_tong[12]
 
-		CREATE_CHAR PEDTYPE_MISSION1 DNB1 -2203.4910 647.0372 48.4453 wz1_tong[9]
-		CREATE_CHAR PEDTYPE_MISSION1 DNB2 -2200.6946 637.1932 48.4429 wz1_tong[10]
-		CREATE_CHAR PEDTYPE_MISSION1 DNB3 -2196.9429 635.1917 48.4429 wz1_tong[11]
-		CREATE_CHAR PEDTYPE_MISSION1 DNB1 -2214.3779 641.6099 48.4484 wz1_tong[12]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2203.4910 647.0372 48.4453 wz1_tong[9] // FIXEDGROVE: was DNB1
+		GOSUB wz1_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2200.6946 637.1932 48.4429 wz1_tong[10] // FIXEDGROVE: was DNB2
+		GOSUB wz1_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2196.9429 635.1917 48.4429 wz1_tong[11] // FIXEDGROVE: was DNB3
+		GOSUB wz1_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2214.3779 641.6099 48.4484 wz1_tong[12] // FIXEDGROVE: was DNB1
 
 		SET_CHAR_HEADING wz1_tong[9] 255.1494
 		SET_CHAR_HEADING wz1_tong[10] 285.6451
@@ -2718,7 +2734,8 @@ wz1_cutscene_3:
 		GIVE_WEAPON_TO_CHAR wz1_tong[11] WEAPONTYPE_MICRO_UZI 5000
 		GIVE_WEAPON_TO_CHAR wz1_tong[12] WEAPONTYPE_MICRO_UZI 5000
 
-		CREATE_CHAR PEDTYPE_MISSION1 DNB1 -2205.3440 648.4099 48.4429 wz1_tong[13]	
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2205.3440 648.4099 48.4429 wz1_tong[13] // FIXEDGROVE: was DNB1
 
 		SET_INFORM_RESPECTED_FRIENDS wz1_tong[13] 30.0 8
 
@@ -3064,8 +3081,10 @@ wz1_cutscene_4:
 
 					CREATE_CAR SENTINEL -2245.3433 715.4953 48.4375 wz1_carattack[0] 
 					SET_CAR_HEADING wz1_carattack[0] 180.0
-					CREATE_CHAR_INSIDE_CAR wz1_carattack[0] PEDTYPE_MISSION1 DNB2 wz1_tong[0]
-					CREATE_CHAR_AS_PASSENGER wz1_carattack[0] PEDTYPE_MISSION1 DNB3 0 wz1_tong[1] 
+					GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+					CREATE_CHAR_INSIDE_CAR wz1_carattack[0] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] wz1_tong[0] // FIXEDGROVE: was DNB2
+					GOSUB wz1_random_char // FIXEDGROVE
+					CREATE_CHAR_AS_PASSENGER wz1_carattack[0] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] 0 wz1_tong[1] // FIXEDGROVE: was DNB3
 					GIVE_WEAPON_TO_CHAR wz1_tong[1] WEAPONTYPE_MICRO_UZI 5000
 					START_PLAYBACK_RECORDED_CAR wz1_carattack[0] 136
 		//			SET_CAR_FORWARD_SPEED wz1_carattack[0] 25.0
@@ -3078,8 +3097,10 @@ wz1_cutscene_4:
 
 					CREATE_CAR SENTINEL -2251.6763 612.6026 42.2590 wz1_carattack[1]
 					SET_CAR_HEADING wz1_carattack[1] 0.0
-					CREATE_CHAR_INSIDE_CAR wz1_carattack[1] PEDTYPE_MISSION1 DNB1 wz1_tong[2]
-					CREATE_CHAR_AS_PASSENGER wz1_carattack[1] PEDTYPE_MISSION1 DNB2 0 wz1_tong[3] 
+					GOSUB wz1_random_char // FIXEDGROVE
+					CREATE_CHAR_INSIDE_CAR wz1_carattack[1] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] wz1_tong[2] // FIXEDGROVE: was DNB1
+					GOSUB wz1_random_char // FIXEDGROVE
+					CREATE_CHAR_AS_PASSENGER wz1_carattack[1] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] 0 wz1_tong[3] // FIXEDGROVE: was DNB2
 					GIVE_WEAPON_TO_CHAR wz1_tong[3] WEAPONTYPE_MICRO_UZI 5000
 		//					TASK_TOGGLE_PED_THREAT_SCANNER wz1_tong[17] 1 1 1
 
@@ -3454,12 +3475,16 @@ tong_events:
 
 			REQUEST_CAR_RECORDING 139
 
-			CREATE_CHAR_INSIDE_CAR wz1_tongcar[1] PEDTYPE_MISSION1 DNB3 wz1_tong[4]
-			CREATE_CHAR_AS_PASSENGER wz1_tongcar[1] PEDTYPE_MISSION1 DNB1 0 wz1_tong[5]
+			GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+			CREATE_CHAR_INSIDE_CAR wz1_tongcar[1] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] wz1_tong[4] // FIXEDGROVE: was DNB3
+			GOSUB wz1_random_char // FIXEDGROVE
+			CREATE_CHAR_AS_PASSENGER wz1_tongcar[1] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] 0 wz1_tong[5] // FIXEDGROVE: was DNB1
 			
 			 
-			CREATE_CHAR_INSIDE_CAR wz1_tongcar[2] PEDTYPE_MISSION1 DNB2 wz1_tong[6]
-			CREATE_CHAR_AS_PASSENGER wz1_tongcar[2] PEDTYPE_MISSION1 DNB3 0 wz1_tong[7]
+			GOSUB wz1_random_char // FIXEDGROVE
+			CREATE_CHAR_INSIDE_CAR wz1_tongcar[2] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] wz1_tong[6] // FIXEDGROVE: was DNB2
+			GOSUB wz1_random_char // FIXEDGROVE
+			CREATE_CHAR_AS_PASSENGER wz1_tongcar[2] PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] 0 wz1_tong[7] // FIXEDGROVE: was DNB3
 
 			MARK_MODEL_AS_NO_LONGER_NEEDED DNB1
 			MARK_MODEL_AS_NO_LONGER_NEEDED DNB2
@@ -3648,8 +3673,10 @@ tong_events:
 			IF player_x < -2197.0
 			OR wz1_dead_tong_wave3 > 1
 				wz1_create_tong_wave3 = 1
-				CREATE_CHAR PEDTYPE_MISSION1 DNB3 -2205.8611 625.2820 48.4396 wz1_tong[14]	
-				CREATE_CHAR PEDTYPE_MISSION1 DNB1 -2207.0764 627.3953 48.4384 wz1_tong[15]
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 wz1_char_select // FIXEDGROVE
+				CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2205.8611 625.2820 48.4396 wz1_tong[14] // FIXEDGROVE: was DNB3
+				GOSUB wz1_random_char // FIXEDGROVE
+				CREATE_CHAR PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] -2207.0764 627.3953 48.4384 wz1_tong[15] // FIXEDGROVE: was DNB1
 				GIVE_WEAPON_TO_CHAR wz1_tong[14] WEAPONTYPE_MICRO_UZI 500
 				GIVE_WEAPON_TO_CHAR wz1_tong[15] WEAPONTYPE_MICRO_UZI 500
 				FLUSH_ROUTE
@@ -3665,8 +3692,10 @@ tong_events:
 				SET_CAR_PROOFS wz1_getaway_car TRUE TRUE TRUE TRUE TRUE
 				SET_CAR_HEADING	wz1_getaway_car 344.0
 				LOCK_CAR_DOORS wz1_getaway_car CARLOCK_LOCKOUT_PLAYER_ONLY
-				CREATE_CHAR_INSIDE_CAR wz1_getaway_car PEDTYPE_MISSION1 DNB1 wz1_tong[16]
-				CREATE_CHAR_AS_PASSENGER wz1_getaway_car PEDTYPE_MISSION1 DNB2 0 wz1_tong[17]
+				GOSUB wz1_random_char // FIXEDGROVE
+				CREATE_CHAR_INSIDE_CAR wz1_getaway_car PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] wz1_tong[16] // FIXEDGROVE: was DNB1
+				GOSUB wz1_random_char // FIXEDGROVE
+				CREATE_CHAR_AS_PASSENGER wz1_getaway_car PEDTYPE_MISSION1 wz1_char_model[wz1_char_select] 0 wz1_tong[17] // FIXEDGROVE: was DNB2
 				GIVE_WEAPON_TO_CHAR wz1_tong[16] WEAPONTYPE_MICRO_UZI 500
 				GIVE_WEAPON_TO_CHAR wz1_tong[17] WEAPONTYPE_MICRO_UZI 500
 				SET_CHAR_DECISION_MAKER wz1_tong[14] wz1_ped_decisions
@@ -4774,8 +4803,12 @@ RETURN
 
 
 
-
-
+wz1_random_char:
+wz1_char_select++
+IF wz1_char_select = 3
+	wz1_char_select = 0
+ENDIF
+RETURN
 
 
 	
