@@ -3488,13 +3488,15 @@ IF IS_PLAYER_PLAYING player1
     IF flag_player_on_mission = 0  
 		// FIXEDGROVE: START - open the ammu interiors if the player is not on a call
 		IF flag_sweet_mission_counter > 7 // if player has unlocked ammunation
-			IF switch_the_ammu_interiors_off = 0
-				SWITCH_ENTRY_EXIT ammun1 TRUE
-				SWITCH_ENTRY_EXIT ammun2 TRUE
-				SWITCH_ENTRY_EXIT ammun3 TRUE
-				SWITCH_ENTRY_EXIT ammun4 TRUE
-				SWITCH_ENTRY_EXIT ammun5 TRUE
-				switch_the_ammu_interiors_off = 1
+			IF flag_cell_nation = 0 // a call is not ongoing
+				IF switch_the_ammu_interiors_off = 0
+					SWITCH_ENTRY_EXIT ammun1 TRUE
+					SWITCH_ENTRY_EXIT ammun2 TRUE
+					SWITCH_ENTRY_EXIT ammun3 TRUE
+					SWITCH_ENTRY_EXIT ammun4 TRUE
+					SWITCH_ENTRY_EXIT ammun5 TRUE
+					switch_the_ammu_interiors_off = 1
+				ENDIF
 			ENDIF
 		ENDIF
 		// FIXEDGROVE: END
@@ -3520,13 +3522,15 @@ IF IS_PLAYER_PLAYING player1
 		// FIXEDGROVE: START - shut the ammu interiors while on a call
 		IF flag_sweet_mission_counter > 7 // if player has unlocked ammunation
 			IF main_visible_area = 0
-				IF switch_the_ammu_interiors_off = 1
-					SWITCH_ENTRY_EXIT ammun1 FALSE
-					SWITCH_ENTRY_EXIT ammun2 FALSE
-					SWITCH_ENTRY_EXIT ammun3 FALSE
-					SWITCH_ENTRY_EXIT ammun4 FALSE
-					SWITCH_ENTRY_EXIT ammun5 FALSE
-					switch_the_ammu_interiors_off = 0
+				IF NOT flag_cell_nation = 0 // a call is ongoing
+					IF switch_the_ammu_interiors_off = 1
+						SWITCH_ENTRY_EXIT ammun1 FALSE
+						SWITCH_ENTRY_EXIT ammun2 FALSE
+						SWITCH_ENTRY_EXIT ammun3 FALSE
+						SWITCH_ENTRY_EXIT ammun4 FALSE
+						SWITCH_ENTRY_EXIT ammun5 FALSE
+						switch_the_ammu_interiors_off = 0
+					ENDIF
 				ENDIF
 			ENDIF
 		ENDIF
