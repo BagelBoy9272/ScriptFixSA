@@ -3493,6 +3493,7 @@ cell_phone_sanfran_inner:
 							ACTIVATE_GARAGE vEcmod
 							ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2382.2, 1044.0, 9.8 RADAR_SPRITE_MOD_GARAGE mod_garage_blips[2]
 							SET_INT_STAT PASSED_CASINO3 1
+							SET_ZONE_GANG_STRENGTH DRAG GANG_TRIAD 40 // FIXEDGROVE: triad turf for triad casino
 							START_NEW_SCRIPT little_casino_cut
 						ENDIF
 						GOSUB mobile_message_cleanup

@@ -3127,7 +3127,7 @@ mission_la1fin2_passed:
 
 
                         SET_ZONE_GANG_STRENGTH SUN1 GANG_FLAT 30
-                        SET_ZONE_GANG_STRENGTH SUN1 GANG_FLAT 30
+                        SET_ZONE_GANG_STRENGTH SUN2 GANG_FLAT 30 // FIXEDGROVE: zone was SUN1
                         SET_ZONE_GANG_STRENGTH SUN3a GANG_FLAT 30
                         SET_ZONE_GANG_STRENGTH SUN3b GANG_FLAT 30 
                         SET_ZONE_GANG_STRENGTH SUN3c GANG_FLAT 30
@@ -3203,7 +3203,7 @@ mission_la1fin2_passed:
 
                         // Set GROVE to 0 in case player started to gain this territory
                         SET_ZONE_GANG_STRENGTH SUN1 GANG_GROVE 0
-                        SET_ZONE_GANG_STRENGTH SUN1 GANG_GROVE 0
+                        SET_ZONE_GANG_STRENGTH SUN2 GANG_GROVE 0 // FIXEDGROVE: zone was SUN1
                         SET_ZONE_GANG_STRENGTH SUN3a GANG_GROVE 0
                         SET_ZONE_GANG_STRENGTH SUN3b GANG_GROVE 0
                         SET_ZONE_GANG_STRENGTH SUN3c GANG_GROVE 0

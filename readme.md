@@ -420,12 +420,17 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed Tattoo script not waiting for the needle sound effect to end before moving on to the next state (this mimics an official fix for barbershops)
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
 - Fixed Flint Intersection and Flint Range zones being assigned the desert popcycle instead of the countryside one
+- Fixed SUN2, RIH5b and RIH6a zones missing properties due to a copy-paste oversight
+- Fixed missing turf for Da Nang Boys due to a copy-paste oversight
 - Fixed infrared goggles not respawning after being picked up
 - Fixed body armour inside Madd Dogg's mansion not respawning after being picked up
 - Fixed a country rifle pickup that was inside the stadium in SF
 - Fixed a knife pickup that was under the ground near an underpass in SF
 - Moved AK47 pickup in film studios closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
+- Added population properties to a tiny alleway zone in East Los Santos
+- Added italian mafia turf to Caligula's Palace and a little bit of The Strip next to it
+- Added triad turf to the Four Dragons Casino after Woozie's phonecall about it
 - Made Ryder's car stop spawning after 'Pier 69'
 - Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completd
 - Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
