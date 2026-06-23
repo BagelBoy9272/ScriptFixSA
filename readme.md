@@ -398,6 +398,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed Ryder's car not spawning depending on mission order
 - Fixed pimp submission undoing the relationship change from Ballas towards player set in 'Drive-By'
 - Fixed taxi submission not showing the tutorial help correctly
+- Fixed a free healthcare exploit in Bloodring
 - Fixed Didier Sachs not being flagged as unlocked
 - Fixed possible softlock if the player answered a loanshark phone call while 'Are You Going To San Fierro?' wasn't unlocked
 - Fixed script not checking if player answered Rosenberg's phone call before enabling 'Vertical Bird'
