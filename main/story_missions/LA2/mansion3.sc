@@ -72,7 +72,18 @@ LVAR_INT passengers_in_cut_car
 
 LVAR_INT m3_can_trigger_a_war
 
+LVAR_INT m3_end_timer_started // FIXEDGROVE: used for a little pause before triggering the end cut
+
 LVAR_TEXT_LABEL m3_print
+
+LVAR_INT m3_speaker // FIXEDGROVE: used for facial talk anim and audio attach
+
+LVAR_INT m3_attach_audio_flag // FIXEDGROVE: tells the audio system to attach the audio to the speaker
+
+LVAR_INT m3_cutscene_skipped // FIXEDGROVE
+
+LVAR_INT sweet_insult[9] // FIXEDGROVE: boolean array to track which insults have been played
+LVAR_INT sweet_insult_count last_sweet_insult_time sweet_insult_cooldown // FIXEDGROVE
 
 VAR_INT m3_in_the_zone m3_sweets_health
 
@@ -185,7 +196,15 @@ OR NOT HAS_MODEL_LOADED WMYDRUG
 	
 ENDWHILE
 
-REQUEST_COLLISION 1251.5413 -808.7633 
+REQUEST_COLLISION 1251.5413 -808.7633
+
+// FIXEDGROVE: START - relationships
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_DISLIKE PEDTYPE_MISSION2 PEDTYPE_GANG_FLAT
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_DISLIKE PEDTYPE_MISSION2 PEDTYPE_DEALER
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_MISSION2	PEDTYPE_PLAYER1
+
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_DISLIKE PEDTYPE_GANG_FLAT PEDTYPE_MISSION2
+// FIXEDGROVE: END
 
 // Gang stuff it'll work fine **************************************************************
 
@@ -256,44 +275,45 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 	IF m3_mission_status = 0
 
-		IF IS_CHAR_IN_ANY_CAR scplayer
-													
-			STORE_CAR_CHAR_IS_IN scplayer m3_cut_car
-
-			GET_MAXIMUM_NUMBER_OF_PASSENGERS m3_cut_car passengers_cut_car
-
-			GET_NUMBER_OF_PASSENGERS m3_cut_car passengers_in_cut_car
-
-		ENDIF
+		// FIXEDGROVE: fixed checks: fixes some nonsensical subtitles when in the marker
 
 		IF LOCATE_CHAR_ANY_MEANS_3D scplayer 1521.1943 -1671.9128 12.5625 3.0 3.0 3.0 TRUE
 
-			IF passengers_cut_car = 0
+			IF IS_CHAR_IN_ANY_CAR scplayer
 
-				PRINT_NOW ( MAN3_19 ) 3000 1 // ~s~Get a bigger vehicle!
+				STORE_CAR_CHAR_IS_IN scplayer m3_cut_car
 
-			ENDIF
+				GET_MAXIMUM_NUMBER_OF_PASSENGERS m3_cut_car passengers_cut_car
 
-			IF passengers_in_cut_car = passengers_cut_car
+				GET_NUMBER_OF_PASSENGERS m3_cut_car passengers_in_cut_car
 
-				IF IS_CHAR_IN_ANY_HELI scplayer
-				OR IS_CHAR_IN_ANY_PLANE scplayer
-				OR IS_CHAR_IN_FLYING_VEHICLE scplayer
-				    
-					PRINT_NOW ( MAN3_69 ) 3000 1  // The vehicle is too full, there's no room for Sweet!
+				IF passengers_cut_car = 0
+
+					PRINT_NOW ( MAN3_19 ) 3000 1 // ~s~Get a bigger vehicle!
 
 				ELSE
-					PRINT_NOW ( MAN3_34 ) 3000 1  // You need a vehicle to pick up Sweet.
+
+					IF passengers_in_cut_car = passengers_cut_car
+
+						IF IS_CHAR_IN_ANY_HELI scplayer
+						OR IS_CHAR_IN_ANY_PLANE scplayer
+						OR IS_CHAR_IN_FLYING_VEHICLE scplayer
+						OR IS_CHAR_ON_ANY_BIKE scplayer // FIXEDGROVE
+
+							PRINT_NOW ( MAN3_69 ) 3000 1  // The vehicle is too full, there's no room for Sweet!
+
+						ELSE
+							PRINT_NOW ( MAN3_34 ) 3000 1  // The car is too full, there's no room for Sweet!
+						ENDIF
+
+					ENDIF
+
 				ENDIF
 
-			ENDIF
+				// Player has arrived at the bus stop ********************************************
 
-			// Player has arrived at the bus stop ********************************************
-
-			IF passengers_cut_car > 0
-			AND NOT passengers_in_cut_car = passengers_cut_car
-
-				IF IS_CHAR_IN_ANY_CAR scplayer
+				IF passengers_cut_car > 0
+				AND NOT passengers_in_cut_car = passengers_cut_car
 
 					SET_PLAYER_CONTROL player1 OFF
 
@@ -380,6 +400,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 						SET_CHAR_ACCURACY sweet 90 
 
+						SET_CHAR_SIGNAL_AFTER_KILL sweet FALSE // FIXEDGROVE
+
 					ENDIF
 										
 					IF NOT IS_CHAR_DEAD sweet
@@ -445,11 +467,11 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					m3_mission_status = 1  
 
-				ELSE
-
-					PRINT_NOW ( MAN3_08 ) 4000 1 // You need a car to pick up sweet
-
 				ENDIF
+
+			ELSE
+
+				PRINT_NOW ( MAN3_08 ) 4000 1 // You need a car to pick up sweet
 
 			ENDIF
 
@@ -462,20 +484,11 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		IF TIMERB > 1000 
 		AND m3_display_txt = 1
 
-			IF NOT IS_CHAR_DEAD ryder
-
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder TRUE
-
-			ENDIF
-
-			IF NOT IS_CHAR_DEAD scplayer
-
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-
-			ENDIF
+			// FIXEDGROVE: assigned speakers
 
 			$m3_print = &MAN3_AA	// Shit is all fucked up now, dude.			
 			m3_audio = SOUND_MAN3_AA
+			m3_speaker = scplayer
 			GOSUB m3_load_sample
 
 			m3_display_txt = 2
@@ -486,6 +499,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$m3_print = &MAN3_AB	// Yeah.
 			m3_audio = SOUND_MAN3_AB
+			m3_speaker = sweet
 			GOSUB m3_load_sample
 
 			m3_display_txt = 3
@@ -496,6 +510,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$m3_print = &MAN3_AC	// What you want, it ain’t round here no more.
 			m3_audio = SOUND_MAN3_AC
+			m3_speaker = scplayer
 			GOSUB m3_load_sample
 
 			m3_display_txt = 4
@@ -506,6 +521,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$m3_print = &MAN3_AD	// Just take me to mom’s house.
 			m3_audio = SOUND_MAN3_AD
+			m3_speaker = sweet
 			GOSUB m3_load_sample
 
 			m3_display_txt = 5
@@ -517,18 +533,6 @@ WHILE NOT IS_CHAR_DEAD scplayer
 			PRINT_NOW ( MAN3_05 ) 7000 1 // ~s~Drive Sweet to ~y~Grove Street
 
 			m3_display_txt = 0
-
-			IF NOT IS_CHAR_DEAD ryder
-
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder FALSE
-
-			ENDIF
-
-			IF NOT IS_CHAR_DEAD scplayer
-
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-
-			ENDIF
 
 		ENDIF
 
@@ -567,6 +571,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 				MAKE_ROOM_IN_PLAYER_GANG_FOR_MISSION_PEDS 1
 
 				SET_GROUP_MEMBER Players_group sweet
+
+				CLEAR_THIS_PRINT MAN3_03 // FIXEDGROVE: clear the 'You lost sweet' message
 				
 			ENDIF
 
@@ -716,6 +722,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 					ENDIF
 				ENDWHILE 
 
+				CLEAR_AREA 2513.3638 -1649.8652 13.5588 10.0 TRUE // FIXEDGROVE: peds frequently spawned in front of the grove member
+
 				SET_FIXED_CAMERA_POSITION 2507.9839 -1652.1989 15.6974 0.0 0.0 0.0 // Bike from front
 				POINT_CAMERA_AT_POINT 2508.8923 -1651.9133 15.3924 JUMP_CUT
 
@@ -782,6 +790,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 					MAKE_ROOM_IN_PLAYER_GANG_FOR_MISSION_PEDS 1
 
 					SET_GROUP_MEMBER Players_group sweet
+
+					CLEAR_THIS_PRINT MAN3_03 // FIXEDGROVE: clear the 'You lost sweet' message
 					
 				ENDIF
 
@@ -887,6 +897,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			m3_sweets_health = m3_sweets_health / 7
 
+			// FIXEDGROVE: START - play sweet insults when he shoots
+			IF m3_once_only = 0 // sweet is in the player's group
+
+				GOSUB sweet_comments 
+
+			ENDIF
+			// FIXEDGROVE: END
+
 		ENDIF
 
 		GET_ZONE_GANG_STRENGTH GAN1 GANG_FLAT m3_gan1
@@ -933,10 +951,6 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					TIMERB = 0
 
-				ELSE
-
-					GOTO m3_end_cutscene
-
 				ENDIF
 
 			ENDIF
@@ -944,6 +958,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		ENDIF
 
 		IF m3_hood_taken = 1
+		AND m3_dealers_killed = 0 // FIXEDGROVE
 		AND TIMERB > 4000
 		AND m3_taken_txt = 0
 		
@@ -952,6 +967,20 @@ WHILE NOT IS_CHAR_DEAD scplayer
 			m3_taken_txt = 1
 
 		ENDIF
+
+		// FIXEDGROVE: START - wait a bit before the end cut
+		IF m3_dealers_killed = 1
+		AND m3_hood_taken = 1
+		AND m3_end_timer_started = 0
+		    TIMERB = 0
+		    m3_end_timer_started = 1
+		ENDIF
+
+		IF m3_end_timer_started = 1
+		AND TIMERB > 3500
+		    GOTO m3_end_cutscene
+		ENDIF
+		// FIXEDGROVE: END
 
 		// ***********************************************************************************************
 		// *																							 *
@@ -1050,6 +1079,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					SET_GROUP_MEMBER Players_group sweet
 
+					CLEAR_THIS_PRINT MAN3_03 // FIXEDGROVE: clear the 'You lost sweet' message
+
 				ENDIF
 
 				m3_once_only = 0
@@ -1132,12 +1163,18 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		ENDIF
 
 		IF m3_help_take_hood = 1
-		AND TIMERA > 4000
+			IF NOT IS_GANG_WAR_GOING_ON // FIXEDGROVE
+				IF TIMERB > 4000 // FIXEDGROVE: was TIMERA
 
-			PRINT_HELP ( MAN3_30 ) // ~s~Shoot some Ballas to start a gang war!
+					PRINT_HELP ( MAN3_30 ) // ~s~Shoot some Ballas to start a gang war!
 
-			m3_help_take_hood = 2
+					m3_help_take_hood = 2
 
+				ENDIF
+
+			ELSE
+				m3_help_take_hood = 2 // FIXEDGROVE: skip the help message if a gang war is going on
+			ENDIF
 		ENDIF
 
 		// ***********************************************************************************************
@@ -1161,13 +1198,9 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 					PRINT_NOW ( MAN3_28 ) 10000 1 // Now take back the hood!
 
-					TIMERA = 0
+					TIMERB = 0 // FIXEDGROVE: changed from TIMERA
 
 					m3_help_take_hood = 1
-
-				ELSE
-
-					GOTO m3_end_cutscene
 
 				ENDIF
 
@@ -1212,6 +1245,8 @@ m3_end_cutscene:
 			SET_CHAR_COORDINATES sweet 2514.7876 -1673.9382 12.6861
 
 		ENDIF
+
+		MAKE_PLAYER_GANG_DISAPPEAR // FIXEDGROVE
 					 
 		DELETE_CAR m3_ply_car
 
@@ -1229,9 +1264,9 @@ m3_end_cutscene:
 
 		CLEAR_CHAR_TASKS_IMMEDIATELY sweet
 
-		SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+		HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer TRUE // FIXEDGROVE: replaces setting their weapon to unarmed
 
-		SET_CURRENT_CHAR_WEAPON sweet WEAPONTYPE_UNARMED
+		HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE sweet TRUE // FIXEDGROVE: replaces setting their weapon to unarmed
 
 	ENDIF
 
@@ -1248,6 +1283,8 @@ m3_end_cutscene:
 
 		TASK_PLAY_ANIM scplayer PRTIAL_HNDSHK_01 GANGS 4.0 FALSE FALSE FALSE FALSE -1
 
+		TASK_LOOK_AT_CHAR scplayer sweet 30000 // FIXEDGROVE
+
 		WAIT 500
 
 	ENDIF
@@ -1256,9 +1293,16 @@ m3_end_cutscene:
 
 		TASK_PLAY_ANIM sweet PRTIAL_HNDSHK_01 GANGS 4.0 FALSE FALSE FALSE FALSE -1
 
+		TASK_LOOK_AT_CHAR sweet scplayer 30000 // FIXEDGROVE
+
 		WAIT 500
 
 	ENDIF
+	
+	// FIXEDGROVE: cutscene skipping reworked, voice lines timing fixed and added facial talk anim
+	m3_cutscene_skipped = 1
+
+	SKIP_CUTSCENE_START
 
 	CLEAR_MISSION_AUDIO 1
 
@@ -1272,13 +1316,13 @@ m3_end_cutscene:
 
 	PRINT_NOW ( MAN3_BA ) 4000 1 // Alright, lets get out of here. Go see Kendl.
 
-	TIMERB = 0
-	WHILE TIMERB < 4000
+	START_CHAR_FACIAL_TALK scplayer 20000
+
+	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 		WAIT 0
-		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
-			GOTO m3_skip_the_cut_10
-		ENDIF
 	ENDWHILE
+
+	STOP_CHAR_FACIAL_TALK scplayer
 
 	CLEAR_MISSION_AUDIO 1
 
@@ -1292,6 +1336,8 @@ m3_end_cutscene:
 
 	PRINT_NOW ( MAN3_BB ) 3000 1 // Kendl can come see me, at  her home.
 
+	START_CHAR_FACIAL_TALK sweet 20000
+
 	IF NOT IS_CHAR_DEAD sweet
 
 		CLEAR_CHAR_TASKS_IMMEDIATELY sweet
@@ -1300,13 +1346,11 @@ m3_end_cutscene:
 
 	ENDIF
 
-	TIMERB = 0
-	WHILE TIMERB < 3000
+	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 		WAIT 0
-		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
-			GOTO m3_skip_the_cut_10
-		ENDIF
 	ENDWHILE
+
+	STOP_CHAR_FACIAL_TALK sweet	
 
 	CLEAR_MISSION_AUDIO 1
 
@@ -1320,6 +1364,8 @@ m3_end_cutscene:
 
 	PRINT_NOW ( MAN3_BC ) 3000 1 // There’s nothing here no more.
 
+	START_CHAR_FACIAL_TALK scplayer 20000
+
 	IF NOT IS_CHAR_DEAD scplayer
 
 		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
@@ -1328,13 +1374,11 @@ m3_end_cutscene:
 
 	ENDIF
 
-	TIMERB = 0
-	WHILE TIMERB < 3000
+	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 		WAIT 0
-		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
-			GOTO m3_skip_the_cut_10
-		ENDIF
 	ENDWHILE
+
+	STOP_CHAR_FACIAL_TALK scplayer
 
 	CLEAR_MISSION_AUDIO 1
 
@@ -1348,13 +1392,15 @@ m3_end_cutscene:
 
 	PRINT_NOW ( MAN3_BD ) 3000 1 // Rome wasn’t built in a day.
 
-	TIMERB = 0
-	WHILE TIMERB < 3000
+	START_CHAR_FACIAL_TALK sweet 30000
+
+	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 		WAIT 0
-		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
-			GOTO m3_skip_the_cut_10
-		ENDIF
 	ENDWHILE
+
+	STOP_CHAR_FACIAL_TALK sweet
+
+	WAIT 500
 
 	IF NOT IS_CHAR_DEAD scplayer
 
@@ -1376,15 +1422,29 @@ m3_end_cutscene:
 
 	PRINT_NOW ( MAN3_BE ) 2000 1 // My brother is a pain in the ass
 
-	TIMERB = 0
-	WHILE TIMERB < 2000
+	START_CHAR_FACIAL_TALK scplayer 30000
+
+	WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 		WAIT 0
-		IF IS_SKIP_CUTSCENE_BUTTON_PRESSED // FIXEDGROVE: changed from cross and circle check
-			GOTO m3_skip_the_cut_10
-		ENDIF
 	ENDWHILE
 
-	m3_skip_the_cut_10:
+	STOP_CHAR_FACIAL_TALK scplayer
+
+	m3_cutscene_skipped = 0
+
+	SKIP_CUTSCENE_END
+
+	IF m3_cutscene_skipped = 1
+
+		CLEAR_PRINTS
+
+		CLEAR_MISSION_AUDIO 1
+
+		STOP_CHAR_FACIAL_TALK scplayer
+
+		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
+
+	ENDIF
 
 	GOSUB mansion3_restore_camera
 
@@ -1549,6 +1609,14 @@ mission_cleanup_mansion3:
 
 	RESTORE_CAMERA_JUMPCUT
 
+	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE
+
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
+
+	MAKE_PLAYER_GANG_REAPPEAR // FIXEDGROVE
+
+	HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer FALSE // FIXEDGROVE
+
 	SET_CAMERA_BEHIND_PLAYER	
 
 	MISSION_HAS_FINISHED
@@ -1697,6 +1765,22 @@ m3_play_sample:
 	IF HAS_MISSION_AUDIO_LOADED 1
 	AND m3_playing = 0
 
+		// FIXEDGROVE: START - add facial talk anim and attach audio
+		IF NOT IS_CHAR_DEAD m3_speaker
+
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH m3_speaker TRUE
+
+			START_CHAR_FACIAL_TALK m3_speaker 30000
+
+			IF m3_attach_audio_flag = 1
+
+				ATTACH_MISSION_AUDIO_TO_CHAR 1 m3_speaker
+			
+			ENDIF
+
+		ENDIF
+		// FIXEDGROVE: END  
+
 		PLAY_MISSION_AUDIO 1
 
 		PRINT_NOW ( $m3_print ) 10000 1  
@@ -1708,15 +1792,120 @@ m3_play_sample:
 	IF HAS_MISSION_AUDIO_FINISHED 1
 	AND m3_playing = 1
 
+		// FIXEDGROVE: START - stop facial talk anim
+		IF NOT IS_CHAR_DEAD m3_speaker
+
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH m3_speaker FALSE
+
+			STOP_CHAR_FACIAL_TALK m3_speaker
+
+		ENDIF
+		// FIXEDGROVE: END
+
 		CLEAR_MISSION_AUDIO 1	
 
 		CLEAR_THIS_PRINT $m3_print
+
+		m3_attach_audio_flag = 0 // FIXEDGROVE: reset for later use
 
 		m3_playing = 2
 
 	ENDIF
 	
 RETURN
+
+// FIXEDGROVE: START - implement unused sweet insults when he shoots
+sweet_comments:
+	IF IS_CHAR_SHOOTING sweet
+
+		IF TIMERA > last_sweet_insult_time
+
+		    IF m3_playing = 2   // nothing currently playing
+
+				IF sweet_insult_count = 9 // all insults used up
+
+					// clear the insult array so they can be played again
+					REPEAT 9 temp_integer_1
+						sweet_insult[temp_integer_1] = 0
+					ENDREPEAT
+
+					sweet_insult[v] = 1 // mark the last insult as played so it won't be repeated
+
+					sweet_insult_count = 1 // reset the count, including the last insult
+
+				ENDIF
+
+		        GENERATE_RANDOM_INT_IN_RANGE 0 9 v
+
+				WHILE sweet_insult[v] = 1
+
+					v++
+
+					IF v = 9
+						v = 0
+					ENDIF
+
+				ENDWHILE
+
+				SWITCH v
+				    CASE 0
+				        $m3_print = &MAN3_CA
+				        m3_audio = SOUND_MAN3_CA
+				    BREAK
+				    CASE 1
+				        $m3_print = &MAN3_CB
+				        m3_audio = SOUND_MAN3_CB
+				    BREAK
+				    CASE 2
+				        $m3_print = &MAN3_CC
+				        m3_audio = SOUND_MAN3_CC
+				    BREAK
+				    CASE 3
+				        $m3_print = &MAN3_CD
+				        m3_audio = SOUND_MAN3_CD
+				    BREAK
+				    CASE 4
+				        $m3_print = &MAN3_CE
+				        m3_audio = SOUND_MAN3_CE
+				    BREAK
+				    CASE 5
+				        $m3_print = &MAN3_CF
+				        m3_audio = SOUND_MAN3_CF
+				    BREAK
+					CASE 6
+				        $m3_print = &MAN3_CG
+				        m3_audio = SOUND_MAN3_CG
+				    BREAK
+					CASE 7
+				        $m3_print = &MAN3_CH
+				        m3_audio = SOUND_MAN3_CH
+				    BREAK
+					CASE 8
+				        $m3_print = &MAN3_CK
+				        m3_audio = SOUND_MAN3_CK
+				    BREAK
+				ENDSWITCH
+
+				m3_speaker = sweet
+
+				m3_attach_audio_flag = 1
+
+				GOSUB m3_load_sample
+
+				sweet_insult_count++
+
+				sweet_insult[v] = 1
+
+				last_sweet_insult_time = TIMERA + 8000
+
+		    ENDIF
+
+		ENDIF
+
+	ENDIF
+
+RETURN
+// FIXEDGROVE: END
 
 }
 

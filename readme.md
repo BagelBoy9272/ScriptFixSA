@@ -327,7 +327,21 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Increased upper bound in a random number generator, bringing back an unused line for the truck owner
 
 **Home Coming:**
+- Added facial talk anim to voicelines
+- Fixed nonsensical messages if you were in an invalid vehicle when you picked up Sweet
+- Fixed peds sitting in front of the drugged Grove member in a cutscene
+- Added relationship settings: Sweet and the Ballas are now mutually hostile, and Sweet will also attack dealers
+- Added unused taunt voicelines for Sweet
+- Set 'signal after kill' to false for Sweet to make him less useless
+- Clear the 'You lost Sweet' message when you reunite with him
+- Don't display gang war help message if a gang war is already going on
+- Don't display 'kill the dealers' message if they're already dead
+- Added 3.5 second delay before the end cutscene starts
 - Fixed the player dying if he was still in the Vincent when the mission ended
+- Fixed awkward voice line timing in the ending cutscene
+- Hide player's gang during the ending cutscene
+- Made Sweet and CJ look at each other in the ending cutscene
+- Fixed ending cutscene skip not clearing all the things it should
 
 **Cut Throat Bussiness:**
 - Set camera behind the player and fade in after the initial cutscene
