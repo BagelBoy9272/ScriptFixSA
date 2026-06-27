@@ -1152,9 +1152,25 @@ CLEAR_HELP
 			// set player's position
 			IF NOT player_is_in_crane = 1
 				IF IS_CHAR_IN_AREA_3D scplayer -2066.8386 209.6444 28.4030 -2040.1006 262.7024 34.9146 FALSE
-					SET_CHAR_COORDINATES scplayer -2090.0444 209.4996 33.9509 
-					SET_CHAR_HEADING scplayer 250.8130
+					IF NOT IS_CHAR_IN_ANY_CAR scplayer // FIXEDGROVE
+						SET_CHAR_COORDINATES scplayer -2090.0444 209.4996 33.9509 
+						SET_CHAR_HEADING scplayer 250.8130
+					ENDIF // FIXEDGROVE
 				ENDIF
+				// FIXEDGROVE: START - added check if player is in a car
+				IF IS_CHAR_IN_ANY_CAR scplayer
+					STORE_CAR_CHAR_IS_IN scplayer pcar
+					IF NOT IS_CAR_DEAD pcar
+						IF LOCATE_CAR_3D pcar -2054.4736 222.6438 35.8767 15.0 15.0 15.0 FALSE
+							CLEAR_AREA -2090.0444 209.4996 33.9509 10.0 TRUE
+							SET_CAR_COORDINATES pcar -2090.0444 209.4996 33.9509
+							SET_CAR_HEADING pcar 250.8130
+						ENDIF
+					ENDIF
+				ELSE
+					pcar = 0
+				ENDIF
+				// FIXEDGROVE: END
 			ELSE
 				do_not_update_camera_crane1 = 1
 			ENDIF
@@ -1185,9 +1201,11 @@ CLEAR_HELP
 			WHILE temp_int < 7
 				IF DOES_VEHICLE_EXIST mission_vehicle[temp_int]
 					IF NOT IS_CAR_DEAD mission_vehicle[temp_int]
-						IF LOCATE_CAR_3D mission_vehicle[temp_int] -2054.4736 222.6438 35.8767 6.0 6.0 3.0 mission_vehicle[temp_int]
-							DELETE_CAR mission_vehicle[temp_int]
-						ENDIF
+						IF NOT mission_vehicle[temp_int] = pcar // FIXEDGROVE: check if it's the car the player is in
+							IF LOCATE_CAR_3D mission_vehicle[temp_int] -2054.4736 222.6438 35.8767 6.0 6.0 3.0 mission_vehicle[temp_int]
+								DELETE_CAR mission_vehicle[temp_int]
+							ENDIF
+						ENDIF // FIXEDGROVE: check if it's the car the player is in
 					ELSE
 						DELETE_CAR mission_vehicle[temp_int]
 					ENDIF
