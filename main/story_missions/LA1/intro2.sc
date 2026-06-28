@@ -852,7 +852,7 @@ OR IS_PLAYER_WEARING Player1 CLOTHES_TEX_HEAD flattop
 ELSE
 
 	LOAD_MISSION_AUDIO 1 SOUND_INT2_EA	//I take it back, Old Reece still got it.
-	LOAD_MISSION_AUDIO 2 SOUND_INT2_EB	//Word.
+//	LOAD_MISSION_AUDIO 2 SOUND_INT2_EB	//Word. // FIXEDGROVE: comment, this line doesn't exist
 
 	intro2_cutscene_flag = 0
 	WHILE NOT HAS_MISSION_AUDIO_LOADED 1
@@ -893,8 +893,9 @@ ELSE
 	SET_FIXED_CAMERA_POSITION 2075.1902 -1797.2825 14.4799 0.0 0.0 0.0 // Close up of haircut
 	POINT_CAMERA_AT_POINT 2075.6377 -1796.4714 14.1030 JUMP_CUT
 
-	WAIT 1000
 	/*
+	WAIT 1000 // FIXEDGROVE: comment out
+
 	intro2_cutscene_flag = 0
 	WHILE NOT HAS_MISSION_AUDIO_LOADED 2
 		WAIT 0
@@ -1071,6 +1072,7 @@ IF can_skip_smoking_cutscene = 1
 	SKIP_CUTSCENE_END
 	CLEAR_MISSION_AUDIO 1
 	CLEAR_MISSION_AUDIO 2
+	CLEAR_LOOK_AT scplayer // FIXEDGROVE
 ENDIF
 
 CLEAR_HELP
@@ -2021,6 +2023,8 @@ ENDWHILE
 	SKIP_CUTSCENE_END
 
 	IF skipped_cutscene = 0
+
+		CLEAR_PRINTS
 
 		// calculate the heading based on the path the player would have taken
         x = 2471.58 - 2468.3594

@@ -44,6 +44,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Ryder:**
 - Fixed Ryder's car spawning only being turned ON on mission pass
+- Removed pause between Ryder's lines if the player has a Ryder-approved haircut
 - Added ability to skip ending cutscene
 
 **Tagging Up Turf:**
