@@ -1095,7 +1095,7 @@ case CREATE_START_LINE
 							IF interior_race = 0
 								LVAR_INT rt_empty_dec
 								LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_EMPTY rt_empty_dec 
-								GET_OFFSET_FROM_CAR_IN_WORLD_COORDS stored_car -4.0435 6.5755 -0.8 x y z
+								GET_OFFSET_FROM_CAR_IN_WORLD_COORDS stored_car -4.0435 6.5755 2.5 x y z // FIXEDGROVE: z offset was -0.8
 								get_ground_z_for_3d_coord x y z z
 								LVAR_INT flag_girl
 								CREATE_RANDOM_CHAR x y z flag_girl
@@ -1107,7 +1107,7 @@ case CREATE_START_LINE
 								TASK_PICK_UP_OBJECT flag_girl flag_object 0.062 0.027 -0.15 PED_HANDL HOLD_ORIENTATE_BONE_FULL FLAG_DROP CAR 0
 								
 								LVAR_INT spectator[11]
-								GET_OFFSET_FROM_CAR_IN_WORLD_COORDS stored_car -5.6392 2.9435 -0.8 x y z
+								GET_OFFSET_FROM_CAR_IN_WORLD_COORDS stored_car -5.6392 2.9435 2.5 x y z // FIXEDGROVE: z offset was -0.8
 								get_ground_z_for_3d_coord x y z z
 								CREATE_RANDOM_CHAR x y z spectator[0]
 
