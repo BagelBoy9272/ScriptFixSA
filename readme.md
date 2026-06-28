@@ -74,6 +74,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made "cycling through targets" help box only show up if using a controller, otherwise display unused help box about gun recoil
 
 **Drive-By:**
+- Restored audio for the failed cutscene
 - Increased upper limit in random number generator, bringing back 2 unused voice lines
 
 **Cesar Vialpando:**
@@ -296,6 +297,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Fender Ketchup:**
 - Fixed right handbrake turns not counting 
+- Restored audio for the ending cutscene
 
 **Intensive Care:**
 - Fixed mafia driver not driving
