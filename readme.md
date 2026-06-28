@@ -200,6 +200,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Proofed Whittaker in final cutscene to prevent softlocks
 
 **Small Town Bank:**
+- Fixed player's position at the start of the mission
 - Fixed facial talk anim
 
 **Against All Odds:**
