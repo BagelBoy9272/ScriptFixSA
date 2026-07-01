@@ -379,7 +379,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Two-timing cars will now appear with their correct license plates
 - Slightly changed timing of two-timing cutscenes to make them more natural
 - Don't loop two-timing cutscene anims, and make them play all the way through when changing camera angle
-- Fixed GF not running away in the "caught0 two-timing cutscene, as was originally intended
+- Fixed GF not running away in the "caught" two-timing cutscene, as was originally intended
 - Fixed jealous GF not being properly marked as dead (previously you could still go on a date with her, in which she dumped you)
 - Now when you kill a jealous GF, the ominous "Your girlfriend is dead." message will appear
 - Fixed special GF phonecall help box (It's a call from X) only working for the dump phonecall and the 1st conversation variation
