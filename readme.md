@@ -16,7 +16,7 @@ Get latest release here: https://github.com/BagelBoy9272/ScriptFixSA/releases
 
 ## Installation
 
-Extract the downloaded .zip file and replace main.scm and scripts.img inside data\scripts directory, but read save files and mod compatibility note below first.
+Extract the downloaded .zip file and replace main.scm and scripts.img inside data\scripts directory, but read save files and mod compatibility notes below first.
 
 ## List of changes
 
@@ -40,7 +40,6 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed drive-by Ballas standing still to the right of the player after the Mulholland Intersection cutscene, instead of being teleported and frozen under the map
 - Made Groves hate scripted ballas
 - Made Ballas respect scripted ballas
-- Deleted some useless code
 
 **Ryder:**
 - Fixed Ryder's car spawning only being turned ON on mission pass
@@ -58,13 +57,11 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made Ryder aggresive towards the drug dealer and the enemies inside the crack den
 - The cutscene with the dead drug dealer will fade out if skipped
 - Fixed chars not being set in their intended locations if you skip the cutscene inside the crack den
-- Made "drugged" chars inside the crack den silent
+- Made 'drugged' chars inside the crack den silent
 - Added an anim to Ryder in the ending cutscene
 - Made player and Ryder look at eachother in the ending cutscene to make it look more natural
 - Added ability to skip ending cutscene
-- Set SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH for player to false in cleanup
-- Added STOP_CHAR_FACIAL_TALK for player in cleaup
-- Slight refactoring
+- Tidied up some code
 
 **Drive-Thru:**
 - Fixed Sweet and Smoke changing seats after the drive-thru cutscene
@@ -85,7 +82,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Sweet's Girl:**
 - Fixed possible softlock in the initial cutscene
-- Fixed overlapping icons for Emmet
+- Fixed overlapping Emmet icons
 
 **Home Invasion:**
 - Fixed Ryder vanishing in the ending cutscene
@@ -103,7 +100,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Changed Balla's Greenwood to a Tahoma
 - Made the Grove member get out of the car instead of disappearing in the ending cutscene
 - Made player stop looking at Ryder before the fade out in the ending cutscene
-- Removed some pointless code
+- Tidied up some code
 
 **Robbing Uncle Sam:**
 - Added a fade in after the initial cutscene
@@ -111,21 +108,17 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **OG Loc:**
 - Added facial talk anim to voicelines
-- Deleted redundant SHUT_CHAR_UP calls, since now its handled by the audio code
 - Reverted a timer that was set to zero for debug
 - Deleted redundant DRAW_SPHERE calls, and moved it to after the cutscene where you go to Freddy's house ends
-- Commented a tiny bit of debug code
 - Removed "IS_IN_CAR" checks for the dialogue after killing Freddy, to make it flow more naturally
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
-- If you kill Freddy before he reaches his destination, the cutsene at the basketball court will play as dialogue instead, and you won't be teleported away
-- Swapped an if chain with a switchcase
+- If you kill Freddy before he reaches his destination, the cutscene at the basketball court will play as dialogue instead, and you won't be teleported away
 
 **Running Dog:**
 - Added facial talk anim to voicelines
 - Fixed an animation check that was supposed to make the running vagos member faster
 - Made Smoke respect player and Grove members, so he doesn't shoot them if provoked
-- Fixed overlapping icons for Emmet
-- Set SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH for player to false in cleanup
+- Fixed overlapping Emmet icons
 
 **Wrong Side Of The Tracks:**
 - Added facial talk anim to voicelines
@@ -137,15 +130,14 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Removed "IS_IN_CAR" checks for the dialogue on the way back, to make it flow more naturally
 - Added ability to skip ending cutscene
 - Made difficulty flag global, so now it works as intended
-- Restored objetive text when you get out of the car
+- Restored objective text when you get out of the car
 - Tweaked order of widescreen commands so they aren't set during a fadeout, only after one
 
 **Just Bussiness:**
 - Added facial talk anim to voicelines
 - Restored a possibly unintentionally unused line
 - Made difficulty flag global
-- Sligthly changed the order of STOP_CHAR_FACIAL_TALK commands to be more precise
-- Made "manual aim" help box only show up if using a controller
+- Made 'manual aim' help box only show up if using a controller
 
 **Doberman:**
 - Guy at end would have random voice lines
@@ -185,13 +177,13 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made difficulty flag global, so now it works as intended
 - Added CJ and Sweet to donuts cutscene 
 - Fixed cop car not breaking all the scaffolding when he crashes through it in the chase section 
-- Replaced reused nonsensical 'Hey CJ, watch to the left' line with unused Smoke line 
+- Replaced reused nonsensical 'Hey CJ, watch to the left' line with unused Smoke line
+- Restored unused car recording near the end of the mission 
 - Added back commented fences in heli setpiece 
 - Fixed heli going limp in the next camera shot
-- Restored unused car recording near the end of the mission
-- Opened front passanger seat of sweet's car in final cutscene
-- Fixed jarring time shift in ending cutscene caused by the script setting the time to 7:00 AM 
-- Fixed characters not using their intented animation groups 
+- Opened front passenger seat of Sweet's car in the final cutscene
+- Fixed jarring time shift in the ending cutscene caused by the script setting the time to 7:00 AM 
+- Fixed characters not using their intended animation groups 
 - Add 4 star wanted level if the player fails the mission after getting to the motel 
 
 **Local Liquor Store:**
@@ -215,7 +207,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Earnings and Weekday reminder are only displayed if the mission was accepted
 - Added mission passed tune
 - Gave a weapon to the courier, in case he ever gets out of the car
-- Increased upper limit in a random number generator, effectively bringing back a unintentionally unused route
+- Increased upper limit in a random number generator, bringing back a unintentionally unused route
 - Increased cash reward: each crate rewards you with $1200, for a total of $7200
 - If no crates are on the road, the 'Pick up the cash' text is cleared
 - The mission can no longer be rejected if the player cancels the phonecall the first time around
@@ -230,7 +222,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Earnings and Weekday reminder are only displayed if the mission was accepted
 - Increased maximum cash reward to $8000
 - Use unused negative responde audio for phonecall choice (instead of reused one from 'Life's A Beach')
-- Removed some pointless cleanup
+- Tidied up some code
 
 **King In Exile:**
 - Fixed softlock if player dies during the phonecall after the cutscene
@@ -287,13 +279,13 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Customs Fast Track:**
-- Fixed the ped mosdel used for the guard not matching their voice
+- Fixed the ped model used for the guard not matching their voice
 
 **Puncture Wounds:**
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **You've Had Your Chips:**
-- Moved parked car at beginning of mission to a parking spot
+- Moved parked car at beginning of the mission to a parking spot
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
 
 **Fender Ketchup:**
@@ -317,10 +309,10 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Saint Mark's Bistro:**
 - Added facial talk anim to voicelines
 - Fixed the jet's arrow not being set as friendly on the way back
-- Fixed the player's handgun being replaced by a colt45
+- Fixed the player's handgun being replaced by a Colt45
 - Dialogue is not cut off if a cutscene is skipped
 - Controls are not disabled during fade ins/out
-- Made player look at the car after maccer and the rest leaves
+- Made player look at the car after Maccer and the rest leaves
 - The player crouches if the cutscene inside the bistro is skipped
 - Added a fade out/in if the cutscene inside the bistro is skipped
 - Added unused dialogue for the player after reaching the blip (the dialogue data was already set up)
@@ -361,7 +353,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Added an extra member variant
 
 **End Of The Line:**
-- Fixed swat member being spawned out of the map due to typo
+- Fixed swat member being spawned out of bounds due to a typo
 - Disabled mod garages to prevent issues
 
 **GFs:**
@@ -387,7 +379,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Two-timing cars will now appear with their correct license plates
 - Slightly changed timing of two-timing cutscenes to make them more natural
 - Don't loop two-timing cutscene anims, and make them play all the way through when changing camera angle
-- Fixed GF not running away in the "caught" two-timing cutscene, as was originally intended
+- Fixed GF not running away in the "caught0 two-timing cutscene, as was originally intended
 - Fixed jealous GF not being properly marked as dead (previously you could still go on a date with her, in which she dumped you)
 - Now when you kill a jealous GF, the ominous "Your girlfriend is dead." message will appear
 - Fixed special GF phonecall help box (It's a call from X) only working for the dump phonecall and the 1st conversation variation
@@ -406,7 +398,6 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
   - Now the starting position is randomized
   - Now the radar is hidden during coffee
   - Now the excitement bar is hidden during an ending
-  - Removed censorship for Xbox version
 
 **Parachute:**
 - Fixed landing animation
@@ -435,7 +426,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed 'The Big Spread Ranch' private dance not counting towards 'strip club budget' stat
 - Fixed street food not counting towards 'food budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
-- Fixed upper bound on a random number generator in the dance minigame, effectively bringing back an unintentionally unused partner model
+- Fixed upper bound on a random number generator in the dance minigame, bringing back an unintentionally unused partner model
 - Fixed typo in the license plate of Cesar's car
 - Fixed lines for a restaurant shopkeeper reacting to the player vomiting being overriden by the "BOUGHT_ENOUGH" lines
 - Fixed a bug in the code for restaurants that made the cleanup always run if the player bought more than 11 food items
@@ -503,7 +494,7 @@ At this point it's incompatible with old save files made with original script. I
 
 Not compatible with some CLEO scripts.
 
-If using SilentPatch, its recommended to set `EnableScriptFixes` to `-1` in its .ini file, although this is not strictly necessary because SilentPatch is designed to bail out any script fixes if the code doesn't match. Doing so also stops the save pickup inside Madd Dogg's mansion from being relocated since a different method is used to fix the "Basketball Bug".
+If using SilentPatch, it's recommended to set `EnableScriptFixes` to `-1` in its .ini file, although not strictly necessary because SP is designed to bail out any script fixes if the code doesn't match. Doing so also stops the save pickup inside Madd Dogg's mansion from being relocated since a different method is used to fix the "Basketball Glitch".
 
 ## How to compile
 
