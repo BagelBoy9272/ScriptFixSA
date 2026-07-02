@@ -433,6 +433,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed lines when you leave the chair for the tattoo artist only playing if the player was in the "back tattoo" state
 - Fixed Tattoo script not waiting for the needle sound effect to end before moving on to the next state (this mimics an official fix for barbershops)
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
+- Fixed camera not resetting instantly after quitting Bike School
 - Fixed Flint Intersection and Flint Range zones being assigned the desert popcycle instead of the countryside one
 - Fixed SUN2, RIH5b and RIH6a zones missing properties due to a copy-paste oversight
 - Fixed missing turf for Da Nang Boys due to a copy-paste oversight

@@ -108,6 +108,7 @@ noticeboard_y = 1351.0663
 noticeboard_z = 9.9219
 
 SET_CHAR_COORDINATES scplayer 1171.5206 1351.1826 9.9219
+SET_CHAR_HEADING scplayer 13.5 // FIXEDGROVE
 
 
 // ------------------------------------------------------------------------------------------------
@@ -339,7 +340,9 @@ bs_mission_selection_loop:
 		//quitting the driving school
 		IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL
 			CLEAR_MISSION_AUDIO 3
-			sfx_video = 0 
+			sfx_video = 0
+			RESTORE_CAMERA_JUMPCUT // FIXEDGROVE
+			SET_CAMERA_BEHIND_PLAYER // FIXEDGROVE
 			GOTO mission_failed_bskool
 		ENDIF
 
@@ -2089,10 +2092,10 @@ IF mission_selection = 6
 								 	WAIT 0
 								ENDWHILE
 								SET_CHAR_COORDINATES scplayer 1171.5206 1351.1826 9.9219
-								SET_CHAR_HEADING scplayer 11.0
-							   	SET_CAMERA_BEHIND_PLAYER
+								SET_CHAR_HEADING scplayer 13.5 // FIXEDGROVE: angle was 11.0
 								RESTORE_CAMERA_JUMPCUT
-				
+							   	SET_CAMERA_BEHIND_PLAYER
+												
 							   	DO_FADE 2000 FADE_IN
 							   	WHILE GET_FADING_STATUS
 								 	WAIT 0
@@ -3280,7 +3283,7 @@ bs_mini_cleanup:////////////////////////////////////////////////////////////////
 			SET_CHAR_COORDINATES scplayer 1171.5206 1351.1826 9.9219
 		ENDIF
 	ENDIF
-	SET_CHAR_HEADING scplayer 5.0
+	SET_CHAR_HEADING scplayer 13.5 // FIXEDGROVE: angle was 5.0
 //	WAIT 0
 	DELETE_CAR instructor_bike
 	CLEAR_AREA 1171.5206 1351.1826 9.9219 2.0 TRUE
