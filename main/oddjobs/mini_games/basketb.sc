@@ -23,8 +23,8 @@ SCRIPT_NAME BBALL
 LVAR_INT bbhoop
 
 // objects
-VAR_INT m_ball // FIXEDGROVE: made global so other instances of the script can check if the ball exists
-VAR_INT char_obj
+LVAR_INT m_ball 
+LVAR_INT char_obj // FIXEDGROVE: made local
 
 // floats
 LVAR_FLOAT x2 y2 z2
@@ -69,13 +69,17 @@ VAR_INT bball_player_has_brassknuckle
 GOTO bball_fool_compiler // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 bbhoop
 	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 m_ball
+	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 bball_ball
 	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 char_obj
 bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 
 // FIXEDGROVE: START - check that the ball actually exists, if so, terminate, else, reset bball_active flag
 IF bball_active = 1
-	IF DOES_OBJECT_EXIST m_ball
-		TERMINATE_THIS_SCRIPT
+	IF DOES_OBJECT_EXIST bball_ball
+		IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
+		OR DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_INGAME
+			TERMINATE_THIS_SCRIPT
+		ENDIF
 	ELSE
 		bball_active = 0
 	ENDIF
@@ -154,6 +158,7 @@ bball_loop:
 										z += 1.0
 										CLEAR_AREA x y z 0.5 FALSE
 										CREATE_OBJECT_NO_OFFSET BBALL_COL x y z m_ball
+										bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
 										col_loaded_for_ball = 1
 										SET_OBJECT_DYNAMIC m_ball TRUE
 										SET_OBJECT_COLLISION m_ball TRUE
@@ -436,6 +441,7 @@ bball_update_ball_collision:
 				DELETE_OBJECT m_ball
 
 				CREATE_OBJECT_NO_OFFSET BBALL_INGAME x y z m_ball
+				bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
 				ATTACH_OBJECT_TO_CHAR m_ball scplayer 0.0 0.5 -1.0 0.0 0.0 0.0
 				SET_OBJECT_VELOCITY m_ball x2 y2 z2
 				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
@@ -452,6 +458,7 @@ bball_update_ball_collision:
 				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
 				DELETE_OBJECT m_ball
 				CREATE_OBJECT_NO_OFFSET BBALL_COL	x y z m_ball
+				bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
 				SET_OBJECT_DYNAMIC m_ball TRUE
 				SET_OBJECT_COLLISION m_ball TRUE
 				SET_OBJECT_VELOCITY m_ball x2 y2 z2
@@ -479,6 +486,7 @@ bball_update_ball_collision_cleanup:
 				DELETE_OBJECT m_ball
 
 				CREATE_OBJECT_NO_OFFSET BBALL_INGAME x y z m_ball
+				bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
 				ATTACH_OBJECT_TO_CHAR m_ball scplayer 0.0 0.5 -1.0 0.0 0.0 0.0
 				SET_OBJECT_VELOCITY m_ball x2 y2 z2
 				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
@@ -506,6 +514,7 @@ bball_update_ball_collision_cleanup:
 					GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
 					DELETE_OBJECT m_ball
 					CREATE_OBJECT_NO_OFFSET BBALL_COL	x y z m_ball
+					bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
 					SET_OBJECT_DYNAMIC m_ball TRUE
 					SET_OBJECT_COLLISION m_ball TRUE
 					SET_OBJECT_VELOCITY m_ball 0.0 0.0 -0.1
@@ -525,6 +534,7 @@ bball_update_ball_collision_cleanup:
 						GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
 						DELETE_OBJECT m_ball
 						CREATE_OBJECT_NO_OFFSET BBALL_COL	x y z m_ball
+						bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variables
 						SET_OBJECT_DYNAMIC m_ball TRUE
 						SET_OBJECT_COLLISION m_ball TRUE
 						SET_OBJECT_VELOCITY m_ball 0.0 0.0 -0.1
