@@ -72,6 +72,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made "cycling through targets" help box only show up if using a controller, otherwise display unused help box about gun recoil
 
 **Drive-By:**
+- Fixed player floating a bit at the start of the mission
 - Restored audio for the failed cutscene
 - Increased upper limit in random number generator, bringing back 2 unused voice lines
 
