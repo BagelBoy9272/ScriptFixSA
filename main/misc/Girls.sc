@@ -1393,21 +1393,23 @@ GF_Dating_Agent_CheckPhoneState:
 		BREAK
 
 		CASE MOBILE_DUMPED
-			// FIXEDGROVE: move bounds check here
-			IF iCaller > -1 	
-			AND iCaller < 6
-				IF NOT IS_BIT_SET iAgentFlags MOBILE_CALL_SCRIPT_RUNNING								
-					IF IS_BIT_SET iAgentFlags MOBILE_CALL_ANSWERED					
+			IF NOT IS_BIT_SET iAgentFlags MOBILE_CALL_SCRIPT_RUNNING								
+				IF IS_BIT_SET iAgentFlags MOBILE_CALL_ANSWERED
+					IF iCaller > -1 	
+					AND iCaller < 6						
 						iGFLikesPlayer[iCaller] = GF_HATES_PLAYER
 						CLEAR_BIT iActiveGF iCaller  // remove the girlfriend					
-						iPhoneState = MOBILE_INACTIVE
-					ELSE					
+					ENDIF
+					iPhoneState = MOBILE_INACTIVE
+				ELSE					
+					IF iCaller > -1 	
+					AND iCaller < 6
 						//--- Player has not answered... wait until he meets girl
 						IF IS_BIT_SET iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEDGROVE
 							iGFLikesPlayer[iCaller] = GF_DUMP_PLAYER_IMMEDIATELY
 						ENDIF
-						iPhoneState = MOBILE_INACTIVE
 					ENDIF
+					iPhoneState = MOBILE_INACTIVE
 				ENDIF		 
 			ENDIF
 		BREAK
@@ -1421,7 +1423,7 @@ GF_Dating_Agent_CreateRandomAppointment:
 	IF IS_BIT_SET iActiveGF iTemp // see if this random girl is active
  		IF iGFLikesPlayer[iTemp] > GF_LIKES_PLAYER_LOW_LIMIT // see if she likes the player and is alive
 			IF NOT iGFLikesPlayer[iTemp] = GF_HATES_PLAYER
-			AND NOT iGFLikesPlayer[iGFidx] = GF_IS_DEAD
+			AND NOT iGFLikesPlayer[iTemp] = GF_IS_DEAD // FIXEDGROVE: index was iGFidx
 				//--- Generate appointmen
 				GENERATE_RANDOM_INT_IN_RANGE 1 23 iHours // Hours: 0-23
 				GENERATE_RANDOM_INT_IN_RANGE 1 59 iMinutes // Minutes: 0-59
@@ -1439,7 +1441,7 @@ GF_Dating_Agent_CreateDateAppointment:
 	iMinutes = 31
 	iHours += 5
 	IF iHours > 23
-		iTemp = iHours - 23
+		iTemp = iHours - 24 // FIXEDGROVE: fix off-by-one
 		iHours = 0 + iTemp
 	ENDIF
 RETURN
