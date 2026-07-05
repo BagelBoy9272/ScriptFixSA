@@ -361,6 +361,7 @@ flagBeenInHouse						= FALSE
 flagLeavingHouse					= FALSE
 flagCheckingForCoochie				= FALSE
 flagWarpCoochieOutside				= FALSE
+flagMolotovsOnRouteActive			= FALSE // FIXEDGROVE
 flagMolotovPickupsActive			= FALSE
 flagFireExtinguisherPickupActive	= FALSE
 flagPlayerInCar						= FALSE
@@ -672,9 +673,14 @@ Crash1_Stage_GoToHouse:
 	IF m_goals = 1
 		// Check if player has arrived at molotov pickup point
 		IF HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_MOLOTOV // FIXEDGROVE: changed from HAS_PICKUP_BEEN_COLLECTED
-			REMOVE_PICKUP pickupMolotovsOnRoute // FIXEDGROVE: remove the molotov in case the player got it elsewhere
+			// FIXEDGROVE: START - remove the molotov in case the player got it elsewhere
+			IF NOT HAS_PICKUP_BEEN_COLLECTED pickupMolotovsOnRoute
+				REMOVE_PICKUP pickupMolotovsOnRoute 
+			ENDIF
+			// FIXEDGROVE: END
 			REMOVE_BLIP blipMolotovsOnRoute
 
+			flagMolotovsOnRouteActive = 0 // FIXEDGROVE
 			flagDisplayedMolotovHelpText = FALSE
 			timerHelpText = m_mission_timer +5000
 
@@ -3420,6 +3426,8 @@ Crash1_Create_MolotovsOnRoute:
    	nTempInt = 0
    	CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ONCE 20 xposTemp yposTemp zposTemp pickupMolotovsOnRoute
    	ADD_BLIP_FOR_PICKUP pickupMolotovsOnRoute blipMolotovsOnRoute
+
+	flagMolotovsOnRouteActive = 1 // FIXEDGROVE
 
 RETURN
 
@@ -8299,7 +8307,14 @@ mission_cleanup_Crash1:
 		flagMolotovPickupsActive = 0
 	ENDIF
 
-	REMOVE_PICKUP pickupMolotovsOnRoute // FIXEDGROVE
+	// FIXEDGROVE: START - remove alley molotovs only if they are active
+	IF flagMolotovsOnRouteActive = 1
+		REMOVE_PICKUP pickupMolotovsOnRoute
+		REMOVE_BLIP blipMolotovsOnRoute // FIXEDGROVE: moved inside this check
+
+		flagMolotovsOnRouteActive = 0
+	ENDIF
+	// FIXEDGROVE: END
 
 	// ...cash pickups
 	REPEAT CRASH1_MAX_CASH_PICKUPS nLoop
@@ -8356,7 +8371,6 @@ mission_cleanup_Crash1:
 	
 	// Blips
 	REMOVE_BLIP blipDestination
-	REMOVE_BLIP blipMolotovsOnRoute
 
 
 	// Animation Clearup
