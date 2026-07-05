@@ -462,6 +462,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made triad members spawn as bouncers in Four Dragons casino
 - Pool now increases previously unused 'Wins in Pool', 'Losses in Pool', and '8-Balls in Pool' stats
 - Increased weekday check for Kick Start by one, now its avaliable on sundays, tuesdays and thursdays, instead of mondays and wednesdays (previously the first check was, if weekday = 0, which is impossible since the valid range for "weekday" is 1 thru 7)
+- Made the National Guard depot gates from 'Robbing Uncle Sam' spawn in freeroam
 - Made the motel props from 'Reuniting The Families' spawn in freeroam
 - Made the storm drain grate from 'Just Business' spawn in freeroam
 - Made the house windows from 'Burning Desire' spawn in freeroam

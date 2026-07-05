@@ -2860,6 +2860,14 @@ VAR_INT ca3_loadingbay
 CREATE_OBJECT_NO_OFFSET shutter_vegas 1055.629 2087.67 12.469 ca3_loadingbay
 DONT_REMOVE_OBJECT ca3_loadingbay
 
+// FIXEDGROVE: START - gates for the compound in ocean docks
+VAR_INT gates_r2[2]
+CREATE_OBJECT_NO_OFFSET KMB_FRONTGATE 2720.623 -2405.432 13.989 gates_r2[0]
+DONT_REMOVE_OBJECT gates_r2[0]
+
+CREATE_OBJECT_NO_OFFSET KMB_FRONTGATE 2720.623 -2504.023 13.989 gates_r2[1]
+DONT_REMOVE_OBJECT gates_r2[1]
+// FIXEDGROVE: END
 
 // Door for Burning Desire house
 VAR_INT g_BD_DOOR

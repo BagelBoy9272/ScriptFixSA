@@ -345,15 +345,11 @@ ryder2_m_stage_0:
 			LVAR_INT guard_group
 
 			// gates for now
-			LVAR_INT gate1
-			LVAR_INT gate2
-			LVAR_FLOAT gate1_start_x gate1_start_y gate1_start_z
+			LVAR_INT gate2 gate4 gate7 // FIXEDGROVE: made gate1 and gate3 global under gates_r2 so they appear in freeroam
 			LVAR_FLOAT gate2_start_x gate2_start_y gate2_start_z
 			LVAR_FLOAT gate1_target_x gate1_target_y gate1_target_z
 			LVAR_FLOAT gate2_target_x gate2_target_y gate2_target_z
 			LVAR_FLOAT gate3_target_x gate3_target_y gate3_target_z
-
-			LVAR_INT gate3 gate4 gate7
 
 			// set flags
 			ryder = 0
@@ -399,11 +395,7 @@ ryder2_m_stage_0:
 			show_front_box = 0
 			told_more_boxes_outside = 0
 
-			required_boxes = 6
-			
-			gate1_start_x =	2720.623	
-			gate1_start_y =	-2405.432	
-			gate1_start_z = 13.989		
+			required_boxes = 6	
 
 			gate2_start_x =	2774.361
 			gate2_start_y =	-2417.829	
@@ -693,14 +685,12 @@ ryder2_m_stage_1:
 			TIMERA = 0
 
 			// create gates
-			CREATE_OBJECT_NO_OFFSET KMB_FRONTGATE	 gate1_start_x gate1_start_y gate1_start_z gate1
-			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS gate1 0.0 10.0 0.0 gate1_target_x gate1_target_y gate1_target_z
+			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS gates_r2[0] 0.0 10.0 0.0 gate1_target_x gate1_target_y gate1_target_z
 			CREATE_OBJECT_NO_OFFSET	WAREHOUSE_DOOR2B gate2_start_x gate2_start_y gate2_start_z gate2
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS gate2 0.0 0.0 4.0 gate2_target_x gate2_target_y gate2_target_z
 
 			// create other gates
-			CREATE_OBJECT_NO_OFFSET KMB_FRONTGATE 	 2720.623 -2504.023 13.989 gate3
-			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS gate3 0.0 10.0 0.0 gate3_target_x gate3_target_y gate3_target_z
+			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS gates_r2[1] 0.0 10.0 0.0 gate3_target_x gate3_target_y gate3_target_z
 			CREATE_OBJECT_NO_OFFSET WAREHOUSE_DOOR2B 2774.361 -2493.922 14.675 gate4	 // far
  			CREATE_OBJECT_NO_OFFSET WAREHOUSE_DOOR2B 2774.361 -2455.925 14.675 gate7	 // near
 
@@ -1254,8 +1244,8 @@ ryder2_m_stage_2:
 				IF LOCATE_STOPPED_CAR_3D m_mesa 2712.8535 -2407.8250 12.4684 4.0 4.0 4.0 FALSE
 					// open gate - should happen automatically	 
 					m_goals++
-					IF DOES_OBJECT_EXIST gate1
-						REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gate1 SOUND_HEAVY_GATE_START
+					IF DOES_OBJECT_EXIST gates_r2[0]
+						REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gates_r2[0] SOUND_HEAVY_GATE_START
 					ENDIF
 					TIMERA = 0		
 				ENDIF
@@ -1264,10 +1254,10 @@ ryder2_m_stage_2:
 		
 		// open gate
 		IF m_goals = 5
-			IF DOES_OBJECT_EXIST gate1
-				IF SLIDE_OBJECT gate1 gate1_target_x gate1_target_y gate1_target_z 0.0 0.2 0.0 FALSE	
+			IF DOES_OBJECT_EXIST gates_r2[0]
+				IF SLIDE_OBJECT gates_r2[0] gate1_target_x gate1_target_y gate1_target_z 0.0 0.2 0.0 FALSE	
 			   		m_goals++
-					REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gate1 SOUND_HEAVY_GATE_STOP
+					REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gates_r2[0] SOUND_HEAVY_GATE_STOP
 				ENDIF
 			ENDIF
 		ENDIF
@@ -1491,8 +1481,8 @@ ryder2_m_stage_2:
 			ENDWHILE
 
 			// stop bug about loop gate opening sounds
-			IF DOES_OBJECT_EXIST gate1
-				REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gate1 SOUND_HEAVY_GATE_STOP
+			IF DOES_OBJECT_EXIST gates_r2[0]
+				REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gates_r2[0] SOUND_HEAVY_GATE_STOP
 			ENDIF
 			IF DOES_OBJECT_EXIST gate2
 				REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gate2 SOUND_SHUTTER_DOOR_STOP
@@ -1536,7 +1526,7 @@ ryder2_m_stage_2:
 			ENDIF
 					
 			// set gates back
-			SET_OBJECT_COORDINATES gate1 gate1_start_x gate1_start_y gate1_start_z
+			SET_OBJECT_COORDINATES gates_r2[0] 2720.623 -2405.432 13.989
 			SET_OBJECT_COORDINATES gate2 gate2_start_x gate2_start_y gate2_start_z
 
 						
@@ -4378,16 +4368,16 @@ ryder2_global_functions:
 					gate1_opened++
 					CLEAR_PRINTS
 					REPORT_MISSION_AUDIO_EVENT_AT_OBJECT switch1 SOUND_SHOOT_CONTROLS
-					IF DOES_OBJECT_EXIST gate1
-						REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gate1 SOUND_HEAVY_GATE_START
+					IF DOES_OBJECT_EXIST gates_r2[0]
+						REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gates_r2[0] SOUND_HEAVY_GATE_START
 					ENDIF
 				ENDIF
 			ENDIF
 		ELSE
 			IF gate1_opened = 1
-				IF DOES_OBJECT_EXIST gate1
-					IF SLIDE_OBJECT gate1 gate1_target_x gate1_target_y gate1_target_z 0.0 0.2 0.0 FALSE
-						REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gate1 SOUND_HEAVY_GATE_STOP
+				IF DOES_OBJECT_EXIST gates_r2[0]
+					IF SLIDE_OBJECT gates_r2[0] gate1_target_x gate1_target_y gate1_target_z 0.0 0.2 0.0 FALSE
+						REPORT_MISSION_AUDIO_EVENT_AT_OBJECT gates_r2[0] SOUND_HEAVY_GATE_STOP
 						gate1_opened++
 					ENDIF
 				ENDIF
@@ -5555,10 +5545,13 @@ mission_cleanup_RYDER2:
 		REMOVE_CHAR_ELEGANTLY ryder 
 	ENDIF
 
+	// FIXEDGROVE: START - set gates back
+	SET_OBJECT_COORDINATES gates_r2[0] 2720.623 -2405.432 13.989
+	SET_OBJECT_COORDINATES gates_r2[1] 2720.623 -2504.023 13.989
+	// FIXEDGROVE: END
+
 	// === MARK ENTITIES AS NO LONGER NEEDED === (cars,peds,objects,blips,attractors)
-	MARK_OBJECT_AS_NO_LONGER_NEEDED	gate1
 	MARK_OBJECT_AS_NO_LONGER_NEEDED	gate2
-	MARK_OBJECT_AS_NO_LONGER_NEEDED	gate3
 	MARK_OBJECT_AS_NO_LONGER_NEEDED	gate4
 	MARK_OBJECT_AS_NO_LONGER_NEEDED	gate7
 
