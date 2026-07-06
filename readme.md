@@ -35,6 +35,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Intro cutscene:**
 - Restored PS2 REV 1 size for text
 - Fixed stretched text
+- Restored console train speed
 
 **Big Smoke/Sweet & Kendl:**
 - Fixed drive-by Ballas standing still to the right of the player after the Mulholland Intersection cutscene, instead of being teleported and frozen under the map
