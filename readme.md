@@ -33,7 +33,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Corrected 'missions attempted' and 'missions passed' stats.
 
 **Intro cutscene:**
-- Restored PS2 REV 1 size for text
+- Restored pre-JP size for text
 - Fixed stretched text
 - Restored console train speed
 
