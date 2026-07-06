@@ -114,6 +114,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Removed "IS_IN_CAR" checks for the dialogue after killing Freddy, to make it flow more naturally
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 - If you kill Freddy before he reaches his destination, the cutscene at the basketball court will play as dialogue instead, and you won't be teleported away
+- Don't despawn the bikes after the cutscene at the basketball court
 
 **Running Dog:**
 - Added facial talk anim to voicelines

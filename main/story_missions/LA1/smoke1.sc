@@ -49,7 +49,7 @@ LVAR_INT tw7_speaker[13] // FIXEDGROVE
 
 //coords
 LVAR_FLOAT tw7_playerx tw7_playery tw7_ass_banditx tw7_ass_bandity tw7_tempx tw7_tempy tw7_tempz tw7_playback_speed 
-LVAR_FLOAT tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz tw7_plyr_cut_heading
+//LVAR_FLOAT tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz tw7_plyr_cut_heading // FIXEDGROVE: comment out, not used anymore
 
 
 //sequences/decision makers/threat lists/attractors/groups
@@ -108,10 +108,14 @@ tw7_random_last_label = 0
 tw7_storing_speech_control_number = 0
 tw7_storing_speech_goals_number = 0
 
+// FIXEDGROVE: START - comment out, not used anymore
+/* 
 tw7_plyr_cutx = 0.0 
 tw7_plyr_cuty = 0.0 
 tw7_plyr_cutz = 0.0
 tw7_plyr_cut_heading = 0.0
+*/
+// FIXEDGROVE: END
 
 tw7_model = 0
 tw7_class = 0
@@ -2506,11 +2510,11 @@ WAIT 0
 					SWITCH_ROADS_BACK_TO_ORIGINAL 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
 					SWITCH_ROADS_BACK_TO_ORIGINAL 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
 
-					MARK_CAR_AS_NO_LONGER_NEEDED tw7_players_bike
-					MARK_CAR_AS_NO_LONGER_NEEDED tw7_ass_bandit_bike
+//					MARK_CAR_AS_NO_LONGER_NEEDED tw7_players_bike // FIXEDGROVE: moved after the fade so they don't despawn
+//					MARK_CAR_AS_NO_LONGER_NEEDED tw7_ass_bandit_bike // FIXEDGROVE: moved after the fade so they don't despawn
 					MARK_MODEL_AS_NO_LONGER_NEEDED LSV2
 					MARK_MODEL_AS_NO_LONGER_NEEDED LSV3
-					MARK_MODEL_AS_NO_LONGER_NEEDED PCJ600
+//					MARK_MODEL_AS_NO_LONGER_NEEDED PCJ600 // FIXEDGROVE: moved after the fade
 					
 					REQUEST_ANIMATION MISC
 					LOAD_ALL_MODELS_NOW
@@ -2525,14 +2529,29 @@ WAIT 0
 					SHUT_ALL_CHARS_UP TRUE
 					MAKE_PLAYER_GANG_DISAPPEAR    
 					
+					// FIXEDGROVE: START - move bike out of the way of the cutscene
+					IF NOT IS_CAR_DEAD tw7_players_bike
+						IF LOCATE_CAR_2D tw7_players_bike 2294.6 -1491.3 6.4 4.4 FALSE 
+							SET_CAR_COORDINATES tw7_players_bike 2291.3670 -1493.8 22.5896
+							SET_CAR_HEADING tw7_players_bike 90.0
+						ENDIF
+					ENDIF
+					// FIXEDGROVE: END
+
 					IF NOT IS_CAR_DEAD tw7_ass_bandit_bike
 						SET_CAR_ALWAYS_CREATE_SKIDS tw7_ass_bandit_bike FALSE
-					ENDIF
+						// FIXEDGROVE: START - move bike out of the way of the cutscene
+						IF LOCATE_CAR_2D tw7_players_bike 2294.6 -1491.3 6.2 4.4 FALSE 
+							SET_CAR_COORDINATES tw7_ass_bandit_bike 2294.9685 -1501.4757 25.3499
+							SET_CAR_HEADING tw7_ass_bandit_bike 177.3242
+						ENDIF
+						// FIXEDGROVE: END
+					ENDIF		
 				
 					//getting current player position
 					CLEAR_CHAR_TASKS_IMMEDIATELY scplayer 
-					GET_CHAR_COORDINATES scplayer tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz
-					GET_CHAR_HEADING scplayer tw7_plyr_cut_heading
+//					GET_CHAR_COORDINATES scplayer tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz // FIXEDGROVE: comment out, not necessary if the cut only plays while in the basketball court
+//					GET_CHAR_HEADING scplayer tw7_plyr_cut_heading // FIXEDGROVE: comment out, not necessary if the cut only plays while in the basketball court
 					  
 					REMOVE_CHAR_FROM_GROUP mc_strap
 					CLEAR_CHAR_TASKS_IMMEDIATELY mc_strap 
@@ -2657,15 +2676,22 @@ WAIT 0
 				ENDIF
 				
 				CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
+				// FIXEDGROVE: START - comment out, not necessary if the cut only plays while in the basketball court
+				/*
 				tw7_plyr_cutz -= 1.0
 				CLEAR_AREA tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz 1.0 TRUE 
 				REQUEST_COLLISION tw7_plyr_cutx tw7_plyr_cuty   
 				LOAD_ALL_MODELS_NOW
 				SET_CHAR_COORDINATES scplayer tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz
 				SET_CHAR_HEADING scplayer tw7_plyr_cut_heading 
+				*/
+				// FIXEDGROVE: END
+				SET_CHAR_HEADING scplayer 90.0 // FIXEDGROVE
 				SET_CURRENT_CHAR_WEAPON scplayer tw7_which_gun  
 
 				CLEAR_CHAR_TASKS_IMMEDIATELY mc_strap	 
+				// FIXEDGROVE: START - comment out, not necessary if the cut only plays while in the basketball court
+				/*
 				GET_CLOSEST_CHAR_NODE tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz tw7_tempx tw7_tempy tw7_tempz
 				REQUEST_COLLISION tw7_tempx tw7_tempy   
 				LOAD_ALL_MODELS_NOW
@@ -2673,11 +2699,13 @@ WAIT 0
 				GET_GROUND_Z_FOR_3D_COORD tw7_tempx tw7_tempy tw7_tempz tw7_plyr_cutz
 				CLEAR_AREA tw7_tempx tw7_tempy tw7_plyr_cutz 1.0 TRUE 
 				SET_CHAR_COORDINATES mc_strap tw7_tempx tw7_tempy tw7_plyr_cutz
+				*/
+				// FIXEDGROVE: END
 				MAKE_ROOM_IN_PLAYER_GANG_FOR_MISSION_PEDS 1
 				SET_GROUP_MEMBER Players_Group mc_strap
 				tw7_flag_mc_strap_in_group = 1
 			
-				LOAD_SCENE tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz 
+//				LOAD_SCENE tw7_plyr_cutx tw7_plyr_cuty tw7_plyr_cutz // FIXEDGROVE: comment out, not necessary if the cut only plays while in the basketball court
 			
 				REMOVE_ANIMATION MISC
 
@@ -2695,7 +2723,12 @@ WAIT 0
 				DO_FADE 1500 FADE_IN	
 				WHILE GET_FADING_STATUS
 				    WAIT 0
-				ENDWHILE 
+				ENDWHILE
+
+				MARK_CAR_AS_NO_LONGER_NEEDED tw7_players_bike // FIXEDGROVE: moved from cutscene init
+				MARK_CAR_AS_NO_LONGER_NEEDED tw7_ass_bandit_bike // FIXEDGROVE: moved from cutscene init
+				MARK_MODEL_AS_NO_LONGER_NEEDED PCJ600 // FIXEDGROVE: moved from cutscene init
+
 				GOSUB tw7_death_checks
 				IF tw7_deathcheck_flag = 1
 					GOTO mission_twar7_failed
@@ -2895,7 +2928,6 @@ WAIT 0
 			IF tw7_speech_goals = 0 
 				IF tw7_speech_flag = 1
 					timera = 0
-					PRINT_NOW ( SMK1_13 ) 8500 1 //Take OG Loc to the Burger Shot.
 					tw7_speech_flag = 2
 				ENDIF
 
