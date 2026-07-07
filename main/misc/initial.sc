@@ -2941,9 +2941,8 @@ SET_OBJECT_HEADING h9_door_c 270.0000
 DONT_REMOVE_OBJECT h9_door_c
 
 //TRIP SKIP VARIABLE FOR SMOKE1
-VAR_INT tw7_trip_skip_flag[2]
-tw7_trip_skip_flag[0] = 0
-tw7_trip_skip_flag[1] = 0
+VAR_INT tw7_trip_skip_flag
+tw7_trip_skip_flag = 0
 
 
 ///////doors for riot2 mission

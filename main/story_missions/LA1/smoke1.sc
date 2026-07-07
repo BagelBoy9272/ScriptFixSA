@@ -414,23 +414,15 @@ WAIT 0
 						WARP_CHAR_INTO_CAR_AS_PASSENGER sweet tw7_smokes_car 2
 					ENDIF 
 
-					IF tw7_trip_skip_flag[0] = 1 
+					IF tw7_trip_skip_flag = 1 
 						//SET_UP_SKIP 1526.9 -1654.5 12.1 180.0
 						SET_UP_SKIP_FOR_SPECIFIC_VEHICLE 1526.9 -1654.5 12.1 180.0 tw7_smokes_car  
-						IF tw7_trip_skip_flag[1] = 0
-							PRINT_HELP SKIP_1  
-							tw7_trip_skip_flag[1] = 1
-						ENDIF
 						PRINT_NOW ( SMK1_02 ) 7000 1 //Go and pick up OG Loc from the Police Station.
 					ENDIF
 				
-					IF tw7_trip_skip_flag[0] = 2 
+					IF tw7_trip_skip_flag = 2 
 						//SET_UP_SKIP 2453.8 -1305.0 22.5 0.0
 						SET_UP_SKIP_FOR_VEHICLE_FINISHED_BY_SCRIPT 2453.8 -1305.0 22.5 0.0 tw7_smokes_car
-						IF tw7_trip_skip_flag[1] = 0
-							PRINT_HELP SKIP_1  
-							tw7_trip_skip_flag[1] = 1
-						ENDIF
 						tw7_special_trip_skip = 1
 					ENDIF
 				
@@ -518,8 +510,8 @@ WAIT 0
 			CLEAR_MISSION_AUDIO 2
 			tw7_speech_goals = 0
 
-			IF tw7_trip_skip_flag[0] = 0
-				tw7_trip_skip_flag[0] = 1
+			IF tw7_trip_skip_flag = 0
+				tw7_trip_skip_flag = 1
 			ENDIF	 	
 			
 			CLEAR_SKIP
@@ -699,8 +691,8 @@ WAIT 0
 				IF IS_CHAR_IN_CAR big_smoke tw7_smokes_car 
 			 		IF IS_CHAR_IN_CAR sweet tw7_smokes_car 
 						IF LOCATE_CHAR_IN_CAR_3D scplayer 2454.4 -1284.5 22.7 4.0 4.0 4.0 TRUE	
-							IF tw7_trip_skip_flag[0] = 1
-								tw7_trip_skip_flag[0] = 2
+							IF tw7_trip_skip_flag = 1
+								tw7_trip_skip_flag = 2
 							ENDIF	 	
 						
 							tw7_speech_flag = 0

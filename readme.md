@@ -110,6 +110,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **OG Loc:**
 - Added facial talk anim to voicelines
+- Fixed double printing of trip skip help box
 - Reverted a timer that was set to zero for debug
 - Deleted redundant DRAW_SPHERE calls, and moved it to after the cutscene where you go to Freddy's house ends
 - Removed "IS_IN_CAR" checks for the dialogue after killing Freddy, to make it flow more naturally
