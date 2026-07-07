@@ -120,6 +120,8 @@ LVAR_INT s3_player_entered_any_car
 
 LVAR_INT s3_fake_creates
 
+LVAR_INT s3_gate_stop // FIXEDGROVE
+
 // blips
 
 LVAR_INT s3_meet_car_blip s3_van_location_blip s3_player_bike_blip
@@ -951,6 +953,25 @@ WAIT 0
 					s3_player_bike_has_blip = 0
 				ENDIF
 			ENDIF
+
+			// FIXEDGROVE: START - open crackfact gate when paste van gets close
+			IF s3_current_roadblock = -1
+			AND s3_gate_stop = 0
+				IF LOCATE_CAR_2D s3_paste_van -2128.1201 -83.3848 12.0 18.0 FALSE
+					IF DOES_OBJECT_EXIST crackfact_front_gate
+						GET_OBJECT_COORDINATES crackfact_front_gate x y z
+						IF x < -2117.0 
+							SLIDE_OBJECT crackfact_front_gate -2117.0 -80.8 38.24 0.2 0.0 0.0 FALSE
+						ELSE
+							IF s3_gate_stop = 0
+								REPORT_MISSION_AUDIO_EVENT_AT_OBJECT crackfact_front_gate SOUND_MESH_GATE_OPEN_STOP
+								s3_gate_stop = 1
+							ENDIF
+						ENDIF
+					ENDIF
+				ENDIF
+			ENDIF
+			// FIXEDGROVE: END
 
 			// get handle for last car player is in before cutscene at factory
 			IF IS_CHAR_IN_ANY_CAR scplayer
@@ -2358,17 +2379,23 @@ GOTO syn3_loop
 		DELETE_CAR s3_paste_van
 		DELETE_CHAR s3_paste_van_driver
 
-		CLEAR_AREA -2127.08 -87.75 35.32 20.0 FALSE
-		REQUEST_COLLISION -2127.08 -87.75
-		LOAD_SCENE -2127.08 -87.75 35.32
+//		CLEAR_AREA -2127.08 -87.75 35.32 20.0 FALSE // FIXEDGROVE: comment out, use new coords now
+//		REQUEST_COLLISION -2127.08 -87.75 // FIXEDGROVE: comment out, use new coords now
+//		LOAD_SCENE -2127.08 -87.75 35.32 // FIXEDGROVE: comment out, use new coords now
 		IF s3_player_currently_has_car = 1
 		AND NOT IS_CAR_DEAD s3_last_player_car_before_van_cutscene
-			SET_CAR_COORDINATES	s3_last_player_car_before_van_cutscene -2127.08 -87.75 -100.0
-			SET_CAR_HEADING s3_last_player_car_before_van_cutscene 0.0
+			CLEAR_AREA -2122.4110 -72.8736 34.9463 8.0 FALSE // FIXEDGROVE
+			REQUEST_COLLISION -2122.4110 -72.8736 // FIXEDGROVE
+			LOAD_SCENE -2122.4110 -72.8736 34.9463 // FIXEDGROVE
+			SET_CAR_COORDINATES	s3_last_player_car_before_van_cutscene -2122.4110 -72.8736 34.9463 // FIXEDGROVE: coords were -2127.08 -87.75 -100.0
+			SET_CAR_HEADING s3_last_player_car_before_van_cutscene 270.0 // FIXEDGROVE: heading was 0.0
 			WARP_CHAR_INTO_CAR scplayer s3_last_player_car_before_van_cutscene
 		ELSE
-			SET_CHAR_COORDINATES scplayer -2127.08 -87.75 -100.0
-			SET_CHAR_HEADING scplayer 0.0
+			CLEAR_AREA -2119.1200 -78.1022 35.3203 1.0 FALSE // FIXEDGROVE
+			REQUEST_COLLISION -2119.1200 -78.1022 // FIXEDGROVE
+			LOAD_SCENE -2119.1200 -78.1022 35.3203 // FIXEDGROVE
+			SET_CHAR_COORDINATES scplayer -2119.1200 -78.1022 35.3203 // FIXEDGROVE: coords were -2127.08 -87.75 -100.0
+			SET_CHAR_HEADING scplayer 270.0 // FIXEDGROVE: heading was 0.0
 		ENDIF
 
 		REMOVE_BLIP s3_player_bike_blip
@@ -2387,6 +2414,12 @@ GOTO syn3_loop
 		SWITCH_ROADS_BACK_TO_ORIGINAL -2150.18 138.75 33.0 -2145.71 160.84 36.0
 		SWITCH_ROADS_BACK_TO_ORIGINAL -2168.24 42.13  33.0 -2165.99 61.70 36.0
 		SWITCH_RANDOM_TRAINS ON
+
+		// FIXEDGROVE: START - reset front gate
+		IF DOES_OBJECT_EXIST crackfact_front_gate
+			SET_OBJECT_COORDINATES crackfact_front_gate -2127.18 -80.8 38.24
+		ENDIF
+		// FIXEDGROVE: END
 
 		HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer FALSE
 
@@ -2894,6 +2927,13 @@ UNLOAD_SPECIAL_CHARACTER 2
 REMOVE_CHAR_ELEGANTLY s3_toreno
 REMOVE_CHAR_ELEGANTLY s3_tbone
 REMOVE_ANIMATION CAR_CHAT
+
+// FIXEDGROVE: START - reset front gate
+IF DOES_OBJECT_EXIST crackfact_front_gate
+	SET_OBJECT_COORDINATES crackfact_front_gate -2127.18 -80.8 38.24
+ENDIF
+// FIXEDGROVE: END
+
 SWITCH_ROADS_BACK_TO_ORIGINAL -2005.23 517.16 33.0 -2002.69 554.12 36.0
 SWITCH_ROADS_BACK_TO_ORIGINAL -2097.80 319.42 33.0 -2035.57 321.05 36.0
 SWITCH_ROADS_BACK_TO_ORIGINAL -2150.18 138.75 33.0 -2145.71 160.84 36.0
