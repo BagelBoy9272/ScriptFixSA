@@ -291,6 +291,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Puncture Wounds:**
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
+**Black Project:**
+- Restored 'To hover in the jetpack...' message from consoles
+
 **You've Had Your Chips:**
 - Moved parked car at beginning of the mission to a parking spot
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
