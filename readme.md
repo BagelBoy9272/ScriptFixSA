@@ -444,6 +444,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed Tattoo script not waiting for the needle sound effect to end before moving on to the next state (this mimics an official fix for barbershops)
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
 - Fixed camera not resetting instantly after quitting Bike School
+- Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
 - Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
 - Fixed Flint Intersection and Flint Range zones being assigned the desert popcycle instead of the countryside one
 - Fixed SUN2, RIH5b and RIH6a zones missing properties due to a copy-paste oversight

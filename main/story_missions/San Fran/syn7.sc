@@ -2872,13 +2872,13 @@ mission_syn7_passed:
 	SWITCH_ROADS_BACK_TO_ORIGINAL -2670.1731 1203.3314 50.4297 -2662.6604 1237.7072 60.5781 //Last minute fix for Golden gate traffic madness, may cause more chaos. Switches four nodes off. // FIXEDGROVE: was missing before
 
 	// The Panopticon ( Red metal bridge in D6  )
-	SWITCH_ROADS_BACK_TO_ORIGINAL -995.0013 -416.2032 30.4207 -940.5399 -251.8564 40.6762
+	//SWITCH_ROADS_BACK_TO_ORIGINAL -995.0013 -416.2032 30.4207 -940.5399 -251.8564 40.6762 // FIXEDGROVE: moved to la1fin2 to match barrier removal
 
 	//Red County ( E5 Red curved bridge )
 	SWITCH_ROADS_BACK_TO_ORIGINAL -205.8387 250.7443 7.2472 -131.0039 481.8496 15.9152
 
 	//Flint County ( E7 small road bridge )
-	SWITCH_ROADS_BACK_TO_ORIGINAL -100.7515 -927.8298 18.0 -68.3752 -891.9871 14.0
+	//SWITCH_ROADS_BACK_TO_ORIGINAL -100.7515 -927.8298 18.0 -68.3752 -891.9871 14.0 // FIXEDGROVE: moved to la1fin2 to match barrier removal
 
 	//Hampton Barns            ( F5 Hexagonal Style framing )
 	SWITCH_ROADS_BACK_TO_ORIGINAL 609.7595 327.3437 15.8783 429.8884 616.0168 20.2890
@@ -2902,13 +2902,13 @@ mission_syn7_passed:
 	SWITCH_ROADS_BACK_TO_ORIGINAL 1705.1558 308.3448 20.0  1710.9475 316.4094 23.5612 // Slip Road.
 
 	//Wee metal side bridge in E8 near Flint Intersection
-	SWITCH_ROADS_BACK_TO_ORIGINAL -12.7067 -1522.4554 1.0 80.8463 -1517.1113 5.0
-	SWITCH_ROADS_BACK_TO_ORIGINAL -16.3392 -1532.8817 0.0394 69.3401 -1523.7710 5.9220 
+	//SWITCH_ROADS_BACK_TO_ORIGINAL -12.7067 -1522.4554 1.0 80.8463 -1517.1113 5.0 // FIXEDGROVE: moved to la1fin2 to match barrier removal
+	//SWITCH_ROADS_BACK_TO_ORIGINAL -16.3392 -1532.8817 0.0394 69.3401 -1523.7710 5.9220 // FIXEDGROVE: moved to la1fin2 to match barrier removal
 
 	//Complicated tunnel bit from F8 to G8
-	SWITCH_ROADS_BACK_TO_ORIGINAL 618.7253 -1189.6063 18.0 623.5441 -1161.9812 22.0 //Main Section blocker
-	SWITCH_ROADS_BACK_TO_ORIGINAL -33.4208 -1341.8403 9.0 35.3764 -1303.9479 13.0 //Close Southbound traffic
-	SWITCH_ROADS_BACK_TO_ORIGINAL -41.2393 -1385.8701 8.0 -3.5883 -1368.8558 10.5 //Fiddly section to stop northbound traffic but keep ring round open
+	//SWITCH_ROADS_BACK_TO_ORIGINAL 618.7253 -1189.6063 18.0 623.5441 -1161.9812 22.0 //Main Section blocker // FIXEDGROVE: moved to la1fin2 to match barrier removal
+	//SWITCH_ROADS_BACK_TO_ORIGINAL -33.4208 -1341.8403 9.0 35.3764 -1303.9479 13.0 //Close Southbound traffic // FIXEDGROVE: moved to la1fin2 to match barrier removal
+	//SWITCH_ROADS_BACK_TO_ORIGINAL -41.2393 -1385.8701 8.0 -3.5883 -1368.8558 10.5 //Fiddly section to stop northbound traffic but keep ring round open // FIXEDGROVE: moved to la1fin2 to match barrier removal
 
 	//Garver Bridge  ( Forth Road ) 
 	SWITCH_ROADS_BACK_TO_ORIGINAL -1690.7048 539.6102 30.3278 -1100.5674 1140.5695 50.7350

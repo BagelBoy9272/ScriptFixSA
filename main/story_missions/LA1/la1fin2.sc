@@ -3280,6 +3280,25 @@ mission_la1fin2_passed:
 
 	SET_GANG_WARS_ACTIVE FALSE
 
+	// FIXEDGROVE: START - restore traffic to flint county bridges, moved from syn7 to match barrier removal
+	
+	// The Panopticon ( Red metal bridge in D6  )
+	SWITCH_ROADS_BACK_TO_ORIGINAL -995.0013 -416.2032 30.4207 -940.5399 -251.8564 40.6762
+
+	//Flint County ( E7 small road bridge )
+	SWITCH_ROADS_BACK_TO_ORIGINAL -100.7515 -927.8298 18.0 -68.3752 -891.9871 14.0
+
+	//Wee metal side bridge in E8 near Flint Intersection
+	SWITCH_ROADS_BACK_TO_ORIGINAL -12.7067 -1522.4554 1.0 80.8463 -1517.1113 5.0
+	SWITCH_ROADS_BACK_TO_ORIGINAL -16.3392 -1532.8817 0.0394 69.3401 -1523.7710 5.9220
+
+	//Complicated tunnel bit from F8 to G8
+	SWITCH_ROADS_BACK_TO_ORIGINAL 618.7253 -1189.6063 18.0 623.5441 -1161.9812 22.0 //Main Section blocker
+	SWITCH_ROADS_BACK_TO_ORIGINAL -33.4208 -1341.8403 9.0 35.3764 -1303.9479 13.0 //Close Southbound traffic
+	SWITCH_ROADS_BACK_TO_ORIGINAL -41.2393 -1385.8701 8.0 -3.5883 -1368.8558 10.5 //Fiddly section to stop northbound traffic but keep ring round open
+
+	// FIXEDGROVE: END
+
 	START_NEW_SCRIPT bcrash_mission_loop
 
 
