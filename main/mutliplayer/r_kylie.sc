@@ -412,11 +412,13 @@ rkylie_Kissing:
 	        SWITCH_WIDESCREEN ON
 	        SET_ALL_CARS_CAN_BE_DAMAGED FALSE
 
+			// FIXEDGROVE: START - commented, not necessary and it's not cleaned up properly
 	        //--- Switch Roads OFF
-	        GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 30.0 30.0 2.0 fX[0] fY[0] fZ[0]
-	        GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -30.0 -30.0 -1.0 fX[1] fY[1] fZ[1]
-	        SWITCH_ROADS_OFF fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
-	        SWITCH_PED_ROADS_OFF fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+	        //GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 30.0 30.0 2.0 fX[0] fY[0] fZ[0]
+	        //GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -30.0 -30.0 -1.0 fX[1] fY[1] fZ[1]
+	        //SWITCH_ROADS_OFF fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+	        //SWITCH_PED_ROADS_OFF fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+			// FIXEDGROVE: END
 
 	        //--- Rotate player and GF to face each other                    
 	        TASK_TURN_CHAR_TO_FACE_CHAR scplayer p2
@@ -536,11 +538,13 @@ rkylie_Kissing:
 	                HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE p2 FALSE
 	                //--- Restore the girl's co-ords
 	                SET_CHAR_COORDINATES p2 fX[2] fY[2] fZ[2]
+					// FIXEDGROVE: START - commented, not necessary and it's not cleaned up properly
 	                //--- Switch Roads ON
-	                GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 30.0 30.0 1.0 fX[0] fY[0] fZ[0]
-	                GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -30.0 -30.0 -1.0 fX[1] fY[1] fZ[1]
-	                SWITCH_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
-	                SWITCH_PED_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+	                //GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 30.0 30.0 1.0 fX[0] fY[0] fZ[0]
+	                //GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -30.0 -30.0 -1.0 fX[1] fY[1] fZ[1]
+	                //SWITCH_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+	                //SWITCH_PED_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+					// FIXEDGROVE: END
 	                //--- Restore collisions etc.
 	                SET_CHAR_COLLISION scplayer TRUE 
 	                SET_CHAR_COLLISION p2 TRUE
@@ -563,11 +567,13 @@ rkylie_Kissing:
 	            HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE p2 FALSE
 	            //--- Restore the girl's co-ords                              
 	            SET_CHAR_COORDINATES p2 fX[2] fY[2] fZ[2]
+				// FIXEDGROVE: START - commented, not necessary and it's not cleaned up properly
 	            //--- Switch Roads ON
-	            GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 30.0 30.0 1.0 fX[0] fY[0] fZ[0]
-	            GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -30.0 -30.0 -1.0 fX[1] fY[1] fZ[1]
-	            SWITCH_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
-	            SWITCH_PED_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+	            //GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 30.0 30.0 1.0 fX[0] fY[0] fZ[0]
+	            //GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -30.0 -30.0 -1.0 fX[1] fY[1] fZ[1]
+	            //SWITCH_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+	            //SWITCH_PED_ROADS_BACK_TO_ORIGINAL fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1]
+				// FIXEDGROVE: END
 	            //--- Restore collisions etc.
 	            SET_CHAR_COLLISION scplayer TRUE 
 	            SET_CHAR_COLLISION p2 TRUE

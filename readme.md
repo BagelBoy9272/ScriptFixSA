@@ -444,6 +444,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed Tattoo script not waiting for the needle sound effect to end before moving on to the next state (this mimics an official fix for barbershops)
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
 - Fixed camera not resetting instantly after quitting Bike School
+- Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
 - Fixed Flint Intersection and Flint Range zones being assigned the desert popcycle instead of the countryside one
 - Fixed SUN2, RIH5b and RIH6a zones missing properties due to a copy-paste oversight
 - Fixed missing turf for Da Nang Boys due to a copy-paste oversight
@@ -453,6 +454,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed a knife pickup that was under the ground near an underpass in SF
 - Moved AK47 pickup in film studios closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
+- Improved Forbidden Area switches
 - Added population properties to a tiny alleway zone in East Los Santos
 - Added italian mafia turf to Caligula's Palace and a little bit of The Strip next to it
 - Added triad turf to the Four Dragons Casino after Woozie's phonecall about it

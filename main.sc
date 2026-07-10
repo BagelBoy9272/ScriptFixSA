@@ -779,7 +779,7 @@ VAR_INT busted_help1
 
 // *****************************************SWITCH ROADS OFF****************************************
 
-SWITCH_ROADS_OFF 2500.0 -1677.0 20.0 2430.0 -1653.0 0.0	 //REMOVE (SPEAK TO JOHN)
+//SWITCH_ROADS_OFF 2500.0 -1677.0 20.0 2430.0 -1653.0 0.0	 //REMOVE (SPEAK TO JOHN) // FIXEDGROVE: not needed since the nodes are turned off anyway
 
 
 // *****************************************SHOPS******************************************************

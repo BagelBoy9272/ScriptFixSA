@@ -5827,8 +5827,8 @@ RETURN
 mission_cleanup_sweet7:
 
 SET_EVERYONE_IGNORE_PLAYER player1 FALSE
-SWITCH_ROADS_ON 2297.0376 -1664.6005 10.8474 2324.8655 -1652.1244 14.8382
-SWITCH_PED_ROADS_ON 2297.0376 -1664.6005 10.8474 2324.8655 -1652.1244 14.8382
+SWITCH_ROADS_BACK_TO_ORIGINAL 2297.0376 -1664.6005 10.8474 2324.8655 -1652.1244 14.8382 // FIXEDGROVE: remove rather than turn on
+SWITCH_PED_ROADS_BACK_TO_ORIGINAL 2297.0376 -1664.6005 10.8474 2324.8655 -1652.1244 14.8382 // FIXEDGROVE: remove rather than turn on
 SET_ZONE_GANG_STRENGTH GAN1 GANG_GROVE gan1_gzs  //back to starting value
 SET_ZONE_GANG_STRENGTH GAN2 GANG_GROVE gan2_gzs //back to starting value
 
@@ -5909,10 +5909,10 @@ MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS2
 MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS3
 MARK_MODEL_AS_NO_LONGER_NEEDED BFYRI
 
-SWITCH_ROADS_ON 772.2430 -1050.3231 10.2931 806.2723 -1130.1954 23.8359 
+SWITCH_ROADS_BACK_TO_ORIGINAL 772.2430 -1050.3231 10.2931 806.2723 -1130.1954 23.8359 // FIXEDGROVE: remove rather than turn on
 
-SWITCH_ROADS_ON sw7_coord_area_cemetry_min_x sw7_coord_area_cemetry_min_y 0.0 sw7_coord_area_cemetry_max_x sw7_coord_area_cemetry_max_y 60.0
-SWITCH_PED_ROADS_ON sw7_coord_area_cemetry_min_x sw7_coord_area_cemetry_min_y 0.0 sw7_coord_area_cemetry_max_x sw7_coord_area_cemetry_max_y 60.0
+SWITCH_ROADS_BACK_TO_ORIGINAL sw7_coord_area_cemetry_min_x sw7_coord_area_cemetry_min_y 0.0 sw7_coord_area_cemetry_max_x sw7_coord_area_cemetry_max_y 60.0 // FIXEDGROVE: remove rather than turn on
+SWITCH_PED_ROADS_BACK_TO_ORIGINAL sw7_coord_area_cemetry_min_x sw7_coord_area_cemetry_min_y 0.0 sw7_coord_area_cemetry_max_x sw7_coord_area_cemetry_max_y 60.0 // FIXEDGROVE: remove rather than turn on
 
 flag_player_on_mission = 0
 

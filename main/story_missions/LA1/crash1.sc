@@ -7683,7 +7683,7 @@ Crash1_CheckIf_In_House:
 				SET_CHAR_FIRE_DAMAGE_MULTIPLIER scplayer 0.3
 
 				// ...make sure the navigation nodes are switched on
-				SWITCH_PED_ROADS_ON 2300.0 -1200.0 1000.0 2370.0 -1160.0 1050.0
+//				SWITCH_PED_ROADS_ON 2300.0 -1200.0 1000.0 2370.0 -1160.0 1050.0 // FIXEDGROVE: commented, not needed
 
 				// Remove the existing small fires and re-create them in the interior (1000m in air)
 				statusFires = 0
