@@ -65,6 +65,7 @@ MISSION_END
 	sw4_load_all:
 		REQUEST_MODEL GREENWOO
 		REQUEST_MODEL TEC9
+		REQUEST_MODEL MICRO_UZI // FIXEDGROVE
 		REQUEST_MODEL COLT45
 		LOAD_SPECIAL_CHARACTER 10 smoke
 		LOAD_SPECIAL_CHARACTER 2 ryder2
@@ -80,6 +81,12 @@ MISSION_END
 		OR NOT HAS_SPECIAL_CHARACTER_LOADED 3
         WAIT 0
 		ENDWHILE
+
+		// FIXEDGROVE: START
+		WHILE NOT HAS_MODEL_LOADED MICRO_UZI
+		WAIT 0
+		ENDWHILE
+		// FIXEDGROVE: END
 	RETURN
 // ---- Smoke  
 	sw4_smoke_create:
@@ -197,7 +204,7 @@ MISSION_END
 		OPEN_CAR_DOOR sw4_hood_car[0] FRONT_LEFT_DOOR
 		//CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[0] sw4_flat_hood_y[0] sw4_flat_hood_z[0] sw4_flat_hood[0]
 		//SET_CHAR_HEADING sw4_flat_hood[0] sw4_flat_hood_h[0]
-		GIVE_WEAPON_TO_CHAR sw4_flat_hood[0] WEAPONTYPE_TEC9 sw4_ammo
+		GIVE_WEAPON_TO_CHAR sw4_flat_hood[0] WEAPONTYPE_MICRO_UZI sw4_ammo // FIXEDGROVE: weapon was TEC9
 		SET_CHAR_ACCURACY sw4_flat_hood[0] sw4_hood_acc
 		IF sw4_blipped = 0
 			ADD_BLIP_FOR_CHAR sw4_flat_hood[0] sw4_flat_hood_blip[0]
@@ -264,7 +271,7 @@ MISSION_END
 		POP_CAR_BOOT sw4_hood_car[1] 
 		//CREATE_CHAR PEDTYPE_GANG_FLAT ballas2 sw4_flat_hood_x[4] sw4_flat_hood_y[4] sw4_flat_hood_z[4] sw4_flat_hood[4]
 		//SET_CHAR_HEADING sw4_flat_hood[4] sw4_flat_hood_h[4]
-		GIVE_WEAPON_TO_CHAR sw4_flat_hood[4] WEAPONTYPE_TEC9 sw4_ammo
+		GIVE_WEAPON_TO_CHAR sw4_flat_hood[4] WEAPONTYPE_MICRO_UZI sw4_ammo // FIXEDGROVE: weapon was TEC9
 		SET_CHAR_ACCURACY sw4_flat_hood[4] sw4_hood_acc
 		
 		IF sw4_blipped = 0
@@ -322,7 +329,7 @@ MISSION_END
 		sw4_flat_hood_h[8] = 257.59 
 		CLEAR_AREA sw4_flat_hood_x[8] sw4_flat_hood_y[8] sw4_flat_hood_z[8] 0.5 TRUE
 		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[8] sw4_flat_hood_y[8] sw4_flat_hood_z[8] sw4_flat_hood[8]
-		GIVE_WEAPON_TO_CHAR sw4_flat_hood[8] WEAPONTYPE_TEC9 sw4_ammo
+		GIVE_WEAPON_TO_CHAR sw4_flat_hood[8] WEAPONTYPE_MICRO_UZI sw4_ammo // FIXEDGROVE: weapon was TEC9
 		SET_CHAR_HEADING sw4_flat_hood[8] sw4_flat_hood_h[8]
 		SET_CHAR_ACCURACY sw4_flat_hood[8] sw4_hood_acc
 		IF sw4_blipped = 0
@@ -377,7 +384,7 @@ MISSION_END
 		sw4_flat_hood_h[12] = 318.72 
 		CLEAR_AREA sw4_flat_hood_x[12] sw4_flat_hood_y[12] sw4_flat_hood_z[12] 0.5 TRUE
 		CREATE_CHAR PEDTYPE_GANG_FLAT ballas1 sw4_flat_hood_x[12] sw4_flat_hood_y[12] sw4_flat_hood_z[12] sw4_flat_hood[12]
-		GIVE_WEAPON_TO_CHAR sw4_flat_hood[12] WEAPONTYPE_TEC9 sw4_ammo
+		GIVE_WEAPON_TO_CHAR sw4_flat_hood[12] WEAPONTYPE_MICRO_UZI sw4_ammo // FIXEDGROVE: weapon was TEC9
 		SET_CHAR_HEADING sw4_flat_hood[12] sw4_flat_hood_h[12]
 		SET_CHAR_ACCURACY sw4_flat_hood[12] sw4_hood_acc
 		IF sw4_blipped = 0
@@ -3267,6 +3274,7 @@ mission_cleanup_sweet4:
 	MARK_MODEL_AS_NO_LONGER_NEEDED ballas1
 	MARK_MODEL_AS_NO_LONGER_NEEDED ballas2
 	MARK_MODEL_AS_NO_LONGER_NEEDED TEC9
+	MARK_MODEL_AS_NO_LONGER_NEEDED MICRO_UZI // FIXEDGROVE
 	MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
 	MARK_MODEL_AS_NO_LONGER_NEEDED VOODOO
 	//MARK_MODEL_AS_NO_LONGER_NEEDED 867
