@@ -66,6 +66,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Drive-Thru:**
 - Fixed Sweet and Smoke changing seats after the drive-thru cutscene
+- Changed Ballas' Tec9s to Uzis
 - Made freeroam Ballas respect scripted Ballas
 - Made Groves hate scripted Ballas
 - Restored audio for the failed cutscene
