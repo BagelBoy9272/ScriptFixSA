@@ -296,6 +296,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Black Project:**
 - Restored 'To hover in the jetpack...' message from consoles
 
+**Green Goo:**
+- Fixed phone ringing immediately after the mission
+
 **You've Had Your Chips:**
 - Moved parked car at beginning of the mission to a parking spot
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
@@ -428,6 +431,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed possible softlock if the player answered a loanshark phone call while 'Are You Going To San Fierro?' wasn't unlocked
 - Fixed script not checking if player answered Rosenberg's phone call before enabling 'Vertical Bird'
 - Fixed player not being set in their original coordinates correctly after Sweet's gym call
+- Fixed phone ringing immediately after 'Valet'
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt

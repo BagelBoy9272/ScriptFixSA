@@ -575,6 +575,8 @@ MARK_MODEL_AS_NO_LONGER_NEEDED jetpack
 
 SWITCH_RANDOM_TRAINS ON
 
+GET_GAME_TIMER timer_mobile_start //Used to reset the mobile phone timer so it doesn't ring immediately after the mission // FIXEDGROVE: was missing before
+
 flag_player_on_mission = 0
 
 MISSION_HAS_FINISHED

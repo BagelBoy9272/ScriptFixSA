@@ -2670,6 +2670,8 @@ valet_cleanup:
 	REMOVE_BLIP parking_space_blip
 	REMOVE_BLIP pickup_car_blip
 
+	GET_GAME_TIMER timer_mobile_start //Used to reset the mobile phone timer so it doesn't ring immediately after the mission // FIXEDGROVE: was missing before
+
 	TERMINATE_THIS_SCRIPT
 
 RETURN
