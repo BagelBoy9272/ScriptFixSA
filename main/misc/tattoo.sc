@@ -598,6 +598,8 @@ shop_tattoo_inner:
 				IF shop_progress_tattoo = 3
 
 				   	stored_item_picked_shops = shop_main_item_picked_shops
+
+					shop_sub_item_picked_shops = 0 // FIXEDGROVE: reset index
 				
 					IF main_menu_drawn_shops = 1
 						CLEAR_HELP
@@ -1109,6 +1111,8 @@ shop_tattoo_inner:
 
 						flag_no_money_shops = 0
 
+						remove_menu_item_selected = 0 // FIXEDGROVE: reset index
+
 					  	shop_progress_tattoo = 0
 						flag_tattoo = 5
 						
@@ -1200,6 +1204,8 @@ shop_tattoo_inner:
 				
 				IF shop_progress_tattoo = 9
 
+					remove_menu_item_selected = 0 // FIXEDGROVE: reset index
+					
 					shop_progress_tattoo = 0
 					flag_tattoo = 5
 
@@ -1687,6 +1693,8 @@ print_tattoo_menu_oncreen_text:
 			ENDIF
 		ENDIF
 
+		SET_ACTIVE_MENU_ITEM main_menu_shops shop_main_item_picked_shops // FIXEDGROVE: restore selection
+
 		SET_MENU_COLUMN_ORIENTATION main_menu_shops 1 FO_LEFT
 		SET_MENU_COLUMN main_menu_shops 0 DUMMY $ITEM1 $ITEM2 $ITEM3 $ITEM4 $ITEM5 $ITEM6 $ITEM7 $ITEM8 $ITEM9 $ITEM10 $ITEM11 $ITEM12 
 
@@ -1733,12 +1741,14 @@ print_tattoo_oncreen_text2:
 		SET_MENU_COLUMN sub_menu_shops 0 TATTO $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11]
 		SET_MENU_COLUMN_ORIENTATION sub_menu_shops 1 FO_RIGHT
 		SET_MENU_COLUMN sub_menu_shops 1 COST DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY
-		
+				
 		price_counter = 0
 		WHILE price_counter < number_of_tattoos_in_area
 			SET_MENU_ITEM_WITH_NUMBER sub_menu_shops 1 price_counter DOLLAR item_price[price_counter]
 			++price_counter
 		ENDWHILE
+
+		SET_ACTIVE_MENU_ITEM sub_menu_shops shop_sub_item_picked_shops // FIXEDGROVE: restore selection
 
 		temp_var_shops = 0
 		WHILE temp_var_shops < number_of_tattoos_in_area
@@ -1877,6 +1887,8 @@ draw_remove_tats_menu:
 			SET_MENU_ITEM_WITH_NUMBER sub_menu_shops 1 price_counter DOLLAR TATTOO_REMOVAL_PRICE
 			++price_counter
 		ENDWHILE
+
+		SET_ACTIVE_MENU_ITEM remove_menu_tattoo remove_menu_item_selected // FIXEDGROVE: restore selection
 
 		SET_MENU_COLUMN_WIDTH remove_menu_tattoo 0 140
 		SET_MENU_COLUMN_WIDTH remove_menu_tattoo 1 46

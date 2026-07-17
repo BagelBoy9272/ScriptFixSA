@@ -762,6 +762,8 @@ shop_ammunation_inner:
 						created_this_weapon = 0
 						cost_menu_drawn_shops = 0
 						bought_menu_drawn_shops = 0
+						main_menu_selection_ammu = 0 // FIXEDGROVE: reset index
+    					sub_menu_selection_ammu = 0 // FIXEDGROVE: reset index
 						flag_ammu = 2
 						shop_progress_ammunation = 0
 					ENDIF
@@ -779,6 +781,8 @@ shop_ammunation_inner:
 						IF main_menu_selection_ammu < 0
 							main_menu_selection_ammu = 0
 						ENDIF 
+
+						sub_menu_selection_ammu = 0 // FIXEDGROVE: reset index
 
 						IF main_menu_drawn_shops = 1
 							CLEAR_HELP
@@ -855,6 +859,8 @@ shop_ammunation_inner:
 							GOSUB fill_main_menu_ammu
 							GOSUB draw_main_menu_ammu
 						ENDIF
+
+						sub_menu_selection_ammu = 0 // FIXEDGROVE: reset index
 
 						shop_progress_ammunation = 0
 						flag_ammu = 5
@@ -1350,6 +1356,9 @@ ammunation_cleanup_small:
 	cost_menu_drawn_shops = 0
 	bought_menu_drawn_shops = 0
 
+	main_menu_selection_ammu = 0 // FIXEDGROVE: reset index
+    sub_menu_selection_ammu = 0 // FIXEDGROVE: reset index
+
 	flag_bought_item_already_shops = 0
 	flag_no_money_shops = 0
 	flag_buy_ammo_flag = 0
@@ -1401,6 +1410,9 @@ ammunation_cleanup_big:
 	shop_progress_ammunation = 0
 	cost_menu_drawn_shops = 0
 	bought_menu_drawn_shops = 0
+
+	main_menu_selection_ammu = 0 // FIXEDGROVE: reset index
+    sub_menu_selection_ammu = 0 // FIXEDGROVE: reset index
 
 	flag_bought_item_already_shops = 0
 	flag_no_money_shops = 0
@@ -1776,6 +1788,8 @@ draw_main_menu_ammu:
 			ENDIF
 		ENDIF
 
+		SET_ACTIVE_MENU_ITEM main_menu_shops main_menu_selection_ammu // FIXEDGROVE: restore selection
+
 		SET_MENU_COLUMN_ORIENTATION main_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN main_menu_shops 0 DUMMY $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11]
 
@@ -1913,6 +1927,8 @@ draw_second_menu_shops:
 				ENDIF
 			ENDIF
 		ENDIF
+
+		SET_ACTIVE_MENU_ITEM sub_menu_shops sub_menu_selection_ammu // FIXEDGROVE: restore selection
 
 		SET_MENU_COLUMN_ORIENTATION sub_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN sub_menu_shops 0 DUMMY $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11]

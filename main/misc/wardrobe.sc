@@ -435,12 +435,16 @@ shop_wardrobe_inner:
 
 							$current_name_of_anim_wardrobe = CLO_Pose_Torso
 
+							third_menu_item_picked_wardrobe = 0   // FIXEDGROVE: reset index
+
 							shop_progress_wardrobe = 0
 							flag_wardrobe = 7
 
 						ELSE
 					
 							GOSUB fill_in_second_menu_wardrobe
+
+							second_menu_item_picked_wardrobe = 0   // FIXEDGROVE: reset index
 												
 							IF second_menu_drawn_wardrobe = 0  
 								GOSUB draw_second_menu_wardrobe
@@ -546,6 +550,8 @@ shop_wardrobe_inner:
 						
 						$current_name_of_anim_wardrobe = $name_of_anim_wardrobe[second_menu_item_picked_wardrobe]
 						GOSUB fill_third_menu_wardrobe
+
+						third_menu_item_picked_wardrobe = 0   // FIXEDGROVE: reset index
 
 						shop_progress_wardrobe = 2
 					ENDIF
@@ -1127,7 +1133,8 @@ shop_wardrobe_inner:
 					bought_menu_drawn_shops = 0
 					flag_remove_menu_drawn_wardrobe = 0
 					shop_main_item_picked_wardrobe = 0
-					shop_sub_item_picked_shops = 0
+					second_menu_item_picked_wardrobe = 0 // FIXEDGROVE: wrong var was used
+					third_menu_item_picked_wardrobe = 0 // FIXEDGROVE: was missing before
 					flag_bought_something_wardrobe = 0
 																				
 					flag_wardrobe = 2
@@ -1203,7 +1210,8 @@ wardrobe_cleanup_small:
 	bought_menu_drawn_shops = 0
 	flag_remove_menu_drawn_wardrobe = 0
 	shop_main_item_picked_wardrobe = 0
-	shop_sub_item_picked_shops = 0
+	second_menu_item_picked_wardrobe = 0 // FIXEDGROVE: wrong var was used
+	third_menu_item_picked_wardrobe = 0 // FIXEDGROVE: was missing before
 
 	flag_bought_item_already_shops = 0
 	flag_player_owned_item_shops = 0
@@ -1269,7 +1277,8 @@ wardrobe_cleanup_big:
 	bought_menu_drawn_shops = 0
 	flag_remove_menu_drawn_wardrobe = 0				
 	shop_main_item_picked_wardrobe = 0
-	shop_sub_item_picked_shops = 0
+	second_menu_item_picked_wardrobe = 0 // FIXEDGROVE: wrong var was used
+	third_menu_item_picked_wardrobe = 0 // FIXEDGROVE: was missing before
 	flag_bought_something_wardrobe = 0
 	   
 	blob_flag_shop = 1
@@ -1469,6 +1478,8 @@ draw_second_menu_wardrobe:
 				ENDIF
 			ENDIF
 		ENDIF
+
+		SET_ACTIVE_MENU_ITEM second_menu_wardrobe second_menu_item_picked_wardrobe // FIXEDGROVE: restore selection
 		
 		SET_MENU_COLUMN_ORIENTATION second_menu_wardrobe 0 FO_LEFT
 		SET_MENU_COLUMN second_menu_wardrobe 0 DUMMY $menu_item[0] $menu_item[1] $menu_item[2] $menu_item[3] $menu_item[4] $menu_item[5] $menu_item[6] $menu_item[7] $menu_item[8] $menu_item[9] $menu_item[10] $menu_item[11]
@@ -1564,6 +1575,8 @@ draw_third_menu_wardrobe:
 			ENDIF
 		ENDIF
 		
+		SET_ACTIVE_MENU_ITEM third_menu_wardrobe third_menu_item_picked_wardrobe // FIXEDGROVE: restore selection
+
 		SET_MENU_COLUMN_ORIENTATION third_menu_wardrobe 0 FO_LEFT
 		SET_MENU_COLUMN third_menu_wardrobe 0 DUMMY $menu_item[0] $menu_item[1] $menu_item[2] $menu_item[3] $menu_item[4] $menu_item[5] $menu_item[6] $menu_item[7] $menu_item[8] $menu_item[9] $menu_item[10] $menu_item[11]
 
@@ -1695,6 +1708,8 @@ IF main_menu_drawn_wardrobe = 0
 
 	PRINT_HELP_FOREVER WARDH1
 	SET_MENU_COLUMN main_menu_wardrobe 0 DUMMY $menu_item[0] $menu_item[1] $menu_item[2] $menu_item[3] $menu_item[4] $menu_item[5] $menu_item[6] $menu_item[7] $menu_item[8] $menu_item[9] $menu_item[10] $menu_item[11]
+
+	SET_ACTIVE_MENU_ITEM main_menu_wardrobe shop_main_item_picked_wardrobe // FIXEDGROVE: restore selection
 
 	main_menu_drawn_wardrobe = 1
 ENDIF

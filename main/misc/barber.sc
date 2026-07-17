@@ -1143,6 +1143,8 @@ barbers_cleanup_small:
 	flag_bought_item_already_shops = 0
 	flag_no_money_shops = 0
 
+	haircut_picked_barbers = 0 // FIXEDGROVE: reset index
+
 	cut_hair_flag_barber = 0
 			
 RETURN
@@ -1184,6 +1186,8 @@ barbers_cleanup_big:
 	flag_bought_item_already_shops = 0
 	flag_no_money_shops = 0
 	flag_restored_camera_barbers = 0
+
+	haircut_picked_barbers = 0 // FIXEDGROVE: reset index
 
 	cut_hair_flag_barber = 0
 		
@@ -1331,6 +1335,8 @@ draw_main_menu_barbers:
 			SET_MENU_ITEM_WITH_NUMBER main_menu_shops 1 temp_var_shops DOLLAR item_price[temp_var_shops]
 			++temp_var_shops
 		ENDWHILE
+
+		SET_ACTIVE_MENU_ITEM main_menu_shops haircut_picked_barbers // FIXEDGROVE: restore selection
 
 		temp_var_shops = 0 
 		WHILE temp_var_shops < number_of_hairstyles_in_area

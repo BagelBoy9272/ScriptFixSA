@@ -1646,6 +1646,12 @@ shop_mod_shop1_inner:
 								upgrade_meun1_selected = 0
 							ENDIF
 
+							// FIXEDGROVE: START - new category, reset indexes
+							upgrade_meun2_selected = 0
+							upgrade_meun4_selected = 0
+							upgrade_colour_selected = 0
+							// FIXEDGROVE: END
+
 							IF NOT upgradetype[upgrade_meun1_selected] = MOD_GARAGE_CAR_COLOUR							
 
 								IF NOT upgradetype[upgrade_meun1_selected] = MOD_GARAGE_PAINTJOB 
@@ -2545,6 +2551,8 @@ draw_main_menu_carmod:
 			ENDIF
 		ENDIF
 		
+		SET_ACTIVE_MENU_ITEM main_menu_shops upgrade_meun1_selected // FIXEDGROVE: restore selection
+
 		SET_MENU_COLUMN_ORIENTATION main_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN main_menu_shops 0 DUMMY $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11] 
 		
@@ -2585,6 +2593,8 @@ draw_sub_menu_mod:
 				ENDIF
 			ENDIF
 		ENDIF
+
+		SET_ACTIVE_MENU_ITEM sub_menu_shops upgrade_meun2_selected // FIXEDGROVE: restore selection
 		
 		SET_MENU_COLUMN_ORIENTATION sub_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN sub_menu_shops 0 DUMMY $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11] 
@@ -3617,6 +3627,8 @@ draw_menu4_mod_shop:
 				ENDIF
 			ENDIF
 		ENDIF
+
+		SET_ACTIVE_MENU_ITEM forth_menu_shops upgrade_meun4_selected // FIXEDGROVE: restore selection
 
 		SET_MENU_COLUMN_ORIENTATION forth_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN forth_menu_shops 0 UPGRADE $forth_menu_item1 $forth_menu_item2 DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY

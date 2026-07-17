@@ -665,6 +665,8 @@ shop_clothes_inner:
 
 						GOSUB find_which_clothes_shop_load
 
+						shop_sub_item_picked_shops = 0   // FIXEDGROVE: reset row index for new category
+
 						flag_clothes = 6
 												
 						IF main_menu_drawn_shops = 1
@@ -1564,6 +1566,8 @@ print_cloth_menu_oncreen_text:
 			ENDIF
 		ENDIF
 		
+		SET_ACTIVE_MENU_ITEM main_menu_shops shop_main_item_picked_shops // FIXEDGROVE: restore selection
+
 		SET_MENU_COLUMN_ORIENTATION main_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN main_menu_shops 0 DUMMY $ITEM1 $ITEM2 $ITEM3 $ITEM4 $ITEM5 $ITEM6 $ITEM7 $ITEM8 $ITEM9 $ITEM10 $ITEM11 $ITEM12 
 		
@@ -1601,6 +1605,8 @@ print_clothes_oncreen_text2:
 				ENDIF
 			ENDIF
 		ENDIF
+
+		SET_ACTIVE_MENU_ITEM sub_menu_shops shop_sub_item_picked_shops // FIXEDGROVE: restore selection
 		
 		SET_MENU_COLUMN_ORIENTATION sub_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN sub_menu_shops 0 DUMMY $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11] 

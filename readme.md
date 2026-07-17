@@ -496,6 +496,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Added facial talking anim to phonecalls
 - Now you can get phonecalls while in interiors
 - Made Vagos taking over VLA turf happen after Cesar's call about going to Angel Pine instead of an unrelated missable Catalina phone call
+- Menus won't reset the highlighted row when selecting an item
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
