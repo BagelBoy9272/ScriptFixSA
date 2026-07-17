@@ -580,7 +580,10 @@ shop_barbers_inner:
 				
 				// FIXEDGROVE: START - play unused speech context
 				IF TIMERA > SHOP_TIME_BEFORE_CHAT
-					SET_CHAR_SAY_CONTEXT shop_keep_barbers CONTEXT_GLOBAL_SHOP_CHAT sample_name_shops
+					IF control_flag_barbers < 1
+					OR control_flag_barbers > 9
+						SET_CHAR_SAY_CONTEXT shop_keep_barbers CONTEXT_GLOBAL_SHOP_CHAT sample_name_shops
+					ENDIF
 					TIMERA = 0
 				ENDIF
 				// FIXEDGROVE: END
@@ -634,7 +637,7 @@ shop_barbers_inner:
 				ENDIF
 
 				IF control_flag_barbers = 2 		
-					TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_barbers BRB_cut_in HAIRCUTS 4.0 FALSE FALSE FALSE TRUE -1 		
+					TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_barbers BRB_cut_in HAIRCUTS 1000.0 FALSE FALSE FALSE TRUE -1 // FIXEDGROVE: blendSpeed was '4.0'
 					PLAY_MISSION_AUDIO 4
 					return_animation_time_barbers = 0.0
 					control_flag_barbers = 3
@@ -649,7 +652,7 @@ shop_barbers_inner:
 					IF return_animation_time_barbers = 1.0
 					
 						IF cut_hair_flag_barber = 0					
-							TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_barbers BRB_cut HAIRCUTS 4.0 FALSE FALSE FALSE FALSE -1
+							TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_barbers BRB_cut HAIRCUTS 1000.0 FALSE FALSE FALSE TRUE -1 // FIXEDGROVE: blendSpeed was '4.0' and keepLastFrame was 'FALSE'
 							
 							RESTORE_CLOTHES_STATE			
 							BUILD_PLAYER_MODEL player1
@@ -660,7 +663,7 @@ shop_barbers_inner:
 						IF cut_hair_flag_barber = 1
 
 							IF HAS_MISSION_AUDIO_FINISHED 4
-								TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_barbers BRB_cut_out HAIRCUTS 4.0 FALSE FALSE FALSE TRUE -1
+								TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_barbers BRB_cut_out HAIRCUTS 1000.0 FALSE FALSE FALSE TRUE -1 // FIXEDGROVE: blendSpeed was '4.0'
 								return_animation_time_barbers = 0.0
 								control_flag_barbers = 4
 								cut_hair_flag_barber = 0

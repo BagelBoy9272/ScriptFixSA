@@ -451,6 +451,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed a bug in the code for restaurants that made the cleanup always run if the player bought more than 11 food items
 - Fixed lines when you leave the chair for the tattoo artist only playing if the player was in the "back tattoo" state
 - Fixed Tattoo script not waiting for the needle sound effect to end before moving on to the next state (this mimics an official fix for barbershops)
+- Fixed barber animation jump if the player has a previewed haircut and they quit out of the shop
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
 - Fixed camera not resetting instantly after quitting Bike School
 - Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
