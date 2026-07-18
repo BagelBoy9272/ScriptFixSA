@@ -4718,6 +4718,12 @@ IF NOT IS_CHAR_DEAD c2_fleeing_ped
 	MARK_CHAR_AS_NO_LONGER_NEEDED c2_fleeing_ped
 ENDIF
 
+// FIXEDGROVE: START
+IF IS_PLAYER_PLAYING player1
+	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+	STOP_CHAR_FACIAL_TALK scplayer
+ENDIF
+// FIXEDGROVE: END
 
 REMOVE_SOUND bank_alarm
 
@@ -5156,7 +5162,7 @@ CASE 1 //waiting to play audio
 			IF HAS_MISSION_AUDIO_FINISHED play_slot
 				IF NOT IS_CHAR_DEAD this_actor
 					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH this_actor FALSE
-					STOP_CHAR_FACIAL_TALK this_actor
+					STOP_CHAR_FACIAL_TALK this_actor // FIXEDGROVE
 				ENDIF
 				audio_flag++
 			ELSE
@@ -5196,7 +5202,7 @@ CASE 1 //waiting to play audio
 		CASE 5 // clear all for cut scene skip
 			IF NOT IS_CHAR_DEAD this_actor
 				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH this_actor FALSE
-				STOP_CHAR_FACIAL_TALK this_actor
+				STOP_CHAR_FACIAL_TALK this_actor // FIXEDGROVE
 			ENDIF
 			audio_flag = 1
 			play_audio = 0
