@@ -846,13 +846,9 @@ IF startexbike_flag = 1
 
 					RESTORE_CAMERA_JUMPCUT
 
-					SET_PLAYER_CONTROL player1 OFF
+//					SET_PLAYER_CONTROL player1 OFF // FIXEDGROVE: comment out, not needed and fixes exit animation not playing
 
 					WAIT 0
-
-					IF NOT IS_CHAR_DEAD scplayer
-						SET_PLAYER_CONTROL player1 ON
-					ENDIF
 
 					finishedbike_flag = 1
                     

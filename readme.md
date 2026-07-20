@@ -435,6 +435,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed script not checking if player answered Rosenberg's phone call before enabling 'Vertical Bird'
 - Fixed player not being set in their original coordinates correctly after Sweet's gym call
 - Fixed phone ringing immediately after 'Valet'
+- Fixed exercise bike exit animation not playing
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
