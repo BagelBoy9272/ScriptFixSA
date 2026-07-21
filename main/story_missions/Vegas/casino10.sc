@@ -147,6 +147,9 @@ VAR_TEXT_LABEL $casino10_chat[17]
 
 LVAR_INT casino10_speaker[17] // FIXEDGROVE: variable used for facial anim
 
+LVAR_INT casino10_random_line // FIXEDGROVE: used for storing the random line index
+LVAR_INT casino10_last_line // FIXEDGROVE: used for storing the last line index
+
 // counter for the dead gang members
 LVAR_INT counter_dead_casino10
 
@@ -2085,7 +2088,7 @@ WHILE NOT counter_dead_casino10 = 19
 
 	IF casino10_dialogue_timer > 12000
 
-		IF ARE_ANY_CHARS_NEAR_CHAR scplayer 9.0
+		IF ARE_ANY_CHARS_NEAR_CHAR scplayer 11.0
 
 			GOSUB random_line_casino10
 
@@ -3686,15 +3689,23 @@ play_casino10_audio:
 	ENDIF
 	IF casino10_audio_is_playing = 1
 		IF HAS_MISSION_AUDIO_LOADED 1
-			PRINT_NOW ( $casino10_chat[casino10_index] ) 4000 1 //Dummy message"
-			PLAY_MISSION_AUDIO 1
-			// FIXEDGROVE: START
+			// FIXEDGROVE: only do speech stuff if the character exists 
 			IF NOT IS_CHAR_DEAD casino10_speaker[casino10_index]
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH casino10_speaker[casino10_index] TRUE
-				START_CHAR_FACIAL_TALK casino10_speaker[casino10_index] 10000
+				// FIXEDGROVE: wait until the character finishes speaking
+				IF NOT IS_CHAR_TALKING casino10_speaker[casino10_index]
+					// FIXEDGROVE: START
+					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH casino10_speaker[casino10_index] TRUE
+					START_CHAR_FACIAL_TALK casino10_speaker[casino10_index] 10000
+					// FIXEDGROVE: END
+					PRINT_NOW ( $casino10_chat[casino10_index] ) 4000 1 //Dummy message"
+					PLAY_MISSION_AUDIO 1
+					casino10_audio_is_playing = 2
+				ENDIF
+			ELSE
+				PRINT_NOW ( $casino10_chat[casino10_index] ) 4000 1 //Dummy message"
+				PLAY_MISSION_AUDIO 1
+				casino10_audio_is_playing = 2
 			ENDIF
-			// FIXEDGROVE: END
-			casino10_audio_is_playing = 2
 		ENDIF
 	ENDIF	
 	
@@ -3705,9 +3716,15 @@ random_line_casino10:
 
 	IF flag_forelli_dead_casino10 = 0 // Forelli is alive
 
-		GENERATE_RANDOM_INT_IN_RANGE 0 7 temp_integer_1
+		GENERATE_RANDOM_INT_IN_RANGE 0 7 casino10_random_line
 
-		SWITCH temp_integer_1
+		WHILE casino10_random_line = casino10_last_line
+			GENERATE_RANDOM_INT_IN_RANGE 0 7 casino10_random_line
+		ENDWHILE
+
+		casino10_last_line = casino10_random_line
+
+		SWITCH casino10_random_line
 
 			CASE 0
 				$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
@@ -3750,7 +3767,13 @@ random_line_casino10:
 
 		GENERATE_RANDOM_INT_IN_RANGE 0 5 temp_integer_1
 
-		SWITCH temp_integer_1
+		WHILE casino10_random_line = casino10_last_line
+			GENERATE_RANDOM_INT_IN_RANGE 0 5 casino10_random_line
+		ENDWHILE
+
+		casino10_last_line = casino10_random_line
+
+		SWITCH casino10_random_line
 
 			CASE 0
 				$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
