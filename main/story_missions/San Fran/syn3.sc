@@ -122,6 +122,8 @@ LVAR_INT s3_fake_creates
 
 LVAR_INT s3_gate_stop // FIXEDGROVE
 
+LVAR_INT s3_char_model[3] s3_char_select // FIXEDGROVE
+
 // blips
 
 LVAR_INT s3_meet_car_blip s3_van_location_blip s3_player_bike_blip
@@ -243,6 +245,12 @@ s3_audio_index = 0
 s3_started_talking = 0
 
 s3_fake_creates = 0
+
+// FIXEDGROVE: START - random model variations
+s3_char_model[0] = dnb1
+s3_char_model[1] = dnb2
+s3_char_model[2] = dnb3
+// FIXEDGROVE: END
 
 // ****************************************START OF CUTSCENE*******************************
 
@@ -1201,9 +1209,12 @@ GOTO syn3_loop
 
 		REMOVE_BLIP s3_temp_first_roadblock_blip
 		// first roadblock
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2000.75 537.24 33.91 s3_first_roadblock_peds[0]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB2 -2007.75 543.24 33.91 s3_first_roadblock_peds[1]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2012.75 537.24 33.91 s3_first_roadblock_peds[2]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 s3_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2000.75 537.24 33.91 s3_first_roadblock_peds[0] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2007.75 543.24 33.91 s3_first_roadblock_peds[1] // FIXEDGROVE: was DNB2
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2012.75 537.24 33.91 s3_first_roadblock_peds[2] // FIXEDGROVE: was DNB3
 		// set up decision maker for all roadblock peds
 		COPY_CHAR_DECISION_MAKER -1 s3_roadblock_ped_decisions
 		CLEAR_CHAR_DECISION_MAKER_EVENT_RESPONSE s3_roadblock_ped_decisions EVENT_GUN_AIMED_AT
@@ -1278,12 +1289,18 @@ GOTO syn3_loop
 			s3_index++
 		ENDWHILE
 
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2075.74 314.74 33.97 s3_second_roadblock_peds[0]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB2 -2069.24 323.74 33.97 s3_second_roadblock_peds[1]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2075.74 326.74 33.97 s3_second_roadblock_peds[2]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB2 -2076.97 309.56 40.99 s3_second_roadblock_peds[3]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2073.97 309.56 40.99 s3_second_roadblock_peds[4]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB2 -2063.46 309.56 40.99 s3_second_roadblock_peds[5]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 s3_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2075.74 314.74 33.97 s3_second_roadblock_peds[0] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2069.24 323.74 33.97 s3_second_roadblock_peds[1] // FIXEDGROVE: was DNB2
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2075.74 326.74 33.97 s3_second_roadblock_peds[2] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2076.97 309.56 40.99 s3_second_roadblock_peds[3] // FIXEDGROVE: was DNB2
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2073.97 309.56 40.99 s3_second_roadblock_peds[4] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2063.46 309.56 40.99 s3_second_roadblock_peds[5] // FIXEDGROVE: was DNB2
 		s3_index = 0
 		WHILE s3_index < 6
 			SET_CHAR_DECISION_MAKER s3_second_roadblock_peds[s3_index] s3_roadblock_ped_decisions
@@ -1342,12 +1359,18 @@ GOTO syn3_loop
 			s3_index++
 		ENDWHILE
 
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2141.12 156.06 34.07 s3_third_roadblock_peds[0]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB2 -2149.62 162.06 34.07 s3_third_roadblock_peds[1]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2153.12 156.06 34.07 s3_third_roadblock_peds[2]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2135.68 164.20 41.29 s3_third_roadblock_peds[3]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB2 -2135.69 160.93 41.29 s3_third_roadblock_peds[4]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2135.24 153.77 40.72 s3_third_roadblock_peds[5]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 s3_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2141.12 156.06 34.07 s3_third_roadblock_peds[0] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2149.62 162.06 34.07 s3_third_roadblock_peds[1] // FIXEDGROVE: was DNB2
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2153.12 156.06 34.07 s3_third_roadblock_peds[2] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2135.68 164.20 41.29 s3_third_roadblock_peds[3] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2135.69 160.93 41.29 s3_third_roadblock_peds[4] // FIXEDGROVE: was DNB2
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2135.24 153.77 40.72 s3_third_roadblock_peds[5] // FIXEDGROVE: was DNB3
 		s3_index = 0
 		WHILE s3_index < 6
 			SET_CHAR_DECISION_MAKER s3_third_roadblock_peds[s3_index] s3_roadblock_ped_decisions
@@ -1399,9 +1422,12 @@ GOTO syn3_loop
 			s3_index++
 		ENDWHILE
 
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2161.42 58.75 35.04 s3_fourth_roadblock_peds[0]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB2 -2169.42 64.75 35.04 s3_fourth_roadblock_peds[1]
-		CREATE_CHAR PEDTYPE_MISSION2 DNB3 -2173.42 58.75 35.04 s3_fourth_roadblock_peds[2]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 s3_char_select // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2161.42 58.75 35.04 s3_fourth_roadblock_peds[0] // FIXEDGROVE: was DNB3
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2169.42 64.75 35.04 s3_fourth_roadblock_peds[1] // FIXEDGROVE: was DNB2
+		GOSUB s3_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION2 s3_char_model[s3_char_select] -2173.42 58.75 35.04 s3_fourth_roadblock_peds[2] // FIXEDGROVE: was DNB3
 		s3_index = 0
 		WHILE s3_index < 3
 			SET_CHAR_DECISION_MAKER s3_fourth_roadblock_peds[s3_index] s3_roadblock_ped_decisions
@@ -2659,6 +2685,13 @@ GOTO syn3_loop
 
 	RETURN
 
+s3_random_char:
+s3_char_select++
+IF s3_char_select = 3
+	s3_char_select = 0
+ENDIF
+RETURN
+
 // ***************************************************************
 // 						  Mission audio
 // ***************************************************************
@@ -2898,6 +2931,7 @@ MARK_MODEL_AS_NO_LONGER_NEEDED SNIPER
 MARK_MODEL_AS_NO_LONGER_NEEDED GREENWOO
 MARK_MODEL_AS_NO_LONGER_NEEDED DNB3
 MARK_MODEL_AS_NO_LONGER_NEEDED DNB2
+MARK_MODEL_AS_NO_LONGER_NEEDED DNB1 // FIXEDGROVE
 MARK_MODEL_AS_NO_LONGER_NEEDED MP5LNG
 MARK_MODEL_AS_NO_LONGER_NEEDED AK47
 MARK_MODEL_AS_NO_LONGER_NEEDED cellphone

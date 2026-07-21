@@ -34,6 +34,7 @@ LVAR_INT crack_ciggy1 crack_ciggy2 crack_ciggy3	whore_cower smoker2_attack seq_d
 LVAR_INT flag_kill_the_player sweet1b_cell_index_end sweet1b_cutscene_flag sweet1b_audio_chat[8] sweet1b_audio_is_playing flag_sweet1b played_wee_sample
 LVAR_INT played_up_help	help_for_melee_combat dont_play_first_batch	play_ryder_mission_audio dealers_head_is_missing get_in_counter_swee1b
 LVAR_FLOAT Retured_anim_time
+LVAR_INT sweet1b_char_model[6] sweet1b_char_select // FIXEDGROVE
 VAR_TEXT_LABEL $sweet1b_chat[8]
 
 // **************************************** Mission Start **********************************
@@ -444,6 +445,8 @@ SET_AREA_VISIBLE 0
 // ****************************************END OF CUTSCENE**********************************
 
 REQUEST_MODEL BMYDRUG
+REQUEST_MODEL FAM1 // FIXEDGROVE
+REQUEST_MODEL FAM2 // FIXEDGROVE
 REQUEST_MODEL FAM3
 REQUEST_ANIMATION DEALER
 REQUEST_ANIMATION GANGS
@@ -457,15 +460,26 @@ LOAD_ALL_MODELS_NOW
 
 WHILE NOT HAS_MODEL_LOADED BMYDRUG
 OR NOT HAS_MODEL_LOADED FAM3
+OR NOT HAS_MODEL_LOADED FAM2 // FIXEDGROVE
+OR NOT HAS_MODEL_LOADED FAM1 // FIXEDGROVE
 OR NOT HAS_ANIMATION_LOADED DEALER
 OR NOT HAS_ANIMATION_LOADED GANGS
 	WAIT 0
-
 ENDWHILE
 
 REMOVE_BLIP	B_dups_blip
 
-CREATE_CHAR PEDTYPE_MISSION1 fam3 2283.6565 -1645.5992 14.1598 drug_buyer1 // FIXEDGROVE: pedtype was PEDTYPE_MISSION2
+// FIXEDGROVE: START - random model variations
+sweet1b_char_model[0] = BALLAS1
+sweet1b_char_model[1] = BALLAS2
+sweet1b_char_model[2] = BALLAS3
+sweet1b_char_model[3] = fam1
+sweet1b_char_model[4] = fam2
+sweet1b_char_model[5] = fam3
+// FIXEDGROVE: END
+
+GENERATE_RANDOM_INT_IN_RANGE 3 6 sweet1b_char_select // FIXEDGROVE
+CREATE_CHAR PEDTYPE_MISSION1 sweet1b_char_model[sweet1b_char_select] 2283.6565 -1645.5992 14.1598 drug_buyer1 // FIXEDGROVE: pedtype was PEDTYPE_MISSION2
 SET_CHAR_DECISION_MAKER drug_buyer1 crack_fucks
 
 CREATE_CHAR PEDTYPE_MISSION2 bmydrug 2284.9465 -1645.3959 14.1413 crackhead1
@@ -757,6 +771,8 @@ WHILE NOT IS_CHAR_DEAD crackhead1
 
 ENDWHILE
 
+MARK_MODEL_AS_NO_LONGER_NEEDED fam1 // FIXEDGROVE
+MARK_MODEL_AS_NO_LONGER_NEEDED fam2 // FIXEDGROVE
 MARK_MODEL_AS_NO_LONGER_NEEDED fam3
 
 TIMERA = 0
@@ -1250,6 +1266,8 @@ WHILE NOT killed_all_crack_fucks = 1
 				DO_FADE 0 FADE_OUT
 
 				REQUEST_MODEL BALLAS1
+				REQUEST_MODEL BALLAS2 // FIXEDGROVE
+				REQUEST_MODEL BALLAS3 // FIXEDGROVE
 				REQUEST_MODEL HFYPRO
 				REQUEST_MODEL BFYPRO
 				REQUEST_MODEL BMYDRUG
@@ -1263,6 +1281,8 @@ WHILE NOT killed_all_crack_fucks = 1
 				WHILE NOT HAS_ANIMATION_LOADED CRACK
 				OR NOT HAS_ANIMATION_LOADED BLOWJOBZ
 				OR NOT HAS_ANIMATION_LOADED BASEBALL
+				OR NOT HAS_MODEL_LOADED BALLAS2 // FIXEDGROVE
+				OR NOT HAS_MODEL_LOADED BALLAS3 // FIXEDGROVE
 					WAIT 0
 					DO_FADE 0 FADE_OUT
 				ENDWHILE
@@ -1297,7 +1317,8 @@ WHILE NOT killed_all_crack_fucks = 1
 				SET_CHAR_DECISION_MAKER crackhead2 crack_fucks
 				SHUT_CHAR_UP crackhead2 TRUE // FIXEDGROVE
 
-				CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 325.0 1119.9750 1082.8750 crackhead4 //Long Sofa
+				GENERATE_RANDOM_INT_IN_RANGE 0 3 sweet1b_char_select // FIXEDGROVE
+				CREATE_CHAR PEDTYPE_MISSION2 sweet1b_char_model[sweet1b_char_select] 325.0 1119.9750 1082.8750 crackhead4 //Long Sofa // FIXEDGROVE: was BALLAS1
 				SET_CHAR_AREA_VISIBLE crackhead4 5 
 				SET_CHAR_HEADING crackhead4 90.0	
 				TASK_PLAY_ANIM_NON_INTERRUPTABLE crackhead4 CRCKIDLE1 CRACK 4.0 TRUE FALSE FALSE FALSE -1
@@ -1307,7 +1328,8 @@ WHILE NOT killed_all_crack_fucks = 1
 				//SET_OBJECT_ROTATION crack_ciggy1 180.0 180.0 0.0
 				TASK_PICK_UP_OBJECT crackhead4 crack_ciggy1 0.0 0.0 0.0 PED_HANDR HOLD_ORIENTATE_BONE_FULL NULL NULL -1				
 					  
-				CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 320.1898 1123.2921 1082.8750 crackhead5 //Sofa back wall 
+				GOSUB sweet1b_random_char // FIXEDGROVE
+				CREATE_CHAR PEDTYPE_MISSION2 sweet1b_char_model[sweet1b_char_select] 320.1898 1123.2921 1082.8750 crackhead5 //Sofa back wall // FIXEDGROVE: was BALLAS1
 				SET_CHAR_AREA_VISIBLE crackhead5 5
 				SET_CHAR_HEADING crackhead5 177.9659	
 				TASK_PLAY_ANIM_NON_INTERRUPTABLE crackhead5 CRCKIDLE3 CRACK 4.0 TRUE FALSE FALSE FALSE -1
@@ -1317,7 +1339,8 @@ WHILE NOT killed_all_crack_fucks = 1
 				TASK_PICK_UP_OBJECT crackhead5 crack_ciggy2 0.0 0.0 0.0 PED_HANDR HOLD_ORIENTATE_BONE_FULL NULL NULL -1
 				//SET_OBJECT_HEADING crack_ciggy2 180.0
 
-				CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 333.63 1124.51 1082.88 crackhead7 //kitchen smoker
+				GOSUB sweet1b_random_char // FIXEDGROVE
+				CREATE_CHAR PEDTYPE_MISSION2 sweet1b_char_model[sweet1b_char_select] 333.63 1124.51 1082.88 crackhead7 //kitchen smoker // FIXEDGROVE: was BALLAS1
 				SET_CHAR_MAX_HEALTH	crackhead7 70
 				SET_CHAR_HEALTH crackhead7 70
 				SET_CHAR_AREA_VISIBLE crackhead7 5
@@ -1330,7 +1353,8 @@ WHILE NOT killed_all_crack_fucks = 1
 				ADD_BLIP_FOR_CHAR crackhead7 crackhead7_blip
 				SET_BLIP_ENTRY_EXIT crackhead7_blip 2167.8354 -1672.9231 2.0 
 
-				CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 325.0 1129.2133 1082.8828 crackhead8 //BJ bloke
+				GOSUB sweet1b_random_char // FIXEDGROVE
+				CREATE_CHAR PEDTYPE_MISSION2 sweet1b_char_model[sweet1b_char_select] 325.0 1129.2133 1082.8828 crackhead8 //BJ bloke // FIXEDGROVE: was BALLAS1
 				SET_CHAR_AREA_VISIBLE crackhead8 5
 				SET_CHAR_HEADING crackhead8 90.0	
 				TASK_PLAY_ANIM crackhead8 BJ_Couch_Loop_P BLOWJOBZ 4.0 TRUE FALSE FALSE FALSE -1
@@ -1346,7 +1370,8 @@ WHILE NOT killed_all_crack_fucks = 1
 				SET_CHAR_DECISION_MAKER crackhead9 crack_fucks
 				SET_CHAR_RELATIONSHIP crackhead9 ACQUAINTANCE_TYPE_PED_DISLIKE PEDTYPE_PLAYER1
 
-				CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 333.4072 1124.4619 1082.8903 crackhead10 //kitchen 
+				GOSUB sweet1b_random_char // FIXEDGROVE
+				CREATE_CHAR PEDTYPE_MISSION2 sweet1b_char_model[sweet1b_char_select] 333.4072 1124.4619 1082.8903 crackhead10 //kitchen // FIXEDGROVE: was BALLAS1
 				SET_CHAR_AREA_VISIBLE crackhead10 5
 				SET_CHAR_HEADING crackhead10 83.6676	
 				TASK_PLAY_ANIM_NON_INTERRUPTABLE crackhead10 CRCKIDLE3 CRACK 4.0 TRUE FALSE FALSE FALSE -1
@@ -1768,6 +1793,8 @@ ENABLE_ENTRY_EXIT_PLAYER_GROUP_WARPING 319.56 1117.64 10.0 TRUE
 
 MARK_MODEL_AS_NO_LONGER_NEEDED bmydrug
 MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS1
+MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS2 // FIXEDGROVE
+MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS3 // FIXEDGROVE
 MARK_MODEL_AS_NO_LONGER_NEEDED hfypro
 MARK_MODEL_AS_NO_LONGER_NEEDED bfypro
 MARK_MODEL_AS_NO_LONGER_NEEDED cigar
@@ -2130,7 +2157,11 @@ mission_cleanup_sweet1b:
 //	SWITCH_PED_ROADS_ON 324.1973 1116.7579 1082.8981 313.1226 1124.1968 1082.8981 // FIXEDGROVE: not needed, there are no nodes in the area
 	MARK_MODEL_AS_NO_LONGER_NEEDED bmydrug
 	MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS1
+	MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS2 // FIXEDGROVE
+	MARK_MODEL_AS_NO_LONGER_NEEDED BALLAS3 // FIXEDGROVE
 	MARK_MODEL_AS_NO_LONGER_NEEDED BAT
+	MARK_MODEL_AS_NO_LONGER_NEEDED fam1 // FIXEDGROVE
+	MARK_MODEL_AS_NO_LONGER_NEEDED fam2 // FIXEDGROVE
 	MARK_MODEL_AS_NO_LONGER_NEEDED fam3
 	MARK_MODEL_AS_NO_LONGER_NEEDED hfypro
 	MARK_MODEL_AS_NO_LONGER_NEEDED bfypro
@@ -2157,6 +2188,16 @@ mission_cleanup_sweet1b:
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE
 	MISSION_HAS_FINISHED
 
+RETURN
+
+sweet1b_random_char:
+sweet1b_char_select++
+IF sweet1b_char_select = 3
+	sweet1b_char_select = 0
+ENDIF
+IF sweet1b_char_select = 6
+	sweet1b_char_select = 3
+ENDIF
 RETURN
 
 ryders_group_break:

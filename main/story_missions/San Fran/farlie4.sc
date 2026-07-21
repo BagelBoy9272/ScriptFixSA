@@ -92,6 +92,8 @@ LVAR_TEXT_LABEL f4_print
 
 LVAR_FLOAT f4_temp_X f4_temp_Y f4_temp_Z
 
+LVAR_INT f4_char_model[3] f4_char_select // FIXEDGROVE
+
 // **************************************************************************************************
 // *																								*
 // *                                    Start Mission												*
@@ -210,6 +212,12 @@ AND NOT HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_MP5
 	SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_MICRO_UZI
 
 ENDIF
+
+// FIXEDGROVE: START - random model variations
+f4_char_model[0] = dnb1
+f4_char_model[1] = dnb2
+f4_char_model[2] = dnb3
+// FIXEDGROVE: END
 
 // ****************************************************************************************************
 // 
@@ -337,6 +345,7 @@ SET_PLAYER_CONTROL player1 FALSE
 
 REQUEST_MODEL dnb1
 REQUEST_MODEL dnb2
+REQUEST_MODEL dnb3 // FIXEDGROVE
 REQUEST_MODEL FCR900
 REQUEST_MODEL micro_uzi
 REQUEST_MODEL mule
@@ -362,6 +371,7 @@ LOAD_MISSION_AUDIO 3 SOUND_REVERB_CAR_SCREECH
 WHILE NOT HAS_MISSION_AUDIO_LOADED 3
 OR NOT HAS_MODEL_LOADED sabre
 OR NOT HAS_MODEL_LOADED SADLER
+OR NOT HAS_MODEL_LOADED dnb3 // FIXEDGROVE
 
 	WAIT 0
 
@@ -404,7 +414,8 @@ CREATE_CAR mule -1414.1731 -50.4918 5.0000 f4_mule[0]
 
 SET_CAR_HEADING f4_mule[0] 0.0000  
 
-CREATE_CHAR_INSIDE_CAR f4_mule[0] PEDTYPE_MISSION1 dnb1 f4_van_man[0]
+GENERATE_RANDOM_INT_IN_RANGE 0 3 f4_char_select // FIXEDGROVE
+CREATE_CHAR_INSIDE_CAR f4_mule[0] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_van_man[0] // FIXEDGROVE: was dnb1
 
 GIVE_WEAPON_TO_CHAR f4_van_man[0] WEAPONTYPE_MICRO_UZI 30000
 
@@ -560,7 +571,8 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 			SET_CAR_HEADING f4_mule[2] 272.5542  
 
-			CREATE_CHAR_INSIDE_CAR f4_mule[2] PEDTYPE_MISSION1 dnb1 f4_van_man[2]
+			GOSUB f4_random_char // FIXEDGROVE
+			CREATE_CHAR_INSIDE_CAR f4_mule[2] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_van_man[2] // FIXEDGROVE: was dnb1
 
 			GIVE_WEAPON_TO_CHAR f4_van_man[2] WEAPONTYPE_MICRO_UZI 30000
 
@@ -602,7 +614,8 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 			SET_CAR_HEADING f4_mule[1] 180.2388  
 
-			CREATE_CHAR_INSIDE_CAR f4_mule[1] PEDTYPE_MISSION1 dnb1 f4_van_man[1]
+			GOSUB f4_random_char // FIXEDGROVE
+			CREATE_CHAR_INSIDE_CAR f4_mule[1] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_van_man[1] // FIXEDGROVE: was dnb1
 
 			GIVE_WEAPON_TO_CHAR f4_van_man[1] WEAPONTYPE_MICRO_UZI 30000
 
@@ -644,7 +657,8 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 			SET_CAR_HEADING f4_mule[3] 179.5878   
 
-			CREATE_CHAR_INSIDE_CAR f4_mule[3] PEDTYPE_MISSION1 dnb1 f4_van_man[3]
+			GOSUB f4_random_char // FIXEDGROVE
+			CREATE_CHAR_INSIDE_CAR f4_mule[3] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_van_man[3] // FIXEDGROVE: was dnb1
 
 			GIVE_WEAPON_TO_CHAR f4_van_man[3] WEAPONTYPE_MICRO_UZI 30000
 
@@ -682,7 +696,8 @@ AND NOT IS_CAR_DEAD f4_objective_car
 	IF LOCATE_CHAR_ANY_MEANS_3D scplayer -1399.6862 -184.7570 5.3047 5.0 5.0 10.0 FALSE
 	AND f4_trigger[2] = 0
 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb2 -1404.0490 -234.7071 5.3047 f4_roll_out_1
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1404.0490 -234.7071 5.3047 f4_roll_out_1 // FIXEDGROVE: was dnb2
 
 		SET_CHAR_HEADING f4_roll_out_1 353.8535
 
@@ -703,7 +718,8 @@ AND NOT IS_CAR_DEAD f4_objective_car
 	IF LOCATE_CHAR_ANY_MEANS_3D scplayer -1400.1842 -205.7361 5.3047 5.0 5.0 10.0 FALSE
 	AND f4_trigger[3] = 0
 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb1 -1394.2347 -234.7350 5.3047 f4_roll_out_2
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1394.2347 -234.7350 5.3047 f4_roll_out_2 // FIXEDGROVE: was dnb1
 
 		SET_CHAR_HEADING f4_roll_out_2 1.5813
 
@@ -731,11 +747,14 @@ AND NOT IS_CAR_DEAD f4_objective_car
 	AND f4_trigger[4] = 0
 
 		// Guys at Car park entrance
-		CREATE_CHAR PEDTYPE_MISSION1 dnb2 -1407.0764 -358.3559 8.3099 f4_entrance[0]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1407.0764 -358.3559 8.3099 f4_entrance[0] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_HEADING f4_entrance[0] 9.5994  
 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb1 -1476.8867 -291.5300 8.7087 f4_entrance[1]
+		GENERATE_RANDOM_INT_IN_RANGE 0 3 f4_char_select // FIXEDGROVE
+
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1476.8867 -291.5300 8.7087 f4_entrance[1] // FIXEDGROVE: was dnb1
 
 		SET_CHAR_HEADING f4_entrance[1] 258.9856
 
@@ -762,11 +781,13 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		SET_CAR_HEADING f4_mule[3] 11.1921  
  
-		CREATE_CHAR PEDTYPE_MISSION1 dnb2 -1478.1881 -476.1086 11.1411 f4_road_block[0]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1478.1881 -476.1086 11.1411 f4_road_block[0] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_HEADING f4_road_block[0] 277.8792 
 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb2 -1479.5347 -466.4356 11.0000 f4_road_block[1]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1479.5347 -466.4356 11.0000 f4_road_block[1] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_HEADING f4_road_block[1] 263.3237
 
@@ -775,11 +796,13 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		SET_CAR_HEADING f4_mule[4] 248.7342  
 		 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb2 -1582.2249 -362.0264 11.0000 f4_road_block[2]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1582.2249 -362.0264 11.0000 f4_road_block[2] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_HEADING f4_road_block[2] 356.2877 
 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb2 -1590.6940 -357.4667 11.1411 f4_road_block[3]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -1590.6940 -357.4667 11.1411 f4_road_block[3] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_HEADING f4_road_block[3] 323.3828
 
@@ -857,9 +880,11 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		SET_CAR_HEADING f4_motorbike[0] 179.5562  
 		
-		CREATE_CHAR_INSIDE_CAR f4_motorbike[0] PEDTYPE_MISSION1 dnb1 f4_biker[0]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_INSIDE_CAR f4_motorbike[0] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_biker[0] // FIXEDGROVE: was dnb1
 
-		CREATE_CHAR_AS_PASSENGER f4_motorbike[0] PEDTYPE_MISSION1 dnb2 0 f4_biker[1]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_AS_PASSENGER f4_motorbike[0] PEDTYPE_MISSION1 f4_char_model[f4_char_select] 0 f4_biker[1] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_CAN_BE_KNOCKED_OFF_BIKE f4_biker[0] KNOCKOFFBIKE_DEFAULT
 
@@ -912,9 +937,11 @@ AND NOT IS_CAR_DEAD f4_objective_car
 		 
 		SET_CAR_DRIVING_STYLE f4_motorbike[1] DRIVINGMODE_AVOIDCARS
 
-		CREATE_CHAR_INSIDE_CAR f4_motorbike[1] PEDTYPE_MISSION1 dnb1 f4_biker[2]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_INSIDE_CAR f4_motorbike[1] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_biker[2] // FIXEDGROVE: was dnb1
 
-		CREATE_CHAR_AS_PASSENGER f4_motorbike[1] PEDTYPE_MISSION1 dnb2 0 f4_biker[3]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_AS_PASSENGER f4_motorbike[1] PEDTYPE_MISSION1 f4_char_model[f4_char_select] 0 f4_biker[3] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_CAN_BE_KNOCKED_OFF_BIKE f4_biker[2] KNOCKOFFBIKE_DEFAULT
 
@@ -977,9 +1004,11 @@ AND NOT IS_CAR_DEAD f4_objective_car
 				 
 		SET_CAR_DRIVING_STYLE f4_motorbike[2] DRIVINGMODE_AVOIDCARS
 
-		CREATE_CHAR_INSIDE_CAR f4_motorbike[2] PEDTYPE_MISSION1 dnb1 f4_biker[4]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_INSIDE_CAR f4_motorbike[2] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_biker[4] // FIXEDGROVE: was dnb1
 
-		CREATE_CHAR_AS_PASSENGER f4_motorbike[2] PEDTYPE_MISSION1 dnb2 0 f4_biker[5]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_AS_PASSENGER f4_motorbike[2] PEDTYPE_MISSION1 f4_char_model[f4_char_select] 0 f4_biker[5] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_CAN_BE_KNOCKED_OFF_BIKE f4_biker[4] KNOCKOFFBIKE_DEFAULT
 
@@ -1042,9 +1071,11 @@ AND NOT IS_CAR_DEAD f4_objective_car
 				 
 		SET_CAR_DRIVING_STYLE f4_car[0] DRIVINGMODE_AVOIDCARS
 
-		CREATE_CHAR_INSIDE_CAR f4_car[0] PEDTYPE_MISSION1 dnb1 f4_driver[0]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_INSIDE_CAR f4_car[0] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_driver[0] // FIXEDGROVE: was dnb2
 
-		CREATE_CHAR_AS_PASSENGER f4_car[0] PEDTYPE_MISSION1 dnb2 0 f4_driver[1]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_AS_PASSENGER f4_car[0] PEDTYPE_MISSION1 f4_char_model[f4_char_select] 0 f4_driver[1] // FIXEDGROVE: was dnb2
 
 		SET_CHAR_CAN_BE_KNOCKED_OFF_BIKE f4_driver[1] KNOCKOFFBIKE_ALWAYSNORMAL
 
@@ -1095,9 +1126,11 @@ AND NOT IS_CAR_DEAD f4_objective_car
 				 
 		SET_CAR_DRIVING_STYLE f4_car[1] DRIVINGMODE_AVOIDCARS
 
-		CREATE_CHAR_INSIDE_CAR f4_car[1] PEDTYPE_MISSION1 dnb1 f4_driver[2]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_INSIDE_CAR f4_car[1] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_driver[2] // FIXEDGROVE: was dnb2
 
-		CREATE_CHAR_AS_PASSENGER f4_car[1] PEDTYPE_MISSION1 dnb2 0 f4_driver[3]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_AS_PASSENGER f4_car[1] PEDTYPE_MISSION1 f4_char_model[f4_char_select] 0 f4_driver[3] // FIXEDGROVE: was dnb2
 
 		GIVE_WEAPON_TO_CHAR f4_driver[2] WEAPONTYPE_MICRO_UZI 30000
 
@@ -1146,9 +1179,11 @@ AND NOT IS_CAR_DEAD f4_objective_car
 				 
 		SET_CAR_DRIVING_STYLE f4_car[2] DRIVINGMODE_AVOIDCARS
 
-		CREATE_CHAR_INSIDE_CAR f4_car[2] PEDTYPE_MISSION1 dnb1 f4_driver[4]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_INSIDE_CAR f4_car[2] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_driver[4] // FIXEDGROVE: was dnb2
 
-		CREATE_CHAR_AS_PASSENGER f4_car[2] PEDTYPE_MISSION1 dnb2 0 f4_driver[5]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_AS_PASSENGER f4_car[2] PEDTYPE_MISSION1 f4_char_model[f4_char_select] 0 f4_driver[5] // FIXEDGROVE: was dnb2
 
 		GIVE_WEAPON_TO_CHAR f4_driver[4] WEAPONTYPE_MICRO_UZI 30000
 
@@ -1199,9 +1234,11 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		SET_CAR_MISSION f4_car[3] MISSION_BLOCKPLAYER_CLOSE
 
-		CREATE_CHAR_INSIDE_CAR f4_car[3] PEDTYPE_MISSION1 dnb1 f4_driver[6]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_INSIDE_CAR f4_car[3] PEDTYPE_MISSION1 f4_char_model[f4_char_select] f4_driver[6] // FIXEDGROVE: was dnb2
 
-		CREATE_CHAR_AS_PASSENGER f4_car[3] PEDTYPE_MISSION1 dnb2 0 f4_driver[7]
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR_AS_PASSENGER f4_car[3] PEDTYPE_MISSION1 f4_char_model[f4_char_select] 0 f4_driver[7] // FIXEDGROVE: was dnb2
 
 		GIVE_WEAPON_TO_CHAR f4_driver[6] WEAPONTYPE_MICRO_UZI 30000
 
@@ -1246,7 +1283,8 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		CLEAR_AREA -1818.3853 -621.8912 15.3120 10.0 TRUE
 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb1 -2154.2065 576.4759 34.1719 f4_roll_out_3
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -2154.2065 576.4759 34.1719 f4_roll_out_3 // FIXEDGROVE: was dnb1
 
 		CREATE_CAR FCR900 -2154.3816 577.5017 34.1719 f4_roll_out_bike
 
@@ -1283,7 +1321,8 @@ AND NOT IS_CAR_DEAD f4_objective_car
 
 		CLEAR_AREA -2245.6750 303.3215 34.3203 10.0 TRUE
 
-		CREATE_CHAR PEDTYPE_MISSION1 dnb1 -2245.6750 303.3215 34.3203 f4_roll_out_4
+		GOSUB f4_random_char // FIXEDGROVE
+		CREATE_CHAR PEDTYPE_MISSION1 f4_char_model[f4_char_select] -2245.6750 303.3215 34.3203 f4_roll_out_4 // FIXEDGROVE: was dnb2
 
 		CREATE_CAR FCR900 -2244.7817 304.8253 34.3203 f4_roll_out_bike_a
 
@@ -1755,6 +1794,7 @@ mission_cleanup_farlie4:
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED dnb1
 	MARK_MODEL_AS_NO_LONGER_NEEDED dnb2
+	MARK_MODEL_AS_NO_LONGER_NEEDED dnb3 // FIXEDGROVE
 	MARK_MODEL_AS_NO_LONGER_NEEDED FCR900
 	MARK_MODEL_AS_NO_LONGER_NEEDED micro_uzi
 	MARK_MODEL_AS_NO_LONGER_NEEDED MULE
@@ -2014,6 +2054,13 @@ f4_play_sample:
 
 	ENDIF
 	
+RETURN
+
+f4_random_char:
+f4_char_select++
+IF f4_char_select = 3
+	f4_char_select = 0
+ENDIF
 RETURN
 
 // **************************************************************************************************
