@@ -712,7 +712,7 @@ AND LOCATE_CHAR_ANY_MEANS_3D sensei1_lsgym 767.2571 14.4044 999.6998 1.0 1.0 1.2
 
 	  	 	IF NOT IS_CHAR_DEAD boxer1_lsgym
 				
-				IF TIMERB > 3000
+				IF TIMERB > 4000 // FIXEDGROVE: increased timer from '3000'
 		 		AND ls_cheering = 0
 
 					SET_CHAR_SAY_CONTEXT boxer1_lsgym CONTEXT_GLOBAL_BOXING_CHEER ls_sfx // FIXEDGROVE: uncomment
@@ -727,7 +727,7 @@ AND LOCATE_CHAR_ANY_MEANS_3D sensei1_lsgym 767.2571 14.4044 999.6998 1.0 1.0 1.2
 
 			IF NOT IS_CHAR_DEAD boxer2_lsgym
 
-				IF TIMERB > 3000
+				IF TIMERB > 4000 // FIXEDGROVE: increased timer from '3000'
 				AND ls_cheering = 1
 
 					SET_CHAR_SAY_CONTEXT boxer2_lsgym CONTEXT_GLOBAL_BOXING_CHEER ls_sfx // FIXEDGROVE: uncomment
