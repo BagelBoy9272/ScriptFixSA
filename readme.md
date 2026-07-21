@@ -192,6 +192,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed characters not using their intended animation groups 
 - Add 4 star wanted level if the player fails the mission after getting to the motel 
 
+**Green Sabre:**
+- Fixed Grove member floating a bit in a cutscene
+
 **Local Liquor Store:**
 - Increased upper bound of random number generator, improving randomness for the 'they are getting away' line selection
 - Decreased lower bound of a random number generator, bringing back an unintentionally unused line when you get in the quadbike
