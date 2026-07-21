@@ -41,6 +41,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed drive-by Ballas standing still to the right of the player after the Mulholland Intersection cutscene, instead of being teleported and frozen under the map
 - Made Groves hate scripted ballas
 - Made Ballas respect scripted ballas
+- Changed Ballas' models to be random
 
 **Ryder:**
 - Fixed Ryder's car spawning only being turned ON on mission pass
@@ -62,6 +63,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Added an anim to Ryder in the ending cutscene
 - Made player and Ryder look at eachother in the ending cutscene to make it look more natural
 - Added ability to skip ending cutscene
+- Changed Ballas' models to be random
 - Tidied up some code
 
 **Drive-Thru:**
@@ -77,6 +79,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Drive-By:**
 - Fixed player floating a bit at the start of the mission
 - Changed Ballas' Tec9s to Uzis
+- Changed Ballas' models to be random
 - Increased upper limit in random number generator, bringing back 2 unused voice lines
 
 **Cesar Vialpando:**
@@ -87,6 +90,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 **Sweet's Girl:**
 - Fixed possible softlock in the initial cutscene
 - Fixed overlapping Emmet icons
+- Changed Grove's models to be random
 
 **Home Invasion:**
 - Fixed Ryder vanishing in the ending cutscene
@@ -102,6 +106,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed a now revealed bug where the unused quotes in the box throwing section would trigger when a box was thrown, and not when it exploded
 - Changed Grove's Uzis to Tec9s
 - Changed Balla's Greenwood to a Tahoma
+- Changed some models to be random
 - Made the Grove member get out of the car instead of disappearing in the ending cutscene
 - Made player stop looking at Ryder before the fade out in the ending cutscene
 - Tidied up some code
@@ -257,9 +262,11 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed windscreen clipping in a cutscene
 - Made Woozie and the Triads friendly to each other
 - Made Triads friendly to the Grove after this mission
+- Changed some models to be random
 
 **Ran Fa Li:**
 - Fixed the enemy Sabre driver doing the drive-by task instead of the passenger
+- Changed some models to be random
 
 **Lure:**
 - Now uses intended variant of Rancher
@@ -270,6 +277,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Outrider:**
 - Now player teleports outside of the crack factory instead of just at the door after the ending cutscene (needed since the new freeroam gate would lock them inside)
+- Changed some models to be random
 
 **Ice Cold Killa:**
 - Fixed typo in coords for CREATE_BIRDS command 
