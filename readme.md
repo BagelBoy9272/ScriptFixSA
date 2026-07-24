@@ -433,6 +433,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed a bug where the parachute "fails to open" if you have the "keep weapons after death" bonus and you die with a parachute in your inventory
 - Fixed weird twitch after landing
 - Fixed parachute going through the floor
+- Fixed a bug that would make it not possible to switch weapons if you started a mission while landing with the parachute
 - Uncommented some code to allow the full "landing in water" anim for parachute to play
 
 **Misc:**
