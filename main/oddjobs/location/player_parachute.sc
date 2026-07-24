@@ -727,11 +727,16 @@ jump_loop:
 
 						GET_OBJECT_ANIM_CURRENT_TIME parac para_land_o para_f1
 						IF para_f1 = 1.0 
-	//				IF TIMERA > para_time_check
 							player_landed = 2
-
 							GOSUB parachute_cleanup
 						ENDIF
+					// FIXEDGROVE: START - check if the anim stops before it finishes, avoids script getting stuck
+					ELSE
+						IF TIMERA > para_time_check // uncomment
+							player_landed = 2
+							GOSUB parachute_cleanup
+						ENDIF
+					// FIXEDGROVE: END
 					ENDIF
 				ENDIF
 			ENDIF
@@ -739,14 +744,20 @@ jump_loop:
 			IF player_fall_state = 5
 				player_landed = 1
 				IF code_flag = 0
-					//FIXEDGROVE: START - uncomment parachute animation check to allow full anim to play
+					// FIXEDGROVE: START - uncomment parachute animation check to allow full anim to play
 					IF IS_OBJECT_PLAYING_ANIM parac para_land_water_o
 						GET_OBJECT_ANIM_CURRENT_TIME parac para_land_water_o para_f1
 						IF para_f1 = 1.0
-	//				IF TIMERA > para_time_check
 							player_landed = 2
 							GOSUB parachute_cleanup
 						ENDIF
+					// FIXEDGROVE: START - check if the anim stops before it finishes, avoids script getting stuck
+					ELSE
+						IF TIMERA > para_time_check // uncomment
+							player_landed = 2
+							GOSUB parachute_cleanup
+						ENDIF
+					// FIXEDGROVE: END
 					ENDIF		
 				ENDIF			
 			ENDIF
