@@ -34,6 +34,7 @@ LVAR_INT smokes_decision sweets_decision ryders_decision skip_funeral_cutscene s
 LVAR_INT intro1_cutscene_flag chars_decision drive_to_hub_smoke	set_up_smokes_audio flag_the_drive_by_car_is_dead killed_the_baller_cunts play_catch_up_audio
 LVAR_FLOAT int1X int1Y int1Z  ClosestX ClosestY ClosestZ int1_driveX int1_driveY int1_driveZ player_bmxX player_bmxY player_bmxZ
 LVAR_INT int1_char_model[3] int1_char_select // FIXEDGROVE
+LVAR_INT timer_start timer_end // FIXEDGROVE
 VAR_TEXT_LABEL $intro1_chat[14]
 
 intro1_chat_switch:
@@ -1262,38 +1263,50 @@ OR NOT LOCATE_CHAR_ANY_MEANS_3D bmx_gang[2] 1644.7734 -1051.3339 22.8984 10.0 12
 	// ***************************************************************************************************************
 	// ***************************************BMX HELP TEXT***********************************************************
 	
-	IF IS_CHAR_IN_MODEL scplayer BMX 
-		
-		IF been_in_a_bmx = 0
-			PRINT_HELP INTRO2C 
-			
-			TIMERA = 0
-			been_in_a_bmx = 1
-		
-		ELSE
-			IF been_in_a_bmx = 1
-				IF TIMERA > 10000
-					
-					PRINT_HELP INTRO2D  
-					
-					TIMERA = 0
+	IF IS_CHAR_IN_MODEL scplayer BMX
+	// FIXEDGROVE: START - change to switch-case and don't use TIMERA
+		SWITCH been_in_a_bmx
+		CASE 0
+			IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+				PRINT_HELP INTRO2C
+				been_in_a_bmx = 1
+				GET_GAME_TIMER timer_start
+				timer_start = timer_start + 10000
+			ENDIF
+		BREAK
+		CASE 1
+			IF timer_end > timer_start //IF TIMERA > 10000
+				IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+					PRINT_HELP INTRO2D
 					been_in_a_bmx = 2
+					GET_GAME_TIMER timer_start
+					timer_start = timer_start + 10000
 				ENDIF
 			ENDIF
-			
-			IF been_in_a_bmx = 2
-				IF TIMERA > 20000
+		BREAK
+		CASE 2
+			IF timer_end > timer_start //IF TIMERA > 20000
+				IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
 					PRINT_HELP HELP3B // You can only cycle fast or sprint for a limited amount of time. 
 					been_in_a_bmx = 3
-					ENDIF
+					GET_GAME_TIMER timer_start
+					timer_start = timer_start + 8000
+				ENDIF
 			ENDIF
-			IF been_in_a_bmx = 3
-				IF TIMERA > 28000
+		BREAK
+		CASE 3
+			IF timer_end > timer_start //IF TIMERA > 28000
+				IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
 					PRINT_HELP HELP3B2  // The more exercise you get the higher your ~h~stamina~w~ will become, allowing you to exert yourself for longer.  
 					been_in_a_bmx = 4
 				ENDIF
 			ENDIF
+		BREAK
+		ENDSWITCH
+		IF been_in_a_bmx < 4
+			GET_GAME_TIMER timer_end
 		ENDIF
+	// FIXEDGROVE: END
 	ENDIF
 
 

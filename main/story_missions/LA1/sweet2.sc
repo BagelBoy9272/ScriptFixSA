@@ -32,6 +32,7 @@ LVAR_INT smoke_sweet2_seq_3	smoke_idle_seq2	smoke_idle_seq big_smoke_group_spilt
 LVAR_INT sweet2_audio_chat[14] sweet2_index	sweet2_audio_is_playing	sweet2_cutscene_flag emmets_car	refresh_char_weapon	finished_mobile_phone_call
 LVAR_INT new_visible_area print_help_sweet2	skip_emmets_cutscene
 LVAR_FLOAT beer_bottleX[5] beer_bottleY[5] beer_bottleZ[5]
+LVAR_INT timer_start timer_end // FIXEDGROVE
 VAR_TEXT_LABEL $sweet2_chat[14]
 
 // **************************************** Mission Start **********************************
@@ -2448,47 +2449,66 @@ UNLOAD_SPECIAL_CHARACTER 1
 
 //skip_hereeeeeeeeeeeeeeee:
 
+GET_GAME_TIMER timer_start // FIXEDGROVE
+timer_start = timer_start + 2000 // FIXEDGROVE
+
 WHILE NOT LOCATE_CAR_3D big_smoke_car 2066.4648 -1695.4436 12.5547 4.0 4.0 4.0 blob_flag //GO to Smokes
 OR NOT IS_CHAR_SITTING_IN_CAR big_smoke big_smoke_car
 OR NOT IS_VEHICLE_ON_ALL_WHEELS	big_smoke_car
 	WAIT 0
 
 		
-	IF NOT IS_CHAR_IN_ANY_CAR scplayer
-		IF TIMERA > 5000
-			IF gun_help = 1
-				
-				PRINT_HELP HELP53  
-				
-				TIMERA = 0
-				gun_help = 2
-			ENDIF
-		ENDIF
-		IF TIMERA > 5000
-			IF gun_help = 2
-				PRINT_HELP ( HOOD2D )  // Your ~h~gun stat~w~ will increase the more you use your weapon.
-				TIMERA = 0
-				gun_help = 3
-			ENDIF
-		ENDIF
-		IF TIMERA > 5000
-			IF gun_help = 3
-				PRINT_HELP ( HOOD2E )  
-				TIMERA = 0
-				gun_help = 4
-			ENDIF
-		ENDIF
-	ELSE
-		IF TIMERA > 2000
-			IF gun_help = 0
+	// FIXEDGROVE: START - change from if-chain to switch-case and don't use TIMERA
+	// IF NOT IS_CHAR_IN_ANY_CAR scplayer // FIXEDGROVE: comment out
+	SWITCH gun_help
+	CASE 0
+		IF timer_end > timer_start //IF TIMERA > 2000
+			IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
 				PRINT_HELP ( EMMET_G ) // Get guns from Emmet.
 				REMOVE_BLIP emmets_shop_blip
 				ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2447.3643 -1974.4963 12.5469 RADAR_SPRITE_EMMETGUN emmets_shop_blip //Emmet
-				TIMERA = 0
 				gun_help = 1
+				GET_GAME_TIMER timer_start
+				timer_start = timer_start + 5000
 			ENDIF
 		ENDIF
+	BREAK
+	CASE 1
+		IF timer_end > timer_start //IF TIMERA > 5000
+			IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+				IF NOT IS_CHAR_IN_ANY_CAR scplayer // FIXEDGROVE: added check because you can't switch weapons in a vehicle
+					PRINT_HELP HELP53  
+				ENDIF // FIXEDGROVE
+				gun_help = 2
+				GET_GAME_TIMER timer_start
+				timer_start = timer_start + 5000
+			ENDIF
+		ENDIF
+	BREAK
+	CASE 2
+		IF timer_end > timer_start //IF TIMERA > 5000
+			IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+				PRINT_HELP ( HOOD2D )  // Your ~h~gun stat~w~ will increase the more you use your weapon.
+				gun_help = 3
+				GET_GAME_TIMER timer_start
+				timer_start = timer_start + 5000
+			ENDIF
+		ENDIF
+	BREAK
+	CASE 3
+		IF timer_end > timer_start //IF TIMERA > 5000
+			IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+				PRINT_HELP ( HOOD2E )  
+				gun_help = 4
+			ENDIF
+		ENDIF
+	BREAK
+	ENDSWITCH
+	IF gun_help < 4
+		GET_GAME_TIMER timer_end
 	ENDIF
+	// FIXEDGROVE: END
+	//ENDIF // FIXEDGROVE: comment out
 
 	IF NOT IS_CHAR_DEAD	big_smoke
 		IF NOT IS_CAR_DEAD big_smoke_car
