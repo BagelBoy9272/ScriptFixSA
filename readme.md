@@ -467,6 +467,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed barber animation jump if the player has a previewed haircut and they quit out of the shop
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
 - Fixed camera not resetting instantly after quitting Bike School
+- Fixed Boat School to not despawn the player if they flip a boat in water
 - Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
 - Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
 - Fixed Flint Intersection and Flint Range zones being assigned the desert popcycle instead of the countryside one

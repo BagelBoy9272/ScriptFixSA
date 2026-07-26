@@ -6297,6 +6297,17 @@ RETURN
 // Mission boat failed
 
 mission_boat_failed:
+// FIXEDGROVE: START - fade out and teleport player
+DO_FADE 500 FADE_OUT
+WHILE GET_FADING_STATUS
+	WAIT 0
+ENDWHILE
+IF IS_CHAR_IN_ANY_CAR scplayer 
+	WARP_CHAR_FROM_CAR_TO_COORD scplayer boat_playerstartx boat_playerstarty boat_playerstartz
+ELSE
+	SET_CHAR_COORDINATES scplayer boat_playerstartx boat_playerstarty boat_playerstartz
+ENDIF
+//FIXEDGROVE: END
 
 
 LOAD_SCENE_IN_DIRECTION	-2185.3347 2410.4092 3.9752 122.2585 
@@ -6309,6 +6320,12 @@ SET_CHAR_HEADING scplayer boat_playerstarth
 SET_CAMERA_BEHIND_PLAYER
 RESTORE_CAMERA_JUMPCUT
 
+// FIXEDGROVE: START
+DO_FADE 500 FADE_IN
+WHILE GET_FADING_STATUS
+	WAIT 0
+ENDWHILE
+// FIXEDGROVE: END
 RETURN
 
    
