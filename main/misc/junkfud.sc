@@ -309,7 +309,7 @@ shop_junkfud_inner:
 						OR IS_PLAYER_TARGETTING_CHAR player1 shop_keep_junkfud
 						OR HAS_CHAR_BEEN_DAMAGED_BY_WEAPON shop_keep_junkfud WEAPONTYPE_ANYWEAPON
 						OR iSetPizzaPanic = 1
-							SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shop
+							SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shops
 							TASK_HANDS_UP shop_keep_junkfud -2
 							iSetPizzaPanic = 1 
 							flag_attacked_keeper_food = 1
@@ -321,7 +321,7 @@ shop_junkfud_inner:
 								IF LOCATE_STOPPED_CHAR_ON_FOOT_3D scplayer keep_offX keep_offY keep_offZ shop_locate_sizeX shop_locate_sizeY shop_locate_sizeZ blob_flag_shop
 
 									IF CAN_PLAYER_START_MISSION player1
-										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_WHAT_WANT sample_name_shop
+										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_WHAT_WANT sample_name_shops
 										STORE_SCORE player1 players_money
 
 										IF flag_menace_buyfood < 2
@@ -346,7 +346,7 @@ shop_junkfud_inner:
 								IF flag_ate_too_much_food = 0
 
 									IF NOT IS_CHAR_DEAD shop_keep_junkfud // FIXEDGROVE: was missing the NOT
-										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_BOUGHT_ENOUGH sample_name_shop
+										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_BOUGHT_ENOUGH sample_name_shops
 										PRINT_NOW (FOOD1) 5000 1 //"You cannot buy any more food at the moment, you will be unwell!
 										//REPORT_MISSION_AUDIO_EVENT_AT_POSITION player_x player_y player_z SOUND_SHOP_BUY_DENIED // FIXEDGROVE: comment out since this normally plays while on menus
 									ELSE
@@ -1009,7 +1009,7 @@ shop_junkfud_inner:
 								++total_food_bought_per_day_shops
 							
 								IF NOT IS_CHAR_DEAD shop_keep_junkfud
-									SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_GIVE_PRODUCT sample_name_shop
+									SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_GIVE_PRODUCT sample_name_shops
 								ELSE
 
 									GOSUB junkfud_cleanup_small
@@ -1164,7 +1164,7 @@ shop_junkfud_inner:
 										CREATE_FX_SYSTEM puke vomitX vomitY vomitZ TRUE vomit_foodshop
 										TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer Eat_Vomit_P FOOD 4.0 FALSE FALSE FALSE FALSE -1
 										return_animation_time_food = 0.0
-										SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_CJ_PUKE sample_name_shop
+										SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_CJ_PUKE sample_name_shops
 																					
 									ELSE
 										GOSUB junkfud_cleanup_big
@@ -1173,7 +1173,7 @@ shop_junkfud_inner:
 
 									IF NOT IS_CHAR_DEAD shop_keep_junkfud
 									   	TASK_PLAY_ANIM_NON_INTERRUPTABLE shop_keep_junkfud Eat_Vomit_SK FOOD 1000.0 FALSE FALSE FALSE FALSE -1
-										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_PLAYER_SICK sample_name_shop
+										SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_PLAYER_SICK sample_name_shops
 									ELSE
 										GOSUB junkfud_cleanup_small
 
@@ -1433,7 +1433,7 @@ shop_junkfud_inner:
 											OR IS_PLAYER_TARGETTING_CHAR player1 shop_keep_junkfud
 											OR HAS_CHAR_BEEN_DAMAGED_BY_WEAPON shop_keep_junkfud WEAPONTYPE_ANYWEAPON
 											OR iSetPizzaPanic = 1
-												SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shop
+												SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shops
 												TASK_HANDS_UP shop_keep_junkfud -2
 												iSetPizzaPanic = 1
 												flag_attacked_keeper_food = 1
@@ -1916,7 +1916,7 @@ IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL
 				OR IS_PLAYER_TARGETTING_CHAR player1 shop_keep_junkfud
 				OR HAS_CHAR_BEEN_DAMAGED_BY_WEAPON shop_keep_junkfud WEAPONTYPE_ANYWEAPON
 				OR iSetPizzaPanic = 1
-					SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shop
+					SET_CHAR_SAY_CONTEXT shop_keep_junkfud CONTEXT_GLOBAL_SHOP_CLOSED sample_name_shops
 					TASK_HANDS_UP shop_keep_junkfud -2
 					iSetPizzaPanic = 1
 					flag_attacked_keeper_food = 1

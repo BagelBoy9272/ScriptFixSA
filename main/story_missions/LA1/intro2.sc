@@ -1298,7 +1298,7 @@ ELSE
 	//CREATE_FX_SYSTEM_ON_CHAR puke scplayer intr2_vomitX intr2_vomitY intr2_vomitZ TRUE vomit_menace
 	//ATTACH_FX_SYSTEM_TO_CHAR_BONE vomit_menace scplayer BONE_HEAD
     TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer Eat_Vomit_P FOOD 4.0 FALSE FALSE FALSE FALSE -1
-	SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_CJ_PUKE sample_name_shop
+	SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_CJ_PUKE sample_name_shops
 	//TASK_PLAY_ANIM scplayer Eat_Vomit_P FOOD 4.0 FALSE FALSE FALSE FALSE -1
 ENDIF
 

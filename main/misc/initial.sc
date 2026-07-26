@@ -2285,8 +2285,6 @@ created_save_blips = 0
 // **************************************** SHOP MENU VARAIBLES ***********************************
 VAR_INT shopkeeper_model_shops
 
-VAR_INT sample_name_shops // FIXEDGROVE: moved from junkfud.sc
-
 CONST_INT SHOP_TIME_BEFORE_CHAT 8000 // FIXEDGROVE: used for the SHOP_CHAT speech context
 
 VAR_INT switch_the_gym_interiors_off
@@ -2381,7 +2379,7 @@ flag_got_medic_clothes = 0
 flag_got_pimp_clothes = 0
  
 // used for shopkeeper speech
-VAR_INT sample_name_shop
+VAR_INT sample_name_shops
 
 // ammunation weapon opens stuff
 VAR_INT flag_6weapons_open flag_7weapons_open flag_8weapons_open flag_9weapons_open flag_10weapons_open
