@@ -42,6 +42,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made Groves hate scripted ballas
 - Made Ballas respect scripted ballas
 - Changed Ballas' models to be random
+- Fixed the help text for BMX so it can show up while dialogue is happening
 
 **Ryder:**
 - Fixed Ryder's car spawning only being turned ON on mission pass
@@ -75,6 +76,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **Nines And AKs:**
 - Made "cycling through targets" help box only show up if using a controller, otherwise display unused help box about gun recoil
+- Restored help text about weapons while going to Smoke's place
 
 **Drive-By:**
 - Fixed player floating a bit at the start of the mission
