@@ -571,6 +571,15 @@ WAIT 0
 
 			//quitting the boat school
 			IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
+
+				// FIXEDGROVE: START
+				DO_FADE 500 FADE_OUT
+				WHILE GET_FADING_STATUS
+					WAIT 0
+					GOSUB boat_drawing_tv_screen
+				ENDWHILE
+				// FIXEDGROVE: END
+
 				GOTO mission_boat_failed
 			ENDIF
 
@@ -6298,10 +6307,13 @@ RETURN
 
 mission_boat_failed:
 // FIXEDGROVE: START - fade out and teleport player
-DO_FADE 500 FADE_OUT
-WHILE GET_FADING_STATUS
-	WAIT 0
-ENDWHILE
+IF instructor_boat_dead_flag = 1
+	DO_FADE 500 FADE_OUT
+	WHILE GET_FADING_STATUS
+		WAIT 0
+	ENDWHILE
+ENDIF
+
 IF IS_CHAR_IN_ANY_CAR scplayer 
 	WARP_CHAR_FROM_CAR_TO_COORD scplayer boat_playerstartx boat_playerstarty boat_playerstartz
 ELSE
