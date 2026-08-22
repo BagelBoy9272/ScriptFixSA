@@ -684,13 +684,13 @@ ENDIF
 
 IF missiongo_f1flag = 0
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD sweet
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
 					IF IS_CHAR_SITTING_IN_CAR sweet sweet_car
-						IF IS_CHAR_SITTING_IN_CAR ryder sweet_car
-							IF IS_CHAR_SITTING_IN_CAR big_smoke sweet_car
-								IF IS_CHAR_SITTING_IN_CAR scplayer sweet_car
+					AND IS_CHAR_SITTING_IN_CAR ryder sweet_car
+					AND IS_CHAR_SITTING_IN_CAR big_smoke sweet_car
+					AND IS_CHAR_SITTING_IN_CAR scplayer sweet_car
 									REMOVE_BLIP sweet_f1blip
 
 									ADD_BLIP_FOR_COORD 2256.239 -1146.909 25.121 motel_f1blip
@@ -703,13 +703,7 @@ IF missiongo_f1flag = 0
 									playerincar_f1flag = 1
 									moteldeal_f1flag = 1
 									missiongo_f1flag = 1
-								ENDIF
-							ENDIF
-						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -942,9 +936,9 @@ ENDIF
 //player comes in from the right side of the camera
 IF moteldeal_f1flag = 1
 	IF NOT IS_CHAR_DEAD sweet
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CAR_DEAD sweet_car
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CAR_DEAD sweet_car
 					IF IS_CHAR_SITTING_IN_CAR scplayer sweet_car
 						IF LOCATE_CAR_2D sweet_car 2256.239 -1146.909 4.4 4.4 TRUE
 							CLEAR_MISSION_AUDIO 1
@@ -960,9 +954,6 @@ IF moteldeal_f1flag = 1
 							moteldeal_f1flag = 2 //player comes in from the right
 						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -1083,11 +1074,11 @@ ENDIF
 IF moteldeal_f1flag = 4
 	IF TIMERA > 2750
 		IF NOT IS_CAR_DEAD sweet_car
-			IF NOT IS_CHAR_DEAD sweet
-				IF NOT IS_CHAR_DEAD ryder
-					IF NOT IS_CHAR_DEAD big_smoke
+		AND NOT IS_CHAR_DEAD sweet
+		AND NOT IS_CHAR_DEAD ryder
+		AND NOT IS_CHAR_DEAD big_smoke
 						IF HAS_MISSION_AUDIO_LOADED 1	
-							IF HAS_MISSION_AUDIO_LOADED 2
+						AND HAS_MISSION_AUDIO_LOADED 2
 
 								IF IS_PLAYBACK_GOING_ON_FOR_CAR sweet_car
 									STOP_PLAYBACK_RECORDED_CAR sweet_car
@@ -1129,11 +1120,7 @@ IF moteldeal_f1flag = 4
 								CLEAR_MISSION_AUDIO 2
 								STOP_CHAR_FACIAL_TALK scplayer
 								moteldeal_f1flag = 5
-							ENDIF
 						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -1162,25 +1149,22 @@ ENDIF
 //sweet leaves the car
 IF moteldeal_f1flag = 6
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD sweet
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
 					IF IS_CHAR_IN_CAR sweet sweet_car //IF IS_CHAR_SITTING_IN_CAR sweet sweet_car 
 						TASK_LEAVE_CAR sweet sweet_car
 						moteldeal_f1flag = 7
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 //sweet walks up the stairs
 IF moteldeal_f1flag = 7
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD sweet
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
 					IF NOT IS_CHAR_SITTING_IN_CAR sweet sweet_car
 						SET_NEAR_CLIP 0.2
 						SET_FIXED_CAMERA_POSITION 2223.6252 -1146.9951 26.1711 0.0 0.0 0.0
@@ -1193,16 +1177,13 @@ IF moteldeal_f1flag = 7
 						TIMERA = 0
 						moteldeal_f1flag = 8
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 IF moteldeal_f1flag = 8
 	IF NOT IS_CHAR_DEAD sweet
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
 				IF LOCATE_CHAR_ON_FOOT_2D sweet 2233.75 -1159.83 2.8 2.8 FALSE //1.0 1.0
 					moteldeal_f1flag = 9
 				ELSE
@@ -1210,8 +1191,6 @@ IF moteldeal_f1flag = 8
 						SET_CHAR_COORDINATES sweet 2233.75 -1159.83 25.29 
 					ENDIF
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF 
 
@@ -1219,7 +1198,7 @@ ENDIF
 //in car chat
 IF moteldeal_f1flag = 9
 	IF NOT IS_CHAR_DEAD ryder
-		IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD big_smoke
 			IF HAS_MISSION_AUDIO_LOADED 1
 				SET_NEAR_CLIP 0.1
 				SET_FIXED_CAMERA_POSITION 2225.0601 -1148.1921 26.0902 0.0 0.0 0.0
@@ -1247,14 +1226,13 @@ IF moteldeal_f1flag = 9
 				TIMERA = 0
 				moteldeal_f1flag = 10
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 //in car chat
 IF moteldeal_f1flag = 10
 	IF NOT IS_CHAR_DEAD ryder
-		IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD big_smoke
 			IF HAS_MISSION_AUDIO_LOADED 2
 				SET_FIXED_CAMERA_POSITION 2224.3921 -1148.6056 25.9857 0.0 0.0 0.0
 				POINT_CAMERA_AT_POINT 2224.3960 -1149.6051 25.955 JUMP_CUT
@@ -1272,14 +1250,13 @@ IF moteldeal_f1flag = 10
 				LOAD_MISSION_AUDIO 2 SOUND_FIN1_HH	//This is the Los Santos Police Department; Everybody stay where you are!
 				moteldeal_f1flag = 11
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 //in car chat
 IF moteldeal_f1flag = 11
 	IF NOT IS_CHAR_DEAD ryder
-		IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD big_smoke
 			IF HAS_MISSION_AUDIO_LOADED 1
 
 				PLAY_MISSION_AUDIO 1
@@ -1312,7 +1289,6 @@ IF moteldeal_f1flag = 11
 
 				moteldeal_f1flag = 12
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -1382,7 +1358,7 @@ ENDIF
 
 IF moteldeal_f1flag = 15
 	IF NOT IS_CAR_DEAD extpoliceheli_f1
-		IF NOT IS_CAR_DEAD sweet_car
+	AND NOT IS_CAR_DEAD sweet_car
 			IF IS_CHAR_IN_ANY_CAR scplayer
 				IF TIMERA > 2000
 					IF HAS_MISSION_AUDIO_LOADED 1
@@ -1402,14 +1378,13 @@ IF moteldeal_f1flag = 15
 					ENDIF
 				ENDIF
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 IF moteldeal_f1flag = 16
 	IF TIMERA > 2000
 		IF HAS_MISSION_AUDIO_FINISHED 1
-			IF HAS_MISSION_AUDIO_LOADED 2
+		AND HAS_MISSION_AUDIO_LOADED 2
 				CLEAR_PRINTS
 				CLEAR_MISSION_AUDIO 1
 				//
@@ -1462,7 +1437,6 @@ IF moteldeal_f1flag = 16
 				TIMERA = 0
 				moteldeal_f1flag = 17
 
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -1471,7 +1445,7 @@ ENDIF
 IF moteldeal_f1flag = 17
 	IF TIMERA > 1500 //1600
 		IF HAS_MISSION_AUDIO_FINISHED 2
-			IF HAS_MISSION_AUDIO_LOADED 1
+		AND HAS_MISSION_AUDIO_LOADED 1
 				CLEAR_MISSION_AUDIO 2
 				CLEAR_PRINTS
 				LOAD_MISSION_AUDIO 2 SOUND_FIN1_HK	//Get back in, Carl, we’re out of here!
@@ -1516,16 +1490,15 @@ IF moteldeal_f1flag = 17
 				LOAD_MISSION_AUDIO 2 SOUND_FIN1_HM //Man, it’s every motherfucker for himself!
 				
 				moteldeal_f1flag = 18
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
 
 IF moteldeal_f1flag = 18
 	IF NOT IS_CHAR_DEAD swatrope1_f1
-		IF NOT IS_CHAR_DEAD swatrope2_f1
-			IF NOT IS_CHAR_DEAD swatrope3_f1
-				IF NOT IS_CHAR_DEAD swatrope4_f1
+	AND NOT IS_CHAR_DEAD swatrope2_f1
+	AND NOT IS_CHAR_DEAD swatrope3_f1
+	AND NOT IS_CHAR_DEAD swatrope4_f1
 					
 					IF swatrope1_f1flag = 0
 						GET_SCRIPT_TASK_STATUS swatrope1_f1 CREATE_SWAT_ROPE swatrope1_f1status
@@ -1560,13 +1533,10 @@ IF moteldeal_f1flag = 18
 					ENDIF
 
 					IF swatrope1_f1status = FINISHED_TASK
-						IF swatrope2_f1status = FINISHED_TASK
-							IF swatrope3_f1status = FINISHED_TASK
-								IF swatrope4_f1status = FINISHED_TASK				 
+					AND swatrope2_f1status = FINISHED_TASK
+					AND swatrope3_f1status = FINISHED_TASK
+					AND swatrope4_f1status = FINISHED_TASK				 
 									moteldeal_f1flag = 21
-								ENDIF
-							ENDIF
-						ENDIF
 					ENDIF
 
 					IF TIMERA > 3000
@@ -1577,9 +1547,6 @@ IF moteldeal_f1flag = 18
 					  	moteldeal_f1flag = 19
 					ENDIF
 
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF	
 ENDIF
 
@@ -1587,10 +1554,10 @@ ENDIF
 IF moteldeal_f1flag = 19
 	IF TIMERA > 3000
 		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CAR_DEAD sweet_car
+		AND NOT IS_CHAR_DEAD ryder
+		AND NOT IS_CAR_DEAD sweet_car
 					IF HAS_MISSION_AUDIO_LOADED 1
-						IF HAS_MISSION_AUDIO_LOADED 2
+					AND HAS_MISSION_AUDIO_LOADED 2
 
 							REQUEST_CAR_RECORDING 354
 							REQUEST_CAR_RECORDING 355
@@ -1637,10 +1604,7 @@ IF moteldeal_f1flag = 19
 
 							TIMERA = 0
 							moteldeal_f1flag = 20
-						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -3829,10 +3793,10 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 			IF sweetexit_f1flag > 2
-				IF sweetexit_f1flag < 6
+			AND sweetexit_f1flag < 6
 					IF audiosweet_f1flag = 0
 						IF HAS_MISSION_AUDIO_FINISHED 2
-							IF HAS_MISSION_AUDIO_LOADED 1
+						AND HAS_MISSION_AUDIO_LOADED 1
 								CLEAR_PRINTS
 								STOP_CHAR_FACIAL_TALK scplayer
 								PLAY_MISSION_AUDIO 1
@@ -3841,10 +3805,8 @@ IF roofmotel_f1flag = 0
 								ENDIF
 								PRINT_NOW FIN1_JK 2000 1//Fuck it, let’s get out of here!
 								audiosweet_f1flag = 1
-							ENDIF
 						ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 			IF audiosweet_f1flag = 1
 				IF NOT IS_CHAR_DEAD sweet
@@ -3862,7 +3824,7 @@ IF roofmotel_f1flag = 0
 							GET_SCRIPT_TASK_STATUS scplayer TASK_PLAY_ANIM playerstatus_f1
 								IF playerstatus_f1 = FINISHED_TASK
 									IF HAS_MISSION_AUDIO_FINISHED 2
-										IF HAS_MISSION_AUDIO_LOADED 1
+									AND HAS_MISSION_AUDIO_LOADED 1
 											TIMERA = 0
 											SET_FIXED_CAMERA_POSITION 2202.4089 -1157.1904 1030.5150 0.0 0.0 0.0
 											POINT_CAMERA_AT_POINT 2201.4138 -1157.1287 1030.4376 JUMP_CUT
@@ -3872,7 +3834,6 @@ IF roofmotel_f1flag = 0
 											TASK_FOLLOW_POINT_ROUTE scplayer PEDMOVE_WALK FOLLOW_ROUTE_ONCE
 											TASK_FOLLOW_POINT_ROUTE sweet PEDMOVE_WALK FOLLOW_ROUTE_ONCE
 											sweetexit_f1flag = 4
-										ENDIF
 									ENDIF
 								ENDIF
 						ENDIF
@@ -4131,7 +4092,7 @@ IF roofmotel_f1flag = 1
 			POINT_CAMERA_AT_POINT 2194.1025 -1157.9785 33.9628 JUMP_CUT
 
 			IF NOT IS_CHAR_DEAD sweet
-				IF NOT IS_CHAR_DEAD exthelidriver_f1
+			AND NOT IS_CHAR_DEAD exthelidriver_f1
 					WAIT 200
 					IF NOT IS_CHAR_DEAD exthelidriver_f1
 						TASK_LOOK_AT_CHAR scplayer exthelidriver_f1 3000
@@ -4146,7 +4107,6 @@ IF roofmotel_f1flag = 1
 					PRINT_NOW FIN1_AA 3000 1
 					TIMERB = 0
 					sweetexit_f1flag = 7
-				ENDIF
 			ENDIF
 
 		ENDIF
@@ -4155,7 +4115,7 @@ IF roofmotel_f1flag = 1
 	IF sweetexit_f1flag = 7
 		IF TIMERB > 2500
 			IF NOT IS_CHAR_DEAD sweet
-				IF NOT IS_CAR_DEAD extpoliceheli_f1
+			AND NOT IS_CAR_DEAD extpoliceheli_f1
 
 					//////////////////////////////////////////////////////////////////////////////////////
 					//////////////////////////////////////////////////////////////////////////////////////
@@ -4210,7 +4170,6 @@ IF roofmotel_f1flag = 1
 					TASK_GO_STRAIGHT_TO_COORD scplayer 2198.424 -1158.32 33.56 PEDMOVE_RUN 5000 //2193.91 -1164.24 32.86 PEDMOVE_RUN 5000
 					TIMERB = 0
 					sweetexit_f1flag = 8
-				ENDIF
 			ENDIF
 		ENDIF
 	ENDIF
@@ -4218,7 +4177,7 @@ IF roofmotel_f1flag = 1
 	IF sweetexit_f1flag = 8
 		IF TIMERB > 1500
 			IF NOT IS_CAR_DEAD extpoliceheli_f1
-				IF NOT IS_CHAR_DEAD sweet
+			AND NOT IS_CHAR_DEAD sweet
 
 					IF IS_PLAYBACK_GOING_ON_FOR_CAR extpoliceheli_f1
 						STOP_PLAYBACK_RECORDED_CAR extpoliceheli_f1
@@ -4238,7 +4197,6 @@ IF roofmotel_f1flag = 1
 					HELI_GOTO_COORDS extpoliceheli_f1 2194.97 -1182.27 37.0 7.0 7.0
 					TIMERB = 0
 					sweetexit_f1flag = 9
-				ENDIF
 			ENDIF
 		ENDIF
 	ENDIF
@@ -4391,13 +4349,12 @@ IF roofmotel_f1flag = 1
 
 						//////////////////////////////////////////////////////////////////////////////////////
 						IF NOT IS_CHAR_DEAD sweet
-							IF NOT IS_CHAR_DEAD exthelidriver_f1
+						AND NOT IS_CHAR_DEAD exthelidriver_f1
 								SET_CHAR_PROOFS	sweet FALSE TRUE TRUE TRUE FALSE
 								GIVE_WEAPON_TO_CHAR sweet WEAPONTYPE_MP5 99999
 								enemy_f1 = sweet
 								enemytarget_f1 = exthelidriver_f1
 								GOSUB stayshootnoduck_f1label
-							ENDIF
 						ENDIF
 						IF NOT IS_CAR_DEAD extpoliceheli_f1
 							SET_HELI_REACHED_TARGET_DISTANCE extpoliceheli_f1 3
@@ -4725,7 +4682,7 @@ IF roofmotel_f1flag = 3
 ENDIF
 
 IF roofmotel_f1flag > 1
-	IF roofmotel_f1flag < 4
+AND roofmotel_f1flag < 4
 		IF sweetexit_f1flag < 23
 
 			GOSUB process_audio_f1
@@ -4778,7 +4735,6 @@ IF roofmotel_f1flag > 1
 			ENDIF
 
 		ENDIF
-	ENDIF
 ENDIF
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5029,8 +4985,8 @@ ENDIF
 //sweet and player now down the stairs looking at sweet's car
 IF rails_f1flag = 2
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 				IF TIMERA > 1500
 					TASK_LOOK_AT_CHAR scplayer big_smoke 3000
 					START_PLAYBACK_RECORDED_CAR sweet_car 330
@@ -5041,30 +4997,26 @@ IF rails_f1flag = 2
 					TIMERA = 0
 					rails_f1flag = 3
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 
 IF rails_f1flag = 3
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 				IF TIMERA > 500
 					TASK_PLAY_ANIM scplayer prtial_gngtlkH GANGS 4.0 FALSE TRUE TRUE FALSE -1
 					rails_f1flag = 4
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 
 IF rails_f1flag = 4
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 				IF HAS_MISSION_AUDIO_FINISHED 1
 					TASK_LOOK_AT_CHAR sweet big_smoke 5000
 					CLEAR_PRINTS
@@ -5080,17 +5032,15 @@ IF rails_f1flag = 4
 					POINT_CAMERA_AT_POINT 2178.3723 -1191.8152 24.2692 JUMP_CUT
 					rails_f1flag = 5
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 
 IF rails_f1flag = 5
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					// FIXEDGROVE: START - moved this check here to make the facial anim sync with the voiceline
 					IF HAS_MISSION_AUDIO_FINISHED 2
 						STOP_CHAR_FACIAL_TALK scplayer
@@ -5128,17 +5078,14 @@ IF rails_f1flag = 5
 							ENDIF
 						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF		
 	ENDIF
 ENDIF
 
 IF rails_f1flag = 6
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					IF TIMERA > 2000
 						SET_CHAR_COORDINATES sweet 2176.78 -1196.64 23.18
 						TASK_ENTER_CAR_AS_PASSENGER sweet sweet_car 6000 1
@@ -5148,9 +5095,6 @@ IF rails_f1flag = 6
 						POINT_CAMERA_AT_POINT 2178.8660 -1195.1960 24.2959 JUMP_CUT
 						rails_f1flag = 7
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -5167,11 +5111,11 @@ ENDIF
 
 IF rails_f1flag = 8
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					IF HAS_MISSION_AUDIO_FINISHED 1
-						IF HAS_MISSION_AUDIO_LOADED 2
+					AND HAS_MISSION_AUDIO_LOADED 2
 							IF IS_CHAR_SITTING_IN_CAR sweet	sweet_car
 
 								TASK_PLAY_ANIM sweet CAR_Sc4_BL CAR_CHAT 8.0 FALSE FALSE FALSE FALSE -1
@@ -5216,27 +5160,20 @@ IF rails_f1flag = 8
 									WARP_CHAR_INTO_CAR_AS_PASSENGER sweet sweet_car 1
 								ENDIF
 							ENDIF
-						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 IF rails_f1flag = 9
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					IF TIMERA > 500
 						STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: stop player facial anim
 						TIMERA = 0
 						rails_f1flag = 10
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -6277,9 +6214,9 @@ IF motelchase_f1flag = 2
 	CAR_SET_IDLE policecar8_f1
 
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CAR_DEAD policecar1_f1
-			IF NOT IS_CAR_DEAD copbike2_f1
-				IF NOT IS_CAR_DEAD copbike3_f1
+	AND NOT IS_CAR_DEAD policecar1_f1
+	AND NOT IS_CAR_DEAD copbike2_f1
+	AND NOT IS_CAR_DEAD copbike3_f1
 					FREEZE_CAR_POSITION sweet_car FALSE
 					START_PLAYBACK_RECORDED_CAR sweet_car 331
 					START_PLAYBACK_RECORDED_CAR policecar1_f1 339
@@ -6292,9 +6229,6 @@ IF motelchase_f1flag = 2
 					policecar1_f1flag = 1
 					SWITCH_CAR_SIREN policecar1_f1 ON
 					TIMERA = 0
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 
 
@@ -7264,7 +7198,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		//heli setpiece
 		IF copcars_f1flag = 8
 			IF NOT IS_CHAR_DEAD copleft_f1
-				IF NOT IS_CHAR_DEAD copright_f1
+			AND NOT IS_CHAR_DEAD copright_f1
 					IF IS_CHAR_TOUCHING_VEHICLE copleft_f1 sweet_car
 					OR IS_CHAR_TOUCHING_VEHICLE copright_f1 sweet_car
 						copleft_f1flag = 1
@@ -7289,7 +7223,6 @@ IF NOT IS_CAR_DEAD sweet_car
 						CREATE_FX_SYSTEM blood_heli 2170.92 -1450.5 25.0 TRUE bloodfx2_f1
 						CREATE_FX_SYSTEM blood_heli 2171.11 -1447.04 25.13 TRUE bloodfx3_f1
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
@@ -7910,7 +7843,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		//keep him in the seated anim
 		IF bikerjumper4_f1flag = 1	
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					IF IS_CHAR_PLAYING_ANIM bikerjumper4_f1 MD_BIKE_Jmp_BL
 						GET_CHAR_ANIM_CURRENT_TIME bikerjumper4_f1 MD_BIKE_Jmp_BL animframebk_jmp
 							IF animframebk_jmp = 0.0
@@ -7918,7 +7851,6 @@ IF NOT IS_CAR_DEAD sweet_car
 								bikerjumper4_f1flag = 2
 							ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
@@ -7937,7 +7869,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		//attach to the car
 		IF bikerjumper4_f1flag = 4
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					IF IS_CHAR_PLAYING_ANIM bikerjumper4_f1 MD_BIKE_Jmp_BL
 						GET_CHAR_ANIM_CURRENT_TIME bikerjumper4_f1 MD_BIKE_Jmp_BL animframebk_jmp
 							IF animframebk_jmp = 1.0
@@ -7958,14 +7890,13 @@ IF NOT IS_CAR_DEAD sweet_car
 								ENDIF
 							ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
 		//punch player
 		IF bikerjumper4_f1flag = 5
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					IF IS_CHAR_PLAYING_ANIM bikerjumper4_f1 MD_BIKE_Lnd_BL
 						GET_CHAR_ANIM_CURRENT_TIME bikerjumper4_f1 MD_BIKE_Lnd_BL animframebk_jmp
 							IF animframebk_jmp > 0.037
@@ -7973,20 +7904,17 @@ IF NOT IS_CAR_DEAD sweet_car
 								bikerjumper4_f1flag = 6
 							ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
 		//set peds heading when on bike	
 		IF bikerjumper4_f1flag > 0
-			IF bikerjumper4_f1flag < 4
+		AND bikerjumper4_f1flag < 4
 				IF NOT IS_CAR_DEAD copbike4_f1
-					IF NOT IS_CHAR_DEAD bikerjumper4_f1
+				AND NOT IS_CHAR_DEAD bikerjumper4_f1
 						GET_CAR_HEADING copbike4_f1 bikerjumper4_f1heading
 						SET_CHAR_HEADING bikerjumper4_f1 bikerjumper4_f1heading
-					ENDIF
 				ENDIF
-			ENDIF
 		ENDIF
 
 		//set peds heading when on bike	
@@ -8012,10 +7940,9 @@ IF NOT IS_CAR_DEAD sweet_car
 		//set peds heading when on bike	
 		IF bikerjumper4_f1flag > 4
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					GET_CAR_HEADING sweet_car bikerjumper4_f1heading
 					SET_CHAR_HEADING bikerjumper4_f1 bikerjumper4_f1heading
-				ENDIF
 			ENDIF
 		ENDIF
 
@@ -8357,8 +8284,8 @@ ENDIF
 
 IF helisetpiece_f1flag = 11
 	IF NOT IS_CAR_DEAD trailer_f1
-		IF NOT IS_CAR_DEAD sweet_car
-			IF NOT IS_CAR_DEAD truck_f1
+	AND NOT IS_CAR_DEAD sweet_car
+	AND NOT IS_CAR_DEAD truck_f1
 				IF IS_CAR_TOUCHING_CAR sweet_car truck_f1
 				OR TIMERB > 4350
 //					IF NOT IS_CAR_DEAD trailer_f1
@@ -8387,8 +8314,6 @@ IF helisetpiece_f1flag = 11
 					TIMERA = 0
 					helisetpiece_f1flag = 12
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -8544,9 +8469,9 @@ IF helisetpiece_f1flag > 16
 ENDIF
 IF finalcut_f1flag = 2
 	IF HAS_MISSION_AUDIO_FINISHED 2
-		IF HAS_MISSION_AUDIO_LOADED 1
+	AND HAS_MISSION_AUDIO_LOADED 1
 			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD sweet
+			AND NOT IS_CHAR_DEAD sweet
 					CLEAR_PRINTS
 					STOP_CHAR_FACIAL_TALK sweet
 					PLAY_MISSION_AUDIO 1 //Fuck this! We gotta get outta here!
@@ -8555,24 +8480,20 @@ IF finalcut_f1flag = 2
 					CLEAR_MISSION_AUDIO 2
 					LOAD_MISSION_AUDIO 2 SOUND_FIN1_MX //Ryder’s right, everybody split up – we’ll meet up later.
 					finalcut_f1flag = 3
-				ENDIF
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 IF finalcut_f1flag = 3
 	IF HAS_MISSION_AUDIO_LOADED 2
-		IF HAS_MISSION_AUDIO_FINISHED 1
+	AND HAS_MISSION_AUDIO_FINISHED 1
 			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD sweet
+			AND NOT IS_CHAR_DEAD sweet
 					STOP_CHAR_FACIAL_TALK ryder
 					START_CHAR_FACIAL_TALK sweet 5000
 					PLAY_MISSION_AUDIO 2 //Ryder’s right, everybody split up – we’ll meet up later.
 					PRINT_NOW FIN1_MX 5000 1 
 					finalcut_f1flag = 4
-				ENDIF
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 IF finalcut_f1flag = 4
@@ -8589,8 +8510,8 @@ ENDIF
 
 IF helisetpiece_f1flag = 17
 	IF NOT IS_CHAR_DEAD sweet
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
 				IF IS_CHAR_PLAYING_ANIM big_smoke END_SC1_SMO
 					GET_CHAR_ANIM_CURRENT_TIME big_smoke END_SC1_SMO animstate_f1
 						IF animstate_f1 = 1.0
@@ -8603,8 +8524,6 @@ IF helisetpiece_f1flag = 17
 							helisetpiece_f1flag = 18
 						ENDIF
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
