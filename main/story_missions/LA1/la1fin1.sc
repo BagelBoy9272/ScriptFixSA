@@ -500,14 +500,12 @@ speaker_f1 = 0
 rails_f1flag = 0
 motelchase_f1flag = 0
 copcars_f1flag = 0
-policecar_f1flag[0] = 0
-policecar_f1flag[1] = 0
-policecar_f1flag[2] = 0
-policecar_f1flag[3] = 0
-policecar_f1flag[4] = 0
-policecar_f1flag[5] = 0
-policecar_f1flag[6] = 0
-policecar_f1flag[7] = 0
+	temp_integer_1 = 0
+	WHILE temp_integer_1 < 8
+	policecar_f1flag[temp_integer_1] = 0
+	policecarswap_f1flag[temp_integer_1] = 0
+	temp_integer_1++
+	ENDWHILE
 sca_f1flag = 0
 policecarblock_f1flag = 0
 bikerjumper4_f1flag = 0
@@ -516,14 +514,6 @@ playdeathanim_f1flag = 0
 playdeathanim2_f1flag = 0
 helileave_f1flag = 0
 chasetext_f1flag = 0
-policecarswap_f1flag[0] = 0
-policecarswap_f1flag[1] = 0
-policecarswap_f1flag[2] = 0
-policecarswap_f1flag[3] = 0
-policecarswap_f1flag[4] = 0
-policecarswap_f1flag[5] = 0
-policecarswap_f1flag[6] = 0
-policecarswap_f1flag[7] = 0
 copright_f1flag = 0
 copleft_f1flag = 0
 turncamera_f1flag = 0
@@ -5900,59 +5890,29 @@ IF motelchase_f1flag = 2
 	SET_NEAR_CLIP 0.1
 
 	//remove all cars and peds
-	STOP_PLAYBACK_RECORDED_CAR policecar_f1[0]
-	DELETE_CAR policecar_f1[0]
-	REMOVE_BLIP policecar_f1blip[0]
-	STOP_PLAYBACK_RECORDED_CAR policecar_f1[1]
-	DELETE_CAR policecar_f1[1]
-	REMOVE_BLIP policecar_f1blip[1]
-	STOP_PLAYBACK_RECORDED_CAR policecar_f1[2]
-	DELETE_CAR policecar_f1[2]
-	REMOVE_BLIP policecar_f1blip[2]
-	STOP_PLAYBACK_RECORDED_CAR policecar_f1[3]
-	DELETE_CAR policecar_f1[3]
-	REMOVE_BLIP policecar_f1blip[3]
-	STOP_PLAYBACK_RECORDED_CAR policecar_f1[4]
-	DELETE_CAR policecar_f1[4]
-	REMOVE_BLIP policecar_f1blip[4]
-	DELETE_CAR policecar_f1[5]
-	REMOVE_BLIP policecar_f1blip[5]
-	STOP_PLAYBACK_RECORDED_CAR policecar_f1[6]
-	DELETE_CAR policecar_f1[6]
-	REMOVE_BLIP policecar_f1blip[6]
-	DELETE_CHAR cop_f1[0]
-	DELETE_CHAR cop_f1[1]
-	DELETE_CHAR cop_f1[2]
-	DELETE_CHAR cop_f1[3]
-	DELETE_CHAR cop_f1[4]
-	DELETE_CHAR cop_f1[5]
-	DELETE_CHAR cop_f1[6]
-	DELETE_CHAR cop_f1[7]
-	DELETE_CHAR cop_f1[8]
-	DELETE_CHAR cop_f1[9]
-	DELETE_CHAR cop_f1[10]
-	DELETE_CHAR cop_f1[11]
-	DELETE_CHAR cop_f1[12]
-	DELETE_CHAR cop_f1[13]
+	temp_integer_1 = 0
+	WHILE temp_integer_1 < 7
+		IF NOT temp_integer_1 = 5
+			STOP_PLAYBACK_RECORDED_CAR policecar_f1[temp_integer_1]
+		ENDIF
+		DELETE_CAR policecar_f1[temp_integer_1]
+		REMOVE_BLIP policecar_f1blip[temp_integer_1]
+		temp_integer_1++
+	ENDWHILE
+	temp_integer_1 = 0
+	WHILE temp_integer_1 < 14
+		DELETE_CHAR cop_f1[temp_integer_1]
+		temp_integer_1++
+	ENDWHILE
 
 	//reset flags that I am going to use again
 	copcars_f1flag = 0
-	policecar_f1flag[0] =	0
-	policecar_f1flag[1] =	0
-	policecar_f1flag[2] =	0
-	policecar_f1flag[3] =	0
-	policecar_f1flag[4] =	0
-	policecar_f1flag[5] =	0
-	policecar_f1flag[6] =	0
-	policecar_f1flag[7] =	0
-	policecarswap_f1flag[0] =	0
-	policecarswap_f1flag[1] =	0
-	policecarswap_f1flag[2] =	0
-	policecarswap_f1flag[3] =	0
-	policecarswap_f1flag[4] =	0
-	policecarswap_f1flag[5] =	0
-	policecarswap_f1flag[6] =	0
-	policecarswap_f1flag[7] =	0
+	temp_integer_1 = 0
+	WHILE temp_integer_1 < 8
+		policecar_f1flag[temp_integer_1] =	0
+		policecarswap_f1flag[temp_integer_1] =	0
+		temp_integer_1++
+	ENDWHILE
 
 
 	REQUEST_CAR_RECORDING 331
@@ -8918,14 +8878,11 @@ MARK_MODEL_AS_NO_LONGER_NEEDED PETROTR
 SET_MAX_WANTED_LEVEL 4 		///////		WANTED LEVEL ASK FILSHIE ABOUT WHAT IT SHOULD BE SET BACK TO AT THIS POINT
 DELETE_CAR extpoliceheli_f1
 //blips
-REMOVE_BLIP policecar_f1blip[0]
-REMOVE_BLIP policecar_f1blip[1]
-REMOVE_BLIP policecar_f1blip[2]
-REMOVE_BLIP policecar_f1blip[3]
-REMOVE_BLIP policecar_f1blip[4]
-REMOVE_BLIP policecar_f1blip[5]
-REMOVE_BLIP policecar_f1blip[6]
-REMOVE_BLIP policecar_f1blip[7]
+	temp_integer_1 = 0
+	WHILE temp_integer_1 < 8
+	REMOVE_BLIP policecar_f1blip[temp_integer_1]
+	temp_integer_1++
+	ENDWHILE
 //detach
 IF IS_PLAYER_PLAYING PLAYER1
 	SET_PLAYER_DUCK_BUTTON PLAYER1 TRUE
