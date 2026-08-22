@@ -4061,7 +4061,6 @@ IF roofmotel_f1flag = 0
 				ENDIF
 			ENDIF
 
-			ENDIF
 
 			IF breach_f1flag > 2
 				IF progressaudio_f1flag = 2
@@ -4083,6 +4082,7 @@ IF roofmotel_f1flag = 0
 						GOSUB load_audio_f1
 					ENDIF
 				ENDIF
+			ENDIF
 
 			IF vent1a_f1flag > 0
 				IF progressaudio_f1flag = 4
