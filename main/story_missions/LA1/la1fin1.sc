@@ -720,143 +720,133 @@ IF moteldeal_f1flag = 1
 
 	// FIXEDGROVE: assigned speakers
 	//play mission audio
-	IF progressaudio_f1flag = 0
-		IF handlingaudio_f1flag = 0
+	IF handlingaudio_f1flag = 0
+		SWITCH progressaudio_f1flag
+		CASE 0
 			IF TIMERA > 7000
 				audio_label_f1 = SOUND_FIN1_GA	//Say, CJ, you gonna crash the car again?
 				$input_text_f1 = FIN1_GA	//Say, CJ, you gonna crash the car again?
-				speaker_f1 = ryder
 				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 1
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 1
 			audio_label_f1 = SOUND_FIN1_GB	//Fuck you, Ryder.
 			$input_text_f1 = FIN1_GB	//Fuck you, Ryder.
-			speaker_f1 = scplayer
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 2
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 2
 			audio_label_f1 = SOUND_FIN1_GC	//Ryder, give CJ a break, man. He’s practically turned the Grove around by himself.
 			$input_text_f1 = FIN1_GC	//Ryder, give CJ a break, man. He’s practically turned the Grove around by himself.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 3
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 3
 			audio_label_f1 = SOUND_FIN1_GD	//Man, I was just telling a joke on the little nigga.
 			$input_text_f1 = FIN1_GD	//Man, I was just telling a joke on the little nigga.
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 4
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 4
 			audio_label_f1 = SOUND_FIN1_GE	//Everything you do is a joke, Ryder.
 			$input_text_f1 = FIN1_GE	//Everything you do is a joke, Ryder.
-			speaker_f1 = scplayer
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 5
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 5
 			audio_label_f1 = SOUND_FIN1_GG	//That ain’t true!
 			$input_text_f1 = FIN1_GG	//That ain’t true!
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 6
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 6
 			audio_label_f1 = SOUND_FIN1_GI	//Ryder… <sighs> just chill the fuck out.
 			$input_text_f1 = FIN1_GI	//Ryder… <sighs> just chill the fuck out.
-			speaker_f1 = big_smoke
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 7
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 7
 			audio_label_f1 = SOUND_FIN1_GJ	//Remember, we’re uniting the Families, so no bullshit.
 			$input_text_f1 = FIN1_GJ	//Remember, we’re uniting the Families, so no bullshit.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 8
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 8
 			audio_label_f1 = SOUND_FIN1_GK	//Stay cool.
 			$input_text_f1 = FIN1_GK	//Stay cool.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 9
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 9
 			audio_label_f1 = SOUND_FIN1_GL	//You know me, Sweet, cool as a Shaolin monk!
 			$input_text_f1 = FIN1_GL	//You know me, Sweet, cool as a Shaolin monk!
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 10
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 10
 			audio_label_f1 = SOUND_FIN1_GM	//Especially you, Ryder.
 			$input_text_f1 = FIN1_GM	//Especially you, Ryder.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 11
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 11
 			audio_label_f1 = SOUND_FIN1_GN	//What you mean? I resent your implication, and shit.
 			$input_text_f1 = FIN1_GN	//What you mean? I resent your implication, and shit.
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 12
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 12
 			audio_label_f1 = SOUND_FIN1_GO	//Sweet’s just sayin’ you’re a natural killa.
 			$input_text_f1 = FIN1_GO	//Sweet’s just sayin’ you’re a natural killa.
-			speaker_f1 = big_smoke
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 13
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 13
 			audio_label_f1 = SOUND_FIN1_GP	//You gotta tame that tiger and stay cool.
 			$input_text_f1 = FIN1_GP	//You gotta tame that tiger and stay cool.
-			speaker_f1 = big_smoke
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 14
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 14
 			audio_label_f1 = SOUND_FIN1_GQ	//Yeah, well put it like this – I understand what he’s trying to say,
 			$input_text_f1 = FIN1_GQ	//Yeah, well put it like this – I understand what he’s trying to say,
-			speaker_f1 = ryder		
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 15
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 15
 			audio_label_f1 = SOUND_FIN1_GR	//but I’m always cool, fool!
 			$input_text_f1 = FIN1_GR	//but I’m always cool, fool!
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 16
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 16
 			audio_label_f1 = SOUND_FIN1_GS	//Hey we all down with that, dog.
 			$input_text_f1 = FIN1_GS	//Hey we all down with that, dog.
-			speaker_f1 = big_smoke
+		BREAK
+		ENDSWITCH
+
+		SWITCH progressaudio_f1flag
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		CASE 10
+		CASE 11
+		CASE 12
+		CASE 13
+		CASE 14
+		CASE 15
+		CASE 16
 			GOSUB load_audio_f1
-		ENDIF
+		BREAK
+		ENDSWITCH
+
+		// FIXEDGROVE: assigned speakers
+		SWITCH progressaudio_f1flag
+			CASE 1
+			CASE 4
+				speaker_f1 = scplayer
+			BREAK
+
+			CASE 2
+			CASE 7
+			CASE 8
+			CASE 10
+				speaker_f1 = sweet
+			BREAK
+
+			CASE 0
+			CASE 3
+			CASE 5
+			CASE 9
+			CASE 11
+			CASE 14
+			CASE 15
+				speaker_f1 = ryder
+			BREAK
+
+			CASE 6
+			CASE 12
+			CASE 13
+			CASE 16
+				speaker_f1 = big_smoke
+			BREAK
+		ENDSWITCH
 	ENDIF
 
 ENDIF
@@ -4039,18 +4029,17 @@ IF roofmotel_f1flag = 0
 			
 			// FIXEDGROVE: assigned speakers to the voicelines, moved 'Go go go!' and 'Get into positions' voicelines here for consistency and to add back subtitles
 			//play mission audio
-			IF progressaudio_f1flag = 0
-				IF handlingaudio_f1flag = 0
+			IF handlingaudio_f1flag = 0
+			SWITCH progressaudio_f1flag
+				CASE 0
 					IF woundedgrove1_f1flag = 1
 						audio_label_f1 = SOUND_FIN1_JC	//Where the OG’s at – I gotta go get my brother, Sweet.
 						$input_text_f1 = FIN1_JC	//Where the OG’s at – I gotta go get my brother, Sweet.
 						speaker_f1 = scplayer
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
-			IF progressaudio_f1flag = 1
-				IF handlingaudio_f1flag = 0
+				BREAK
+				CASE 1
 					IF woundedgrove1_f1flag = 1
 						attachaudio_f1flag = 1						
 						audio_label_f1 = SOUND_FIN1_JD	//They were meeting in the back of the motel someplace…
@@ -4058,73 +4047,62 @@ IF roofmotel_f1flag = 0
 						speaker_f1 = woundedgrove1_f1
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
 
-
-			IF breach_f1flag > 2
-				IF progressaudio_f1flag = 2
-					IF handlingaudio_f1flag = 0
+				CASE 2
+					IF breach_f1flag > 2
 						audio_label_f1 = SOUND_FIN1_AS // <loud explosion> Go Go Go!
 						$input_text_f1 = FIN1_AS // <loud explosion> Go Go Go!
 						speaker_f1 = swat3_f1
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
 
-			IF swatwindosmash_f1flag > 0
-				IF progressaudio_f1flag = 3
-					IF handlingaudio_f1flag = 0
+				CASE 3
+					IF swatwindosmash_f1flag > 0
 						audio_label_f1 = SOUND_FIN1_JF	//Families! Cops comin’ in behind!
 						$input_text_f1 = FIN1_JF	//Families! Cops comin’ in behind!
 						speaker_f1 = scplayer
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
 
-			IF vent1a_f1flag > 0
-				IF progressaudio_f1flag = 4
-					IF handlingaudio_f1flag = 0 
+				CASE 4
+					IF vent1a_f1flag > 0
 						audio_label_f1 = SOUND_FIN1_AE	//Get into positions!
 						$input_text_f1 = FIN1_AE	//Get into positions!
 						speaker_f1 = swat12_f1
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
+
 
 			//corner where swat run down stairs
-			IF swat8_f1flag > 0
-				IF progressaudio_f1flag = 5
-					IF handlingaudio_f1flag = 0
+				CASE 5
+					IF swat8_f1flag > 0
 						audio_label_f1 = SOUND_FIN1_BD	//Get some suppressing fire in there!
 						$input_text_f1 = FIN1_BD	//Get some suppressing fire in there!
 						speaker_f1 = swat8_f1
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
 
 			//upside down guy
-			IF swat14_f1flag > 0
-				IF progressaudio_f1flag = 6
-					IF handlingaudio_f1flag = 0
+				CASE 6
+					IF swat14_f1flag > 0
 						audio_label_f1 = SOUND_FIN1_CK	//Unit down, repeat, unit down!
 						$input_text_f1 = FIN1_CK	//Unit down, repeat, unit down!
 						speaker_f1 = swat14_f1
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
-			IF progressaudio_f1flag = 7
-				IF handlingaudio_f1flag = 0
+				BREAK
+				CASE 7
 					audio_label_f1 = SOUND_FIN1_BE	//Gimme some fucking covering fire!
 					$input_text_f1 = FIN1_BE	//Gimme some fucking covering fire!
 					speaker_f1 = swat14_f1
 					GOSUB load_audio_f1
-				ENDIF
+				BREAK
+			ENDSWITCH
 			ENDIF
 		ENDIF
 
@@ -4757,35 +4735,31 @@ IF roofmotel_f1flag > 1
 				IF NOT IS_CAR_DEAD extpoliceheli_f1
 
 					// FIXEDGROVE: asigned speakers
-					IF progressaudio_f1flag = 0
-						IF handlingaudio_f1flag = 0
+					IF handlingaudio_f1flag = 0
+						SWITCH progressaudio_f1flag
+						CASE 0
 							IF sweetexit_f1flag > 11
 								audio_label_f1 = SOUND_FIN1_JM	//CJ, dump on that helicopter!
 								$input_text_f1 = FIN1_JM	//CJ, dump on that helicopter!
 								speaker_f1 = sweet
 								GOSUB load_audio_f1
 							ENDIF
-						ENDIF
-					ENDIF
-
-					IF progressaudio_f1flag = 1
-						IF handlingaudio_f1flag = 0
+						BREAK
+						CASE 1
 							audio_label_f1 = SOUND_FIN1_BY //This is Buzzard 1, we are taking ground fire!
 							$input_text_f1 = FIN1_BY //This is Buzzard 1, we are taking ground fire!
 							speaker_f1 = exthelidriver_f1
 							GOSUB load_audio_f1
-						ENDIF
-					ENDIF
-
-					IF progressaudio_f1flag = 2
-						IF handlingaudio_f1flag = 0
+						BREAK
+						CASE 2
 							IF sweetexit_f1flag > 14
 								audio_label_f1 = SOUND_FIN1_JL	//CJ, that chopper’s all over us! Hit it!
 								$input_text_f1 = FIN1_JL	//CJ, that chopper’s all over us! Hit it!
 								speaker_f1 = sweet
 								GOSUB load_audio_f1
 							ENDIF
-						ENDIF
+						BREAK
+						ENDSWITCH
 					ENDIF
 				ENDIF
 			ENDIF
@@ -5877,172 +5851,141 @@ IF textrails_f1flag = 1
 	GOSUB process_audio_f1
 
 	// FIXEDGROVE: assigned speakers
-	IF progressaudio_f1flag = 0
-		IF handlingaudio_f1flag = 0
+	IF handlingaudio_f1flag = 0
+		SWITCH progressaudio_f1flag
+		CASE 0
 			audio_label_f1 = SOUND_FIN1_KF	//Eh man, I’m running low.
 			$input_text_f1 = FIN1_KF //Eh man, I’m running low.
 			speaker_f1 = scplayer
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 1
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 1
 			audio_label_f1 = SOUND_FIN1_KG	//I got a ‘K here!
 			$input_text_f1 = FIN1_KG //I got a ‘K here!
 			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 2
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 2
 			audio_label_f1 = SOUND_FIN1_KH //This is a fucking antique!
 			$input_text_f1 = FIN1_KH //This is a fucking antique!
 			speaker_f1 = 0
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 3
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 3
 			audio_label_f1 = SOUND_FIN1_KI //Yeah, well… Emmet ain’t the Pentagon!
 			$input_text_f1 = FIN1_KI //Yeah, well… Emmet ain’t the Pentagon!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 4
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 4
 			audio_label_f1 = SOUND_FIN1_KJ //You got it off Emmet? Shit…
 			$input_text_f1 = FIN1_KJ //You got it off Emmet? Shit…
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 5
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 5
 			audio_label_f1 = SOUND_FIN1_ZC	//CJ, cover the rear!
 			$input_text_f1 = FIN1_ZC	//CJ, cover the rear!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
+		BREAK
 
 	//car hit by train
-	IF progressaudio_f1flag = 6
-		IF handlingaudio_f1flag = 0
+		CASE 6
 			IF actiontext_f1flag = 1
 				audio_label_f1 = SOUND_FIN1_KM	//Man, they’s got smoked!  Did you see that?
 				$input_text_f1 = FIN1_KM	//Man, they’s got smoked!  Did you see that?
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 7
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 7
 			audio_label_f1 = SOUND_FIN1_KL	//Damn! That was close!
 			$input_text_f1 = FIN1_KL	//Damn! That was close!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 8
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 8
 			IF DOES_SEARCHLIGHT_EXIST helispotlight_f1
 				SET_SEARCHLIGHT_CLIP_IF_COLLIDING helispotlight_f1 TRUE
 			ENDIF
 			audio_label_f1 = SOUND_FIN1_KO	//Man, it’s getting intense! It’s getting worse out here!
 			$input_text_f1 = FIN1_KO	//Man, it’s getting intense! It’s getting worse out here!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 9
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 9
 			audio_label_f1 = SOUND_FIN1_KP	//It’s like World War VIII!
 			$input_text_f1 = FIN1_KP	//It’s like World War VIII!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-
-	//out of the garage
-	IF actiontext_f1flag = 1
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2372.35 -1283.33 15.0 15.0 FALSE
-			actiontext_f1flag = 2
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 10
-		IF actiontext_f1flag = 2
-			IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 2
 				audio_label_f1 = SOUND_FIN1_KS //Hey, CJ, watch to the left!
 				$input_text_f1 = FIN1_KS //Hey, CJ, watch to the left!
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 11
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 11
 			IF DOES_SEARCHLIGHT_EXIST helispotlight_f1
 				SET_SEARCHLIGHT_CLIP_IF_COLLIDING helispotlight_f1 FALSE
 			ENDIF
 			audio_label_f1 = SOUND_FIN1_KT	//Your left or my left?
 			$input_text_f1 = FIN1_KT	//Your left or my left?
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 12
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 12
 			audio_label_f1 = SOUND_FIN1_KU	//Hell, I don’t know, just shoot everybody, motherfucker!
 			$input_text_f1 = FIN1_KU	//Hell, I don’t know, just shoot everybody, motherfucker!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 13
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 13
 			audio_label_f1 = SOUND_FIN1_CB	//Four bangers in blue 4door heading back into South Central.
 			$input_text_f1 = FIN1_CB	//Four bangers in blue 4door heading back into South Central.
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-
-	//car in front
-	IF actiontext_f1flag = 2
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2424.42 -1446.57 15.0 15.0 FALSE
-			actiontext_f1flag = 3
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 14
-		IF actiontext_f1flag = 3
-			IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 14
+			IF actiontext_f1flag = 3
 				audio_label_f1 = SOUND_FIN1_LD //Trouble up ahead!
 				$input_text_f1 = FIN1_LD //Trouble up ahead!
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-
-	//car behind and to the right side
-	IF actiontext_f1flag = 3
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2453.78 -1333.3 10.0 10.0 FALSE
-			actiontext_f1flag = 4
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 15
-		IF actiontext_f1flag = 3
-			IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 15
+			IF actiontext_f1flag = 3
 				audio_label_f1 = SOUND_FIN1_ZD	//Carl, they all over our ass, baby!
 				$input_text_f1 = FIN1_ZD	//Carl, they all over our ass, baby!
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-
-	IF actiontext_f1flag = 4
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2454.1 -1313.02 10.0 10.0 FALSE
-			actiontext_f1flag = 5
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 16
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 16
 			IF actiontext_f1flag = 5
 				audio_label_f1 = SOUND_FIN1_KX	//CJ, watch our right!
 				$input_text_f1 = FIN1_KX	//CJ, watch our right!
+			ENDIF
+		BREAK
+		ENDSWITCH
+
+		SWITCH progressaudio_f1flag
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 7
+		CASE 8
+		CASE 9
+		CASE 11
+		CASE 12
+		CASE 13
+			GOSUB load_audio_f1
+		BREAK
+
+		CASE 6
+			IF actiontext_f1flag = 1
 				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 2
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 14
+			IF actiontext_f1flag = 3
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 15
+			IF actiontext_f1flag = 3
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 16
+			IF actiontext_f1flag = 5
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
 
 ENDIF
@@ -6668,303 +6611,260 @@ IF NOT IS_CAR_DEAD sweet_car
 		GOSUB process_audio_f1
 
 
-		IF progressaudio_f1flag = 0
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LA	//Eyes front, CJ!
-				$input_text_f1 = FIN1_LA	//Eyes front, CJ!
+		SWITCH progressaudio_f1flag
+		CASE 0
+			audio_label_f1 = SOUND_FIN1_LA	//Eyes front, CJ!
+			$input_text_f1 = FIN1_LA	//Eyes front, CJ!
+		BREAK
+		CASE 1
+			IF actiontext_f1flag = 1
+				audio_label_f1 = SOUND_FIN1_BK	//Surprise, homeboy!
+				$input_text_f1 = FIN1_BK //Surprise, homeboy!
+			ENDIF
+		BREAK
+		CASE 2
+			audio_label_f1 = SOUND_FIN1_KK	//Holy shit! Look at that!
+			$input_text_f1 = FIN1_KK	//Holy shit! Look at that!
+		BREAK
+		CASE 3
+			audio_label_f1 = SOUND_FIN1_KR //Wish I’d stayed at home and watched the game!
+			$input_text_f1 = FIN1_KR //Wish I’d stayed at home and watched the game!
+		BREAK
+		CASE 4
+			IF actiontext_f1flag = 2
+				audio_label_f1 = SOUND_FIN1_ZB	//Carl, behind us!  Behind us!
+				$input_text_f1 = FIN1_ZB //Carl, behind us!  Behind us!
+			ENDIF
+		BREAK
+		CASE 5
+			audio_label_f1 = SOUND_FIN1_LL	//Put up your windows!
+			$input_text_f1 = FIN1_LL//Put up your windows!
+		BREAK
+		CASE 6
+			audio_label_f1 = SOUND_FIN1_LI	//Smoke, what the FUCK are you doin’?
+			$input_text_f1 = FIN1_LI  //Smoke, what the FUCK are you doin’?
+		BREAK
+		CASE 7
+			IF actiontext_f1flag = 4
+				audio_label_f1 = SOUND_FIN1_LP	//Dammit, Smoke, I got soap in my eyes!
+				$input_text_f1 = FIN1_LP//Dammit, Smoke, I got soap in my eyes!
+			ENDIF
+		BREAK
+		CASE 8
+			audio_label_f1 = SOUND_FIN1_MK	//Smoke, you’re insane!
+			$input_text_f1 = FIN1_MK	//Smoke, you’re insane!
+		BREAK
+		CASE 9
+			audio_label_f1 = SOUND_FIN1_LJ	//I like things clean!
+			$input_text_f1 = FIN1_LJ	//I like things clean!
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 5
+				audio_label_f1 = SOUND_FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
+				$input_text_f1 = FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
+			ENDIF
+		BREAK
+		CASE 11
+			audio_label_f1 = SOUND_FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
+			$input_text_f1 = FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
+		BREAK
+		CASE 12
+			audio_label_f1 = SOUND_FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
+			$input_text_f1 = FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
+		BREAK
+		CASE 13
+			audio_label_f1 = SOUND_FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
+			$input_text_f1 = FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
+		BREAK
+
+		//2nd bike jumper
+		CASE 14
+			IF actiontext_f1flag = 7
+				audio_label_f1 = SOUND_FIN1_BL //Heads up, brother!
+				$input_text_f1 = FIN1_BL //Heads up, brother!
+			ENDIF
+		BREAK
+		CASE 15
+			audio_label_f1 = SOUND_FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
+			$input_text_f1 = FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
+		BREAK
+		CASE 16
+			audio_label_f1 = SOUND_FIN1_LX	//Somebody shoot him!
+			$input_text_f1 = FIN1_LX //Somebody shoot him!
+		BREAK
+		CASE 17
+			audio_label_f1 = SOUND_FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
+			$input_text_f1 = FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
+		BREAK
+		CASE 18
+			audio_label_f1 = SOUND_FIN1_ZC	//CJ, cover the rear!
+			$input_text_f1 = FIN1_ZC	//CJ, cover the rear!
+		BREAK
+
+		//from the road block to just before the cut of the car bursting through the advertising sign
+		CASE 20
+			IF actiontext_f1flag = 8
+				audio_label_f1 = SOUND_FIN1_MA //OH SHIT! Roadblock up ahead!
+				$input_text_f1 = FIN1_MA //OH SHIT! Roadblock up ahead!
+			ENDIF
+		BREAK
+		CASE 21
+			audio_label_f1 = SOUND_FIN1_MB	//The K's jammed!
+			$input_text_f1 = FIN1_MB	//The K's jammed!
+		BREAK
+		CASE 22
+			audio_label_f1 = SOUND_FIN1_MD	//Fuckit, I’m going through!
+			$input_text_f1 = FIN1_MD	//Fuckit, I’m going through!
+		BREAK
+		CASE 23
+			audio_label_f1 = SOUND_FIN1_ME	//CJ, we got the ghetto bird up ahead!
+			$input_text_f1 = FIN1_ME	//CJ, we got the ghetto bird up ahead!
+		BREAK
+		CASE 24
+			audio_label_f1 = SOUND_FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
+			$input_text_f1 = FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
+		BREAK
+		CASE 25
+			audio_label_f1 = SOUND_FIN1_MH //Back up, Smoke, Back up!
+			$input_text_f1 = FIN1_MH //Back up, Smoke, Back up!
+		BREAK
+		CASE 26
+			audio_label_f1 = SOUND_FIN1_MI //Hell no, I’m going through!
+			$input_text_f1 = FIN1_MI //Hell no, I’m going through!
+		BREAK
+		CASE 27
+			audio_label_f1 = SOUND_FIN1_MT //Oh man we gonna diiie!
+			$input_text_f1 = FIN1_MT //Oh man we gonna diiie!
+		BREAK
+		CASE 28
+			audio_label_f1 = SOUND_FIN1_ML	//Oooooooh SHIIIIIIIT!
+			$input_text_f1 = FIN1_ML //Oooooooh SHIIIIIIIT!
+		BREAK
+		CASE 29
+			audio_label_f1 = SOUND_FIN1_MR //Slow down, Smoke, SLOW DOWN!
+			$input_text_f1 = FIN1_MR //Slow down, Smoke, SLOW DOWN!
+		BREAK
+		CASE 30
+			audio_label_f1 = SOUND_FIN1_MS //Oh shit, the brakes is out!
+			$input_text_f1 = FIN1_MS //Oh shit, the brakes is out!
+		BREAK
+		ENDSWITCH
+
+		SWITCH progressaudio_f1flag
+		CASE 0
+		CASE 2
+		CASE 3
+		CASE 5
+		CASE 6
+		CASE 8
+		CASE 9
+		CASE 11
+		CASE 12
+		CASE 13
+		CASE 15
+		CASE 16
+		CASE 17
+		CASE 18
+		CASE 21
+		CASE 22
+		CASE 23
+		CASE 24
+		CASE 25
+		CASE 26
+		CASE 27
+		CASE 28
+		CASE 29
+		CASE 30
+			GOSUB load_audio_f1
+		BREAK
+
+		CASE 1
+			IF actiontext_f1flag = 1
 				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
+		BREAK
+		CASE 4
+			IF actiontext_f1flag = 2
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 7
+			IF actiontext_f1flag = 4
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 5
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 14
+			IF actiontext_f1flag = 7
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 20
+			IF actiontext_f1flag = 8
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		ENDSWITCH
 
-		IF policecarexplode_f1flag = 0
+		SWITCH policecarexplode_f1flag
+		CASE 0
 			IF TIMERB > 53000
 				IF NOT IS_CHAR_DEAD biker2_f1
 					TASK_DIE biker2_f1
-					policecarexplode_f1flag = 1
-				ELSE
-					policecarexplode_f1flag = 1
 				ENDIF
+				policecarexplode_f1flag = 1
 			ENDIF
-		ENDIF
-		IF policecarexplode_f1flag = 3
+		BREAK
+		CASE 3
 			IF TIMERB > 58900
-				IF NOT IS_CAR_DEAD policecar1_f1
-					EXPLODE_CAR policecar1_f1
-					policecarexplode_f1flag = 4
-				ELSE
-					policecarexplode_f1flag = 4
+				IF NOT IS_CAR_DEAD policecar_f1[0]
+					EXPLODE_CAR policecar_f1[0]
 				ENDIF
+				policecarexplode_f1flag = 4
 			ENDIF
-		ENDIF
-		IF policecarexplode_f1flag = 4
+		BREAK
+		CASE 4
 			IF TIMERB > 85200
-				IF NOT IS_CAR_DEAD policecar2_f1
-					EXPLODE_CAR	policecar2_f1
-					policecarexplode_f1flag = 5
-				ELSE
-					policecarexplode_f1flag = 5
+				IF NOT IS_CAR_DEAD policecar_f1[1]
+					EXPLODE_CAR	policecar_f1[1]
 				ENDIF
+				policecarexplode_f1flag = 5
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 
-		IF actiontext_f1flag = 1
-			IF progressaudio_f1flag = 1
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_BK	//Surprise, homeboy!
-					$input_text_f1 = FIN1_BK //Surprise, homeboy!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 2
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_KK	//Holy shit! Look at that!
-				$input_text_f1 = FIN1_KK	//Holy shit! Look at that!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 3
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_KR //Wish I’d stayed at home and watched the game!
-				$input_text_f1 = FIN1_KR //Wish I’d stayed at home and watched the game!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 1
+		SWITCH actiontext_f1flag
+		CASE 1
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2545.15 -1460.3 15.0 15.0 FALSE
 				actiontext_f1flag = 2
 			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 2
-			IF progressaudio_f1flag = 4
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_ZB	//Carl, behind us!  Behind us!
-					$input_text_f1 = FIN1_ZB //Carl, behind us!  Behind us!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 5
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LL	//Put up your windows!
-				$input_text_f1 = FIN1_LL//Put up your windows!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 6
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LI	//Smoke, what the FUCK are you doin’?
-				$input_text_f1 = FIN1_LI  //Smoke, what the FUCK are you doin’?
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
+		BREAK
 
 		//soap in eyes
-		IF actiontext_f1flag = 2//3
+		CASE 2//3
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2451.92 -1461.5 12.0 12.0 FALSE
 				actiontext_f1flag = 4
 			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 4
-			IF progressaudio_f1flag = 7
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_LP	//Dammit, Smoke, I got soap in my eyes!
-					$input_text_f1 = FIN1_LP//Dammit, Smoke, I got soap in my eyes!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 8
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_MK	//Smoke, you’re insane!
-				$input_text_f1 = FIN1_MK	//Smoke, you’re insane!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 9
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LJ	//I like things clean!
-				$input_text_f1 = FIN1_LJ	//I like things clean!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
+		BREAK
 
 		//after the car wash
-		IF actiontext_f1flag = 4
+		CASE 4
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2344.98 -1382.22 18.0 18.0 FALSE
 				actiontext_f1flag = 5
 			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 5
-			IF progressaudio_f1flag = 10
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
-					$input_text_f1 = FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
 
 		//going around in circles
-		IF actiontext_f1flag = 5
+		CASE 5
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2305.51 -1370.01 18.0 18.0 FALSE
 				actiontext_f1flag = 6
 			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 11
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
-				$input_text_f1 = FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 12
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
-				$input_text_f1 = FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 13
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
-				$input_text_f1 = FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		//2nd bike jumper
-		IF actiontext_f1flag = 7
-			IF progressaudio_f1flag = 14
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_BL //Heads up, brother!
-					$input_text_f1 = FIN1_BL //Heads up, brother!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 15
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
-				$input_text_f1 = FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 16
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LX	//Somebody shoot him!
-				$input_text_f1 = FIN1_LX //Somebody shoot him!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 17
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
-				$input_text_f1 = FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 18
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_ZC	//CJ, cover the rear!
-				$input_text_f1 = FIN1_ZC	//CJ, cover the rear!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-
-		//from the road block to just before the cut of the car bursting through the advertising sign
-		IF actiontext_f1flag = 8
-			IF handlingaudio_f1flag = 0
-				IF progressaudio_f1flag = 20
-					audio_label_f1 = SOUND_FIN1_MA //OH SHIT! Roadblock up ahead!
-					$input_text_f1 = FIN1_MA //OH SHIT! Roadblock up ahead!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 21
-				audio_label_f1 = SOUND_FIN1_MB	//The K's jammed!
-				$input_text_f1 = FIN1_MB	//The K's jammed!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 22
-				audio_label_f1 = SOUND_FIN1_MD	//Fuckit, I’m going through!
-				$input_text_f1 = FIN1_MD	//Fuckit, I’m going through!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 23
-				audio_label_f1 = SOUND_FIN1_ME	//CJ, we got the ghetto bird up ahead!
-				$input_text_f1 = FIN1_ME	//CJ, we got the ghetto bird up ahead!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 24
-				audio_label_f1 = SOUND_FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
-				$input_text_f1 = FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 25
-				audio_label_f1 = SOUND_FIN1_MH //Back up, Smoke, Back up!
-				$input_text_f1 = FIN1_MH //Back up, Smoke, Back up!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 26
-				audio_label_f1 = SOUND_FIN1_MI //Hell no, I’m going through!
-				$input_text_f1 = FIN1_MI //Hell no, I’m going through!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 27
-				audio_label_f1 = SOUND_FIN1_MT //Oh man we gonna diiie!
-				$input_text_f1 = FIN1_MT //Oh man we gonna diiie!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 28
-				audio_label_f1 = SOUND_FIN1_ML	//Oooooooh SHIIIIIIIT!
-				$input_text_f1 = FIN1_ML //Oooooooh SHIIIIIIIT!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-	
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 29
-				audio_label_f1 = SOUND_FIN1_MR //Slow down, Smoke, SLOW DOWN!
-				$input_text_f1 = FIN1_MR //Slow down, Smoke, SLOW DOWN!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 30
-				audio_label_f1 = SOUND_FIN1_MS //Oh shit, the brakes is out!
-				$input_text_f1 = FIN1_MS //Oh shit, the brakes is out!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 
 
