@@ -308,6 +308,8 @@ LVAR_INT breakposter_f1flag
 LVAR_INT finalcut_f1flag
 LVAR_INT helpshoottext_f1flag
 LVAR_INT speaker_f1 // FIXEDGROVE
+LVAR_INT l1f1_car_select l1f1_cop1 l1f1_cop2 // FIXEDGROVE
+LVAR_INT l1f1_swap_seat l1f1_record_check l1f1_skip_mark_check // FIXEDGROVE
 ///////////////////////////////////////////////////////	On rails variables
 ///////////////////////////////////////////////////////	On rails variables
 
@@ -5433,271 +5435,55 @@ IF motelchase_f1flag = 1
 	////////////////////////////////////////////if cars are dead mark as no longer needed
 
 	//swap seat
-	IF policecarswap_f1flag[0] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[0]
-			IF NOT IS_CHAR_DEAD cop_f1[0]
-			ELSE
-				IF NOT IS_CHAR_DEAD cop_f1[1]
-					IF IS_CHAR_IN_CAR cop_f1[1] policecar_f1[0]
-						GET_DRIVER_OF_CAR policecar_f1[0] driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[1] policecar_f1[0]
-							policecarswap_f1flag[0] = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar_f1[0]
-					policecarswap_f1flag[0] = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecarswap_f1flag[0] = 2
-		IF IS_CHAR_DEAD cop_f1[1]
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[0]
-			policecarswap_f1flag[0] = 3
-		ENDIF 
-	ENDIF
 
-
-	IF policecar_f1flag[0] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[0]
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[0]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[0]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[0]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[1]
-				REMOVE_BLIP policecar_f1blip[0] 
-				policecar_f1flag[0] = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[0]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[0]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[1]
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[0]
-			REMOVE_BLIP policecar_f1blip[0] 
-			policecar_f1flag[0] = 2
-		ENDIF
-
-	ENDIF
-
-	//swap seat
-	IF policecarswap_f1flag[1] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[1]
-			IF NOT IS_CHAR_DEAD cop_f1[2]
-			ELSE
-				IF NOT IS_CHAR_DEAD cop_f1[3]
-					IF IS_CHAR_IN_CAR cop_f1[3] policecar_f1[1]
-						GET_DRIVER_OF_CAR policecar_f1[1] driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[3] policecar_f1[1]
-							policecarswap_f1flag[1] = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar_f1[1]
-					policecarswap_f1flag[1] = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecarswap_f1flag[1] = 2
-		IF IS_CHAR_DEAD cop_f1[3]
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[1]
-			policecarswap_f1flag[1] = 3
-		ENDIF 
-	ENDIF
-
-	IF policecar_f1flag[1] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[1]
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[1]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[1]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[2]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[3]
-				REMOVE_BLIP policecar_f1blip[1] 
-				policecar_f1flag[1] = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[1]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[2]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[3]
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[1]
-			REMOVE_BLIP policecar_f1blip[1] 
-			policecar_f1flag[1] = 2
-		ENDIF
-	ENDIF
-
-	IF policecar_f1flag[2] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[2]
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[2]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[2]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[4]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[5]
-				REMOVE_BLIP policecar_f1blip[2] 
-				MARK_CAR_AS_NO_LONGER_NEEDED train_f1
-				MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
-				policecar_f1flag[2] = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[2]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[4]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[5]
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[2]
-			MARK_CAR_AS_NO_LONGER_NEEDED train_f1
-			MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
-			REMOVE_BLIP policecar_f1blip[2] 
-			policecar_f1flag[2] = 2
-		ENDIF
-	ENDIF
-
-
-	//swap seat
-	IF policecarswap_f1flag[3] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[3]
-			IF NOT IS_CHAR_DEAD cop_f1[6]
-			ELSE
-				IF NOT IS_CHAR_DEAD cop_f1[7]
-					IF IS_CHAR_IN_CAR cop_f1[7] policecar_f1[3]
-						GET_DRIVER_OF_CAR policecar_f1[3] driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[7] policecar_f1[3]
-							policecarswap_f1flag[3] = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar_f1[3]
-					policecarswap_f1flag[3] = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecarswap_f1flag[3] = 2
-		IF IS_CHAR_DEAD cop_f1[7]
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[3]
-			policecarswap_f1flag[3] = 3
-		ENDIF 
-	ENDIF
-
-	IF policecar_f1flag[3] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[3]
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[3]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[3]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[6]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[7]
-				REMOVE_BLIP policecar_f1blip[3] 
-				policecar_f1flag[3] = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[3]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[6]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[7]
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[3]
-			REMOVE_BLIP policecar_f1blip[3] 
-			policecar_f1flag[3] = 2
-		ENDIF
-	ENDIF
-
-
-	//swap seat
-	IF policecarswap_f1flag[4] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[4]
-			IF NOT IS_CHAR_DEAD cop_f1[8]
-			ELSE
-				IF NOT IS_CHAR_DEAD cop_f1[9]
-					IF IS_CHAR_IN_CAR cop_f1[9] policecar_f1[4]
-						GET_DRIVER_OF_CAR policecar_f1[4] driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[9] policecar_f1[4]
-							policecarswap_f1flag[4] = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar_f1[4]
-					policecarswap_f1flag[4] = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecarswap_f1flag[4] = 2
-		IF IS_CHAR_DEAD cop_f1[9]
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[4]
-			policecarswap_f1flag[4] = 3
-		ENDIF 
-	ENDIF
-
-	IF policecar_f1flag[4] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[4]
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[4]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[4]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[8]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[9]
-				REMOVE_BLIP policecar_f1blip[4] 
-				policecar_f1flag[4] = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[4]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[8]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[9]
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[4]
-			REMOVE_BLIP policecar_f1blip[4] 
-			policecar_f1flag[4] = 2
-		ENDIF
-	ENDIF
-
-	IF policecar_f1flag[5] = 1
-		IF IS_CAR_DEAD policecar_f1[5]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[12]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[13]
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[5]
-			REMOVE_BLIP policecar_f1blip[5]
-			policecar_f1flag[5] = 2
-		ENDIF
-	ENDIF
-
-	IF policecarswap_f1flag[6] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[6]
-			IF NOT IS_CHAR_DEAD cop_f1[10]
-			ELSE
-				IF NOT IS_CHAR_DEAD cop_f1[11]
-					IF IS_CHAR_IN_CAR cop_f1[11] policecar_f1[6]
-						GET_DRIVER_OF_CAR policecar_f1[6] driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[11] policecar_f1[6]
-							policecarswap_f1flag[6] = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar_f1[6]
-					policecarswap_f1flag[6] = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecarswap_f1flag[6] = 2
-		IF IS_CHAR_DEAD cop_f1[11]
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[6]
-			policecarswap_f1flag[6] = 3
-		ENDIF 
-	ENDIF
-
-
-	IF policecar_f1flag[6] = 1
-		IF NOT IS_CAR_DEAD policecar_f1[6]
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[6]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[6]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[10]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[11]
-				REMOVE_BLIP policecar_f1blip[6] 
-				policecar_f1flag[6] = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar_f1[6]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[10]
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[11]
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[6]
-			REMOVE_BLIP policecar_f1blip[6] 
-			policecar_f1flag[6] = 2
-		ENDIF
-	ENDIF
+// FIXEDGROVE: START - replaced duplicate code with a function
+	l1f1_car_select = 0
+	WHILE l1f1_car_select < 7
+		SWITCH l1f1_car_select
+		CASE 0
+			l1f1_cop1 = 0
+			l1f1_cop2 = 1
+			l1f1_swap_seat = TRUE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		CASE 1
+			l1f1_cop1 = 2
+			l1f1_cop2 = 3
+		BREAK
+		CASE 2
+			l1f1_cop1 = 4
+			l1f1_cop2 = 5
+			l1f1_swap_seat = FALSE
+		BREAK
+		CASE 3
+			l1f1_cop1 = 6
+			l1f1_cop2 = 7
+			l1f1_swap_seat = TRUE
+		BREAK
+		CASE 4
+			l1f1_cop1 = 8
+			l1f1_cop2 = 9
+		BREAK
+		CASE 5
+			l1f1_cop1 = 12
+			l1f1_cop2 = 13
+			l1f1_swap_seat = FALSE
+			l1f1_record_check = FALSE
+			l1f1_skip_mark_check = TRUE
+		BREAK
+		CASE 6
+			l1f1_cop1 = 10
+			l1f1_cop2 = 11
+			l1f1_swap_seat = TRUE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		ENDSWITCH
+		GOSUB l1f1_swapped
+		l1f1_car_select++
+	ENDWHILE
+// FIXEDGROVE: END
 
 	IF extpoliceheli_f1flag = 0
 		IF IS_CAR_DEAD extpoliceheli_f1
@@ -7432,325 +7218,58 @@ IF NOT IS_CAR_DEAD sweet_car
 			ENDIF
 		ENDIF
 
-		IF policecar_f1flag[0] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[0]
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[0]
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[0]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[0]
-					REMOVE_BLIP policecar_f1blip[0] 
-					policecar_f1flag[0] = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[0]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[0]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[0]
-				REMOVE_BLIP policecar_f1blip[0] 
-				policecar_f1flag[0] = 2
-			ENDIF
-		ENDIF
-
 		//swap seat
-		IF policecarswap_f1flag[1] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[1]
-				IF NOT IS_CHAR_DEAD cop_f1[1]
-				ELSE
-					IF NOT IS_CHAR_DEAD cop_f1[2]
-						IF IS_CHAR_IN_CAR cop_f1[2] policecar_f1[1]
-							GET_DRIVER_OF_CAR policecar_f1[1] driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[2] policecar_f1[1]
-								policecarswap_f1flag[1] = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar_f1[1]
-						policecarswap_f1flag[1] = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecarswap_f1flag[1] = 2
-			IF IS_CHAR_DEAD cop_f1[2]
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[1]
-				policecarswap_f1flag[1] = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar_f1flag[1] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[1]
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[1]
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[1]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[1]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[2]
-					REMOVE_BLIP policecar_f1blip[1] 
-					policecar_f1flag[1] = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[1]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[1]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[2]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[1]
-				REMOVE_BLIP policecar_f1blip[1] 
-				policecar_f1flag[1] = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-		IF policecarswap_f1flag[2] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[2]
-				IF NOT IS_CHAR_DEAD cop_f1[3]
-				ELSE
-					IF NOT IS_CHAR_DEAD cop_f1[4]
-						IF IS_CHAR_IN_CAR cop_f1[4] policecar_f1[2]
-							GET_DRIVER_OF_CAR policecar_f1[2] driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[4] policecar_f1[2]
-								policecarswap_f1flag[2] = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar_f1[2]
-						policecarswap_f1flag[2] = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecarswap_f1flag[2] = 2
-			IF IS_CHAR_DEAD cop_f1[4]
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[2]
-				policecarswap_f1flag[2] = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar_f1flag[2] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[2]
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[2]
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[2]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[3]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[4]
-					REMOVE_BLIP policecar_f1blip[2] 
-					policecar_f1flag[2] = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[2]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[3]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[4]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[2]
-				REMOVE_BLIP policecar_f1blip[2] 
-				policecar_f1flag[2] = 2
-			ENDIF
-		ENDIF
-
-		IF policecar_f1flag[3] = 1
-			IF IS_CAR_DEAD policecar_f1[3]
-				REMOVE_BLIP policecar_f1blip[3]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[5]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[3]
-				policecar_f1flag[3] = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-		IF policecarswap_f1flag[4] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[4]
-				IF NOT IS_CHAR_DEAD cop_f1[8]
-				ELSE
-					IF NOT IS_CHAR_DEAD cop_f1[9]
-						IF IS_CHAR_IN_CAR cop_f1[9] policecar_f1[4]
-							GET_DRIVER_OF_CAR policecar_f1[4] driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[9] policecar_f1[4]
-								policecarswap_f1flag[4] = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar_f1[4]
-						policecarswap_f1flag[4] = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecarswap_f1flag[4] = 2
-			IF IS_CHAR_DEAD cop_f1[9]
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[4]
-				policecarswap_f1flag[4] = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar_f1flag[4] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[4]
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[4]
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[4]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[8]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[9]
-					REMOVE_BLIP policecar_f1blip[4] 
-					policecar_f1flag[4] = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[4]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[8]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[9]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[4]
-				REMOVE_BLIP policecar_f1blip[4] 
-				policecar_f1flag[4] = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-		IF policecarswap_f1flag[5] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[5]
-				IF NOT IS_CHAR_DEAD cop_f1[11]
-				ELSE
-					IF NOT IS_CHAR_DEAD cop_f1[12]
-						IF IS_CHAR_IN_CAR cop_f1[12] policecar_f1[5]
-							GET_DRIVER_OF_CAR policecar_f1[5] driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[12] policecar_f1[5]
-								policecarswap_f1flag[5] = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar_f1[5]
-						policecarswap_f1flag[5] = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecarswap_f1flag[5] = 2
-			IF IS_CHAR_DEAD cop_f1[12]
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[5]
-				policecarswap_f1flag[5] = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar_f1flag[5] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[5]
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[5]
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[5]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[11]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[12]
-					REMOVE_BLIP policecar_f1blip[5] 
-					policecar_f1flag[5] = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[5]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[11]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[12]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[5]
-				REMOVE_BLIP policecar_f1blip[5] 
-				policecar_f1flag[5] = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-// FIXEDGROVE: START - uncomment
-		IF policecarswap_f1flag[6] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[6]
-				IF NOT IS_CHAR_DEAD cop_f1[13]
-				ELSE
-					IF NOT IS_CHAR_DEAD cop_f1[14]
-						IF IS_CHAR_IN_CAR cop_f1[14] policecar_f1[6]
-							GET_DRIVER_OF_CAR policecar_f1[6] driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[14] policecar_f1[6]
-								policecarswap_f1flag[6] = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar_f1[6]
-						policecarswap_f1flag[6] = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecarswap_f1flag[6] = 2
-			IF IS_CHAR_DEAD cop_f1[14]
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[6]
-				policecarswap_f1flag[6] = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar_f1flag[6] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[6]
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[6]
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[6]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[13]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[14]
-					REMOVE_BLIP policecar_f1blip[6] 
-					policecar_f1flag[6] = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[6]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[13]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[14]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[6]
-				REMOVE_BLIP policecar_f1blip[6] 
-				policecar_f1flag[6] = 2
-			ENDIF
-		ENDIF
+// FIXEDGROVE: START - replaced duplicate code with a function
+	l1f1_car_select = 0
+	WHILE l1f1_car_select < 8
+		SWITCH l1f1_car_select
+		CASE 0
+			l1f1_cop1 = 0
+			l1f1_cop2 = -1
+			l1f1_swap_seat = FALSE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		CASE 1
+			l1f1_cop1 = 1
+			l1f1_cop2 = 2
+			l1f1_swap_seat = TRUE
+		BREAK
+		CASE 2
+			l1f1_cop1 = 3
+			l1f1_cop2 = 4
+		BREAK
+		CASE 3
+			l1f1_cop1 = 5
+			l1f1_cop2 = -1
+			l1f1_swap_seat = FALSE
+			l1f1_record_check = FALSE
+			l1f1_skip_mark_check = TRUE
+		BREAK
+		CASE 4
+			l1f1_cop1 = 8
+			l1f1_cop2 = 9
+			l1f1_swap_seat = TRUE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		CASE 5
+			l1f1_cop1 = 11
+			l1f1_cop2 = 12
+		BREAK
+		CASE 6
+			l1f1_cop1 = 13
+			l1f1_cop2 = 14
+		BREAK
+		CASE 7
+			l1f1_cop1 = 6
+			l1f1_cop2 = 7
+		BREAK
+		ENDSWITCH
+		GOSUB l1f1_swapped
+		l1f1_car_select++
+	ENDWHILE
 // FIXEDGROVE: END
-
-		//swap seat
-		IF policecarswap_f1flag[7] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[7]
-				IF NOT IS_CHAR_DEAD cop_f1[6]
-				ELSE
-					IF NOT IS_CHAR_DEAD cop_f1[7]
-						IF IS_CHAR_IN_CAR cop_f1[7] policecar_f1[7]
-							GET_DRIVER_OF_CAR policecar_f1[7] driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[7] policecar_f1[7]
-								policecarswap_f1flag[7] = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar_f1[7]
-						policecarswap_f1flag[7] = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecarswap_f1flag[7] = 2
-			IF IS_CHAR_DEAD cop_f1[7]
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[7]
-				policecarswap_f1flag[7] = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar_f1flag[7] = 1
-			IF NOT IS_CAR_DEAD policecar_f1[7]
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[7]
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[7]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[6]
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[7]
-					REMOVE_BLIP policecar_f1blip[7]
-					IF policecar_f1flag[3] = 1
-						IF IS_CAR_DEAD policecar_f1[3]
-							REMOVE_BLIP policecar_f1blip[3]
-							MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[5]
-							MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[7]
-							policecar_f1flag[3] = 2
-						ENDIF
-					ENDIF
-					policecar_f1flag[7] = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar_f1[7]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[6]
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[7]
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[7]
-				REMOVE_BLIP policecar_f1blip[7] 
-				IF policecar_f1flag[3] = 1
-					IF IS_CAR_DEAD policecar_f1[3]
-						REMOVE_BLIP policecar_f1blip[3]
-						MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[5]
-						MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[7]
-						policecar_f1flag[3] = 2
-					ENDIF
-				ENDIF
-				policecar_f1flag[7] = 2
-			ENDIF
-		ENDIF
 
 
 		///////////////////////////////////////////////////	Second Biker jumping
@@ -8500,6 +8019,87 @@ ENDIF
 
 GOTO moteldeal_mainloop
 
+// FIXEDGROVE: START - replaced duplicate code with a function
+l1f1_swapped:
+	IF l1f1_swap_seat = TRUE
+		IF policecarswap_f1flag[l1f1_car_select] = 1
+			IF NOT IS_CAR_DEAD policecar_f1[l1f1_car_select]
+				IF IS_CHAR_DEAD cop_f1[l1f1_cop1]
+					IF NOT IS_CHAR_DEAD cop_f1[l1f1_cop2]
+						IF IS_CHAR_IN_CAR cop_f1[l1f1_cop2] policecar_f1[l1f1_car_select]
+							GET_DRIVER_OF_CAR policecar_f1[l1f1_car_select] driverofcar_f1
+							IF driverofcar_f1 = -1
+								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[l1f1_cop2] policecar_f1[l1f1_car_select]
+								policecarswap_f1flag[l1f1_car_select] = 2
+							ENDIF
+						ENDIF
+					ELSE
+						IF l1f1_record_check = TRUE
+							STOP_PLAYBACK_RECORDED_CAR policecar_f1[l1f1_car_select]
+						ENDIF
+						policecarswap_f1flag[l1f1_car_select] = 2
+					ENDIF
+				ENDIF
+			ENDIF
+		ENDIF
+		IF policecarswap_f1flag[l1f1_car_select] = 2
+			IF IS_CHAR_DEAD cop_f1[l1f1_cop2]
+				IF l1f1_record_check = TRUE
+					STOP_PLAYBACK_RECORDED_CAR policecar_f1[l1f1_car_select]
+				ENDIF
+				policecarswap_f1flag[l1f1_car_select] = 3
+			ENDIF
+		ENDIF
+	ENDIF
+
+	IF policecar_f1flag[l1f1_car_select] = 1
+		IF NOT IS_CAR_DEAD policecar_f1[l1f1_car_select]
+			IF l1f1_skip_mark_check = FALSE
+				IF l1f1_record_check = TRUE
+					IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[l1f1_car_select]
+						GOSUB l1f1_mark_no_need
+					ENDIF
+				ELSE
+					GOSUB l1f1_mark_no_need
+				ENDIF
+			ENDIF
+		ELSE
+			IF l1f1_record_check = TRUE
+				STOP_PLAYBACK_RECORDED_CAR policecar_f1[l1f1_car_select]
+			ENDIF
+			GOSUB l1f1_mark_no_need
+		ENDIF
+	ENDIF
+RETURN
+
+l1f1_mark_no_need:
+	IF NOT l1f1_cop1 = -1
+		MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[l1f1_cop1]
+	ENDIF
+	IF NOT l1f1_cop2 = -1
+		MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[l1f1_cop2]
+	ENDIF
+	MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[l1f1_car_select]
+	REMOVE_BLIP policecar_f1blip[l1f1_car_select]
+	IF motelchase_f1flag = 1
+	AND l1f1_car_select = 2
+		MARK_CAR_AS_NO_LONGER_NEEDED train_f1
+		MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
+	ENDIF
+	IF motelchase_f1flag = 7
+	AND l1f1_car_select = 7
+		IF policecar_f1flag[3] = 1
+			IF IS_CAR_DEAD policecar_f1[3]
+				REMOVE_BLIP policecar_f1blip[3]
+				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[5]
+				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[7]
+				policecar_f1flag[3] = 2
+			ENDIF
+		ENDIF
+	ENDIF
+	policecar_f1flag[l1f1_car_select] = 2
+RETURN
+// FIXEDGROVE: END
 
 load_audio_f1:
 IF handlingaudio_f1flag = 0
