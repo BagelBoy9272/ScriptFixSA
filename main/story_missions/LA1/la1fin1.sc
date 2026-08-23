@@ -2139,7 +2139,7 @@ IF moteldeal_f1flag = 24
 		swat3_f1flag = 0
 		swat4_f1flag = 0
 		swatrope1_f1flag = 0
-		swatrope1_f1flag = 0
+		swatrope2_f1flag = 0 // FIXEDGROVE: was swatrope1_f1flag
 		SET_PLAYER_CONTROL PLAYER1 OFF
 		REMOVE_BLIP motel_f1blip
 		REMOVE_ANIMATION CAR_CHAT
