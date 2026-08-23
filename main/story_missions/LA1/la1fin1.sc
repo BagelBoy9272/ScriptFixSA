@@ -198,9 +198,9 @@ LVAR_INT heli_f1blip
 ///////////////////////////////////////////////////////	On rails variables
 ///////////////////////////////////////////////////////	On rails variables
 
-LVAR_INT policecar_f1[8] // FIXEDGROVE: array
+LVAR_INT policecar_f1[8] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT policecarblock_f1
-LVAR_INT cop_f1[16] // FIXEDGROVE: array
+LVAR_INT cop_f1[16] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT train_f1
 VAR_INT carhealth_f1
 LVAR_INT copbike1_f1
@@ -278,7 +278,7 @@ LVAR_INT fire6_f1
 LVAR_INT driverofcar_f1
 
 //blips
-LVAR_INT policecar_f1blip[8] // FIXEDGROVE: array
+LVAR_INT policecar_f1blip[8] // FIXEDGROVE: changed individual variables into an array
 
 //flags
 VAR_INT difficulty_f1flag //do not reset this // FIXEDGROVE: made difficulty flag global
@@ -286,7 +286,7 @@ VAR_INT difficulty_f1flag //do not reset this // FIXEDGROVE: made difficulty fla
 LVAR_INT rails_f1flag
 LVAR_INT motelchase_f1flag
 LVAR_INT copcars_f1flag
-LVAR_INT policecar_f1flag[8] // FIXEDGROVE: array
+LVAR_INT policecar_f1flag[8] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT sca_f1flag
 LVAR_INT policecarblock_f1flag
 LVAR_INT bikerjumper4_f1flag
@@ -295,7 +295,7 @@ LVAR_INT playdeathanim_f1flag
 LVAR_INT playdeathanim2_f1flag
 LVAR_INT helileave_f1flag
 LVAR_INT chasetext_f1flag
-LVAR_INT policecarswap_f1flag[8] // FIXEDGROVE: array
+LVAR_INT policecarswap_f1flag[8] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT copright_f1flag
 LVAR_INT copleft_f1flag
 LVAR_INT turncamera_f1flag
@@ -502,6 +502,7 @@ speaker_f1 = 0
 rails_f1flag = 0
 motelchase_f1flag = 0
 copcars_f1flag = 0
+	// FIXEDGROVE: while-loop to avoid repeats
 	temp_integer_1 = 0
 	WHILE temp_integer_1 < 8
 	policecar_f1flag[temp_integer_1] = 0
@@ -661,9 +662,9 @@ IF moteldeal_f1flag = 1
 
 	GOSUB process_audio_f1
 
-	// FIXEDGROVE: assigned speakers
 	//play mission audio
 	IF handlingaudio_f1flag = 0
+		// FIXEDGROVE: changed if-chain to switch-case
 		SWITCH progressaudio_f1flag
 		CASE 0
 			IF TIMERA > 7000
@@ -3940,6 +3941,7 @@ IF roofmotel_f1flag = 0
 			// FIXEDGROVE: assigned speakers to the voicelines, moved 'Go go go!' and 'Get into positions' voicelines here for consistency and to add back subtitles
 			//play mission audio
 			IF handlingaudio_f1flag = 0
+			// FIXEDGROVE: changed if-chain to switch-case
 			SWITCH progressaudio_f1flag
 				CASE 0
 					IF woundedgrove1_f1flag = 1
@@ -4642,6 +4644,7 @@ AND roofmotel_f1flag < 4
 
 					// FIXEDGROVE: asigned speakers
 					IF handlingaudio_f1flag = 0
+						// FIXEDGROVE: changed if-chain to switch-case
 						SWITCH progressaudio_f1flag
 						CASE 0
 							IF sweetexit_f1flag > 11
@@ -5522,6 +5525,7 @@ IF textrails_f1flag = 1
 
 	// FIXEDGROVE: assigned speakers
 	IF handlingaudio_f1flag = 0
+		// FIXEDGROVE: changed if-chain to switch-case
 		SWITCH progressaudio_f1flag
 		CASE 0
 			audio_label_f1 = SOUND_FIN1_KF	//Eh man, I’m running low.
@@ -5676,6 +5680,7 @@ IF motelchase_f1flag = 2
 	SET_NEAR_CLIP 0.1
 
 	//remove all cars and peds
+	// FIXEDGROVE: while-loop to avoid repeats
 	temp_integer_1 = 0
 	WHILE temp_integer_1 < 7
 		IF NOT temp_integer_1 = 5
@@ -5692,6 +5697,7 @@ IF motelchase_f1flag = 2
 	ENDWHILE
 
 	//reset flags that I am going to use again
+	// FIXEDGROVE: while-loop to avoid repeats
 	copcars_f1flag = 0
 	temp_integer_1 = 0
 	WHILE temp_integer_1 < 8
@@ -6248,6 +6254,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		GOSUB process_audio_f1
 
 
+		// FIXEDGROVE: changed if-chain to switch-case
 		SWITCH progressaudio_f1flag
 		CASE 0
 			audio_label_f1 = SOUND_FIN1_LA	//Eyes front, CJ!
@@ -8478,6 +8485,7 @@ MARK_MODEL_AS_NO_LONGER_NEEDED PETROTR
 SET_MAX_WANTED_LEVEL 4 		///////		WANTED LEVEL ASK FILSHIE ABOUT WHAT IT SHOULD BE SET BACK TO AT THIS POINT
 DELETE_CAR extpoliceheli_f1
 //blips
+	// FIXEDGROVE: while-loop to avoid repeats
 	temp_integer_1 = 0
 	WHILE temp_integer_1 < 8
 	REMOVE_BLIP policecar_f1blip[temp_integer_1]

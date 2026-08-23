@@ -198,6 +198,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed jarring time shift in the ending cutscene caused by the script setting the time to 7:00 AM 
 - Fixed characters not using their intended animation groups 
 - Add 4 star wanted level if the player fails the mission after getting to the motel 
+- Tidied up code to accomodate new changes under the size limit
 
 **Green Sabre:**
 - Fixed Grove member floating a bit in a cutscene
