@@ -4768,77 +4768,64 @@ IF sweetexit_f1flag = 23
 			SET_CAN_BURST_CAR_TYRES sweet_car FALSE 
 
 			CREATE_CAR COPCARLA 2169.1943 -1270.0591 22.8203 policecar_f1[0]	//1st car chasing player
-			SET_PETROL_TANK_WEAKPOINT policecar_f1[0] FALSE
 			SET_CAR_HEADING policecar_f1[0] 357.0326
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[0] TRUE
-			SET_CAR_HEALTH policecar_f1[0] 750
 			CREATE_CHAR_INSIDE_CAR policecar_f1[0] PEDTYPE_MISSION1 LAPD1 cop_f1[0]
-			SET_CHAR_DECISION_MAKER cop_f1[0] motel_DM
-			SET_CHAR_HEALTH cop_f1[0] 100
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[0] FALSE
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[0] TRUE
 			CREATE_CHAR_AS_PASSENGER policecar_f1[0] PEDTYPE_MISSION1 LAPD1 0 cop_f1[1]
-			SET_CHAR_DECISION_MAKER cop_f1[1] motel_dm
-			SET_CHAR_HEALTH cop_f1[1] 200
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[1] TRUE
-			GIVE_WEAPON_TO_CHAR cop_f1[1] WEAPONTYPE_MP5 99999
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[1] FALSE
-			CAR_SET_IDLE policecar_f1[0]
+			l1f1_car_select = 0
+			l1f1_cop1 = 0
+			l1f1_cop2 = 1
+			petrol_weakpoint = FALSE
+			critical_hits = FALSE
+			shot_in_vehicle = TRUE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_HEALTH policecar_f1[0] 750
 			SET_CAR_VISIBLE policecar_f1[0] FALSE
+			SET_CHAR_HEALTH cop_f1[0] 100
+			SET_CHAR_HEALTH cop_f1[1] 200
 
 			CREATE_CAR COPCARLA 2172.5264 -1280.7343 22.9766 policecar_f1[1]	//2nd car chasing player
-			SET_PETROL_TANK_WEAKPOINT policecar_f1[1] FALSE
 			SET_CAR_HEADING policecar_f1[1] 0.9448
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[1] TRUE
-			SET_CAR_HEALTH policecar_f1[1] 500
 			CREATE_CHAR_INSIDE_CAR policecar_f1[1] PEDTYPE_MISSION1 LAPD1 cop_f1[2]
-			SET_CAR_PROOFS policecar_f1[1] FALSE TRUE TRUE TRUE TRUE
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[2] TRUE
-			SET_CHAR_HEALTH cop_f1[2] 100
-			SET_CHAR_DECISION_MAKER cop_f1[2] motel_DM
 			CREATE_CHAR_AS_PASSENGER policecar_f1[1] PEDTYPE_MISSION1 LAPD1 0 cop_f1[3]
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[3] TRUE
-			SET_CHAR_DECISION_MAKER cop_f1[3] motel_dm
-			SET_CHAR_HEALTH cop_f1[3] 200
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[3] FALSE
-			GIVE_WEAPON_TO_CHAR cop_f1[3] WEAPONTYPE_MP5 99999
-			CAR_SET_IDLE policecar_f1[1]
+			l1f1_car_select = 1
+			l1f1_cop1 = 2
+			l1f1_cop2 = 3
+			critical_hits = TRUE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_PROOFS policecar_f1[1] FALSE TRUE TRUE TRUE TRUE
+			SET_CAR_HEALTH policecar_f1[1] 500
 			SET_CAR_VISIBLE policecar_f1[1] FALSE
+			SET_CHAR_HEALTH cop_f1[2] 100
+			SET_CHAR_HEALTH cop_f1[3] 200
 
 			CREATE_CAR COPCARLA 2223.11 -1150.118 24.92 policecar_f1[2]	//3rd, hits train
-			SET_PETROL_TANK_WEAKPOINT policecar_f1[2] FALSE
 			CREATE_CHAR_INSIDE_CAR policecar_f1[2] PEDTYPE_MISSION1 LAPD1 cop_f1[4]
-			SET_CHAR_CAN_BE_SHOT_IN_VEHICLE cop_f1[4] FALSE
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[2] TRUE
-			SET_CAR_HEALTH policecar_f1[2] 1000
-			SET_CHAR_DECISION_MAKER cop_f1[4] motel_DM
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[4] TRUE
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[4] FALSE
 			CREATE_CHAR_AS_PASSENGER policecar_f1[2] PEDTYPE_MISSION1 LAPD1 0 cop_f1[5]
-			SET_CHAR_DECISION_MAKER cop_f1[5] motel_dm
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[5] TRUE
+			l1f1_car_select = 2
+			l1f1_cop1 = 4
+			l1f1_cop2 = 5
+			critical_hits = FALSE
+			shot_in_vehicle = FALSE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_HEALTH policecar_f1[2] 1000
 			SET_CHAR_HEALTH cop_f1[5] 200
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[5] FALSE
-			GIVE_WEAPON_TO_CHAR cop_f1[5] WEAPONTYPE_MP5 99999
-			CAR_SET_IDLE policecar_f1[2]
 
 			CREATE_CAR COPCARLA 2388.808 -1259.431 22.94 policecar_f1[3]	//waiting outside garage
 			SET_CAR_HEADING policecar_f1[3] 89.36
-			SET_PETROL_TANK_WEAKPOINT policecar_f1[3] FALSE
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[3] TRUE
-			SET_CAR_HEALTH policecar_f1[3] 900
 			CREATE_CHAR_INSIDE_CAR policecar_f1[3] PEDTYPE_MISSION1 LAPD1 cop_f1[6]
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[6] TRUE
-			SET_CHAR_DECISION_MAKER cop_f1[6] motel_DM
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[6] FALSE
-			SET_CHAR_HEALTH cop_f1[6] 100
 			CREATE_CHAR_AS_PASSENGER policecar_f1[3] PEDTYPE_MISSION1 LAPD1 0 cop_f1[7]
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[7] TRUE
+			l1f1_car_select = 3
+			l1f1_cop1 = 6
+			l1f1_cop2 = 7
+			shot_in_vehicle = TRUE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_HEALTH policecar_f1[3] 900
+			SET_CHAR_HEALTH cop_f1[6] 100
 			SET_CHAR_HEALTH cop_f1[7] 150
-			SET_CHAR_DECISION_MAKER cop_f1[7] motel_dm
-			GIVE_WEAPON_TO_CHAR cop_f1[7] WEAPONTYPE_MP5 9999
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[7] FALSE
-			CAR_SET_IDLE policecar_f1[3]
 
 			SWITCH_RANDOM_TRAINS OFF
 			DELETE_ALL_TRAINS
@@ -5268,37 +5255,33 @@ IF motelchase_f1flag = 1
 					MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
 
 					CREATE_CAR COPCARLA 2500.697 -1443.776 28.28 policecar_f1[4]	//comes in front of the player smacks into players bumper
-					SET_PETROL_TANK_WEAKPOINT policecar_f1[4] FALSE
 					SET_CAR_HEADING policecar_f1[4] 90.4588
-					SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[4] TRUE
-					SET_CAR_HEALTH policecar_f1[4] 750
 					CREATE_CHAR_INSIDE_CAR policecar_f1[4] PEDTYPE_MISSION1 LAPD1 cop_f1[8]
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[8] TRUE
-					SET_CHAR_DECISION_MAKER cop_f1[8] motel_DM
-					SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[8] FALSE
-					SET_CHAR_HEALTH cop_f1[8] 200
 					CREATE_CHAR_AS_PASSENGER policecar_f1[4] PEDTYPE_MISSION1 LAPD1 0 cop_f1[9]
-					SET_CHAR_DECISION_MAKER cop_f1[9] motel_dm
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[9] TRUE
+					l1f1_car_select = 4
+					l1f1_cop1 = 8
+					l1f1_cop2 = 9
+					petrol_weakpoint = FALSE
+					critical_hits = FALSE
+					shot_in_vehicle = TRUE
+					GOSUB l1f1_policecar_setup
+					GOSUB l1f1_outside_guys_setup
+					SET_CAR_HEALTH policecar_f1[4] 750
+					SET_CHAR_HEALTH cop_f1[8] 200
 					SET_CHAR_HEALTH cop_f1[9] 100
-					GIVE_WEAPON_TO_CHAR cop_f1[9] WEAPONTYPE_MP5 9999
-					SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[9] FALSE
-					CAR_SET_IDLE policecar_f1[4]
 
 					CREATE_CAR COPCARLA 2478.223 -1321.966 28.252 policecar_f1[6]	//comes out of side	
 					SET_CAR_HEADING policecar_f1[6] 356.585
-					SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[6] TRUE
-					SET_CAR_HEALTH policecar_f1[6] 280
-					CAR_SET_IDLE policecar_f1[6]
 					CREATE_CHAR_INSIDE_CAR policecar_f1[6] PEDTYPE_MISSION1 LAPD1 cop_f1[10]
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[10] TRUE
-					SET_CHAR_DECISION_MAKER cop_f1[10] motel_DM
 					CREATE_CHAR_AS_PASSENGER policecar_f1[6] PEDTYPE_MISSION1 LAPD1 0 cop_f1[11]
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[11] TRUE
-					SET_CHAR_DECISION_MAKER cop_f1[11] motel_dm
-					SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[11] FALSE
-					GIVE_WEAPON_TO_CHAR cop_f1[11] WEAPONTYPE_MP5 9999
-					CAR_SET_IDLE policecar_f1[6]
+					l1f1_car_select = 6
+					l1f1_cop1 = 10
+					l1f1_cop2 = 11
+					petrol_weakpoint = TRUE
+					critical_hits = TRUE
+					GOSUB l1f1_policecar_setup
+					GOSUB l1f1_outside_guys_setup
+					SET_CAR_HEALTH policecar_f1[6] 280
 				ENDIF
 				copcars_f1flag = 3
 			ENDIF		
@@ -5811,55 +5794,45 @@ IF motelchase_f1flag = 2
 	sca_f1flag = 1
 
 	CREATE_CAR COPCARLA 2520.49 -1485.04 22.84 policecar_f1[1] //first chaser through car wash
-	SET_PETROL_TANK_WEAKPOINT policecar_f1[1] FALSE
 	SET_CAR_HEADING policecar_f1[1] 1.33
-	SET_CAR_HEALTH policecar_f1[1] 750
-	SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[1] TRUE
 	CREATE_CHAR_INSIDE_CAR policecar_f1[1] PEDTYPE_MISSION1 LAPD1 cop_f1[1]
-	SET_CHAR_DECISION_MAKER cop_f1[1] motel_DM
-	SET_CHAR_HEALTH cop_f1[1] 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[1] TRUE
 	CREATE_CHAR_AS_PASSENGER policecar_f1[1] PEDTYPE_MISSION1 LAPD1 0 cop_f1[2]
-	SET_CHAR_DECISION_MAKER cop_f1[2] motel_dm
+	l1f1_car_select = 1
+	l1f1_cop1 = 1
+	l1f1_cop2 = 2
+	petrol_weakpoint = FALSE
+	critical_hits = TRUE
+	shot_in_vehicle = TRUE
+	GOSUB l1f1_policecar_setup
+	GOSUB l1f1_outside_guys_setup
+	SET_CAR_HEALTH policecar_f1[1] 750
+	SET_CHAR_HEALTH cop_f1[1] 100
 	SET_CHAR_HEALTH cop_f1[2] 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[2] TRUE
-	GIVE_WEAPON_TO_CHAR cop_f1[2] WEAPONTYPE_MP5 9999
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[2] FALSE
-	CAR_SET_IDLE policecar_f1[1]
 
 	CREATE_CAR COPCARLA 2532.98 -1502.372 23.67 policecar_f1[2] //2nd chaser thru car wash
-	SET_PETROL_TANK_WEAKPOINT policecar_f1[2] FALSE
 	SET_CAR_HEADING policecar_f1[2] 266.9
-	SET_CAR_HEALTH policecar_f1[2] 600 //800
-	SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[2] TRUE
 	CREATE_CHAR_INSIDE_CAR policecar_f1[2] PEDTYPE_MISSION1 LAPD1 cop_f1[3]
-	SET_CHAR_DECISION_MAKER cop_f1[3] motel_DM
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[3] FALSE
-	SET_CHAR_HEALTH cop_f1[3] 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[3] TRUE
 	CREATE_CHAR_AS_PASSENGER policecar_f1[2] PEDTYPE_MISSION1 LAPD1 0 cop_f1[4]
-	SET_CHAR_DECISION_MAKER cop_f1[4] motel_dm
+	l1f1_car_select = 2
+	l1f1_cop1 = 3
+	l1f1_cop2 = 4
+	critical_hits = FALSE
+	GOSUB l1f1_policecar_setup
+	GOSUB l1f1_outside_guys_setup
+	SET_CAR_HEALTH policecar_f1[2] 600 //800
+	SET_CHAR_HEALTH cop_f1[3] 100
 	SET_CHAR_HEALTH cop_f1[4] 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[4] TRUE
-	GIVE_WEAPON_TO_CHAR cop_f1[4] WEAPONTYPE_MP5 9999
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[4] FALSE
-	CAR_SET_IDLE policecar_f1[2]
 
 	CREATE_CAR COPCARLA 2510.967 -1448.138 28.398 policecar_f1[7] //chase that goes away after car wash
-	SET_PETROL_TANK_WEAKPOINT policecar_f1[7] FALSE
 	SET_CAR_HEADING policecar_f1[7] 72.49
-	SET_CAR_HEALTH policecar_f1[7] 325
-	SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[7] TRUE
 	CREATE_CHAR_INSIDE_CAR policecar_f1[7] PEDTYPE_MISSION1 LAPD1 cop_f1[6]
-	SET_CHAR_DECISION_MAKER cop_f1[6] motel_DM
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[6] FALSE
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[6] TRUE
 	CREATE_CHAR_AS_PASSENGER policecar_f1[7] PEDTYPE_MISSION1 LAPD1 0 cop_f1[7]
-	SET_CHAR_DECISION_MAKER cop_f1[7] motel_dm
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[7] TRUE
-	GIVE_WEAPON_TO_CHAR cop_f1[7] WEAPONTYPE_MP5 9999
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[7] FALSE
-	CAR_SET_IDLE policecar_f1[7]
+	l1f1_car_select = 6
+	l1f1_cop1 = 6
+	l1f1_cop2 = 7
+	GOSUB l1f1_policecar_setup
+	GOSUB l1f1_outside_guys_setup
+	SET_CAR_HEALTH policecar_f1[7] 325
 
 	IF NOT IS_CAR_DEAD sweet_car
 	AND NOT IS_CAR_DEAD policecar_f1[0]
@@ -6566,58 +6539,47 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CAR_PROOFS copbike4_f1 TRUE TRUE TRUE TRUE TRUE
 
 				CREATE_CAR COPCARLA 2222.98 -1303.52 22.654 policecar_f1[4] //car that comes out with the bike
-				SET_PETROL_TANK_WEAKPOINT policecar_f1[4] FALSE
 				SET_CAR_HEADING policecar_f1[4] 269.409
-				SET_CAR_HEALTH policecar_f1[4] 850
-				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[4] TRUE
 				CREATE_CHAR_INSIDE_CAR policecar_f1[4] PEDTYPE_MISSION1 LAPD1 cop_f1[8]
-				SET_CHAR_DECISION_MAKER cop_f1[8] motel_DM
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[8] FALSE
-				SET_CHAR_HEALTH cop_f1[8] 100
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[8] TRUE
 				CREATE_CHAR_AS_PASSENGER policecar_f1[4] PEDTYPE_MISSION1 LAPD1 0 cop_f1[9]
-				SET_CHAR_DECISION_MAKER cop_f1[9] motel_dm
+				l1f1_car_select = 4
+				l1f1_cop1 = 8
+				l1f1_cop2 = 9
+				petrol_weakpoint = FALSE
+				critical_hits = FALSE
+				shot_in_vehicle = TRUE
+				GOSUB l1f1_policecar_setup
+				GOSUB l1f1_outside_guys_setup
+				SET_CAR_HEALTH policecar_f1[4] 850
+				SET_CHAR_HEALTH cop_f1[8] 100
 				SET_CHAR_HEALTH cop_f1[9] 100
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[9] TRUE
-				GIVE_WEAPON_TO_CHAR cop_f1[9] WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[9] FALSE
-				CAR_SET_IDLE policecar_f1[4]
 
 				CREATE_CAR COPCARLA 2250.63 -1380.995 22.65 policecar_f1[5] //at the bottom of the road
-				SET_PETROL_TANK_WEAKPOINT policecar_f1[5] FALSE
 				SET_CAR_HEADING policecar_f1[5] 268.1
+				CREATE_CHAR_INSIDE_CAR policecar_f1[5] PEDTYPE_MISSION1 LAPD1 cop_f1[11]
+				CREATE_CHAR_AS_PASSENGER policecar_f1[5] PEDTYPE_MISSION1 LAPD1 0 cop_f1[12]
+				l1f1_car_select = 0
+				l1f1_cop1 = 0
+				l1f1_cop2 = 1
+				GOSUB l1f1_policecar_setup
+				GOSUB l1f1_outside_guys_setup
 				SET_CAR_HEALTH policecar_f1[5] 800
 				SET_CAR_PROOFS policecar_f1[5] FALSE FALSE TRUE FALSE FALSE
-				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[5] TRUE
-				CREATE_CHAR_INSIDE_CAR policecar_f1[5] PEDTYPE_MISSION1 LAPD1 cop_f1[11]
-				SET_CHAR_DECISION_MAKER cop_f1[11] motel_DM
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[11] FALSE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[11] TRUE
-				CREATE_CHAR_AS_PASSENGER policecar_f1[5] PEDTYPE_MISSION1 LAPD1 0 cop_f1[12]
-				SET_CHAR_DECISION_MAKER cop_f1[12] motel_dm
 				SET_CHAR_HEALTH cop_f1[12] 200
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[12] TRUE
-				GIVE_WEAPON_TO_CHAR cop_f1[12] WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[12] FALSE
-				CAR_SET_IDLE policecar_f1[5]
 
 // FIXEDGROVE: START - uncomment
 				CREATE_CAR COPCARLA 2330.692 -1304.53 23.9 policecar_f1[6] // opposite the alley entrance
 				SET_CAR_HEADING policecar_f1[6] 87.107
-				SET_CAR_HEALTH policecar_f1[6] 750
-				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[6] TRUE
 				CREATE_CHAR_INSIDE_CAR policecar_f1[6] PEDTYPE_MISSION1 LAPD1 cop_f1[13]
-				SET_CHAR_DECISION_MAKER cop_f1[13] motel_DM
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[13] FALSE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[13] TRUE
 				CREATE_CHAR_AS_PASSENGER policecar_f1[6] PEDTYPE_MISSION1 LAPD1 0 cop_f1[14]
-				SET_CHAR_DECISION_MAKER cop_f1[14] motel_dm
+				l1f1_car_select = 6
+				l1f1_cop1 = 13
+				l1f1_cop2 = 14
+				petrol_weakpoint = TRUE
+				GOSUB l1f1_policecar_setup
+				GOSUB l1f1_outside_guys_setup
+				SET_CAR_HEALTH policecar_f1[6] 750
 				SET_CHAR_HEALTH cop_f1[14] 200
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[14] TRUE
-
-				GIVE_WEAPON_TO_CHAR cop_f1[14] WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[14] FALSE
-				CAR_SET_IDLE policecar_f1[6]
 // FIXEDGROVE: END
    				copcars_f1flag = 3
 			ENDIF
@@ -7965,7 +7927,7 @@ ENDIF
 
 GOTO moteldeal_mainloop
 
-// FIXEDGROVE: START - replaced duplicate code with a function
+// FIXEDGROVE: START - replaced duplicate code with functions
 l1f1_swapped:
 	IF l1f1_swap_seat = TRUE
 		IF policecarswap_f1flag[l1f1_car_select] = 1
