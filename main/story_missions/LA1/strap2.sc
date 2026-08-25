@@ -1300,6 +1300,7 @@ IF pickupcollect_s2flag = 2
 		DELETE_CHAR guard5_s2
 		DELETE_CHAR guard6_s2
 		DELETE_CHAR guard7_s2
+		DELETE_CHAR guard8_s2 // FIXEDGROVE: was missing
 		REMOVE_BLIP guard1_s2blip
 		REMOVE_BLIP guard2_s2blip
 		REMOVE_BLIP guard3_s2blip
@@ -1307,6 +1308,7 @@ IF pickupcollect_s2flag = 2
 		REMOVE_BLIP guard5_s2blip
 		REMOVE_BLIP guard6_s2blip
 		REMOVE_BLIP guard7_s2blip
+		REMOVE_BLIP guard8_s2blip // FIXEDGROVE: was missing before
 
 		MARK_MODEL_AS_NO_LONGER_NEEDED WBDYG1
 		MARK_MODEL_AS_NO_LONGER_NEEDED WBDYG2
@@ -1319,6 +1321,7 @@ IF pickupcollect_s2flag = 2
 		REMOVE_ANIMATION VENDING
 		MARK_MODEL_AS_NO_LONGER_NEEDED KNIFECUR
 		SET_RADAR_ZOOM 0
+		/* // FIXEDGROVE: START - comment out
 		REMOVE_BLIP guard1_s2blip
 		REMOVE_BLIP guard2_s2blip
 		REMOVE_BLIP guard3_s2blip
@@ -1326,6 +1329,7 @@ IF pickupcollect_s2flag = 2
 		REMOVE_BLIP guard5_s2blip
 		REMOVE_BLIP guard6_s2blip
 		REMOVE_BLIP guard7_s2blip
+		*/ // FIXEDGROVE: END
 
 		PRINT_NOW STP2_30 7000 1 //~s~You need to take the rhymebook back to OG Loc he is at ~y~Burger Shot~s~.
 		
@@ -1617,6 +1621,7 @@ REMOVE_BLIP guard4_s2blip
 REMOVE_BLIP guard5_s2blip
 REMOVE_BLIP guard6_s2blip
 REMOVE_BLIP guard7_s2blip
+REMOVE_BLIP guard8_s2blip // FIXEDGROVE: was missing before
 REMOVE_PICKUP rhymebook_s2
 //models & animations
 UNLOAD_SPECIAL_CHARACTER 1

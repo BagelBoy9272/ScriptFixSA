@@ -164,6 +164,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Proofed Denise in ending cutscene to prevent softlocks
 - Remove the alley molotov pickup in cleanup
 
+**Madd Dogg's Rhymes:**
+- Removed stray marker on the map after exiting the mansion
+
 **House Party:**
 - Added facial talk anim to voicelines
 - Fixed repeated gang member skins
