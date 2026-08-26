@@ -262,6 +262,7 @@ LVAR_INT helpshoottext_f1flag
 LVAR_INT speaker_f1 // FIXEDGROVE
 LVAR_INT l1f1_count l1f1_car_select l1f1_cop1 l1f1_cop2 // FIXEDGROVE
 LVAR_INT l1f1_swap_seat l1f1_record_check l1f1_skip_mark_check l1f1_char_name // FIXEDGROVE
+LVAR_INT l1f1_special_flag l1f1_petrol_weakpoint l1f1_critical_hits l1f1_shot_in_vehicle // FIXEDGROVE
 ///////////////////////////////////////////////////////	On rails variables
 ///////////////////////////////////////////////////////	On rails variables
 
@@ -3671,13 +3672,13 @@ IF roofmotel_f1flag = 0
 
 						CREATE_CAR POLMAV 2249.51 -1111.52 56.1 extpoliceheli_f1
 						CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION2 SWAT exthelidriver_f1
-						GOSUB outside_heli_cutscene_setup
+						GOSUB l1f1_outside_heli_cutscene_setup
 
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
-						GOSUB outside_heli_guys_cutscene_setup
+						GOSUB l1f1_outside_heli_guys_cutscene_setup
 
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
 						SET_CHAR_RELATIONSHIP swat_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
@@ -4032,13 +4033,13 @@ IF roofmotel_f1flag = 1
 
 							CREATE_CAR POLMAV 2249.51 -1111.52 56.1 extpoliceheli_f1
 							CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION2 SWAT exthelidriver_f1
-							GOSUB outside_heli_cutscene_setup
+							GOSUB l1f1_outside_heli_cutscene_setup
 
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
-							GOSUB outside_heli_guys_cutscene_setup
+							GOSUB l1f1_outside_heli_guys_cutscene_setup
 
 							CREATE_SEARCHLIGHT_ON_VEHICLE extpoliceheli_f1 0.0 1.0 -0.5 2193.73 -1166.85 34.06 3.0 0.4 helispotlight_f1
 							POINT_SEARCHLIGHT_AT_CHAR helispotlight_f1 sweet 0.2
@@ -4627,9 +4628,9 @@ IF sweetexit_f1flag = 23
 			l1f1_car_select = 0
 			l1f1_cop1 = 0
 			l1f1_cop2 = 1
-			petrol_weakpoint = FALSE
-			critical_hits = FALSE
-			shot_in_vehicle = TRUE
+			l1f1_petrol_weakpoint = FALSE
+			l1f1_critical_hits = FALSE
+			l1f1_shot_in_vehicle = TRUE
 			GOSUB l1f1_policecar_setup
 			GOSUB l1f1_outside_guys_setup
 			SET_CAR_HEALTH policecar_f1[0] 750
@@ -4644,7 +4645,7 @@ IF sweetexit_f1flag = 23
 			l1f1_car_select = 1
 			l1f1_cop1 = 2
 			l1f1_cop2 = 3
-			critical_hits = TRUE
+			l1f1_critical_hits = TRUE
 			GOSUB l1f1_policecar_setup
 			GOSUB l1f1_outside_guys_setup
 			SET_CAR_PROOFS policecar_f1[1] FALSE TRUE TRUE TRUE TRUE
@@ -4659,8 +4660,8 @@ IF sweetexit_f1flag = 23
 			l1f1_car_select = 2
 			l1f1_cop1 = 4
 			l1f1_cop2 = 5
-			critical_hits = FALSE
-			shot_in_vehicle = FALSE
+			l1f1_critical_hits = FALSE
+			l1f1_shot_in_vehicle = FALSE
 			GOSUB l1f1_policecar_setup
 			GOSUB l1f1_outside_guys_setup
 			SET_CAR_HEALTH policecar_f1[2] 1000
@@ -4673,7 +4674,7 @@ IF sweetexit_f1flag = 23
 			l1f1_car_select = 3
 			l1f1_cop1 = 6
 			l1f1_cop2 = 7
-			shot_in_vehicle = TRUE
+			l1f1_shot_in_vehicle = TRUE
 			GOSUB l1f1_policecar_setup
 			GOSUB l1f1_outside_guys_setup
 			SET_CAR_HEALTH policecar_f1[3] 900
@@ -5114,9 +5115,9 @@ IF motelchase_f1flag = 1
 					l1f1_car_select = 4
 					l1f1_cop1 = 8
 					l1f1_cop2 = 9
-					petrol_weakpoint = FALSE
-					critical_hits = FALSE
-					shot_in_vehicle = TRUE
+					l1f1_petrol_weakpoint = FALSE
+					l1f1_critical_hits = FALSE
+					l1f1_shot_in_vehicle = TRUE
 					GOSUB l1f1_policecar_setup
 					GOSUB l1f1_outside_guys_setup
 					SET_CAR_HEALTH policecar_f1[4] 750
@@ -5130,8 +5131,8 @@ IF motelchase_f1flag = 1
 					l1f1_car_select = 6
 					l1f1_cop1 = 10
 					l1f1_cop2 = 11
-					petrol_weakpoint = TRUE
-					critical_hits = TRUE
+					l1f1_petrol_weakpoint = TRUE
+					l1f1_critical_hits = TRUE
 					GOSUB l1f1_policecar_setup
 					GOSUB l1f1_outside_guys_setup
 					SET_CAR_HEALTH policecar_f1[6] 280
@@ -5653,9 +5654,9 @@ IF motelchase_f1flag = 2
 	l1f1_car_select = 1
 	l1f1_cop1 = 1
 	l1f1_cop2 = 2
-	petrol_weakpoint = FALSE
-	critical_hits = TRUE
-	shot_in_vehicle = TRUE
+	l1f1_petrol_weakpoint = FALSE
+	l1f1_critical_hits = TRUE
+	l1f1_shot_in_vehicle = TRUE
 	GOSUB l1f1_policecar_setup
 	GOSUB l1f1_outside_guys_setup
 	SET_CAR_HEALTH policecar_f1[1] 750
@@ -5669,7 +5670,7 @@ IF motelchase_f1flag = 2
 	l1f1_car_select = 2
 	l1f1_cop1 = 3
 	l1f1_cop2 = 4
-	critical_hits = FALSE
+	l1f1_critical_hits = FALSE
 	GOSUB l1f1_policecar_setup
 	GOSUB l1f1_outside_guys_setup
 	SET_CAR_HEALTH policecar_f1[2] 600 //800
@@ -6398,9 +6399,9 @@ IF NOT IS_CAR_DEAD sweet_car
 				l1f1_car_select = 4
 				l1f1_cop1 = 8
 				l1f1_cop2 = 9
-				petrol_weakpoint = FALSE
-				critical_hits = FALSE
-				shot_in_vehicle = TRUE
+				l1f1_petrol_weakpoint = FALSE
+				l1f1_critical_hits = FALSE
+				l1f1_shot_in_vehicle = TRUE
 				GOSUB l1f1_policecar_setup
 				GOSUB l1f1_outside_guys_setup
 				SET_CAR_HEALTH policecar_f1[4] 850
@@ -6428,7 +6429,7 @@ IF NOT IS_CAR_DEAD sweet_car
 				l1f1_car_select = 6
 				l1f1_cop1 = 13
 				l1f1_cop2 = 14
-				petrol_weakpoint = TRUE
+				l1f1_petrol_weakpoint = TRUE
 				GOSUB l1f1_policecar_setup
 				GOSUB l1f1_outside_guys_setup
 				SET_CAR_HEALTH policecar_f1[6] 750
@@ -7789,18 +7790,18 @@ SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
 RETURN
 
 l1f1_outside_heli_guys_cutscene_setup:
-temp_integer = 0
-WHILE temp_integer < 4
-SET_CHAR_RELATIONSHIP swat_f1[temp_integer] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-IF temp_integer = 0
-OR temp_integer = 2
-SET_CHAR_RELATIONSHIP swat_f1[temp_integer] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+l1f1_count = 0
+WHILE l1f1_count < 4
+SET_CHAR_RELATIONSHIP swat_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
+IF l1f1_count = 0
+OR l1f1_count = 2
+SET_CHAR_RELATIONSHIP swat_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
 ENDIF
-SET_CHAR_DECISION_MAKER swat_f1[temp_integer] extmotel_DM
-swat_f1flag[temp_integer] = 0
-SET_CHAR_HEALTH swat_f1[temp_integer] 150
-SET_CHAR_SHOOT_RATE swat_f1[temp_integer] 70
-temp_integer++
+SET_CHAR_DECISION_MAKER swat_f1[l1f1_count] extmotel_DM
+swat_f1flag[l1f1_count] = 0
+SET_CHAR_HEALTH swat_f1[l1f1_count] 150
+SET_CHAR_SHOOT_RATE swat_f1[l1f1_count] 70
+l1f1_count++
 ENDWHILE
 ATTACH_CHAR_TO_CAR swat_f1[0] extpoliceheli_f1 1.4 1.3 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
 ATTACH_CHAR_TO_CAR swat_f1[1] extpoliceheli_f1 1.4 -0.8 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
@@ -7863,7 +7864,7 @@ SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
 RETURN
 
 l1f1_policecar_setup:
-IF petrol_weakpoint = FALSE
+IF l1f1_petrol_weakpoint = FALSE
 	SET_PETROL_TANK_WEAKPOINT policecar_f1[l1f1_car_select] FALSE
 ENDIF
 SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[l1f1_car_select] TRUE
@@ -7873,14 +7874,14 @@ RETURN
 l1f1_outside_guys_setup:
 SET_CHAR_DECISION_MAKER cop_f1[l1f1_cop1] motel_DM
 SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[l1f1_cop1] TRUE
-IF critical_hits = FALSE
+IF l1f1_critical_hits = FALSE
 	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[l1f1_cop1] FALSE
 ENDIF
-IF shot_in_vehicle = FALSE
+IF l1f1_shot_in_vehicle = FALSE
 	SET_CHAR_CAN_BE_SHOT_IN_VEHICLE cop_f1[l1f1_cop1] FALSE
 ENDIF
 l1f1_char_name = cop_f1[l1f1_cop2]
-GOSUB l1f1_outside_guys_passenger
+GOSUB l1f1_outside_guys_passenger_setup
 RETURN
 
 l1f1_outside_guys_passenger_setup:
