@@ -896,8 +896,10 @@ IF moteldeal_f1flag = 2
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove_f1[2]
 		SET_ANIM_GROUP_FOR_CHAR grove_f1[2] gang1 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove_f1[2] 359.1032 //leaning against the left car
+		l1f1_special_flag = TRUE
 		l1f1_count = 2
 		GOSUB l1f1_outside_grove_setup
+		l1f1_special_flag = FALSE
 		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2226.3889 -1171.6877 24.7265 grove_f1[3]
 		SET_ANIM_GROUP_FOR_CHAR grove_f1[3] gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove_f1[3] 278.7767 //next to him
@@ -1513,41 +1515,21 @@ IF moteldeal_f1flag = 20
 		SET_CHAR_ACCURACY swat_f1[2] 30
 		GIVE_WEAPON_TO_CHAR swat_f1[2] WEAPONTYPE_MP5 3000
 		
-		IF NOT IS_CHAR_DEAD grove_f1[0]
-			SET_CHAR_RELATIONSHIP grove_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove_f1[0] extmotel_DM
+		l1f1_count = 0
+		WHILE l1f1_count < 4
+		IF NOT IS_CHAR_DEAD grove_f1[l1f1_count]
+			SET_CHAR_RELATIONSHIP grove_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
+			SET_CHAR_DECISION_MAKER grove_f1[l1f1_count] extmotel_DM
 		ENDIF
-		IF NOT IS_CHAR_DEAD grove_f1[1]
-			SET_CHAR_RELATIONSHIP grove_f1[1] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove_f1[1] extmotel_DM
+		IF NOT IS_CHAR_DEAD swatrope_f1[l1f1_count]
+			SET_CHAR_RELATIONSHIP swatrope_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+			IF l1f1_count < 3
+				SET_CHAR_RELATIONSHIP swatrope_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+			ENDIF
+			SET_CHAR_DECISION_MAKER swatrope_f1[l1f1_count] extmotel_DM
 		ENDIF
-		IF NOT IS_CHAR_DEAD grove_f1[2]
-			SET_CHAR_RELATIONSHIP grove_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove_f1[2] extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD grove_f1[3]
-			SET_CHAR_RELATIONSHIP grove_f1[3] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove_f1[3] extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope_f1[0]
-			SET_CHAR_RELATIONSHIP swatrope_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope_f1[0] extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope_f1[1]
-			SET_CHAR_RELATIONSHIP swatrope_f1[1] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope_f1[1] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope_f1[1] extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope_f1[2]
-			SET_CHAR_RELATIONSHIP swatrope_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope_f1[2] extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope_f1[3]
-			SET_CHAR_RELATIONSHIP swatrope_f1[3] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_DECISION_MAKER swatrope_f1[3] extmotel_DM
-		ENDIF
+		l1f1_count++
+		ENDWHILE
 
 		SET_FIXED_CAMERA_POSITION 2203.1633 -1178.8915 31.8778 0.0 0.0 0.0
 		POINT_CAMERA_AT_POINT 2203.8975 -1178.2249 31.7493 JUMP_CUT
@@ -1829,59 +1811,47 @@ IF moteldeal_f1flag = 23
 			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove_f1[2]
 			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.179 -1177.662 24.767 grove_f1[3]
 
-			l1f1_count = 0
-			WHILE l1f1_count < 4
-			TASK_TURN_CHAR_TO_FACE_COORD grove_f1[0] 2217.87 -1162.6 25.33
-			SET_CHAR_DECISION_MAKER grove_f1[0] extmotel_DM
-			GIVE_WEAPON_TO_CHAR grove_f1[0] WEAPONTYPE_PISTOL 9999
-			SWITCH l1f1_count
-			CASE 0
-			CASE 2
-			SET_CHAR_ACCURACY grove_f1[l1f1_count] 30
-			BREAK
-			CASE 1
-			CASE 3
-			SET_CHAR_ACCURACY grove_f1[l1f1_count] 40
-			BREAK
-			ENDSWITCH
-			SET_CHAR_NEVER_TARGETTED grove_f1[l1f1_count] TRUE
-			SET_CHAR_RELATIONSHIP grove_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove_f1[l1f1_count] extmotel_DM
-			l1f1_count++
-			ENDWHILE
-
-			l1f1_count = 0
-			WHILE l1f1_count < 8
-			SWITCH l1f1_count
-			CASE 0
-			CASE 1
-			CASE 2
-			CASE 3
-			l1f1_char_name = swatrope_f1[l1f1_count]
-			BREAK
-			CASE 4
-			l1f1_char_name = extvan1driver_f1
-			BREAK
-			CASE 5
 			l1f1_char_name = extvan2driver_f1
-			BREAK
-			CASE 6
+			GOSUB l1f1_outside_motel_swat_setup
+
+			l1f1_char_name = extvan1driver_f1
+			GOSUB l1f1_outside_motel_swat_setup
+
+			l1f1_char_name = swatrope_f1[0]
+			GOSUB l1f1_outside_motel_swat_setup
+
+			l1f1_char_name = swatrope_f1[1]
+			GOSUB l1f1_outside_motel_swat_setup
+
+			l1f1_char_name = swatrope_f1[2]
+			GOSUB l1f1_outside_motel_swat_setup
+
+			l1f1_char_name = swatrope_f1[3]
+			GOSUB l1f1_outside_motel_swat_setup
+
+			l1f1_special_flag = TRUE
 			l1f1_char_name = swat_f1[0]
-			BREAK
-			CASE 7
+			GOSUB l1f1_outside_motel_swat_setup
+
 			l1f1_char_name = swat_f1[2]
-			BREAK
-			ENDSWITCH
-			GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD l1f1_char_name 2217.87 -1162.6 25.33
+			GOSUB l1f1_outside_motel_swat_setup
+			l1f1_special_flag = FALSE
+
+			l1f1_char_name = grove_f1[0]
 			SET_CHAR_ACCURACY l1f1_char_name 30
-			SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			IF l1f1_count < 6
-			SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			ENDIF
-			SET_CHAR_DECISION_MAKER l1f1_char_name extmotel_DM
-			l1f1_count++
-			ENDWHILE
+			GOSUB l1f1_outside_motel_grove_setup
+
+			l1f1_char_name = grove_f1[1]
+			SET_CHAR_ACCURACY l1f1_char_name 40
+			GOSUB l1f1_outside_motel_grove_setup
+
+			l1f1_char_name = grove_f1[2]
+			SET_CHAR_ACCURACY l1f1_char_name 30
+			GOSUB l1f1_outside_motel_grove_setup
+
+			l1f1_char_name = grove_f1[3]
+			SET_CHAR_ACCURACY l1f1_char_name 40
+			GOSUB l1f1_outside_motel_grove_setup
 
 			CLEAR_MISSION_AUDIO 1
 			CLEAR_MISSION_AUDIO 2
@@ -2031,12 +2001,10 @@ IF moteldeal_f1flag = 24
 		REMOVE_ANIMATION CAR_CHAT
 
 		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2229.566 -1150.495 1029.0 grove_f1[0] //grove guy that will fall off railings //.366
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove_f1[0] 2232.41 -1160.04 20.0
 		SET_CHAR_HEADING grove_f1[0] 86.6836
-		SET_CHAR_NEVER_TARGETTED grove_f1[0] TRUE
-		SET_CHAR_DECISION_MAKER grove_f1[0] motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove_f1[0] motel_DM
 		SHUT_CHAR_UP grove_f1[0] TRUE // FIXEDGROVE: added to stop him from speaking since he's supposed to be dead
+		l1f1_char_name = grove_f1[0]
+		GOSUB l1f1_inside_motel_grove_setup
 
 		LOAD_MISSION_AUDIO 1 SOUND_FIN1_JC //Where the OG’s at – I gotta go get my brother, Sweet.
 		// LOAD_MISSION_AUDIO 2 SOUND_FIN1_AS //<loud explosion> Go Go Go! // FIXEDGROVE: now its handlded like every other voiceline
@@ -2091,13 +2059,11 @@ IF moteldeal_f1flag = 24
 		//sweet
 		CREATE_CHAR PEDTYPE_SPECIAL SPECIAL01 2202.23 -1156.914 1029.852 sweet
 		SET_ANIM_GROUP_FOR_CHAR sweet gang2 // FIXEDGROVE: set intended animation group
-		SET_CHAR_HAS_USED_ENTRY_EXIT sweet 2232.41 -1160.04 3.0
 		SET_CHAR_AREA_VISIBLE sweet 15
 		SET_CHAR_SUFFERS_CRITICAL_HITS sweet FALSE
 		SET_CHAR_HEADING sweet 62.083
-		SET_CHAR_NEVER_TARGETTED sweet TRUE
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER sweet TRUE
-		SET_CHAR_DECISION_MAKER sweet motel_DM
+		l1f1_char_name = sweet
+		GOSUB l1f1_inside_motel_grove_setup
 		ADD_BLIP_FOR_CHAR sweet sweet_f1blip
 		SET_BLIP_AS_FRIENDLY sweet_f1blip TRUE
 		SET_CHAR_HEALTH sweet 1000
@@ -2106,14 +2072,12 @@ IF moteldeal_f1flag = 24
 
 		//entrance
 		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2220.5242 -1137.8256 1026.7981 woundedgrove1_f1	//wounded guy that tells player where sweet is
-		SET_CHAR_HAS_USED_ENTRY_EXIT woundedgrove1_f1 2232.41 -1160.04 20.0
 		SET_CHAR_HEADING woundedgrove1_f1 181.8677
+		l1f1_char_name = woundedgrove1_f1
+		GOSUB l1f1_inside_motel_grove_setup
 		TASK_PLAY_ANIM_NON_INTERRUPTABLE woundedgrove1_f1 gnstwall_injurd SWAT 8.0 TRUE FALSE FALSE FALSE -1
 		SET_CHAR_PROOFS woundedgrove1_f1 TRUE TRUE TRUE TRUE TRUE
-		SET_CHAR_NEVER_TARGETTED woundedgrove1_f1 TRUE
-		SET_CHAR_DECISION_MAKER woundedgrove1_f1 motel_DM
 		SET_CHAR_BLEEDING woundedgrove1_f1 TRUE
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER woundedgrove1_f1 TRUE
 
 								
 		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2234.79 -1150.714 1029.0 grove_f1[1] //explode this guys head as soon as created // FIXEDGROVE: centered him in the hallway
@@ -2123,71 +2087,58 @@ IF moteldeal_f1flag = 24
 
 		CREATE_CHAR PEDTYPE_MISSION2 SWAT 2239.309 -1151.724 1028.779 swat_f1[1] //swat that is peeking around first corner and shooting
 		SET_CHAR_HEADING swat_f1[1] 177.9528
-		GIVE_WEAPON_TO_CHAR swat_f1[1] WEAPONTYPE_MP5 9999
-		SET_CHAR_DECISION_MAKER swat_f1[1] motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[1] TRUE
 		SET_CHAR_HEALTH swat_f1[1] 100
-		SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[1] 2232.41 -1160.04 20.0
+		l1f1_char_name = swat_f1[1]
+		GOSUB l1f1_inside_motel_swat_setup
 
 		CREATE_CHAR PEDTYPE_MISSION1 BFYPRO 2234.99 -1159.55 1029.84 hoochie2_f1 //hoochie running through doors
 		SET_CHAR_HEADING hoochie2_f1 267.0618
-		SET_CHAR_NEVER_TARGETTED hoochie2_f1 TRUE
-		SET_CHAR_DECISION_MAKER hoochie2_f1 motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER hoochie2_f1 TRUE
-		SET_CHAR_HAS_USED_ENTRY_EXIT hoochie2_f1 2232.41 -1160.04 20.0
+		l1f1_char_name = woundedgrove1_f1
+		GOSUB l1f1_inside_motel_grove_setup
 		SET_CHAR_PROOFS hoochie2_f1 FALSE TRUE FALSE FALSE FALSE
 
 		//set piece for swat breaching the door
 		//swat3 swat4 swat5
 		CREATE_CHAR PEDTYPE_MISSION2 SWAT 2238.817 -1170.598 1028.8125 swat_f1[2]
 		SET_CHAR_HEADING swat_f1[2] 272.0738 
-		GIVE_WEAPON_TO_CHAR swat_f1[2] WEAPONTYPE_MP5 9999
-		SET_CHAR_DECISION_MAKER swat_f1[2] motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[2] TRUE
 		SET_CHAR_HEALTH swat_f1[2] 150
 		SET_CHAR_SHOOT_RATE swat_f1[2] 80
-		SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[2] 2232.41 -1160.04 20.0
-
+		l1f1_char_name = swat_f1[2]
+		GOSUB l1f1_inside_motel_swat_setup
 
 		//grove controlled corner
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2244.5 -1189.627 1028.8 grove_f1[2] //grove behind table
 		SET_ANIM_GROUP_FOR_CHAR grove_f1[2] gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove_f1[2] 88.196
-		//SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove_f1[2] TRUE // FIXEDGROVE: comment out since he's supposed to die
 		GIVE_WEAPON_TO_CHAR grove_f1[2] WEAPONTYPE_PISTOL 9999
-		SET_CHAR_NEVER_TARGETTED grove_f1[2] TRUE
 		SET_CHAR_HEALTH grove_f1[2] 50 // FIXEDGROVE: reduce his health
 		SET_CHAR_ACCURACY grove_f1[2] 10
 		SET_CHAR_RELATIONSHIP grove_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-		//SET_CHAR_DECISION_MAKER grove_f1[2] motel_DM // FIXEDGROVE: comment out since this would cause him to stand still
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove_f1[2] 2232.41 -1160.04 20.0
+		l1f1_special_flag = TRUE
+		l1f1_char_name = grove_f1[2]
+		GOSUB l1f1_inside_motel_grove_setup
+		l1f1_special_flag = FALSE
 
 		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2241.0503 -1192.3729 1028.7981 grove_f1[3] //grove behind sofa facing first corridor
 		SET_CHAR_HEADING grove_f1[3] 358.2577
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove_f1[3] TRUE
 		GIVE_WEAPON_TO_CHAR grove_f1[3] WEAPONTYPE_PISTOL 9999
 		SET_CHAR_ACCURACY grove_f1[3] 10
-		SET_CHAR_NEVER_TARGETTED grove_f1[3] TRUE
-		SET_CHAR_DECISION_MAKER grove_f1[3] motel_DM
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove_f1[3] 2232.41 -1160.04 20.0
+		l1f1_char_name = grove_f1[3]
+		GOSUB l1f1_inside_motel_grove_setup
 		
 
 		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2240.156 -1186.704 1028.7981 grove_f1[4] //grove peeking around wall shooting //dies when pops out
 		SET_CHAR_HEADING grove_f1[4] 90.1792 
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove_f1[4] TRUE
 		GIVE_WEAPON_TO_CHAR grove_f1[4] WEAPONTYPE_MP5 9999
-		SET_CHAR_NEVER_TARGETTED grove_f1[4] TRUE
-		SET_CHAR_DECISION_MAKER grove_f1[4] motel_DM
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove_f1[4] 2232.41 -1160.04 20.0
+		l1f1_char_name = grove_f1[4]
+		GOSUB l1f1_inside_motel_grove_setup
 						
 		CREATE_CHAR PEDTYPE_MISSION1 FAM3 2234.84 -1191.202 1029.845 woundedgrove2_f1 //grove against wall near other grove guys
 		SET_CHAR_HEADING woundedgrove2_f1 272.171
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER woundedgrove2_f1 TRUE
-		SET_CHAR_NEVER_TARGETTED woundedgrove2_f1 TRUE
 		TASK_PLAY_ANIM_NON_INTERRUPTABLE woundedgrove2_f1 gnstwall_injurd SWAT 8.0 TRUE FALSE FALSE FALSE -1
 		SET_CHAR_BLEEDING woundedgrove2_f1 TRUE
-		SET_CHAR_DECISION_MAKER woundedgrove2_f1 motel_DM
-		SET_CHAR_HAS_USED_ENTRY_EXIT woundedgrove2_f1 2232.41 -1160.04 20.0
+		l1f1_char_name = woundedgrove2_f1
+		GOSUB l1f1_inside_motel_grove_setup
 		
 		//explosion_door
 		CREATE_FX_SYSTEM explosion_door 2239.51 -1170.77 1029.84 TRUE breachfx_f1
@@ -2305,23 +2256,19 @@ IF roofmotel_f1flag = 0
 				IF LOCATE_CHAR_ANY_MEANS_CHAR_3D woundedgrove1_f1 scplayer 4.5 4.5 3.5 FALSE
 
 					CREATE_CHAR PEDTYPE_MISSION2 SWAT 2229.462 -1150.524 1028.845 swat_f1[0] //swat that rolls out
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[0] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[0] 358.795
-					GIVE_WEAPON_TO_CHAR swat_f1[0] WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat_f1[0] motel_DM
 					SET_CHAR_ACCURACY swat_f1[0] 50
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[0] TRUE
 					SET_CHAR_HEALTH swat_f1[0] 150
 					SET_CHAR_MAX_HEALTH swat_f1[0] 150
+					l1f1_char_name = swat_f1[0]
+					GOSUB l1f1_inside_motel_swat_setup
 
 					DELETE_CHAR swat_f1[1]
 					CREATE_CHAR PEDTYPE_MISSION2 SWAT 2239.309 -1151.724 1029.279 swat_f1[1] //swat that is peeking around first corner and shooting
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[1] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[1] 177.9528
-					GIVE_WEAPON_TO_CHAR swat_f1[1] WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat_f1[1] motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[1] TRUE
 					SET_CHAR_ACCURACY swat_f1[1] 80
+					l1f1_char_name = swat_f1[1]
+					GOSUB l1f1_inside_motel_swat_setup
 
 					//peeking around corner swat
 					IF swat_f1flag[1] = 0
@@ -2408,24 +2355,20 @@ IF roofmotel_f1flag = 0
 
 					//2nd corridor
 					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2228.6072 -1189.7207 1028.7981 swat_f1[5] //first trolley // FIXEDGROVE: changed from mission1 to mission4 pedtype
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[5] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[5] 266.5963
-					GIVE_WEAPON_TO_CHAR swat_f1[5] WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat_f1[5] motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[5] TRUE
 					SET_CHAR_HEALTH swat_f1[5] 150
 					SET_CHAR_MAX_HEALTH swat_f1[5] 150
 					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[5] TRUE
+					l1f1_char_name = swat_f1[5]
+					GOSUB l1f1_inside_motel_swat_setup
 							
 					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2225.796 -1186.783 1028.7981 swat_f1[6] //right door peek and shoot // FIXEDGROVE: changed from mission1 to mission4 pedtype
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[6] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[6] 273.6395
-					GIVE_WEAPON_TO_CHAR swat_f1[6] WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat_f1[6] motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[6] TRUE
 					SET_CHAR_ACCURACY swat_f1[6] 80
 					SET_CHAR_HEALTH swat_f1[6] 150
 					SET_CHAR_MAX_HEALTH swat_f1[6] 150
+					l1f1_char_name = swat_f1[6]
+					GOSUB l1f1_inside_motel_swat_setup
 
 					TIMERB = 0
 					breach_f1flag = 1
@@ -2444,42 +2387,34 @@ IF roofmotel_f1flag = 0
 
 					//swat controlled corner		
 					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2187.48 -1186.9 1033.3 swat_f1[7]	//up on stairs shoot stay in same place
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[7] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[7] 274.247			  
-					GIVE_WEAPON_TO_CHAR swat_f1[7] WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat_f1[7] motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[7] TRUE
 					SET_CHAR_ACCURACY swat_f1[7] 80
 					SET_CHAR_HEALTH swat_f1[7] 150
 					SET_CHAR_MAX_HEALTH swat_f1[7] 150
+					l1f1_char_name = swat_f1[7]
+					GOSUB l1f1_inside_motel_swat_setup
 
 					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2186.611 -1183.962 1033.837 swat_f1[8]	//runs down stairs
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[8] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[8] 286.2857
-					GIVE_WEAPON_TO_CHAR swat_f1[8] WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat_f1[8] motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[8] TRUE
 					SET_CHAR_HEALTH swat_f1[8] 150
 					SET_CHAR_MAX_HEALTH swat_f1[8] 150
 					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[8] TRUE
+					l1f1_char_name = swat_f1[8]
+					GOSUB l1f1_inside_motel_swat_setup
 									
 					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2190.157 -1182.068 1033.829 swat_f1[9]	//up on stairs shoot stay in same place
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[9] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[9] 183.88771
-					GIVE_WEAPON_TO_CHAR swat_f1[9] WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat_f1[9] motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[9] TRUE
 					SET_CHAR_HEALTH swat_f1[9] 150
 					SET_CHAR_MAX_HEALTH swat_f1[9] 150
+					l1f1_char_name = swat_f1[9]
+					GOSUB l1f1_inside_motel_swat_setup
 
 					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2188.5791 -1184.7800 1028.7981 swat_f1[10]	//duck and shoot behind the sofa				
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[10] 2232.41 -1160.04 20.0
 					SET_CHAR_HEADING swat_f1[10] 246.3679 
-					GIVE_WEAPON_TO_CHAR swat_f1[10] WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat_f1[10] motel_DM	
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[10] TRUE
 					SET_CHAR_HEALTH swat_f1[10] 150
 					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[10] TRUE
+					l1f1_char_name = swat_f1[10]
+					GOSUB l1f1_inside_motel_swat_setup
 
 					breach_f1flag = 3
 //				ENDIF
@@ -2509,12 +2444,10 @@ IF roofmotel_f1flag = 0
 
 							CREATE_CHAR PEDTYPE_MISSION2 SWAT 2238.317 -1170.598 1028.8125 swat_f1[3] 
 							SET_CHAR_HEADING swat_f1[3] 272.0738 
-							GIVE_WEAPON_TO_CHAR swat_f1[3] WEAPONTYPE_MP5 9999
-							SET_CHAR_DECISION_MAKER swat_f1[3] motel_DM
-							SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[3] TRUE
 							SET_CHAR_HEALTH swat_f1[3] 150
 							SET_CHAR_SHOOT_RATE swat_f1[3] 80
-							SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[3] 2232.41 -1160.04 20.0
+							l1f1_char_name = swat_f1[3]
+							GOSUB l1f1_inside_motel_swat_setup
 
 							TASK_PLAY_ANIM swat_f1[3] SWT_BREACH_02 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
 							TIMERB = 0
@@ -2531,12 +2464,10 @@ IF roofmotel_f1flag = 0
 
 							CREATE_CHAR PEDTYPE_MISSION2 SWAT 2237.818 -1170.598 1028.8125 swat_f1[4] 
 							SET_CHAR_HEADING swat_f1[4] 272.0738 
-							GIVE_WEAPON_TO_CHAR swat_f1[4] WEAPONTYPE_MP5 9999
-							SET_CHAR_DECISION_MAKER swat_f1[4] motel_DM
-							SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[4] TRUE
 							SET_CHAR_HEALTH swat_f1[4] 150
 							SET_CHAR_SHOOT_RATE swat_f1[4] 80
-							SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[4] 2232.41 -1160.04 20.0
+							l1f1_char_name = swat_f1[4]
+							GOSUB l1f1_inside_motel_swat_setup
 
 							TASK_PLAY_ANIM swat_f1[4] SWT_BREACH_03 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
 							swat_f1flag[4] = 1
@@ -2745,77 +2676,65 @@ IF roofmotel_f1flag = 0
 
 				//create 1st vent setpiece guys
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.605 -1188.611 1032.27 swat_f1[11] // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[11] 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat_f1[11] 264.4329 
-				GIVE_WEAPON_TO_CHAR swat_f1[11] WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat_f1[11] motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[11] TRUE
 				SET_CHAR_HEALTH swat_f1[11] 150
 				SET_CHAR_ACCURACY swat_f1[11] 80
 //				SET_CHAR_COLLISION swat_f1[11] FALSE
 //				SET_CHAR_NEVER_TARGETTED swat_f1[11] TRUE 
+				l1f1_char_name = swat_f1[11]
+				GOSUB l1f1_inside_motel_swat_setup
 
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.131 -1188.611 1032.27 swat_f1[12] // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[12] 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat_f1[12] 264.4329
-				GIVE_WEAPON_TO_CHAR swat_f1[12] WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat_f1[12] motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[12] TRUE
 				SET_CHAR_HEALTH swat_f1[12] 150
 				SET_CHAR_ACCURACY swat_f1[12] 80
 //				SET_CHAR_COLLISION swat_f1[12] FALSE
 //				SET_CHAR_NEVER_TARGETTED swat_f1[12] TRUE 
+				l1f1_char_name = swat_f1[12]
+				GOSUB l1f1_inside_motel_swat_setup
 
 				//vent guy upside down shooting
 				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2193.129 -1164.661 1032.269 swat_f1[13]
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[13] 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat_f1[13] 4.98
-				GIVE_WEAPON_TO_CHAR swat_f1[13] WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat_f1[13] motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[13] TRUE
 				SET_CHAR_NEVER_TARGETTED swat_f1[13] TRUE
 				SET_CHAR_HEALTH swat_f1[13] 1000
 				SET_CHAR_SUFFERS_CRITICAL_HITS swat_f1[13] FALSE // FIXEDGROVE: added to avoid him bugging out
+				l1f1_char_name = swat_f1[13]
+				GOSUB l1f1_inside_motel_swat_setup
 
 				//right rollout guy in the final corridor
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2195.489 -1172.941 1029.859 swat_f1[14] // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[14] 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat_f1[14] 181.323
-				GIVE_WEAPON_TO_CHAR swat_f1[14] WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat_f1[14] motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[14] TRUE
 				SET_CHAR_HEALTH swat_f1[14] 120
+				l1f1_char_name = swat_f1[14]
+				GOSUB l1f1_inside_motel_swat_setup
 
 				//crouch behind trolley
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2191.987 -1165.214 1029.852 swat_f1[15] // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[15] 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat_f1[15] 181.323
-				GIVE_WEAPON_TO_CHAR swat_f1[15] WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat_f1[15] motel_DM
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[15] TRUE
 				SET_CHAR_HEALTH swat_f1[15] 150
 				SET_CHAR_MAX_HEALTH swat_f1[15] 150
+				l1f1_char_name = swat_f1[15]
+				GOSUB l1f1_inside_motel_swat_setup
 
 				//roll left 
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2190.6977 -1156.633 1029.859 swat_f1[16] // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[16] 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat_f1[16] 189.575
-				GIVE_WEAPON_TO_CHAR swat_f1[16] WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat_f1[16] motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[16] TRUE
 				SET_CHAR_ACCURACY swat_f1[16] 30
+				l1f1_char_name = swat_f1[16]
+				GOSUB l1f1_inside_motel_swat_setup
 
 				//guy shooting sweet
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2194.593 -1156.995 1029.852 swat_f1[17] // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat_f1[17] 2232.41 -1160.04 20.0
 				SET_CHAR_HEADING swat_f1[17] 275.754
-				GIVE_WEAPON_TO_CHAR swat_f1[17] WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat_f1[17] motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat_f1[17] TRUE
+				l1f1_char_name = swat_f1[17]
+				GOSUB l1f1_inside_motel_swat_setup
 
 				CREATE_CHAR PEDTYPE_MISSION1 BFYPRO 2192.91 -1182.15 1029.35 hoochie1_f1	//hoochie running into player then getting shot
-				SET_CHAR_HAS_USED_ENTRY_EXIT hoochie1_f1 2232.41 -1160.04 20.0
-				SET_CHAR_NEVER_TARGETTED hoochie1_f1 TRUE
+				l1f1_special_flag = TRUE
+				l1f1_char_name = hoochie1_f1
+				GOSUB l1f1_inside_motel_grove_setup
+				l1f1_special_flag = FALSE
 				SET_CHAR_DECISION_MAKER hoochie1_f1 motel_DM
 				SET_CHAR_PROOFS hoochie1_f1 FALSE TRUE FALSE FALSE FALSE
 
@@ -6588,23 +6507,19 @@ IF NOT IS_CAR_DEAD sweet_car
 				//create two guys to get run over
 				CREATE_CHAR PEDTYPE_MISSION1 LAPD1 2127.116 -1381.61 23.88 copleft_f1
 				SET_CHAR_HEADING copleft_f1	84.93
-				SET_CHAR_DECISION_MAKER copleft_f1 motel_dm
 				SET_CHAR_PROOFS copleft_f1 TRUE TRUE TRUE TRUE TRUE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER copleft_f1 TRUE
-				GIVE_WEAPON_TO_CHAR copleft_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS copleft_f1 FALSE
 				SET_CHAR_ACCURACY copleft_f1 5
+				l1f1_char_name = copleft_f1
+				GOSUB l1f1_outside_guys_passenger_setup
 				enemy_f1 = copleft_f1
 				enemytarget_f1 = scplayer
 				GOSUB stayshootnoduck_f1label
 
 				CREATE_CHAR PEDTYPE_MISSION1 LAPDM1 2127.09 -1382.81 23.32 copright_f1
-				SET_CHAR_DECISION_MAKER copright_f1 motel_dm
 				SET_CHAR_PROOFS copright_f1 TRUE TRUE TRUE TRUE TRUE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER copright_f1 TRUE
-				GIVE_WEAPON_TO_CHAR copright_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS copright_f1 FALSE
 				SET_CHAR_ACCURACY copright_f1 5
+				l1f1_char_name = copleft_f1
+				GOSUB l1f1_outside_guys_passenger_setup
 				enemy_f1 = copright_f1
 				enemytarget_f1 = scplayer
 				GOSUB stayshootnoduck_f1label
@@ -7903,12 +7818,48 @@ SET_CHAR_SUFFERS_CRITICAL_HITS exthelidriver_f1 FALSE
 RETURN
 
 l1f1_outside_grove_setup:
-IF NOT l1f1_count = 2
+IF l1f1_special_flag = FALSE
 	TASK_PLAY_ANIM grove_f1[l1f1_count] IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
 ENDIF
 START_CHAR_FACIAL_TALK grove_f1[l1f1_count] 7000 // FIXEDGROVE: add facial talk anim to grove member
 SET_CHAR_DECISION_MAKER grove_f1[l1f1_count] motel_DM
 SET_CHAR_NEVER_TARGETTED grove_f1[l1f1_count] TRUE
+RETURN
+
+l1f1_outside_motel_grove_setup:
+TASK_TURN_CHAR_TO_FACE_COORD l1f1_char_name 2217.87 -1162.6 25.33
+SET_CHAR_DECISION_MAKER l1f1_char_name extmotel_DM
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_PISTOL 9999
+SET_CHAR_NEVER_TARGETTED l1f1_char_name TRUE
+SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
+SET_CHAR_DECISION_MAKER l1f1_char_name extmotel_DM
+RETURN
+
+l1f1_outside_motel_swat_setup:
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_MP5 3000
+TASK_TURN_CHAR_TO_FACE_COORD l1f1_char_name 2217.87 -1162.6 25.33
+SET_CHAR_ACCURACY l1f1_char_name 30
+SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+IF l1f1_special_flag = FALSE
+SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+ENDIF
+SET_CHAR_DECISION_MAKER l1f1_char_name extmotel_DM
+RETURN
+
+l1f1_inside_motel_grove_setup:
+SET_CHAR_HAS_USED_ENTRY_EXIT l1f1_char_name 2232.41 -1160.04 20.0
+SET_CHAR_NEVER_TARGETTED l1f1_char_name TRUE
+IF l1f1_special_flag = FALSE
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
+SET_CHAR_DECISION_MAKER l1f1_char_name motel_DM
+ENDIF
+RETURN
+
+l1f1_inside_motel_swat_setup:
+SET_CHAR_HAS_USED_ENTRY_EXIT l1f1_char_name 2232.41 -1160.04 20.0
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_MP5 9999
+SET_CHAR_DECISION_MAKER l1f1_char_name motel_DM
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
 RETURN
 
 l1f1_policecar_setup:
@@ -7928,10 +7879,15 @@ ENDIF
 IF shot_in_vehicle = FALSE
 	SET_CHAR_CAN_BE_SHOT_IN_VEHICLE cop_f1[l1f1_cop1] FALSE
 ENDIF
-SET_CHAR_DECISION_MAKER cop_f1[l1f1_cop2] motel_dm
-SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[l1f1_cop2] TRUE
-SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[l1f1_cop2] FALSE
-GIVE_WEAPON_TO_CHAR cop_f1[l1f1_cop2] WEAPONTYPE_MP5 99999
+l1f1_char_name = cop_f1[l1f1_cop2]
+GOSUB l1f1_outside_guys_passenger
+RETURN
+
+l1f1_outside_guys_passenger_setup:
+SET_CHAR_DECISION_MAKER l1f1_char_name motel_dm
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
+SET_CHAR_SUFFERS_CRITICAL_HITS l1f1_char_name FALSE
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_MP5 99999
 RETURN
 
 l1f1_swapped:
