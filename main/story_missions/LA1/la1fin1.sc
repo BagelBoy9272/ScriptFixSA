@@ -887,25 +887,25 @@ IF moteldeal_f1flag = 2
 		SET_ANIM_GROUP_FOR_CHAR grove_f1[0] gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove_f1[0] 272.7973 //leaning against middle car
 		l1f1_count = 0
-		GOSUB l1f1_outside_grove_setup
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
 		WAIT 250
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.5642 -1160.3588 24.7265 grove_f1[1]
 		SET_ANIM_GROUP_FOR_CHAR grove_f1[1] gang1 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove_f1[1] 85.7682 //opposite that guy
 		l1f1_count = 1
-		GOSUB l1f1_outside_grove_setup
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove_f1[2]
 		SET_ANIM_GROUP_FOR_CHAR grove_f1[2] gang1 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove_f1[2] 359.1032 //leaning against the left car
 		l1f1_special_flag = TRUE
 		l1f1_count = 2
-		GOSUB l1f1_outside_grove_setup
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
 		l1f1_special_flag = FALSE
 		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2226.3889 -1171.6877 24.7265 grove_f1[3]
 		SET_ANIM_GROUP_FOR_CHAR grove_f1[3] gang2 // FIXEDGROVE: set intended animation group
 		SET_CHAR_HEADING grove_f1[3] 278.7767 //next to him
 		l1f1_count = 3
-		GOSUB l1f1_outside_grove_setup
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
 
 		LOAD_SCENE_IN_DIRECTION 2236.1460 -1146.3591 25.4346 34.0
 				
@@ -1153,7 +1153,7 @@ IF moteldeal_f1flag = 11
 				CREATE_CAR POLMAV 2227.0295 -1130.199 25.305 extpoliceheli_f1
 				CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION4 SWAT exthelidriver_f1
 				SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
-				GOSUB l1f1_outside_heli_setup
+				GOSUB l1f1_outside_heli_setup // FIXEDGROVE: moved setup code to gosub
 				START_PLAYBACK_RECORDED_CAR extpoliceheli_f1 352
 				IF IS_PLAYBACK_GOING_ON_FOR_CAR extpoliceheli_f1
 					PAUSE_PLAYBACK_RECORDED_CAR extpoliceheli_f1
@@ -1789,7 +1789,7 @@ IF moteldeal_f1flag = 23
 
 			CREATE_CAR POLMAV 2276.22 -1140.87 60.0 extpoliceheli_f1
 			CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION4 SWAT exthelidriver_f1
-			GOSUB l1f1_outside_heli_cutscene_setup
+			GOSUB l1f1_outside_heli_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 			SET_CAR_FORWARD_SPEED extpoliceheli_f1 10.0
 			HELI_GOTO_COORDS extpoliceheli_f1 2217.58 -1167.67 34.61 10.0 10.0
 			SET_CAR_COORDINATES extpoliceheli_f1 2217.58 -1167.67 34.61
@@ -1812,6 +1812,7 @@ IF moteldeal_f1flag = 23
 			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove_f1[2]
 			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.179 -1177.662 24.767 grove_f1[3]
 
+			// FIXEDGROVE: START - moved setup code to gosub
 			l1f1_char_name = extvan2driver_f1
 			GOSUB l1f1_outside_motel_swat_setup
 
@@ -1853,6 +1854,7 @@ IF moteldeal_f1flag = 23
 			l1f1_char_name = grove_f1[3]
 			SET_CHAR_ACCURACY l1f1_char_name 40
 			GOSUB l1f1_outside_motel_grove_setup
+			// FIXEDGROVE: END
 
 			CLEAR_MISSION_AUDIO 1
 			CLEAR_MISSION_AUDIO 2
@@ -2005,7 +2007,7 @@ IF moteldeal_f1flag = 24
 		SET_CHAR_HEADING grove_f1[0] 86.6836
 		SHUT_CHAR_UP grove_f1[0] TRUE // FIXEDGROVE: added to stop him from speaking since he's supposed to be dead
 		l1f1_char_name = grove_f1[0]
-		GOSUB l1f1_inside_motel_grove_setup
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 
 		LOAD_MISSION_AUDIO 1 SOUND_FIN1_JC //Where the OG’s at – I gotta go get my brother, Sweet.
 		// LOAD_MISSION_AUDIO 2 SOUND_FIN1_AS //<loud explosion> Go Go Go! // FIXEDGROVE: now its handlded like every other voiceline
@@ -2064,7 +2066,7 @@ IF moteldeal_f1flag = 24
 		SET_CHAR_SUFFERS_CRITICAL_HITS sweet FALSE
 		SET_CHAR_HEADING sweet 62.083
 		l1f1_char_name = sweet
-		GOSUB l1f1_inside_motel_grove_setup
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		ADD_BLIP_FOR_CHAR sweet sweet_f1blip
 		SET_BLIP_AS_FRIENDLY sweet_f1blip TRUE
 		SET_CHAR_HEALTH sweet 1000
@@ -2090,12 +2092,12 @@ IF moteldeal_f1flag = 24
 		SET_CHAR_HEADING swat_f1[1] 177.9528
 		SET_CHAR_HEALTH swat_f1[1] 100
 		l1f1_char_name = swat_f1[1]
-		GOSUB l1f1_inside_motel_swat_setup
+		GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 		CREATE_CHAR PEDTYPE_MISSION1 BFYPRO 2234.99 -1159.55 1029.84 hoochie2_f1 //hoochie running through doors
 		SET_CHAR_HEADING hoochie2_f1 267.0618
 		l1f1_char_name = woundedgrove1_f1
-		GOSUB l1f1_inside_motel_grove_setup
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		SET_CHAR_PROOFS hoochie2_f1 FALSE TRUE FALSE FALSE FALSE
 
 		//set piece for swat breaching the door
@@ -2105,7 +2107,7 @@ IF moteldeal_f1flag = 24
 		SET_CHAR_HEALTH swat_f1[2] 150
 		SET_CHAR_SHOOT_RATE swat_f1[2] 80
 		l1f1_char_name = swat_f1[2]
-		GOSUB l1f1_inside_motel_swat_setup
+		GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 		//grove controlled corner
 		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2244.5 -1189.627 1028.8 grove_f1[2] //grove behind table
@@ -2117,7 +2119,7 @@ IF moteldeal_f1flag = 24
 		SET_CHAR_RELATIONSHIP grove_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
 		l1f1_special_flag = TRUE
 		l1f1_char_name = grove_f1[2]
-		GOSUB l1f1_inside_motel_grove_setup
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		l1f1_special_flag = FALSE
 
 		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2241.0503 -1192.3729 1028.7981 grove_f1[3] //grove behind sofa facing first corridor
@@ -2125,21 +2127,21 @@ IF moteldeal_f1flag = 24
 		GIVE_WEAPON_TO_CHAR grove_f1[3] WEAPONTYPE_PISTOL 9999
 		SET_CHAR_ACCURACY grove_f1[3] 10
 		l1f1_char_name = grove_f1[3]
-		GOSUB l1f1_inside_motel_grove_setup
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		
 
 		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2240.156 -1186.704 1028.7981 grove_f1[4] //grove peeking around wall shooting //dies when pops out
 		SET_CHAR_HEADING grove_f1[4] 90.1792 
 		GIVE_WEAPON_TO_CHAR grove_f1[4] WEAPONTYPE_MP5 9999
 		l1f1_char_name = grove_f1[4]
-		GOSUB l1f1_inside_motel_grove_setup
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 						
 		CREATE_CHAR PEDTYPE_MISSION1 FAM3 2234.84 -1191.202 1029.845 woundedgrove2_f1 //grove against wall near other grove guys
 		SET_CHAR_HEADING woundedgrove2_f1 272.171
 		TASK_PLAY_ANIM_NON_INTERRUPTABLE woundedgrove2_f1 gnstwall_injurd SWAT 8.0 TRUE FALSE FALSE FALSE -1
 		SET_CHAR_BLEEDING woundedgrove2_f1 TRUE
 		l1f1_char_name = woundedgrove2_f1
-		GOSUB l1f1_inside_motel_grove_setup
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		
 		//explosion_door
 		CREATE_FX_SYSTEM explosion_door 2239.51 -1170.77 1029.84 TRUE breachfx_f1
@@ -2262,14 +2264,14 @@ IF roofmotel_f1flag = 0
 					SET_CHAR_HEALTH swat_f1[0] 150
 					SET_CHAR_MAX_HEALTH swat_f1[0] 150
 					l1f1_char_name = swat_f1[0]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					DELETE_CHAR swat_f1[1]
 					CREATE_CHAR PEDTYPE_MISSION2 SWAT 2239.309 -1151.724 1029.279 swat_f1[1] //swat that is peeking around first corner and shooting
 					SET_CHAR_HEADING swat_f1[1] 177.9528
 					SET_CHAR_ACCURACY swat_f1[1] 80
 					l1f1_char_name = swat_f1[1]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					//peeking around corner swat
 					IF swat_f1flag[1] = 0
@@ -2361,7 +2363,7 @@ IF roofmotel_f1flag = 0
 					SET_CHAR_MAX_HEALTH swat_f1[5] 150
 					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[5] TRUE
 					l1f1_char_name = swat_f1[5]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 							
 					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2225.796 -1186.783 1028.7981 swat_f1[6] //right door peek and shoot // FIXEDGROVE: changed from mission1 to mission4 pedtype
 					SET_CHAR_HEADING swat_f1[6] 273.6395
@@ -2369,7 +2371,7 @@ IF roofmotel_f1flag = 0
 					SET_CHAR_HEALTH swat_f1[6] 150
 					SET_CHAR_MAX_HEALTH swat_f1[6] 150
 					l1f1_char_name = swat_f1[6]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					TIMERB = 0
 					breach_f1flag = 1
@@ -2393,7 +2395,7 @@ IF roofmotel_f1flag = 0
 					SET_CHAR_HEALTH swat_f1[7] 150
 					SET_CHAR_MAX_HEALTH swat_f1[7] 150
 					l1f1_char_name = swat_f1[7]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2186.611 -1183.962 1033.837 swat_f1[8]	//runs down stairs
 					SET_CHAR_HEADING swat_f1[8] 286.2857
@@ -2401,21 +2403,21 @@ IF roofmotel_f1flag = 0
 					SET_CHAR_MAX_HEALTH swat_f1[8] 150
 					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[8] TRUE
 					l1f1_char_name = swat_f1[8]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 									
 					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2190.157 -1182.068 1033.829 swat_f1[9]	//up on stairs shoot stay in same place
 					SET_CHAR_HEADING swat_f1[9] 183.88771
 					SET_CHAR_HEALTH swat_f1[9] 150
 					SET_CHAR_MAX_HEALTH swat_f1[9] 150
 					l1f1_char_name = swat_f1[9]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2188.5791 -1184.7800 1028.7981 swat_f1[10]	//duck and shoot behind the sofa				
 					SET_CHAR_HEADING swat_f1[10] 246.3679 
 					SET_CHAR_HEALTH swat_f1[10] 150
 					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[10] TRUE
 					l1f1_char_name = swat_f1[10]
-					GOSUB l1f1_inside_motel_swat_setup
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					breach_f1flag = 3
 //				ENDIF
@@ -2448,7 +2450,7 @@ IF roofmotel_f1flag = 0
 							SET_CHAR_HEALTH swat_f1[3] 150
 							SET_CHAR_SHOOT_RATE swat_f1[3] 80
 							l1f1_char_name = swat_f1[3]
-							GOSUB l1f1_inside_motel_swat_setup
+							GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 							TASK_PLAY_ANIM swat_f1[3] SWT_BREACH_02 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
 							TIMERB = 0
@@ -2468,7 +2470,7 @@ IF roofmotel_f1flag = 0
 							SET_CHAR_HEALTH swat_f1[4] 150
 							SET_CHAR_SHOOT_RATE swat_f1[4] 80
 							l1f1_char_name = swat_f1[4]
-							GOSUB l1f1_inside_motel_swat_setup
+							GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 							TASK_PLAY_ANIM swat_f1[4] SWT_BREACH_03 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
 							swat_f1flag[4] = 1
@@ -2683,7 +2685,7 @@ IF roofmotel_f1flag = 0
 //				SET_CHAR_COLLISION swat_f1[11] FALSE
 //				SET_CHAR_NEVER_TARGETTED swat_f1[11] TRUE 
 				l1f1_char_name = swat_f1[11]
-				GOSUB l1f1_inside_motel_swat_setup
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.131 -1188.611 1032.27 swat_f1[12] // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HEADING swat_f1[12] 264.4329
@@ -2692,7 +2694,7 @@ IF roofmotel_f1flag = 0
 //				SET_CHAR_COLLISION swat_f1[12] FALSE
 //				SET_CHAR_NEVER_TARGETTED swat_f1[12] TRUE 
 				l1f1_char_name = swat_f1[12]
-				GOSUB l1f1_inside_motel_swat_setup
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//vent guy upside down shooting
 				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2193.129 -1164.661 1032.269 swat_f1[13]
@@ -2701,14 +2703,14 @@ IF roofmotel_f1flag = 0
 				SET_CHAR_HEALTH swat_f1[13] 1000
 				SET_CHAR_SUFFERS_CRITICAL_HITS swat_f1[13] FALSE // FIXEDGROVE: added to avoid him bugging out
 				l1f1_char_name = swat_f1[13]
-				GOSUB l1f1_inside_motel_swat_setup
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//right rollout guy in the final corridor
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2195.489 -1172.941 1029.859 swat_f1[14] // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HEADING swat_f1[14] 181.323
 				SET_CHAR_HEALTH swat_f1[14] 120
 				l1f1_char_name = swat_f1[14]
-				GOSUB l1f1_inside_motel_swat_setup
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//crouch behind trolley
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2191.987 -1165.214 1029.852 swat_f1[15] // FIXEDGROVE: changed from mission1 to mission4 pedtype
@@ -2716,25 +2718,25 @@ IF roofmotel_f1flag = 0
 				SET_CHAR_HEALTH swat_f1[15] 150
 				SET_CHAR_MAX_HEALTH swat_f1[15] 150
 				l1f1_char_name = swat_f1[15]
-				GOSUB l1f1_inside_motel_swat_setup
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//roll left 
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2190.6977 -1156.633 1029.859 swat_f1[16] // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HEADING swat_f1[16] 189.575
 				SET_CHAR_ACCURACY swat_f1[16] 30
 				l1f1_char_name = swat_f1[16]
-				GOSUB l1f1_inside_motel_swat_setup
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//guy shooting sweet
 				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2194.593 -1156.995 1029.852 swat_f1[17] // FIXEDGROVE: changed from mission1 to mission4 pedtype
 				SET_CHAR_HEADING swat_f1[17] 275.754
 				l1f1_char_name = swat_f1[17]
-				GOSUB l1f1_inside_motel_swat_setup
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				CREATE_CHAR PEDTYPE_MISSION1 BFYPRO 2192.91 -1182.15 1029.35 hoochie1_f1	//hoochie running into player then getting shot
 				l1f1_special_flag = TRUE
 				l1f1_char_name = hoochie1_f1
-				GOSUB l1f1_inside_motel_grove_setup
+				GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 				l1f1_special_flag = FALSE
 				SET_CHAR_DECISION_MAKER hoochie1_f1 motel_DM
 				SET_CHAR_PROOFS hoochie1_f1 FALSE TRUE FALSE FALSE FALSE
@@ -3672,44 +3674,14 @@ IF roofmotel_f1flag = 0
 
 						CREATE_CAR POLMAV 2249.51 -1111.52 56.1 extpoliceheli_f1
 						CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION2 SWAT exthelidriver_f1
-						GOSUB l1f1_outside_heli_cutscene_setup
+						GOSUB l1f1_outside_heli_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
 						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
-						GOSUB l1f1_outside_heli_guys_cutscene_setup
+						GOSUB l1f1_outside_heli_guys_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
-						SET_CHAR_RELATIONSHIP swat_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_RELATIONSHIP swat_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-						SET_CHAR_DECISION_MAKER swat_f1[0] extmotel_DM
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
-						SET_CHAR_RELATIONSHIP swat_f1[1] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_DECISION_MAKER swat_f1[1] extmotel_DM
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
-						SET_CHAR_RELATIONSHIP swat_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_RELATIONSHIP swat_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-						SET_CHAR_DECISION_MAKER swat_f1[2] extmotel_DM
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
-						SET_CHAR_RELATIONSHIP swat_f1[3] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_DECISION_MAKER swat_f1[3] extmotel_DM
-
-						swat_f1flag[0] = 0
-						swat_f1flag[1] = 0
-						swat_f1flag[2] = 0
-						swat_f1flag[3] = 0
-						ATTACH_CHAR_TO_CAR swat_f1[0] extpoliceheli_f1 1.4 1.3 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat_f1[0] 150
-						SET_CHAR_SHOOT_RATE swat_f1[0] 70
-						ATTACH_CHAR_TO_CAR swat_f1[1] extpoliceheli_f1 1.4 -0.8 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat_f1[1] 150
-						SET_CHAR_SHOOT_RATE swat_f1[1] 70
-						ATTACH_CHAR_TO_CAR swat_f1[2] extpoliceheli_f1 -1.4 1.3 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat_f1[2] 150
-						SET_CHAR_SHOOT_RATE swat_f1[2] 70
-						ATTACH_CHAR_TO_CAR swat_f1[3] extpoliceheli_f1 -1.4 -0.8 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat_f1[3] 150
 						SET_AREA_VISIBLE 0
 						LOAD_SCENE 2193.86 -1157.682 33.563
 
@@ -4033,49 +4005,18 @@ IF roofmotel_f1flag = 1
 
 							CREATE_CAR POLMAV 2249.51 -1111.52 56.1 extpoliceheli_f1
 							CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION2 SWAT exthelidriver_f1
-							GOSUB l1f1_outside_heli_cutscene_setup
+							GOSUB l1f1_outside_heli_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
 							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
-							GOSUB l1f1_outside_heli_guys_cutscene_setup
+							GOSUB l1f1_outside_heli_guys_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 
 							CREATE_SEARCHLIGHT_ON_VEHICLE extpoliceheli_f1 0.0 1.0 -0.5 2193.73 -1166.85 34.06 3.0 0.4 helispotlight_f1
 							POINT_SEARCHLIGHT_AT_CHAR helispotlight_f1 sweet 0.2
 							SET_CAR_COORDINATES extpoliceheli_f1 2188.28 -1176.54 39.54
 							SET_CAR_HEADING extpoliceheli_f1 210.0
-
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
-							SET_CHAR_RELATIONSHIP swat_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_RELATIONSHIP swat_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-							SET_CHAR_DECISION_MAKER swat_f1[0] extmotel_DM
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
-							SET_CHAR_RELATIONSHIP swat_f1[1] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_DECISION_MAKER swat_f1[1] extmotel_DM
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
-							SET_CHAR_RELATIONSHIP swat_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_RELATIONSHIP swat_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-							SET_CHAR_DECISION_MAKER swat_f1[2] extmotel_DM
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
-							SET_CHAR_RELATIONSHIP swat_f1[3] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_DECISION_MAKER swat_f1[3] extmotel_DM
-
-							swat_f1flag[0] = 0
-							swat_f1flag[1] = 0
-							swat_f1flag[2] = 0
-							swat_f1flag[3] = 0
-							ATTACH_CHAR_TO_CAR swat_f1[0] extpoliceheli_f1 1.4 1.3 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat_f1[0] 150
-							SET_CHAR_SHOOT_RATE swat_f1[0] 70
-							ATTACH_CHAR_TO_CAR swat_f1[1] extpoliceheli_f1 1.4 -0.8 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat_f1[1] 150
-							SET_CHAR_SHOOT_RATE swat_f1[1] 70
-							ATTACH_CHAR_TO_CAR swat_f1[2] extpoliceheli_f1 -1.4 1.3 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat_f1[2] 150
-							SET_CHAR_SHOOT_RATE swat_f1[2] 70
-							ATTACH_CHAR_TO_CAR swat_f1[3] extpoliceheli_f1 -1.4 -0.8 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat_f1[3] 150
 
 							LOAD_SCENE 2193.86 -1157.682 33.563
 
@@ -4606,7 +4547,7 @@ IF sweetexit_f1flag = 23
 			SET_PETROL_TANK_WEAKPOINT extpoliceheli_f1 FALSE
 			SET_CAR_PROOFS extpoliceheli_f1 FALSE TRUE TRUE FALSE FALSE
 			SET_CAR_VISIBLE extpoliceheli_f1 FALSE
-			GOSUB l1f1_outside_heli_cutscene2_setup
+			GOSUB l1f1_outside_heli_cutscene2_setup // FIXEDGROVE: moved setup code to gosub
 
 			CREATE_CAR GREENWOO 2203.498 -1217.624 23.579 sweet_car
 			SET_RADIO_CHANNEL RS_MODERN_HIP_HOP
@@ -4619,8 +4560,9 @@ IF sweetexit_f1flag = 23
 			CHANGE_CAR_COLOUR sweet_car 59 34
 			SET_CAR_PROOFS sweet_car FALSE TRUE TRUE TRUE TRUE
 			SET_CAR_HEALTH sweet_car 6000
-			SET_CAN_BURST_CAR_TYRES sweet_car FALSE 
+			SET_CAN_BURST_CAR_TYRES sweet_car FALSE
 
+			// FIXEDGROVE: START - moved setup code to gosub
 			CREATE_CAR COPCARLA 2169.1943 -1270.0591 22.8203 policecar_f1[0]	//1st car chasing player
 			SET_CAR_HEADING policecar_f1[0] 357.0326
 			CREATE_CHAR_INSIDE_CAR policecar_f1[0] PEDTYPE_MISSION1 LAPD1 cop_f1[0]
@@ -4680,6 +4622,7 @@ IF sweetexit_f1flag = 23
 			SET_CAR_HEALTH policecar_f1[3] 900
 			SET_CHAR_HEALTH cop_f1[6] 100
 			SET_CHAR_HEALTH cop_f1[7] 150
+			// FIXEDGROVE: END - moved setup code to gosub
 
 			SWITCH_RANDOM_TRAINS OFF
 			DELETE_ALL_TRAINS
@@ -5108,6 +5051,7 @@ IF motelchase_f1flag = 1
 					DELETE_MISSION_TRAINS
 					MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
 
+					// FIXEDGROVE: START - moved setup code to gosub
 					CREATE_CAR COPCARLA 2500.697 -1443.776 28.28 policecar_f1[4]	//comes in front of the player smacks into players bumper
 					SET_CAR_HEADING policecar_f1[4] 90.4588
 					CREATE_CHAR_INSIDE_CAR policecar_f1[4] PEDTYPE_MISSION1 LAPD1 cop_f1[8]
@@ -5136,6 +5080,7 @@ IF motelchase_f1flag = 1
 					GOSUB l1f1_policecar_setup
 					GOSUB l1f1_outside_guys_setup
 					SET_CAR_HEALTH policecar_f1[6] 280
+					// FIXEDGROVE: END
 				ENDIF
 				copcars_f1flag = 3
 			ENDIF		
@@ -5647,6 +5592,7 @@ IF motelchase_f1flag = 2
 	SET_OBJECT_HEADING sca6_f1 170.0
 	sca_f1flag = 1
 
+	// FIXEDGROVE: START - moved setup code to gosub
 	CREATE_CAR COPCARLA 2520.49 -1485.04 22.84 policecar_f1[1] //first chaser through car wash
 	SET_CAR_HEADING policecar_f1[1] 1.33
 	CREATE_CHAR_INSIDE_CAR policecar_f1[1] PEDTYPE_MISSION1 LAPD1 cop_f1[1]
@@ -5687,6 +5633,7 @@ IF motelchase_f1flag = 2
 	GOSUB l1f1_policecar_setup
 	GOSUB l1f1_outside_guys_setup
 	SET_CAR_HEALTH policecar_f1[7] 325
+	// FIXEDGROVE: END
 
 	IF NOT IS_CAR_DEAD sweet_car
 	AND NOT IS_CAR_DEAD policecar_f1[0]
@@ -6392,6 +6339,7 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CAR_ONLY_DAMAGED_BY_PLAYER copbike4_f1 TRUE
 				SET_CAR_PROOFS copbike4_f1 TRUE TRUE TRUE TRUE TRUE
 
+				// FIXEDGROVE: START - moved setup code to gosub
 				CREATE_CAR COPCARLA 2222.98 -1303.52 22.654 policecar_f1[4] //car that comes out with the bike
 				SET_CAR_HEADING policecar_f1[4] 269.409
 				CREATE_CHAR_INSIDE_CAR policecar_f1[4] PEDTYPE_MISSION1 LAPD1 cop_f1[8]
@@ -6435,6 +6383,7 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CAR_HEALTH policecar_f1[6] 750
 				SET_CHAR_HEALTH cop_f1[14] 200
 // FIXEDGROVE: END
+				// FIXEDGROVE: END - moved setup code to gosub
    				copcars_f1flag = 3
 			ENDIF
 		ENDIF
@@ -6511,7 +6460,7 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CHAR_PROOFS copleft_f1 TRUE TRUE TRUE TRUE TRUE
 				SET_CHAR_ACCURACY copleft_f1 5
 				l1f1_char_name = copleft_f1
-				GOSUB l1f1_outside_guys_passenger_setup
+				GOSUB l1f1_outside_guys_passenger_setup // FIXEDGROVE: moved setup code to gosub
 				enemy_f1 = copleft_f1
 				enemytarget_f1 = scplayer
 				GOSUB stayshootnoduck_f1label
@@ -6520,7 +6469,7 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CHAR_PROOFS copright_f1 TRUE TRUE TRUE TRUE TRUE
 				SET_CHAR_ACCURACY copright_f1 5
 				l1f1_char_name = copleft_f1
-				GOSUB l1f1_outside_guys_passenger_setup
+				GOSUB l1f1_outside_guys_passenger_setup // FIXEDGROVE: moved setup code to gosub
 				enemy_f1 = copright_f1
 				enemytarget_f1 = scplayer
 				GOSUB stayshootnoduck_f1label
@@ -6670,7 +6619,7 @@ IF NOT IS_CAR_DEAD sweet_car
 						DELETE_SEARCHLIGHT helispotlight_f1
 						CREATE_CAR POLMAV 2170.27 -1523.73 24.76 extpoliceheli_f1
 						CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION1 LAPD1 exthelidriver_f1
-						GOSUB l1f1_outside_heli_cutscene2_setup
+						GOSUB l1f1_outside_heli_cutscene2_setup // FIXEDGROVE: moved setup code to gosub
 						SET_CAR_PROOFS extpoliceheli_f1 TRUE TRUE TRUE TRUE TRUE
 						START_PLAYBACK_RECORDED_CAR extpoliceheli_f1 381
 						TIMERA = 0
