@@ -269,8 +269,8 @@ LVAR_INT getonbikecut_s4flag
 LVAR_INT truckaudio_s4flag
 LVAR_INT explodecar5_s4flag
 LVAR_INT explodecar6_s4flag
-VAR_INT difficulty_s4flag //do not reset this flag // FIXEDGROVE: made global
-VAR_INT difficulty_s4value //do not reset this // FIXEDGROVE: made global
+//LVAR_INT difficulty_s4flag //do not reset this flag // FIXEDGROVE: made global
+//LVAR_INT difficulty_s4value //do not reset this // FIXEDGROVE: made global
 
 // **************************************** Mission Start **********************************
 

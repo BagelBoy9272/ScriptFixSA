@@ -20,6 +20,7 @@ SET_MAX_WANTED_LEVEL 6
 SET_DEATHARREST_STATE OFF
 SET_TIME_OF_DAY 08 00 
 
+/* FIXEDGROVE: variable declaration moved to Hotdog.sc, initialization moved further down in main
 VAR_INT BUTTON_ACCEPT BUTTON_CANCEL BUTTON_BET_UP BUTTON_BET_DOWN
 
 IF IS_JAPANESE_VERSION
@@ -33,6 +34,7 @@ ELSE
 	BUTTON_BET_UP = SQUARE
 	BUTTON_BET_DOWN = CIRCLE
 ENDIF
+*/
 
 // *****************************************CREATE PLAYER***********************************   
 
@@ -316,7 +318,7 @@ VAR_FLOAT in_carX in_carY in_carZ
 //HELP MESSAGE VARS
 VAR_INT	bike_help drive_by_help
 VAR_INT	print_first_help car_help_played
-VAR_INT gym_help // FIXEDGROVE
+// FIXEDGROVE: added gym_help
 
 VAR_INT driving_test_passed pilot_test_passed
 
@@ -514,9 +516,6 @@ race_selection = 0
 //STATS*****************************************************************************************
 
 VAR_FLOAT fatstat_gym
-                                    
-//BEACH
-//CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 393.9 -60.2 11.5 beach_bribe1  //Not far from Construction Site behind some houses
 
 // ***************************************MISSION VARS**********************************************
 
@@ -936,7 +935,7 @@ REGISTER_STREAMED_SCRIPT PHOTO.sc
 REGISTER_STREAMED_SCRIPT PRISONR.sc
 REGISTER_STREAMED_SCRIPT camera.sc 
 REGISTER_STREAMED_SCRIPT debt.sc
-REGISTER_STREAMED_SCRIPT hotdog.sc
+REGISTER_STREAMED_SCRIPT hotdog.sc // FIXEDGROVE: stores all new globals to avoid offsetting vanilla ones
 
 CONST_INT CASINO_OBJECT_BRAIN	1
 
@@ -1104,6 +1103,18 @@ LAUNCH_MISSION audio_controller.sc //SL
 LAUNCH_MISSION hj.sc //CR
 LAUNCH_MISSION mobile.sc //CF
 
+// FIXEDGROVE: moved from top of main
+IF NOT IS_JAPANESE_VERSION
+	BUTTON_ACCEPT = CIRCLE
+	BUTTON_CANCEL = CROSS
+	BUTTON_BET_UP = TRIANGLE
+	BUTTON_BET_DOWN = SQUARE
+ELSE
+	BUTTON_ACCEPT = CROSS
+	BUTTON_CANCEL = TRIANGLE
+	BUTTON_BET_UP = SQUARE
+	BUTTON_BET_DOWN = CIRCLE
+ENDIF
 
 DO_FADE 0 FADE_OUT
 DISPLAY_ZONE_NAMES FALSE
@@ -5023,6 +5034,7 @@ valet_loop:
 
 {
 
+// FIXEDGROVE: refactored a bit, now also enabled for LA and LV
 
 SCRIPT_NAME VALET_L
 
@@ -5030,30 +5042,54 @@ valet_loop_inner:
 
 	WAIT 0
 
-	IF valet_unlocked = 1 
-		IF im_players_city = LEVEL_SANFRANCISCO
-			GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT valet.sc number_of_instances_of_streamed_script
-			IF number_of_instances_of_streamed_script = 0
-				IF IS_PLAYER_PLAYING player1								
-					IF IS_CHAR_IN_AREA_2D scplayer -1893.4186 1119.2267 -1617.9149 828.850 FALSE
-	   
-						val_Area = 2
 
-						STREAM_SCRIPT valet.sc
-						IF HAS_STREAMED_SCRIPT_LOADED valet.sc
-							START_NEW_STREAMED_SCRIPT valet.sc
-						ENDIF												
-					ELSE
-						IF val_Area = 2
-							MARK_STREAMED_SCRIPT_AS_NO_LONGER_NEEDED valet.sc
-							val_Area = 0
-						ENDIF
+//	IF valet_unlocked = 1 // FIXEDGROVE: commented, checked in valet.sc
+	IF IS_PLAYER_PLAYING player1
+		GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT valet.sc number_of_instances_of_streamed_script
+		
+		IF number_of_instances_of_streamed_script = 0
+			
+			LVAR_INT valet_current_zone
+			valet_current_zone = 0
+
+			SWITCH im_players_city
+				CASE LEVEL_LOSANGELES
+					IF IS_CHAR_IN_AREA_2D scplayer 215.3643 -1651.7264 440.7311 -1369.3921 FALSE
+						valet_current_zone = im_players_city
 					ENDIF
+				BREAK
+
+				CASE LEVEL_SANFRANCISCO
+					IF IS_CHAR_IN_AREA_2D scplayer -1893.4186 1119.2267 -1617.9149 828.850 FALSE
+						valet_current_zone = im_players_city
+					ENDIF
+				BREAK
+
+				CASE LEVEL_LASVEGAS
+					IF IS_CHAR_IN_AREA_2D scplayer 2205.5503 1710.5160 1830.5140 2086.0610 FALSE
+						valet_current_zone = im_players_city
+					ENDIF
+				BREAK
+			ENDSWITCH
+
+			IF valet_current_zone > 0
+
+				val_Area = valet_current_zone
+
+				STREAM_SCRIPT valet.sc
+				IF HAS_STREAMED_SCRIPT_LOADED valet.sc
+					START_NEW_STREAMED_SCRIPT valet.sc
+				ENDIF
+			ELSE
+				IF val_Area > 0
+					// Player is not in any valid zone, clean up if needed
+					MARK_STREAMED_SCRIPT_AS_NO_LONGER_NEEDED valet.sc
+					val_Area = 0
 				ENDIF
 			ENDIF
+
 		ENDIF
 	ENDIF
-
 
 GOTO valet_loop_inner 
 

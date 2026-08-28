@@ -233,7 +233,7 @@ LVAR_INT driverofcar_f1
 LVAR_INT policecar_f1blip[8] // FIXEDGROVE: changed individual variables into an array
 
 //flags
-VAR_INT difficulty_f1flag //do not reset this // FIXEDGROVE: made difficulty flag global
+//LVAR_INT difficulty_f1flag //do not reset this // FIXEDGROVE: made difficulty flag global
 
 LVAR_INT rails_f1flag
 LVAR_INT motelchase_f1flag

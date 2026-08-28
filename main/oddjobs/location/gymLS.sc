@@ -65,6 +65,18 @@ LVAR_INT ls_cheering
 
 LVAR_INT ls_sfx
 
+// FIXEDGROVE: START
+GOTO gymLS_fool_compiler
+
+	OPEN_SEQUENCE_TASK seq_punchbag
+	CLOSE_SEQUENCE_TASK seq_punchbag
+
+	OPEN_SEQUENCE_TASK seq_punchbag2
+	CLOSE_SEQUENCE_TASK seq_punchbag2
+
+gymLS_fool_compiler:
+// FIXEDGROVE: END
+
 // ****************************************Mission Start************************************
 
 REGISTER_MISSION_GIVEN
@@ -238,37 +250,7 @@ SET_CHAR_DECISION_MAKER boxer2_lsgym gym_decision_norm
 SET_CHAR_ONLY_DAMAGED_BY_PLAYER boxer2_lsgym TRUE
 SHUT_CHAR_UP boxer1_lsgym TRUE
 
-OPEN_SEQUENCE_TASK seq_punchbag
-
-	TASK_GO_TO_COORD_ANY_MEANS -1 761.6263 11.4876 1000.1639 PEDMOVE_WALK -1
-
-	TASK_ACHIEVE_HEADING -1 128.1297 
-
-	IF NOT IS_CHAR_DEAD boxer1_lsgym 
-
-		TASK_KILL_CHAR_ON_FOOT -1 boxer2_lsgym
-
-	ENDIF
-
-	SET_SEQUENCE_TO_REPEAT seq_punchbag 1
-	
-CLOSE_SEQUENCE_TASK seq_punchbag
-
-OPEN_SEQUENCE_TASK seq_punchbag2
- 
-	TASK_GO_TO_COORD_ANY_MEANS -1 760.3430 10.1973 999.7099 PEDMOVE_WALK -1
-
-	TASK_ACHIEVE_HEADING -1 310.2206
-
-	IF NOT IS_CHAR_DEAD boxer1_lsgym
-
-		TASK_KILL_CHAR_ON_FOOT -1 boxer1_lsgym
-
-	ENDIF
-
-	SET_SEQUENCE_TO_REPEAT seq_punchbag2 1
-	
-CLOSE_SEQUENCE_TASK seq_punchbag2
+GOSUB ls_boxers_seq // FIXEDGROVE: code moved to subroutine
 
 PERFORM_SEQUENCE_TASK boxer1_lsgym seq_punchbag  
 
@@ -1072,6 +1054,8 @@ AND LOCATE_CHAR_ANY_MEANS_3D sensei1_lsgym 767.2571 14.4044 999.6998 1.0 1.0 1.2
 			SET_CHAR_ONLY_DAMAGED_BY_PLAYER boxer2_lsgym TRUE
 			SHUT_CHAR_UP boxer1_lsgym TRUE
 
+			GOSUB ls_boxers_seq // FIXEDGROVE: recreate sequences
+
 			PERFORM_SEQUENCE_TASK boxer1_lsgym seq_punchbag  
 
 			PERFORM_SEQUENCE_TASK boxer2_lsgym seq_punchbag2 
@@ -1263,6 +1247,43 @@ ls_play_sample:
 
 	ENDIF
 	
+RETURN
+
+// FIXEDGROVE: moved sequence creation to subroutine to allow for recreation after ring fight
+ls_boxers_seq:
+
+	OPEN_SEQUENCE_TASK seq_punchbag
+
+		TASK_GO_TO_COORD_ANY_MEANS -1 761.6263 11.4876 1000.1639 PEDMOVE_WALK -1
+
+		TASK_ACHIEVE_HEADING -1 128.1297 
+
+		IF NOT IS_CHAR_DEAD boxer1_lsgym 
+
+			TASK_KILL_CHAR_ON_FOOT -1 boxer2_lsgym
+
+		ENDIF
+
+		SET_SEQUENCE_TO_REPEAT seq_punchbag 1
+
+	CLOSE_SEQUENCE_TASK seq_punchbag
+
+	OPEN_SEQUENCE_TASK seq_punchbag2
+	
+		TASK_GO_TO_COORD_ANY_MEANS -1 760.3430 10.1973 999.7099 PEDMOVE_WALK -1
+
+		TASK_ACHIEVE_HEADING -1 310.2206
+
+		IF NOT IS_CHAR_DEAD boxer1_lsgym
+
+			TASK_KILL_CHAR_ON_FOOT -1 boxer1_lsgym
+
+		ENDIF
+
+		SET_SEQUENCE_TO_REPEAT seq_punchbag2 1
+
+	CLOSE_SEQUENCE_TASK seq_punchbag2
+
 RETURN
 
 }

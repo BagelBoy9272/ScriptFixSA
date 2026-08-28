@@ -1,12 +1,7 @@
 MISSION_START
 
 
-
-
 {
-
-
-																	 			   
 
 
 //vehicles
@@ -108,9 +103,6 @@ valet_task[2] = NOT_CREATED
 valet_can_be_created[2] = 1
 
 
-
-
-
 //LA
 
 VAR_FLOAT valet_la_x[3] valet_la_y[3] valet_la_z[3]	valet_la_h[3]
@@ -133,6 +125,8 @@ valet_la_h[0] = 222.0
 valet_la_h[1] = 222.0
 valet_la_h[2] = 222.0
 
+//SF
+
 valet_sf_x[0] = -1761.0292
 valet_sf_x[1] = -1759.9138
 valet_sf_x[2] = -1749.7128
@@ -149,27 +143,28 @@ valet_sf_h[0] = 204.3268
 valet_sf_h[1] = 199.1670
 valet_sf_h[2] = 142.3291
 
+//LV
+
 valet_vg_x[0] = 2029.7582
 valet_vg_x[1] = 2027.6661
 valet_vg_x[2] = 2026.3937
 
-valet_vg_y[0] = 1905.9434
-//valet_vg_y[1] = 1907.6700
-//valet_vg_y[2] = 1905.8102
+// FIXEDGROVE: corrected coords below, they were too lopsided
+valet_vg_y[0] = 1910.9434
+valet_vg_y[1] = 1918.6700
+valet_vg_y[2] = 1914.8102
 
-//valet_vg_z[0] = 11.3315
-//valet_vg_z[1] = 11.3349
-//valet_vg_z[2] =	11.3313
+valet_vg_z[0] = 11.3315
+valet_vg_z[1] = 11.3349
+valet_vg_z[2] =	11.3313
 
-//valet_vg_h[0] = 331.7047
-//valet_vg_h[1] = 297.1161
-//valet_vg_h[2] = 288.6038
+valet_vg_h[0] = 321.7047
+valet_vg_h[1] = 250.1161
+valet_vg_h[2] = 288.6038
 
 VAR_FLOAT valet_drop_off_area_x1[4] valet_drop_off_area_x2[4] valet_drop_off_area_y1[4] valet_drop_off_area_y2[4]
 VAR_FLOAT car_park_area_x1[4] car_park_area_x2[4] car_park_area_y1[4] car_park_area_y2[4] car_park_area_z1[4] car_park_area_z2[4]
 VAR_FLOAT valet_exit_x[4] valet_exit_y[4] valet_exit_z[4]
-
-
 
 
 VAR_FLOAT find_drop_off_car_x1[4] find_drop_off_car_y1[4] find_drop_off_car_x2[4] find_drop_off_car_y2[4] find_drop_off_car_h1[4] 
@@ -192,8 +187,6 @@ valet_drop_off_area_y1[3] =	1958.5413
 valet_drop_off_area_y2[3] =	1871.0653
 
 
-
-
 car_park_area_x1[1] = 336.0477  
 car_park_area_y1[1] = -1452.2249
 car_park_area_z1[1] = 31.9445  							
@@ -214,7 +207,6 @@ car_park_area_z1[3] = 11.4898
 car_park_area_x2[3] = 1917.8112
 car_park_area_y2[3] = 1788.1465
 car_park_area_z2[3] = 17.3118  
-
 
 
 find_drop_off_car_x1[1] = 363.3463 
@@ -261,8 +253,8 @@ drop_off_point_x[2] = -1754.5139
 drop_off_point_y[2] = 953.5991
 drop_off_point_z[2]	= 23.7500
 
-drop_off_point_x[3] = 2035.7292
-drop_off_point_y[3] = 1912.0900
+drop_off_point_x[3] = 2036.5220 // FIXEDGROVE: corrected coords
+drop_off_point_y[3] = 1916.7090 // FIXEDGROVE: corrected coords
 drop_off_point_z[3]	= 11.1751 
 
 valet_exit_x[0] = -1748.3761
@@ -314,21 +306,6 @@ valet_spawn_x2[3] = 2084.1565
 valet_spawn_y2[3] = 1965.5731
 valet_spawn_z2[3] = 9.9974 
 valet_spawn_h2[3] = 117.4401      
-
-
-
- 
-
-
-
- 
-
-
-
-
-
-
-
 
 
    // valet 1
@@ -570,11 +547,12 @@ check_player_location:
 
 		val_area = 0
 
-//		IF IS_CHAR_IN_AREA_2D scplayer 215.3643	-1651.7264 440.7311	-1369.3921 FALSE
-//
-//			val_Area = 1
-//		ENDIF
-				
+		// FIXEDGROVE: START - uncomment
+		IF IS_CHAR_IN_AREA_2D scplayer 215.3643	-1651.7264 440.7311	-1369.3921 FALSE
+
+			val_Area = 1
+		ENDIF
+		// FIXEDGROVE: END	
 
 		IF IS_CHAR_IN_AREA_2D scplayer -1893.4186 1119.2267 -1617.9149 828.850 FALSE
 
@@ -582,32 +560,14 @@ check_player_location:
 
 		ENDIF
 		
-//		IF IS_CHAR_IN_AREA_2D scplayer 2205.5503 1772.4938 1830.5140 2086.0610 FALSE
-//
-//			val_Area = 3
-//		ENDIF
+		// FIXEDGROVE: START - uncomment
+		IF IS_CHAR_IN_AREA_2D scplayer 2205.5503 1710.5160 1830.5140 2086.0610 FALSE // FIXEDGROVE: y was '1772.4938'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			val_Area = 3
+		ENDIF
+		// FIXEDGROVE: END
 
 //		val_Area = 0
-
-
-			
-			
-				
-
 		
 //		IF player_x > 215.3643
 //			IF player_x < 440.7311

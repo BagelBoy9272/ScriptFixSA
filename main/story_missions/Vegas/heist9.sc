@@ -9104,7 +9104,7 @@ RETURN
 mission_heist9_passed:
 	// night vision goggles
 
-	CREATE_PICKUP_WITH_AMMO NVGOGGLES PICKUP_ON_STREET_SLOW 1 102.7728 1899.1920 33.1572 goggle_pickups[4]       // up a tower in area 51 in desert
+	CREATE_PICKUP_WITH_AMMO NVGOGGLES PICKUP_ON_STREET_SLOW 1 102.7728 1899.1920 33.4 goggle_pickups[4]       // up a tower in area 51 in desert // FIXEDGROVE: z was '33.1572'
 
 	CREATE_PICKUP_WITH_AMMO NVGOGGLES PICKUP_ON_STREET_SLOW 1 1274.3005 -825.7809 1085.0795 goggle_pickups[5]       // mad dogs mansion in LA in desert
 

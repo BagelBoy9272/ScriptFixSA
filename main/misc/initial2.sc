@@ -2244,7 +2244,6 @@ CREATE_CAR_GENERATOR 1544.0	-1352.0	329.0 95.0 MAVERICK -1 -1 FALSE 0 0 0 10000 
 
 // San Fierro flying vehicles
 
-
 CREATE_CAR_GENERATOR -1963.0	628.0	151.0 182.0 SPARROW -1 -1 FALSE 0 0 0 10000 gen_car_flying[1]	//On top of zombotech building. Should be safe at any time, building only accessible by flight
 CREATE_CAR_GENERATOR -1681.0	705.0	31.0 90.0 POLMAV -1 -1 FALSE 0 0 0 10000 gen_car_flying[2] 	//Helipad near garage, used in Toreno's Last Flight. Accessible at any time, so probably shouldn't get a vehicle until after Pilot's License is obtained. // FIXEDGROVE: was MAVERICK
 CREATE_CAR_GENERATOR -2630.0	684.0	72.0 180.0 MAVERICK -1 -1 FALSE 0 0 0 10000 gen_car_flying[3]	//First of two helipads on hospital roof. Got a + symbol on it. Probably safe to always have a heli, as I don't think you could access this part of the hospital roof without flying anyway.
@@ -2430,7 +2429,7 @@ SWITCH_CAR_GENERATOR gen_car_film_studio_LA[7] 101
 
 VAR_INT pickups_film_studio[7]
 CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 825.9210 -1165.8129 17.1  pickups_film_studio[0] // FIXEDGROVE: z originally was 17.8936, too far off the ground
-CREATE_PICKUP_WITH_AMMO sawnoff PICKUP_ON_STREET_SLOW 40 832.6030 -1273.8612 14.4833  pickups_film_studio[1]
+CREATE_PICKUP_WITH_AMMO sawnoff PICKUP_ON_STREET_SLOW 40 832.6030 -1273.8612 13.77  pickups_film_studio[1] // FIXEDGROVE: z was '14.4833', too far off the ground
 CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW 911.6486 -1235.3898 17.6802 pickups_film_studio[2]		
 
 CREATE_PICKUP sniper PICKUP_ON_STREET_SLOW 733.4333 -1356.4700 23.5229 pickups_film_studio[3]
@@ -2452,9 +2451,6 @@ SWITCH_CAR_GENERATOR car_gen_mtchiliad[3] 101
 
 // GO KART CAR GENS (THEY OPEN AFTER SIMONS GO KART MISSION)
 VAR_INT car_gen_go_kart[15]
-
-
-
 
 CREATE_CAR_GENERATOR -2213.5559 112.7671 34.9203 88.4720	KART -1 -1 FALSE 0 0 0 10000 car_gen_go_kart[0] // behind zeros toy shop	in SF
 CREATE_CAR_GENERATOR -2693.3860 -139.4564 3.93359 90.0856   KART -1 -1 FALSE 0 0 0 10000 car_gen_go_kart[1] 	// some dudes front garden in SF
@@ -2526,11 +2522,6 @@ VAR_INT player_has_fast_reload
 player_has_fast_reload = 0
 
 VAR_INT range_weapons_open trigger_new_range_level
-
-
-
-
-
 
 //REWARD AFTER FINISHING KICKSTART
 VAR_INT car_gen_duneride_kickstart
@@ -2735,18 +2726,16 @@ CONST_INT DANCE_WAIT_TO_START_BEATDISPLAY	10000
 
 // - Pauld gym stuff ---------------------------------------------------------------------------
  
-VAR_INT gym_day gym_final_day 
-//VAR INT gym_month gym_final_month // FIXEDGROVE: these variables are no longer used
+VAR_INT gym_day  
+VAR_INT gym_help // FIXEDGROVE: gym help flag, repurposes unused var
+VAR_INT gym_final_day
+VAR_INT unused_4 // FIXEDGROVE: unused
 
 VAR_FLOAT gym_day_fitness
 
 gym_day = -1
 
-//gym_month = -1 // FIXEDGROVE: these variables are no longer used
-
 gym_final_day = -1
-
-//gym_final_month = -1 // FIXEDGROVE: these variables are no longer used
 
 gym_day_fitness = 0.0
 

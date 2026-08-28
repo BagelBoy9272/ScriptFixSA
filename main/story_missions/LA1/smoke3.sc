@@ -94,7 +94,7 @@ LVAR_INT outoffirstgroup_s3flag
 LVAR_INT smokegroupchase_s3flag
 LVAR_INT trainspeed_s3flag///////////////////////////////////////////////////////////////////////
 LVAR_INT speedlimit_s3flag
-VAR_INT difficulty_s3flag		//do not reset this flag // FIXEDGROVE: made global
+//LVAR_INT difficulty_s3flag		//do not reset this flag // FIXEDGROVE: made global
 LVAR_INT run_s2flag
 LVAR_INT drivebyfirsttime_s3flag
 LVAR_INT skipcutscene_s3flag

@@ -11,8 +11,6 @@ VAR_INT flag_new_cont players_skipping_the_call	skip_the_mobile_call millies_lik
 VAR_INT call_delay cell_index_start	cell_index_end audio_slot_mobile
 VAR_INT mobile_audio_labels[20]	current_visible_area_cell
 VAR_TEXT_LABEL $mobile_print_labels[20]
-VAR_INT mobile_speaker[20] // FIXEDGROVE: stores the current speaker for a line
-VAR_INT call_number_gf_variation // FIXEDGROVE: stores gf phonecall conversation variation
 VAR_FLOAT Returnedfat
    
 // SET FLAGS AND VARIABLES
@@ -187,6 +185,9 @@ mission_start_cell_phone:
 MISSION_END
 
 {
+
+LVAR_INT mobile_speaker[20] // FIXEDGROVE: stores the current speaker for a line
+LVAR_INT call_number_gf_variation // FIXEDGROVE: stores gf phonecall conversation variation
 
 mobile_chat_switch:
 

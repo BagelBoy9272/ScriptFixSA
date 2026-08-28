@@ -100,12 +100,6 @@ LVAR_INT last_print
 LVAR_INT consecutive_goods
 LVAR_INT consecutive_bads
 
-//FIXEDGROVE: START - speech related
-VAR_INT lowr_speech_state
-VAR_INT lowr_speech_request
-VAR_INT lowr_speech_counter
-//FIXEDGROVE: END
-
 // set initial flags
 force_multiplier = 0.01
 lowrider_level = 0

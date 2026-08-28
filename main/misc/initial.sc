@@ -1178,7 +1178,7 @@ VAR_INT sc3_missioncar
 VAR_INT valet_mission_terminate
 
 //flags
-VAR_INT valet_oddjob_opened player_on_valet_mission	playing_scrash1  valet_unlocked force_valet_cleanup
+VAR_INT valet_oddjob_opened player_on_valet_mission	playing_scrash1 unused_1 force_valet_cleanup // FIXEDGROVE: added unused var
 
 //chars (global)
 VAR_INT valet[3] 
@@ -1273,7 +1273,6 @@ VAR_INT bball_shot_dist	bball_shot_dist_decimal
 VAR_INT bball_active
 VAR_INT points_scored
 VAR_INT bball_throw_active
-VAR_INT bball_ball // FIXEDGROVE: global handle for the ball
 bball_ball = -1 // FIXEDGROVE
 
 
@@ -1411,7 +1410,7 @@ d5_silver_generator_unlocked = 0
 d5_gold_generator_unlocked = 0
 CREATE_CAR_GENERATOR 325.12 2537.1 17.52 180.0 RUSTLER -1 -1 TRUE 0 0 0 10000 d5_bronze_generator
 CREATE_CAR_GENERATOR 348.0 2537.1 17.42 180.0 STUNT -1 -1 TRUE 0 0 0 10000 d5_silver_generator
-CREATE_CAR_GENERATOR 365.41 2537.1 17.42 180.0 HUNTER -1 -1 TRUE 0 0 0 10000 d5_gold_generator // FIXEDGROVE: x coord was 365.51
+CREATE_CAR_GENERATOR 365.41 2537.1 17.42 180.0 HUNTER -1 -1 TRUE 0 0 0 10000 d5_gold_generator // FIXEDGROVE: x was '365.51'
 SWITCH_CAR_GENERATOR d5_bronze_generator 0
 SWITCH_CAR_GENERATOR d5_silver_generator 0
 SWITCH_CAR_GENERATOR d5_gold_generator 0
@@ -1606,8 +1605,8 @@ VAR_INT flag_bce2_passed_1stime
 VAR_INT flag_syn1_passed_1stime
 VAR_INT flag_cas1_passed_1stime
 VAR_INT flag_bikeschool_passed_1stime
-//VAR_INT flag_shtr_passed_1stime // FIXEDGROVE: unused
-//VAR_INT flag_grav_passed_1stime // FIXEDGROVE: unused
+VAR_INT flag_shtr_passed_1stime // FIXEDGROVE: unused
+VAR_INT flag_grav_passed_1stime // FIXEDGROVE: unused
 
 VAR_INT flag_on_courier_mission	respect_help_played
 
@@ -2288,9 +2287,7 @@ VAR_INT shopkeeper_model_shops
 CONST_INT SHOP_TIME_BEFORE_CHAT 8000 // FIXEDGROVE: used for the SHOP_CHAT speech context
 
 VAR_INT switch_the_gym_interiors_off
-VAR_INT switch_the_ammu_interiors_off // FIXEDGROVE: used to switch off ammunation interiors while the player is on a phonecall
 switch_the_gym_interiors_off = 0
-switch_the_ammu_interiors_off = 0 // FIXEDGROVE
 
 VAR_INT cost_menu_shops cost_menu_drawn_shops main_menu_shops main_menu_drawn_shops 
 VAR_INT bought_menu_shops bought_menu_drawn_shops sub_menu_shops sub_menu_drawn_shops
@@ -2407,7 +2404,7 @@ flag_on_doberman_mission = 0
 VAR_INT flag_gang_war_active
 flag_gang_war_active = 0
 
-VAR_INT ammu_shop_blip[10] mod_garage_blips[3] barbers_blips[6] pizza_blips[9] burger_blips[10] chicken_blips[12] tattoo_blips[4] gym_blips[2] clothes_blips[16] spray_shop[6] // FIXEDGROVE: increased pizza_blips array size for extra blip and reduced clothes_blips array size by one
+VAR_INT ammu_shop_blip[10] mod_garage_blips[3] barbers_blips[5] pizza_blips[8] burger_blips[10] chicken_blips[12] tattoo_blips[4] gym_blips[2] clothes_blips[16] unused_2 spray_shop[6] // FIXEDGROVE: added unused var
 
 
 ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
@@ -2797,7 +2794,6 @@ CREATE_OBJECT_NO_OFFSET shutter_vegas 1055.629 2087.67 12.469 ca3_loadingbay
 DONT_REMOVE_OBJECT ca3_loadingbay
 
 // FIXEDGROVE: START - gates for the compound in ocean docks
-VAR_INT gates_r2[2]
 CREATE_OBJECT_NO_OFFSET KMB_FRONTGATE 2720.623 -2405.432 13.989 gates_r2[0]
 DONT_REMOVE_OBJECT gates_r2[0]
 
@@ -2814,7 +2810,6 @@ SET_OBJECT_PROOFS g_BD_DOOR TRUE TRUE TRUE TRUE TRUE
 DONT_REMOVE_OBJECT g_BD_DOOR
 
 // FIXEDGROVE: START - Windows for Burning Desire house
-VAR_INT g_BD_WINDOW[8]
 
 // Front Downstairs Right Window
 CREATE_OBJECT_NO_OFFSET bd_window 2345.914 -1188.633 28.969 g_BD_WINDOW[0]
@@ -2941,6 +2936,7 @@ DONT_REMOVE_OBJECT h9_door_c
 //TRIP SKIP VARIABLE FOR SMOKE1
 VAR_INT tw7_trip_skip_flag
 tw7_trip_skip_flag = 0
+VAR_INT unused_3 // FIXEDGROVE: unused
 
 
 ///////doors for riot2 mission
@@ -3029,7 +3025,6 @@ FREEZE_OBJECT_POSITION carterwall TRUE
 DONT_REMOVE_OBJECT carterwall
 
 // FIXEDGROVE: START - storm drain grate
-VAR_INT grate_s4
 CREATE_OBJECT_NO_OFFSET storm_drain_cover 2631.852 -1482.75 18.109 grate_s4
 SET_OBJECT_HEALTH grate_s4 150
 DONT_REMOVE_OBJECT grate_s4
@@ -3037,19 +3032,16 @@ DONT_REMOVE_OBJECT grate_s4
 
 // FIXEDGROVE: START - jefferson motel objects
 // skylight
-VAR_INT g_skylite
 CREATE_OBJECT_NO_OFFSET imy_skylight 2246.07 -1191.242 1037.234 g_skylite
 DONT_REMOVE_OBJECT g_skylite
 
 // vent 1 
-VAR_INT g_vent1
 CREATE_OBJECT_NO_OFFSET lxr_motelvent 2217.072 -1188.664 1032.276 g_vent1
 SET_OBJECT_HEADING g_vent1 180.0
 FREEZE_OBJECT_POSITION g_vent1 TRUE
 DONT_REMOVE_OBJECT g_vent1
 
 // vent 2
-VAR_INT g_vent2
 CREATE_OBJECT lxr_motelvent 2193.188 -1164.511 1032.276 g_vent2
 SET_OBJECT_HEADING g_vent2 90.0
 DONT_REMOVE_OBJECT g_vent2
@@ -3058,53 +3050,45 @@ FREEZE_OBJECT_POSITION g_vent2 TRUE
 // TROLLEYS
 
 // trolley 1
-VAR_INT g_trolley1
 CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2242.433 -1166.712 1029.304 g_trolley1
 SET_OBJECT_HEALTH g_trolley1 150
 DONT_REMOVE_OBJECT g_trolley1
 
 // trolley 2
-VAR_INT g_trolley2
 CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2240.11 -1174.919 1029.304 g_trolley2
 SET_OBJECT_HEALTH g_trolley2 250
 DONT_REMOVE_OBJECT g_trolley2
 
 // trolley 3
-VAR_INT g_trolley3
 CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2229.87 -1189.845 1029.304 g_trolley3
 SET_OBJECT_HEADING g_trolley3 90.0
 SET_OBJECT_HEALTH g_trolley3 150
 DONT_REMOVE_OBJECT g_trolley3
 
 // trolley 4
-VAR_INT g_trolley4
 CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2217.569  -1187.528 1029.304 g_trolley4
 SET_OBJECT_HEADING g_trolley4 90.0
 SET_OBJECT_HEALTH g_trolley4 250
 DONT_REMOVE_OBJECT g_trolley4
 
 // trolley 5
-VAR_INT g_trolley5
 CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2204.649 -1187.544 1029.304 g_trolley5
 SET_OBJECT_HEADING g_trolley5 90.0
 SET_OBJECT_HEALTH g_trolley5 150
 DONT_REMOVE_OBJECT g_trolley5
 
 // trolley 6
-VAR_INT g_trolley6
 CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2194.345 -1171.269 1029.304 g_trolley6
 SET_OBJECT_HEALTH g_trolley6 250
 DONT_REMOVE_OBJECT g_trolley6
 
 // trolley 7
-VAR_INT g_trolley7
 CREATE_OBJECT_NO_OFFSET KMB_TROLLEY 2192.079 -1166.364 1029.304 g_trolley7
 SET_OBJECT_HEALTH g_trolley7 150
 DONT_REMOVE_OBJECT g_trolley7
 // FIXEDGROVE: END
 
 // FIXEDGROVE: START - crack lab front gate
-VAR_INT crackfact_front_gate
 CREATE_OBJECT_NO_OFFSET wongs_gate -2127.18 -80.8 38.24 crackfact_front_gate
 SET_OBJECT_HEADING crackfact_front_gate 180.0
 DONT_REMOVE_OBJECT crackfact_front_gate
@@ -3623,7 +3607,7 @@ VAR_INT steal_car_cargen1 steal_car_cargen2 steal_car_cargen3 steal_car_cargen4 
 CREATE_CAR_GENERATOR -1956.3 297.7 34.3 64.8 URANUS -1 -1 TRUE 0 0 0 10000 steal_car_cargen1
 CREATE_CAR_GENERATOR -1952.6 265.7 39.9 292.8 ELEGY -1 -1 TRUE 0 0 0 10000 steal_car_cargen2
 CREATE_CAR_GENERATOR -1957.7 277.0 34.3 133.4 SULTAN -1 -1 TRUE 0 0 0 10000 steal_car_cargen3
-CREATE_CAR_GENERATOR -1952.8 258.8 39.9 259.1 JESTER -1 -1 TRUE 0 0 0 10000 steal_car_cargen4 // FIXEDGROVE: originally was savanna
+CREATE_CAR_GENERATOR -1952.8 258.8 39.9 259.1 JESTER -1 -1 TRUE 0 0 0 10000 steal_car_cargen4 // FIXEDGROVE: originally was Savanna
 CREATE_CAR_GENERATOR -1950.5 259.7 34.3 53.8 STRATUM -1 -1 TRUE 0 0 0 10000 steal_car_cargen5
 
 SWITCH_CAR_GENERATOR steal_car_cargen1 0
@@ -3928,6 +3912,7 @@ CREATE_COLLECTABLE1	2689.0583 -2516.2615 16.3672
 CREATE_COLLECTABLE1	1168.6608 -891.5475 42.0859
 */ 
 
+VAR_INT switch_the_ammu_interiors_off  // FIXEDGROVE: repurposed unused variable, used to switch off ammunation interiors while the player is on a phonecall
 
 // ****************************************ENTRY-EXITS RESERVED FOR DATES***********************************************
 //--- The restaurants reserved for cut scenes are switched on and off by the date script
@@ -5018,167 +5003,167 @@ INIT_ZONE_POPULATION_SETTINGS
 // Horseshoes in vegas
 VAR_INT pickup_horseshoe[50] 
 
-CREATE_HORSESHOE_PICKUP 1224.0 2617.0 11.0 pickup_horseshoe[0]				// Prickle Pine, In the porch of this house in LV suburbs. 
-CREATE_HORSESHOE_PICKUP 2323.0 1284.0 97.0 pickup_horseshoe[1]				// Camel's Toe, Right at the top of the big pyramid 
-CREATE_HORSESHOE_PICKUP 2035.0 2305.0 18.0 pickup_horseshoe[2]				// Emerald Isle - Frog's Pawn Shop, Go up the stairs at the gym, jump on to the next roof, get on to the thin piece of wall, take a run, jump and cling on to the next roof above the Frog's Pawn store. 
-CREATE_HORSESHOE_PICKUP 2491.0 2263.0 15.0 pickup_horseshoe[3]				// Roca Escalante : Erotic Wedding Chapel - Climb the box at the front of the chapel and jump on to the roof. 
-CREATE_HORSESHOE_PICKUP 1433.0 2796.0 20.0 pickup_horseshoe[4]				// Yellow Bell Golf House, On the roof of the golf house. The roof is fairly low to the ground and easy to get on to from the roof of a vehicle or wall. 
-CREATE_HORSESHOE_PICKUP 2071.0 0712.0 11.0 pickup_horseshoe[5]				// Rockshore West, In the back garden of this house in the suburbs. 
-CREATE_HORSESHOE_PICKUP 2239.0 1839.0 18.0 pickup_horseshoe[6]				// The Ring Master, On top of the ring master building. Player must climb a wall to gain access to the roof. Would be better on the coloured roof, but that can't be walked up. 
-CREATE_HORSESHOE_PICKUP 2583.0 2387.0 16.0 pickup_horseshoe[7]				// Roca Escalante: Rock Hotel, In the middle of the guitar shaped swimming pool in the Rock Hotel. 
-CREATE_HORSESHOE_PICKUP 2864.0 0857.0 13.0 pickup_horseshoe[8]				// Rockshore East, Inside a skip behind a warehouse in this compound. 
-CREATE_HORSESHOE_PICKUP 2612.0 2200.0 -1.0 pickup_horseshoe[9]				// Old Venturas Railway Tunnel, Follow the tunnel along from the entrance in Roca Escalante, until the entrance can't be seen any more, so the package is hidden from view. 
-CREATE_HORSESHOE_PICKUP 2274.0 1507.0 24.0 pickup_horseshoe[10]				// Royale Casino Car Park, On trhe third floor of this multi storey car park, hidden out of sight. 
-CREATE_HORSESHOE_PICKUP 2184.0 2529.0 11.0 pickup_horseshoe[11]				// Julius Thruway North, Hidden in this small garage enclosure.
-CREATE_HORSESHOE_PICKUP 1863.0 2314.0 15.0 pickup_horseshoe[12]				// Redsands East, On top of this roof. Vehicle / heli required. 
-CREATE_HORSESHOE_PICKUP 2054.0 2434.0 166.0 pickup_horseshoe[13]				// Las Venturas, Land a heli on the small area at the very top of this building. 
-CREATE_HORSESHOE_PICKUP 1603.0 1435.0 11.0 pickup_horseshoe[14]				// Las Venturas Airport, Beneath a staircase round the back of the airport.
-CREATE_HORSESHOE_PICKUP 1362.92 1015.24 11.0 pickup_horseshoe[15]				// LVA Freight Depot, Hidden in the small gap between the warehouse and the wall. 
-CREATE_HORSESHOE_PICKUP 2058.7 2159.10 16.0 pickup_horseshoe[16]				// Redsands East, Get up on the roof of the motel and run round to the back to find the horseshoe on the sheltered balcony 
-CREATE_HORSESHOE_PICKUP 2003.0 1672.0 12.0 pickup_horseshoe[17]				// The Pirates in Men's Pants, Package in a cool place, slightly obscured by bushes. 
-CREATE_HORSESHOE_PICKUP 2238.0 1135.0 49.0 pickup_horseshoe[18]				// Come-A-Lot, Land a heli on this parapet to get the goods. 
-CREATE_HORSESHOE_PICKUP 1934.06 0988.79 22.0 pickup_horseshoe[19]				// The Four Dragons Casino, In the dark garage beneath the Four Dragons Casino. 
-CREATE_HORSESHOE_PICKUP 1768.0 2847.0 09.0 pickup_horseshoe[20]				// Prickle Pine, In this shallow pool within some housing. 
-CREATE_HORSESHOE_PICKUP 1084.0 1076.0 11.0 pickup_horseshoe[21]				// Greenglass College, In the front garden of the college. Easy to get. 
-CREATE_HORSESHOE_PICKUP 2879.0 2522.0 11.0 pickup_horseshoe[22]				// Creek, Hidden behind this mall on the outskirts of town. 
-CREATE_HORSESHOE_PICKUP 2371.0 2009.0 15.0 pickup_horseshoe[23]				// Starfish Casino, Use a vehicle to access this thin piece of roofing. 
-CREATE_HORSESHOE_PICKUP 1521.0 1690.0 10.6 pickup_horseshoe[24]				// Las Venturas Airport, Heli required to access this roof. 
-CREATE_HORSESHOE_PICKUP 2417.0 1281.0 21.0 pickup_horseshoe[25]				// The Camel's Toe, Get up on the sphinx, turn on to the walkway and follow it round to the other side of the pyramid. 
-CREATE_HORSESHOE_PICKUP 1376.0 2304.0 15.0 pickup_horseshoe[26]				// Pilson Intersection, Use a vehicle to get on to the wall. 
-CREATE_HORSESHOE_PICKUP 1393.0 1832.0 12.34 pickup_horseshoe[27]				// Las Venturas Airport, Hidden from view by some bushes and such. 
-CREATE_HORSESHOE_PICKUP 0984.0 2563.0 12.0 pickup_horseshoe[28]				// Las Venturas, Under the Welcome sign. 
-CREATE_HORSESHOE_PICKUP 1767.0 0601.0 13.0 pickup_horseshoe[29]				// Randolph Industrial Estate, Hidden below this bridge on the way out of town. 
-CREATE_HORSESHOE_PICKUP 2108.0 1003.0 46.0 pickup_horseshoe[30]				// Come-A-Lot, Jetpack required. At the top of the Come-a-Lot sign. 
-CREATE_HORSESHOE_PICKUP 2705.98 1862.52 24.41 pickup_horseshoe[31]				// Juluis Thruway East, Jetpack only. The collision for the middle of this sign needs to be altered, so maybe the Z value of this needs to be increased by a metre or so. 
-CREATE_HORSESHOE_PICKUP 2493.0 0922.0 16.0 pickup_horseshoe[32]				// Las Venturas, On the roof of this wedding chapel, behind the parapet, This can be accessed from ground level. 
-CREATE_HORSESHOE_PICKUP 1881.0 2846.0 11.0 pickup_horseshoe[33]				// Prickle Pine, Stashed behind the gate to one of the tennis courts in this motel complex. 
-CREATE_HORSESHOE_PICKUP 2020.0 2352.0 11.0 pickup_horseshoe[34]				// Emerald Isle, In this small enclosure near the Emerald Isle. 
-CREATE_HORSESHOE_PICKUP 1680.30 2226.86 16.11 pickup_horseshoe[35]				// Redsands West, On the roof of the Steakhouse restaurant, away from the road to conceal it more. 
-CREATE_HORSESHOE_PICKUP 1462.0 0936.0 10.0 pickup_horseshoe[36]				// LvA Freight Depot, In this slightly sloped factory entrance. 
-CREATE_HORSESHOE_PICKUP 2125.50 0789.23 11.45 pickup_horseshoe[37]			 // Rockshore West, Beside the bin in this garden [74] 				// Rockshore West, Beside the bin in this garden 
-CREATE_HORSESHOE_PICKUP 2588.0 1902.0 15.0 pickup_horseshoe[38]				// Starfish Casino, Ledge currently has no colision, but would need a vehicle / jetpack to access. 
-CREATE_HORSESHOE_PICKUP 0919.0 2070.0 11.0 pickup_horseshoe[39]				// Whitewood Estates, At the back entrance of this warehouse. 
-CREATE_HORSESHOE_PICKUP 2173.0 2465.0 11.0 pickup_horseshoe[40]				// Emerald Isle, Hidden in a small garage complex. 
-CREATE_HORSESHOE_PICKUP 2031.25 2207.33 11.0  pickup_horseshoe[41]				// The Emerald Isle,
-CREATE_HORSESHOE_PICKUP 2509.0 1144.0 19.0 pickup_horseshoe[42]				// Come-A-Lot, Slightly hidden in the little alcove (player has to drop down onto balcony from roof above)
-CREATE_HORSESHOE_PICKUP 2215.0 1968.0 11.0 pickup_horseshoe[43]				// Starfish Casino, in the corner of this dark alleyway
-CREATE_HORSESHOE_PICKUP 2626.0 2841.0 11.0 pickup_horseshoe[44]				// K.A.C.C Military Fuels, in the little slightly secluded alleyway. Easily spottable when playing Heist5
-CREATE_HORSESHOE_PICKUP 2440.08 2161.07 20.0 pickup_horseshoe[45]				// Old Venturas Strip, 'hidden' in the O of HOTEL. Probably only accessible via flight
-CREATE_HORSESHOE_PICKUP 1582.0 2401.0 19.0 pickup_horseshoe[46]				// Redsands West, on top of packing crates, accessible by jumping onto wall and across to crates
-CREATE_HORSESHOE_PICKUP 2077.0 1912.0 14.0 pickup_horseshoe[47]				// The Visage, underneath the water fall
-CREATE_HORSESHOE_PICKUP 0970.0 1787.0 11.0 pickup_horseshoe[48]				// Whitewood Estates, in the back garden of this house on the edge of town
-CREATE_HORSESHOE_PICKUP 1526.22 0751.0 29.04 pickup_horseshoe[49]				// Blackfiel Chapel, On the roof of the sloped chapel 
+CREATE_HORSESHOE_PICKUP 1224.0 2617.0 11.0    pickup_horseshoe[0]  // Prickle Pine, In the porch of this house in LV suburbs. 
+CREATE_HORSESHOE_PICKUP 2323.0 1284.0 97.0    pickup_horseshoe[1]  // Camel's Toe, Right at the top of the big pyramid 
+CREATE_HORSESHOE_PICKUP 2035.0 2305.0 18.0    pickup_horseshoe[2]  // Emerald Isle - Frog's Pawn Shop, Go up the stairs at the gym, jump on to the next roof, get on to the thin piece of wall, take a run, jump and cling on to the next roof above the Frog's Pawn store. 
+CREATE_HORSESHOE_PICKUP 2491.0 2263.0 15.0    pickup_horseshoe[3]  // Roca Escalante : Erotic Wedding Chapel - Climb the box at the front of the chapel and jump on to the roof. 
+CREATE_HORSESHOE_PICKUP 1433.0 2796.0 20.0    pickup_horseshoe[4]  // Yellow Bell Golf House, On the roof of the golf house. The roof is fairly low to the ground and easy to get on to from the roof of a vehicle or wall. 
+CREATE_HORSESHOE_PICKUP 2071.0 0712.0 11.0    pickup_horseshoe[5]  // Rockshore West, In the back garden of this house in the suburbs. 
+CREATE_HORSESHOE_PICKUP 2239.0 1839.0 18.0    pickup_horseshoe[6]  // The Ring Master, On top of the ring master building. Player must climb a wall to gain access to the roof. Would be better on the coloured roof, but that can't be walked up. 
+CREATE_HORSESHOE_PICKUP 2583.0 2387.0 16.0    pickup_horseshoe[7]  // Roca Escalante: Rock Hotel, In the middle of the guitar shaped swimming pool in the Rock Hotel. 
+CREATE_HORSESHOE_PICKUP 2864.0 0857.0 13.0    pickup_horseshoe[8]  // Rockshore East, Inside a skip behind a warehouse in this compound. 
+CREATE_HORSESHOE_PICKUP 2612.0 2200.0 -1.0    pickup_horseshoe[9]  // Old Venturas Railway Tunnel, Follow the tunnel along from the entrance in Roca Escalante, until the entrance can't be seen any more, so the package is hidden from view. 
+CREATE_HORSESHOE_PICKUP 2274.0 1507.0 24.0    pickup_horseshoe[10] // Royale Casino Car Park, On trhe third floor of this multi storey car park, hidden out of sight. 
+CREATE_HORSESHOE_PICKUP 2184.0 2529.0 11.0    pickup_horseshoe[11] // Julius Thruway North, Hidden in this small garage enclosure.
+CREATE_HORSESHOE_PICKUP 1863.0 2314.0 15.0    pickup_horseshoe[12] // Redsands East, On top of this roof. Vehicle / heli required. 
+CREATE_HORSESHOE_PICKUP 2054.0 2434.0 166.0   pickup_horseshoe[13] // Las Venturas, Land a heli on the small area at the very top of this building. 
+CREATE_HORSESHOE_PICKUP 1603.0 1435.0 11.0    pickup_horseshoe[14] // Las Venturas Airport, Beneath a staircase round the back of the airport.
+CREATE_HORSESHOE_PICKUP 1362.92 1015.24 11.0  pickup_horseshoe[15] // LVA Freight Depot, Hidden in the small gap between the warehouse and the wall. 
+CREATE_HORSESHOE_PICKUP 2058.7 2159.10 16.0   pickup_horseshoe[16] // Redsands East, Get up on the roof of the motel and run round to the back to find the horseshoe on the sheltered balcony 
+CREATE_HORSESHOE_PICKUP 2003.0 1672.0 12.0    pickup_horseshoe[17] // The Pirates in Men's Pants, Package in a cool place, slightly obscured by bushes. 
+CREATE_HORSESHOE_PICKUP 2238.0 1135.0 49.0    pickup_horseshoe[18] // Come-A-Lot, Land a heli on this parapet to get the goods. 
+CREATE_HORSESHOE_PICKUP 1934.06 0988.79 22.0  pickup_horseshoe[19] // The Four Dragons Casino, In the dark garage beneath the Four Dragons Casino. 
+CREATE_HORSESHOE_PICKUP 1768.0 2847.0 09.0 	  pickup_horseshoe[20] // Prickle Pine, In this shallow pool within some housing. 
+CREATE_HORSESHOE_PICKUP 1084.0 1076.0 11.0 	  pickup_horseshoe[21] // Greenglass College, In the front garden of the college. Easy to get. 
+CREATE_HORSESHOE_PICKUP 2879.0 2522.0 11.0 	  pickup_horseshoe[22] // Creek, Hidden behind this mall on the outskirts of town. 
+CREATE_HORSESHOE_PICKUP 2371.0 2009.0 15.0 	  pickup_horseshoe[23] // Starfish Casino, Use a vehicle to access this thin piece of roofing. 
+CREATE_HORSESHOE_PICKUP 1521.0 1690.0 10.6 	  pickup_horseshoe[24] // Las Venturas Airport, Heli required to access this roof. 
+CREATE_HORSESHOE_PICKUP 2417.0 1281.0 21.0 	  pickup_horseshoe[25] // The Camel's Toe, Get up on the sphinx, turn on to the walkway and follow it round to the other side of the pyramid. 
+CREATE_HORSESHOE_PICKUP 1376.0 2304.0 15.0 	  pickup_horseshoe[26] // Pilson Intersection, Use a vehicle to get on to the wall. 
+CREATE_HORSESHOE_PICKUP 1393.0 1832.0 12.34   pickup_horseshoe[27] // Las Venturas Airport, Hidden from view by some bushes and such. 
+CREATE_HORSESHOE_PICKUP 0984.0 2563.0 12.0    pickup_horseshoe[28] // Las Venturas, Under the Welcome sign. 
+CREATE_HORSESHOE_PICKUP 1767.0 0601.0 13.0    pickup_horseshoe[29] // Randolph Industrial Estate, Hidden below this bridge on the way out of town. 
+CREATE_HORSESHOE_PICKUP 2108.0 1003.0 46.0    pickup_horseshoe[30] // Come-A-Lot, Jetpack required. At the top of the Come-a-Lot sign. 
+CREATE_HORSESHOE_PICKUP 2705.98 1862.52 24.41 pickup_horseshoe[31] // Juluis Thruway East, Jetpack only. The collision for the middle of this sign needs to be altered, so maybe the Z value of this needs to be increased by a metre or so. 
+CREATE_HORSESHOE_PICKUP 2493.0 0922.0 16.0 	  pickup_horseshoe[32] // Las Venturas, On the roof of this wedding chapel, behind the parapet, This can be accessed from ground level. 
+CREATE_HORSESHOE_PICKUP 1881.0 2846.0 11.0 	  pickup_horseshoe[33] // Prickle Pine, Stashed behind the gate to one of the tennis courts in this motel complex. 
+CREATE_HORSESHOE_PICKUP 2020.0 2352.0 11.0 	  pickup_horseshoe[34] // Emerald Isle, In this small enclosure near the Emerald Isle. 
+CREATE_HORSESHOE_PICKUP 1680.30 2226.86 16.11 pickup_horseshoe[35] // Redsands West, On the roof of the Steakhouse restaurant, away from the road to conceal it more. 
+CREATE_HORSESHOE_PICKUP 1462.0 0936.0 10.0    pickup_horseshoe[36] // LvA Freight Depot, In this slightly sloped factory entrance. 
+CREATE_HORSESHOE_PICKUP 2125.50 0789.23 11.45 pickup_horseshoe[37] // Rockshore West, Beside the bin in this garden [74] 				// Rockshore West, Beside the bin in this garden 
+CREATE_HORSESHOE_PICKUP 2588.0 1902.0 15.0    pickup_horseshoe[38] // Starfish Casino, Ledge currently has no colision, but would need a vehicle / jetpack to access. 
+CREATE_HORSESHOE_PICKUP 0919.0 2070.0 11.0    pickup_horseshoe[39] // Whitewood Estates, At the back entrance of this warehouse. 
+CREATE_HORSESHOE_PICKUP 2173.0 2465.0 11.0    pickup_horseshoe[40] // Emerald Isle, Hidden in a small garage complex. 
+CREATE_HORSESHOE_PICKUP 2031.25 2207.33 11.0  pickup_horseshoe[41] // The Emerald Isle,
+CREATE_HORSESHOE_PICKUP 2509.0 1144.0 19.0    pickup_horseshoe[42] // Come-A-Lot, Slightly hidden in the little alcove (player has to drop down onto balcony from roof above)
+CREATE_HORSESHOE_PICKUP 2215.0 1968.0 11.0    pickup_horseshoe[43] // Starfish Casino, in the corner of this dark alleyway
+CREATE_HORSESHOE_PICKUP 2626.0 2841.0 11.0    pickup_horseshoe[44] // K.A.C.C Military Fuels, in the little slightly secluded alleyway. Easily spottable when playing Heist5
+CREATE_HORSESHOE_PICKUP 2440.08 2161.07 20.0  pickup_horseshoe[45] // Old Venturas Strip, 'hidden' in the O of HOTEL. Probably only accessible via flight
+CREATE_HORSESHOE_PICKUP 1582.0 2401.0 19.0    pickup_horseshoe[46] // Redsands West, on top of packing crates, accessible by jumping onto wall and across to crates
+CREATE_HORSESHOE_PICKUP 2077.0 1912.0 14.0    pickup_horseshoe[47] // The Visage, underneath the water fall
+CREATE_HORSESHOE_PICKUP 0970.0 1787.0 11.0    pickup_horseshoe[48] // Whitewood Estates, in the back garden of this house on the edge of town
+CREATE_HORSESHOE_PICKUP 1526.22 0751.0 29.04  pickup_horseshoe[49] // Blackfiel Chapel, On the roof of the sloped chapel 
 
 
 // Photos in San Fran
 															
 															
 VAR_INT location_photo[50] 
-CREATE_SNAPSHOT_PICKUP -2511.28 -672.99 195.75     location_photo[0]        // the structure at the top of missionary hill
-CREATE_SNAPSHOT_PICKUP -2723.63 -314.72 55.79     location_photo[1]        // The arched tower on the top of the club         
-CREATE_SNAPSHOT_PICKUP -1737.71 -579.55 26.19     location_photo[2]        // Aeroplane sign at the entrance to the airport          
-CREATE_SNAPSHOT_PICKUP -1486.08 920.04 41.37      location_photo[3]         // Clock Face on the clock tower    
-CREATE_SNAPSHOT_PICKUP -1269.82 963.63 130.37  location_photo[4]              // Carver Bridge middle support 
-CREATE_SNAPSHOT_PICKUP -1650.01 422.00 21.17      location_photo[5]          // Xoomer gas station sign        
-CREATE_SNAPSHOT_PICKUP -1851.72 -96.73 24.37           location_photo[6]     // Gas tanks/towers Solarin industries 
-CREATE_SNAPSHOT_PICKUP -2732.0 -244.0 19.0      location_photo[7]         // Tennis court nets
-CREATE_SNAPSHOT_PICKUP -2802.75 375.47 36.59   location_photo[8]           // Dome on top of building
-CREATE_SNAPSHOT_PICKUP -2773.04 783.45 67.66      location_photo[9]       // tough nuts donuts sign
-CREATE_SNAPSHOT_PICKUP -2680.07 1590.80 143.53     location_photo[10]          // Gant Bridge SF side support (top)  
-CREATE_SNAPSHOT_PICKUP -2476.75 1543.44 49.26     location_photo[11]         // Da nang thang boat comms mast        
-CREATE_SNAPSHOT_PICKUP -1879.04 1456.52 9.34   location_photo[12]              // Submarine's conning tower      
-CREATE_SNAPSHOT_PICKUP -1561.55 655.19 56.52    location_photo[13]              // One of the Kincaid bridge girders SF side
-CREATE_SNAPSHOT_PICKUP -1325.15 494.19 26.83   location_photo[14]              // Aircraft carrier bridge
-CREATE_SNAPSHOT_PICKUP -1941.41 137.72 37.83      location_photo[15]             // Cranberry station middle roof support    
-CREATE_SNAPSHOT_PICKUP -2153.23 462.25 103.27     location_photo[16]              // Top of this chinatown building, east side of tower
-CREATE_SNAPSHOT_PICKUP -2243.96 577.76 49.0      location_photo[17]               // WANGS KUNGFU SCHOOL 
-CREATE_SNAPSHOT_PICKUP -2051.0 456.0 167.0     location_photo[18]               // Top of King's building, middle two "flag poles."  
-CREATE_SNAPSHOT_PICKUP -1951.0 659.0 81.0      location_photo[19]              // Sculpture in front of building    
-CREATE_SNAPSHOT_PICKUP -2064.0 926.0 63.0      location_photo[20]             // the middle of the curviest road   
-CREATE_SNAPSHOT_PICKUP -2357.33 1017.01 59.76   location_photo[21]               // burger sign
-CREATE_SNAPSHOT_PICKUP -2072.0 1066.0 74.0  location_photo[22]               // lampost in the middle of the road at tunnel entrance
-CREATE_SNAPSHOT_PICKUP -1744.0 972.46 156.89 location_photo[23] 				// Aerials on top of this financial building
-CREATE_SNAPSHOT_PICKUP -1941.0 883.0 68.0   location_photo[24]              // Baseball player statue
-CREATE_SNAPSHOT_PICKUP -1839.51 1086.88 101.29     location_photo[25]               // Middle of building, nice lights  
-CREATE_SNAPSHOT_PICKUP -1704.8 1338.0 14.0     location_photo[26]                 // Pier 69 sign      
-CREATE_SNAPSHOT_PICKUP -2346.62 536.85 86.02      location_photo[27]                // Chimney on top of building  
-CREATE_SNAPSHOT_PICKUP -2443.0 755.0 49.0      location_photo[28]                // Supasave entrance 
-CREATE_SNAPSHOT_PICKUP -2765.0 375.0 15.0   location_photo[29]              // Middle two columns, front of city hall
-CREATE_SNAPSHOT_PICKUP -2880.31 -935.83 40.82     location_photo[30]           // The first beam passed under on this bridge on the way out of SF     
-CREATE_SNAPSHOT_PICKUP -2083.0 -808.0 69.00    location_photo[31]           // The middle round tower in Foster Valley       
-CREATE_SNAPSHOT_PICKUP -1954.0 -760.0 53.00    location_photo[32]           // Plants in the middle of the roof garden       
-CREATE_SNAPSHOT_PICKUP -964.53 -331.59 47.16   location_photo[33]          // The bridge visible from the SF airport runway area (the middle support)
-CREATE_SNAPSHOT_PICKUP -1689.0 51.0 38.0   location_photo[34]         // The lip of the dry dock in easter basin
-CREATE_SNAPSHOT_PICKUP -2080.0 256.05 107.0  location_photo[35]         //The red tip of the large yellow crane in Kings           
-CREATE_SNAPSHOT_PICKUP -2413.0 331.0 37.0      location_photo[36]              // Entrance to the Vank Hoff Park hotel     
-CREATE_SNAPSHOT_PICKUP -2244.42 731.32 61.88      location_photo[37]             // Middle roof Chinatown Gateway   
-CREATE_SNAPSHOT_PICKUP -2462.0 369.0 59.0      location_photo[38]              // The back of the Vank Hoff Hotel  
-CREATE_SNAPSHOT_PICKUP -1124.44 -153.15 18.50     location_photo[39]                // Airport storage tanks
-CREATE_SNAPSHOT_PICKUP -1275.78 53.68 89.07       location_photo[40]               // ATC tower bridge 
-CREATE_SNAPSHOT_PICKUP -2430.0 38.0 51.0             location_photo[41]          // Save The Whale land sign
-CREATE_SNAPSHOT_PICKUP -2591.0 162.0 15.0 location_photo[42]                 // gay movie theatre
-CREATE_SNAPSHOT_PICKUP -2591.0 -16.0 17.0       location_photo[43]                // One of the middle gravestones      
-CREATE_SNAPSHOT_PICKUP -2648.0 -5.0 31.0             location_photo[44]          // Ocean Flats Church spire
-CREATE_SNAPSHOT_PICKUP -2593.0 56.0 16.0             location_photo[45]          // A photo of hippy shopper
-CREATE_SNAPSHOT_PICKUP -1619.31 1341.39 11.30     location_photo[46]            //A photo of the rock formation in the bay
-CREATE_SNAPSHOT_PICKUP -2307.0 207.0 42.0      location_photo[47]                // Baseball diamond, home base/hitters plate 
-CREATE_SNAPSHOT_PICKUP -2343.0 -79.0 38.0      location_photo[48]              // A picture of the construction sign  
-CREATE_SNAPSHOT_PICKUP -1906.66 518.58 61.71     location_photo[49]      //between 2 skyscrapers
+CREATE_SNAPSHOT_PICKUP -2511.28 -672.99 195.75 location_photo[0]  // the structure at the top of missionary hill
+CREATE_SNAPSHOT_PICKUP -2723.63 -314.72 55.79  location_photo[1]  // The arched tower on the top of the club         
+CREATE_SNAPSHOT_PICKUP -1737.71 -579.55 26.19  location_photo[2]  // Aeroplane sign at the entrance to the airport          
+CREATE_SNAPSHOT_PICKUP -1486.08 920.04 41.37   location_photo[3]  // Clock Face on the clock tower    
+CREATE_SNAPSHOT_PICKUP -1269.82 963.63 130.37  location_photo[4]  // Carver Bridge middle support 
+CREATE_SNAPSHOT_PICKUP -1650.01 422.00 21.17   location_photo[5]  // Xoomer gas station sign        
+CREATE_SNAPSHOT_PICKUP -1851.72 -96.73 24.37   location_photo[6]  // Gas tanks/towers Solarin industries 
+CREATE_SNAPSHOT_PICKUP -2732.0 -244.0 19.0     location_photo[7]  // Tennis court nets
+CREATE_SNAPSHOT_PICKUP -2802.75 375.47 36.59   location_photo[8]  // Dome on top of building
+CREATE_SNAPSHOT_PICKUP -2773.04 783.45 67.66   location_photo[9]  // tough nuts donuts sign
+CREATE_SNAPSHOT_PICKUP -2680.07 1590.80 143.53 location_photo[10] // Gant Bridge SF side support (top)  
+CREATE_SNAPSHOT_PICKUP -2476.75 1543.44 49.26  location_photo[11] // Da nang thang boat comms mast        
+CREATE_SNAPSHOT_PICKUP -1879.04 1456.52 9.34   location_photo[12] // Submarine's conning tower      
+CREATE_SNAPSHOT_PICKUP -1561.55 655.19 56.52   location_photo[13] // One of the Kincaid bridge girders SF side
+CREATE_SNAPSHOT_PICKUP -1325.15 494.19 26.83   location_photo[14] // Aircraft carrier bridge
+CREATE_SNAPSHOT_PICKUP -1941.41 137.72 37.83   location_photo[15] // Cranberry station middle roof support    
+CREATE_SNAPSHOT_PICKUP -2153.23 462.25 103.27  location_photo[16] // Top of this chinatown building, east side of tower
+CREATE_SNAPSHOT_PICKUP -2243.96 577.76 49.0    location_photo[17] // WANGS KUNGFU SCHOOL 
+CREATE_SNAPSHOT_PICKUP -2051.0 456.0 167.0     location_photo[18] // Top of King's building, middle two "flag poles."  
+CREATE_SNAPSHOT_PICKUP -1951.0 659.0 81.0      location_photo[19] // Sculpture in front of building    
+CREATE_SNAPSHOT_PICKUP -2064.0 926.0 63.0      location_photo[20] // the middle of the curviest road   
+CREATE_SNAPSHOT_PICKUP -2357.33 1017.01 59.76  location_photo[21] // burger sign
+CREATE_SNAPSHOT_PICKUP -2072.0 1066.0 74.0     location_photo[22] // lampost in the middle of the road at tunnel entrance
+CREATE_SNAPSHOT_PICKUP -1744.0 972.46 156.89   location_photo[23] // Aerials on top of this financial building
+CREATE_SNAPSHOT_PICKUP -1941.0 883.0 68.0      location_photo[24] // Baseball player statue
+CREATE_SNAPSHOT_PICKUP -1839.51 1086.88 101.29 location_photo[25] // Middle of building, nice lights  
+CREATE_SNAPSHOT_PICKUP -1704.8 1338.0 14.0     location_photo[26] // Pier 69 sign      
+CREATE_SNAPSHOT_PICKUP -2346.62 536.85 86.02   location_photo[27] // Chimney on top of building  
+CREATE_SNAPSHOT_PICKUP -2443.0 755.0 49.0      location_photo[28] // Supasave entrance 
+CREATE_SNAPSHOT_PICKUP -2765.0 375.0 15.0      location_photo[29] // Middle two columns, front of city hall
+CREATE_SNAPSHOT_PICKUP -2880.31 -935.83 40.82  location_photo[30] // The first beam passed under on this bridge on the way out of SF     
+CREATE_SNAPSHOT_PICKUP -2083.0 -808.0 69.00    location_photo[31] // The middle round tower in Foster Valley       
+CREATE_SNAPSHOT_PICKUP -1954.0 -760.0 53.00    location_photo[32] // Plants in the middle of the roof garden       
+CREATE_SNAPSHOT_PICKUP -964.53 -331.59 47.16   location_photo[33] // The bridge visible from the SF airport runway area (the middle support)
+CREATE_SNAPSHOT_PICKUP -1689.0 51.0 38.0       location_photo[34] // The lip of the dry dock in easter basin
+CREATE_SNAPSHOT_PICKUP -2080.0 256.05 107.0    location_photo[35] // The red tip of the large yellow crane in Kings           
+CREATE_SNAPSHOT_PICKUP -2413.0 331.0 37.0      location_photo[36] // Entrance to the Vank Hoff Park hotel     
+CREATE_SNAPSHOT_PICKUP -2244.42 731.32 61.88   location_photo[37] // Middle roof Chinatown Gateway   
+CREATE_SNAPSHOT_PICKUP -2462.0 369.0 59.0      location_photo[38] // The back of the Vank Hoff Hotel  
+CREATE_SNAPSHOT_PICKUP -1124.44 -153.15 18.50  location_photo[39] // Airport storage tanks
+CREATE_SNAPSHOT_PICKUP -1275.78 53.68 89.07    location_photo[40] // ATC tower bridge 
+CREATE_SNAPSHOT_PICKUP -2430.0 38.0 51.0       location_photo[41] // Save The Whale land sign
+CREATE_SNAPSHOT_PICKUP -2591.0 162.0 15.0      location_photo[42] // gay movie theatre
+CREATE_SNAPSHOT_PICKUP -2591.0 -16.0 17.0      location_photo[43] // One of the middle gravestones      
+CREATE_SNAPSHOT_PICKUP -2648.0 -5.0 31.0       location_photo[44] // Ocean Flats Church spire
+CREATE_SNAPSHOT_PICKUP -2593.0 56.0 16.0       location_photo[45] // A photo of hippy shopper
+CREATE_SNAPSHOT_PICKUP -1619.31 1341.39 11.30  location_photo[46] // A photo of the rock formation in the bay
+CREATE_SNAPSHOT_PICKUP -2307.0 207.0 42.0      location_photo[47] // Baseball diamond, home base/hitters plate 
+CREATE_SNAPSHOT_PICKUP -2343.0 -79.0 38.0      location_photo[48] // A picture of the construction sign  
+CREATE_SNAPSHOT_PICKUP -1906.66 518.58 61.71   location_photo[49] // between 2 skyscrapers
 
 
 VAR_INT pickup_oyster[50]
 
    ////Los Santos	 				  
-CREATE_OYSTER_PICKUP 979.0 -2210.0 -3.0		pickup_oyster[0]								//Beside the entrance to the Verdant Bluffs tunnel
-CREATE_OYSTER_PICKUP 2750.0 -2584.0 -5.0	pickup_oyster[1]						 //Beside an Ocean Docks pier
-CREATE_OYSTER_PICKUP 1279.0 -806.0 85.0 	pickup_oyster[2]						//Inside Doc G's pool
-CREATE_OYSTER_PICKUP 2945.13 -2051.93 -3.0	pickup_oyster[3]						 // End of this playa del seville beach pier
-CREATE_OYSTER_PICKUP 67.0 -1018.0 -5.0 		pickup_oyster[4]								//Under this rail bridge just outside of the city
-CREATE_OYSTER_PICKUP 2327.0 -2662.0 -5.0 	pickup_oyster[5]					//under flat docks bridge
-CREATE_OYSTER_PICKUP 2621.0 -2506.0 -5.0 	pickup_oyster[6]					//under another docks bridge
-CREATE_OYSTER_PICKUP 1249.0 -2687.0 -1.0 	pickup_oyster[7]					//Beach beside the airport
-CREATE_OYSTER_PICKUP 725.0 -1849.0 -5.0 	pickup_oyster[8]					//under Verona Beach pedestrian bridge
-CREATE_OYSTER_PICKUP 723.0 -1586.0 -3.0 	pickup_oyster[9]					// Under this flood control bridge in the Marina area
-CREATE_OYSTER_PICKUP 155.0 -1975.0 -8.0 	pickup_oyster[10]				//south of the lighthouse at Santa Maria beach
-CREATE_OYSTER_PICKUP 1968.0 -1203.0 17.0	pickup_oyster[11]				 //under park bridge in pond
+CREATE_OYSTER_PICKUP 979.0 -2210.0 -3.0		pickup_oyster[0]			//Beside the entrance to the Verdant Bluffs tunnel
+CREATE_OYSTER_PICKUP 2750.0 -2584.0 -5.0	pickup_oyster[1]			//Beside an Ocean Docks pier
+CREATE_OYSTER_PICKUP 1279.0 -806.0 85.0 	pickup_oyster[2]			//Inside Doc G's pool
+CREATE_OYSTER_PICKUP 2945.13 -2051.93 -3.0	pickup_oyster[3]			// End of this playa del seville beach pier
+CREATE_OYSTER_PICKUP 67.0 -1018.0 -5.0 		pickup_oyster[4]			//Under this rail bridge just outside of the city
+CREATE_OYSTER_PICKUP 2327.0 -2662.0 -5.0 	pickup_oyster[5]			//under flat docks bridge
+CREATE_OYSTER_PICKUP 2621.0 -2506.0 -5.0 	pickup_oyster[6]			//under another docks bridge
+CREATE_OYSTER_PICKUP 1249.0 -2687.0 -1.0 	pickup_oyster[7]			//Beach beside the airport
+CREATE_OYSTER_PICKUP 725.0 -1849.0 -5.0 	pickup_oyster[8]			//under Verona Beach pedestrian bridge
+CREATE_OYSTER_PICKUP 723.0 -1586.0 -3.0 	pickup_oyster[9]			// Under this flood control bridge in the Marina area
+CREATE_OYSTER_PICKUP 155.0 -1975.0 -8.0 	pickup_oyster[10]			//south of the lighthouse at Santa Maria beach
+CREATE_OYSTER_PICKUP 1968.0 -1203.0 17.0	pickup_oyster[11]			//under park bridge in pond
 CREATE_OYSTER_PICKUP -2657.0 1564.0 -6.0  	pickup_oyster[12]			//Landing point for a USJ under the Gant bridge   <=====================// *************** 	San Fier
 CREATE_OYSTER_PICKUP -1252.0 501.0 -8.0  	pickup_oyster[13]			// At the bow of the aircraft carrier in Easter Bay
-CREATE_OYSTER_PICKUP -1625.0 4.0 -10.0 		pickup_oyster[14]				//under the stern of the large freighter in dock
+CREATE_OYSTER_PICKUP -1625.0 4.0 -10.0 		pickup_oyster[14]			//under the stern of the large freighter in dock
 CREATE_OYSTER_PICKUP -1484.0 1489.0 -10.0 	pickup_oyster[15]			//At the bow of the freighter in the middle of the bay
-CREATE_OYSTER_PICKUP -2505.4058 1543.7236 -22.5553	pickup_oyster[16]			// under the BOW of the Da Nang Thang ship in SF bay
+CREATE_OYSTER_PICKUP -2505.4058 1543.7236 -22.5553	pickup_oyster[16]	// under the BOW of the Da Nang Thang ship in SF bay
 CREATE_OYSTER_PICKUP -2727.0 -469.0 -5.0  	pickup_oyster[17]			//in a pool on missionary hill behind avispa country club
 CREATE_OYSTER_PICKUP -1266.0 966.0 -10.0 	pickup_oyster[18]			//under the water bound support of the Garver Bridge
 CREATE_OYSTER_PICKUP -1013.0 478.0 -7.0  	pickup_oyster[19]			//End of the Easter Bay Airport runway
 CREATE_OYSTER_PICKUP -1364.0 390.0 -5.0  	pickup_oyster[20]			//In an Easter bay dock
-CREATE_OYSTER_PICKUP 2578.0 2382.0 16.0 	pickup_oyster[21]				//Under the diving board at the VRock hotel pool	 	// ******************Las Venturas 
+CREATE_OYSTER_PICKUP 2578.0 2382.0 16.0 	pickup_oyster[21]			//Under the diving board at the VRock hotel pool	 	// ******************Las Venturas 
 CREATE_OYSTER_PICKUP 2090.0 1898.0 8.0 		pickup_oyster[22]			// Under a Visage waterfall
 CREATE_OYSTER_PICKUP 2130.0 1152.0 7.0 		pickup_oyster[23]			// in the Come a Lot moat
 CREATE_OYSTER_PICKUP 2013.0 1670.0 7.0 		pickup_oyster[24]			// Pirates in mens pants, in front of the skull sculpture 
 CREATE_OYSTER_PICKUP 2531.0 1569.0 9.0 		pickup_oyster[25]			//in the pool in front of the pilgrim
-CREATE_OYSTER_PICKUP 2998.0 2998.0 -10.0	pickup_oyster[26]			 		//Northeast Corner of the map  // *&******************8//Countryside/Desert	 
-CREATE_OYSTER_PICKUP -832.0 925.0 -2.0	 	pickup_oyster[27]				//Tierra Robada tributary overlooking SF bay
-CREATE_OYSTER_PICKUP 486.0 -253.0 -4.0		pickup_oyster[28]					 //Under these two red county bridges near Blueberry 
-CREATE_OYSTER_PICKUP -90.0 -910.0 -5.0		pickup_oyster[29]					 // Under this bridge which connects Flint County to Red County
-CREATE_OYSTER_PICKUP 26.43 -1320.94	-10.04	pickup_oyster[30]				 //Between the motorway bridges which lead out of LS towards SF
-CREATE_OYSTER_PICKUP -207.0 -1682.0	-8.0	pickup_oyster[31]				 //Flint County where the beach meets the cliffs
-CREATE_OYSTER_PICKUP -1672.0 -1641.0 -2.0	pickup_oyster[32]				 //Under this large Whetstone bridge
-CREATE_OYSTER_PICKUP -1175.0 -2639.0 -2.50	pickup_oyster[33]				 // Under this Flint County rickety wooden bridge
-CREATE_OYSTER_PICKUP -1097.0 -2858.0 -8.0	pickup_oyster[34]				 // Under a lofty flint county bridge beside the open sea
-CREATE_OYSTER_PICKUP -2889.0 -1042.0 -9.0	pickup_oyster[35]				 //Under the bridge leading from Chiliad to SF
-CREATE_OYSTER_PICKUP -659.0 874.0 -2.0		pickup_oyster[36]			 //under the water in this boat shed at Toreno's Tierra Robada mission point
-CREATE_OYSTER_PICKUP -955.0 2628.0 35.0		pickup_oyster[37]			 //Tierra Robada where the user lands from the Valle Occultado USJ
-CREATE_OYSTER_PICKUP -1066.0 2197.0 32.0	pickup_oyster[38]				 //Tierra Robada under the wooden bridge near the dam
-CREATE_OYSTER_PICKUP 40.0 -531.0 -8.0		pickup_oyster[39]			 //under a red county bridge near Blueberry
-CREATE_OYSTER_PICKUP -765.0 247.0 -8.0		pickup_oyster[40]			 //The Panoptican Just off a beach, should be visible from the road
-CREATE_OYSTER_PICKUP 2098.0 -108.0 -2.0		pickup_oyster[41]			 //Fishermans Creek at the end of the pier
-CREATE_OYSTER_PICKUP 2767.0 470.0 -8.0		pickup_oyster[42]			 //Underneath the middle of the Frederick Bridge
-CREATE_OYSTER_PICKUP -783.0 2116.0 35.0		pickup_oyster[43]			 //Sherman Dam underneath the western control towers
-CREATE_OYSTER_PICKUP -821.0 1374.0 -8.0		pickup_oyster[44]			 //Tierra Robada under the metal bridge beside the los Barrancas wigwam motel
-CREATE_OYSTER_PICKUP -2110.50 2329.72 -7.50 pickup_oyster[45]				 //Tierra Robada in the water beside the lighthouse
-CREATE_OYSTER_PICKUP -1538.0 1708.0 -3.27	pickup_oyster[46]				 // Tierra Robada hidden from the motorist's view by a small roadside wall
-CREATE_OYSTER_PICKUP -2685.0 2153.0 -5.0	pickup_oyster[47]				 //between the Gant Bridges Northernmost support and the cliff
-CREATE_OYSTER_PICKUP 796.0 2939.0 -5.0		pickup_oyster[48]			 //Bone county beach near Las Venturas
-CREATE_OYSTER_PICKUP 2179.0 235.0 -5.0		pickup_oyster[49]			 //Under this Red County Bridge near Palomino Creek
+CREATE_OYSTER_PICKUP 2998.0 2998.0 -10.0	pickup_oyster[26]			//Northeast Corner of the map  // *&******************8//Countryside/Desert	 
+CREATE_OYSTER_PICKUP -832.0 925.0 -2.0	 	pickup_oyster[27]			//Tierra Robada tributary overlooking SF bay
+CREATE_OYSTER_PICKUP 486.0 -253.0 -4.0		pickup_oyster[28]			//Under these two red county bridges near Blueberry 
+CREATE_OYSTER_PICKUP -90.0 -910.0 -5.0		pickup_oyster[29]			// Under this bridge which connects Flint County to Red County
+CREATE_OYSTER_PICKUP 26.43 -1320.94	-10.04	pickup_oyster[30]			//Between the motorway bridges which lead out of LS towards SF
+CREATE_OYSTER_PICKUP -207.0 -1682.0	-8.0	pickup_oyster[31]			//Flint County where the beach meets the cliffs
+CREATE_OYSTER_PICKUP -1672.0 -1641.0 -2.0	pickup_oyster[32]			//Under this large Whetstone bridge
+CREATE_OYSTER_PICKUP -1175.0 -2639.0 -2.50	pickup_oyster[33]			// Under this Flint County rickety wooden bridge
+CREATE_OYSTER_PICKUP -1097.0 -2858.0 -8.0	pickup_oyster[34]			// Under a lofty flint county bridge beside the open sea
+CREATE_OYSTER_PICKUP -2889.0 -1042.0 -9.0	pickup_oyster[35]			//Under the bridge leading from Chiliad to SF
+CREATE_OYSTER_PICKUP -659.0 874.0 -2.0		pickup_oyster[36]			//under the water in this boat shed at Toreno's Tierra Robada mission point
+CREATE_OYSTER_PICKUP -955.0 2628.0 35.0		pickup_oyster[37]			//Tierra Robada where the user lands from the Valle Occultado USJ
+CREATE_OYSTER_PICKUP -1066.0 2197.0 32.0	pickup_oyster[38]			//Tierra Robada under the wooden bridge near the dam
+CREATE_OYSTER_PICKUP 40.0 -531.0 -8.0		pickup_oyster[39]			//under a red county bridge near Blueberry
+CREATE_OYSTER_PICKUP -765.0 247.0 -8.0		pickup_oyster[40]			//The Panoptican Just off a beach, should be visible from the road
+CREATE_OYSTER_PICKUP 2098.0 -108.0 -2.0		pickup_oyster[41]			//Fishermans Creek at the end of the pier
+CREATE_OYSTER_PICKUP 2767.0 470.0 -8.0		pickup_oyster[42]			//Underneath the middle of the Frederick Bridge
+CREATE_OYSTER_PICKUP -783.0 2116.0 35.0		pickup_oyster[43]			//Sherman Dam underneath the western control towers
+CREATE_OYSTER_PICKUP -821.0 1374.0 -8.0		pickup_oyster[44]			//Tierra Robada under the metal bridge beside the los Barrancas wigwam motel
+CREATE_OYSTER_PICKUP -2110.50 2329.72 -7.50 pickup_oyster[45]			//Tierra Robada in the water beside the lighthouse
+CREATE_OYSTER_PICKUP -1538.0 1708.0 -3.27	pickup_oyster[46]			// Tierra Robada hidden from the motorist's view by a small roadside wall
+CREATE_OYSTER_PICKUP -2685.0 2153.0 -5.0	pickup_oyster[47]			//between the Gant Bridges Northernmost support and the cliff
+CREATE_OYSTER_PICKUP 796.0 2939.0 -5.0		pickup_oyster[48]			//Bone county beach near Las Venturas
+CREATE_OYSTER_PICKUP 2179.0 235.0 -5.0		pickup_oyster[49]			//Under this Red County Bridge near Palomino Creek
 
 
 //////////////////////////////////////////////////////////////
@@ -5193,40 +5178,40 @@ CREATE_OYSTER_PICKUP 2179.0 235.0 -5.0		pickup_oyster[49]			 //Under this Red Co
 VAR_INT pickup_weapon[217]
 VAR_INT goggle_pickups[8]
 
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2832.0 2405.0 18.0	 			pickup_weapon[0]		 // Creek, on mall roof
-CREATE_PICKUP_WITH_AMMO SPRAYCAN PICKUP_ON_STREET_SLOW 500 2819.0 1663.0 11.0	 		pickup_weapon[1]			 // Sobell Rail Yards, inbetween two of the train yard huts
-CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 2725.0 2727.0 11.0	 			pickup_weapon[2]		 // K.A.C.C Military Fuels, resting on grating in top of smoke stack
-CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 2649.0 2733.0	11.0	 		pickup_weapon[3]			  // K.A.C.C Military Fuels, dark little corner behind main KACC building		
-CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 2148.0 2721.0 11.0	 		pickup_weapon[4]			  
-CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 1345.0 2367.0	11.0		pickup_weapon[5]				  //Pilson Intersection, underneath the overpass
-CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 1625.0	1944.0 11.0	  			pickup_weapon[6]					// Redsands West, hidden in the bushes in the middle of this apartment complex
-CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 1569.0 2150.0 11.0	 			pickup_weapon[7]		 		// Redsands West, slightly hidden behind skip
-CREATE_PICKUP_WITH_AMMO rocketla PICKUP_ON_STREET_SLOW 10 2072.0 2370.0 61.0	 		pickup_weapon[8]			  // The Emerald Isle, in corner on top of building, near helipad
-CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 2225.0 2530.0 17.0	 			pickup_weapon[9]		  // Julius Thruway North, Hidden from road behind steeple
-CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 2337.0 1806.0 72.0	   			pickup_weapon[10]			// The Ring Master, On corner of building opposite Adrenaline
-CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 2575.0 1562.0 16.0	   				pickup_weapon[11]					// Pilgrim, Behind flat bit of sloped roof on top of smaller motel building
-CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 2243.0 1132.0 11.0				pickup_weapon[12]				   // Come-A-Lot, in the little hidey hole round the side of the big castle
-CREATE_PICKUP_WITH_AMMO minigun PICKUP_ON_STREET_SLOW 200 2676.0 0836.0 22.0			pickup_weapon[13]					   // Rockshore East, in the scaffolding (highest bit accesible by climbing)
-CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 1761.0	0591.0 10.0	   			pickup_weapon[14]				// Red County, underneath bridge
-CREATE_PICKUP_WITH_AMMO GRENADE PICKUP_ON_STREET_SLOW 20 2809.0 0864.0 21.0				pickup_weapon[15]				   // Rockshore East, behind the air duct poking out the roof
-CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 1923.0	1011.0 22.0	   			pickup_weapon[16]				// The Four Dragons Casino, in a little secluded corner of the roof of the casino (probably only accesible by flight)
-CREATE_PICKUP_WITH_AMMO shotgspa PICKUP_ON_STREET_SLOW 50 1407.0	1098.0 11.0	 		pickup_weapon[17]						  // LVA Freight Depot, in the bushes in the small flowerbed
-CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 1319.0 1636.0 10.6	 			pickup_weapon[18]					  // Las Venturas Airport, Inbetween big oil tank things
-CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 1446.35 1900.03 11.0			pickup_weapon[19]			   // Inbetween wall and skip
-CREATE_PICKUP_WITH_AMMO silenced PICKUP_ON_STREET_SLOW 30 1098.0 1681.0 07.0	 		pickup_weapon[20]			  // Blackfield, in the flowerbed underneath the walkway
-CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 0924.0 2138.0 11.0	 			pickup_weapon[21]		  // Whitewood Estates, around back of a warehouse
-CREATE_PICKUP_WITH_AMMO heatseek PICKUP_ON_STREET_SLOW 10 1155.0 2341.0 17.0	 		pickup_weapon[22]			 // Pilson Intersection, corner of the top level of the car park
-CREATE_PICKUP_WITH_AMMO rocketla PICKUP_ON_STREET_SLOW 10 1646.0	1349.0 11.0	 		pickup_weapon[23]			 // Las Venturas Airport, hidden behind the packing crates
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 1781.0 2072.0 11.0	 			pickup_weapon[24]		 // Harry Gold Parkway, hidden in bushes beside police station
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2478.0 1182.0 22.0	 			pickup_weapon[25]		  // Come-A-Lot, In the corner of the building (accessible by jumping from one roof to another)
-CREATE_PICKUP POOLCUE PICKUP_ON_STREET_SLOW 2854.0 0944.0 11.0							pickup_weapon[26]				  // Linden Side, behind the skip
-CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW 2241.0 2425.0	11.0						pickup_weapon[27]			  // Roca Escalante, Hidden behind police station sign 
-CREATE_PICKUP GOLFCLUB PICKUP_ON_STREET_SLOW 1418.0	2774.0 15.0	 						pickup_weapon[28]		 // Yellow Bell Golf Course, on the balcony overlooking the golf course
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 1393.0 2174.0 10.0	 						pickup_weapon[29]		// Redsands West, in the dugout of the baseball stadium
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 1061.0 2074.0 11.0	 						pickup_weapon[30]		 // Whitewood Estates, in the industrial warehousey area (will be nice to use on the chip machines in casino3)
-CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW 2057.0 2434.0	166.0						pickup_weapon[31]				   // The Emerald Isle, on top of the tallest scraper in venturas
-CREATE_PICKUP KATANA PICKUP_ON_STREET_SLOW 2000.0 1526.0 15.0	   						pickup_weapon[32]			// The Pirates in Men's Pants, just near the back of the boat
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 1997.0 1658.0 12.0	   						pickup_weapon[33]			// The Pirates in Men's Pants, hidden in the rocks and bushes, for digging for treasure
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2832.0 2405.0 18.0	 		pickup_weapon[0]	// Creek, on mall roof
+CREATE_PICKUP_WITH_AMMO SPRAYCAN PICKUP_ON_STREET_SLOW 500 2819.0 1663.0 11.0	 	pickup_weapon[1]	// Sobell Rail Yards, inbetween two of the train yard huts
+CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 2725.0 2727.0 11.0	 		pickup_weapon[2]	// K.A.C.C Military Fuels, resting on grating in top of smoke stack
+CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 2649.0 2733.0	11.0	 	pickup_weapon[3]	// K.A.C.C Military Fuels, dark little corner behind main KACC building		
+CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 2148.0 2721.0 11.0	 	pickup_weapon[4]	  
+CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 1345.0 2367.0	11.0	pickup_weapon[5]	// Pilson Intersection, underneath the overpass
+CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 1625.0	1944.0 11.0	  		pickup_weapon[6]	// Redsands West, hidden in the bushes in the middle of this apartment complex
+CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 1569.0 2150.0 11.0	 		pickup_weapon[7]	// Redsands West, slightly hidden behind skip
+CREATE_PICKUP_WITH_AMMO rocketla PICKUP_ON_STREET_SLOW 10 2072.0 2370.0 61.0	 	pickup_weapon[8]	// The Emerald Isle, in corner on top of building, near helipad
+CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 2225.0 2530.0 17.0	 		pickup_weapon[9]	// Julius Thruway North, Hidden from road behind steeple
+CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 2337.0 1806.0 72.0	   		pickup_weapon[10]	// The Ring Master, On corner of building opposite Adrenaline
+CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 2575.0 1562.0 16.0	   			pickup_weapon[11]	// Pilgrim, Behind flat bit of sloped roof on top of smaller motel building
+CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 2243.0 1132.0 11.0			pickup_weapon[12]	// Come-A-Lot, in the little hidey hole round the side of the big castle
+CREATE_PICKUP_WITH_AMMO minigun PICKUP_ON_STREET_SLOW 200 2676.0 0836.0 22.0		pickup_weapon[13]	// Rockshore East, in the scaffolding (highest bit accesible by climbing)
+CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 1761.0	0591.0 10.625	   	pickup_weapon[14]	// Red County, underneath bridge // FIXEDGROVE: z was '10.0'
+CREATE_PICKUP_WITH_AMMO GRENADE PICKUP_ON_STREET_SLOW 20 2809.0 0864.0 21.0			pickup_weapon[15]	// Rockshore East, behind the air duct poking out the roof
+CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 1923.0	1011.0 22.0	   		pickup_weapon[16]	// The Four Dragons Casino, in a little secluded corner of the roof of the casino (probably only accesible by flight)
+CREATE_PICKUP_WITH_AMMO shotgspa PICKUP_ON_STREET_SLOW 50 1407.0	1098.0 11.0	 	pickup_weapon[17]	// LVA Freight Depot, in the bushes in the small flowerbed
+CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 1319.0 1636.0 10.6	 		pickup_weapon[18]	// Las Venturas Airport, Inbetween big oil tank things
+CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 1446.35 1900.03 11.0		pickup_weapon[19]	// Inbetween wall and skip
+CREATE_PICKUP_WITH_AMMO silenced PICKUP_ON_STREET_SLOW 30 1098.0 1681.0 07.0	 	pickup_weapon[20]	// Blackfield, in the flowerbed underneath the walkway
+CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 0924.0 2138.0 11.0	 		pickup_weapon[21]	// Whitewood Estates, around back of a warehouse
+CREATE_PICKUP_WITH_AMMO heatseek PICKUP_ON_STREET_SLOW 10 1155.0 2341.0 17.0	 	pickup_weapon[22]	// Pilson Intersection, corner of the top level of the car park
+CREATE_PICKUP_WITH_AMMO rocketla PICKUP_ON_STREET_SLOW 10 1646.0	1349.0 11.0	 	pickup_weapon[23]	// Las Venturas Airport, hidden behind the packing crates
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 1781.0 2072.0 11.0	 		pickup_weapon[24]	// Harry Gold Parkway, hidden in bushes beside police station
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2478.0 1182.0 22.0	 		pickup_weapon[25]	// Come-A-Lot, In the corner of the building (accessible by jumping from one roof to another)
+CREATE_PICKUP POOLCUE PICKUP_ON_STREET_SLOW 2854.0 0944.0 11.0						pickup_weapon[26]	// Linden Side, behind the skip
+CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW 2241.0 2425.0	11.0					pickup_weapon[27]	// Roca Escalante, Hidden behind police station sign 
+CREATE_PICKUP GOLFCLUB PICKUP_ON_STREET_SLOW 1418.0	2774.0 15.0	 					pickup_weapon[28]	// Yellow Bell Golf Course, on the balcony overlooking the golf course
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 1393.0 2174.0 10.0	 					pickup_weapon[29]	// Redsands West, in the dugout of the baseball stadium
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 1061.0 2074.0 11.0	 					pickup_weapon[30]	// Whitewood Estates, in the industrial warehousey area (will be nice to use on the chip machines in casino3)
+CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW 2057.0 2434.0	166.0					pickup_weapon[31]	// The Emerald Isle, on top of the tallest scraper in venturas
+CREATE_PICKUP KATANA PICKUP_ON_STREET_SLOW 2000.0 1526.0 15.0	   					pickup_weapon[32]	// The Pirates in Men's Pants, just near the back of the boat
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 1997.0 1658.0 12.0	   					pickup_weapon[33]	// The Pirates in Men's Pants, hidden in the rocks and bushes, for digging for treasure
 																				   					 
 																									 
 //////////////////////////////////////////////////////////////										 
@@ -5238,41 +5223,41 @@ CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 1997.0 1658.0 12.0	   						pickup_we
 // LA WEAPON PICKUPS																				 
 //////////////////////////////////////////////////////////////										 
 
-CREATE_PICKUP_WITH_AMMO SPRAYCAN PICKUP_ON_STREET_SLOW 500 2510.0 -1723.0 19.0 	  	pickup_weapon[34]		//	- Spray Can //roof beside Ryder's place
-CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 2538.0 -1630.0 14.0 	  	pickup_weapon[35]					//	- Semi Automatic Pistol //Behind Sweet's place
-CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 2551.33 -1740.0 6.49		pickup_weapon[36]				  //	- Mac10 //under bridge in flood control
-CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 2428.0 -1214.0 36.0 	  	pickup_weapon[37]		//	- Sawn Off Shotgun //on roof of the Pig Pen
-CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 2766.0 -2182.0 11.0 	pickup_weapon[38]			  //	- Desert Eagle //Playa del Seville beside life's A beach location
-CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 2142.0 -1804.0 16.0 	  	pickup_weapon[39]		//	-  GRENADE 20s //2nd floor raised walkway 24 hour motel
-CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 1764.0 -1930.0 14.0 	 	pickup_weapon[40]	   	 //	- MP5 //Unity Station beside a hedge   	
-CREATE_PICKUP_WITH_AMMO silenced PICKUP_ON_STREET_SLOW 30 1214.0 -1816.0 17.0 	  	pickup_weapon[41]		//	- silenced 30 Pistol //Top of conference centre steps
-CREATE_PICKUP_WITH_AMMO rocketla PICKUP_ON_STREET_SLOW 10 1740.0 -1231.0 92.0 	  	pickup_weapon[42]		//	- Rocket Luncher //top of Downtown building accessible with copters
-CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 2266.0 -1028.0 59.0 	  	pickup_weapon[43]					//	- MP5 //top of a set of steps in las colina
-CREATE_PICKUP_WITH_AMMO SPRAYCAN PICKUP_ON_STREET_SLOW 500 2463.0 -1061.0 60.0 	  	pickup_weapon[44]		//	- Spray can //In yard of Las Colinas shack
-CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 2047.0 -1406.0 68.0 	  	pickup_weapon[45]					//	- sniper 20 rifle //roof of Jefferson county general
-CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 2213.0 -2283.0 15.0 		pickup_weapon[46]					  //	- Screwdriver //Ocean Docks freight train terminal
-CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 1463.0 -1013.0 27.0 		pickup_weapon[47]					  //	- smoke  GRENADE 20s //in front of downtown LS oper house
-CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 1308.97 -874.40 40.0 	  		pickup_weapon[48]				//	- AK47 60 //behind robois food market in Mulholland
-CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 1102.0 -661.0 114.0 	  	pickup_weapon[49]		//	- countryside rifle //behind a redcounty or mulholland posh house
-CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 899.8012 -792.0780 102.0		pickup_weapon[50]		 //	- tec9 50 //behind another posh Mulholland house
-CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 338.0 -1875.0 4.0 	 		pickup_weapon[51]		 //	- semi automatic pistol //on a santa maria beach lifeguard post
-CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 397.0 -1924.0 8.0 	 	pickup_weapon[52]			 //	- Hand  GRENADE 20s //behind a wooden building on the Santa Maria pier
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 886.0 -966.0 37.0 	 		pickup_weapon[53]		 //	- molotovs //vinewood beside the giant bottle 
-CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 1408.0 -2380.0 14.0 	 		pickup_weapon[54]		 //	- tec9 50 //under LS international bridge
-CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 1379.0 -2547.0 14.0 			pickup_weapon[55] 						 //	- M4 70 //between airport ramps
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2426.0 -1416.0 24.0 	pickup_weapon[68]	//	- Molotovs //behind recylcling centre in East Los Santos
-CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW 259.0 80.0 1004.0 	pickup_weapon[56]	//	- nightstick //LS police locker room
-CREATE_PICKUP Gun_dildo1 PICKUP_ON_STREET_SLOW 261.0 71.0 1003.0	pickup_weapon[57]	//	- Big purple dildo//LS police shower room
-CREATE_PICKUP GOLFCLUB PICKUP_ON_STREET_SLOW 1457.0 -792.0 90.0 	pickup_weapon[58]				  //	- golfclub //behind the arial behind the Vinewood sign
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 2371.0 -2543.0 3.0 	  	pickup_weapon[59]			//	- chainsaw //Ocean docks ot the bottom of a stone pier
-CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW 1124.0 -1335.0 13.0 	pickup_weapon[60]				  //	- knife //Market behind some stores
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2197.0 -2475.0 14.0 pickup_weapon[61]	//	- Hammer //Ocean docks, under industrial looking building
-CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW 1528.2217 -1357.9854 330.0371 	pickup_weapon[62]	//	- gun_para //top of tallest building in Los Santos
-CREATE_PICKUP katana PICKUP_ON_STREET_SLOW 1862.0 -1862.0 14.0 	 	pickup_weapon[63]			 //	- Katana //Waste ground in El Corona
-CREATE_PICKUP brassknuckle PICKUP_ON_STREET_SLOW 1339.0 -1765.0 14.0 pickup_weapon[64]		  //	- Brass Knuckles //Commerce, end of alleyway
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 2192.2429 -1988.7507 13.4185 pickup_weapon[65]	// junkyard la //	- Dildo //on pole dancing stage inside the Pig Pen
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 2459.0 -1708.0 13.6 	  	pickup_weapon[66]			//	- Shovel //Ryder's backyard
-CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 2441.0 -1013.0 54.0 pickup_weapon[67]	//	- Hammer//in yard of Las Colinas shack
+CREATE_PICKUP_WITH_AMMO SPRAYCAN PICKUP_ON_STREET_SLOW 500 2510.0 -1723.0 19.0 	  	pickup_weapon[34]	//	- Spray Can //roof beside Ryder's place
+CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 2538.0 -1630.0 14.0 	  	pickup_weapon[35]	//	- Semi Automatic Pistol //Behind Sweet's place
+CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 2551.33 -1740.0 6.49		pickup_weapon[36]	//	- Mac10 //under bridge in flood control
+CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 2428.0 -1214.0 36.0 	  	pickup_weapon[37]	//	- Sawn Off Shotgun //on roof of the Pig Pen
+CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 2766.0 -2182.0 11.0 	pickup_weapon[38]	//	- Desert Eagle //Playa del Seville beside life's A beach location
+CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 2142.0 -1804.0 16.0 	  	pickup_weapon[39]	//	- GRENADE 20s //2nd floor raised walkway 24 hour motel
+CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 1764.0 -1930.0 14.0 	 	pickup_weapon[40]	//	- MP5 //Unity Station beside a hedge   	
+CREATE_PICKUP_WITH_AMMO silenced PICKUP_ON_STREET_SLOW 30 1214.0 -1816.0 17.0 	  	pickup_weapon[41]	//	- silenced 30 Pistol //Top of conference centre steps
+CREATE_PICKUP_WITH_AMMO rocketla PICKUP_ON_STREET_SLOW 10 1740.0 -1231.0 92.0 	  	pickup_weapon[42]	//	- Rocket Luncher //top of Downtown building accessible with copters
+CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 2266.0 -1028.0 59.0 	  	pickup_weapon[43]	//	- MP5 //top of a set of steps in las colina
+CREATE_PICKUP_WITH_AMMO SPRAYCAN PICKUP_ON_STREET_SLOW 500 2463.0 -1061.0 60.0 	  	pickup_weapon[44]	//	- Spray can //In yard of Las Colinas shack
+CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 2047.0 -1406.0 68.0 	  	pickup_weapon[45]	//	- sniper 20 rifle //roof of Jefferson county general
+CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 2213.0 -2283.0 15.0 		pickup_weapon[46]	//	- Screwdriver //Ocean Docks freight train terminal
+CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 1463.0 -1013.0 27.0 		pickup_weapon[47]	//	- smoke  GRENADE 20s //in front of downtown LS oper house
+CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 1308.97 -874.40 40.0 	  		pickup_weapon[48]	//	- AK47 60 //behind robois food market in Mulholland
+CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 1102.0 -661.0 114.0 	  	pickup_weapon[49]	//	- countryside rifle //behind a redcounty or mulholland posh house
+CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 899.8012 -792.0780 102.0		pickup_weapon[50]	//	- tec9 50 //behind another posh Mulholland house
+CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 338.0 -1875.0 4.0 	 		pickup_weapon[51]	//	- semi automatic pistol //on a santa maria beach lifeguard post
+CREATE_PICKUP_WITH_AMMO GRENADE PICKUP_ON_STREET_SLOW 20 397.0 -1924.0 8.0 	 		pickup_weapon[52]	//	- Hand  GRENADE 20s //behind a wooden building on the Santa Maria pier
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 886.0 -966.0 37.0 	 		pickup_weapon[53]	//	- molotovs //vinewood beside the giant bottle 
+CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 1408.0 -2380.0 14.0 	 		pickup_weapon[54]	//	- tec9 50 //under LS international bridge
+CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 1379.0 -2547.0 14.0 			pickup_weapon[55] 	//	- M4 70 //between airport ramps
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2426.0 -1416.0 24.0 		pickup_weapon[68]	//	- Molotovs //behind recylcling centre in East Los Santos
+CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW 259.0 80.0 1004.0 					pickup_weapon[56]	//	- nightstick //LS police locker room
+CREATE_PICKUP Gun_dildo1 PICKUP_ON_STREET_SLOW 261.0 71.0 1003.0					pickup_weapon[57]	//	- Big purple dildo//LS police shower room
+CREATE_PICKUP GOLFCLUB PICKUP_ON_STREET_SLOW 1457.0 -792.0 90.0 					pickup_weapon[58]	//	- golfclub //behind the arial behind the Vinewood sign
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 2371.0 -2543.0 3.0 	  					pickup_weapon[59]	//	- chainsaw //Ocean docks ot the bottom of a stone pier
+CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW 1124.0 -1335.0 13.0 					pickup_weapon[60]	//	- knife //Market behind some stores
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2197.0 -2475.0 14.0 		pickup_weapon[61]	//	- Hammer //Ocean docks, under industrial looking building
+CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW 1528.2217 -1357.9854 330.0371 			pickup_weapon[62]	//	- gun_para //top of tallest building in Los Santos
+CREATE_PICKUP katana PICKUP_ON_STREET_SLOW 1862.0 -1862.0 14.0 	 					pickup_weapon[63]	//	- Katana //Waste ground in El Corona
+CREATE_PICKUP brassknuckle PICKUP_ON_STREET_SLOW 1339.0 -1765.0 14.0 				pickup_weapon[64]	//	- Brass Knuckles //Commerce, end of alleyway
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 2192.2429 -1988.7507 13.4185 			pickup_weapon[65]	// junkyard la //	- Dildo //on pole dancing stage inside the Pig Pen
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 2459.0 -1708.0 13.6 	  					pickup_weapon[66]	//	- Shovel //Ryder's backyard
+CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 2441.0 -1013.0 54.0 		pickup_weapon[67]	//	- Hammer//in yard of Las Colinas shack
 
 
 //////////////////////////
@@ -5280,36 +5265,36 @@ CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 2441.0 -1013.0 54.0 pi
 ////////////////////////
 
 
-CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 -2678.0 -128.0 4.0 	 		pickup_weapon[69]			  //	- MP5 //back yard of an Ocean flats house
-CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 -2212.0 109.0 35.0  	pickup_weapon[70]		  		 //	- Desert Eagle //Garcia back lot
-CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 -2903.0 784.0 35.0  	 		pickup_weapon[71]						  //	- M4 70 //Back yard of a Pallisades home
-CREATE_PICKUP_WITH_AMMO tec9  PICKUP_ON_STREET_SLOW 50 -2665.0 1452.0 7.0 			pickup_weapon[72]											  ///- tec9 50 //Battery point beside Jizzy's
-CREATE_PICKUP_WITH_AMMO Satchel PICKUP_ON_STREET_SLOW 15 -2754.0 -400.0 7.0 	 	pickup_weapon[73]								  //	- Satchel 15 bombs //behind Avispa country club
-CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 -2206.0 -23.0 35.0  	 	pickup_weapon[74]						 //	- semi auto handgun //Garcia alleyway
-CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 -1841.1058 -74.2171 14.7606 pickup_weapon[75]					 	 //	- pump shotgun //Doherty behind Solarin industries building
-CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -1579.0 29.45 17.0  	 		pickup_weapon[76] 					  //	- FLAME 50thrower //Easter basin on the freight liner
-CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 -2095.85 -491.3 35.7  		pickup_weapon[77]					 //	- countryside rifle //outside Foster Valler arena // FIXEDGROVE: coords were -2094.0 -488.0 36.0 
-CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 -1968.0 -923.0 32.0 	 		pickup_weapon[78]					//	- AK47 60 //behind rocks at Foster Valley complex
-CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1945.0 -1088.0 31.0  		pickup_weapon[79]					 //	- camera 50 //outside the loading bays in the foster valley complex
-CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 -1700.0 415.0 7.0 	 	pickup_weapon[80]						  //	- Fire Extinguisher //outside the Easter Basin Xoomer gas station
-CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 -1386.0 509.0 4.0 	 		pickup_weapon[81]					  //	- smoke  GRENADE 20s //cargo hold of aircraft carrier
-CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW  60 -1679.0 1410.0 7.0 		pickup_weapon[82]						   //	- Mac 10 //Esplanade beside where follow the ped used to be
-CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -2132.5195 189.2507 35.5379 	pickup_weapon[83]	  				//	- FLAME //Doherty construction yard in a concrete pipe
-CREATE_PICKUP_WITH_AMMO heatseek PICKUP_ON_STREET_SLOW 10 -1126.69 -150.82 14.61		pickup_weapon[84]				    //	- RPG //SF airport behind gas cannisters on runway area
-CREATE_PICKUP_WITH_AMMO minigun PICKUP_ON_STREET_SLOW 200 -1496.0 591.0 42.0  		pickup_weapon[85]					  //	- minigun 200 //on top of a SF side Kincaid Bridge support
-CREATE_PICKUP_WITH_AMMO Satchel PICKUP_ON_STREET_SLOW 15 -2542.2620 922.2401 67.1221  		pickup_weapon[86]						   //	- Package bombs //Someones doorstep in Paradiso
-CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 -2092.0 1121.0 54.0 			pickup_weapon[87]					  //	 - tec9 50 //Calton Heights grassy area
-CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 -1629.0 1167.0 24.0  		pickup_weapon[88]						//- sniper 20 rifle //downtown on roof behind drink beer sign		
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -2083.0 298.0 42.0  	 	 pickup_weapon[89]			 //	- Hammer //Unfinished roadway in King's
-CREATE_PICKUP bat PICKUP_ON_STREET_SLOW -2306.0 93.0 35.0  	 		 pickup_weapon[90]			 //	- Baseball Bat //Garcia baseball diamond
+CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 -2678.0 -128.0 4.0 	 			pickup_weapon[69]	//	- MP5 //back yard of an Ocean flats house
+CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 -2212.0 109.0 35.0  		pickup_weapon[70]	//	- Desert Eagle //Garcia back lot
+CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 -2903.0 784.0 35.0  	 			pickup_weapon[71]	//	- M4 70 //Back yard of a Pallisades home
+CREATE_PICKUP_WITH_AMMO tec9  PICKUP_ON_STREET_SLOW 50 -2665.0 1452.0 7.0 				pickup_weapon[72]	//  - tec9 50 //Battery point beside Jizzy's
+CREATE_PICKUP_WITH_AMMO Satchel PICKUP_ON_STREET_SLOW 15 -2754.0 -400.0 7.0 	 		pickup_weapon[73]	//	- Satchel 15 bombs //behind Avispa country club
+CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 -2206.0 -23.0 35.0  	 		pickup_weapon[74]	//	- semi auto handgun //Garcia alleyway
+CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 -1841.1058 -74.2171 14.7606  pickup_weapon[75]	//	- pump shotgun //Doherty behind Solarin industries building
+CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -1579.0 29.45 17.0  	 		pickup_weapon[76] 	//	- FLAME 50thrower //Easter basin on the freight liner
+CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 -2095.85 -491.3 35.7  			pickup_weapon[77]	//	- countryside rifle //outside Foster Valler arena // FIXEDGROVE: coords were -2094.0 -488.0 36.0 
+CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 -1968.0 -923.0 32.0 	 			pickup_weapon[78]	//	- AK47 60 //behind rocks at Foster Valley complex
+CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1945.0 -1088.0 31.0  			pickup_weapon[79]	//	- camera 50 //outside the loading bays in the foster valley complex
+CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 -1700.0 415.0 7.0 	 		pickup_weapon[80]	//	- Fire Extinguisher //outside the Easter Basin Xoomer gas station
+CREATE_PICKUP_WITH_AMMO TEARGAS PICKUP_ON_STREET_SLOW 10 -1386.0 509.0 4.0 	 			pickup_weapon[81]	//	- smoke  GRENADE 20s //cargo hold of aircraft carrier
+CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW  60 -1679.0 1410.0 7.0 			pickup_weapon[82]	//	- Mac 10 //Esplanade beside where follow the ped used to be
+CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -2132.5195 189.2507 35.5379 	pickup_weapon[83]	//	- FLAME //Doherty construction yard in a concrete pipe
+CREATE_PICKUP_WITH_AMMO heatseek PICKUP_ON_STREET_SLOW 10 -1126.69 -150.82 14.61		pickup_weapon[84]	//	- RPG //SF airport behind gas cannisters on runway area
+CREATE_PICKUP_WITH_AMMO minigun PICKUP_ON_STREET_SLOW 200 -1496.0 591.0 42.0  			pickup_weapon[85]	//	- minigun 200 //on top of a SF side Kincaid Bridge support
+CREATE_PICKUP_WITH_AMMO Satchel PICKUP_ON_STREET_SLOW 15 -2542.2620 922.2401 67.1221  	pickup_weapon[86]	//	- Package bombs //Someones doorstep in Paradiso
+CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 -2092.0 1121.0 54.0 				pickup_weapon[87]	//	- tec9 50 //Calton Heights grassy area
+CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 -1629.0 1167.0 24.0  			pickup_weapon[88]	//  - sniper 20 rifle //downtown on roof behind drink beer sign		
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -2083.0 298.0 42.0  	 	 pickup_weapon[89]			//	- Hammer //Unfinished roadway in King's
+CREATE_PICKUP bat PICKUP_ON_STREET_SLOW -2306.0 93.0 35.0  	 		 pickup_weapon[90]			//	- Baseball Bat //Garcia baseball diamond
 CREATE_PICKUP shovel PICKUP_ON_STREET_SLOW -2796.4155 123.686 6.844  pickup_weapon[91]			//	- Shovel //pallisades back yard
-CREATE_PICKUP POOLCUE PICKUP_ON_STREET_SLOW -2135.0 197.0 35.0  	 pickup_weapon[92]			  //	- Poolcue // hidden behind a fallen piece of concrete in the Doherty construction yard
-CREATE_PICKUP KATANA PICKUP_ON_STREET_SLOW -2208.0 696.0 50.0  	 	 pickup_weapon[93]			  //	- Katana //chinatown backalley
+CREATE_PICKUP POOLCUE PICKUP_ON_STREET_SLOW -2135.0 197.0 35.0  	 pickup_weapon[92]			//	- Poolcue // hidden behind a fallen piece of concrete in the Doherty construction yard
+CREATE_PICKUP KATANA PICKUP_ON_STREET_SLOW -2208.0 696.0 50.0  	 	 pickup_weapon[93]			//	- Katana //chinatown backalley
 CREATE_PICKUP brassknuckle PICKUP_ON_STREET_SLOW -2206.0 961.0 80.0  pickup_weapon[94]			//	- Brass Knuckles //beside a Calton Heights car park
-CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW -2222.0 -302.0 43.0	 pickup_weapon[95]			  	//- cane //Doherty overpass
-CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW -1877.1 353.1 26.0  	 pickup_weapon[96]				  //	- knife //Downtown underpass // FIXEDGROVE: x and y were -1871.0 351.0 26.0
-CREATE_PICKUP golfclub PICKUP_ON_STREET_SLOW -2715.0 -314.0 7.0 	 pickup_weapon[97]					//- golf club //front entrance Avispa country club
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -2359.0 -82.0 35.0  	 	 pickup_weapon[98]			 //	- Chainsaw //corner of Garcia consrucion plot
+CREATE_PICKUP nitestick PICKUP_ON_STREET_SLOW -2222.0 -302.0 43.0	 pickup_weapon[95]			//  - cane //Doherty overpass
+CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW -1877.1 353.1 26.0  	 pickup_weapon[96]			//	- knife //Downtown underpass // FIXEDGROVE: x was -1871.0, y was '351.0'
+CREATE_PICKUP golfclub PICKUP_ON_STREET_SLOW -2715.0 -314.0 7.0 	 pickup_weapon[97]			//  - golf club //front entrance Avispa country club
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -2359.0 -82.0 35.0  	 	 pickup_weapon[98]			//	- Chainsaw //corner of Garcia consrucion plot
 																				 				 	
 																																			 
 																				 
@@ -5322,51 +5307,51 @@ CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -2359.0 -82.0 35.0  	 	 pickup_weapon
 ///////////////////////////////////////////////////
 // 	COUNTRY WEAPON PICKUPS
 ///////////////////////////////////////////////////
-CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 -1870.0 -1625.0 22.0 pickup_weapon[99]				// - desert eagle //Whetstone scrap yard warehouse
-CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 -1627.0	-2692.0	49.0   pickup_weapon[100]							// - fire extinguisher //outside whetstone xoomer station
-CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 -2038.0 -2562.0 31.0	   pickup_weapon[101]					 //- mac10 //trailer park behind trailer
-CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 -1035.0	-2258.0 70.0   pickup_weapon[102]							 //- countryside rifle //on top of mound in the middle of nowhere
-CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 2366.0 23.0 28.0		   pickup_weapon[103]						 //- Sawn Off shotgun //behind a house, on the back porch
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2255.0 -74.0 32.0 		   pickup_weapon[104]					//-	 MOLOTOV 10s //on the roof of the palomino creek library
-CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 1296.0 392.0	20.0	   pickup_weapon[105]						// - MP5 //inside the yard of the partially burned building
-CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 262.0 38.0 2.0			   pickup_weapon[106]					// - tec9 50 //beside warehouse opposite the spandex depot
-CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 -121.0 -232.0 1.0			   pickup_weapon[107]					// - AK47 60 //outside the fleisch beer factory
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW			 -532.0 -106.0 63.0			   pickup_weapon[108]					// - sawn off shotgun //in the midst of the logging site
-CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 113.0 1811.0 18.0			   pickup_weapon[109]					// - M4 70 //at the bottom of a guard tower
-CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 36.0 1372.0 9.0	   pickup_weapon[110]		// - Desert Eagle //behind the middle solar panel in the trailer park
-CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 24.0 969.0 20.0		   pickup_weapon[111]		// - Pump Shotgun //beside a low budget house in the outskirts
-CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 -170.0 1025.0 20.0		   pickup_weapon[112]		// - MOLOTOV 10s //behind the liquor store
-CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 -639.0 1181.0 13.0		   pickup_weapon[113]		// - semi automatic pistol //under bridge close to save point
-CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 -585.0 2714.0 72.0		   pickup_weapon[114]				// - AK47 60 //beside Caravan in small traile
-CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 -742.0 2752.0 47.0	   pickup_weapon[115]					// - Fire Extinguisher //beside the pumpless gas station
-CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 -932.02 2649.92	42.0   pickup_weapon[116]					// - Shotgun //beside the water at the USJ
-CREATE_PICKUP_WITH_AMMO heatseek PICKUP_ON_STREET_SLOW 10 -1317.0 2509.0 87.0	   pickup_weapon[117]				// - RPG //behind one of the ruins
-CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 -1474.0 2577.0 56.0		   pickup_weapon[118]				// - MP5 //behind a building NE of the medical centre
-CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 -2352.0 2456.0 6.0   pickup_weapon[119]					// - Desert Eagle //in walled garden at the beginning of the marina, northernmost point of town
-CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 -2520.0 2293.0 5.0	   pickup_weapon[120]					// -  GRENADE 20s //alleyway behind shops
-CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -1358.0 -2115.0 30.0 	   pickup_weapon[121]					//- FLAME 50thrower //in a copse of trees
-CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 119.0 2409.0 17.0	   pickup_weapon[122]					// - mac10 //inside aeroplane fuselage distant from main airfield buildings 						 
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW -1809.0 -1662.0 24.0		pickup_weapon[123]				// - Shovel //Whetstone scrap yard beside a mound of scrap
-CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW -2350.0 -1586.0 485.0	pickup_weapon[124]						// - gun_para //top of chiliad
-CREATE_PICKUP GOLFCLUB PICKUP_ON_STREET_SLOW -2227.0 -2401.0 31.40	pickup_weapon[125]				// - golf club //angel pine residential garage
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 2240.0 -83.0	27.0 		pickup_weapon[126]			//- shovel //in the palomino creek cemetary
-CREATE_PICKUP POOLCUE PICKUP_ON_STREET_SLOW 294.0 -188.0 2.0		pickup_weapon[127]				// - pool cue //outside the bar
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -761.0 -126.0 66.0		pickup_weapon[128]				// - Chainsaw //beside a logging hut
-CREATE_PICKUP katana PICKUP_ON_STREET_SLOW -1568.0 2718.0 56.0		pickup_weapon[129]					// - Katana //Behind a building beside the northern road
-CREATE_PICKUP Gun_dildo2 PICKUP_ON_STREET_SLOW -2401.0 2360.0 5.0	pickup_weapon[130]					// - screwdriver //behind the skip
-CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW -2679.0 1933.0 217.0	pickup_weapon[131]					// - gun_para //on top of the highest support
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 637.0 832.0 -43.0		pickup_weapon[132]			// - Spade // in front of the packing crate/mud
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 680.0 826.0 -39.0		pickup_weapon[133]			// - Chainsaw // behind the rock crusher machine (walk up stairway to get behind big clylinder)
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 752.0 260.0 27.0 		pickup_weapon[134]				//- Chainsaw //in front of a hut
-CREATE_PICKUP brassknuckle PICKUP_ON_STREET_SLOW -246.0 2725.0 63.0	pickup_weapon[135]			// - Brass Knuckles //behind small building close to two USJs
-CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW -23.0 2322.0 24.0 		pickup_weapon[136]			//- knife //between snake pens at the snake farm
+CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 -1870.0 -1625.0 22.0 pickup_weapon[99]	// - desert eagle //Whetstone scrap yard warehouse
+CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 -1627.0	-2692.0	49.0   pickup_weapon[100]	// - fire extinguisher //outside whetstone xoomer station
+CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 -2038.0 -2562.0 31.0	   pickup_weapon[101]	//- mac10 //trailer park behind trailer
+CREATE_PICKUP_WITH_AMMO cuntgun PICKUP_ON_STREET_SLOW 30 -1035.0	-2258.0 70.0   pickup_weapon[102]	//- countryside rifle //on top of mound in the middle of nowhere
+CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 2366.0 23.0 28.0		   pickup_weapon[103]	//- Sawn Off shotgun //behind a house, on the back porch
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 2255.0 -74.0 32.0 		   pickup_weapon[104]	//-	 MOLOTOV 10s //on the roof of the palomino creek library
+CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 1296.0 392.0	20.0	   pickup_weapon[105]	// - MP5 //inside the yard of the partially burned building
+CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 262.0 38.0 2.0			   pickup_weapon[106]	// - tec9 50 //beside warehouse opposite the spandex depot
+CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 -121.0 -232.0 1.0			   pickup_weapon[107]	// - AK47 60 //outside the fleisch beer factory
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW			 -532.0 -106.0 63.0			   pickup_weapon[108]	// - sawn off shotgun //in the midst of the logging site
+CREATE_PICKUP_WITH_AMMO M4 PICKUP_ON_STREET_SLOW 70 112.25 1811.0 17.625		   pickup_weapon[109]	// - M4 70 //at the bottom of a guard tower // FIXEDGROVE: x was '113.0', z '18.0'
+CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 36.0 1372.0 9.0	   pickup_weapon[110]	// - Desert Eagle //behind the middle solar panel in the trailer park
+CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 24.0 969.0 20.0		   pickup_weapon[111]	// - Pump Shotgun //beside a low budget house in the outskirts
+CREATE_PICKUP_WITH_AMMO MOLOTOV PICKUP_ON_STREET_SLOW 10 -170.0 1025.0 20.0		   pickup_weapon[112]	// - MOLOTOV 10s //behind the liquor store
+CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 -639.0 1181.0 13.0		   pickup_weapon[113]	// - semi automatic pistol //under bridge close to save point
+CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 -585.0 2714.0 72.0		   pickup_weapon[114]	// - AK47 60 //beside Caravan in small traile
+CREATE_PICKUP_WITH_AMMO fire_ex PICKUP_ON_STREET_SLOW 3000 -742.0 2752.0 47.0	   pickup_weapon[115]	// - Fire Extinguisher //beside the pumpless gas station
+CREATE_PICKUP_WITH_AMMO chromegun PICKUP_ON_STREET_SLOW 30 -932.02 2649.92	42.0   pickup_weapon[116]	// - Shotgun //beside the water at the USJ
+CREATE_PICKUP_WITH_AMMO heatseek PICKUP_ON_STREET_SLOW 10 -1317.0 2509.0 87.0	   pickup_weapon[117]	// - RPG //behind one of the ruins
+CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 -1474.0 2577.0 56.0		   pickup_weapon[118]	// - MP5 //behind a building NE of the medical centre
+CREATE_PICKUP_WITH_AMMO DESERT_EAGLE PICKUP_ON_STREET_SLOW 30 -2352.0 2456.0 6.0   pickup_weapon[119]	// - Desert Eagle //in walled garden at the beginning of the marina, northernmost point of town
+CREATE_PICKUP_WITH_AMMO  GRENADE PICKUP_ON_STREET_SLOW 20 -2520.0 2293.0 5.0	   pickup_weapon[120]	// -  GRENADE 20s //alleyway behind shops
+CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -1358.0 -2115.0 30.0 	   pickup_weapon[121]	//- FLAME 50thrower //in a copse of trees
+CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 119.0 2409.0 17.0	   pickup_weapon[122]	// - mac10 //inside aeroplane fuselage distant from main airfield buildings 						 
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW -1809.0 -1662.0 24.0		pickup_weapon[123]	// - Shovel //Whetstone scrap yard beside a mound of scrap
+CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW -2350.0 -1586.0 485.0	pickup_weapon[124]	// - gun_para //top of chiliad
+CREATE_PICKUP GOLFCLUB PICKUP_ON_STREET_SLOW -2227.0 -2401.0 31.40	pickup_weapon[125]	// - golf club //angel pine residential garage
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 2240.0 -83.0	27.0 		pickup_weapon[126]	//- shovel //in the palomino creek cemetary
+CREATE_PICKUP POOLCUE PICKUP_ON_STREET_SLOW 294.0 -188.0 2.0		pickup_weapon[127]	// - pool cue //outside the bar
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW -761.0 -126.0 66.0		pickup_weapon[128]	// - Chainsaw //beside a logging hut
+CREATE_PICKUP katana PICKUP_ON_STREET_SLOW -1568.0 2718.0 56.0		pickup_weapon[129]	// - Katana //Behind a building beside the northern road
+CREATE_PICKUP Gun_dildo2 PICKUP_ON_STREET_SLOW -2401.0 2360.0 5.0	pickup_weapon[130]	// - screwdriver //behind the skip
+CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW -2679.0 1933.0 217.0	pickup_weapon[131]	// - gun_para //on top of the highest support
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 637.0 832.0 -43.0		pickup_weapon[132]	// - Spade // in front of the packing crate/mud
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 680.0 826.0 -39.0		pickup_weapon[133]	// - Chainsaw // behind the rock crusher machine (walk up stairway to get behind big clylinder)
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW 752.0 260.0 27.0 		pickup_weapon[134]	//- Chainsaw //in front of a hut
+CREATE_PICKUP brassknuckle PICKUP_ON_STREET_SLOW -246.0 2725.0 63.0	pickup_weapon[135]	// - Brass Knuckles //behind small building close to two USJs
+CREATE_PICKUP knifecur PICKUP_ON_STREET_SLOW -23.0 2322.0 24.0 		pickup_weapon[136]	//- knife //between snake pens at the snake farm
 CREATE_PICKUP_WITH_AMMO Satchel PICKUP_ON_STREET_SLOW 15 1284.8936 278.5705 19.5547 pickup_weapon[137]	// behind otb																			 	   
-CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 2129.4 -2280.71 14.42 pickup_weapon[139] //Warehouse for crash3 grey imports 
-CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW -1542.8567 698.4825 139.2658	pickup_weapon[140]				   // on top of bridge in san fierro
-CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 130 2198.11 -1170.22 33.5 pickup_weapon[141]	 // on top of motel deal motel
-CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW  -225.6758 1394.2562 172.0143 	pickup_weapon[142]	  //On the aerial 
-CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW  -773.0379 2423.4993 157.0856	pickup_weapon[143]	  // In the desert… 			   
-CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 935.7440 -926.0453 57.7642 pickup_weapon[144]	// chateux marmount in LA
+CREATE_PICKUP_WITH_AMMO AK47 PICKUP_ON_STREET_SLOW 60 2129.4 -2280.71 14.42 		pickup_weapon[139]	//Warehouse for crash3 grey imports 
+CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW -1542.8567 698.4825 139.2658			pickup_weapon[140]	// on top of bridge in san fierro
+CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 130 2198.11 -1170.22 33.5 		pickup_weapon[141]	// on top of motel deal motel
+CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW  -225.6758 1394.2562 172.0143 			pickup_weapon[142]	//On the aerial 
+CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW  -773.0379 2423.4993 157.0856			pickup_weapon[143]	// In the desert… 			   
+CREATE_PICKUP_WITH_AMMO sniper PICKUP_ON_STREET_SLOW 20 935.7440 -926.0453 57.7642 	pickup_weapon[144]	// chateux marmount in LA
 
 //////////////////////////////
 // Weapons in police stations
@@ -5391,43 +5376,43 @@ CREATE_PICKUP gun_para PICKUP_ON_STREET_SLOW  -1753.4181 885.3446 295.5166	picku
 
 
 // CAMERAS AROUND SF
-CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2539.9180 -598.6152 132.7640  	 pickup_weapon[156]		  // on top of triathlon hill
-CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2329.9844 -165.3635 35.2389 	 pickup_weapon[157]	     // outside burger shot	
+CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2539.9180 -598.6152 132.7640  	 pickup_weapon[156]	   // on top of triathlon hill
+CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2329.9844 -165.3635 35.2389 	 pickup_weapon[157]	   // outside burger shot	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2721.2410 -318.8085 7.5246 	 pickup_weapon[158]	   // entrance of swank SHINING-like hotel	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2677.1023 234.9912 4.1048 		 pickup_weapon[159]	   // behind clucken bell					
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2706.6921 375.8728 5.0525		 pickup_weapon[160]	   // in the middle of square (where city hall and the art gallery are) 	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2550.1064 657.2860 14.7319 	 pickup_weapon[161]	   // hospital car park	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2791.2478 771.5468 51.0904 	 pickup_weapon[162]	   // behind TUFF NUTS	
-CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1770.8149 903.2556 25.3894    	 pickup_weapon[163]	    // next to the POINTY BUILDING (behind BIG PRICKS SIGN)	
+CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1770.8149 903.2556 25.3894    	 pickup_weapon[163]	   // next to the POINTY BUILDING (behind BIG PRICKS SIGN)	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1713.0062 1368.2390 7.2664 	 pickup_weapon[164]	   // behind pizza stack at pier 69 	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1851.3165 1302.2909 60.7553 	 pickup_weapon[165]	   // on top of multi story car park	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1635.0255 604.4713 40.6377 	 pickup_weapon[166]	   // on the road bridge	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1976.4830 670.5043 46.6039 	 pickup_weapon[167]	   // inside zombie tech building	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2038.4086 1111.4065 53.7928 	 pickup_weapon[168]	   //the side of church
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2048.8032 899.5274 53.8866    	 pickup_weapon[169]	   // up windy street	
-CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2292.4702 722.5441 49.4265	   	 pickup_weapon[170]	    //across teh road from gates of china town 	
+CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -2292.4702 722.5441 49.4265	   	 pickup_weapon[170]	   //across teh road from gates of china town 	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1977.9155 113.8457 27.1096      pickup_weapon[171]	   // train station	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1528.1443 160.0232 3.5142 	     pickup_weapon[172]	   // down by the docks	
 CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 -1771.2611 -597.5884 16.6287     pickup_weapon[173]	   // entrance of the airports	
-CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 2495.8069 -1700.6371 1017.8368   special_camera //CJ's house	
+CREATE_PICKUP_WITH_AMMO camera PICKUP_ON_STREET_SLOW 50 2495.8069 -1700.6371 1017.8368   special_camera 	   //CJ's house	
 																  
 
 
 // Extra weapons added on sept 6th
 CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2677.7261 -192.3469 6.8518		pickup_weapon[174]    // outside some guys doorstep SF	
-CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW  	-2752.2429 -272.2891 6.5956 	pickup_weapon[175]      // TEnnis courts in SF
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2617.4731 -97.0801 4.0030		pickup_weapon[176]      // outside some guys doorstep SF
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW 	-2777.1921 -25.2984 6.8721 		pickup_weapon[177] 	// a guys doorstep SF
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW 	-2774.1130 87.8845 6.7987 		pickup_weapon[178] // a guys doorstep SF
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2770.6235 389.0772 4.2818 		pickup_weapon[179]	// OUTSIDE CITY HALLsf
-CREATE_PICKUP katana PICKUP_ON_STREET_SLOW 		-2535.6311 51.7034 8.6512 		pickup_weapon[180]	// UNDERGROUND WALK NEAR STALLS sf 
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2530.9580 -34.1009 25.2855 	pickup_weapon[181]	// STALLS NEAR HIPPY AREA SF
+CREATE_PICKUP chnsaw PICKUP_ON_STREET_SLOW  	-2752.2429 -272.2891 6.5956 	pickup_weapon[175]    // TEnnis courts in SF
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2617.4731 -97.0801 4.0030		pickup_weapon[176]    // outside some guys doorstep SF
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW 	-2777.1921 -25.2984 6.8721 		pickup_weapon[177] 	  // a guys doorstep SF
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW 	-2774.1130 87.8845 6.7987 		pickup_weapon[178] 	  // a guys doorstep SF
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2770.6235 389.0772 4.2818 		pickup_weapon[179]	  // OUTSIDE CITY HALLsf
+CREATE_PICKUP katana PICKUP_ON_STREET_SLOW 		-2535.6311 51.7034 8.6512 		pickup_weapon[180]	  // UNDERGROUND WALK NEAR STALLS sf 
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2530.9580 -34.1009 25.2855 	pickup_weapon[181]	  // STALLS NEAR HIPPY AREA SF
 CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-1691.6486 946.7679 24.8084 	pickup_weapon[182]	  // OUTSIDE VICTIM	  SF
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2664.5183 636.5673 14.2474 	pickup_weapon[183]	 //OUTSIDE HOSPITAL	SF
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-2664.5183 636.5673 14.2474 	pickup_weapon[183]	  //OUTSIDE HOSPITAL	SF
 
-CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -601.4012 -1068.6002 23.6667  pickup_weapon[184]	// OUTSIDE CABIN MOTEL COUNTRY WEST
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-377.2184 -1048.0535 58.9125 	pickup_weapon[185]	  // OUTSIDE FARM IN COUNTRY		WESSR
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-45.5928 -1148.5286 1.3953 	pickup_weapon[186]	   // OUTSIDE BARN/WAREHOUSE COUNTRYWEST
+CREATE_PICKUP_WITH_AMMO FLAME PICKUP_ON_STREET_SLOW 2000 -601.4012 -1068.6002 23.6667  	pickup_weapon[184]	// OUTSIDE CABIN MOTEL COUNTRY WEST
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-377.2184 -1048.0535 58.9125 			pickup_weapon[185]	// OUTSIDE FARM IN COUNTRY		WESSR
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	-45.5928 -1148.5286 1.3953 				pickup_weapon[186]	// OUTSIDE BARN/WAREHOUSE COUNTRYWEST
 
 
 CREATE_PICKUP brassknuckle PICKUP_ON_STREET_SLOW 2428.4990 -1679.2703 13.1633 pickup_weapon[187]		 // under freeway	la
@@ -5436,7 +5421,7 @@ CREATE_PICKUP_WITH_AMMO MICRO_UZI PICKUP_ON_STREET_SLOW 60 2790.3428 -1427.4893 
 CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 2574.0649 -1134.2010 64.6535		 pickup_weapon[190]  // hispanic area
 CREATE_PICKUP_WITH_AMMO COLT45 PICKUP_ON_STREET_SLOW 35 2423.8916 -1117.4524 41.2464  	 	pickup_weapon[191]    // hispanic area
 CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	1296.1552 -1081.8922 26.1502 	pickup_weapon[192]	  //  hospital in la
-CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	1390.6113 -800.4332 81.7795 	pickup_weapon[193]	 // vinewood sign LA
+CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	1390.6113 -800.4332 80.25 	pickup_weapon[193]	 // vinewood sign LA // FIXEDGROVE: z was '81.7795'
 CREATE_PICKUP bat PICKUP_ON_STREET_SLOW 		1308.4662 2111.2886 10.7221		pickup_weapon[194]	 // baseball stadium VEGAS
 CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	2183.1160 2396.8269 10.7722 	pickup_weapon[195]	  //somewhere in vagas
 CREATE_PICKUP bat PICKUP_ON_STREET_SLOW 		1081.1333 1603.6969 5.6000  	pickup_weapon[196]	  // under stadium in VEGAS
@@ -5445,7 +5430,7 @@ CREATE_PICKUP_WITH_AMMO SAWNOFF PICKUP_ON_STREET_SLOW 25 1706.3517 1242.0194 34.
 
 CREATE_PICKUP_WITH_AMMO minigun PICKUP_ON_STREET_SLOW 200 2492.0513 2398.3774 4.5293		pickup_weapon[200]  // underground car park in vegas (where one of rothwells missions are set)
 CREATE_PICKUP_WITH_AMMO rocketla PICKUP_ON_STREET_SLOW 10 2055.3555 2435.3564 40.3684  		pickup_weapon[201]	 // another multi story car park in vegas
-CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 1888.2698 2877.2617 10.1621 			pickup_weapon[202]  // tennis courts in vegas
+CREATE_PICKUP SHOVEL PICKUP_ON_STREET_SLOW 1888.2698 2877.2617 10.751 			pickup_weapon[202]  // tennis courts in vegas // FIXEDGROVE: z was '10.1621'
 CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	1420.9449 2519.8816 10.6199  	pickup_weapon[203]	   // behind somebodys house at the edge of VEGAS
 CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	1372.9963 2605.7576 10.8776  	pickup_weapon[204]	    // railway platform in vegas
 CREATE_PICKUP_WITH_AMMO mp5lng PICKUP_ON_STREET_SLOW 70 2293.6855 1982.2860 31.4335 pickup_weapon[205]  // on top of another multi storie carpark
@@ -5457,7 +5442,7 @@ CREATE_PICKUP gun_cane PICKUP_ON_STREET_SLOW  	455.4583 -1485.8964 30.9717 	pick
 CREATE_PICKUP_WITH_AMMO minigun PICKUP_ON_STREET_SLOW 200 244.98 1859.185 14.08			pickup_weapon[209]	// minigun in area 51
 
 // send these to immy
-//CREATE_PICKUP_WITH_AMMO shotgspa PICKUP_ON_STREET_SLOW 30 297.8289 1846.6226 6.7266 	pickup_weapon[210] // spaz in area 51
+CREATE_PICKUP_WITH_AMMO shotgspa PICKUP_ON_STREET_SLOW 30 297.8289 1846.6226 7.5 	pickup_weapon[210] // spaz in area 51 // FIXEDGROVE: moved back from desert8
 //CREATE_PICKUP_WITH_AMMO JETPACK PICKUP_ONCE 0 268.7 1884.1 -30.085 pickup_weapon[211]
 
 CREATE_PICKUP_WITH_AMMO tec9 PICKUP_ON_STREET_SLOW 50 2529.7241 -1678.5634 19.4225		pickup_weapon[212]
@@ -5476,8 +5461,8 @@ CREATE_PICKUP KATANA PICKUP_ON_STREET_SLOW 	2002.2629 981.3947 10.5 	pickup_weap
 
 //LOS SANTOS: 
 VAR_INT pickup_flowers[40]
-CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 1928.68 -1774.21 13.54 	pickup_flowers[0]		//1. Gas Station - next to Sprunk machine.  flower1
-CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 1875.91 -1917.18 15.03 	pickup_flowers[1]		//2. El Corona - in between plants in house garden.  flower2
+CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 1928.68 -1774.21 13.54 	pickup_flowers[0]	//1. Gas Station - next to Sprunk machine.  flower1
+CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 1875.91 -1917.18 15.03 	pickup_flowers[1]	//2. El Corona - in between plants in house garden.  flower2
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2019.60 -1214.15 21.47 	pickup_flowers[2]	//3. Glen Park - in between flowerbed. flower3
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2209.77 -1001.69 63.71 	pickup_flowers[3]	//4. Las Colinas - Front Garden behind flowers. flower4
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 1000.34 -1858.58 12.3 	pickup_flowers[4]	//5. Verona Beach - next to palm tree.  flower5
@@ -5520,7 +5505,7 @@ CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2642.03 1125.74 11.03	pickup_flowers
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2025.24 661.60 10.93 	pickup_flowers[33]//34. Rockshore West - in front garden flower34
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2181.82 1484.97 11.36 	pickup_flowers[34]//35. Royale Casino - in flowerbed flower35
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2197.02 2476.33 11.00 	pickup_flowers[35]//36. The Emerald Isle - in between petrol pumps at Xoomer flower36
-CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2212.00 2526.00 10.81 	pickup_flowers[36]////37. Julius Thruway North - Wedding Tackle front doorflower37
+CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2212.00 2526.00 10.81 	pickup_flowers[36]//37. Julius Thruway North - Wedding Tackle front doorflower37
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2715.79 1109.47 6.70 	pickup_flowers[37]//38. Julie Thruway North - Crash barrier flower38
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 2489.25 918.28 11.02 	pickup_flowers[38]//39. Las Venturas - outside wedding chapel lower39
 CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 1472.08 1890.09 10.81	pickup_flowers[39]//40. Redsands West - in front garden between trees and shrubs  flower40
@@ -5541,9 +5526,6 @@ CREATE_PICKUP flowera PICKUP_ON_STREET_SLOW 1472.08 1890.09 10.81	pickup_flowers
 
 VAR_INT pickup_health[51]
 
-								   
-
-
 
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 1433.0 2634.0 11.0    pickup_health[0]					// Yellow Bell Station, inbetween train tracks
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2257.0 2530.0 11.0    pickup_health[1]					// Roca Escalante, tucked between two dumpsters
@@ -5552,7 +5534,7 @@ CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2458.0 1293.0 11.0 	 pickup_health[3]
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2098.0 1161.0 12.0    pickup_health[4]				// Come-A-Lot, in the middle of the little castle
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 1913.0 0702.0 11.0 	 pickup_health[5]			// Last Dime Motel, underneath car park covering
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2624.0 -1600.0 10.0   pickup_health[6]				 //under bridge beside flood control
-CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2891.0 2102.0 11.65     pickup_health[7]			//Playa del Seville near Life's a Beach
+CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2891.0 2102.0 11.65   pickup_health[7]			//Playa del Seville near Life's a Beach
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2791.0 -1096.0 31.0   pickup_health[8]				 //behind a las colinas appartment
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 2062.0 -1966.0 13.0 	 pickup_health[9]			 //Willowfield beside train tracks between platform and crates.
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 1574.0 -1888.0 14.0   pickup_health[10]				 //Verdant Bluffs outside restaurant seating
@@ -5603,64 +5585,64 @@ CREATE_PICKUP health PICKUP_ON_STREET_SLOW 1581.24 1776.44 10.92 pickup_health[4
 
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 263.457 1816.14 1.01 pickup_health[49]	 //health at inside area51 
 CREATE_PICKUP health PICKUP_ON_STREET_SLOW 1278.67 -773.87 1083.116 pickup_health[50]	 //health at inside mansion 
- */
+*/
 
 
 				 
 ////END OF HEALTH
 
 
-	///Body Armour
+///Body Armour
 VAR_INT pickup_armour[48]
 
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2097.0 2154.0 14.0		pickup_armour[0]	 				// Redsands East, in corner of balcony-like area (have to run round entire inner section of building to get to it)
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2435.0 1663.0 16.0  		pickup_armour[1]		// Caligula's Palace, on top of oddly shaped central motel building 
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2500.0 0925.0 11.0  		pickup_armour[2]		// Las Venturas, in the corner of the church
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2106.0 1004.0 11.0  		pickup_armour[3]		// Come-A-Lot, in archway underneath sign
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1531.0 0925.0 11.0  		pickup_armour[4]		// LVA Freight Depot, In corner next to wooden fence inside courtyard of building
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1433.0 1852.0 10.8  		pickup_armour[5]		// Las Venturas Airport, in the corner, slightly hidden from the road
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1000.0 1068.0 11.0  		pickup_armour[6]		// Greenglass College, behind (east of) the dumpsters
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1269.0 1352.0 11.0  		pickup_armour[7]		// Las Venturas Airport, in the corner of this hanger (opposite hanger used in 'Freefall')
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2294.0 0547.0 01.0  		pickup_armour[8]		// Red County, between the stairways
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2543.0 -1625.0 12.0 		pickup_armour[9]		 //under flood control overpass
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2339.0 -1944.0 13.0 		pickup_armour[10]	 //behind willowfield building
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2767.0 -1192.0 69.0 		pickup_armour[11]	 //behind house in East Beach
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2112.0 -1990.0 14.0 		pickup_armour[12]	 //Willowfield beside train tracks between mound of scrap and crates.
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2544.0 -1120.0 62.0 		pickup_armour[13]	 //Las Colinas yard
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1562.0 -1888.0 14.0 		pickup_armour[14]	 //Verdant Bluffs outside restaurant seating
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2097.0 2154.0 14.0		pickup_armour[0]	// Redsands East, in corner of balcony-like area (have to run round entire inner section of building to get to it)
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2435.0 1663.0 16.0  		pickup_armour[1]	// Caligula's Palace, on top of oddly shaped central motel building 
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2500.0 0925.0 11.0  		pickup_armour[2]	// Las Venturas, in the corner of the church
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2106.0 1004.0 11.0  		pickup_armour[3]	// Come-A-Lot, in archway underneath sign
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1531.0 0925.0 11.0  		pickup_armour[4]	// LVA Freight Depot, In corner next to wooden fence inside courtyard of building
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1433.0 1852.0 10.8  		pickup_armour[5]	// Las Venturas Airport, in the corner, slightly hidden from the road
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1000.0 1068.0 11.0  		pickup_armour[6]	// Greenglass College, behind (east of) the dumpsters
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1269.0 1352.0 11.0  		pickup_armour[7]	// Las Venturas Airport, in the corner of this hanger (opposite hanger used in 'Freefall')
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2294.126 0547.0 1.875  	pickup_armour[8]	// Red County, between the stairways // FIXEDGROVE: x was '2294.0, z was '1.0'
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2543.0 -1625.0 12.0 		pickup_armour[9]	//under flood control overpass
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2339.0 -1944.0 13.0 		pickup_armour[10]	//behind willowfield building
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2767.0 -1192.0 69.0 		pickup_armour[11]	//behind house in East Beach
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2112.0 -1990.0 14.0 		pickup_armour[12]	//Willowfield beside train tracks between mound of scrap and crates.
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2544.0 -1120.0 62.0 		pickup_armour[13]	//Las Colinas yard
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1562.0 -1888.0 14.0 		pickup_armour[14]	//Verdant Bluffs outside restaurant seating
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1086.0 -1806.0 17.0 		pickup_armour[15]	//Conference centre orbital walkway
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 253.0 80.0 1004.0 		pickup_armour[16]		//LS police locker room	  <----------------INSIDE PICKUP
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1759.0 -2242.0 1.0 		pickup_armour[17]	 //front of LS airport
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2650.0 -198.0 4.0 		pickup_armour[18]	 //back yard of an Ocean flats house
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2285.0 -24.0 35.0 		pickup_armour[19]	 //Garcia alleyway
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 253.0 80.0 1004.0 		pickup_armour[16]	//LS police locker room	  <----------------INSIDE PICKUP
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1759.0 -2242.0 1.0 		pickup_armour[17]	//front of LS airport
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2650.0 -198.0 4.0 		pickup_armour[18]	//back yard of an Ocean flats house
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2285.0 -24.0 35.0 		pickup_armour[19]	//Garcia alleyway
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -1863.0 112.0 15.0 		pickup_armour[20]	//Hidden behind Solarin Industries building
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -1574.0 1268.0 1.27 		pickup_armour[21]	//on a concrete pier in Esplanade East 
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2916.0 992.0 8.0 		pickup_armour[22]	//Palisades bottom of a cliff
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2513.0 770.0 35.0 		pickup_armour[23]	// Juniper Hill supa save carpark
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -1394.0 -373.0 6.0 		pickup_armour[24]	//SF airport outside terminal
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2303.0 -1606.0 484.0	pickup_armour[25]	 //top of Chiliad
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2303.0 -1606.0 484.0	pickup_armour[25]	//top of Chiliad
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2092.0 -2330.0 31.0 	pickup_armour[26]	//behind restaurant wall
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -2260.0 2568.0 6.0 		pickup_armour[27]	//Bayside beach
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -902.0 2689.0 42.0 		pickup_armour[28]	//between huts at the USJ
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -317.0 2651.0 67.0 		pickup_armour[29]	//on roof behind the Pecker's feed and seed sign
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1325.0 190.0 19.0 		pickup_armour[30]//inside trailer park
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2487.0 139.0 27.0 		pickup_armour[31]//between a house and it's garage
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 761.0 380.0 23.0 		pickup_armour[32]// In trailer park behind shack
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -51.0 -232.0 7.0 		pickup_armour[33]//round the back of the fleisch beer factory, beside the back door
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 252.0 2616.0 17.0 		pickup_armour[34]//In an aeroplane fuselage
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 212.0 1807.0 22.0 		pickup_armour[35]//top of a guard tower
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1325.0 190.0 19.0 		pickup_armour[30]	//inside trailer park
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2487.0 139.0 27.0 		pickup_armour[31]	//between a house and it's garage
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 761.0 380.0 23.0 		pickup_armour[32]	// In trailer park behind shack
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW -51.0 -232.0 7.0 		pickup_armour[33]	//round the back of the fleisch beer factory, beside the back door
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 252.0 2616.0 17.0 		pickup_armour[34]	//In an aeroplane fuselage
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 212.0 1807.0 22.0 		pickup_armour[35]	//top of a guard tower
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1291.7604 -803.4566 1089.9297 pickup_armour[36]//armour, bedroom
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1715.12 -1673.51 20.22 pickup_armour[37]//armour, bedroom
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 943.0120 -939.8284 57.7345 	 pickup_armour[38]				 //chatuex marmount balcony in la
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 943.0120 -939.8284 57.7345 	 pickup_armour[38] //chatuex marmount balcony in la
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 275.169 1859.699 9.81 	 pickup_armour[39] //body armour at inside area51 	
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 1268.34 -804.33 1084.01 	 pickup_armour[40] //body armour at inside mansion mad dog // FIXEDGROVE: made respawn
 
-CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 263.52 83.14 1001.0391 	 pickup_armour[41] //police station 1
+CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 263.52 83.14 1001.0391 	 	 pickup_armour[41] //police station 1
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 264.2632 117.0737 1008.8125 	 pickup_armour[42] //police station 1
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 245.0618 195.9429 1008.1719 	 pickup_armour[43] //police station 1
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 215.8489 126.0831 1003.2257 	 pickup_armour[44] //police station 1
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2125.4934 -2275.0366 20.5202	 pickup_armour[45] //for imrans warehouse mission
-//CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 266.2813 1816.3976 1.594 	 pickup_armour[46] // body armor for area 51 mission
+//CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 266.2813 1816.3976 1.594 	 pickup_armour[46] //body armor for area 51 mission 
 CREATE_PICKUP bodyarmour PICKUP_ON_STREET_SLOW 2230.4504 -2286.0044 14.3751	 pickup_armour[47] //for imrans warehouse mission
 
 					 	 
@@ -5672,16 +5654,16 @@ VAR_INT pickup_bribe[50]
 
 //LAS VENTURAS:
 
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2743.0 1316.0 08.0   pickup_bribe[0]  // Julius Thruway Est, underneath the overpass (near to one of the police bike pickups
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2168.66 2267.96  15.34 pickup_bribe[1] // The Emerald Isleween this set of trees, at about the right height to grab from doing the jump  
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2408.0 1389.0 22.0  pickup_bribe[2]  // Royale Casino, near powerlines, accessible from USJ to south
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2034.0 0842.0 10.0  pickup_bribe[3] 	// Julius Thruway S should be able to pick it up by jumping off the central divider
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2096.0 1287.0 10.8  pickup_bribe[4] 	// The Camel's Toe, beneath the big needle style monument
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1987.0 1543.0 16.0  pickup_bribe[5] 	// The Strip, in a good position to grab by jumping off the pirate ships ramp in a bike
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1854.0 0912.0 10.80  pickup_bribe[6] 	// The Four Dragons Casino, in the little fenced off bit (should be nice for coming off the freeway,   smashing through the fences and grabbing it)
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2540.38 2527.85 10.39 pickup_bribe[7] // Julius Thruway East, in between tracks and building, along gravel path to Highway.
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1548.02 1024.47 10.39 pickup_bribe[8] // LVA Freight Depot, inside cordoned off fence - great to smash through.
-CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1592.91 2053.83 10.26 pickup_bribe[9] // Redsands West, in small alley with shootable wooden fences - poifect!
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2743.0 1316.0 08.0   	pickup_bribe[0]  // Julius Thruway Est, underneath the overpass (near to one of the police bike pickups
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2168.66 2267.96 15.34 pickup_bribe[1]  // The Emerald Isleween this set of trees, at about the right height to grab from doing the jump  
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2408.0 1389.0 22.0  	pickup_bribe[2]  // Royale Casino, near powerlines, accessible from USJ to south
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2034.0 0842.0 10.0  	pickup_bribe[3]  // Julius Thruway S should be able to pick it up by jumping off the central divider
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2096.0 1287.0 10.8  	pickup_bribe[4]  // The Camel's Toe, beneath the big needle style monument
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1987.0 1543.0 16.0    pickup_bribe[5]  // The Strip, in a good position to grab by jumping off the pirate ships ramp in a bike
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1854.0 0912.0 10.80   pickup_bribe[6]  // The Four Dragons Casino, in the little fenced off bit (should be nice for coming off the freeway,   smashing through the fences and grabbing it)
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 2540.38 2527.85 10.39 pickup_bribe[7]  // Julius Thruway East, in between tracks and building, along gravel path to Highway.
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1548.02 1024.47 10.39 pickup_bribe[8]  // LVA Freight Depot, inside cordoned off fence - great to smash through.
+CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1592.91 2053.83 10.26 pickup_bribe[9]  // Redsands West, in small alley with shootable wooden fences - poifect!
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1971.29 2330.26 10.41 pickup_bribe[10] // Redsands East, in box filled alleyway, Starsky and Hutch style
 CREATE_PICKUP bribe PICKUP_ON_STREET_SLOW 1700.74 1792.70 10.41 pickup_bribe[11] // Las Venturas Airport, by building, right before jumping highway via ramp.
 

@@ -124,6 +124,8 @@ bought_menu_drawn_shops = 0
 
 flag_no_money_shops = 0
 
+VAR_INT unused_5 // FIXEDGROVE: unused
+
 // requeting models
 IF $shop_name = FDpiza
 	shopkeeper_model_shops = WMYPIZZ			

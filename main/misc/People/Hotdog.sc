@@ -85,4 +85,39 @@ hotdog_vendor_loop:
 GOTO hotdog_vendor_loop
 }
 
+// FIXEDGROVE: new global variables go here to avoid changing vanilla offsets
+
+// Moved from top of main
+VAR_INT BUTTON_ACCEPT BUTTON_CANCEL BUTTON_BET_UP BUTTON_BET_DOWN
+
+// Used for a console REV 8 barber shop blip and a missing pizza blip
+VAR_INT extra_blips[2]
+
+//MISSIONS
+
+// DIFFICULTY FLAGS
+VAR_INT difficulty_s3flag difficulty_s4flag difficulty_s4value difficulty_f1flag
+
+//OBJECTS
+
+VAR_INT gates_r2[2] // gates for the compound in ocean docks
+
+VAR_INT g_BD_WINDOW[8] // Windows for Burning Desire house
+
+VAR_INT grate_s4 // storm drain grate
+
+// Jefferson motel objects
+VAR_INT g_skylite g_vent1 g_vent2 g_trolley1 g_trolley2 g_trolley3 g_trolley4 g_trolley5 g_trolley6 g_trolley7
+
+// Crack lab front gate
+VAR_INT crackfact_front_gate
+
+//MISC
+
+// BASKETBALL
+VAR_INT bball_ball // global handle for the ball
+
+// LOWRIDER SPEECH FLAGS
+VAR_INT lowr_speech_state lowr_speech_request lowr_speech_counter
+
 MISSION_END

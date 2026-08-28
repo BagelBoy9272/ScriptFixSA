@@ -403,8 +403,8 @@ Taxiodd_Mission_Loop:
 
 
 	// Debug Stuff
-	GOSUB Taxiodd_Debug_Tools
-	GOSUB Taxiodd_Debug_Shortcuts
+	//GOSUB Taxiodd_Debug_Tools // FIXEDGROVE: comment out
+	//GOSUB Taxiodd_Debug_Shortcuts // FIXEDGROVE: comment out
 
 	IF m_quit = TRUE
 	OR m_pause = TRUE

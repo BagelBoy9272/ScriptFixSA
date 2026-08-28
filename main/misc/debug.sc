@@ -6503,7 +6503,7 @@ debug_page6: //MISC	************************************************************
 		PRINT_BIG ( VALET ) 1000 4 //Valet 
 //		START_NEW_SCRIPT valet_script
 		valet_oddjob_opened = 1
-		valet_unlocked = 1
+//		valet_unlocked = 1 // FIXEDGROVE: unused
 		IF IS_PLAYER_PLAYING player1
             GIVE_PLAYER_CLOTHES_OUTSIDE_SHOP Player1 valet valet CLOTHES_TEX_EXTRA1          
             BUILD_PLAYER_MODEL player1

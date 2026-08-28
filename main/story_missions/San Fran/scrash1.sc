@@ -436,7 +436,7 @@ IF sc3_flag = 1
 			DELETE_CHAR valet[1]
 			DELETE_CHAR valet[2]
 
-			valet_unlocked = 1
+//			valet_unlocked = 1 // FIXEDGROVE: unused
 
 			
 			STREAM_SCRIPT valet.sc
@@ -2750,7 +2750,7 @@ mission_scrash3_failed:
 
 		PRINT_BIG M_FAIL 5000 1
 		valet_mission_terminate = 1
-		valet_unlocked = 0
+//		valet_unlocked = 0 // FIXEDGROVE: unused
 
 RETURN
 
@@ -2762,7 +2762,7 @@ mission_scrash3_passed:
 	//flag_wuzi1_mission1_passed = 1
 
 	SET_INT_STAT PASSED_ZERO1 1
-	valet_unlocked = 1
+//	valet_unlocked = 1 // FIXEDGROVE: unused
 	valet_oddjob_opened = 1
 	PRINT_WITH_NUMBER_BIG ( M_PASSD ) 0 5000 1 //"Mission Passed!"
 	SET_INT_STAT PASSED_SCRASH1 1

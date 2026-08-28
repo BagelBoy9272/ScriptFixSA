@@ -24,7 +24,7 @@ LVAR_INT bbhoop
 
 // objects
 LVAR_INT m_ball 
-LVAR_INT char_obj // FIXEDGROVE: made local
+VAR_INT char_obj
 
 // floats
 LVAR_FLOAT x2 y2 z2

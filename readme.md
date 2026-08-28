@@ -8,6 +8,8 @@ ScriptFixSA aims to provide bugfixes and quality of life improvements to the ori
 
 Relevant or otherwise interesting changes to the scripts were marked with a `FIXEDGROVE` comment.
 
+New global variables are stored in Hotdog.sc to avoid changing vanilla offsets.
+
 Currently in beta status.
 
 ## Download
@@ -164,6 +166,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Proofed Denise in ending cutscene to prevent softlocks
 - Remove the alley molotov pickup in cleanup
 
+**Madd Dogg's Rhymes:**
+- Removed stray marker on the map after exiting the mansion
+
 **House Party:**
 - Added facial talk anim to voicelines
 - Fixed repeated gang member skins
@@ -311,6 +316,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Black Project:**
+- Restored the inaccessible post-mission SPAS-12 pickup so it actually spawns during the mission
 - Restored 'To hover in the jetpack...' message from consoles
 
 **Green Goo:**
@@ -451,6 +457,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed player not being set in their original coordinates correctly after Sweet's gym call
 - Fixed phone ringing immediately after 'Valet'
 - Fixed exercise bike exit animation not playing
+- Fixed boxers inside the LS gym standing still after fighting the instructor
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
@@ -480,14 +487,16 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed body armour inside Madd Dogg's mansion not respawning after being picked up
 - Fixed a country rifle pickup that was inside the stadium in SF
 - Fixed a knife pickup that was under the ground near an underpass in SF
-- Moved AK47 pickup in film studios closer to the ground
+- Fixed several freeroam pickups that were clipping into nearby geometry or floating too much
+- Moved AK47 and Sawn-Off pickups in film studios closer to the ground
+- Moved an armour pickup in Area 69 closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
 - Improved Forbidden Area switches
 - Added population properties to a tiny alleway zone in East Los Santos
 - Added italian mafia turf to Caligula's Palace and a little bit of The Strip next to it
 - Added triad turf to the Four Dragons Casino after Woozie's phonecall about it
 - Made Ryder's car stop spawning after 'Pier 69'
-- Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completd
+- Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completed
 - Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
 - Changed Maverick in San Fierro police helipad to a police Maverick
 - Moved Hunter and Leviathan spawn coords in the abandoned airstrip to allow both of them to spawn simultaneously
@@ -497,7 +506,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Turn taxi lights off when the taxi submission ends
 - Made Bike Shool and Boat School use blank 'no medal' sprite in languages other than english
 - Made food carts use corresponding ped models
-- Swapped NOT HAS_MISSION_AUDIO_LOADED check for 'At least it was before I fucked everything up' voice line to before the actual audio plays
+- Tourists will drop their camera when killed
 - Made triad members spawn as bouncers in Four Dragons casino
 - Pool now increases previously unused 'Wins in Pool', 'Losses in Pool', and '8-Balls in Pool' stats
 - Increased weekday check for Kick Start by one, now its avaliable on sundays, tuesdays and thursdays, instead of mondays and wednesdays (previously the first check was, if weekday = 0, which is impossible since the valid range for "weekday" is 1 thru 7)
@@ -515,6 +524,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made Vagos taking over VLA turf happen after Cesar's call about going to Angel Pine instead of an unrelated missable Catalina phone call
 - Menus won't reset the highlighted row when selecting an item
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
+- Enabled ambient valet from the start of the game, and restored it for LS and LV (though you can't work there)
 - Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
 - Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy
@@ -535,7 +545,8 @@ At this point it's incompatible with old save files made with original script. I
 
 ## Mod compatibility
 
-Not compatible with some CLEO scripts.
+This mod adds some global variables at the end of the list, so you may need to be careful with CLEO scripts
+that add new global variables.
 
 If using SilentPatch, it's recommended to set `EnableScriptFixes` to `-1` in its .ini file, although not strictly necessary because SP is designed to bail out any script fixes if the code doesn't match. Doing so also stops the save pickup inside Madd Dogg's mansion from being relocated since a different method is used to fix the "Basketball Glitch".
 

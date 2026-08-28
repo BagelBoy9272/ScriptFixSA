@@ -62,10 +62,10 @@ LVAR_FLOAT d5_circle_centre_x d5_circle_centre_y //d5_circle_centre_z
 //VAR_INT d5_m9_targets_remaining
 
 // temp globals for view_float_variable (usually locals)
-LVAR_FLOAT d5_cur_pitch d5_last_pitch d5_pitch_diff d5_pitch_progress // FIXEDGROVE: made locals
-LVAR_FLOAT d5_cur_roll d5_last_roll d5_roll_diff d5_roll_progress // FIXEDGROVE: made locals
-LVAR_FLOAT d5_negative_progress // FIXEDGROVE: made local
-LVAR_FLOAT d5_plane_up_component // FIXEDGROVE: made local
+VAR_FLOAT d5_cur_pitch d5_last_pitch d5_pitch_diff d5_pitch_progress // FIXEDGROVE: should be local
+VAR_FLOAT d5_cur_roll d5_last_roll d5_roll_diff d5_roll_progress // FIXEDGROVE: should be local
+VAR_FLOAT d5_negative_progress // FIXEDGROVE: should be local
+VAR_FLOAT d5_plane_up_component // FIXEDGROVE: should be local
 
 LVAR_INT d5_m12_parachute_target
 LVAR_FLOAT d5_m12_parachute_target_x d5_m12_parachute_target_y d5_m12_parachute_target_z
@@ -122,8 +122,8 @@ LVAR_INT d5_control_flag d5_playback_flag
 LVAR_INT d5_mission_plane_dead_flag
 LVAR_INT d5_plane_started
 // temp globals for view_float_variable (usually locals)
-LVAR_INT d5_plane_reached_takeoff_point d5_plane_taken_off d5_plane_reached_required_altitude // FIXEDGROVE: made locals
-LVAR_FLOAT d5_mission_plane_speed // FIXEDGROVE: made local
+VAR_INT d5_plane_reached_takeoff_point d5_plane_taken_off d5_plane_reached_required_altitude // FIXEDGROVE: should be local
+VAR_FLOAT d5_mission_plane_speed // FIXEDGROVE: should be local
 LVAR_INT d5_m7_rotated_180
 LVAR_INT d5_finished_mission d5_failed_challenge
 LVAR_INT d5_old_score d5_print_top_scores_flag
