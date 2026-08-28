@@ -393,6 +393,7 @@ ENDWHILE
 SET_SCRIPT_LIMIT_TO_GANG_SIZE 0
 // ************************************************setting variables**************************************
 
+/* // FIXEDGROVE: START - comment out because they're already set to 0
 //flags for interior section
 moteldeal_f1flag = 0
 missiongo_f1flag = 0
@@ -469,6 +470,7 @@ policecarexplode_f1flag = 0
 breakposter_f1flag = 0
 finalcut_f1flag = 0
 helpshoottext_f1flag = 0
+*/ // FIXEDGROVE: END
 // *******************************************************************************************************
 
 LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_EMPTY motel_DM
