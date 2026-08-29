@@ -5385,6 +5385,36 @@ IF textrails_f1flag = 1
 		ENDSWITCH
 	ENDIF
 
+	SWITCH actiontext_f1flag
+	//out of the garage
+	CASE 1
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2372.35 -1283.33 15.0 15.0 FALSE
+			actiontext_f1flag = 2
+		ENDIF
+	BREAK
+
+	//car in front
+	CASE 2
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2424.42 -1446.57 15.0 15.0 FALSE
+			actiontext_f1flag = 3
+		ENDIF
+	BREAK
+
+	//car behind and to the right side
+	CASE 3
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2453.78 -1333.3 10.0 10.0 FALSE
+			actiontext_f1flag = 4
+		ENDIF
+	BREAK
+
+	CASE 4
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2454.1 -1313.02 10.0 10.0 FALSE
+			actiontext_f1flag = 5
+		ENDIF
+	BREAK
+	ENDSWITCH
+
+
 ENDIF
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5629,7 +5659,7 @@ IF motelchase_f1flag = 2
 	SET_CAR_HEADING policecar_f1[7] 72.49
 	CREATE_CHAR_INSIDE_CAR policecar_f1[7] PEDTYPE_MISSION1 LAPD1 cop_f1[6]
 	CREATE_CHAR_AS_PASSENGER policecar_f1[7] PEDTYPE_MISSION1 LAPD1 0 cop_f1[7]
-	l1f1_car_select = 6
+	l1f1_car_select = 7
 	l1f1_cop1 = 6
 	l1f1_cop2 = 7
 	GOSUB l1f1_policecar_setup
@@ -5969,6 +5999,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		GOSUB process_audio_f1
 
 
+		IF handlingaudio_f1flag = 0
 		// FIXEDGROVE: changed if-chain to switch-case
 		SWITCH progressaudio_f1flag
 		CASE 0
@@ -6168,6 +6199,7 @@ IF NOT IS_CAR_DEAD sweet_car
 			ENDIF
 		BREAK
 		ENDSWITCH
+		ENDIF
 
 		SWITCH policecarexplode_f1flag
 		CASE 0
@@ -6362,9 +6394,9 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CAR_HEADING policecar_f1[5] 268.1
 				CREATE_CHAR_INSIDE_CAR policecar_f1[5] PEDTYPE_MISSION1 LAPD1 cop_f1[11]
 				CREATE_CHAR_AS_PASSENGER policecar_f1[5] PEDTYPE_MISSION1 LAPD1 0 cop_f1[12]
-				l1f1_car_select = 0
-				l1f1_cop1 = 0
-				l1f1_cop2 = 1
+				l1f1_car_select = 5
+				l1f1_cop1 = 11
+				l1f1_cop2 = 12
 				GOSUB l1f1_policecar_setup
 				GOSUB l1f1_outside_guys_setup
 				SET_CAR_HEALTH policecar_f1[5] 800
@@ -6470,7 +6502,7 @@ IF NOT IS_CAR_DEAD sweet_car
 				CREATE_CHAR PEDTYPE_MISSION1 LAPDM1 2127.09 -1382.81 23.32 copright_f1
 				SET_CHAR_PROOFS copright_f1 TRUE TRUE TRUE TRUE TRUE
 				SET_CHAR_ACCURACY copright_f1 5
-				l1f1_char_name = copleft_f1
+				l1f1_char_name = copright_f1
 				GOSUB l1f1_outside_guys_passenger_setup // FIXEDGROVE: moved setup code to gosub
 				enemy_f1 = copright_f1
 				enemytarget_f1 = scplayer
