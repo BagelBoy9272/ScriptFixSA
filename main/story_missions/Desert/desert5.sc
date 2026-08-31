@@ -2998,8 +2998,8 @@ IF d5_mission_selection = 12
 					PRINT ( DES5_CE ) 7000 4
 				ENDIF
 			ENDIF
-			IF d5_m12_player_opened_parachute = 1
-				IF player_landed = 1
+			IF player_landed = 1 // FIXEDGROVE: swapped checks, detects new hard parachute landing
+				IF d5_m12_player_opened_parachute = 1 // FIXEDGROVE: swapped checks, detects new hard parachute landing
 					GET_CHAR_COORDINATES scplayer d5_player_x d5_player_y d5_player_z
 					GET_DISTANCE_BETWEEN_COORDS_2D d5_player_x d5_player_y d5_m12_parachute_target_x d5_m12_parachute_target_y d5_m12_distance_from_player_to_target
 					IF d5_m12_distance_from_player_to_target <= 10.0
@@ -3007,6 +3007,8 @@ IF d5_mission_selection = 12
 					ELSE
 						d5_failed_challenge = 1
 					ENDIF
+				ELSE
+					d5_failed_challenge = 1 // FIXEDGROVE
 				ENDIF
 			ENDIF
 

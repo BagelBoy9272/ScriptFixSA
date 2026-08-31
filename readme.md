@@ -442,9 +442,12 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed physics to be independent of framerate
 - Fixed landing animation
 - Fixed a bug where the parachute "fails to open" if you have the "keep weapons after death" bonus and you die with a parachute in your inventory
+- Fixed parachute being removed from the player's inventory if they died while faceplanting
 - Fixed weird twitch after landing
 - Fixed parachute going through the floor
 - Fixed a bug that would make it not possible to switch weapons if you started a mission while landing with the parachute
+- Removed forced death if you landed without opening your parachute
+- Added death voiceline to the player if they die while skydiving
 - Uncommented some code to allow the full "landing in water" anim for parachute to play
 
 **Misc:**

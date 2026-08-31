@@ -11,7 +11,7 @@ LVAR_FLOAT player_height
 VAR_FLOAT para_max_Vz
 LVAR_FLOAT para_Voldx para_Voldy
 
-LVAR_INT para_v1 para_v2 para_v3 para_v4 para_fall_anim parachute_pack paraC 
+LVAR_INT para_v1 para_v2 para_v3 para_v4 para_Seq para_fall_anim parachute_pack paraC 
 LVAR_INT para_time_check para_time_start para_col
 LVAR_FLOAT para_f1 para_f2 para_f3
 
@@ -209,6 +209,7 @@ jump_loop:
 							SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE							
 							code_flag = 0
 							para_max_Vz = 0.0
+							TIMERB = 0 // FIXEDGROVE: used for counting freefall time
 						ENDIF
 					ENDIF
 				ENDIF
@@ -294,7 +295,7 @@ jump_loop:
 					AND NOT player_fall_safe = 1
 						IF NOT IS_CHAR_IN_WATER scplayer
 							IF para_max_Vz < -20.0
-								player_fall_state = 2					
+								GOSUB parachute_hard_landing // FIXEDGROVE: was player_fall_state = 2
 							ELSE
 								TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer FALL_skydive PED 1.0 1 0 0 0 100
 								player_fall_state = 7 //player doesn't lose chute
@@ -418,18 +419,15 @@ jump_loop:
 				ENDIF								
 			ENDIF
 
-			IF player_fall_state = 2  //die
-				IF HAS_ANIMATION_LOADED PARACHUTE
-					SET_CHAR_HEADING scplayer para_yaw
-					TASK_DIE_NAMED_ANIM scplayer FALL_skydive_die PARACHUTE 1000.0 0		
-					REPORT_MISSION_AUDIO_EVENT_AT_CHAR scplayer SOUND_PED_DEATH_CRUNCH
-				ELSE
-					TASK_DIE scplayer
+			IF player_fall_state = 8 // FIXEDGROVE: was '2', moved core logic to subroutine, now only waits for the parachute anim to finish
+				IF TIMERA > para_time_check
+					player_landed = 1 // FIXEDGROVE: for flight school lesson
+					IF code_flag = 0 // FIXEDGROVE: player opened the chute
+						GOSUB parachute_cleanup
+					ELSE
+						GOSUB parachute_cleanup_keep_chute
+					ENDIF
 				ENDIF
-
-
-				GOSUB parachute_cleanup
-
 			ENDIF
 
 			IF player_fall_state = 3 //parachuting
@@ -684,7 +682,7 @@ jump_loop:
 					SET_CHAR_COORDINATES scplayer player_x player_y player_z
 					SET_CHAR_ROTATION scplayer 0.0 0.0 para_yaw
 					IF para_Vz < -10.0
-						player_fall_state = 2
+						GOSUB parachute_hard_landing // FIXEDGROVE: was player_fall_state = 2
 						code_flag = 0	
 					ELSE 
 						IF para_Vz < -4.0
@@ -692,14 +690,14 @@ jump_loop:
 						ELSE
 							TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer run_player PED 8.0 1 1 0 0 1000
 						ENDIF
+						// FIXEDGROVE: moved block below inside the 'else', stops it interrupting new hard landing
+						PLAY_OBJECT_ANIM parac para_land_o PARACHUTE 1000.0 0 1
+						FREEZE_OBJECT_POSITION parac TRUE // FIXEDGROVE: freeze parachute to allow anim to be seen the intended way
+						DETACH_OBJECT parac 0.0 0.0 0.0 FALSE
+						SET_OBJECT_ROTATION parac 0.0 0.0 para_yaw // FIXEDGROVE: reset parachute rotation when landing
+						para_time_check = TIMERA + 1000
 						code_flag = 1
 					ENDIF
-
-					PLAY_OBJECT_ANIM parac para_land_o PARACHUTE 1000.0 0 1
-					FREEZE_OBJECT_POSITION parac TRUE // FIXEDGROVE: freeze parachute to allow anim to be seen the intended way
-					DETACH_OBJECT parac 0.0 0.0 0.0 FALSE
-					SET_OBJECT_ROTATION parac 0.0 0.0 para_yaw // FIXEDGROVE: reset parachute rotation when landing
-					para_time_check = TIMERA + 1000
 					
 				ENDIF
 				IF code_flag = 1				
@@ -773,10 +771,131 @@ parachute_set_float_Vz:
 	para_Vz +=@ para_f1 // FIXEDGROVE: applied delta-time
 RETURN
 
+// FIXEDGROVE: was player_fall_state = 2, made into sub so we can check if the player opened the chute or not
+parachute_hard_landing:
+
+	IF code_flag = 0 // FIXEDGROVE: player opened the chute
+		GOSUB parachute_extra_dmg // FIXEDGROVE
+	ENDIF
+
+	GET_CHAR_HEALTH scplayer temp_integer_1 // FIXEDGROVE: only reliable way to instantly check if player died
+	IF temp_integer_1 <= 0 // FIXEDGROVE: only play dramatic death anim if player died from the landing
+		IF HAS_ANIMATION_LOADED PARACHUTE
+			SET_CHAR_HEADING scplayer para_yaw
+			TASK_DIE_NAMED_ANIM scplayer FALL_skydive_die PARACHUTE 1000.0 0		
+			REPORT_MISSION_AUDIO_EVENT_AT_CHAR scplayer SOUND_PED_DEATH_CRUNCH
+			SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_DEATH_HIGH temp_integer_4 // FIXEDGROVE
+		ELSE
+			TASK_DIE scplayer
+		ENDIF
+		IF code_flag = 0 // FIXEDGROVE: only remove the chute if the player opened it
+			GOSUB parachute_cleanup
+		ELSE
+			GOSUB parachute_cleanup_keep_chute // FIXEDGROVE
+		ENDIF
+	ELSE
+		// FIXEDGROVE: START - player didn't die, recreate the falling manually (only way for it to work)
+		temp_integer_1 = 0
+		
+		// special conditions for dramatic faceplant anim
+		IF para_max_Vz <= para_freefall_Vz // reached terminal velocity
+		AND TIMERB > 4000 // was skydiving for a bit
+			temp_integer_1 = 1 // dramatic for now
+			IF IS_CHAR_PLAYING_ANIM scplayer PARA_open
+				GET_CHAR_ANIM_CURRENT_TIME scplayer PARA_open temp_float_1
+				IF temp_float_1 > 0.40
+					temp_integer_1 = 0 // late enough into the deploy anim, downgrade to normal
+				ENDIF
+			ENDIF
+		ENDIF
+
+		OPEN_SEQUENCE_TASK para_Seq
+			// only play the dramatic anim if the previous conditions were met
+			IF temp_integer_1 = 1
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 FALL_skydive_die PARACHUTE 1000.0 FALSE TRUE TRUE TRUE -1
+			ELSE
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 KO_skid_back PED 12.0 FALSE TRUE TRUE TRUE -1
+			ENDIF
+			TASK_PAUSE -1 700
+			TASK_PLAY_ANIM_NON_INTERRUPTABLE -1 getup_front PED 4.0 FALSE TRUE TRUE FALSE -1
+		CLOSE_SEQUENCE_TASK para_Seq
+		PERFORM_SEQUENCE_TASK scplayer para_Seq
+		CLEAR_SEQUENCE_TASK para_Seq
+
+		REPORT_MISSION_AUDIO_EVENT_AT_CHAR scplayer SOUND_PED_COLLAPSE
+		SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PAIN_HIGH temp_integer_4
+
+		// play special parachute landing anim
+		IF code_flag = 0 // player opened the chute
+			IF DOES_OBJECT_EXIST parac
+				FREEZE_OBJECT_POSITION parac TRUE
+				DETACH_OBJECT parac 0.0 0.0 0.0 FALSE
+				SET_OBJECT_ROTATION parac 0.0 0.0 para_yaw
+				PLAY_OBJECT_ANIM parac para_rip_land_o PARACHUTE 4.0 0 1
+			ENDIF
+		ENDIF
+
+		para_time_check = TIMERA + 1500 // timer until chute dissappears
+		player_fall_state = 8
+	ENDIF
+	// FIXEDGROVE: END
+
+RETURN
+
+// FIXEDGROVE: START - extra damage if the chute was opened, done to counteract low fall damage due to low z velocity
+parachute_extra_dmg:
+
+	// triangular damage curve, documented for clarity:
+	//   peak    = 0.25 * para_freefall_Vz - 7.5           (skewed toward terminal velocity)
+	//   damage  = 40 * (1 - |Vz_clamped - peak| / side_range)
+	//             side_range = (-10.0 - peak)              if Vz_clamped is on the "slow" side of peak
+	//                        = (peak - para_freefall_Vz)    if Vz_clamped is on the "fast" side of peak
+	
+	temp_float_1 = para_Vz
+
+	// clamp
+	IF temp_float_1 > -10.0
+		temp_float_1 = -10.0
+	ENDIF
+
+	IF temp_float_1 < para_freefall_Vz
+		temp_float_1 = para_freefall_Vz
+	ENDIF
+
+	temp_float_2 = para_freefall_Vz * 0.25
+	temp_float_2 -= 7.5                        // peak speed
+
+	temp_float_1 -= temp_float_2                // signed distance from peak (also tells us the side)
+
+	IF temp_float_1 > 0.0
+		temp_float_3 = -10.0 - temp_float_2     // slow-side range, always positive
+	ELSE
+		temp_float_3 = temp_float_2 - para_freefall_Vz // fast-side range, always positive
+	ENDIF
+
+	ABS temp_float_1                             // unsigned distance from peak now
+
+	temp_float_1 /= temp_float_3
+	temp_float_1 *= -1.0
+	temp_float_1 += 1.0
+	temp_float_1 *= 50.0
+        
+    temp_integer_1 =# temp_float_1
+	IF temp_integer_1 > 0
+		GET_CHAR_HEALTH scplayer temp_integer_2
+		temp_integer_2 -= temp_integer_1
+		SET_CHAR_HEALTH scplayer temp_integer_2
+	ENDIF
+
+RETURN
+// FIXEDGROVE: END
+
 parachute_cleanup_keep_chute:
 
 	player_fall_state = 0
 	code_flag = 0
+	para_pitch = 0.0 // FIXEDGROVE: prevent stale pitch leaking into next jump
+	para_roll = 0.0 // FIXEDGROVE: prevent stale roll leaking into next jump
 	MARK_MODEL_AS_NO_LONGER_NEEDED PARACHUTE
 	REMOVE_ANIMATION PARACHUTE
 	SET_CHAR_ROTATION scplayer 0.0 0.0 para_yaw
