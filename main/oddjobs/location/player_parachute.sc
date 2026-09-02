@@ -259,11 +259,11 @@ jump_loop:
 					// to get 30 deegrees roll either way (+- 30 deg) as a maximum roll - ie 256/4.267 = 60
 					para_f1 /= 4.267
 					para_f1 -= para_roll
-					para_f1 /= 40.0 // FIXEDGROVE: was 20.0
-					para_roll +=@ para_f1 // FIXEDGROVE: apply delta-time
+					para_f1 /= 40.0 // FIXEDGROVE: was '20.0'
+					para_roll +=@ para_f1 // FIXEDGROVE: applied delta-time
 
-					para_f1 = para_roll / 10.0 //was 15.0 // FIXEDGOVE: was 5.0
-					para_yaw -=@ para_f1 // FIXEDGROVE: apply delta-time
+					para_f1 = para_roll / 10.0 //was 15.0 // FIXEDGOVE: was '5.0'
+					para_yaw -=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					IF para_yaw > 180.0
 						para_yaw -= 360.0
@@ -276,8 +276,8 @@ jump_loop:
 					para_f2 =# para_v2
 					para_f2 /= 4.267
 					para_f2 -= para_pitch
-					para_f2 /= 40.0 // FIXEDGROVE: was 20.0
-					para_pitch +=@ para_f2 // FIXEDGROVE: apply delta-time
+					para_f2 /= 40.0 // FIXEDGROVE: was '20.0'
+					para_pitch +=@ para_f2 // FIXEDGROVE: applied delta-time
 
 
 	  				GET_CHAR_VELOCITY scplayer para_Voldx para_Voldy para_Vz
@@ -330,14 +330,14 @@ jump_loop:
 				
 					// this bit acts as a kind of momentum
 					para_f1 = para_Voldx - para_Vx
-					para_f1 *= 0.005 // FIXEDGROVE: was 0.01
+					para_f1 *= 0.005 // FIXEDGROVE: was '0.01'
 					para_Vx = para_Voldx
-					para_Vx -=@ para_f1 // FIXEDGROVE: apply delta-time
+					para_Vx -=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					para_f1 = para_Voldy - para_Vy
 					para_f1 *= 0.005 // FIXEDGROVE: was '0.01'
 					para_Vy = para_Voldy
-					para_Vy -=@ para_f1 // FIXEDGROVE: apply delta-time
+					para_Vy -=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					
 					// SET ANIM TO PLAY DURING FREEFALL
@@ -523,10 +523,10 @@ jump_loop:
 					para_f1 /= 4.267
 					para_f1 -= para_roll
 					para_f1 /= 40.0 // FIXEDGROVE: was '20.0'
-					para_roll +=@ para_f1 // FIXEDGROVE: apply delta-time
+					para_roll +=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					para_f1 = para_roll / 30.0 // FIXEDGROVE: was '15.0'
-					para_yaw -=@ para_f1 // FIXEDGROVE: apply delta-time
+					para_yaw -=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					IF para_yaw > 180.0
 						para_yaw -= 360.0
@@ -559,7 +559,7 @@ jump_loop:
 					OR para_v4 > 40
 
 						IF para_v3 > para_v4
-							GOSUB parachute_set_Vz // FIXEDGROVE: duplicated code into subroutine
+							GOSUB parachute_set_float_Vz // FIXEDGROVE: duplicated code into subroutine
 							
 							IF para_v1 >= 0
 								IF NOT para_fall_anim = 2
@@ -578,7 +578,9 @@ jump_loop:
 
 						ELSE
 							IF para_v2 >= 0
-							GOSUB parachute_set_Vz // FIXEDGROVE: duplicated code into subroutine
+								para_f1 = para_flare_Vz - para_Vz
+								para_f1 /= 40.0 // FIXEDGROVE: was '20.0'
+								para_Vz +=@ para_f1 // FIXEDGROVE: applied delta-time
 
 								IF NOT para_fall_anim = 4								
 									TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer PARA_decel PARACHUTE 1.0 1 0 0 1 -2		 
@@ -587,9 +589,7 @@ jump_loop:
 								ENDIF
 							ENDIF
 							IF para_v2 < 0
-								para_f1 = para_float_Vz - para_Vz
-								para_f1 /= 20.0
-								para_Vz += para_f1
+								GOSUB parachute_set_float_Vz // FIXEDGROVE: duplicated code into subroutine
 								IF NOT para_fall_anim = 5
 									TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer PARA_float PARACHUTE 1.0 1 0 0 1 -2		 
 									PLAY_OBJECT_ANIM parac para_float_o PARACHUTE 1.0 1 1
@@ -599,7 +599,7 @@ jump_loop:
 
 						ENDIF
 					ELSE
-						GOSUB parachute_set_Vz // FIXEDGROVE: duplicated code into subroutine
+						GOSUB parachute_set_float_Vz // FIXEDGROVE: duplicated code into subroutine
 						IF NOT para_fall_anim = 5
 							IF NOT para_fall_anim = 1
 								TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer PARA_float PARACHUTE 1.0 1 0 0 1 -2
@@ -767,7 +767,7 @@ jump_loop:
 GOTO jump_loop
 
 // FIXEDGROVE: made duplicate code into subroutine
-parachute_set_Vz:
+parachute_set_float_Vz:
 	para_f1 = para_float_Vz - para_Vz
 	para_f1 /= 40.0 // FIXEDGROVE: was 20.0
 	para_Vz +=@ para_f1 // FIXEDGROVE: applied delta-time
