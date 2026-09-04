@@ -90,6 +90,8 @@ GF_Date:
 				28 GIFT_HELP_ON
 				29 READY_FOR_RANDOM_SPEECH
 				30 SKIP_BLOWJOB
+				31 CAR_BLOW_ENDED		  // FIXEDGROVE
+				32 KISS_OR_BLOW_IS_PUBLIC // FIXEDGROVE
 	*/
 
 	LVAR_FLOAT fX[3] fY[3] fZ[3] fTemp[2] 
@@ -1080,13 +1082,13 @@ GF_Date_State3:
 
 	CASE 0
 		//--- Player has reached the GF's house 
-		SET_BIT	iDateFlags	1 // This state does not allow transitions		
+		SET_BIT	iDateFlags 1 // This state does not allow transitions		
 		DO_FADE 500 FADE_OUT				
 		++iSubStateStatus															
 	BREAK
 
 	CASE 1
-		SET_BIT	iDateFlags	1 // repeated from above (to no harm) for all transitions ending straigh in here		
+		SET_BIT	iDateFlags 1 // repeated from above (to no harm) for all transitions ending straight in here		
 		IF NOT GET_FADING_STATUS
 			
 			GOSUB GF_Date_RemoveAllBlipsAndCounters	
@@ -2043,9 +2045,11 @@ GF_Date_State8:
 					iSubStateStatus = 2
 					BREAK
 				ELSE
-					TASK_CAR_DRIVE_WANDER iGF_ped iCurrentCar 30.0 DRIVINGMODE_AVOIDCARS
-					ADD_STUCK_CAR_CHECK iCurrentCar 1.0 1000
-					++iSubStateStatus
+					IF IS_CHAR_SITTING_IN_CAR scplayer iCurrentCar // FIXEDGROVE: ensure player is in the car, fixes an edge case where the player is not in the car and the GF drives off
+						TASK_CAR_DRIVE_WANDER iGF_ped iCurrentCar 30.0 DRIVINGMODE_AVOIDCARS
+						ADD_STUCK_CAR_CHECK iCurrentCar 1.0 1000
+						++iSubStateStatus
+					ENDIF // FIXEDGROVE
 				ENDIF				 		
 			ENDIF
 		ENDIF
@@ -3048,9 +3052,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 			
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 20 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 370.0
 			fY[0] = -125.0
@@ -3076,9 +3082,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 100 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 445.381 
 			fY[0] = -14.147 
@@ -3099,9 +3107,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 30 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 441.871 
 			fY[0] = -60.839 
@@ -3122,9 +3132,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 15 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 374.478
 			fY[0] = -8.415
@@ -3145,9 +3157,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 20 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 367.891
 			fY[0] = -67.591
@@ -3174,9 +3188,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 5 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 20 
 			INCREMENT_INT_STAT FAT 20
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 10 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 498.536 
 			fY[0] = -18.2  
@@ -3197,9 +3213,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 6 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 20 
 			INCREMENT_INT_STAT FAT 20
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 10 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 490.718 
 			fY[0] = -79.168 
@@ -3220,9 +3238,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 25 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 449.41
 			fY[0] = -86.72//-86.83
@@ -3243,9 +3263,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 25 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 678.028//678.028
 			fY[0] = -452.9//-452.578
@@ -3266,9 +3288,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 40 
 			INCREMENT_INT_STAT FAT 40
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 25 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = 449.41 
 			fY[0] = -108.24 
@@ -3289,9 +3313,11 @@ GF_Date_SetUpCutAtLocation:
 			//--- Set the extra colour 
 			SET_EXTRA_COLOURS 4 FALSE
 			//--- Increase Calories STAT
-			SHOW_UPDATE_STATS  FALSE
 			INCREMENT_INT_STAT CALORIES 20 
 			INCREMENT_INT_STAT FAT 20
+			// FIXEDGROVE: Compute money spent on date
+			iTemp2 = 10 // FIXEDGROVE: cost
+			GOSUB GF_Date_ComputeMoneySpentOnDate // FIXEDGROVE
 			//--- Cut-Scene Offset			
 			fX[0] = -226.249//-226.293      
 			fY[0] = 1405.448//1405.358
@@ -3377,6 +3403,24 @@ GF_Date_VerifyEntryExit:
  	$txtEntryExitName = NIL
 
 RETURN
+// FIXEDGROVE: START 
+/*******************************************
+		COMPUTE MONEY SPENT ON DATE
+********************************************/
+GF_Date_ComputeMoneySpentOnDate:
+STORE_SCORE player1 players_money
+IF players_money >= iTemp2				 
+	INCREMENT_INT_STAT FOOD_BUDGET iTemp2
+	iTemp2 *= -1
+	ADD_SCORE player1 iTemp2
+ELSE
+	IF players_money > 0 
+		INCREMENT_INT_STAT FOOD_BUDGET players_money
+		players_money *= -1
+		ADD_SCORE player1 players_money
+	ENDIF
+ENDIF
+// FIXEDGROVE: END
 /*******************************************
 	GET COORDINATES FOR HOME CUT-SCENE
 ********************************************/
@@ -3564,6 +3608,7 @@ GF_Date_IsPlayerAtKissDistance: // Returns iTemp 0 or GF_PLAYER_GIVE_GIFT,GF_PLA
 
 iTemp = 0
 	IF NOT IS_BIT_SET iDateFlags BORED_TAKE_ME_HOME // Girl Got Bored\Annoyed
+	AND NOT IS_BIT_SET iDateReport PLAYER_TWO_TIMING // FIXEDGROVE: Not doing the two-timing stuff 
 		IF NOT IS_CHAR_IN_ANY_CAR iGF_ped
 		AND NOT IS_PLAYER_USING_JETPACK	 PLAYER1
 		AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
@@ -3572,8 +3617,8 @@ iTemp = 0
 				IF LOCATE_STOPPED_CHAR_ON_FOOT_3D scplayer fX[0] fY[0] fZ[0] 1.3 1.3 1.0 FALSE
 					GET_CHAR_COORDINATES scplayer fX[0] fY[0] fZ[0]
 					GET_CHAR_COORDINATES iGF_ped fX[1] fY[1] fZ[1]
-					fTemp[0] = fZ[1] - 0.02
-					fTemp[1] = fZ[1] + 0.02
+					fTemp[0] = fZ[1] - 0.04 // FIXEDGROVE: was '0.02'
+					fTemp[1] = fZ[1] + 0.04 // FIXEDGROVE: was '0.02'
 					//--- Check if player and girl are on the same level 
 					IF fZ[0] > fTemp[0] 
 					AND fZ[0] < fTemp[1]				
@@ -4067,7 +4112,7 @@ GF_Date_TwoTiming:
 	SWITCH iGF_TT_Status
 
 		CASE GF_TT_DO_NOT_RUN
-			//--- Swtich the bit off if this request comes in
+			//--- Switch the bit off if this request comes in
 			CLEAR_BIT iDateReport PLAYER_TWO_TIMING 
 		BREAK
 
@@ -4170,22 +4215,25 @@ GF_Date_TwoTiming:
 		BREAK
 
 		CASE GF_TT_CUT1_START			
-			//--- The first cut scene. The girl has spotted the player, or better 'she think she has...'
-			CLEAR_PRINTS
-			CLEAR_HELP
-			SET_PLAYER_CONTROL player1 OFF
-			SET_EVERYONE_IGNORE_PLAYER player1 TRUE
-			SWITCH_WIDESCREEN ON 
-			//--- Camera Cut
-			IF NOT IS_CAR_DEAD iGF_TT_Car				
-			AND NOT IS_CHAR_DEAD iGF_TT_driver 
-				ATTACH_CAMERA_TO_VEHICLE_LOOK_AT_CHAR iGF_TT_Car -1.5 1.5 1.5 iGF_TT_driver 6.0 JUMP_CUT
-				TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_TT_driver GF_CarSpot KISSING 4.0 FALSE FALSE FALSE FALSE -2 // FIXEDGROVE: don't loop animation
-		  		PRINT_HELP GF_H014 //You've been spotted by another girlfriend. Quick, shake her off your tail!
-		  		iGF_TT_Status = GF_TT_CUT1_END			
-	  		ELSE
-	  			//--- Go to end state
-				iGF_TT_Status = GF_TT_EMERGENCY_END
+			IF NOT IS_BIT_SET iDateFlags 1 // FIXEDGROVE: wait until the state is transitable again
+				//--- The first cut scene. The girl has spotted the player, or better 'she think she has...'
+				SET_BIT iDateFlags 1 // FIXEDGROVE: mark the state as non transitable
+				CLEAR_PRINTS
+				CLEAR_HELP
+				SET_PLAYER_CONTROL player1 OFF
+				SET_EVERYONE_IGNORE_PLAYER player1 TRUE
+				SWITCH_WIDESCREEN ON 
+				//--- Camera Cut
+				IF NOT IS_CAR_DEAD iGF_TT_Car				
+				AND NOT IS_CHAR_DEAD iGF_TT_driver 
+					ATTACH_CAMERA_TO_VEHICLE_LOOK_AT_CHAR iGF_TT_Car -1.5 1.5 1.5 iGF_TT_driver 6.0 JUMP_CUT
+					TASK_PLAY_ANIM_NON_INTERRUPTABLE iGF_TT_driver GF_CarSpot KISSING 4.0 FALSE FALSE FALSE FALSE -2 // FIXEDGROVE: don't loop animation
+		  			PRINT_HELP GF_H014 //You've been spotted by another girlfriend. Quick, shake her off your tail!
+		  			iGF_TT_Status = GF_TT_CUT1_END			
+	  			ELSE
+	  				//--- Go to end state
+					iGF_TT_Status = GF_TT_EMERGENCY_END
+				ENDIF // FIXEDGROVE
 			ENDIF
 		BREAK
 
@@ -4207,6 +4255,7 @@ GF_Date_TwoTiming:
 					SWITCH_WIDESCREEN OFF
 					SET_CAMERA_BEHIND_PLAYER
 					RESTORE_CAMERA_JUMPCUT
+					CLEAR_BIT iDateFlags 1 // FIXEDGROVE: mark the next state as transitable
 					ADD_BLIP_FOR_CAR iGF_TT_Car iGF_TT_Blip
 					iGF_TT_Status = GF_TT_INTERCEPT_PLAYER 	
 				ENDIF
@@ -4232,10 +4281,12 @@ GF_Date_TwoTiming:
 		    //--- Try to assess where we are related to the player...
 		    IF NOT IS_CHAR_DEAD iGF_TT_driver
 			AND NOT IS_CAR_DEAD iGF_TT_Car
+			AND NOT IS_BIT_SET iDateFlags 1 // FIXEDGROVE: abort if we are in a cutscene
 				GET_CHAR_COORDINATES scplayer fX[0] fY[0] fZ[0] 
 				GET_CAR_COORDINATES iGF_TT_Car fX[1] fY[1] fZ[1]
 				GET_DISTANCE_BETWEEN_COORDS_3D fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1] fTemp[0] 
 				IF  fTemp[0] <= 6.0
+					SET_BIT iDateFlags 1 // FIXEDGROVE: mark the state as non transitable
 					//--- Reached Player, freeze the cars
 					SET_CAR_MISSION  iGF_TT_Car MISSION_NONE
 					FREEZE_CAR_POSITION iGF_TT_Car TRUE
@@ -4260,6 +4311,7 @@ GF_Date_TwoTiming:
 		    //--- Check that enough time has passed before the girl admits to having lost the player
 		    IF NOT IS_CHAR_DEAD iGF_TT_driver
 			AND NOT IS_CAR_DEAD iGF_TT_Car
+			AND NOT IS_BIT_SET iDateFlags 1 // FIXEDGROVE: abort if we are in a cutscene
 				GET_CHAR_COORDINATES scplayer fX[0] fY[0] fZ[0] 
 				GET_CAR_COORDINATES iGF_TT_Car fX[1] fY[1] fZ[1]
 				GET_DISTANCE_BETWEEN_COORDS_3D fX[0] fY[0] fZ[0] fX[1] fY[1] fZ[1] fTemp[0] 
@@ -4328,7 +4380,7 @@ GF_Date_TwoTiming:
 					iGFSpeechStatus = GF_SPEECH_SPECIAL_TT_CONTEXT // Put the Speech Manager in the special state
 					iGFSayContext = CONTEXT_GLOBAL_GFRIEND_JEALOUS
 					// IDEA: pass into CJ but change speech manager free state to 'NEXT IS NOT CJ BUT ANOTHER GF'
-					TIMERB = 0	// This will count if she is on foot and taking too long to reach the player // FIXEDGROVE: moved this from GF_TT_REACHED_PLAYER, now its also used for cutscene timing
+					TIMERB = 0	// This will count if she is on foot and taking too long to reach the player // FIXEDGROVE: moved this from GF_TT_REACHED_PLAYER, now it's also used for cutscene timing
 					iGF_TT_Status = GF_TT_CUT2_MIDDLE
 				ENDIF	
 			ELSE
@@ -4450,7 +4502,9 @@ GF_Date_TwoTiming:
 				RESTORE_CAMERA_JUMPCUT
 				SET_BIT iDateFlags BORED_TAKE_ME_HOME // Girl Got Bored\Annoyed
 				//--- Delete all the TT peds - a bit dirty, but the date manager will cope with this
-				DELETE_CHAR iGF_TT_driver
+				IF NOT IS_CHAR_DEAD iGF_TT_driver // FIXEDGROVE: paranoid check
+					DELETE_CHAR iGF_TT_driver
+				ENDIF // FIXEDGROVE
 				IF NOT IS_CAR_DEAD iGF_TT_Car 
 					IF DOES_CAR_HAVE_STUCK_CAR_CHECK iGF_TT_Car
 						REMOVE_STUCK_CAR_CHECK iGF_TT_Car
@@ -4467,10 +4521,30 @@ GF_Date_TwoTiming:
 
 		CASE GF_TT_EMERGENCY_END
 			//--- EMERGENCY!! We might have ended here because something went tits up...
-			SET_PLAYER_CONTROL player1 ON
-			SWITCH_WIDESCREEN OFF
-			SET_CAMERA_BEHIND_PLAYER
-			RESTORE_CAMERA_JUMPCUT
+			IF IS_BIT_SET iDateFlags 1 // FIXEDGROVE: in a cutscene
+				IF iDateState = 1 // FIXEDGROVE: should only be these states while TT is running
+				OR iDateState = 4 // FIXEDGROVE: should only be these states while TT is running
+					SET_PLAYER_CONTROL player1 ON
+					SWITCH_WIDESCREEN OFF
+					SET_CAMERA_BEHIND_PLAYER
+					RESTORE_CAMERA_JUMPCUT
+				ELSE
+					// FIXEDGROVE: START - a non TT cutscene is running, wait until the fade finishes to remove chars
+					IF GET_FADING_STATUS
+						BREAK
+					ENDIF
+					IF NOT IS_CHAR_DEAD iGF_TT_driver
+						DELETE_CHAR iGF_TT_driver
+					ENDIF
+					IF NOT IS_CAR_DEAD iGF_TT_Car 
+						IF DOES_CAR_HAVE_STUCK_CAR_CHECK iGF_TT_Car
+							REMOVE_STUCK_CAR_CHECK iGF_TT_Car
+						ENDIF
+						DELETE_CAR iGF_TT_Car
+					ENDIF
+					// FIXEDGROVE: END
+				ENDIF
+			ENDIF
 			IF NOT IS_CHAR_DEAD iGF_ped
 				SET_CHAR_PROOFS iGF_ped FALSE FALSE FALSE FALSE FALSE
 			ENDIF
@@ -4485,7 +4559,7 @@ GF_Date_TwoTiming:
 			IF DOES_BLIP_EXIST iGF_TT_Blip
 				REMOVE_BLIP iGF_TT_Blip
 			ENDIF
-			//--- If the payer has killed his other girl, she should be removed
+			//--- If the player has killed his other girl, she should be removed
 			IF IS_CHAR_DEAD iGF_TT_driver
 				IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR iGF_TT_driver scplayer
 				OR HAS_CAR_BEEN_DAMAGED_BY_CHAR iGF_TT_Car scplayer // FIXEDGROVE: add extra check for some cases (ex. bazookaing her)
@@ -4776,9 +4850,10 @@ GF_Date_RemoveAllBlipsAndCounters:
 		ENDIF
 	ENDREPEAT
 	
-	IF DOES_BLIP_EXIST iGF_TT_Blip 
-	   	REMOVE_BLIP iGF_TT_Blip
-	ENDIF
+	// FIXEDGROVE: moved to cleanup to avoid blip dissapearing while TT is still running
+	//IF DOES_BLIP_EXIST iGF_TT_Blip 
+	//   REMOVE_BLIP iGF_TT_Blip
+	//ENDIF
 
 	IF IS_BIT_SET iDateReport DRIVE
 		CLEAR_ONSCREEN_COUNTER iFun
@@ -4822,6 +4897,11 @@ GF_Date_Cleanup:
 		IF DOES_CAR_HAVE_STUCK_CAR_CHECK iGF_TT_Car
 			REMOVE_STUCK_CAR_CHECK iGF_TT_Car
 		ENDIF
+	ENDIF
+
+	// FIXEDGROVE: moved from RemoveAllBlipsAndCounters to avoid blip dissapearing while TT is still running
+	IF DOES_BLIP_EXIST iGF_TT_Blip 
+	   REMOVE_BLIP iGF_TT_Blip
 	ENDIF
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED iGF_TT_CarModel
@@ -4880,13 +4960,17 @@ GF_Date_Cleanup:
 
 	//--- Always set this in case something bad happened during one of the cut-scenes
 	IF IS_PLAYER_PLAYING player1
-		SET_CHAR_CANT_BE_DRAGGED_OUT scplayer FALSE // in case we set this earlier - STATE 8
-		SET_PLAYER_CONTROL player1 ON
-		SWITCH_WIDESCREEN OFF
-		//--- Restore the player's group back to its default settings
-		SET_PLAYER_GROUP_TO_FOLLOW_ALWAYS PLAYER1 FALSE
-		SET_PLAYER_GROUP_RECRUITMENT PLAYER1 TRUE	
+	AND IS_BIT_SET iDateFlags 1 // FIXEDGROVE: in a cutscene
+		SET_PLAYER_CONTROL player1 ON	
 	ENDIF
+
+	// FIXEDGROVE: move this block out of the above check, fixes edge cases
+	SET_CHAR_CANT_BE_DRAGGED_OUT scplayer FALSE // in case we set this earlier - STATE 8
+	SWITCH_WIDESCREEN OFF
+	RESTORE_CAMERA // FIXEDGROVE
+	//--- Restore the player's group back to its default settings
+	SET_PLAYER_GROUP_TO_FOLLOW_ALWAYS PLAYER1 FALSE
+	SET_PLAYER_GROUP_RECRUITMENT PLAYER1 TRUE
 
 	SHOW_UPDATE_STATS  TRUE
 

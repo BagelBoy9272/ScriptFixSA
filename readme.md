@@ -408,6 +408,13 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Now GFs that like fast driving will comment on it
 - Only play the "take home happy" voicelines if the date was actually good, otherwise play the "take home angry" lines
 - Added unused "OFFER_DANCE" lines for GFs, now these will play if the player is on a dancing date and they are inside a club
+- Eat out dates now cost money depending on the location
+- "Weight gained" notification (and all stat updates) will show up immediately after an "eat out" cutscene instead of waiting until the date finished
+- Made the kiss and gift check a little more lenient
+- Fixed kiss and gift help box showing up during two-timing (it's not possible during it)
+- Fixed an obscure bug where Michelle would drive off without the player in her special drive date
+- Fixed an obscure bug where the widescreen effect remained enabled after being arrested during the cutscene of leaving a girlfriend at home
+- Fixed two-timing interrupting the cutscene of leaving a girlfriend at home
 - Fixed Millie using a Feltzer instead of a Club in two-timing events
 - Fixed two-timing only working if you always rolled the chance for it, and never got caught
 - Fixed car bj increasing progress indefinitely
