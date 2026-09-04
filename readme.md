@@ -481,6 +481,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed street food not counting towards 'food budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
 - Fixed upper bound on a random number generator in the dance minigame, bringing back an unintentionally unused partner model
+- Fixed a memory leak related to crack dealers, which could manifest as their customer not despawning if killed
 - Fixed typo in the license plate of Cesar's car
 - Fixed lines for a restaurant shopkeeper reacting to the player vomiting being overriden by the "BOUGHT_ENOUGH" lines
 - Fixed a bug in the code for restaurants that made the cleanup always run if the player bought more than 11 food items
