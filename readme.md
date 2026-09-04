@@ -467,6 +467,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed possible softlock if the player answered a loanshark phone call while 'Are You Going To San Fierro?' wasn't unlocked
 - Fixed script not checking if player answered Rosenberg's phone call before enabling 'Vertical Bird'
 - Fixed player not being set in their original coordinates correctly after Sweet's gym call
+- Fixed 'Valet' triggering two mission passed tunes
 - Fixed phone ringing immediately after 'Valet'
 - Fixed exercise bike exit animation not playing
 - Fixed boxers inside the LS gym standing still after fighting the instructor
