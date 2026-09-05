@@ -32,6 +32,7 @@ LVAR_INT st2_flag_cesar_in_group st2_car_check_flag st2_salesman_flag
 LVAR_INT st2_seq_progress
 LVAR_INT st2_model st2_class
 LVAR_INT st2_no_plates st2_no_plates_flag
+LVAR_INT st2_coach_flag // FIXEDGROVE
 
 
 //speech
@@ -1995,6 +1996,7 @@ WAIT 0
 				st2_car_nodes = 0
 				st2_control_flag = 0
 				steal2_goals = 6
+				timerb = 0 // FIXEDGROVE: needed for next section
 			ENDIF
 		ENDIF 	
 	ENDIF
@@ -2009,9 +2011,10 @@ WAIT 0
 	
 		
 		////// Speech for this section /////
-		/*
+		// FIXEDGROVE: START - uncomment
 		IF st2_speech_flag = 0
 			IF st2_speech_goals = 0
+			AND TIMERB > 7000 // FIXEDGROVE: time to wait until he warns about the bike on road
 				st2_speech_goals = 8
 				st2_speech_control_flag = 6
 				st2_random_last_label = 7
@@ -2019,7 +2022,7 @@ WAIT 0
 				st2_speech_flag = 1
 			ENDIF
 		ENDIF
-		*/ 
+		// FIXEDGROVE: END
 
 		////// car nodes jiggery pokery ///////
 		IF st2_car_nodes = 0 
@@ -2704,11 +2707,13 @@ WAIT 0
 			CREATE_RANDOM_CHAR_AS_DRIVER st2_cars[3] st2_peds[3]
 			SET_LOAD_COLLISION_FOR_CAR_FLAG st2_cars[3] TRUE
 
+			// FIXEDGROVE: START - uncomment
 			//car 4 - tram 
-			//CREATE_CAR TRAM -2270.6 541.3 34.8 st2_cars[4] 
-			//SET_CAR_HEADING st2_cars[4] 269.1
-			//CREATE_RANDOM_CHAR_AS_DRIVER st2_cars[4] st2_peds[4]
-			//SET_LOAD_COLLISION_FOR_CAR_FLAG st2_cars[4] TRUE
+			CREATE_CAR TRAM -2270.6 541.3 34.8 st2_cars[4] 
+			SET_CAR_HEADING st2_cars[4] 269.1
+			CREATE_RANDOM_CHAR_AS_DRIVER st2_cars[4] st2_peds[4]
+			SET_LOAD_COLLISION_FOR_CAR_FLAG st2_cars[4] TRUE
+			// FIXEDGROVE: END
 
 			//car 5 
 			GET_RANDOM_CAR_MODEL_IN_MEMORY TRUE st2_model st2_class
@@ -2770,17 +2775,13 @@ WAIT 0
 			CLEAR_AREA -2232.2 529.5 34.2 5.0 TRUE
 			CREATE_RANDOM_CHAR -2232.2 529.5 34.2 st2_peds[19]
 			SET_CHAR_HEADING st2_peds[19] 174.2
-			//IF IS_CAR_ON_SCREEN st2_cars[3] 
-			//	TASK_ENTER_CAR_AS_PASSENGER st2_peds[9] st2_cars[3] -1 1  
-			//ENDIF
+			// FIXEDGROVE: moved ped task to next section
 
 			//ped 20
 			CLEAR_AREA -2232.5 531.0 34.2 5.0 TRUE
 			CREATE_RANDOM_CHAR -2232.5 531.0 34.2 st2_peds[20]
 			SET_CHAR_HEADING st2_peds[20] 174.2
-			//IF IS_CAR_ON_SCREEN st2_cars[3] 
-			//	TASK_ENTER_CAR_AS_PASSENGER st2_peds[10] st2_cars[3] -1 2  
-			//ENDIF
+			// FIXEDGROVE: moved ped task to next section
 			st2_control_flag = 1
 		ENDIF
 		  	
@@ -2861,6 +2862,16 @@ WAIT 0
 	IF steal2_goals = 10
 		//sorting cesar's speed 
 		GOSUB st2_sorting_speed
+
+		// FIXEDGROVE: START - moved the ped tasks here
+		IF st2_coach_flag = 0
+			IF IS_CAR_ON_SCREEN st2_cars[3] 
+				TASK_ENTER_CAR_AS_PASSENGER st2_peds[19] st2_cars[3] -1 1 // FIXEDGROVE: changed from st2_peds[9]
+				TASK_ENTER_CAR_AS_PASSENGER st2_peds[20] st2_cars[3] -1 2 // FIXEDGROVE: changed from st2_peds[10]
+				st2_coach_flag = 1
+			ENDIF
+		ENDIF
+		// FIXEDGROVE: END
 	
 		////// Speech for this section /////
 		IF st2_speech_flag = 0
@@ -2911,7 +2922,7 @@ WAIT 0
 				MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[1] 
 				MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[2] 
 				MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[3] 
-				//MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[4] 
+				MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[4] // FIXEDGROVE: uncomment
 				MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[5] 
 				MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[6] 
 				MARK_CHAR_AS_NO_LONGER_NEEDED st2_peds[7] 
@@ -2922,7 +2933,7 @@ WAIT 0
 				MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[1] 
 				MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[2] 
 				MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[3] 
-				//MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[4] 
+				MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[4] // FIXEDGROVE: uncomment
 				MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[5] 
 				MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[6] 
 				MARK_CAR_AS_NO_LONGER_NEEDED st2_cars[7] 
@@ -4397,7 +4408,7 @@ IF st2_speech_goals = 8
 	$st2_print_label[3] = &STL2_FG // Hello cops, what took you, eh?
 	$st2_print_label[4] = &STL2_FH // Hey, CJ, watch this ... NITRO!		
 	$st2_print_label[5] = &STL2_FJ // Follow me down the hill, holmes!
-	//$st2_print_label[6] = &STL2_FK // Bike in the road ... watch out!	
+	$st2_print_label[6] = &STL2_FK // Bike in the road ... watch out!	// FIXEDGROVE: uncomment
 	$st2_print_label[7] = &STL2_FO // Hello. Cops, back again you idiotas?
 	$st2_print_label[8] = &STL2_FP // Get out of the fucking road!
 	$st2_print_label[9] = &STL2_FQ // Holy SHIIIIIIIT!
@@ -4410,7 +4421,7 @@ IF st2_speech_goals = 8
 	st2_audio_label[3] = SOUND_STL2_FG 
 	st2_audio_label[4] = SOUND_STL2_FH 
 	st2_audio_label[5] = SOUND_STL2_FJ 
-	//st2_audio_label[6] = SOUND_STL2_FK 
+	st2_audio_label[6] = SOUND_STL2_FK // FIXEDGROVE: uncomment
 	st2_audio_label[7] = SOUND_STL2_FO 
 	st2_audio_label[8] = SOUND_STL2_FP 
 	st2_audio_label[9] = SOUND_STL2_FQ 
