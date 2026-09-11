@@ -496,8 +496,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed Boat School to not despawn the player if they flip a boat in water
 - Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
 - Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
-- Fixed Flint Intersection and Flint Range zones being assigned the desert popcycle instead of the countryside one
+- Fixed Flint Intersection, Flint Range and of Montgomery Intersection zones being assigned the desert popcycle instead of the countryside one
 - Fixed SUN2, RIH5b and RIH6a zones missing properties due to a copy-paste oversight
+- Fixed missing turf for Grove Street due to a copy-paste oversight
 - Fixed missing turf for Da Nang Boys due to a copy-paste oversight
 - Fixed infrared goggles not respawning after being picked up
 - Fixed body armour inside Madd Dogg's mansion not respawning after being picked up
@@ -508,9 +509,11 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Moved an armour pickup in Area 69 closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
 - Improved Forbidden Area switches
-- Added population properties to a tiny alleway zone in East Los Santos
+- Added population properties to a lot of previously missing zones
+- Tweaked demographics of a few exising zones, now you can spot the hispanic drug dealer in East Los Santos and Las Colinas, and the biker drug dealer in SF
 - Added italian mafia turf to Caligula's Palace and a little bit of The Strip next to it
 - Added triad turf to the Four Dragons Casino after Woozie's phonecall about it
+- Made upper East Los Santos Vagos turf (with a bit of turf bleed from Ballas) to match the lore better
 - Made Ryder's car stop spawning after 'Pier 69'
 - Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completed
 - Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
