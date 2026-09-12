@@ -3181,12 +3181,13 @@ mission_la1fin2_passed:
                         SET_ZONE_GANG_STRENGTH LMEX1a GANG_SMEX 30
                         SET_ZONE_GANG_STRENGTH LMEX1b GANG_SMEX 30
 
-                        SET_ZONE_GANG_STRENGTH ELS1a GANG_FLAT 30
-                        SET_ZONE_GANG_STRENGTH ELS1b GANG_FLAT 30
-                        SET_ZONE_GANG_STRENGTH ELS2    GANG_FLAT 30
+                        SET_ZONE_GANG_STRENGTH ELS1a GANG_NMEX 30 // FIXEDGROVE: gang was 'FLAT'
+                        SET_ZONE_GANG_STRENGTH ELS1b GANG_NMEX 30 // FIXEDGROVE: gang was 'FLAT'
+                        SET_ZONE_GANG_STRENGTH ELS2  GANG_NMEX 30 // FIXEDGROVE: gang was 'FLAT'
+
                         SET_ZONE_GANG_STRENGTH ELS3a GANG_FLAT 30
                         SET_ZONE_GANG_STRENGTH ELS3b GANG_FLAT 30
-                        SET_ZONE_GANG_STRENGTH ELS4    GANG_FLAT 30
+                        SET_ZONE_GANG_STRENGTH ELS4  GANG_FLAT 30
 
                         SET_ZONE_GANG_STRENGTH PLS GANG_FLAT 10
 
@@ -3259,10 +3260,10 @@ mission_la1fin2_passed:
 
                         SET_ZONE_GANG_STRENGTH ELS1a GANG_GROVE 0
                         SET_ZONE_GANG_STRENGTH ELS1b GANG_GROVE 0
-                        SET_ZONE_GANG_STRENGTH ELS2    GANG_GROVE 0
+                        SET_ZONE_GANG_STRENGTH ELS2  GANG_GROVE 0
                         SET_ZONE_GANG_STRENGTH ELS3a GANG_GROVE 0
                         SET_ZONE_GANG_STRENGTH ELS3b GANG_GROVE 0
-                        SET_ZONE_GANG_STRENGTH ELS4    GANG_GROVE 0
+                        SET_ZONE_GANG_STRENGTH ELS4  GANG_GROVE 0
 
                         SET_ZONE_GANG_STRENGTH PLS GANG_GROVE 0
 
