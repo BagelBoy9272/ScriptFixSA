@@ -1501,7 +1501,8 @@ mission_intro1_SUB_text_handler:
 
 		CASE 0 // fade in
 
-			temp_float +=@ 5.0 // FIXEDGROVE: delta-time
+			//temp_float += 10.0 // FIXEDGROVE: PS2
+			temp_float +=@ 6.0 // FIXEDGROVE: 30 FPS parity: 10.0 * (30/50) = 6.0
 
 			// FIXEDGROVE: START - clamp
 			IF temp_float > 200.0
@@ -1513,7 +1514,8 @@ mission_intro1_SUB_text_handler:
 
 		CASE 1 // fade out
 
-			temp_float -=@ 5.0 // FIXEDGROVE: delta-time
+			//temp_float -= 10.0 // FIXEDGROVE: PS2
+			temp_float -=@ 6.0 // FIXEDGROVE: 30 FPS parity: 10.0 * (30/50) = 6.0
 
 			// FIXEDGROVE: START - clamp
 			IF temp_float < 0.0

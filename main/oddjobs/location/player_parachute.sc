@@ -260,10 +260,12 @@ jump_loop:
 					// to get 30 deegrees roll either way (+- 30 deg) as a maximum roll - ie 256/4.267 = 60
 					para_f1 /= 4.267
 					para_f1 -= para_roll
-					para_f1 /= 40.0 // FIXEDGROVE: was '20.0'
+					//para_f1 /= 20.0 // FIXEDGROVE: PS2
+					para_f1 *= 0.03 // FIXEDGROVE: 30 FPS parity
 					para_roll +=@ para_f1 // FIXEDGROVE: applied delta-time
 
-					para_f1 = para_roll / 10.0 //was 15.0 // FIXEDGOVE: was '5.0'
+					//para_f1 = para_roll / 5.0 //was 15.0 // FIXEDGOVE: PS2
+					para_f1 = para_roll * 0.12 // FIXEDGROVE: 30 FPS parity
 					para_yaw -=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					IF para_yaw > 180.0
@@ -277,7 +279,8 @@ jump_loop:
 					para_f2 =# para_v2
 					para_f2 /= 4.267
 					para_f2 -= para_pitch
-					para_f2 /= 40.0 // FIXEDGROVE: was '20.0'
+					//para_f2 /= 20.0 // FIXEDGROVE: PS2
+					para_f2 *= 0.03 // FIXEDGROVE: 30 FPS parity
 					para_pitch +=@ para_f2 // FIXEDGROVE: applied delta-time
 
 
@@ -331,12 +334,14 @@ jump_loop:
 				
 					// this bit acts as a kind of momentum
 					para_f1 = para_Voldx - para_Vx
-					para_f1 *= 0.005 // FIXEDGROVE: was '0.01'
+					//para_f1 *= 0.01 // FIXEDGROVE: PS2
+					para_f1 *= 0.006 // FIXEDGROVE: 30 FPS parity
 					para_Vx = para_Voldx
 					para_Vx -=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					para_f1 = para_Voldy - para_Vy
-					para_f1 *= 0.005 // FIXEDGROVE: was '0.01'
+					//para_f1 *= 0.01 // FIXEDGROVE: PS2
+					para_f1 *= 0.006 // FIXEDGROVE: 30 FPS parity
 					para_Vy = para_Voldy
 					para_Vy -=@ para_f1 // FIXEDGROVE: applied delta-time
 
@@ -520,10 +525,12 @@ jump_loop:
 					// to get 30 deegrees roll either way (+- 30 deg) as a maximum roll - ie 256/4.267 = 60
 					para_f1 /= 4.267
 					para_f1 -= para_roll
-					para_f1 /= 40.0 // FIXEDGROVE: was '20.0'
+					//para_f1 /= 20.0 // FIXEDGROVE: PS2
+					para_f1 *= 0.03 // FIXEDGROVE: 30 FPS parity
 					para_roll +=@ para_f1 // FIXEDGROVE: applied delta-time
 
-					para_f1 = para_roll / 30.0 // FIXEDGROVE: was '15.0'
+					//para_f1 = para_roll / 15.0 // FIXEDGROVE: PS2
+					para_f1 = para_roll / 25.0 // FIXEDGROVE: 30 FPS parity
 					para_yaw -=@ para_f1 // FIXEDGROVE: applied delta-time
 
 					IF para_yaw > 180.0
@@ -577,7 +584,8 @@ jump_loop:
 						ELSE
 							IF para_v2 >= 0
 								para_f1 = para_flare_Vz - para_Vz
-								para_f1 /= 40.0 // FIXEDGROVE: was '20.0'
+								// para_f1 /= 20.0 // FIXEDGROVE: PS2
+								para_f1 *= 0.03 // FIXEDGROVE: 30 FPS parity
 								para_Vz +=@ para_f1 // FIXEDGROVE: applied delta-time
 
 								IF NOT para_fall_anim = 4								
@@ -767,7 +775,8 @@ GOTO jump_loop
 // FIXEDGROVE: made duplicate code into subroutine
 parachute_set_float_Vz:
 	para_f1 = para_float_Vz - para_Vz
-	para_f1 /= 40.0 // FIXEDGROVE: was 20.0
+	//para_f1 /= 20.0 // FIXEDGROVE: PS2
+	para_f1 *= 0.03 // FIXEDGROVE: 30 FPS parity
 	para_Vz +=@ para_f1 // FIXEDGROVE: applied delta-time
 RETURN
 
