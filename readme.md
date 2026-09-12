@@ -526,6 +526,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Turn taxi lights off when the taxi submission ends
 - Made Bike Shool and Boat School use blank 'no medal' sprite in languages other than english
 - Made food carts use corresponding ped models
+- Now you don't have to look away for the food cart vendor to spawn
 - Tourists will drop their camera when killed
 - Made triad members spawn as bouncers in Four Dragons casino
 - Pool now increases previously unused 'Wins in Pool', 'Losses in Pool', and '8-Balls in Pool' stats

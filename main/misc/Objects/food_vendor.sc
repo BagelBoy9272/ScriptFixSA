@@ -57,7 +57,7 @@ food_vendor_loop:
 						temp_float_2 = y + 0.5
 						temp_float_3 = z + 2.0
 						if not IS_AREA_OCCUPIED x_temp y_temp z_temp temp_float_1 temp_float_2 temp_float_3 false false true false false
-							if not IS_point_on_screen x y z 1.0
+//							if not IS_point_on_screen x y z 1.0 // FIXEDGROVE: commented
 								request_model vendor_model // FIXEDGROVE: use var for ped model
 								if has_model_loaded vendor_model // FIXEDGROVE: use var for ped model
 									create_char pedtype_civmale vendor_model x y z vendor // FIXEDGROVE: use var for ped model
@@ -68,7 +68,7 @@ food_vendor_loop:
 									set_char_heading vendor heading
 									++ flag
 								endif
-							endif
+//							endif // FIXEDGROVE: commented
 						else
 							mark_model_as_no_longer_needed vendor_model // FIXEDGROVE: use var for ped model
 							TERMINATE_THIS_SCRIPT
