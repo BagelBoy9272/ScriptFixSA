@@ -514,6 +514,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Added italian mafia turf to Caligula's Palace and a little bit of The Strip next to it
 - Added triad turf to the Four Dragons Casino after Woozie's phonecall about it
 - Made upper East Los Santos Vagos turf (with a bit of turf bleed from Ballas) to match the lore better
+- Switched on two forgotten Greenwood and BMX generators in Jefferson motel
 - Made Ryder's car stop spawning after 'Pier 69'
 - Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completed
 - Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
