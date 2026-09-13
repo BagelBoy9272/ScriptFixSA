@@ -395,6 +395,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **End Of The Line:**
 - Fixed swat member being spawned out of bounds due to a typo
+- Changed Tenpenny's shotgun to a SPAS-12 to match the cutscene
 - Disabled mod garages to prevent issues
 
 **GFs:**
