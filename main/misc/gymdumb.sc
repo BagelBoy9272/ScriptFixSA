@@ -613,13 +613,13 @@ IF startdumbell_flag = 1
 
 		IF animstate_flag = 1
 		OR animstate_flag = 3
-			weightdb = weightdb / 2.0
-			powerdumbell = powerdumbell -@ weightdb
-			weightdb = weightdb * 2.0
+			weightdb *= 0.6 // FIXEDGROVE: console parity (match console 30 FPS)
+			powerdumbell -=@ weightdb
+			weightdb /= 0.6 // FIXEDGROVE: console parity
 		ENDIF
 
 		IF animstate_flag = 4 //come down a lot quicker once reached top
-			powerdumbell = powerdumbell -@ 2.0
+			powerdumbell -=@ 2.4 // FIXEDGROVE: console parity
 		ENDIF
 
 		//when button is not pressed reset

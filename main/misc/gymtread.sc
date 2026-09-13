@@ -385,11 +385,10 @@ AND NOT IS_CHAR_DEAD scplayer
 			tread_resistance = level_treadresitance	+ sprintstat_gym
 
 		   	
-		   	incline_leveltread = incline_leveltread / 2.0								
 			//level bar
-			speed_tread = speed_tread -@ incline_leveltread
-
-		   	incline_leveltread = incline_leveltread * 2.0								
+			incline_leveltread *= 0.6 // FIXEDGROVE: console parity (match console 30 FPS)
+			speed_tread -=@ incline_leveltread
+			incline_leveltread /= 0.6 // FIXEDGROVE: console parity
 
 		
 			IF IS_BUTTON_PRESSED PAD1 CROSS

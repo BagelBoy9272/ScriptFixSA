@@ -473,6 +473,8 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed phone ringing immediately after 'Valet'
 - Fixed exercise bike exit animation not playing
 - Fixed boxers inside the LS gym standing still after fighting the instructor
+- Fixed bench press power bar draining significantly faster than intended due to a PC port typo
+- Fixed flawed delta-time scaling in gym equipment from the PC port, restoring intended resistance and drain rates
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
