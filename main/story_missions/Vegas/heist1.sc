@@ -772,7 +772,7 @@ ENDIF
 
 CREATE_CHAR PEDTYPE_MISSION1 OMORI 2017.9242 1536.1079 9.8228 he1_tourist4
 SET_CHAR_DECISION_MAKER he1_tourist4 he1_touristdm
-SET_CHAR_ALLOWED_TO_DUCK he1_tourist3 FALSE
+SET_CHAR_ALLOWED_TO_DUCK he1_tourist4 FALSE // FIXEDGROVE: was he1_tourist3
 SET_CHAR_HEADING he1_tourist4 170.9212
 
 
@@ -1223,7 +1223,7 @@ IF he1_progress = 1
 		ENDIF
 
 		IF IS_CHAR_DEAD he1_tourist2
-			REMOVE_BLIP he1_touristB[5]
+			REMOVE_BLIP he1_touristB[2] // FIXEDGROVE: was he1_touristB[5]
 		ENDIF
 
 		IF IS_CHAR_DEAD he1_tourist5

@@ -2464,7 +2464,7 @@ valet_mission_passed:
 //		WAIT 5000
 //		IF TIMERA > valet_timer
 			PLAYER_MADE_PROGRESS 1
-			PLAY_MISSION_PASSED_TUNE 1
+			//PLAY_MISSION_PASSED_TUNE 1 // FIXEDGROVE: comment out, overlaps with the next tune
 			valet_mission_completed = 1
 
 			//show player Asset

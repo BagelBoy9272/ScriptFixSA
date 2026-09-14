@@ -114,10 +114,15 @@ Dealer_CheckCustomer:
 			ENDIF
 		ENDIF
 	ELSE
-		IF IS_CHAR_DEAD iOther_Ped
-		OR NOT DOES_CHAR_EXIST iOther_Ped
-		OR IS_CHAR_RESPONDING_TO_EVENT this_ped EVENT_ACQUAINTANCE_PED_HATE
-		  iOther_Ped = -1 //Mark this ped as invalid		  	
+		// FIXEDGROVE: mark the ped as no longer needed, but only if they exist
+		IF NOT DOES_CHAR_EXIST iOther_Ped
+			iOther_Ped = -1 //Mark this ped as invalid
+		ELSE
+			IF IS_CHAR_DEAD iOther_Ped
+			OR IS_CHAR_RESPONDING_TO_EVENT this_ped EVENT_ACQUAINTANCE_PED_HATE
+				MARK_CHAR_AS_NO_LONGER_NEEDED iOther_Ped // FIXEDGROVE: missing before
+				iOther_Ped = -1 //Mark this ped as invalid
+			ENDIF
 		ENDIF
 	ENDIF
 

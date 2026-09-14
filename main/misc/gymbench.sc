@@ -615,13 +615,13 @@ AND NOT IS_CHAR_DEAD scplayer
 
 		IF animstate_flag = 1
 		OR animstate_flag = 3
-			weightdb = weightdb / 2.0
-			powerbpress = powerbpress -@ weightbp
-			weightdb = weightdb * 2.0
+			weightbp *= 0.6 // FIXEDGROVE: console parity (match console 30 FPS and fix var typo)
+			powerbpress -=@ weightbp
+			weightbp /= 0.6 // FIXEDGROVE: console parity
 		ENDIF
 
 		IF animstate_flag = 4 //come down a lot quicker once reached top
-			powerbpress = powerbpress -@ 2.0
+			powerbpress -=@ 2.4 // FIXEDGROVE: console parity
 		ENDIF
 
 		//when button is not pressed reset

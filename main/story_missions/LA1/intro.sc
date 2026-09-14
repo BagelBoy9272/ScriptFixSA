@@ -1493,59 +1493,72 @@ TEXT GOSUBS FOR FAKE SPLASH SCREENS
 
 LVAR_INT text_status_SS text_alpha_SS text_flag_SS text_display
 LVAR_TEXT_LABEL text_label_SS
+LVAR_FLOAT temp_float // FIXEDGROVE: used for delta-timing the fades
 
 mission_intro1_SUB_text_handler:
 
 	SWITCH text_status_SS  
 
 		CASE 0 // fade in
+
+			//temp_float += 10.0 // FIXEDGROVE: PS2
+			temp_float +=@ 6.0 // FIXEDGROVE: 30 FPS parity: 10.0 * (30/50) = 6.0
+
+			// FIXEDGROVE: START - clamp
+			IF temp_float > 200.0
+				temp_float = 200.0				
+			ENDIF
+			// FIXEDGROVE: END
 			
-			text_alpha_SS += 10
-			
-			// ARGH SWITCH STATEMENT DROPS THROUGH HERE!
+		BREAK
 
 		CASE 1 // fade out
-			
-			if text_status_SS = 1 
 
-				text_alpha_SS -= 10	
+			//temp_float -= 10.0 // FIXEDGROVE: PS2
+			temp_float -=@ 6.0 // FIXEDGROVE: 30 FPS parity: 10.0 * (30/50) = 6.0
+
+			// FIXEDGROVE: START - clamp
+			IF temp_float < 0.0
+				temp_float = 0.0				
 			ENDIF
+			// FIXEDGROVE: END
 
-			// ARGH SWITCH STATEMENT DROPS THROUGH HERE!
+		BREAK
 
-		CASE 2 // display text
-			IF text_display = 0
-				SET_TEXT_SCALE 0.47 1.8 // FIXEDGROVE: was originally 0.7 1.7 in JP version, 0.8 1.8 everywhere else
-				SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
-				SET_TEXT_CENTRE ON
-				SET_TEXT_WRAPX 600.0
-				SET_TEXT_DROPSHADOW 0 0 0 0 255
-				DISPLAY_TEXT 320.0 180.0 LOAD_01
-
-				SET_TEXT_SCALE 0.47 1.8 // FIXEDGROVE: was originally 0.7 1.7 in JP version, 0.8 1.8 everywhere else 
-				SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
-				SET_TEXT_CENTRE ON
-				SET_TEXT_WRAPX 600.0
-				SET_TEXT_DROPSHADOW 0 0 0 0 255
- 				DISPLAY_TEXT 320.0 200.0 LOAD_03
-
-				SET_TEXT_SCALE 0.47 1.8 // FIXEDGROVE: was originally 0.7 1.7 in JP version, 0.8 1.8 everywhere else 
-				SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
-				SET_TEXT_CENTRE ON
-				SET_TEXT_WRAPX 600.0
-				SET_TEXT_DROPSHADOW 0 0 0 0 255
-				DISPLAY_TEXT 320.0 220.0 LOAD_04
-
-			ELSE			
-				SET_TEXT_SCALE 0.3525 1.6  // FIXEDGROVE: was originally 0.6 1.6
-				SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
-				SET_TEXT_CENTRE ON
-				SET_TEXT_WRAPX 600.0
-				SET_TEXT_DROPSHADOW 1 0 0 0 text_alpha_SS
-				DISPLAY_TEXT 320.0 200.0 $text_label_SS 
-			
-			ENDIF
 	ENDSWITCH	
+
+	text_alpha_SS =# temp_float // FIXEDGROVE: cast into int for opcode
+
+	IF text_display = 0
+		SET_TEXT_SCALE 0.47 1.8 // FIXEDGROVE: was originally 0.7 1.7 in JP version, 0.8 1.8 everywhere else
+		SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
+		SET_TEXT_CENTRE ON
+		SET_TEXT_WRAPX 600.0
+		SET_TEXT_DROPSHADOW 0 0 0 0 255
+		DISPLAY_TEXT 320.0 180.0 LOAD_01
+
+		SET_TEXT_SCALE 0.47 1.8 // FIXEDGROVE: was originally 0.7 1.7 in JP version, 0.8 1.8 everywhere else 
+		SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
+		SET_TEXT_CENTRE ON
+		SET_TEXT_WRAPX 600.0
+		SET_TEXT_DROPSHADOW 0 0 0 0 255
+ 		DISPLAY_TEXT 320.0 200.0 LOAD_03
+
+		SET_TEXT_SCALE 0.47 1.8 // FIXEDGROVE: was originally 0.7 1.7 in JP version, 0.8 1.8 everywhere else 
+		SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
+		SET_TEXT_CENTRE ON
+		SET_TEXT_WRAPX 600.0
+		SET_TEXT_DROPSHADOW 0 0 0 0 255
+		DISPLAY_TEXT 320.0 220.0 LOAD_04
+
+	ELSE			
+		SET_TEXT_SCALE 0.3525 1.6  // FIXEDGROVE: was originally 0.6 1.6
+		SET_TEXT_COLOUR 255 255 255 text_alpha_SS 
+		SET_TEXT_CENTRE ON
+		SET_TEXT_WRAPX 600.0
+		SET_TEXT_DROPSHADOW 1 0 0 0 text_alpha_SS
+		DISPLAY_TEXT 320.0 200.0 $text_label_SS 
+	ENDIF
 			
 RETURN
  

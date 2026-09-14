@@ -1111,7 +1111,7 @@ IF crash_c3flag = 8
 			ENDIF
 		ENDIF
 		IF DOES_CHAR_EXIST forkworker2_c3
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR forkworker1_c3 scplayer
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR forkworker2_c3 scplayer // FIXEDGROVE: char was 'forkworker1_c3'
 				playerattacks_c3flag = 1
 			ENDIF
 		ENDIF

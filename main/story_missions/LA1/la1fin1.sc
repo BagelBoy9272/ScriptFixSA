@@ -27,12 +27,7 @@ MISSION_END
 // Variables for mission
 
 //interior section
-LVAR_INT grove1_f1
-LVAR_INT grove2_f1
-LVAR_INT grove3_f1
-LVAR_INT grove4_f1
-LVAR_INT grove5_f1
-LVAR_INT grove6_f1
+LVAR_INT grove_f1[6] // FIXEDGROVE: changed individual variables into an array
 
 LVAR_INT extpoliceheli_f1
 LVAR_INT extpoliceheli_f1health
@@ -41,22 +36,12 @@ LVAR_INT extpolicevan2_f1
 LVAR_INT exthelidriver_f1
 LVAR_INT extvan1driver_f1
 LVAR_INT extvan2driver_f1
-LVAR_INT swatrope1_f1
-LVAR_INT swatrope2_f1
-LVAR_INT swatrope3_f1
-LVAR_INT swatrope4_f1
-LVAR_INT swat1_f1
-LVAR_INT swat2_f1
-LVAR_INT swat3_f1
-LVAR_INT swat4_f1
+LVAR_INT swatrope_f1[4] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT motel_DM //decision maker stuff
 LVAR_INT coward_DM
 LVAR_INT extmotel_DM //decision maker stuff
 LVAR_INT helispotlight_f1
-LVAR_INT swatrope1_f1status
-LVAR_INT swatrope2_f1status
-LVAR_INT swatrope3_f1status
-LVAR_INT swatrope4_f1status
+LVAR_INT swatrope_f1status[4] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT playerweapon_f1
 
 //inside motel
@@ -64,20 +49,7 @@ LVAR_INT motel_interior //for get_visible_area command
 LVAR_INT breachfx_f1 //breach particle fx
 LVAR_INT woundedgrove1_f1 
 LVAR_INT woundedgrove2_f1
-LVAR_INT swat5_f1 
-LVAR_INT swat6_f1 
-LVAR_INT swat7_f1 
-LVAR_INT swat8_f1 
-LVAR_INT swat9_f1 
-LVAR_INT swat10_f1
-LVAR_INT swat11_f1 
-LVAR_INT swat12_f1 
-LVAR_INT swat13_f1 
-LVAR_INT swat14_f1 
-LVAR_INT swat15_f1
-LVAR_INT swat16_f1
-LVAR_INT swat17_f1
-LVAR_INT swat18_f1
+LVAR_INT swat_f1[18] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT hoochie1_f1 
 LVAR_INT hoochie2_f1
 LVAR_INT breachdoor_f1
@@ -138,16 +110,9 @@ LVAR_INT moteldeal_f1flag
 LVAR_INT missiongo_f1flag
 LVAR_INT playerincar_f1flag
 LVAR_INT extvan1driver_f1flag
-LVAR_INT swat1_f1flag
-LVAR_INT swat2_f1flag
 LVAR_INT extvan2driver_f1flag
-LVAR_INT swat3_f1flag
-LVAR_INT swat4_f1flag
 LVAR_INT breach_f1flag
-LVAR_INT swatrope1_f1flag
-LVAR_INT swatrope2_f1flag
-LVAR_INT swatrope3_f1flag
-LVAR_INT swatrope4_f1flag
+LVAR_INT swatrope_f1flag[4] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT skipcutscene_f1flag
 LVAR_INT extpoliceheli_f1flag
 LVAR_INT extpolicevan1_f1flag
@@ -157,27 +122,14 @@ LVAR_INT insidemotel_f1flag
 LVAR_INT motelentrance_f1flag
 LVAR_INT firstcorridor_f1flag
 LVAR_INT woundedgrove1_f1flag
-LVAR_INT grove2_f1flag
+LVAR_INT grove1_f1flag
 LVAR_INT attachaudio_f1flag
 
 LVAR_INT grovecorner_f1flag
 LVAR_INT swatcorner_f1flag
-LVAR_INT swat5_f1flag
-LVAR_INT swat6_f1flag
-LVAR_INT swat7_f1flag
-LVAR_INT swat8_f1flag
-LVAR_INT swat9_f1flag
-LVAR_INT swat10_f1flag
-LVAR_INT swat11_f1flag
 LVAR_INT coordshoot_f1flag	//sequence flag
-LVAR_INT grove5_f1flag
-LVAR_INT vent1a_f1flag
-LVAR_INT vent1b_f1flag
-LVAR_INT swat14_f1flag
-LVAR_INT swat15_f1flag
-LVAR_INT swat16_f1flag
-LVAR_INT swat17_f1flag
-LVAR_INT swat18_f1flag
+LVAR_INT grove4_f1flag
+LVAR_INT swat_f1flag[18] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT sweet_f1flag
 LVAR_INT sweetexit_f1flag
 LVAR_INT roofmotel_f1flag
@@ -198,31 +150,9 @@ LVAR_INT heli_f1blip
 ///////////////////////////////////////////////////////	On rails variables
 ///////////////////////////////////////////////////////	On rails variables
 
-LVAR_INT policecar1_f1
-LVAR_INT policecar2_f1
-LVAR_INT policecar3_f1
-LVAR_INT policecar4_f1
-LVAR_INT policecar5_f1
-LVAR_INT policecar6_f1
-LVAR_INT policecar7_f1
-LVAR_INT policecar8_f1
+LVAR_INT policecar_f1[8] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT policecarblock_f1
-LVAR_INT cop1_f1
-LVAR_INT cop2_f1
-LVAR_INT cop3_f1
-LVAR_INT cop4_f1
-LVAR_INT cop5_f1
-LVAR_INT cop6_f1
-LVAR_INT cop7_f1
-LVAR_INT cop8_f1
-LVAR_INT cop9_f1
-LVAR_INT cop10_f1
-LVAR_INT cop11_f1
-LVAR_INT cop12_f1
-LVAR_INT cop13_f1
-LVAR_INT cop14_f1
-LVAR_INT cop15_f1
-LVAR_INT cop16_f1
+LVAR_INT cop_f1[16] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT train_f1
 VAR_INT carhealth_f1
 LVAR_INT copbike1_f1
@@ -300,14 +230,7 @@ LVAR_INT fire6_f1
 LVAR_INT driverofcar_f1
 
 //blips
-LVAR_INT policecar1_f1blip
-LVAR_INT policecar2_f1blip
-LVAR_INT policecar3_f1blip
-LVAR_INT policecar4_f1blip
-LVAR_INT policecar5_f1blip
-LVAR_INT policecar6_f1blip
-LVAR_INT policecar7_f1blip
-LVAR_INT policecar8_f1blip
+LVAR_INT policecar_f1blip[8] // FIXEDGROVE: changed individual variables into an array
 
 //flags
 //LVAR_INT difficulty_f1flag //do not reset this // FIXEDGROVE: made difficulty flag global
@@ -315,14 +238,7 @@ LVAR_INT policecar8_f1blip
 LVAR_INT rails_f1flag
 LVAR_INT motelchase_f1flag
 LVAR_INT copcars_f1flag
-LVAR_INT policecar1_f1flag
-LVAR_INT policecar2_f1flag
-LVAR_INT policecar3_f1flag
-LVAR_INT policecar4_f1flag
-LVAR_INT policecar5_f1flag
-LVAR_INT policecar6_f1flag
-LVAR_INT policecar7_f1flag
-LVAR_INT policecar8_f1flag
+LVAR_INT policecar_f1flag[8] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT sca_f1flag
 LVAR_INT policecarblock_f1flag
 LVAR_INT bikerjumper4_f1flag
@@ -331,14 +247,7 @@ LVAR_INT playdeathanim_f1flag
 LVAR_INT playdeathanim2_f1flag
 LVAR_INT helileave_f1flag
 LVAR_INT chasetext_f1flag
-LVAR_INT policecar1swap_f1flag
-LVAR_INT policecar2swap_f1flag
-LVAR_INT policecar3swap_f1flag
-LVAR_INT policecar4swap_f1flag
-LVAR_INT policecar5swap_f1flag
-LVAR_INT policecar6swap_f1flag
-LVAR_INT policecar7swap_f1flag
-LVAR_INT policecar8swap_f1flag
+LVAR_INT policecarswap_f1flag[8] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT copright_f1flag
 LVAR_INT copleft_f1flag
 LVAR_INT turncamera_f1flag
@@ -351,6 +260,9 @@ LVAR_INT breakposter_f1flag
 LVAR_INT finalcut_f1flag
 LVAR_INT helpshoottext_f1flag
 LVAR_INT speaker_f1 // FIXEDGROVE
+LVAR_INT l1f1_count l1f1_car_select l1f1_cop1 l1f1_cop2 // FIXEDGROVE
+LVAR_INT l1f1_swap_seat l1f1_record_check l1f1_skip_mark_check l1f1_char_name // FIXEDGROVE
+LVAR_INT l1f1_special_flag l1f1_petrol_weakpoint l1f1_critical_hits l1f1_shot_in_vehicle // FIXEDGROVE
 ///////////////////////////////////////////////////////	On rails variables
 ///////////////////////////////////////////////////////	On rails variables
 
@@ -481,21 +393,18 @@ ENDWHILE
 SET_SCRIPT_LIMIT_TO_GANG_SIZE 0
 // ************************************************setting variables**************************************
 
+/* // FIXEDGROVE: START - comment out because they're already set to 0
 //flags for interior section
 moteldeal_f1flag = 0
 missiongo_f1flag = 0
 playerincar_f1flag = 0
 extvan1driver_f1flag = 0
-swat1_f1flag = 0
-swat2_f1flag = 0
 extvan2driver_f1flag = 0
-swat3_f1flag = 0
-swat4_f1flag = 0
 breach_f1flag = 0
-swatrope1_f1flag = 0
-swatrope2_f1flag = 0
-swatrope3_f1flag = 0
-swatrope4_f1flag = 0
+swatrope_f1flag[0] = 0
+swatrope_f1flag[1] = 0
+swatrope_f1flag[2] = 0
+swatrope_f1flag[3] = 0
 skipcutscene_f1flag = 0
 extpoliceheli_f1flag = 0
 extpolicevan1_f1flag = 0
@@ -504,25 +413,17 @@ insidemotel_f1flag = 0
 motelentrance_f1flag = 0
 firstcorridor_f1flag = 0
 woundedgrove1_f1flag = 0
-grove2_f1flag = 0
+grove1_f1flag = 0
 grovecorner_f1flag = 0
 swatcorner_f1flag = 0
-swat5_f1flag = 0
-swat6_f1flag = 0
-swat7_f1flag = 0
-swat8_f1flag = 0
-swat9_f1flag = 0
-swat10_f1flag = 0
-swat11_f1flag = 0
 coordshoot_f1flag = 0	//sequence flag
-grove5_f1flag = 0
-vent1a_f1flag = 0
-vent1b_f1flag = 0
-swat14_f1flag = 0
-swat15_f1flag = 0
-swat16_f1flag = 0
-swat17_f1flag = 0
-swat18_f1flag = 0
+grove4_f1flag = 0
+	// FIXEDGROVE: while-loop to avoid repeats
+	l1f1_count = 0
+	WHILE l1f1_count < 8
+	swat_f1flag[l1f1_count] = 0
+	l1f1_count++
+	ENDWHILE
 sweet_f1flag = 0
 sweetexit_f1flag = 0
 roofmotel_f1flag = 0
@@ -543,14 +444,13 @@ speaker_f1 = 0
 rails_f1flag = 0
 motelchase_f1flag = 0
 copcars_f1flag = 0
-policecar1_f1flag = 0
-policecar2_f1flag = 0
-policecar3_f1flag = 0
-policecar4_f1flag = 0
-policecar5_f1flag = 0
-policecar6_f1flag = 0
-policecar7_f1flag = 0
-policecar8_f1flag = 0
+	// FIXEDGROVE: while-loop to avoid repeats
+	l1f1_count = 0
+	WHILE l1f1_count < 8
+	policecar_f1flag[l1f1_count] = 0
+	policecarswap_f1flag[l1f1_count] = 0
+	l1f1_count++
+	ENDWHILE
 sca_f1flag = 0
 policecarblock_f1flag = 0
 bikerjumper4_f1flag = 0
@@ -559,14 +459,6 @@ playdeathanim_f1flag = 0
 playdeathanim2_f1flag = 0
 helileave_f1flag = 0
 chasetext_f1flag = 0
-policecar1swap_f1flag = 0
-policecar2swap_f1flag = 0
-policecar3swap_f1flag = 0
-policecar4swap_f1flag = 0
-policecar5swap_f1flag = 0
-policecar6swap_f1flag = 0
-policecar7swap_f1flag = 0
-policecar8swap_f1flag = 0
 copright_f1flag = 0
 copleft_f1flag = 0
 turncamera_f1flag = 0
@@ -578,6 +470,7 @@ policecarexplode_f1flag = 0
 breakposter_f1flag = 0
 finalcut_f1flag = 0
 helpshoottext_f1flag = 0
+*/ // FIXEDGROVE: END
 // *******************************************************************************************************
 
 LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_EMPTY motel_DM
@@ -610,41 +503,40 @@ CHANGE_CAR_COLOUR sweet_car 59 34
 CREATE_CHAR PEDTYPE_SPECIAL SPECIAL01 2511.005 -1672.268 12.493 sweet
 SET_ANIM_GROUP_FOR_CHAR sweet gang2 // FIXEDGROVE: set intended animation group
 SET_CHAR_HEADING sweet 62.083
-SET_CHAR_NEVER_TARGETTED sweet TRUE
-SET_CHAR_ONLY_DAMAGED_BY_PLAYER sweet TRUE
-TASK_ENTER_CAR_AS_PASSENGER sweet sweet_car 5000 1
-SET_CHAR_CANT_BE_DRAGGED_OUT sweet TRUE
-SET_CHAR_STAY_IN_CAR_WHEN_JACKED sweet TRUE
-SET_CHAR_DECISION_MAKER sweet motel_DM
-SET_CHAR_NEVER_TARGETTED sweet TRUE
-SET_CHAR_SUFFERS_CRITICAL_HITS sweet FALSE
-SET_CHAR_GET_OUT_UPSIDE_DOWN_CAR sweet FALSE
 
 CREATE_CHAR PEDTYPE_SPECIAL SPECIAL02 2505.318 -1674.747 12.376 big_smoke
 SET_ANIM_GROUP_FOR_CHAR big_smoke fatman // FIXEDGROVE: set intended animation group
 SET_CHAR_HEADING big_smoke 356.374
-SET_CHAR_NEVER_TARGETTED big_smoke TRUE
-SET_CHAR_ONLY_DAMAGED_BY_PLAYER big_smoke TRUE
-TASK_ENTER_CAR_AS_PASSENGER big_smoke sweet_car 5000 0
-SET_CHAR_CANT_BE_DRAGGED_OUT big_smoke TRUE
-SET_CHAR_STAY_IN_CAR_WHEN_JACKED big_smoke TRUE
-SET_CHAR_DECISION_MAKER big_smoke motel_DM
-SET_CHAR_NEVER_TARGETTED big_smoke TRUE
-SET_CHAR_SUFFERS_CRITICAL_HITS big_smoke FALSE
-SET_CHAR_GET_OUT_UPSIDE_DOWN_CAR big_smoke FALSE
 
 CREATE_CHAR PEDTYPE_SPECIAL SPECIAL03 2506.57 -1667.753 12.376 ryder
 SET_ANIM_GROUP_FOR_CHAR ryder gang1 // FIXEDGROVE: set intended animation group
 SET_CHAR_HEADING ryder 171.457
-SET_CHAR_NEVER_TARGETTED ryder TRUE
-SET_CHAR_ONLY_DAMAGED_BY_PLAYER ryder TRUE
-TASK_ENTER_CAR_AS_PASSENGER ryder sweet_car 5000 2
-SET_CHAR_CANT_BE_DRAGGED_OUT ryder TRUE
-SET_CHAR_STAY_IN_CAR_WHEN_JACKED ryder TRUE
-SET_CHAR_DECISION_MAKER ryder motel_DM
-SET_CHAR_NEVER_TARGETTED ryder TRUE
-SET_CHAR_SUFFERS_CRITICAL_HITS ryder FALSE
-SET_CHAR_GET_OUT_UPSIDE_DOWN_CAR ryder FALSE
+
+// FIXEDGROVE: while-loop to avoid repeats
+l1f1_count = 0
+WHILE l1f1_count < 3
+SWITCH l1f1_count
+	CASE 0
+		l1f1_char_name = big_smoke
+	BREAK
+	CASE 1
+		l1f1_char_name = sweet
+	BREAK
+	CASE 2
+		l1f1_char_name = ryder
+	BREAK
+ENDSWITCH
+SET_CHAR_NEVER_TARGETTED l1f1_char_name TRUE
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
+SET_CHAR_CANT_BE_DRAGGED_OUT l1f1_char_name TRUE
+SET_CHAR_STAY_IN_CAR_WHEN_JACKED l1f1_char_name TRUE
+SET_CHAR_DECISION_MAKER l1f1_char_name motel_DM
+SET_CHAR_NEVER_TARGETTED l1f1_char_name TRUE
+SET_CHAR_SUFFERS_CRITICAL_HITS l1f1_char_name FALSE
+SET_CHAR_GET_OUT_UPSIDE_DOWN_CAR l1f1_char_name FALSE
+TASK_ENTER_CAR_AS_PASSENGER l1f1_char_name sweet_car 5000 l1f1_count
+l1f1_count++
+ENDWHILE
 
 PRINT_NOW LAF1_1 10000 1 //Get in the car and drive the crew to the meet at the motel.
 //SHUT_CHAR_UP scplayer TRUE // FIXEDGROVE: this is a weird decision, was probably made to stop playor speech during scripted ones
@@ -656,6 +548,39 @@ SWITCH_ROADS_OFF 2180.18 -1130.28 21.2 2276.82 -1151.26 28.0
 SWITCH_PED_ROADS_OFF 2180.18 -1130.28 21.2 2276.82 -1151.26 28.0
 
 SWITCH_EMERGENCY_SERVICES OFF
+
+// FIXEDGROVE: START - remove global versions of objects
+IF DOES_OBJECT_EXIST g_skylite	
+	DELETE_OBJECT g_skylite
+ENDIF
+IF DOES_OBJECT_EXIST g_vent1
+	DELETE_OBJECT g_vent1
+ENDIF
+IF DOES_OBJECT_EXIST g_vent2
+	DELETE_OBJECT g_vent2
+ENDIF
+IF DOES_OBJECT_EXIST g_trolley1
+	DELETE_OBJECT g_trolley1
+ENDIF
+IF DOES_OBJECT_EXIST g_trolley2
+	DELETE_OBJECT g_trolley2
+ENDIF
+IF DOES_OBJECT_EXIST g_trolley3
+	DELETE_OBJECT g_trolley3
+ENDIF
+IF DOES_OBJECT_EXIST g_trolley4
+	DELETE_OBJECT g_trolley4
+ENDIF
+IF DOES_OBJECT_EXIST g_trolley5
+	DELETE_OBJECT g_trolley5
+ENDIF
+IF DOES_OBJECT_EXIST g_trolley6
+	DELETE_OBJECT g_trolley6
+ENDIF
+IF DOES_OBJECT_EXIST g_trolley7
+	DELETE_OBJECT g_trolley7
+ENDIF
+// FIXEDGROVE: END
 
 DO_FADE 500 FADE_IN
 
@@ -684,13 +609,13 @@ ENDIF
 
 IF missiongo_f1flag = 0
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD sweet
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
 					IF IS_CHAR_SITTING_IN_CAR sweet sweet_car
-						IF IS_CHAR_SITTING_IN_CAR ryder sweet_car
-							IF IS_CHAR_SITTING_IN_CAR big_smoke sweet_car
-								IF IS_CHAR_SITTING_IN_CAR scplayer sweet_car
+					AND IS_CHAR_SITTING_IN_CAR ryder sweet_car
+					AND IS_CHAR_SITTING_IN_CAR big_smoke sweet_car
+					AND IS_CHAR_SITTING_IN_CAR scplayer sweet_car
 									REMOVE_BLIP sweet_f1blip
 
 									ADD_BLIP_FOR_COORD 2256.239 -1146.909 25.121 motel_f1blip
@@ -703,13 +628,7 @@ IF missiongo_f1flag = 0
 									playerincar_f1flag = 1
 									moteldeal_f1flag = 1
 									missiongo_f1flag = 1
-								ENDIF
-							ENDIF
-						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -718,145 +637,135 @@ IF moteldeal_f1flag = 1
 
 	GOSUB process_audio_f1
 
-	// FIXEDGROVE: assigned speakers
 	//play mission audio
-	IF progressaudio_f1flag = 0
-		IF handlingaudio_f1flag = 0
+	IF handlingaudio_f1flag = 0
+		// FIXEDGROVE: changed if-chain to switch-case
+		SWITCH progressaudio_f1flag
+		CASE 0
 			IF TIMERA > 7000
 				audio_label_f1 = SOUND_FIN1_GA	//Say, CJ, you gonna crash the car again?
 				$input_text_f1 = FIN1_GA	//Say, CJ, you gonna crash the car again?
-				speaker_f1 = ryder
 				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 1
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 1
 			audio_label_f1 = SOUND_FIN1_GB	//Fuck you, Ryder.
 			$input_text_f1 = FIN1_GB	//Fuck you, Ryder.
-			speaker_f1 = scplayer
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 2
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 2
 			audio_label_f1 = SOUND_FIN1_GC	//Ryder, give CJ a break, man. He’s practically turned the Grove around by himself.
 			$input_text_f1 = FIN1_GC	//Ryder, give CJ a break, man. He’s practically turned the Grove around by himself.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 3
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 3
 			audio_label_f1 = SOUND_FIN1_GD	//Man, I was just telling a joke on the little nigga.
 			$input_text_f1 = FIN1_GD	//Man, I was just telling a joke on the little nigga.
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 4
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 4
 			audio_label_f1 = SOUND_FIN1_GE	//Everything you do is a joke, Ryder.
 			$input_text_f1 = FIN1_GE	//Everything you do is a joke, Ryder.
-			speaker_f1 = scplayer
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 5
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 5
 			audio_label_f1 = SOUND_FIN1_GG	//That ain’t true!
 			$input_text_f1 = FIN1_GG	//That ain’t true!
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 6
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 6
 			audio_label_f1 = SOUND_FIN1_GI	//Ryder… <sighs> just chill the fuck out.
 			$input_text_f1 = FIN1_GI	//Ryder… <sighs> just chill the fuck out.
-			speaker_f1 = big_smoke
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 7
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 7
 			audio_label_f1 = SOUND_FIN1_GJ	//Remember, we’re uniting the Families, so no bullshit.
 			$input_text_f1 = FIN1_GJ	//Remember, we’re uniting the Families, so no bullshit.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 8
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 8
 			audio_label_f1 = SOUND_FIN1_GK	//Stay cool.
 			$input_text_f1 = FIN1_GK	//Stay cool.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 9
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 9
 			audio_label_f1 = SOUND_FIN1_GL	//You know me, Sweet, cool as a Shaolin monk!
 			$input_text_f1 = FIN1_GL	//You know me, Sweet, cool as a Shaolin monk!
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 10
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 10
 			audio_label_f1 = SOUND_FIN1_GM	//Especially you, Ryder.
 			$input_text_f1 = FIN1_GM	//Especially you, Ryder.
-			speaker_f1 = sweet
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 11
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 11
 			audio_label_f1 = SOUND_FIN1_GN	//What you mean? I resent your implication, and shit.
 			$input_text_f1 = FIN1_GN	//What you mean? I resent your implication, and shit.
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 12
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 12
 			audio_label_f1 = SOUND_FIN1_GO	//Sweet’s just sayin’ you’re a natural killa.
 			$input_text_f1 = FIN1_GO	//Sweet’s just sayin’ you’re a natural killa.
-			speaker_f1 = big_smoke
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 13
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 13
 			audio_label_f1 = SOUND_FIN1_GP	//You gotta tame that tiger and stay cool.
 			$input_text_f1 = FIN1_GP	//You gotta tame that tiger and stay cool.
-			speaker_f1 = big_smoke
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 14
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 14
 			audio_label_f1 = SOUND_FIN1_GQ	//Yeah, well put it like this – I understand what he’s trying to say,
 			$input_text_f1 = FIN1_GQ	//Yeah, well put it like this – I understand what he’s trying to say,
-			speaker_f1 = ryder		
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 15
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 15
 			audio_label_f1 = SOUND_FIN1_GR	//but I’m always cool, fool!
 			$input_text_f1 = FIN1_GR	//but I’m always cool, fool!
-			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 16
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 16
 			audio_label_f1 = SOUND_FIN1_GS	//Hey we all down with that, dog.
 			$input_text_f1 = FIN1_GS	//Hey we all down with that, dog.
-			speaker_f1 = big_smoke
+		BREAK
+		ENDSWITCH
+
+		SWITCH progressaudio_f1flag
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 6
+		CASE 7
+		CASE 8
+		CASE 9
+		CASE 10
+		CASE 11
+		CASE 12
+		CASE 13
+		CASE 14
+		CASE 15
+		CASE 16
 			GOSUB load_audio_f1
-		ENDIF
+		BREAK
+		ENDSWITCH
+
+		// FIXEDGROVE: assigned speakers
+		SWITCH progressaudio_f1flag
+			CASE 1
+			CASE 4
+				speaker_f1 = scplayer
+			BREAK
+
+			CASE 2
+			CASE 7
+			CASE 8
+			CASE 10
+				speaker_f1 = sweet
+			BREAK
+
+			CASE 0
+			CASE 3
+			CASE 5
+			CASE 9
+			CASE 11
+			CASE 14
+			CASE 15
+				speaker_f1 = ryder
+			BREAK
+
+			CASE 6
+			CASE 12
+			CASE 13
+			CASE 16
+				speaker_f1 = big_smoke
+			BREAK
+		ENDSWITCH
 	ENDIF
 
 ENDIF
@@ -952,9 +861,9 @@ ENDIF
 //player comes in from the right side of the camera
 IF moteldeal_f1flag = 1
 	IF NOT IS_CHAR_DEAD sweet
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CAR_DEAD sweet_car
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CAR_DEAD sweet_car
 					IF IS_CHAR_SITTING_IN_CAR scplayer sweet_car
 						IF LOCATE_CAR_2D sweet_car 2256.239 -1146.909 4.4 4.4 TRUE
 							CLEAR_MISSION_AUDIO 1
@@ -962,7 +871,6 @@ IF moteldeal_f1flag = 1
 							SET_PLAYER_CONTROL PLAYER1 OFF
 							SET_MAX_WANTED_LEVEL 0
 							CLEAR_WANTED_LEVEL PLAYER1
-							CLEAR_AREA 2223.769 -1141.832 200.0 200.0 TRUE
 							SET_CAR_DENSITY_MULTIPLIER 0.0
 							SET_PED_DENSITY_MULTIPLIER 0.0
 							SET_WANTED_MULTIPLIER 0.0
@@ -970,9 +878,6 @@ IF moteldeal_f1flag = 1
 							moteldeal_f1flag = 2 //player comes in from the right
 						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -988,7 +893,7 @@ IF moteldeal_f1flag = 2
 			WAIT 0
 		ENDWHILE
 
-		CLEAR_AREA 2223.971 -1149.75 200.0 200.0 FALSE
+		CLEAR_AREA 2223.971 -1141.832 200.0 200.0 TRUE // FIXEDGROVE: combined with the clear in the above block 
 		SWITCH_WIDESCREEN ON
 
 		CLEAR_MISSION_AUDIO 1
@@ -1012,34 +917,29 @@ IF moteldeal_f1flag = 2
 		ENDWHILE
 
 
-		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2220.3696 -1160.3181 24.7265 grove1_f1
-		SET_ANIM_GROUP_FOR_CHAR grove1_f1 gang2 // FIXEDGROVE: set intended animation group
-		SET_CHAR_HEADING grove1_f1 272.7973 //leaning against middle car
-		TASK_PLAY_ANIM grove1_f1 IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
-		START_CHAR_FACIAL_TALK grove1_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
-		SET_CHAR_DECISION_MAKER grove1_f1 motel_DM
-		SET_CHAR_NEVER_TARGETTED grove1_f1 TRUE
+		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2220.3696 -1160.3181 24.7265 grove_f1[0]
+		SET_ANIM_GROUP_FOR_CHAR grove_f1[0] gang2 // FIXEDGROVE: set intended animation group
+		SET_CHAR_HEADING grove_f1[0] 272.7973 //leaning against middle car
+		l1f1_count = 0
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
 		WAIT 250
-		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.5642 -1160.3588 24.7265 grove2_f1
-		SET_ANIM_GROUP_FOR_CHAR grove2_f1 gang1 // FIXEDGROVE: set intended animation group
-		SET_CHAR_HEADING grove2_f1 85.7682 //opposite that guy
-		TASK_PLAY_ANIM grove2_f1 IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
-		START_CHAR_FACIAL_TALK grove2_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
-		SET_CHAR_DECISION_MAKER grove2_f1 motel_DM
-		SET_CHAR_NEVER_TARGETTED grove2_f1 TRUE
-		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove3_f1
-		SET_ANIM_GROUP_FOR_CHAR grove3_f1 gang1 // FIXEDGROVE: set intended animation group
-		SET_CHAR_HEADING grove3_f1 359.1032 //leaning against the left car
-		START_CHAR_FACIAL_TALK grove3_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
-		SET_CHAR_DECISION_MAKER grove3_f1 motel_DM
-		SET_CHAR_NEVER_TARGETTED grove3_f1 TRUE
-		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2226.3889 -1171.6877 24.7265 grove4_f1
-		SET_ANIM_GROUP_FOR_CHAR grove4_f1 gang2 // FIXEDGROVE: set intended animation group
-		SET_CHAR_HEADING grove4_f1 278.7767 //next to him
-		START_CHAR_FACIAL_TALK grove4_f1 7000 // FIXEDGROVE: add facial talk anim to grove member
-		TASK_PLAY_ANIM grove4_f1 IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
-		SET_CHAR_DECISION_MAKER grove4_f1 motel_DM
-		SET_CHAR_NEVER_TARGETTED grove4_f1 TRUE
+		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.5642 -1160.3588 24.7265 grove_f1[1]
+		SET_ANIM_GROUP_FOR_CHAR grove_f1[1] gang1 // FIXEDGROVE: set intended animation group
+		SET_CHAR_HEADING grove_f1[1] 85.7682 //opposite that guy
+		l1f1_count = 1
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
+		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove_f1[2]
+		SET_ANIM_GROUP_FOR_CHAR grove_f1[2] gang1 // FIXEDGROVE: set intended animation group
+		SET_CHAR_HEADING grove_f1[2] 359.1032 //leaning against the left car
+		l1f1_special_flag = TRUE
+		l1f1_count = 2
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
+		l1f1_special_flag = FALSE
+		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2226.3889 -1171.6877 24.7265 grove_f1[3]
+		SET_ANIM_GROUP_FOR_CHAR grove_f1[3] gang2 // FIXEDGROVE: set intended animation group
+		SET_CHAR_HEADING grove_f1[3] 278.7767 //next to him
+		l1f1_count = 3
+		GOSUB l1f1_outside_grove_setup // FIXEDGROVE: moved setup code to gosub
 
 		LOAD_SCENE_IN_DIRECTION 2236.1460 -1146.3591 25.4346 34.0
 				
@@ -1093,11 +993,11 @@ ENDIF
 IF moteldeal_f1flag = 4
 	IF TIMERA > 2750
 		IF NOT IS_CAR_DEAD sweet_car
-			IF NOT IS_CHAR_DEAD sweet
-				IF NOT IS_CHAR_DEAD ryder
-					IF NOT IS_CHAR_DEAD big_smoke
+		AND NOT IS_CHAR_DEAD sweet
+		AND NOT IS_CHAR_DEAD ryder
+		AND NOT IS_CHAR_DEAD big_smoke
 						IF HAS_MISSION_AUDIO_LOADED 1	
-							IF HAS_MISSION_AUDIO_LOADED 2
+						AND HAS_MISSION_AUDIO_LOADED 2
 
 								IF IS_PLAYBACK_GOING_ON_FOR_CAR sweet_car
 									STOP_PLAYBACK_RECORDED_CAR sweet_car
@@ -1139,11 +1039,7 @@ IF moteldeal_f1flag = 4
 								CLEAR_MISSION_AUDIO 2
 								STOP_CHAR_FACIAL_TALK scplayer
 								moteldeal_f1flag = 5
-							ENDIF
 						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -1172,25 +1068,22 @@ ENDIF
 //sweet leaves the car
 IF moteldeal_f1flag = 6
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD sweet
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
 					IF IS_CHAR_IN_CAR sweet sweet_car //IF IS_CHAR_SITTING_IN_CAR sweet sweet_car 
 						TASK_LEAVE_CAR sweet sweet_car
 						moteldeal_f1flag = 7
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 //sweet walks up the stairs
 IF moteldeal_f1flag = 7
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD sweet
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
 					IF NOT IS_CHAR_SITTING_IN_CAR sweet sweet_car
 						SET_NEAR_CLIP 0.2
 						SET_FIXED_CAMERA_POSITION 2223.6252 -1146.9951 26.1711 0.0 0.0 0.0
@@ -1203,16 +1096,13 @@ IF moteldeal_f1flag = 7
 						TIMERA = 0
 						moteldeal_f1flag = 8
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 IF moteldeal_f1flag = 8
 	IF NOT IS_CHAR_DEAD sweet
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
 				IF LOCATE_CHAR_ON_FOOT_2D sweet 2233.75 -1159.83 2.8 2.8 FALSE //1.0 1.0
 					moteldeal_f1flag = 9
 				ELSE
@@ -1220,8 +1110,6 @@ IF moteldeal_f1flag = 8
 						SET_CHAR_COORDINATES sweet 2233.75 -1159.83 25.29 
 					ENDIF
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF 
 
@@ -1229,7 +1117,7 @@ ENDIF
 //in car chat
 IF moteldeal_f1flag = 9
 	IF NOT IS_CHAR_DEAD ryder
-		IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD big_smoke
 			IF HAS_MISSION_AUDIO_LOADED 1
 				SET_NEAR_CLIP 0.1
 				SET_FIXED_CAMERA_POSITION 2225.0601 -1148.1921 26.0902 0.0 0.0 0.0
@@ -1257,14 +1145,13 @@ IF moteldeal_f1flag = 9
 				TIMERA = 0
 				moteldeal_f1flag = 10
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 //in car chat
 IF moteldeal_f1flag = 10
 	IF NOT IS_CHAR_DEAD ryder
-		IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD big_smoke
 			IF HAS_MISSION_AUDIO_LOADED 2
 				SET_FIXED_CAMERA_POSITION 2224.3921 -1148.6056 25.9857 0.0 0.0 0.0
 				POINT_CAMERA_AT_POINT 2224.3960 -1149.6051 25.955 JUMP_CUT
@@ -1282,14 +1169,13 @@ IF moteldeal_f1flag = 10
 				LOAD_MISSION_AUDIO 2 SOUND_FIN1_HH	//This is the Los Santos Police Department; Everybody stay where you are!
 				moteldeal_f1flag = 11
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 //in car chat
 IF moteldeal_f1flag = 11
 	IF NOT IS_CHAR_DEAD ryder
-		IF NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD big_smoke
 			IF HAS_MISSION_AUDIO_LOADED 1
 
 				PLAY_MISSION_AUDIO 1
@@ -1299,16 +1185,13 @@ IF moteldeal_f1flag = 11
 				ENDIF
 
 				CREATE_CAR POLMAV 2227.0295 -1130.199 25.305 extpoliceheli_f1
+				CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION4 SWAT exthelidriver_f1
+				SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
+				GOSUB l1f1_outside_heli_setup // FIXEDGROVE: moved setup code to gosub
 				START_PLAYBACK_RECORDED_CAR extpoliceheli_f1 352
 				IF IS_PLAYBACK_GOING_ON_FOR_CAR extpoliceheli_f1
 					PAUSE_PLAYBACK_RECORDED_CAR extpoliceheli_f1
 				ENDIF
-				CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION4 SWAT exthelidriver_f1
-				SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-				LOCK_CAR_DOORS extpoliceheli_f1 CARLOCK_LOCKED
-				SET_CHAR_CANT_BE_DRAGGED_OUT exthelidriver_f1 TRUE
-				SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
-				SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
 
 				WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
 					WAIT 0
@@ -1322,7 +1205,6 @@ IF moteldeal_f1flag = 11
 
 				moteldeal_f1flag = 12
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -1375,11 +1257,11 @@ IF moteldeal_f1flag = 14
 				POINT_CAMERA_AT_POINT 2226.5945 -1145.4496 25.4594 JUMP_CUT
 				START_PLAYBACK_RECORDED_CAR extpoliceheli_f1 353 ///////////////////////354
 				//
-				IF NOT IS_CHAR_DEAD grove3_f1
-					TASK_GO_STRAIGHT_TO_COORD grove3_f1 2219.71 -1178.52 25.34 PEDMOVE_RUN -1
+				IF NOT IS_CHAR_DEAD grove_f1[2]
+					TASK_GO_STRAIGHT_TO_COORD grove_f1[2] 2219.71 -1178.52 25.34 PEDMOVE_RUN -1
 				ENDIF
-				IF NOT IS_CHAR_DEAD grove4_f1
-					TASK_GO_STRAIGHT_TO_COORD grove4_f1 2206.65 -1172.63 25.08 PEDMOVE_RUN -1
+				IF NOT IS_CHAR_DEAD grove_f1[3]
+					TASK_GO_STRAIGHT_TO_COORD grove_f1[3] 2206.65 -1172.63 25.08 PEDMOVE_RUN -1
 				ENDIF
 
 				//
@@ -1392,7 +1274,7 @@ ENDIF
 
 IF moteldeal_f1flag = 15
 	IF NOT IS_CAR_DEAD extpoliceheli_f1
-		IF NOT IS_CAR_DEAD sweet_car
+	AND NOT IS_CAR_DEAD sweet_car
 			IF IS_CHAR_IN_ANY_CAR scplayer
 				IF TIMERA > 2000
 					IF HAS_MISSION_AUDIO_LOADED 1
@@ -1412,55 +1294,54 @@ IF moteldeal_f1flag = 15
 					ENDIF
 				ENDIF
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 IF moteldeal_f1flag = 16
 	IF TIMERA > 2000
 		IF HAS_MISSION_AUDIO_FINISHED 1
-			IF HAS_MISSION_AUDIO_LOADED 2
+		AND HAS_MISSION_AUDIO_LOADED 2
 				CLEAR_PRINTS
 				CLEAR_MISSION_AUDIO 1
 				//
-				IF NOT IS_CHAR_DEAD grove3_f1
-					TASK_GO_STRAIGHT_TO_COORD grove3_f1 2203.25 -1178.87 25.44 PEDMOVE_RUN -1
+				IF NOT IS_CHAR_DEAD grove_f1[2]
+					TASK_GO_STRAIGHT_TO_COORD grove_f1[2] 2203.25 -1178.87 25.44 PEDMOVE_RUN -1
 				ENDIF
-				IF NOT IS_CHAR_DEAD grove4_f1
-					TASK_GO_STRAIGHT_TO_COORD grove4_f1 2204.15 -1153.74 25.58 PEDMOVE_RUN -1
+				IF NOT IS_CHAR_DEAD grove_f1[3]
+					TASK_GO_STRAIGHT_TO_COORD grove_f1[3] 2204.15 -1153.74 25.58 PEDMOVE_RUN -1
 				ENDIF
 				//
 				SET_FIXED_CAMERA_POSITION 2224.0667 -1162.7069 40.9275 0.0 0.0 0.0
 				POINT_CAMERA_AT_POINT 2223.8423 -1163.2263 40.1030 JUMP_CUT
 				SET_TIME_SCALE 0.5
-				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2223.56 -1168.05 32.28 swatrope1_f1 //front left 2223.98 -1167.86 32.39
-				GIVE_WEAPON_TO_CHAR swatrope1_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_ACCURACY swatrope1_f1 30
+				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2223.56 -1168.05 32.28 swatrope_f1[0] //front left 2223.98 -1167.86 32.39
+				GIVE_WEAPON_TO_CHAR swatrope_f1[0] WEAPONTYPE_MP5 9999
+				SET_CHAR_ACCURACY swatrope_f1[0] 30
 				PLAY_MISSION_AUDIO 2 
 				PRINT_NOW FIN1_CI 3000 1 //All units Rock’n’roll
 				LOAD_MISSION_AUDIO 1 SOUND_FIN1_HJ	//Man, what you doin’?
 				WAIT 100
-				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2222.63 -1166.01 32.25 swatrope2_f1	//rear left
-				GIVE_WEAPON_TO_CHAR swatrope2_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_ACCURACY swatrope2_f1 30
+				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2222.63 -1166.01 32.25 swatrope_f1[1]	//rear left
+				GIVE_WEAPON_TO_CHAR swatrope_f1[1] WEAPONTYPE_MP5 9999
+				SET_CHAR_ACCURACY swatrope_f1[1] 30
 				WAIT 50
-				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2221.58 -1168.9 32.27 swatrope3_f1	//front right
-				GIVE_WEAPON_TO_CHAR swatrope3_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_ACCURACY swatrope3_f1 30
+				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2221.58 -1168.9 32.27 swatrope_f1[2]	//front right
+				GIVE_WEAPON_TO_CHAR swatrope_f1[2] WEAPONTYPE_MP5 9999
+				SET_CHAR_ACCURACY swatrope_f1[2] 30
 				WAIT 100
-				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2220.74 -1167.28 32.22 swatrope4_f1	//rear right
-				GIVE_WEAPON_TO_CHAR swatrope4_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_ACCURACY swatrope4_f1 30
+				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2220.74 -1167.28 32.22 swatrope_f1[3]	//rear right
+				GIVE_WEAPON_TO_CHAR swatrope_f1[3] WEAPONTYPE_MP5 9999
+				SET_CHAR_ACCURACY swatrope_f1[3] 30
 				WAIT 500
 
-				IF NOT IS_CHAR_DEAD grove3_f1
-					GIVE_WEAPON_TO_CHAR grove3_f1 WEAPONTYPE_PISTOL 9999
-					TASK_DUCK grove3_f1 10000
+				IF NOT IS_CHAR_DEAD grove_f1[2]
+					GIVE_WEAPON_TO_CHAR grove_f1[2] WEAPONTYPE_PISTOL 9999
+					TASK_DUCK grove_f1[2] 10000
 				ENDIF
 
-				IF NOT IS_CHAR_DEAD grove4_f1
-					GIVE_WEAPON_TO_CHAR grove4_f1 WEAPONTYPE_PISTOL 9999
-					TASK_GO_STRAIGHT_TO_COORD grove4_f1 2221.179 -1177.662 25.767 PEDMOVE_RUN 5000
+				IF NOT IS_CHAR_DEAD grove_f1[3]
+					GIVE_WEAPON_TO_CHAR grove_f1[3] WEAPONTYPE_PISTOL 9999
+					TASK_GO_STRAIGHT_TO_COORD grove_f1[3] 2221.179 -1177.662 25.767 PEDMOVE_RUN 5000
 				ENDIF
 
 				SET_FIXED_CAMERA_POSITION 2222.3960 -1165.5629 24.9959 0.0 0.0 0.0
@@ -1472,7 +1353,6 @@ IF moteldeal_f1flag = 16
 				TIMERA = 0
 				moteldeal_f1flag = 17
 
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -1481,7 +1361,7 @@ ENDIF
 IF moteldeal_f1flag = 17
 	IF TIMERA > 1500 //1600
 		IF HAS_MISSION_AUDIO_FINISHED 2
-			IF HAS_MISSION_AUDIO_LOADED 1
+		AND HAS_MISSION_AUDIO_LOADED 1
 				CLEAR_MISSION_AUDIO 2
 				CLEAR_PRINTS
 				LOAD_MISSION_AUDIO 2 SOUND_FIN1_HK	//Get back in, Carl, we’re out of here!
@@ -1526,70 +1406,63 @@ IF moteldeal_f1flag = 17
 				LOAD_MISSION_AUDIO 2 SOUND_FIN1_HM //Man, it’s every motherfucker for himself!
 				
 				moteldeal_f1flag = 18
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
 
 IF moteldeal_f1flag = 18
-	IF NOT IS_CHAR_DEAD swatrope1_f1
-		IF NOT IS_CHAR_DEAD swatrope2_f1
-			IF NOT IS_CHAR_DEAD swatrope3_f1
-				IF NOT IS_CHAR_DEAD swatrope4_f1
+	IF NOT IS_CHAR_DEAD swatrope_f1[0]
+	AND NOT IS_CHAR_DEAD swatrope_f1[1]
+	AND NOT IS_CHAR_DEAD swatrope_f1[2]
+	AND NOT IS_CHAR_DEAD swatrope_f1[3]
 					
-					IF swatrope1_f1flag = 0
-						GET_SCRIPT_TASK_STATUS swatrope1_f1 CREATE_SWAT_ROPE swatrope1_f1status
-							IF swatrope1_f1status = FINISHED_TASK
-								TASK_GO_STRAIGHT_TO_COORD swatrope1_f1 2226.43 -1155.37 25.33 PEDMOVE_RUN 5000
-								swatrope1_f1flag = 1
+					IF swatrope_f1flag[0] = 0
+						GET_SCRIPT_TASK_STATUS swatrope_f1[0] CREATE_SWAT_ROPE swatrope_f1status[0]
+							IF swatrope_f1status[0] = FINISHED_TASK
+								TASK_GO_STRAIGHT_TO_COORD swatrope_f1[0] 2226.43 -1155.37 25.33 PEDMOVE_RUN 5000
+								swatrope_f1flag[0] = 1
 							ENDIF
 					ENDIF
 
-					IF swatrope2_f1flag = 0
-						GET_SCRIPT_TASK_STATUS swatrope2_f1 CREATE_SWAT_ROPE swatrope2_f1status
-							IF swatrope2_f1status = FINISHED_TASK
-								TASK_GO_STRAIGHT_TO_COORD swatrope2_f1 2230.52 -1165.15 25.63 PEDMOVE_RUN 5000
-								swatrope2_f1flag = 1
+					IF swatrope_f1flag[1] = 0
+						GET_SCRIPT_TASK_STATUS swatrope_f1[1] CREATE_SWAT_ROPE swatrope_f1status[1]
+							IF swatrope_f1status[1] = FINISHED_TASK
+								TASK_GO_STRAIGHT_TO_COORD swatrope_f1[1] 2230.52 -1165.15 25.63 PEDMOVE_RUN 5000
+								swatrope_f1flag[1] = 1
 							ENDIF
 					ENDIF
 
-					IF swatrope3_f1flag = 0
-						GET_SCRIPT_TASK_STATUS swatrope3_f1 CREATE_SWAT_ROPE swatrope3_f1status
-							IF swatrope3_f1status = FINISHED_TASK
-								TASK_GO_STRAIGHT_TO_COORD swatrope3_f1 2217.53 -1163.18 25.27 PEDMOVE_RUN 5000
-								swatrope3_f1flag = 1
+					IF swatrope_f1flag[2] = 0
+						GET_SCRIPT_TASK_STATUS swatrope_f1[2] CREATE_SWAT_ROPE swatrope_f1status[2]
+							IF swatrope_f1status[2] = FINISHED_TASK
+								TASK_GO_STRAIGHT_TO_COORD swatrope_f1[2] 2217.53 -1163.18 25.27 PEDMOVE_RUN 5000
+								swatrope_f1flag[2] = 1
 							ENDIF
 					ENDIF
 					
-					IF swatrope4_f1flag = 0
-						GET_SCRIPT_TASK_STATUS swatrope4_f1 CREATE_SWAT_ROPE swatrope4_f1status
-							IF swatrope4_f1status = FINISHED_TASK
-								TASK_GO_STRAIGHT_TO_COORD swatrope4_f1 2226.25 -1167.00 25.04 PEDMOVE_RUN 5000
-								swatrope4_f1flag = 1
+					IF swatrope_f1flag[3] = 0
+						GET_SCRIPT_TASK_STATUS swatrope_f1[3] CREATE_SWAT_ROPE swatrope_f1status[3]
+							IF swatrope_f1status[3] = FINISHED_TASK
+								TASK_GO_STRAIGHT_TO_COORD swatrope_f1[3] 2226.25 -1167.00 25.04 PEDMOVE_RUN 5000
+								swatrope_f1flag[3] = 1
 						 	ENDIF
 					ENDIF
 
-					IF swatrope1_f1status = FINISHED_TASK
-						IF swatrope2_f1status = FINISHED_TASK
-							IF swatrope3_f1status = FINISHED_TASK
-								IF swatrope4_f1status = FINISHED_TASK				 
+					IF swatrope_f1status[0] = FINISHED_TASK
+					AND swatrope_f1status[1] = FINISHED_TASK
+					AND swatrope_f1status[2] = FINISHED_TASK
+					AND swatrope_f1status[3] = FINISHED_TASK				 
 									moteldeal_f1flag = 21
-								ENDIF
-							ENDIF
-						ENDIF
 					ENDIF
 
 					IF TIMERA > 3000
-					  	TASK_GO_STRAIGHT_TO_COORD swatrope1_f1 2226.43 -1155.37 25.33 PEDMOVE_RUN 5000
-					  	TASK_GO_STRAIGHT_TO_COORD swatrope2_f1 2230.52 -1165.15 25.63 PEDMOVE_RUN 5000
-					  	TASK_GO_STRAIGHT_TO_COORD swatrope3_f1 2217.53 -1163.18 25.27 PEDMOVE_RUN 5000
-					  	TASK_GO_STRAIGHT_TO_COORD swatrope4_f1 2226.25 -1167.00 25.04 PEDMOVE_RUN 5000
+					  	TASK_GO_STRAIGHT_TO_COORD swatrope_f1[0] 2226.43 -1155.37 25.33 PEDMOVE_RUN 5000
+					  	TASK_GO_STRAIGHT_TO_COORD swatrope_f1[1] 2230.52 -1165.15 25.63 PEDMOVE_RUN 5000
+					  	TASK_GO_STRAIGHT_TO_COORD swatrope_f1[2] 2217.53 -1163.18 25.27 PEDMOVE_RUN 5000
+					  	TASK_GO_STRAIGHT_TO_COORD swatrope_f1[3] 2226.25 -1167.00 25.04 PEDMOVE_RUN 5000
 					  	moteldeal_f1flag = 19
 					ENDIF
 
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF	
 ENDIF
 
@@ -1597,10 +1470,10 @@ ENDIF
 IF moteldeal_f1flag = 19
 	IF TIMERA > 3000
 		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CAR_DEAD sweet_car
+		AND NOT IS_CHAR_DEAD ryder
+		AND NOT IS_CAR_DEAD sweet_car
 					IF HAS_MISSION_AUDIO_LOADED 1
-						IF HAS_MISSION_AUDIO_LOADED 2
+					AND HAS_MISSION_AUDIO_LOADED 2
 
 							REQUEST_CAR_RECORDING 354
 							REQUEST_CAR_RECORDING 355
@@ -1647,10 +1520,7 @@ IF moteldeal_f1flag = 19
 
 							TIMERA = 0
 							moteldeal_f1flag = 20
-						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -1665,9 +1535,9 @@ IF moteldeal_f1flag = 20
 		CREATE_CHAR_INSIDE_CAR extpolicevan1_f1	PEDTYPE_MISSION4 SWAT extvan1driver_f1
 		GIVE_WEAPON_TO_CHAR extvan1driver_f1 WEAPONTYPE_MP5 3000
 		SET_CHAR_ACCURACY extvan1driver_f1 30
-		CREATE_CHAR_AS_PASSENGER extpolicevan1_f1 PEDTYPE_MISSION4 SWAT 1 swat1_f1
-		GIVE_WEAPON_TO_CHAR swat1_f1 WEAPONTYPE_MP5 3000
-		SET_CHAR_ACCURACY swat1_f1 30
+		CREATE_CHAR_AS_PASSENGER extpolicevan1_f1 PEDTYPE_MISSION4 SWAT 1 swat_f1[0]
+		GIVE_WEAPON_TO_CHAR swat_f1[0] WEAPONTYPE_MP5 3000
+		SET_CHAR_ACCURACY swat_f1[0] 30
 
 		CREATE_CAR ENFORCER 2253.89 -1144.77 26.47 extpolicevan2_f1
 		SET_CAR_HEADING extpolicevan2_f1 89.947
@@ -1676,45 +1546,25 @@ IF moteldeal_f1flag = 20
 		CREATE_CHAR_INSIDE_CAR extpolicevan2_f1	PEDTYPE_MISSION4 SWAT extvan2driver_f1
 		SET_CHAR_ACCURACY extvan2driver_f1 30
 		GIVE_WEAPON_TO_CHAR extvan2driver_f1 WEAPONTYPE_MP5 3000
-		CREATE_CHAR_AS_PASSENGER extpolicevan2_f1 PEDTYPE_MISSION4 SWAT 1 swat3_f1
-		SET_CHAR_ACCURACY swat3_f1 30
-		GIVE_WEAPON_TO_CHAR swat3_f1 WEAPONTYPE_MP5 3000
+		CREATE_CHAR_AS_PASSENGER extpolicevan2_f1 PEDTYPE_MISSION4 SWAT 1 swat_f1[2]
+		SET_CHAR_ACCURACY swat_f1[2] 30
+		GIVE_WEAPON_TO_CHAR swat_f1[2] WEAPONTYPE_MP5 3000
 		
-		IF NOT IS_CHAR_DEAD grove1_f1
-			SET_CHAR_RELATIONSHIP grove1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove1_f1 extmotel_DM
+		l1f1_count = 0
+		WHILE l1f1_count < 4
+		IF NOT IS_CHAR_DEAD grove_f1[l1f1_count]
+			SET_CHAR_RELATIONSHIP grove_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
+			SET_CHAR_DECISION_MAKER grove_f1[l1f1_count] extmotel_DM
 		ENDIF
-		IF NOT IS_CHAR_DEAD grove2_f1
-			SET_CHAR_RELATIONSHIP grove2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove2_f1 extmotel_DM
+		IF NOT IS_CHAR_DEAD swatrope_f1[l1f1_count]
+			SET_CHAR_RELATIONSHIP swatrope_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+			IF l1f1_count < 3
+				SET_CHAR_RELATIONSHIP swatrope_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+			ENDIF
+			SET_CHAR_DECISION_MAKER swatrope_f1[l1f1_count] extmotel_DM
 		ENDIF
-		IF NOT IS_CHAR_DEAD grove3_f1
-			SET_CHAR_RELATIONSHIP grove3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove3_f1 extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD grove4_f1
-			SET_CHAR_RELATIONSHIP grove4_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove4_f1 extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope1_f1
-			SET_CHAR_RELATIONSHIP swatrope1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope1_f1 extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope2_f1
-			SET_CHAR_RELATIONSHIP swatrope2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope2_f1 extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope3_f1
-			SET_CHAR_RELATIONSHIP swatrope3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope3_f1 extmotel_DM
-		ENDIF
-		IF NOT IS_CHAR_DEAD swatrope4_f1
-			SET_CHAR_RELATIONSHIP swatrope4_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_DECISION_MAKER swatrope4_f1 extmotel_DM
-		ENDIF
+		l1f1_count++
+		ENDWHILE
 
 		SET_FIXED_CAMERA_POSITION 2203.1633 -1178.8915 31.8778 0.0 0.0 0.0
 		POINT_CAMERA_AT_POINT 2203.8975 -1178.2249 31.7493 JUMP_CUT
@@ -1722,14 +1572,14 @@ IF moteldeal_f1flag = 20
 		TASK_TOGGLE_DUCK scplayer TRUE
 		TASK_GO_STRAIGHT_TO_COORD scplayer 2231.569 -1155.75 25.85 PEDMOVE_WALK -1
 
-		IF NOT IS_CHAR_DEAD grove1_f1
-			GIVE_WEAPON_TO_CHAR grove1_f1 WEAPONTYPE_PISTOL 9999
-			TASK_GO_STRAIGHT_TO_COORD grove1_f1 2228.421 -1164.66 25.766 PEDMOVE_RUN 5000
+		IF NOT IS_CHAR_DEAD grove_f1[0]
+			GIVE_WEAPON_TO_CHAR grove_f1[0] WEAPONTYPE_PISTOL 9999
+			TASK_GO_STRAIGHT_TO_COORD grove_f1[0] 2228.421 -1164.66 25.766 PEDMOVE_RUN 5000
 		ENDIF
 
-		IF NOT IS_CHAR_DEAD grove2_f1
-			GIVE_WEAPON_TO_CHAR grove2_f1 WEAPONTYPE_PISTOL 9999
-			TASK_GO_STRAIGHT_TO_COORD grove2_f1 2221.47 -1164.66 25.766 PEDMOVE_RUN 5000
+		IF NOT IS_CHAR_DEAD grove_f1[1]
+			GIVE_WEAPON_TO_CHAR grove_f1[1] WEAPONTYPE_PISTOL 9999
+			TASK_GO_STRAIGHT_TO_COORD grove_f1[1] 2221.47 -1164.66 25.766 PEDMOVE_RUN 5000
 		ENDIF
 
 		TIMERB = 0
@@ -1742,9 +1592,9 @@ IF moteldeal_f1flag = 21
 	IF NOT IS_CAR_DEAD extpolicevan1_f1
 		IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR extpolicevan1_f1
 			
-			IF NOT IS_CHAR_DEAD swat1_f1
-				IF IS_CHAR_IN_CAR swat1_f1 extpolicevan1_f1
-					TASK_LEAVE_CAR swat1_f1 extpolicevan1_f1
+			IF NOT IS_CHAR_DEAD swat_f1[0]
+				IF IS_CHAR_IN_CAR swat_f1[0] extpolicevan1_f1
+					TASK_LEAVE_CAR swat_f1[0] extpolicevan1_f1
 				ENDIF
 			ENDIF
 
@@ -1762,9 +1612,9 @@ IF moteldeal_f1flag = 22
 	IF NOT IS_CAR_DEAD extpolicevan2_f1
 		IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR extpolicevan2_f1
 
-			IF NOT IS_CHAR_DEAD swat3_f1
-				IF IS_CHAR_IN_CAR swat3_f1 extpolicevan2_f1
-					TASK_LEAVE_CAR swat3_f1 extpolicevan2_f1
+			IF NOT IS_CHAR_DEAD swat_f1[2]
+				IF IS_CHAR_IN_CAR swat_f1[2] extpolicevan2_f1
+					TASK_LEAVE_CAR swat_f1[2] extpolicevan2_f1
 				ENDIF
 			ENDIF
 
@@ -1783,13 +1633,13 @@ IF moteldeal_f1flag = 22
 				SET_CHAR_RELATIONSHIP extvan2driver_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
 				SET_CHAR_DECISION_MAKER extvan2driver_f1 extmotel_DM
 			ENDIF
-			IF NOT IS_CHAR_DEAD swat1_f1
-				SET_CHAR_RELATIONSHIP swat1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-				SET_CHAR_DECISION_MAKER swat1_f1 extmotel_DM
+			IF NOT IS_CHAR_DEAD swat_f1[0]
+				SET_CHAR_RELATIONSHIP swat_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+				SET_CHAR_DECISION_MAKER swat_f1[0] extmotel_DM
 			ENDIF
-			IF NOT IS_CHAR_DEAD swat3_f1
-				SET_CHAR_RELATIONSHIP swat3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-				SET_CHAR_DECISION_MAKER swat3_f1 extmotel_DM
+			IF NOT IS_CHAR_DEAD swat_f1[2]
+				SET_CHAR_RELATIONSHIP swat_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+				SET_CHAR_DECISION_MAKER swat_f1[2] extmotel_DM
 			ENDIF
 			SET_CHAR_HEADING scplayer 150.0
 			TIMERA = 0
@@ -1810,11 +1660,11 @@ IF moteldeal_f1flag = 23
 		ENDIF
 	ENDIF
 
-	IF swat1_f1flag = 0
-		IF NOT IS_CHAR_DEAD swat1_f1
-			IF NOT IS_CHAR_IN_ANY_CAR swat1_f1
-				TASK_GO_STRAIGHT_TO_COORD swat1_f1 2203.77 -1156.44 25.31 PEDMOVE_RUN 5000
-				swat1_f1flag = 1
+	IF swat_f1flag[0] = 0
+		IF NOT IS_CHAR_DEAD swat_f1[0]
+			IF NOT IS_CHAR_IN_ANY_CAR swat_f1[0]
+				TASK_GO_STRAIGHT_TO_COORD swat_f1[0] 2203.77 -1156.44 25.31 PEDMOVE_RUN 5000
+				swat_f1flag[0] = 1
 			ENDIF
 		ENDIF
 	ENDIF
@@ -1833,17 +1683,17 @@ IF moteldeal_f1flag = 23
 		ENDIF
 	ENDIF
 
-	IF swat3_f1flag = 0
-		IF NOT IS_CHAR_DEAD swat3_f1
-			IF NOT IS_CHAR_IN_ANY_CAR swat3_f1
+	IF swat_f1flag[2] = 0
+		IF NOT IS_CHAR_DEAD swat_f1[2]
+			IF NOT IS_CHAR_IN_ANY_CAR swat_f1[2]
 				FLUSH_ROUTE
 				EXTEND_ROUTE 2222.47 -1146.52 25.43
 				EXTEND_ROUTE 2215.4 -1146.19 25.85
 				EXTEND_ROUTE 2204.83 -1157.04 25.88
 				EXTEND_ROUTE 2206.61 -1168.51 25.89
 				EXTEND_ROUTE 2211.00 -1171.72 25.55
-				TASK_FOLLOW_POINT_ROUTE swat3_f1 PEDMOVE_RUN FOLLOW_ROUTE_ONCE
-				swat3_f1flag = 1
+				TASK_FOLLOW_POINT_ROUTE swat_f1[2] PEDMOVE_RUN FOLLOW_ROUTE_ONCE
+				swat_f1flag[2] = 1
 			ENDIF
 		ENDIF
 	ENDIF
@@ -1916,20 +1766,20 @@ IF moteldeal_f1flag = 23
 			DELETE_CHAR exthelidriver_f1
 			DELETE_CHAR extvan1driver_f1
 			DELETE_CHAR extvan2driver_f1
-			DELETE_CHAR swatrope1_f1
-			DELETE_CHAR swatrope2_f1
-			DELETE_CHAR swatrope3_f1
-			DELETE_CHAR swatrope4_f1
-			DELETE_CHAR swat1_f1
-//			DELETE_CHAR swat2_f1
-			DELETE_CHAR swat3_f1
-//			DELETE_CHAR swat4_f1			
-			DELETE_CHAR grove1_f1
-			DELETE_CHAR grove2_f1
-			DELETE_CHAR grove3_f1
-			DELETE_CHAR grove4_f1
-//			DELETE_CHAR grove5_f1
-//			DELETE_CHAR grove6_f1
+			DELETE_CHAR swatrope_f1[0]
+			DELETE_CHAR swatrope_f1[1]
+			DELETE_CHAR swatrope_f1[2]
+			DELETE_CHAR swatrope_f1[3]
+			DELETE_CHAR swat_f1[0]
+//			DELETE_CHAR swat_f1[1]
+			DELETE_CHAR swat_f1[2]
+//			DELETE_CHAR swat_f1[3]			
+			DELETE_CHAR grove_f1[0]
+			DELETE_CHAR grove_f1[1]
+			DELETE_CHAR grove_f1[2]
+			DELETE_CHAR grove_f1[3]
+//			DELETE_CHAR grove_f1[4]
+//			DELETE_CHAR grove_f1[5]
 
 			IF NOT IS_CAR_DEAD extpoliceheli_f1
 				IF IS_PLAYBACK_GOING_ON_FOR_CAR extpoliceheli_f1
@@ -1973,11 +1823,7 @@ IF moteldeal_f1flag = 23
 
 			CREATE_CAR POLMAV 2276.22 -1140.87 60.0 extpoliceheli_f1
 			CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION4 SWAT exthelidriver_f1
-			SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-			SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-			LOCK_CAR_DOORS extpoliceheli_f1 CARLOCK_LOCKED
-			SET_CHAR_CANT_BE_DRAGGED_OUT exthelidriver_f1 TRUE
-			SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
+			GOSUB l1f1_outside_heli_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 			SET_CAR_FORWARD_SPEED extpoliceheli_f1 10.0
 			HELI_GOTO_COORDS extpoliceheli_f1 2217.58 -1167.67 34.61 10.0 10.0
 			SET_CAR_COORDINATES extpoliceheli_f1 2217.58 -1167.67 34.61
@@ -1986,115 +1832,63 @@ IF moteldeal_f1flag = 23
 
 			//swat 
 			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2209.01 -1166.46 24.89 extvan2driver_f1
-			GIVE_WEAPON_TO_CHAR extvan2driver_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD extvan2driver_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY extvan2driver_f1 30
-
 			CREATE_CHAR	PEDTYPE_MISSION4 SWAT 2213.52 -1161.97 24.77 extvan1driver_f1
-			GIVE_WEAPON_TO_CHAR extvan1driver_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD extvan1driver_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY extvan1driver_f1 30
-
-			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2203.77 -1156.44 24.31 swat1_f1
-			GIVE_WEAPON_TO_CHAR swat1_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD swat1_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY swat1_f1 30
-
-			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2212.95 -1179.16 24.31 swat3_f1
-			GIVE_WEAPON_TO_CHAR swat3_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD swat3_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY swat3_f1 30
- 										  
-			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2226.43 -1155.37 24.33 swatrope1_f1
-			GIVE_WEAPON_TO_CHAR swatrope1_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD swatrope1_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY swatrope1_f1 30
-
-			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2230.52 -1165.15 24.63 swatrope2_f1
-			GIVE_WEAPON_TO_CHAR swatrope2_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD swatrope2_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY swatrope2_f1 30
-
-			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2217.53 -1163.18 24.27 swatrope3_f1
-			GIVE_WEAPON_TO_CHAR swatrope3_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD swatrope3_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY swatrope3_f1 30
-
-			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2226.25 -1167.00 24.04 swatrope4_f1
-			GIVE_WEAPON_TO_CHAR swatrope4_f1 WEAPONTYPE_MP5 3000
-			TASK_TURN_CHAR_TO_FACE_COORD swatrope4_f1 2217.87 -1162.6 25.33
-			SET_CHAR_ACCURACY swatrope4_f1 30
+			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2203.77 -1156.44 24.31 swat_f1[0]
+			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2212.95 -1179.16 24.31 swat_f1[2]
+			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2226.43 -1155.37 24.33 swatrope_f1[0]
+			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2230.52 -1165.15 24.63 swatrope_f1[1]
+			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2217.53 -1163.18 24.27 swatrope_f1[2]
+			CREATE_CHAR PEDTYPE_MISSION4 SWAT 2226.25 -1167.00 24.04 swatrope_f1[3]
 
 			//groves
-			CREATE_CHAR PEDTYPE_MISSION3 FAM3 2228.421 -1164.66 24.766 grove1_f1
-			TASK_TURN_CHAR_TO_FACE_COORD grove1_f1 2217.87 -1162.6 25.33 
-			SET_CHAR_DECISION_MAKER grove1_f1 extmotel_DM
-			GIVE_WEAPON_TO_CHAR grove1_f1 WEAPONTYPE_PISTOL 9999
-			SET_CHAR_ACCURACY grove1_f1 30
-			SET_CHAR_NEVER_TARGETTED grove1_f1 TRUE
+			CREATE_CHAR PEDTYPE_MISSION3 FAM3 2228.421 -1164.66 24.766 grove_f1[0]
+			CREATE_CHAR PEDTYPE_MISSION3 FAM3 2221.47 -1164.66 24.766 grove_f1[1]
+			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove_f1[2]
+			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.179 -1177.662 24.767 grove_f1[3]
 
-			CREATE_CHAR PEDTYPE_MISSION3 FAM3 2221.47 -1164.66 24.766 grove2_f1
-			TASK_TURN_CHAR_TO_FACE_COORD grove2_f1 2217.87 -1162.6 25.33
-			SET_CHAR_DECISION_MAKER grove2_f1 extmotel_DM
-			GIVE_WEAPON_TO_CHAR grove2_f1 WEAPONTYPE_PISTOL 9999
-			SET_CHAR_ACCURACY grove2_f1 40
-			SET_CHAR_NEVER_TARGETTED grove2_f1 TRUE
+			// FIXEDGROVE: START - moved setup code to gosub
+			l1f1_char_name = extvan2driver_f1
+			GOSUB l1f1_outside_motel_swat_setup
 
-			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2227.2244 -1172.0699 24.7265 grove3_f1
-			TASK_TURN_CHAR_TO_FACE_COORD grove3_f1 2217.87 -1162.6 25.33 
-			SET_CHAR_DECISION_MAKER grove3_f1 extmotel_DM
-			GIVE_WEAPON_TO_CHAR grove3_f1 WEAPONTYPE_PISTOL 9999
-			SET_CHAR_ACCURACY grove3_f1 30
-			SET_CHAR_NEVER_TARGETTED grove3_f1 TRUE
+			l1f1_char_name = extvan1driver_f1
+			GOSUB l1f1_outside_motel_swat_setup
 
-			CREATE_CHAR PEDTYPE_MISSION3 FAM2 2221.179 -1177.662 24.767 grove4_f1
-			TASK_TURN_CHAR_TO_FACE_COORD grove4_f1 2217.87 -1162.6 25.33
-			SET_CHAR_DECISION_MAKER grove4_f1 extmotel_DM
-			GIVE_WEAPON_TO_CHAR grove4_f1 WEAPONTYPE_PISTOL 9999
-			SET_CHAR_ACCURACY grove4_f1 40
-			SET_CHAR_NEVER_TARGETTED grove4_f1 TRUE
+			l1f1_char_name = swatrope_f1[0]
+			GOSUB l1f1_outside_motel_swat_setup
 
-			SET_CHAR_RELATIONSHIP grove1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove1_f1 extmotel_DM
+			l1f1_char_name = swatrope_f1[1]
+			GOSUB l1f1_outside_motel_swat_setup
 
-			SET_CHAR_RELATIONSHIP grove2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove2_f1 extmotel_DM
+			l1f1_char_name = swatrope_f1[2]
+			GOSUB l1f1_outside_motel_swat_setup
 
-			SET_CHAR_RELATIONSHIP grove3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove3_f1 extmotel_DM
+			l1f1_char_name = swatrope_f1[3]
+			GOSUB l1f1_outside_motel_swat_setup
 
-			SET_CHAR_RELATIONSHIP grove4_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-			SET_CHAR_DECISION_MAKER grove4_f1 extmotel_DM
+			l1f1_special_flag = TRUE
+			l1f1_char_name = swat_f1[0]
+			GOSUB l1f1_outside_motel_swat_setup
 
-			SET_CHAR_RELATIONSHIP extvan1driver_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP extvan1driver_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER extvan1driver_f1 extmotel_DM
+			l1f1_char_name = swat_f1[2]
+			GOSUB l1f1_outside_motel_swat_setup
+			l1f1_special_flag = FALSE
 
-			SET_CHAR_RELATIONSHIP extvan2driver_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP extvan2driver_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER extvan2driver_f1 extmotel_DM
+			l1f1_char_name = grove_f1[0]
+			SET_CHAR_ACCURACY l1f1_char_name 30
+			GOSUB l1f1_outside_motel_grove_setup
 
-			SET_CHAR_RELATIONSHIP swatrope1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope1_f1 extmotel_DM
+			l1f1_char_name = grove_f1[1]
+			SET_CHAR_ACCURACY l1f1_char_name 40
+			GOSUB l1f1_outside_motel_grove_setup
 
-			SET_CHAR_RELATIONSHIP swatrope2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope2_f1 extmotel_DM
+			l1f1_char_name = grove_f1[2]
+			SET_CHAR_ACCURACY l1f1_char_name 30
+			GOSUB l1f1_outside_motel_grove_setup
 
-			SET_CHAR_RELATIONSHIP swatrope3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope3_f1 extmotel_DM
-
-			SET_CHAR_RELATIONSHIP swatrope4_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_RELATIONSHIP swatrope4_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_DECISION_MAKER swatrope4_f1 extmotel_DM
-
-			SET_CHAR_RELATIONSHIP swat1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_DECISION_MAKER swat1_f1 extmotel_DM
-
-			SET_CHAR_RELATIONSHIP swat3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_DECISION_MAKER swat3_f1 extmotel_DM
+			l1f1_char_name = grove_f1[3]
+			SET_CHAR_ACCURACY l1f1_char_name 40
+			GOSUB l1f1_outside_motel_grove_setup
+			// FIXEDGROVE: END
 
 			CLEAR_MISSION_AUDIO 1
 			CLEAR_MISSION_AUDIO 2
@@ -2204,52 +1998,38 @@ IF moteldeal_f1flag = 24
 		DELETE_CHAR exthelidriver_f1
 		DELETE_CHAR extvan1driver_f1
 		DELETE_CHAR extvan2driver_f1
-		DELETE_CHAR swatrope1_f1
-		DELETE_CHAR swatrope2_f1
-		DELETE_CHAR swatrope3_f1
-		DELETE_CHAR swatrope4_f1
-		DELETE_CHAR swat1_f1
-		DELETE_CHAR swat3_f1
-		DELETE_CHAR grove1_f1
-		DELETE_CHAR grove2_f1
-		DELETE_CHAR grove3_f1
-		DELETE_CHAR grove4_f1
+		DELETE_CHAR swatrope_f1[0]
+		DELETE_CHAR swatrope_f1[1]
+		DELETE_CHAR swatrope_f1[2]
+		DELETE_CHAR swatrope_f1[3]
+		DELETE_CHAR swat_f1[0]
+		DELETE_CHAR swat_f1[2]
+		DELETE_CHAR grove_f1[0]
+		DELETE_CHAR grove_f1[1]
+		DELETE_CHAR grove_f1[2]
+		DELETE_CHAR grove_f1[3]
 		DELETE_CAR extpoliceheli_f1
 		DELETE_CAR extpolicevan1_f1
 		DELETE_CAR extpolicevan2_f1
 		DELETE_SEARCHLIGHT helispotlight_f1
-		// FIXEDGROVE: START - remove global versions of objects
-		DELETE_OBJECT g_skylite
-		DELETE_OBJECT g_vent1
-		DELETE_OBJECT g_vent2
-		DELETE_OBJECT g_trolley1
-		DELETE_OBJECT g_trolley2
-		DELETE_OBJECT g_trolley3
-		DELETE_OBJECT g_trolley4
-		DELETE_OBJECT g_trolley5
-		DELETE_OBJECT g_trolley6
-		DELETE_OBJECT g_trolley7
-		// FIXEDGROVE: END
 		MARK_MODEL_AS_NO_LONGER_NEEDED GREENWOO
 		MARK_MODEL_AS_NO_LONGER_NEEDED POLMAV
 		MARK_MODEL_AS_NO_LONGER_NEEDED ENFORCER
-		swat1_f1flag = 0
-		swat2_f1flag = 0
-		swat3_f1flag = 0
-		swat4_f1flag = 0
-		swatrope1_f1flag = 0
-		swatrope1_f1flag = 0
+		swat_f1flag[0] = 0
+		swat_f1flag[1] = 0
+		swat_f1flag[2] = 0
+		swat_f1flag[3] = 0
+		swatrope_f1flag[0] = 0
+		swatrope_f1flag[1] = 0 // FIXEDGROVE: was swatrope_f1flag[0]
 		SET_PLAYER_CONTROL PLAYER1 OFF
 		REMOVE_BLIP motel_f1blip
 		REMOVE_ANIMATION CAR_CHAT
 
-		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2229.566 -1150.495 1029.0 grove1_f1 //grove guy that will fall off railings //.366
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove1_f1 2232.41 -1160.04 20.0
-		SET_CHAR_HEADING grove1_f1 86.6836
-		SET_CHAR_NEVER_TARGETTED grove1_f1 TRUE
-		SET_CHAR_DECISION_MAKER grove1_f1 motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove1_f1 motel_DM
-		SHUT_CHAR_UP grove1_f1 TRUE // FIXEDGROVE: added to stop him from speaking since he's supposed to be dead
+		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2229.566 -1150.495 1029.0 grove_f1[0] //grove guy that will fall off railings //.366
+		SET_CHAR_HEADING grove_f1[0] 86.6836
+		SHUT_CHAR_UP grove_f1[0] TRUE // FIXEDGROVE: added to stop him from speaking since he's supposed to be dead
+		l1f1_char_name = grove_f1[0]
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 
 		LOAD_MISSION_AUDIO 1 SOUND_FIN1_JC //Where the OG’s at – I gotta go get my brother, Sweet.
 		// LOAD_MISSION_AUDIO 2 SOUND_FIN1_AS //<loud explosion> Go Go Go! // FIXEDGROVE: now its handlded like every other voiceline
@@ -2304,13 +2084,11 @@ IF moteldeal_f1flag = 24
 		//sweet
 		CREATE_CHAR PEDTYPE_SPECIAL SPECIAL01 2202.23 -1156.914 1029.852 sweet
 		SET_ANIM_GROUP_FOR_CHAR sweet gang2 // FIXEDGROVE: set intended animation group
-		SET_CHAR_HAS_USED_ENTRY_EXIT sweet 2232.41 -1160.04 3.0
 		SET_CHAR_AREA_VISIBLE sweet 15
 		SET_CHAR_SUFFERS_CRITICAL_HITS sweet FALSE
 		SET_CHAR_HEADING sweet 62.083
-		SET_CHAR_NEVER_TARGETTED sweet TRUE
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER sweet TRUE
-		SET_CHAR_DECISION_MAKER sweet motel_DM
+		l1f1_char_name = sweet
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		ADD_BLIP_FOR_CHAR sweet sweet_f1blip
 		SET_BLIP_AS_FRIENDLY sweet_f1blip TRUE
 		SET_CHAR_HEALTH sweet 1000
@@ -2319,88 +2097,73 @@ IF moteldeal_f1flag = 24
 
 		//entrance
 		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2220.5242 -1137.8256 1026.7981 woundedgrove1_f1	//wounded guy that tells player where sweet is
-		SET_CHAR_HAS_USED_ENTRY_EXIT woundedgrove1_f1 2232.41 -1160.04 20.0
 		SET_CHAR_HEADING woundedgrove1_f1 181.8677
+		l1f1_char_name = woundedgrove1_f1
+		GOSUB l1f1_inside_motel_grove_setup
 		TASK_PLAY_ANIM_NON_INTERRUPTABLE woundedgrove1_f1 gnstwall_injurd SWAT 8.0 TRUE FALSE FALSE FALSE -1
 		SET_CHAR_PROOFS woundedgrove1_f1 TRUE TRUE TRUE TRUE TRUE
-		SET_CHAR_NEVER_TARGETTED woundedgrove1_f1 TRUE
-		SET_CHAR_DECISION_MAKER woundedgrove1_f1 motel_DM
 		SET_CHAR_BLEEDING woundedgrove1_f1 TRUE
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER woundedgrove1_f1 TRUE
 
 								
-		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2234.79 -1150.714 1029.0 grove2_f1 //explode this guys head as soon as created // FIXEDGROVE: centered him in the hallway
-		SET_CHAR_HEADING grove2_f1 270.0 // FIXEDGROVE: make him turn towards the swat
-		SET_CHAR_DECISION_MAKER grove2_f1 motel_DM
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove2_f1 2232.41 -1160.04 20.0
+		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2234.79 -1150.714 1029.0 grove_f1[1] //explode this guys head as soon as created // FIXEDGROVE: centered him in the hallway
+		SET_CHAR_HEADING grove_f1[1] 270.0 // FIXEDGROVE: make him turn towards the swat
+		SET_CHAR_DECISION_MAKER grove_f1[1] motel_DM
+		SET_CHAR_HAS_USED_ENTRY_EXIT grove_f1[1] 2232.41 -1160.04 20.0
 
-		CREATE_CHAR PEDTYPE_MISSION2 SWAT 2239.309 -1151.724 1028.779 swat2_f1 //swat that is peeking around first corner and shooting
-		SET_CHAR_HEADING swat2_f1 177.9528
-		GIVE_WEAPON_TO_CHAR swat2_f1 WEAPONTYPE_MP5 9999
-		SET_CHAR_DECISION_MAKER swat2_f1 motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat2_f1 TRUE
-		SET_CHAR_HEALTH swat2_f1 100
-		SET_CHAR_HAS_USED_ENTRY_EXIT swat2_f1 2232.41 -1160.04 20.0
+		CREATE_CHAR PEDTYPE_MISSION2 SWAT 2239.309 -1151.724 1028.779 swat_f1[1] //swat that is peeking around first corner and shooting
+		SET_CHAR_HEADING swat_f1[1] 177.9528
+		SET_CHAR_HEALTH swat_f1[1] 100
+		l1f1_char_name = swat_f1[1]
+		GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 		CREATE_CHAR PEDTYPE_MISSION1 BFYPRO 2234.99 -1159.55 1029.84 hoochie2_f1 //hoochie running through doors
 		SET_CHAR_HEADING hoochie2_f1 267.0618
-		SET_CHAR_NEVER_TARGETTED hoochie2_f1 TRUE
-		SET_CHAR_DECISION_MAKER hoochie2_f1 motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER hoochie2_f1 TRUE
-		SET_CHAR_HAS_USED_ENTRY_EXIT hoochie2_f1 2232.41 -1160.04 20.0
+		l1f1_char_name = woundedgrove1_f1
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		SET_CHAR_PROOFS hoochie2_f1 FALSE TRUE FALSE FALSE FALSE
 
 		//set piece for swat breaching the door
 		//swat3 swat4 swat5
-		CREATE_CHAR PEDTYPE_MISSION2 SWAT 2238.817 -1170.598 1028.8125 swat3_f1
-		SET_CHAR_HEADING swat3_f1 272.0738 
-		GIVE_WEAPON_TO_CHAR swat3_f1 WEAPONTYPE_MP5 9999
-		SET_CHAR_DECISION_MAKER swat3_f1 motel_DM
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat3_f1 TRUE
-		SET_CHAR_HEALTH swat3_f1 150
-		SET_CHAR_SHOOT_RATE swat3_f1 80
-		SET_CHAR_HAS_USED_ENTRY_EXIT swat3_f1 2232.41 -1160.04 20.0
-
+		CREATE_CHAR PEDTYPE_MISSION2 SWAT 2238.817 -1170.598 1028.8125 swat_f1[2]
+		SET_CHAR_HEADING swat_f1[2] 272.0738 
+		SET_CHAR_HEALTH swat_f1[2] 150
+		SET_CHAR_SHOOT_RATE swat_f1[2] 80
+		l1f1_char_name = swat_f1[2]
+		GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 		//grove controlled corner
-		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2244.5 -1189.627 1028.8 grove3_f1 //grove behind table
-		SET_ANIM_GROUP_FOR_CHAR grove3_f1 gang2 // FIXEDGROVE: set intended animation group
-		SET_CHAR_HEADING grove3_f1 88.196
-		//SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove3_f1 TRUE // FIXEDGROVE: comment out since he's supposed to die
-		GIVE_WEAPON_TO_CHAR grove3_f1 WEAPONTYPE_PISTOL 9999
-		SET_CHAR_NEVER_TARGETTED grove3_f1 TRUE
-		SET_CHAR_HEALTH grove3_f1 50 // FIXEDGROVE: reduce his health
-		SET_CHAR_ACCURACY grove3_f1 10
-		SET_CHAR_RELATIONSHIP grove3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
-		//SET_CHAR_DECISION_MAKER grove3_f1 motel_DM // FIXEDGROVE: comment out since this would cause him to stand still
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove3_f1 2232.41 -1160.04 20.0
+		CREATE_CHAR PEDTYPE_MISSION3 FAM2 2244.5 -1189.627 1028.8 grove_f1[2] //grove behind table
+		SET_ANIM_GROUP_FOR_CHAR grove_f1[2] gang2 // FIXEDGROVE: set intended animation group
+		SET_CHAR_HEADING grove_f1[2] 88.196
+		GIVE_WEAPON_TO_CHAR grove_f1[2] WEAPONTYPE_PISTOL 9999
+		SET_CHAR_HEALTH grove_f1[2] 50 // FIXEDGROVE: reduce his health
+		SET_CHAR_ACCURACY grove_f1[2] 10
+		SET_CHAR_RELATIONSHIP grove_f1[2] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
+		l1f1_special_flag = TRUE
+		l1f1_char_name = grove_f1[2]
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
+		l1f1_special_flag = FALSE
 
-		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2241.0503 -1192.3729 1028.7981 grove4_f1 //grove behind sofa facing first corridor
-		SET_CHAR_HEADING grove4_f1 358.2577
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove4_f1 TRUE
-		GIVE_WEAPON_TO_CHAR grove4_f1 WEAPONTYPE_PISTOL 9999
-		SET_CHAR_ACCURACY grove4_f1 10
-		SET_CHAR_NEVER_TARGETTED grove4_f1 TRUE
-		SET_CHAR_DECISION_MAKER grove4_f1 motel_DM
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove4_f1 2232.41 -1160.04 20.0
+		CREATE_CHAR PEDTYPE_MISSION3 FAM3 2241.0503 -1192.3729 1028.7981 grove_f1[3] //grove behind sofa facing first corridor
+		SET_CHAR_HEADING grove_f1[3] 358.2577
+		GIVE_WEAPON_TO_CHAR grove_f1[3] WEAPONTYPE_PISTOL 9999
+		SET_CHAR_ACCURACY grove_f1[3] 10
+		l1f1_char_name = grove_f1[3]
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		
 
-		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2240.156 -1186.704 1028.7981 grove5_f1 //grove peeking around wall shooting //dies when pops out
-		SET_CHAR_HEADING grove5_f1 90.1792 
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove5_f1 TRUE
-		GIVE_WEAPON_TO_CHAR grove5_f1 WEAPONTYPE_MP5 9999
-		SET_CHAR_NEVER_TARGETTED grove5_f1 TRUE
-		SET_CHAR_DECISION_MAKER grove5_f1 motel_DM
-		SET_CHAR_HAS_USED_ENTRY_EXIT grove5_f1 2232.41 -1160.04 20.0
+		CREATE_CHAR PEDTYPE_MISSION1 FAM2 2240.156 -1186.704 1028.7981 grove_f1[4] //grove peeking around wall shooting //dies when pops out
+		SET_CHAR_HEADING grove_f1[4] 90.1792 
+		GIVE_WEAPON_TO_CHAR grove_f1[4] WEAPONTYPE_MP5 9999
+		l1f1_char_name = grove_f1[4]
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 						
 		CREATE_CHAR PEDTYPE_MISSION1 FAM3 2234.84 -1191.202 1029.845 woundedgrove2_f1 //grove against wall near other grove guys
 		SET_CHAR_HEADING woundedgrove2_f1 272.171
-		SET_CHAR_ONLY_DAMAGED_BY_PLAYER woundedgrove2_f1 TRUE
-		SET_CHAR_NEVER_TARGETTED woundedgrove2_f1 TRUE
 		TASK_PLAY_ANIM_NON_INTERRUPTABLE woundedgrove2_f1 gnstwall_injurd SWAT 8.0 TRUE FALSE FALSE FALSE -1
 		SET_CHAR_BLEEDING woundedgrove2_f1 TRUE
-		SET_CHAR_DECISION_MAKER woundedgrove2_f1 motel_DM
-		SET_CHAR_HAS_USED_ENTRY_EXIT woundedgrove2_f1 2232.41 -1160.04 20.0
+		l1f1_char_name = woundedgrove2_f1
+		GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
 		
 		//explosion_door
 		CREATE_FX_SYSTEM explosion_door 2239.51 -1170.77 1029.84 TRUE breachfx_f1
@@ -2481,15 +2244,15 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 			//guy falling off railings
-			IF NOT IS_CHAR_DEAD grove1_f1
-				//TASK_PLAY_ANIM_NON_INTERRUPTABLE grove1_f1 Rail_fall SWAT 8.0 FALSE FALSE FALSE FALSE -1
-				TASK_PLAY_ANIM_WITH_FLAGS grove1_f1 Rail_fall SWAT 8.0 FALSE FALSE FALSE TRUE -1 FALSE TRUE
+			IF NOT IS_CHAR_DEAD grove_f1[0]
+				//TASK_PLAY_ANIM_NON_INTERRUPTABLE grove_f1[0] Rail_fall SWAT 8.0 FALSE FALSE FALSE FALSE -1
+				TASK_PLAY_ANIM_WITH_FLAGS grove_f1[0] Rail_fall SWAT 8.0 FALSE FALSE FALSE TRUE -1 FALSE TRUE
 			ENDIF
 			//peeking is shooting at him
-			IF NOT IS_CHAR_DEAD grove1_f1
-				IF NOT IS_CHAR_DEAD swat2_f1
-					enemy_f1 = swat2_f1
-					enemytarget_f1 = grove1_f1
+			IF NOT IS_CHAR_DEAD grove_f1[0]
+				IF NOT IS_CHAR_DEAD swat_f1[1]
+					enemy_f1 = swat_f1[1]
+					enemytarget_f1 = grove_f1[0]
 					enemytarget2_f1 = scplayer
 					GOSUB stay2shoot_f1label
 				ENDIF
@@ -2499,13 +2262,13 @@ IF roofmotel_f1flag = 0
 		ENDIF
 		
 		IF motelentrance_f1flag = 1
-			IF NOT IS_CHAR_DEAD	grove1_f1
-				IF IS_CHAR_PLAYING_ANIM grove1_f1 Rail_fall
-					GET_CHAR_ANIM_CURRENT_TIME grove1_f1 Rail_fall playeranim_f1
+			IF NOT IS_CHAR_DEAD	grove_f1[0]
+				IF IS_CHAR_PLAYING_ANIM grove_f1[0] Rail_fall
+					GET_CHAR_ANIM_CURRENT_TIME grove_f1[0] Rail_fall playeranim_f1
 						IF playeranim_f1 = 1.0
-							SET_CHAR_COLLISION grove1_f1 FALSE // FIXEDGROVE: disable collision since he's offset from his actual position
-							TASK_PLAY_ANIM_NON_INTERRUPTABLE grove1_f1 Rail_fall_crawl SWAT 1000.0 FALSE FALSE FALSE TRUE -1
-							//TASK_PLAY_ANIM_WITH_FLAGS grove1_f1 Rail_fall_crawl SWAT 8.0 FALSE TRUE TRUE TRUE -1 TRUE TRUE
+							SET_CHAR_COLLISION grove_f1[0] FALSE // FIXEDGROVE: disable collision since he's offset from his actual position
+							TASK_PLAY_ANIM_NON_INTERRUPTABLE grove_f1[0] Rail_fall_crawl SWAT 1000.0 FALSE FALSE FALSE TRUE -1
+							//TASK_PLAY_ANIM_WITH_FLAGS grove_f1[0] Rail_fall_crawl SWAT 8.0 FALSE TRUE TRUE TRUE -1 TRUE TRUE
 							motelentrance_f1flag = 2
 						ENDIF
 				ENDIF
@@ -2517,38 +2280,34 @@ IF roofmotel_f1flag = 0
 			IF NOT IS_CHAR_DEAD woundedgrove1_f1
 				IF LOCATE_CHAR_ANY_MEANS_CHAR_3D woundedgrove1_f1 scplayer 4.5 4.5 3.5 FALSE
 
-					CREATE_CHAR PEDTYPE_MISSION2 SWAT 2229.462 -1150.524 1028.845 swat1_f1 //swat that rolls out
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat1_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat1_f1 358.795
-					GIVE_WEAPON_TO_CHAR swat1_f1 WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat1_f1 motel_DM
-					SET_CHAR_ACCURACY swat1_f1 50
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat1_f1 TRUE
-					SET_CHAR_HEALTH swat1_f1 150
-					SET_CHAR_MAX_HEALTH swat1_f1 150
+					CREATE_CHAR PEDTYPE_MISSION2 SWAT 2229.462 -1150.524 1028.845 swat_f1[0] //swat that rolls out
+					SET_CHAR_HEADING swat_f1[0] 358.795
+					SET_CHAR_ACCURACY swat_f1[0] 50
+					SET_CHAR_HEALTH swat_f1[0] 150
+					SET_CHAR_MAX_HEALTH swat_f1[0] 150
+					l1f1_char_name = swat_f1[0]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
-					DELETE_CHAR swat2_f1
-					CREATE_CHAR PEDTYPE_MISSION2 SWAT 2239.309 -1151.724 1029.279 swat2_f1 //swat that is peeking around first corner and shooting
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat2_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat2_f1 177.9528
-					GIVE_WEAPON_TO_CHAR swat2_f1 WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat2_f1 motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat2_f1 TRUE
-					SET_CHAR_ACCURACY swat2_f1 80
+					DELETE_CHAR swat_f1[1]
+					CREATE_CHAR PEDTYPE_MISSION2 SWAT 2239.309 -1151.724 1029.279 swat_f1[1] //swat that is peeking around first corner and shooting
+					SET_CHAR_HEADING swat_f1[1] 177.9528
+					SET_CHAR_ACCURACY swat_f1[1] 80
+					l1f1_char_name = swat_f1[1]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					//peeking around corner swat
-					IF swat2_f1flag = 0
-						IF NOT IS_CHAR_DEAD swat2_f1
-							enemy_f1 = swat2_f1
-							IF NOT IS_CHAR_DEAD grove5_f1
-								enemytarget_f1 = grove5_f1
+					IF swat_f1flag[1] = 0
+						IF NOT IS_CHAR_DEAD swat_f1[1]
+							enemy_f1 = swat_f1[1]
+							IF NOT IS_CHAR_DEAD grove_f1[4]
+								enemytarget_f1 = grove_f1[4]
 								coordshoot_f1flag = 1
 								enemyx_f1 = 2241.78
 								enemyy_f1 = -1194.52
 								enemyz_f1 = 1031.38
 								GOSUB peekright_f1label
 								coordshoot_f1flag = 0
-								swat2_f1flag = 1
+								swat_f1flag[1] = 1
 							ENDIF
 						ENDIF
 					ENDIF
@@ -2564,34 +2323,34 @@ IF roofmotel_f1flag = 0
 		IF firstcorridor_f1flag = 0
 
 			//dead body
-			IF grove2_f1flag = 0
-				IF NOT IS_CHAR_DEAD grove2_f1
-					EXPLODE_CHAR_HEAD grove2_f1
-					grove2_f1flag = 1
+			IF grove1_f1flag = 0
+				IF NOT IS_CHAR_DEAD grove_f1[1]
+					EXPLODE_CHAR_HEAD grove_f1[1]
+					grove1_f1flag = 1
 				ENDIF
 			ENDIF
 
 			//rollout swat
-			IF swat1_f1flag = 0
-				IF NOT IS_CHAR_DEAD	swat1_f1
+			IF swat_f1flag[0] = 0
+				IF NOT IS_CHAR_DEAD	swat_f1[0]
 					IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2229.5913 -1150.6475 1028.7981 7.2 7.2 1.5 FALSE
-					OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat1_f1 scplayer
-						enemy_f1 = swat1_f1
+					OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat_f1[0] scplayer
+						enemy_f1 = swat_f1[0]
 						GOSUB rolloutl_f1label
-						swat1_f1flag = 1
+						swat_f1flag[0] = 1
 					ENDIF
 				ENDIF
 			ENDIF
 		
 
 			//if player gets close shoot him instead		
-			IF swat2_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat2_f1
-					IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat2_f1 scplayer
-					OR LOCATE_CHAR_ANY_MEANS_CHAR_3D swat2_f1 scplayer 4.0 4.0 3.0 FALSE
-						SET_CHAR_ACCURACY swat2_f1 50
-						TASK_KILL_CHAR_ON_FOOT swat2_f1 scplayer
-						swat2_f1flag = 2
+			IF swat_f1flag[1] = 1
+				IF NOT IS_CHAR_DEAD swat_f1[1]
+					IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat_f1[1] scplayer
+					OR LOCATE_CHAR_ANY_MEANS_CHAR_3D swat_f1[1] scplayer 4.0 4.0 3.0 FALSE
+						SET_CHAR_ACCURACY swat_f1[1] 50
+						TASK_KILL_CHAR_ON_FOOT swat_f1[1] scplayer
+						swat_f1flag[1] = 2
 					ENDIF
 				ENDIF
 			ENDIF
@@ -2620,25 +2379,21 @@ IF roofmotel_f1flag = 0
 					ENDIF
 
 					//2nd corridor
-					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2228.6072 -1189.7207 1028.7981 swat6_f1 //first trolley // FIXEDGROVE: changed from mission1 to mission4 pedtype
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat6_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat6_f1 266.5963
-					GIVE_WEAPON_TO_CHAR swat6_f1 WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat6_f1 motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat6_f1 TRUE
-					SET_CHAR_HEALTH swat6_f1 150
-					SET_CHAR_MAX_HEALTH swat6_f1 150
-					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat6_f1 TRUE
+					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2228.6072 -1189.7207 1028.7981 swat_f1[5] //first trolley // FIXEDGROVE: changed from mission1 to mission4 pedtype
+					SET_CHAR_HEADING swat_f1[5] 266.5963
+					SET_CHAR_HEALTH swat_f1[5] 150
+					SET_CHAR_MAX_HEALTH swat_f1[5] 150
+					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[5] TRUE
+					l1f1_char_name = swat_f1[5]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 							
-					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2225.796 -1186.783 1028.7981 swat7_f1 //right door peek and shoot // FIXEDGROVE: changed from mission1 to mission4 pedtype
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat7_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat7_f1 273.6395
-					GIVE_WEAPON_TO_CHAR swat7_f1 WEAPONTYPE_MP5 9999
-					SET_CHAR_DECISION_MAKER swat7_f1 motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat7_f1 TRUE
-					SET_CHAR_ACCURACY swat7_f1 80
-					SET_CHAR_HEALTH swat7_f1 150
-					SET_CHAR_MAX_HEALTH swat7_f1 150
+					CREATE_CHAR PEDTYPE_MISSION4 SWAT 2225.796 -1186.783 1028.7981 swat_f1[6] //right door peek and shoot // FIXEDGROVE: changed from mission1 to mission4 pedtype
+					SET_CHAR_HEADING swat_f1[6] 273.6395
+					SET_CHAR_ACCURACY swat_f1[6] 80
+					SET_CHAR_HEALTH swat_f1[6] 150
+					SET_CHAR_MAX_HEALTH swat_f1[6] 150
+					l1f1_char_name = swat_f1[6]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					TIMERB = 0
 					breach_f1flag = 1
@@ -2656,51 +2411,43 @@ IF roofmotel_f1flag = 0
 //				IF TIMERB > 100 //500					//DELAY FROM WHEN PLAYER ENTERS LOCATE TO WHEN THEY COME OUT
 
 					//swat controlled corner		
-					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2187.48 -1186.9 1033.3 swat8_f1	//up on stairs shoot stay in same place
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat8_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat8_f1 274.247			  
-					GIVE_WEAPON_TO_CHAR swat8_f1 WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat8_f1 motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat8_f1 TRUE
-					SET_CHAR_ACCURACY swat8_f1 80
-					SET_CHAR_HEALTH swat8_f1 150
-					SET_CHAR_MAX_HEALTH swat8_f1 150
+					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2187.48 -1186.9 1033.3 swat_f1[7]	//up on stairs shoot stay in same place
+					SET_CHAR_HEADING swat_f1[7] 274.247			  
+					SET_CHAR_ACCURACY swat_f1[7] 80
+					SET_CHAR_HEALTH swat_f1[7] 150
+					SET_CHAR_MAX_HEALTH swat_f1[7] 150
+					l1f1_char_name = swat_f1[7]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
-					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2186.611 -1183.962 1033.837 swat9_f1	//runs down stairs
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat9_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat9_f1 286.2857
-					GIVE_WEAPON_TO_CHAR swat9_f1 WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat9_f1 motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat9_f1 TRUE
-					SET_CHAR_HEALTH swat9_f1 150
-					SET_CHAR_MAX_HEALTH swat9_f1 150
-					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat9_f1 TRUE
+					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2186.611 -1183.962 1033.837 swat_f1[8]	//runs down stairs
+					SET_CHAR_HEADING swat_f1[8] 286.2857
+					SET_CHAR_HEALTH swat_f1[8] 150
+					SET_CHAR_MAX_HEALTH swat_f1[8] 150
+					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[8] TRUE
+					l1f1_char_name = swat_f1[8]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 									
-					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2190.157 -1182.068 1033.829 swat10_f1	//up on stairs shoot stay in same place
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat10_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat10_f1 183.88771
-					GIVE_WEAPON_TO_CHAR swat10_f1 WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat10_f1 motel_DM
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat10_f1 TRUE
-					SET_CHAR_HEALTH swat10_f1 150
-					SET_CHAR_MAX_HEALTH swat10_f1 150
+					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2190.157 -1182.068 1033.829 swat_f1[9]	//up on stairs shoot stay in same place
+					SET_CHAR_HEADING swat_f1[9] 183.88771
+					SET_CHAR_HEALTH swat_f1[9] 150
+					SET_CHAR_MAX_HEALTH swat_f1[9] 150
+					l1f1_char_name = swat_f1[9]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
-					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2188.5791 -1184.7800 1028.7981 swat11_f1	//duck and shoot behind the sofa				
-					SET_CHAR_HAS_USED_ENTRY_EXIT swat11_f1 2232.41 -1160.04 20.0
-					SET_CHAR_HEADING swat11_f1 246.3679 
-					GIVE_WEAPON_TO_CHAR swat11_f1 WEAPONTYPE_MP5 99999
-					SET_CHAR_DECISION_MAKER swat11_f1 motel_DM	
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat11_f1 TRUE
-					SET_CHAR_HEALTH swat11_f1 150
-					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat11_f1 TRUE
+					CREATE_CHAR PEDTYPE_MISSION1 SWAT 2188.5791 -1184.7800 1028.7981 swat_f1[10]	//duck and shoot behind the sofa				
+					SET_CHAR_HEADING swat_f1[10] 246.3679 
+					SET_CHAR_HEALTH swat_f1[10] 150
+					SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[10] TRUE
+					l1f1_char_name = swat_f1[10]
+					GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 					breach_f1flag = 3
 //				ENDIF
 			ENDIF
 
 			IF breach_f1flag = 3
-				IF swat3_f1flag = 0
-					IF NOT IS_CHAR_DEAD swat3_f1
+				IF swat_f1flag[2] = 0
+					IF NOT IS_CHAR_DEAD swat_f1[2]
 
 						IF DOES_OBJECT_EXIST breachdoor_f1
 							SET_OBJECT_COLLISION breachdoor_f1 FALSE
@@ -2708,8 +2455,8 @@ IF roofmotel_f1flag = 0
 						ENDIF
 
 						PLAY_AND_KILL_FX_SYSTEM breachfx_f1
-						TASK_PLAY_ANIM swat3_f1 SWT_BREACH_01 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
-						swat3_f1flag = 1
+						TASK_PLAY_ANIM swat_f1[2] SWT_BREACH_01 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
+						swat_f1flag[2] = 1
 						TIMERB = 0
 						breach_f1flag = 4
 					ENDIF
@@ -2717,21 +2464,19 @@ IF roofmotel_f1flag = 0
 			ENDIF
 		
 			IF breach_f1flag = 4
-				IF swat4_f1flag = 0
+				IF swat_f1flag[3] = 0
 					IF TIMERB > 667
 
-							CREATE_CHAR PEDTYPE_MISSION2 SWAT 2238.317 -1170.598 1028.8125 swat4_f1 
-							SET_CHAR_HEADING swat4_f1 272.0738 
-							GIVE_WEAPON_TO_CHAR swat4_f1 WEAPONTYPE_MP5 9999
-							SET_CHAR_DECISION_MAKER swat4_f1 motel_DM
-							SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat4_f1 TRUE
-							SET_CHAR_HEALTH swat4_f1 150
-							SET_CHAR_SHOOT_RATE swat4_f1 80
-							SET_CHAR_HAS_USED_ENTRY_EXIT swat4_f1 2232.41 -1160.04 20.0
+							CREATE_CHAR PEDTYPE_MISSION2 SWAT 2238.317 -1170.598 1028.8125 swat_f1[3] 
+							SET_CHAR_HEADING swat_f1[3] 272.0738 
+							SET_CHAR_HEALTH swat_f1[3] 150
+							SET_CHAR_SHOOT_RATE swat_f1[3] 80
+							l1f1_char_name = swat_f1[3]
+							GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
-							TASK_PLAY_ANIM swat4_f1 SWT_BREACH_02 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
+							TASK_PLAY_ANIM swat_f1[3] SWT_BREACH_02 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
 							TIMERB = 0
-							swat4_f1flag = 1
+							swat_f1flag[3] = 1
 							breach_f1flag = 5
 
 					ENDIF
@@ -2739,63 +2484,61 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 			IF breach_f1flag = 5
-				IF swat5_f1flag = 0
+				IF swat_f1flag[4] = 0
 					IF TIMERB > 333
 
-							CREATE_CHAR PEDTYPE_MISSION2 SWAT 2237.818 -1170.598 1028.8125 swat5_f1 
-							SET_CHAR_HEADING swat5_f1 272.0738 
-							GIVE_WEAPON_TO_CHAR swat5_f1 WEAPONTYPE_MP5 9999
-							SET_CHAR_DECISION_MAKER swat5_f1 motel_DM
-							SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat5_f1 TRUE
-							SET_CHAR_HEALTH swat5_f1 150
-							SET_CHAR_SHOOT_RATE swat5_f1 80
-							SET_CHAR_HAS_USED_ENTRY_EXIT swat5_f1 2232.41 -1160.04 20.0
+							CREATE_CHAR PEDTYPE_MISSION2 SWAT 2237.818 -1170.598 1028.8125 swat_f1[4] 
+							SET_CHAR_HEADING swat_f1[4] 272.0738 
+							SET_CHAR_HEALTH swat_f1[4] 150
+							SET_CHAR_SHOOT_RATE swat_f1[4] 80
+							l1f1_char_name = swat_f1[4]
+							GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
-							TASK_PLAY_ANIM swat5_f1 SWT_BREACH_03 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
-							swat5_f1flag = 1
+							TASK_PLAY_ANIM swat_f1[4] SWT_BREACH_03 SWAT 1000.0 FALSE TRUE TRUE FALSE -1
+							swat_f1flag[4] = 1
 							breach_f1flag = 6
 					ENDIF
 				ENDIF
 			ENDIF
 
-			IF swat3_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat3_f1
-					GET_SCRIPT_TASK_STATUS swat3_f1 TASK_PLAY_ANIM swtbreach01_f1
+			IF swat_f1flag[2] = 1
+				IF NOT IS_CHAR_DEAD swat_f1[2]
+					GET_SCRIPT_TASK_STATUS swat_f1[2] TASK_PLAY_ANIM swtbreach01_f1
 						IF swtbreach01_f1 = FINISHED_TASK
-						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat3_f1 scplayer 6.0 6.0 FALSE
-							SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat3_f1 TRUE
-							enemy_f1 = swat3_f1
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat_f1[2] scplayer 6.0 6.0 FALSE
+							SET_CHAR_USES_UPPERBODY_DAMAGE_ANIMS_ONLY swat_f1[2] TRUE
+							enemy_f1 = swat_f1[2]
 							enemytarget_f1 = scplayer
 							GOSUB stayshoot_f1label
-							swat3_f1flag = 2
+							swat_f1flag[2] = 2
 						ENDIF
 				ENDIF
 			ENDIF
 
-			IF swat4_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat4_f1
-					GET_SCRIPT_TASK_STATUS swat4_f1 TASK_PLAY_ANIM swtbreach02_f1
+			IF swat_f1flag[3] = 1
+				IF NOT IS_CHAR_DEAD swat_f1[3]
+					GET_SCRIPT_TASK_STATUS swat_f1[3] TASK_PLAY_ANIM swtbreach02_f1
 						IF swtbreach02_f1 = FINISHED_TASK
-						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat4_f1 scplayer 3.5 3.5 FALSE // FIXEDGROVE: radius swapped with swat5 since he's closer
-							IF NOT IS_CHAR_DEAD grove4_f1
-								enemy_f1 = swat4_f1
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat_f1[3] scplayer 3.5 3.5 FALSE // FIXEDGROVE: radius swapped with swat5 since he's closer
+							IF NOT IS_CHAR_DEAD grove_f1[3]
+								enemy_f1 = swat_f1[3]
 								enemytarget_f1 = scplayer
 								GOSUB stayshoot_f1label
 							ENDIF
-							swat4_f1flag = 2
+							swat_f1flag[3] = 2
 						ENDIF
 				ENDIF
 			ENDIF
 
-			IF swat5_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat5_f1
-					GET_SCRIPT_TASK_STATUS swat5_f1 TASK_PLAY_ANIM swtbreach03_f1
+			IF swat_f1flag[4] = 1
+				IF NOT IS_CHAR_DEAD swat_f1[4]
+					GET_SCRIPT_TASK_STATUS swat_f1[4] TASK_PLAY_ANIM swtbreach03_f1
 						IF swtbreach03_f1 = FINISHED_TASK
-						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat5_f1 scplayer 4.5 4.5 FALSE // FIXEDGROVE: radius swapped with swat4 since he's farther
-							enemy_f1 = swat5_f1
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat_f1[4] scplayer 4.5 4.5 FALSE // FIXEDGROVE: radius swapped with swat4 since he's farther
+							enemy_f1 = swat_f1[4]
 							enemytarget_f1 = scplayer
 							GOSUB stayshootnoduck_f1label // FIXEDGROVE: make him stand to match his anim
-							swat5_f1flag = 2
+							swat_f1flag[4] = 2
 						ENDIF
 				ENDIF
 			ENDIF
@@ -2838,7 +2581,7 @@ IF roofmotel_f1flag = 0
 
 								// FIXEDGROVE: START - heal the player like the vending machine and food vendor scripts
 								GET_CHAR_HEALTH scplayer temp_integer_1
-								temp_integer_1 += 100
+								l1f1_count += 100
 								SET_CHAR_HEALTH scplayer temp_integer_1
 								// FIXDEDGROVE: END
 								 
@@ -2885,8 +2628,8 @@ IF roofmotel_f1flag = 0
 		IF grovecorner_f1flag = 1
 
 			//grove behind table
-			IF NOT IS_CHAR_DEAD grove3_f1
-				enemy_f1 = grove3_f1
+			IF NOT IS_CHAR_DEAD grove_f1[2]
+				enemy_f1 = grove_f1[2]
 				enemyx_f1 = 2232.41
 				enemyy_f1 = -1188.66
 				enemyz_f1 = 1030.26
@@ -2894,8 +2637,8 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 			//grove behind sofa facing first corridor
-			IF NOT IS_CHAR_DEAD grove4_f1
-				enemy_f1 = grove4_f1
+			IF NOT IS_CHAR_DEAD grove_f1[3]
+				enemy_f1 = grove_f1[3]
 				enemyx_f1 = 2233.35
 				enemyy_f1 = -1187.99
 				enemyz_f1 = 1030.4
@@ -2903,10 +2646,10 @@ IF roofmotel_f1flag = 0
 			ENDIF
 			
 			//grove peeking around wall shooting //dies when pops out
-			IF NOT IS_CHAR_DEAD grove5_f1
-				enemy_f1 = grove5_f1
-				IF NOT IS_CHAR_DEAD swat6_f1
-					enemytarget_f1 = swat6_f1
+			IF NOT IS_CHAR_DEAD grove_f1[4]
+				enemy_f1 = grove_f1[4]
+				IF NOT IS_CHAR_DEAD swat_f1[5]
+					enemytarget_f1 = swat_f1[5]
 					enemyx_f1 = 2186.49
 					enemyy_f1 = -1189.18
 					enemyz_f1 = 1030.97
@@ -2917,8 +2660,8 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 			//first trolley swat
-			IF NOT IS_CHAR_DEAD swat6_f1
-				enemy_f1 = swat6_f1
+			IF NOT IS_CHAR_DEAD swat_f1[5]
+				enemy_f1 = swat_f1[5]
 				enemytarget_f1 = scplayer
 				GOSUB stayshoot_f1label
 			ENDIF
@@ -2931,104 +2674,92 @@ IF roofmotel_f1flag = 0
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2235.48 -1188.77 10.0 10.0 FALSE 
 
 				//peeking around door
-				IF NOT IS_CHAR_DEAD swat7_f1
-					enemy_f1 = swat7_f1
+				IF NOT IS_CHAR_DEAD swat_f1[6]
+					enemy_f1 = swat_f1[6]
 					GOSUB peekleft_f1label
 				ENDIF
 				MARK_CHAR_AS_NO_LONGER_NEEDED woundedgrove1_f1
 				//REMOVE_CHAR_ELEGANTLY woundedgrove1_f1
 				MARK_CHAR_AS_NO_LONGER_NEEDED hoochie1_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED grove1_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED swat1_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED grove2_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED swat2_f1
+				MARK_CHAR_AS_NO_LONGER_NEEDED grove_f1[0]
+				MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[0]
+				MARK_CHAR_AS_NO_LONGER_NEEDED grove_f1[1]
+				MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[1]
 				REMOVE_CHAR_ELEGANTLY hoochie2_f1
 
-				IF IS_CHAR_DEAD swat3_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat3_f1 
+				IF IS_CHAR_DEAD swat_f1[2]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[2] 
 				ENDIF
 
-				IF IS_CHAR_DEAD swat4_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat4_f1
+				IF IS_CHAR_DEAD swat_f1[3]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[3]
 				ENDIF
 
-				IF IS_CHAR_DEAD swat5_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat5_f1
+				IF IS_CHAR_DEAD swat_f1[4]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[4]
 				ENDIF
 
 				//create 1st vent setpiece guys
-				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.605 -1188.611 1032.27 swat12_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat12_f1 2232.41 -1160.04 20.0
-				SET_CHAR_HEADING swat12_f1 264.4329 
-				GIVE_WEAPON_TO_CHAR swat12_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat12_f1 motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat12_f1 TRUE
-				SET_CHAR_HEALTH swat12_f1 150
-				SET_CHAR_ACCURACY swat12_f1 80
-//				SET_CHAR_COLLISION swat12_f1 FALSE
-//				SET_CHAR_NEVER_TARGETTED swat12_f1 TRUE 
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.605 -1188.611 1032.27 swat_f1[11] // FIXEDGROVE: changed from mission1 to mission4 pedtype
+				SET_CHAR_HEADING swat_f1[11] 264.4329 
+				SET_CHAR_HEALTH swat_f1[11] 150
+				SET_CHAR_ACCURACY swat_f1[11] 80
+//				SET_CHAR_COLLISION swat_f1[11] FALSE
+//				SET_CHAR_NEVER_TARGETTED swat_f1[11] TRUE 
+				l1f1_char_name = swat_f1[11]
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
-				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.131 -1188.611 1032.27 swat13_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat13_f1 2232.41 -1160.04 20.0
-				SET_CHAR_HEADING swat13_f1 264.4329
-				GIVE_WEAPON_TO_CHAR swat13_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat13_f1 motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat13_f1 TRUE
-				SET_CHAR_HEALTH swat13_f1 150
-				SET_CHAR_ACCURACY swat13_f1 80
-//				SET_CHAR_COLLISION swat13_f1 FALSE
-//				SET_CHAR_NEVER_TARGETTED swat13_f1 TRUE 
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2216.131 -1188.611 1032.27 swat_f1[12] // FIXEDGROVE: changed from mission1 to mission4 pedtype
+				SET_CHAR_HEADING swat_f1[12] 264.4329
+				SET_CHAR_HEALTH swat_f1[12] 150
+				SET_CHAR_ACCURACY swat_f1[12] 80
+//				SET_CHAR_COLLISION swat_f1[12] FALSE
+//				SET_CHAR_NEVER_TARGETTED swat_f1[12] TRUE 
+				l1f1_char_name = swat_f1[12]
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//vent guy upside down shooting
-				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2193.129 -1164.661 1032.269 swat14_f1
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat14_f1 2232.41 -1160.04 20.0
-				SET_CHAR_HEADING swat14_f1 4.98
-				GIVE_WEAPON_TO_CHAR swat14_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat14_f1 motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat14_f1 TRUE
-				SET_CHAR_NEVER_TARGETTED swat14_f1 TRUE
-				SET_CHAR_HEALTH swat14_f1 1000
-				SET_CHAR_SUFFERS_CRITICAL_HITS swat14_f1 FALSE // FIXEDGROVE: added to avoid him bugging out
+				CREATE_CHAR PEDTYPE_MISSION1 SWAT 2193.129 -1164.661 1032.269 swat_f1[13]
+				SET_CHAR_HEADING swat_f1[13] 4.98
+				SET_CHAR_NEVER_TARGETTED swat_f1[13] TRUE
+				SET_CHAR_HEALTH swat_f1[13] 1000
+				SET_CHAR_SUFFERS_CRITICAL_HITS swat_f1[13] FALSE // FIXEDGROVE: added to avoid him bugging out
+				l1f1_char_name = swat_f1[13]
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//right rollout guy in the final corridor
-				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2195.489 -1172.941 1029.859 swat15_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat15_f1 2232.41 -1160.04 20.0
-				SET_CHAR_HEADING swat15_f1 181.323
-				GIVE_WEAPON_TO_CHAR swat15_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat15_f1 motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat15_f1 TRUE
-				SET_CHAR_HEALTH swat15_f1 120
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2195.489 -1172.941 1029.859 swat_f1[14] // FIXEDGROVE: changed from mission1 to mission4 pedtype
+				SET_CHAR_HEADING swat_f1[14] 181.323
+				SET_CHAR_HEALTH swat_f1[14] 120
+				l1f1_char_name = swat_f1[14]
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//crouch behind trolley
-				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2191.987 -1165.214 1029.852 swat16_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat16_f1 2232.41 -1160.04 20.0
-				SET_CHAR_HEADING swat16_f1 181.323
-				GIVE_WEAPON_TO_CHAR swat16_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat16_f1 motel_DM
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat16_f1 TRUE
-				SET_CHAR_HEALTH swat16_f1 150
-				SET_CHAR_MAX_HEALTH swat16_f1 150
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2191.987 -1165.214 1029.852 swat_f1[15] // FIXEDGROVE: changed from mission1 to mission4 pedtype
+				SET_CHAR_HEADING swat_f1[15] 181.323
+				SET_CHAR_HEALTH swat_f1[15] 150
+				SET_CHAR_MAX_HEALTH swat_f1[15] 150
+				l1f1_char_name = swat_f1[15]
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//roll left 
-				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2190.6977 -1156.633 1029.859 swat17_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat17_f1 2232.41 -1160.04 20.0
-				SET_CHAR_HEADING swat17_f1 189.575
-				GIVE_WEAPON_TO_CHAR swat17_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat17_f1 motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat17_f1 TRUE
-				SET_CHAR_ACCURACY swat17_f1 30
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2190.6977 -1156.633 1029.859 swat_f1[16] // FIXEDGROVE: changed from mission1 to mission4 pedtype
+				SET_CHAR_HEADING swat_f1[16] 189.575
+				SET_CHAR_ACCURACY swat_f1[16] 30
+				l1f1_char_name = swat_f1[16]
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				//guy shooting sweet
-				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2194.593 -1156.995 1029.852 swat18_f1 // FIXEDGROVE: changed from mission1 to mission4 pedtype
-				SET_CHAR_HAS_USED_ENTRY_EXIT swat18_f1 2232.41 -1160.04 20.0
-				SET_CHAR_HEADING swat18_f1 275.754
-				GIVE_WEAPON_TO_CHAR swat18_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_DECISION_MAKER swat18_f1 motel_DM	
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swat18_f1 TRUE
+				CREATE_CHAR PEDTYPE_MISSION4 SWAT 2194.593 -1156.995 1029.852 swat_f1[17] // FIXEDGROVE: changed from mission1 to mission4 pedtype
+				SET_CHAR_HEADING swat_f1[17] 275.754
+				l1f1_char_name = swat_f1[17]
+				GOSUB l1f1_inside_motel_swat_setup // FIXEDGROVE: moved setup code to gosub
 
 				CREATE_CHAR PEDTYPE_MISSION1 BFYPRO 2192.91 -1182.15 1029.35 hoochie1_f1	//hoochie running into player then getting shot
-				SET_CHAR_HAS_USED_ENTRY_EXIT hoochie1_f1 2232.41 -1160.04 20.0
-				SET_CHAR_NEVER_TARGETTED hoochie1_f1 TRUE
+				l1f1_special_flag = TRUE
+				l1f1_char_name = hoochie1_f1
+				GOSUB l1f1_inside_motel_grove_setup // FIXEDGROVE: moved setup code to gosub
+				l1f1_special_flag = FALSE
 				SET_CHAR_DECISION_MAKER hoochie1_f1 motel_DM
 				SET_CHAR_PROOFS hoochie1_f1 FALSE TRUE FALSE FALSE FALSE
 
@@ -3051,25 +2782,25 @@ IF roofmotel_f1flag = 0
 		ENDIF
 
 		IF swatwindosmash_f1flag = 1
-			CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2246.42 -1192.88 1039.5 swatrope1_f1
-			GIVE_WEAPON_TO_CHAR swatrope1_f1 WEAPONTYPE_MP5 9999
-			SET_CHAR_RELATIONSHIP swatrope1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-			SET_CHAR_RELATIONSHIP swatrope1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-			SET_CHAR_DECISION_MAKER swatrope1_f1 extmotel_DM
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER swatrope1_f1 TRUE
-			SET_CHAR_HEALTH swatrope1_f1 150
-			SET_CHAR_MAX_HEALTH swatrope1_f1 150
-			SET_CHAR_ACCURACY swatrope1_f1 80
-			IF NOT IS_CHAR_DEAD grove4_f1
-				IF NOT IS_CHAR_DEAD swatrope1_f1
-					TASK_KILL_CHAR_ON_FOOT grove4_f1 swatrope1_f1
+			CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2246.42 -1192.88 1039.5 swatrope_f1[0]
+			GIVE_WEAPON_TO_CHAR swatrope_f1[0] WEAPONTYPE_MP5 9999
+			SET_CHAR_RELATIONSHIP swatrope_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+			SET_CHAR_RELATIONSHIP swatrope_f1[0] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+			SET_CHAR_DECISION_MAKER swatrope_f1[0] extmotel_DM
+			SET_CHAR_ONLY_DAMAGED_BY_PLAYER swatrope_f1[0] TRUE
+			SET_CHAR_HEALTH swatrope_f1[0] 150
+			SET_CHAR_MAX_HEALTH swatrope_f1[0] 150
+			SET_CHAR_ACCURACY swatrope_f1[0] 80
+			IF NOT IS_CHAR_DEAD grove_f1[3]
+				IF NOT IS_CHAR_DEAD swatrope_f1[0]
+					TASK_KILL_CHAR_ON_FOOT grove_f1[3] swatrope_f1[0]
 				ENDIF
 			ENDIF
 
-			IF NOT IS_CHAR_DEAD grove3_f1
-				IF NOT IS_CHAR_DEAD swatrope1_f1
-					enemy_f1 = grove3_f1
-					enemytarget_f1 = swatrope1_f1
+			IF NOT IS_CHAR_DEAD grove_f1[2]
+				IF NOT IS_CHAR_DEAD swatrope_f1[0]
+					enemy_f1 = grove_f1[2]
+					enemytarget_f1 = swatrope_f1[0]
 					GOSUB stayshoot_f1label
 				ENDIF
 			ENDIF
@@ -3081,35 +2812,35 @@ IF roofmotel_f1flag = 0
 		IF swatwindosmash_f1flag = 2
 			IF TIMERA > 1000
 
-				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2246.11 -1189.55 1038.09 swatrope2_f1
-				GIVE_WEAPON_TO_CHAR swatrope2_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_RELATIONSHIP swatrope2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-				SET_CHAR_RELATIONSHIP swatrope2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
-				SET_CHAR_DECISION_MAKER swatrope2_f1 extmotel_DM
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swatrope2_f1 TRUE
-				SET_CHAR_HEALTH swatrope2_f1 125
-				SET_CHAR_MAX_HEALTH swatrope2_f1 125
-				SET_CHAR_ACCURACY swatrope2_f1 80
+				CREATE_SWAT_ROPE PEDTYPE_MISSION4 SWAT 2246.11 -1189.55 1038.09 swatrope_f1[1]
+				GIVE_WEAPON_TO_CHAR swatrope_f1[1] WEAPONTYPE_MP5 9999
+				SET_CHAR_RELATIONSHIP swatrope_f1[1] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+				SET_CHAR_RELATIONSHIP swatrope_f1[1] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+				SET_CHAR_DECISION_MAKER swatrope_f1[1] extmotel_DM
+				SET_CHAR_ONLY_DAMAGED_BY_PLAYER swatrope_f1[1] TRUE
+				SET_CHAR_HEALTH swatrope_f1[1] 125
+				SET_CHAR_MAX_HEALTH swatrope_f1[1] 125
+				SET_CHAR_ACCURACY swatrope_f1[1] 80
 
-				IF NOT IS_CHAR_DEAD grove3_f1
-					IF NOT IS_CHAR_DEAD swatrope1_f1
-						IF NOT IS_CHAR_DEAD swatrope2_f1
-							enemy_f1 = grove3_f1
-							enemytarget_f1 = swatrope1_f1
-							enemytarget2_f1 = swatrope2_f1
+				IF NOT IS_CHAR_DEAD grove_f1[2]
+					IF NOT IS_CHAR_DEAD swatrope_f1[0]
+						IF NOT IS_CHAR_DEAD swatrope_f1[1]
+							enemy_f1 = grove_f1[2]
+							enemytarget_f1 = swatrope_f1[0]
+							enemytarget2_f1 = swatrope_f1[1]
 							GOSUB stay2shoot_f1label
 						ENDIF
 					ELSE
-						IF NOT IS_CHAR_DEAD swatrope2_f1
-							enemy_f1 = grove3_f1
-							enemytarget_f1 = swatrope2_f1
+						IF NOT IS_CHAR_DEAD swatrope_f1[1]
+							enemy_f1 = grove_f1[2]
+							enemytarget_f1 = swatrope_f1[1]
 							GOSUB stayshoot_f1label
 						ENDIF
 					ENDIF
 				ENDIF
 
-				IF NOT IS_CHAR_DEAD grove4_f1
-					TASK_DIE grove4_f1
+				IF NOT IS_CHAR_DEAD grove_f1[3]
+					TASK_DIE grove_f1[3]
 				ENDIF
 				MARK_MODEL_AS_NO_LONGER_NEEDED imy_skylight
 				swatwindosmash_f1flag = 3
@@ -3118,28 +2849,28 @@ IF roofmotel_f1flag = 0
 
 		IF swatwindosmash_f1flag > 2
 
-			IF swatrope1_f1flag = 0
-				IF NOT IS_CHAR_DEAD swatrope1_f1
-					GET_SCRIPT_TASK_STATUS swatrope1_f1 CREATE_SWAT_ROPE swatrope1_f1status
-						IF swatrope1_f1status = FINISHED_TASK
-						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swatrope1_f1 scplayer
-							TASK_KILL_CHAR_ON_FOOT swatrope1_f1 scplayer
-							IF NOT IS_CHAR_DEAD grove4_f1
-								EXPLODE_CHAR_HEAD grove4_f1
+			IF swatrope_f1flag[0] = 0
+				IF NOT IS_CHAR_DEAD swatrope_f1[0]
+					GET_SCRIPT_TASK_STATUS swatrope_f1[0] CREATE_SWAT_ROPE swatrope_f1status[0]
+						IF swatrope_f1status[0] = FINISHED_TASK
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swatrope_f1[0] scplayer
+							TASK_KILL_CHAR_ON_FOOT swatrope_f1[0] scplayer
+							IF NOT IS_CHAR_DEAD grove_f1[3]
+								EXPLODE_CHAR_HEAD grove_f1[3]
 							ENDIF
-							swatrope1_f1flag = 1
+							swatrope_f1flag[0] = 1
 						ENDIF
 				ENDIF
 			ENDIF
 
-			IF swatrope2_f1flag = 0
-				IF NOT IS_CHAR_DEAD swatrope2_f1
-					GET_SCRIPT_TASK_STATUS swatrope2_f1 CREATE_SWAT_ROPE swatrope2_f1status
-						IF swatrope2_f1status = FINISHED_TASK
-						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swatrope2_f1 scplayer
-							TASK_KILL_CHAR_ON_FOOT swatrope2_f1 scplayer
-							SET_CHAR_ONLY_DAMAGED_BY_PLAYER swatrope2_f1 FALSE
-							swatrope2_f1flag = 1
+			IF swatrope_f1flag[1] = 0
+				IF NOT IS_CHAR_DEAD swatrope_f1[1]
+					GET_SCRIPT_TASK_STATUS swatrope_f1[1] CREATE_SWAT_ROPE swatrope_f1status[1]
+						IF swatrope_f1status[1] = FINISHED_TASK
+						OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swatrope_f1[1] scplayer
+							TASK_KILL_CHAR_ON_FOOT swatrope_f1[1] scplayer
+							SET_CHAR_ONLY_DAMAGED_BY_PLAYER swatrope_f1[1] FALSE
+							swatrope_f1flag[1] = 1
 						ENDIF
 				ENDIF
 			ENDIF
@@ -3152,10 +2883,10 @@ IF roofmotel_f1flag = 0
 		IF swatcorner_f1flag = 1
 			
 			//1st vent set piece
-			IF vent1a_f1flag = 0
+			IF swat_f1flag[11] = 0
 				IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2232.7 -1188.84 1029.4 5.0 5.0 3.5 FALSE
-				OR IS_CHAR_DEAD	swat6_f1
-				OR IS_CHAR_DEAD swat7_f1
+				OR IS_CHAR_DEAD	swat_f1[5]
+				OR IS_CHAR_DEAD swat_f1[6]
 					// SHUT_CHAR_UP scplayer FALSE // FIXEDGROVE: no longer needed since its never set in the first place
 					IF DOES_OBJECT_EXIST vent1_f1
 						FREEZE_OBJECT_POSITION vent1_f1 FALSE
@@ -3163,66 +2894,66 @@ IF roofmotel_f1flag = 0
 						ATTACH_MISSION_AUDIO_TO_OBJECT 2 vent1_f1
 						PLAY_MISSION_AUDIO 2
 					ENDIF
-					IF NOT IS_CHAR_DEAD grove3_f1
-						TASK_DIE grove3_f1 // FIXEGROVE: kill him so he doesnt stand around
+					IF NOT IS_CHAR_DEAD grove_f1[2]
+						TASK_DIE grove_f1[2] // FIXEGROVE: kill him so he doesnt stand around
 					ENDIF
 
-					vent1a_f1flag = 1
+					swat_f1flag[11] = 1
 				ENDIF
 			ENDIF
 
-			IF vent1a_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat12_f1
-					TASK_PLAY_ANIM_NON_INTERRUPTABLE swat12_f1 swt_vent_01 SWAT 1000.0 FALSE FALSE FALSE FALSE -1
-//					SET_CHAR_NEVER_TARGETTED swat12_f1 FALSE
-//					SET_CHAR_HEALTH swat12_f1 20
+			IF swat_f1flag[11] = 1
+				IF NOT IS_CHAR_DEAD swat_f1[11]
+					TASK_PLAY_ANIM_NON_INTERRUPTABLE swat_f1[11] swt_vent_01 SWAT 1000.0 FALSE FALSE FALSE FALSE -1
+//					SET_CHAR_NEVER_TARGETTED swat_f1[11] FALSE
+//					SET_CHAR_HEALTH swat_f1[11] 20
 					TIMERB = 0
-					vent1a_f1flag = 2
-					vent1b_f1flag = 1
+					swat_f1flag[11] = 2
+					swat_f1flag[12] = 1
 				ENDIF 
 			ENDIF
 
-			IF vent1a_f1flag = 2
-				IF NOT IS_CHAR_DEAD swat12_f1
-					IF IS_CHAR_PLAYING_ANIM swat12_f1 swt_vent_01
-						GET_CHAR_ANIM_CURRENT_TIME swat12_f1 swt_vent_01 swtvent01_f1
+			IF swat_f1flag[11] = 2
+				IF NOT IS_CHAR_DEAD swat_f1[11]
+					IF IS_CHAR_PLAYING_ANIM swat_f1[11] swt_vent_01
+						GET_CHAR_ANIM_CURRENT_TIME swat_f1[11] swt_vent_01 swtvent01_f1
 							IF swtvent01_f1 = 1.0
-								//SET_CHAR_COLLISION swat12_f1 TRUE
-								//SET_CHAR_NEVER_TARGETTED swat12_f1 FALSE
-								SET_CHAR_COORDINATES swat12_f1 2217.85 -1188.86 1028.93 //1029.15
-								enemy_f1 = swat12_f1
+								//SET_CHAR_COLLISION swat_f1[11] TRUE
+								//SET_CHAR_NEVER_TARGETTED swat_f1[11] FALSE
+								SET_CHAR_COORDINATES swat_f1[11] 2217.85 -1188.86 1028.93 //1029.15
+								enemy_f1 = swat_f1[11]
 								enemyx_f1 = 2220.538
 								enemyy_f1 = -1189.594
 								enemyz_f1 = 1029.845
 								enemytarget_f1 = scplayer
 								GOSUB runstay_f1label
-								vent1a_f1flag = 3
+								swat_f1flag[11] = 3
 							ENDIF
 					ENDIF
 				ENDIF
 			ENDIF
 
-			IF vent1b_f1flag = 1
+			IF swat_f1flag[12] = 1
 				IF TIMERB > 3166
-					IF NOT IS_CHAR_DEAD swat13_f1
-						TASK_PLAY_ANIM_NON_INTERRUPTABLE swat13_f1 swt_vent_02 SWAT 1000.0 FALSE FALSE FALSE FALSE -1
-//						SET_CHAR_NEVER_TARGETTED swat13_f1 FALSE
-						vent1b_f1flag = 2
+					IF NOT IS_CHAR_DEAD swat_f1[12]
+						TASK_PLAY_ANIM_NON_INTERRUPTABLE swat_f1[12] swt_vent_02 SWAT 1000.0 FALSE FALSE FALSE FALSE -1
+//						SET_CHAR_NEVER_TARGETTED swat_f1[12] FALSE
+						swat_f1flag[12] = 2
 					ENDIF
 				ENDIF
 			ENDIF
 
 
-			IF vent1b_f1flag = 2
-				IF NOT IS_CHAR_DEAD swat13_f1
-					IF IS_CHAR_PLAYING_ANIM swat13_f1 swt_vent_02
-						GET_CHAR_ANIM_CURRENT_TIME swat13_f1 swt_vent_02 swtvent02_f1
+			IF swat_f1flag[12] = 2
+				IF NOT IS_CHAR_DEAD swat_f1[12]
+					IF IS_CHAR_PLAYING_ANIM swat_f1[12] swt_vent_02
+						GET_CHAR_ANIM_CURRENT_TIME swat_f1[12] swt_vent_02 swtvent02_f1
 							IF swtvent02_f1 = 1.0
-//								SET_CHAR_COLLISION swat13_f1 TRUE
-//								SET_CHAR_NEVER_TARGETTED swat13_f1 FALSE
-								SET_CHAR_COORDINATES swat13_f1 2217.85 -1188.86 1028.93 //1029.15
-								TASK_KILL_CHAR_ON_FOOT swat13_f1 scplayer
-								vent1b_f1flag = 3
+//								SET_CHAR_COLLISION swat_f1[12] TRUE
+//								SET_CHAR_NEVER_TARGETTED swat_f1[12] FALSE
+								SET_CHAR_COORDINATES swat_f1[12] 2217.85 -1188.86 1028.93 //1029.15
+								TASK_KILL_CHAR_ON_FOOT swat_f1[12] scplayer
+								swat_f1flag[12] = 3
 							ENDIF
 					ENDIF
 				ENDIF
@@ -3253,10 +2984,10 @@ IF roofmotel_f1flag = 0
 						IF NOT HAS_CHAR_BEEN_DAMAGED_BY_CHAR hoochie1_f1 scplayer
 							IF LOCATE_CHAR_ON_FOOT_3D scplayer 2209.7 -1197.323 1029.845 3.0 3.0 3.0 FALSE
 								CLEAR_AREA 2209.7 -1197.323 10.0 10.0 FALSE
-								IF NOT IS_CHAR_DEAD grove3_f1
-									REMOVE_CHAR_ELEGANTLY grove3_f1
+								IF NOT IS_CHAR_DEAD grove_f1[2]
+									REMOVE_CHAR_ELEGANTLY grove_f1[2]
 								ELSE
-									MARK_CHAR_AS_NO_LONGER_NEEDED grove3_f1
+									MARK_CHAR_AS_NO_LONGER_NEEDED grove_f1[2]
 								ENDIF
 
 								SET_PLAYER_CONTROL PLAYER1 OFF
@@ -3291,7 +3022,7 @@ IF roofmotel_f1flag = 0
 								
 								// FIXEDGROVE: START - heal the player like the vending machine and food vendor scripts
 								GET_CHAR_HEALTH scplayer temp_integer_1
-								temp_integer_1 += 100
+								l1f1_count += 100
 								SET_CHAR_HEALTH scplayer temp_integer_1
 								// FIXDEDGROVE: END
 
@@ -3329,168 +3060,168 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 			//kill char when player gets close
-			IF grove5_f1flag = 0
+			IF grove4_f1flag = 0
 				IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2240.8 -1182.4 1029.41 4.0 4.0 2.5 FALSE
-					IF NOT IS_CHAR_DEAD grove5_f1
-						SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove5_f1 FALSE
-						EXPLODE_CHAR_HEAD grove5_f1
+					IF NOT IS_CHAR_DEAD grove_f1[4]
+						SET_CHAR_ONLY_DAMAGED_BY_PLAYER grove_f1[4] FALSE
+						EXPLODE_CHAR_HEAD grove_f1[4]
 					ENDIF
-					grove5_f1flag = 1
+					grove4_f1flag = 1
 				ENDIF
 			ENDIF
 
 			//if player gets close shoot him instead		
-			IF swat7_f1flag = 0
-				IF NOT IS_CHAR_DEAD swat7_f1
-					IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat7_f1 scplayer
-					OR LOCATE_CHAR_ANY_MEANS_CHAR_3D swat7_f1 scplayer 2.5 2.5 3.0 FALSE
-						SET_CHAR_ACCURACY swat7_f1 30
-						TASK_KILL_CHAR_ON_FOOT swat7_f1 scplayer
-						swat7_f1flag = 1
+			IF swat_f1flag[6] = 0
+				IF NOT IS_CHAR_DEAD swat_f1[6]
+					IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat_f1[6] scplayer
+					OR LOCATE_CHAR_ANY_MEANS_CHAR_3D swat_f1[6] scplayer 2.5 2.5 3.0 FALSE
+						SET_CHAR_ACCURACY swat_f1[6] 30
+						TASK_KILL_CHAR_ON_FOOT swat_f1[6] scplayer
+						swat_f1flag[6] = 1
 					ENDIF
 				ENDIF
 			ENDIF
 
 			//trigger stair runners
-			IF swat8_f1flag = 0
-				IF swat9_f1flag = 0
+			IF swat_f1flag[7] = 0
+				IF swat_f1flag[8] = 0
 					IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2204.65 -1188.62 1029.44 5.0 5.0 3.5 FALSE
-						swat8_f1flag = 1
-						swat9_f1flag = 1
+						swat_f1flag[7] = 1
+						swat_f1flag[8] = 1
 						hoochie1_f1flag = 1
 					ENDIF
 				ENDIF
 			ENDIF
 
 		 	//runs up stairs
-		 	IF swat8_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat8_f1
-					enemy_f1 = swat8_f1
+		 	IF swat_f1flag[7] = 1
+				IF NOT IS_CHAR_DEAD swat_f1[7]
+					enemy_f1 = swat_f1[7]
 					enemytarget_f1 = scplayer
 					GOSUB stayshootnoduck_f1label
-					swat8_f1flag = 2
+					swat_f1flag[7] = 2
 				ENDIF
 			ENDIF
 
 			
 		 	//run down to behind the table
-		 	IF swat9_f1flag = 1
-				IF NOT IS_CHAR_DEAD swat9_f1
+		 	IF swat_f1flag[8] = 1
+				IF NOT IS_CHAR_DEAD swat_f1[8]
 					FLUSH_ROUTE
 					EXTEND_ROUTE 2186.67 -1192.4 1031.867
 					EXTEND_ROUTE 2188.44 -1193.95 1031.27
 					EXTEND_ROUTE 2193.31 -1193.57 1030.34
 					EXTEND_ROUTE 2196.239 -1191.459 1029.85
-					TASK_FOLLOW_POINT_ROUTE swat9_f1 PEDMOVE_RUN FOLLOW_ROUTE_ONCE
-					swat9_f1flag = 2
+					TASK_FOLLOW_POINT_ROUTE swat_f1[8] PEDMOVE_RUN FOLLOW_ROUTE_ONCE
+					swat_f1flag[8] = 2
 				ENDIF
 			ENDIF
-			IF swat9_f1flag = 2
-				IF NOT IS_CHAR_DEAD swat9_f1
-					IF LOCATE_STOPPED_CHAR_ANY_MEANS_2D swat9_f1 2196.239 -1191.459 2.0 2.0 FALSE
-					OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat9_f1 scplayer
-						enemy_f1 = swat9_f1
+			IF swat_f1flag[8] = 2
+				IF NOT IS_CHAR_DEAD swat_f1[8]
+					IF LOCATE_STOPPED_CHAR_ANY_MEANS_2D swat_f1[8] 2196.239 -1191.459 2.0 2.0 FALSE
+					OR HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat_f1[8] scplayer
+						enemy_f1 = swat_f1[8]
 						enemytarget_f1 = scplayer
 						GOSUB stayshootnoduck_f1label
-						swat9_f1flag = 3
+						swat_f1flag[8] = 3
 					ENDIF
 				ENDIF
 			ENDIF
 
 		 	//duck and shoot behind the sofa
-			IF swat10_f1flag = 0
-				IF NOT IS_CHAR_DEAD swat10_f1
-					enemy_f1 = swat10_f1
+			IF swat_f1flag[9] = 0
+				IF NOT IS_CHAR_DEAD swat_f1[9]
+					enemy_f1 = swat_f1[9]
 					enemytarget_f1 = scplayer
 					GOSUB stayshootnoduck_f1label
-					swat10_f1flag = 1
+					swat_f1flag[9] = 1
 				ENDIF
 			ENDIF
 
 			//other table
-			IF swat11_f1flag = 0
-				IF NOT IS_CHAR_DEAD swat11_f1
-					enemy_f1 = swat11_f1
+			IF swat_f1flag[10] = 0
+				IF NOT IS_CHAR_DEAD swat_f1[10]
+					enemy_f1 = swat_f1[10]
 					enemytarget_f1 = scplayer
 					GOSUB stayshootnoduck_f1label
-					swat11_f1flag = 1
+					swat_f1flag[10] = 1
 				ENDIF
 			ENDIF
 			
 			//right rollout guy in the final corridor
-			IF swat15_f1flag = 0
-				IF NOT IS_CHAR_DEAD swat15_f1
+			IF swat_f1flag[14] = 0
+				IF NOT IS_CHAR_DEAD swat_f1[14]
 					IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2193.41 -1176.12 1029.42 4.0 4.0 3.5 FALSE
-						enemy_f1 = swat15_f1
+						enemy_f1 = swat_f1[14]
 						GOSUB rolloutr_f1label
-						swat15_f1flag = 1
+						swat_f1flag[14] = 1
 					ENDIF
 				ENDIF
 			ENDIF	
 
 		 	//crouch behind trolley
-			IF swat16_f1flag = 0
-				IF NOT IS_CHAR_DEAD swat16_f1
-					enemy_f1 = swat16_f1
+			IF swat_f1flag[15] = 0
+				IF NOT IS_CHAR_DEAD swat_f1[15]
+					enemy_f1 = swat_f1[15]
 					enemytarget_f1 = scplayer
 					GOSUB stayshoot_f1label
-					swat16_f1flag = 1
+					swat_f1flag[15] = 1
 				ENDIF
 			ENDIF
 
 			//vent guy upside down shooting set piece
-			IF swat14_f1flag = 0
+			IF swat_f1flag[13] = 0
 				IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2193.4 -1173.53 1029.69 3.0 3.0 3.0 FALSE
-				OR IS_CHAR_DEAD swat16_f1
-					REMOVE_CHAR_ELEGANTLY grove3_f1	//remove grove's from their corner
-					REMOVE_CHAR_ELEGANTLY grove4_f1
-					REMOVE_CHAR_ELEGANTLY grove5_f1
+				OR IS_CHAR_DEAD swat_f1[15]
+					REMOVE_CHAR_ELEGANTLY grove_f1[2]	//remove grove's from their corner
+					REMOVE_CHAR_ELEGANTLY grove_f1[3]
+					REMOVE_CHAR_ELEGANTLY grove_f1[4]
 					REMOVE_CHAR_ELEGANTLY woundedgrove2_f1
-					REMOVE_CHAR_ELEGANTLY swatrope1_f1
-					REMOVE_CHAR_ELEGANTLY swatrope2_f1
+					REMOVE_CHAR_ELEGANTLY swatrope_f1[0]
+					REMOVE_CHAR_ELEGANTLY swatrope_f1[1]
 					IF DOES_OBJECT_EXIST vent2_f1
 						FREEZE_OBJECT_POSITION vent2_f1 FALSE
 						SET_OBJECT_ROTATION_VELOCITY vent2_f1 0.0 0.8 0.0
 						ATTACH_MISSION_AUDIO_TO_OBJECT 2 vent2_f1 // FIXEDGROVE: changed slot from 3 to 2
 						PLAY_MISSION_AUDIO 2 // FIXEDGORVE: changed slot from 3 to 2
 					ENDIF
-				swat14_f1flag = 1
+				swat_f1flag[13] = 1
 				ENDIF
 			ENDIF
 			
 			// FIXEDGROVE: slight refactoring, also fixes a bug where swat14 would freeze if you shoot him while he was still in his 'entering' animation
-			IF NOT IS_CHAR_DEAD swat14_f1
+			IF NOT IS_CHAR_DEAD swat_f1[13]
 			AND NOT LOCATE_CHAR_ANY_MEANS_3D scplayer 2193.12 -1161.86 1029.61 2.8 2.8 3.0 FALSE
-			AND NOT HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat14_f1 scplayer
-				IF swat14_f1flag = 1
-					TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_in SWAT 1000.0 FALSE FALSE FALSE TRUE -1
-					swat14_f1flag = 2
+			AND NOT HAS_CHAR_BEEN_DAMAGED_BY_CHAR swat_f1[13] scplayer
+				IF swat_f1flag[13] = 1
+					TASK_PLAY_ANIM_NON_INTERRUPTABLE swat_f1[13] swt_vnt_sht_in SWAT 1000.0 FALSE FALSE FALSE TRUE -1
+					swat_f1flag[13] = 2
 				ENDIF
 
-				IF swat14_f1flag = 2
-					IF IS_CHAR_PLAYING_ANIM swat14_f1 swt_vnt_sht_in
-						GET_CHAR_ANIM_CURRENT_TIME swat14_f1 swt_vnt_sht_in upsidedownswat_f1
+				IF swat_f1flag[13] = 2
+					IF IS_CHAR_PLAYING_ANIM swat_f1[13] swt_vnt_sht_in
+						GET_CHAR_ANIM_CURRENT_TIME swat_f1[13] swt_vnt_sht_in upsidedownswat_f1
 						IF upsidedownswat_f1 = 1.0
-							TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1
+							TASK_PLAY_ANIM_NON_INTERRUPTABLE swat_f1[13] swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1
 							GET_CHAR_COORDINATES scplayer player_x player_y player_z
 							FIRE_SINGLE_BULLET 2193.300 -1165.308 1031.124 player_x player_y player_z 10 // FIXEDGROVE: increased damage and made coords more accurate
-							REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat14_f1 SOUND_MINITANK_FIRE
+							REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat_f1[13] SOUND_MINITANK_FIRE
 							ADD_BIG_GUN_FLASH 2193.300 -1165.308 1031.124 player_x player_y player_z // FIXEDGROVE: made coords more accurate
-							SET_CHAR_NEVER_TARGETTED swat14_f1 FALSE
-							SET_CHAR_IS_TARGET_PRIORITY swat14_f1 TRUE
+							SET_CHAR_NEVER_TARGETTED swat_f1[13] FALSE
+							SET_CHAR_IS_TARGET_PRIORITY swat_f1[13] TRUE
 							TIMERB = 1000 //0
-							swat14_f1flag = 3
+							swat_f1flag[13] = 3
 						ENDIF
 					ENDIF
 				ENDIF
 	
-				IF swat14_f1flag = 3
+				IF swat_f1flag[13] = 3
 					IF TIMERB > 750 // FIXEDGROVE: decreased timer a bit
-						IF IS_CHAR_PLAYING_ANIM swat14_f1 swt_vnt_sht_loop
-							GET_CHAR_ANIM_CURRENT_TIME swat14_f1 swt_vnt_sht_loop upsidedownswat_f1
+						IF IS_CHAR_PLAYING_ANIM swat_f1[13] swt_vnt_sht_loop
+							GET_CHAR_ANIM_CURRENT_TIME swat_f1[13] swt_vnt_sht_loop upsidedownswat_f1
 							IF upsidedownswat_f1 = 1.0 //= 1.0
-								TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1 //old line
-								//TASK_PLAY_ANIM_WITH_FLAGS swat14_f1 swt_vnt_sht_loop SWAT 8.0 FALSE FALSE FALSE TRUE -1 FALSE TRUE //new line
+								TASK_PLAY_ANIM_NON_INTERRUPTABLE swat_f1[13] swt_vnt_sht_loop SWAT 1000.0 FALSE FALSE FALSE TRUE -1 //old line
+								//TASK_PLAY_ANIM_WITH_FLAGS swat_f1[13] swt_vnt_sht_loop SWAT 8.0 FALSE FALSE FALSE TRUE -1 FALSE TRUE //new line
 								GET_CHAR_COORDINATES scplayer player_x player_y player_z
 								// FIXEDGROVE: START - added ducking check to make shooting more accurate
 								IF IS_CHAR_DUCKING scplayer				
@@ -3501,7 +3232,7 @@ IF roofmotel_f1flag = 0
 								// FIXEDGROVE: END
 								//player_y = player_y + 0.0
 								FIRE_SINGLE_BULLET 2193.300 -1165.308 1031.124 player_x player_y player_z 20 // FIXEDGROVE: increased damage and made coords more accurate
-								REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat14_f1 SOUND_MINITANK_FIRE									 								
+								REPORT_MISSION_AUDIO_EVENT_AT_CHAR swat_f1[13] SOUND_MINITANK_FIRE									 								
 								ADD_BIG_GUN_FLASH 2193.300 -1165.308 1031.124 player_x player_y player_z // FIXEDGROVE: made coords more accurate
 								TIMERB = 0
 							ENDIF
@@ -3509,30 +3240,30 @@ IF roofmotel_f1flag = 0
 					ENDIF
 				ENDIF
 			ELSE
-				IF DOES_CHAR_EXIST swat14_f1
+				IF DOES_CHAR_EXIST swat_f1[13]
 					//dies if player walks past him
-					IF swat14_f1flag < 4
-						SET_CHAR_COLLISION swat14_f1 FALSE
-						SET_CHAR_COORDINATES swat14_f1 2193.129 -1164.661 1032.269
-						TASK_PLAY_ANIM_NON_INTERRUPTABLE swat14_f1 swt_vnt_sht_die SWAT 1000.0 FALSE FALSE FALSE TRUE -1
-						SET_CHAR_NEVER_TARGETTED swat14_f1 TRUE
-						swat14_f1flag = 4	
+					IF swat_f1flag[13] < 4
+						SET_CHAR_COLLISION swat_f1[13] FALSE
+						SET_CHAR_COORDINATES swat_f1[13] 2193.129 -1164.661 1032.269
+						TASK_PLAY_ANIM_NON_INTERRUPTABLE swat_f1[13] swt_vnt_sht_die SWAT 1000.0 FALSE FALSE FALSE TRUE -1
+						SET_CHAR_NEVER_TARGETTED swat_f1[13] TRUE
+						swat_f1flag[13] = 4	
 					ENDIF
 
-					IF swat14_f1flag = 4
-						IF IS_CHAR_PLAYING_ANIM swat14_f1 swt_vnt_sht_die
-							GET_CHAR_ANIM_CURRENT_TIME swat14_f1 swt_vnt_sht_die upsidedownswat_f1
+					IF swat_f1flag[13] = 4
+						IF IS_CHAR_PLAYING_ANIM swat_f1[13] swt_vnt_sht_die
+							GET_CHAR_ANIM_CURRENT_TIME swat_f1[13] swt_vnt_sht_die upsidedownswat_f1
 							IF upsidedownswat_f1 = 1.0
-								swat14_f1flag = 5
+								swat_f1flag[13] = 5
 							ENDIF
 						ENDIF
 					ENDIF
 
-					IF swat14_f1flag = 5
-						IF NOT IS_CHAR_ON_SCREEN swat14_f1
-						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat14_f1 scplayer 5.0 5.0 FALSE
-							REMOVE_CHAR_ELEGANTLY swat14_f1
-							swat14_f1flag = 6
+					IF swat_f1flag[13] = 5
+						IF NOT IS_CHAR_ON_SCREEN swat_f1[13]
+						OR LOCATE_CHAR_ANY_MEANS_CHAR_2D swat_f1[13] scplayer 5.0 5.0 FALSE
+							REMOVE_CHAR_ELEGANTLY swat_f1[13]
+							swat_f1flag[13] = 6
 						ENDIF
 					ENDIF
 				ENDIF
@@ -3540,25 +3271,25 @@ IF roofmotel_f1flag = 0
 				
 			
 			//roll left 
-			IF swat17_f1flag = 0
-				IF NOT IS_CHAR_DEAD swat17_f1
+			IF swat_f1flag[16] = 0
+				IF NOT IS_CHAR_DEAD swat_f1[16]
 					IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2193.19 -1160.67 1029.54 4.0 4.0 3.5 FALSE
-						enemy_f1 = swat17_f1
+						enemy_f1 = swat_f1[16]
 						GOSUB rolloutl_f1label
 						//DELETE_OBJECT vent2_f1
-						swat17_f1flag = 1
+						swat_f1flag[16] = 1
 					ENDIF
 				ENDIF
 			ENDIF
 
 			//guy shooting sweet
-			IF swat18_f1flag = 0
-				IF NOT IS_CHAR_DEAD swat18_f1
+			IF swat_f1flag[17] = 0
+				IF NOT IS_CHAR_DEAD swat_f1[17]
 					IF NOT IS_CHAR_DEAD sweet
-						enemy_f1 = swat18_f1
+						enemy_f1 = swat_f1[17]
 						enemytarget_f1 = sweet
 						GOSUB stayshoot_f1label
-						swat18_f1flag = 1
+						swat_f1flag[17] = 1
 					ENDIF
 				ENDIF
 			ENDIF
@@ -3566,103 +3297,103 @@ IF roofmotel_f1flag = 0
 			//sweet shooting back
 			IF sweet_f1flag = 0
 				IF NOT IS_CHAR_DEAD sweet
-					IF NOT IS_CHAR_DEAD swat18_f1
+					IF NOT IS_CHAR_DEAD swat_f1[17]
 						enemy_f1 = sweet
-						enemytarget_f1 = swat18_f1
+						enemytarget_f1 = swat_f1[17]
 						GOSUB stayshootnoduck_f1label
 						sweet_f1flag = 1
 					ENDIF
 				ENDIF
 			ENDIF
 
-			IF vent1a_f1flag = 3
-				IF IS_CHAR_DEAD swat12_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat12_f1
-					vent1a_f1flag = 4
+			IF swat_f1flag[11] = 3
+				IF IS_CHAR_DEAD swat_f1[11]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[11]
+					swat_f1flag[11] = 4
 				ENDIF
 			ENDIF
 
-			IF vent1b_f1flag = 3
-				IF IS_CHAR_DEAD swat13_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat13_f1
-					vent1a_f1flag = 4
+			IF swat_f1flag[12] = 3
+				IF IS_CHAR_DEAD swat_f1[12]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[12]
+					swat_f1flag[11] = 4
 				ENDIF
 			ENDIF
 
-			IF grove5_f1flag = 1
-				IF IS_CHAR_DEAD grove5_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED grove5_f1
-		 			grove5_f1flag = 2
+			IF grove4_f1flag = 1
+				IF IS_CHAR_DEAD grove_f1[4]
+					MARK_CHAR_AS_NO_LONGER_NEEDED grove_f1[4]
+		 			grove4_f1flag = 2
 				ENDIF
 			ENDIF
 
-			IF swat7_f1flag = 1
-				IF IS_CHAR_DEAD swat7_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat7_f1
-					swat7_f1flag = 2
+			IF swat_f1flag[6] = 1
+				IF IS_CHAR_DEAD swat_f1[6]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[6]
+					swat_f1flag[6] = 2
 				ENDIF
 			ENDIF
 
-			IF swat8_f1flag = 2
-				IF IS_CHAR_DEAD swat8_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat8_f1
-		 			swat8_f1flag = 3
+			IF swat_f1flag[7] = 2
+				IF IS_CHAR_DEAD swat_f1[7]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[7]
+		 			swat_f1flag[7] = 3
 				ENDIF
 			ENDIF
 					
-			IF swat9_f1flag = 2
-				IF IS_CHAR_DEAD swat9_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat9_f1
-		 			swat9_f1flag = 4
+			IF swat_f1flag[8] = 2
+				IF IS_CHAR_DEAD swat_f1[8]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[8]
+		 			swat_f1flag[8] = 4
 				ENDIF
 			ENDIF
 
-			IF swat10_f1flag = 1
-				IF IS_CHAR_DEAD swat10_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat10_f1
-		 			swat10_f1flag = 2
+			IF swat_f1flag[9] = 1
+				IF IS_CHAR_DEAD swat_f1[9]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[9]
+		 			swat_f1flag[9] = 2
 				ENDIF
 			ENDIF
 
-			IF swat11_f1flag = 1
-				IF IS_CHAR_DEAD swat11_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat11_f1
-		 			swat11_f1flag = 2
+			IF swat_f1flag[10] = 1
+				IF IS_CHAR_DEAD swat_f1[10]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[10]
+		 			swat_f1flag[10] = 2
 				ENDIF
 			ENDIF
 			
-			IF swat15_f1flag = 1
-				IF IS_CHAR_DEAD swat15_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat15_f1
-		 			swat15_f1flag = 2
+			IF swat_f1flag[14] = 1
+				IF IS_CHAR_DEAD swat_f1[14]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[14]
+		 			swat_f1flag[14] = 2
 				ENDIF
 			ENDIF
 
-			IF swat16_f1flag = 1
-				IF IS_CHAR_DEAD swat16_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat16_f1
-		 			swat16_f1flag = 2
+			IF swat_f1flag[15] = 1
+				IF IS_CHAR_DEAD swat_f1[15]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[15]
+		 			swat_f1flag[15] = 2
 				ENDIF
 			ENDIF
 
-			IF swat14_f1flag = 4
-				IF IS_CHAR_DEAD swat14_f1
-				   	MARK_CHAR_AS_NO_LONGER_NEEDED swat14_f1
-					swat14_f1flag = 5
+			IF swat_f1flag[13] = 4
+				IF IS_CHAR_DEAD swat_f1[13]
+				   	MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[13]
+					swat_f1flag[13] = 5
 				ENDIF
 			ENDIF
 
-			IF swat17_f1flag = 1
-				IF IS_CHAR_DEAD swat17_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat17_f1
-					swat17_f1flag = 2
+			IF swat_f1flag[16] = 1
+				IF IS_CHAR_DEAD swat_f1[16]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[16]
+					swat_f1flag[16] = 2
 				ENDIF
 			ENDIF
 
-			IF swat18_f1flag = 1
-				IF IS_CHAR_DEAD swat18_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED swat18_f1
-					swat18_f1flag = 2
+			IF swat_f1flag[17] = 1
+				IF IS_CHAR_DEAD swat_f1[17]
+					MARK_CHAR_AS_NO_LONGER_NEEDED swat_f1[17]
+					swat_f1flag[17] = 2
 				ENDIF
 			ENDIF
 
@@ -3675,8 +3406,8 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 //			IF sweetexit_f1flag = 0
-//				IF swat17_f1flag = 2
-//					IF swat18_f1flag = 2
+//				IF swat_f1flag[16] = 2
+//					IF swat_f1flag[17] = 2
 //						sweetexit_f1flag = 1	//player has killed two nearby swat
 //					ENDIF
 //				ENDIF
@@ -3687,8 +3418,8 @@ IF roofmotel_f1flag = 0
 			IF sweetexit_f1flag = 0
 				IF NOT IS_CHAR_DEAD sweet
 					IF LOCATE_CHAR_ANY_MEANS_CHAR_3D sweet scplayer 3.5 3.5 3.5 FALSE //used to be 7.5
-						IF IS_CHAR_DEAD	swat17_f1
-							IF IS_CHAR_DEAD swat18_f1
+						IF IS_CHAR_DEAD	swat_f1[16]
+							IF IS_CHAR_DEAD swat_f1[17]
 
 								GET_CURRENT_CHAR_WEAPON scplayer playerweapon_f1
 
@@ -3707,33 +3438,33 @@ IF roofmotel_f1flag = 0
 								MARK_MODEL_AS_NO_LONGER_NEEDED KMB_TROLLEY
 								MARK_MODEL_AS_NO_LONGER_NEEDED BFYPRO
 								MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
-								REMOVE_CHAR_ELEGANTLY grove1_f1
-								REMOVE_CHAR_ELEGANTLY grove2_f1
-								REMOVE_CHAR_ELEGANTLY grove3_f1
-								REMOVE_CHAR_ELEGANTLY grove4_f1
-								REMOVE_CHAR_ELEGANTLY grove5_f1
-								REMOVE_CHAR_ELEGANTLY swatrope1_f1
-								REMOVE_CHAR_ELEGANTLY swatrope2_f1
-								REMOVE_CHAR_ELEGANTLY swat1_f1
-								REMOVE_CHAR_ELEGANTLY swat2_f1
-								REMOVE_CHAR_ELEGANTLY swat3_f1
-								REMOVE_CHAR_ELEGANTLY swat4_f1
+								REMOVE_CHAR_ELEGANTLY grove_f1[0]
+								REMOVE_CHAR_ELEGANTLY grove_f1[1]
+								REMOVE_CHAR_ELEGANTLY grove_f1[2]
+								REMOVE_CHAR_ELEGANTLY grove_f1[3]
+								REMOVE_CHAR_ELEGANTLY grove_f1[4]
+								REMOVE_CHAR_ELEGANTLY swatrope_f1[0]
+								REMOVE_CHAR_ELEGANTLY swatrope_f1[1]
+								REMOVE_CHAR_ELEGANTLY swat_f1[0]
+								REMOVE_CHAR_ELEGANTLY swat_f1[1]
+								REMOVE_CHAR_ELEGANTLY swat_f1[2]
+								REMOVE_CHAR_ELEGANTLY swat_f1[3]
 								REMOVE_CHAR_ELEGANTLY woundedgrove1_f1 
 								REMOVE_CHAR_ELEGANTLY woundedgrove2_f1
-								REMOVE_CHAR_ELEGANTLY swat5_f1 
-								REMOVE_CHAR_ELEGANTLY swat6_f1 
-								REMOVE_CHAR_ELEGANTLY swat7_f1 
-								REMOVE_CHAR_ELEGANTLY swat8_f1 
-								REMOVE_CHAR_ELEGANTLY swat9_f1 
-								REMOVE_CHAR_ELEGANTLY swat10_f1 
-								REMOVE_CHAR_ELEGANTLY swat11_f1 
-								REMOVE_CHAR_ELEGANTLY swat12_f1 
-								REMOVE_CHAR_ELEGANTLY swat13_f1 
-								REMOVE_CHAR_ELEGANTLY swat14_f1 
-								REMOVE_CHAR_ELEGANTLY swat15_f1
-								REMOVE_CHAR_ELEGANTLY swat16_f1
-								REMOVE_CHAR_ELEGANTLY swat17_f1
-								REMOVE_CHAR_ELEGANTLY swat18_f1
+								REMOVE_CHAR_ELEGANTLY swat_f1[4] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[5] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[6] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[7] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[8] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[9] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[10] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[11] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[12] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[13] 
+								REMOVE_CHAR_ELEGANTLY swat_f1[14]
+								REMOVE_CHAR_ELEGANTLY swat_f1[15]
+								REMOVE_CHAR_ELEGANTLY swat_f1[16]
+								REMOVE_CHAR_ELEGANTLY swat_f1[17]
 								REMOVE_CHAR_ELEGANTLY hoochie1_f1 
 								REMOVE_CHAR_ELEGANTLY hoochie2_f1
 								DELETE_OBJECT breachdoor_f1
@@ -3839,10 +3570,10 @@ IF roofmotel_f1flag = 0
 			ENDIF
 
 			IF sweetexit_f1flag > 2
-				IF sweetexit_f1flag < 6
+			AND sweetexit_f1flag < 6
 					IF audiosweet_f1flag = 0
 						IF HAS_MISSION_AUDIO_FINISHED 2
-							IF HAS_MISSION_AUDIO_LOADED 1
+						AND HAS_MISSION_AUDIO_LOADED 1
 								CLEAR_PRINTS
 								STOP_CHAR_FACIAL_TALK scplayer
 								PLAY_MISSION_AUDIO 1
@@ -3851,10 +3582,8 @@ IF roofmotel_f1flag = 0
 								ENDIF
 								PRINT_NOW FIN1_JK 2000 1//Fuck it, let’s get out of here!
 								audiosweet_f1flag = 1
-							ENDIF
 						ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 			IF audiosweet_f1flag = 1
 				IF NOT IS_CHAR_DEAD sweet
@@ -3872,7 +3601,7 @@ IF roofmotel_f1flag = 0
 							GET_SCRIPT_TASK_STATUS scplayer TASK_PLAY_ANIM playerstatus_f1
 								IF playerstatus_f1 = FINISHED_TASK
 									IF HAS_MISSION_AUDIO_FINISHED 2
-										IF HAS_MISSION_AUDIO_LOADED 1
+									AND HAS_MISSION_AUDIO_LOADED 1
 											TIMERA = 0
 											SET_FIXED_CAMERA_POSITION 2202.4089 -1157.1904 1030.5150 0.0 0.0 0.0
 											POINT_CAMERA_AT_POINT 2201.4138 -1157.1287 1030.4376 JUMP_CUT
@@ -3882,7 +3611,6 @@ IF roofmotel_f1flag = 0
 											TASK_FOLLOW_POINT_ROUTE scplayer PEDMOVE_WALK FOLLOW_ROUTE_ONCE
 											TASK_FOLLOW_POINT_ROUTE sweet PEDMOVE_WALK FOLLOW_ROUTE_ONCE
 											sweetexit_f1flag = 4
-										ENDIF
 									ENDIF
 								ENDIF
 						ENDIF
@@ -3966,49 +3694,16 @@ IF roofmotel_f1flag = 0
 							TASK_GO_STRAIGHT_TO_COORD sweet 2192.25 -1158.078 33.56 PEDMOVE_WALK -1
 						ENDIF
 
-						
 						CREATE_CAR POLMAV 2249.51 -1111.52 56.1 extpoliceheli_f1
-						SET_PETROL_TANK_WEAKPOINT extpoliceheli_f1 FALSE
-						SET_CAR_ONLY_DAMAGED_BY_PLAYER extpoliceheli_f1 TRUE
-						SET_CAR_HEALTH extpoliceheli_f1 2000
 						CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION2 SWAT exthelidriver_f1
-						SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-						LOCK_CAR_DOORS extpoliceheli_f1 CARLOCK_LOCKED
-						SET_CHAR_CANT_BE_DRAGGED_OUT exthelidriver_f1 TRUE
-						SET_CAR_FORWARD_SPEED extpoliceheli_f1 30.0
-						SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
-						SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
+						GOSUB l1f1_outside_heli_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat1_f1
-						SET_CHAR_RELATIONSHIP swat1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_RELATIONSHIP swat1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-						SET_CHAR_DECISION_MAKER swat1_f1 extmotel_DM
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat2_f1
-						SET_CHAR_RELATIONSHIP swat2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_DECISION_MAKER swat2_f1 extmotel_DM
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat3_f1
-						SET_CHAR_RELATIONSHIP swat3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_RELATIONSHIP swat3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-						SET_CHAR_DECISION_MAKER swat3_f1 extmotel_DM
-						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat4_f1
-						SET_CHAR_RELATIONSHIP swat4_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-						SET_CHAR_DECISION_MAKER swat4_f1 extmotel_DM
+						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
+						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
+						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
+						CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
+						GOSUB l1f1_outside_heli_guys_cutscene_setup // FIXEDGROVE: moved setup code to gosub
 
-						swat1_f1flag = 0
-						swat2_f1flag = 0
-						swat3_f1flag = 0
-						swat4_f1flag = 0
-						ATTACH_CHAR_TO_CAR swat1_f1 extpoliceheli_f1 1.4 1.3 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat1_f1 150
-						SET_CHAR_SHOOT_RATE swat1_f1 70
-						ATTACH_CHAR_TO_CAR swat2_f1 extpoliceheli_f1 1.4 -0.8 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat2_f1 150
-						SET_CHAR_SHOOT_RATE swat2_f1 70
-						ATTACH_CHAR_TO_CAR swat3_f1 extpoliceheli_f1 -1.4 1.3 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat3_f1 150
-						SET_CHAR_SHOOT_RATE swat3_f1 70
-						ATTACH_CHAR_TO_CAR swat4_f1 extpoliceheli_f1 -1.4 -0.8 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-						SET_CHAR_HEALTH swat4_f1 150
 						SET_AREA_VISIBLE 0
 						LOAD_SCENE 2193.86 -1157.682 33.563
 
@@ -4039,18 +3734,18 @@ IF roofmotel_f1flag = 0
 			
 			// FIXEDGROVE: assigned speakers to the voicelines, moved 'Go go go!' and 'Get into positions' voicelines here for consistency and to add back subtitles
 			//play mission audio
-			IF progressaudio_f1flag = 0
-				IF handlingaudio_f1flag = 0
+			IF handlingaudio_f1flag = 0
+			// FIXEDGROVE: changed if-chain to switch-case
+			SWITCH progressaudio_f1flag
+				CASE 0
 					IF woundedgrove1_f1flag = 1
 						audio_label_f1 = SOUND_FIN1_JC	//Where the OG’s at – I gotta go get my brother, Sweet.
 						$input_text_f1 = FIN1_JC	//Where the OG’s at – I gotta go get my brother, Sweet.
 						speaker_f1 = scplayer
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
-			IF progressaudio_f1flag = 1
-				IF handlingaudio_f1flag = 0
+				BREAK
+				CASE 1
 					IF woundedgrove1_f1flag = 1
 						attachaudio_f1flag = 1						
 						audio_label_f1 = SOUND_FIN1_JD	//They were meeting in the back of the motel someplace…
@@ -4058,73 +3753,62 @@ IF roofmotel_f1flag = 0
 						speaker_f1 = woundedgrove1_f1
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
 
-			ENDIF
-
-			IF breach_f1flag > 2
-				IF progressaudio_f1flag = 2
-					IF handlingaudio_f1flag = 0
+				CASE 2
+					IF breach_f1flag > 2
 						audio_label_f1 = SOUND_FIN1_AS // <loud explosion> Go Go Go!
 						$input_text_f1 = FIN1_AS // <loud explosion> Go Go Go!
-						speaker_f1 = swat3_f1
+						speaker_f1 = swat_f1[2]
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
 
-			IF swatwindosmash_f1flag > 0
-				IF progressaudio_f1flag = 3
-					IF handlingaudio_f1flag = 0
+				CASE 3
+					IF swatwindosmash_f1flag > 0
 						audio_label_f1 = SOUND_FIN1_JF	//Families! Cops comin’ in behind!
 						$input_text_f1 = FIN1_JF	//Families! Cops comin’ in behind!
 						speaker_f1 = scplayer
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
+				BREAK
 
-			IF vent1a_f1flag > 0
-				IF progressaudio_f1flag = 4
-					IF handlingaudio_f1flag = 0 
+				CASE 4
+					IF swat_f1flag[11] > 0
 						audio_label_f1 = SOUND_FIN1_AE	//Get into positions!
 						$input_text_f1 = FIN1_AE	//Get into positions!
-						speaker_f1 = swat12_f1
+						speaker_f1 = swat_f1[11]
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
+
 
 			//corner where swat run down stairs
-			IF swat8_f1flag > 0
-				IF progressaudio_f1flag = 5
-					IF handlingaudio_f1flag = 0
+				CASE 5
+					IF swat_f1flag[7] > 0
 						audio_label_f1 = SOUND_FIN1_BD	//Get some suppressing fire in there!
 						$input_text_f1 = FIN1_BD	//Get some suppressing fire in there!
-						speaker_f1 = swat8_f1
+						speaker_f1 = swat_f1[7]
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
+				BREAK
 
 			//upside down guy
-			IF swat14_f1flag > 0
-				IF progressaudio_f1flag = 6
-					IF handlingaudio_f1flag = 0
+				CASE 6
+					IF swat_f1flag[13] > 0
 						audio_label_f1 = SOUND_FIN1_CK	//Unit down, repeat, unit down!
 						$input_text_f1 = FIN1_CK	//Unit down, repeat, unit down!
-						speaker_f1 = swat14_f1
+						speaker_f1 = swat_f1[13]
 						GOSUB load_audio_f1
 					ENDIF
-				ENDIF
-			ENDIF
-			IF progressaudio_f1flag = 7
-				IF handlingaudio_f1flag = 0
+				BREAK
+				CASE 7
 					audio_label_f1 = SOUND_FIN1_BE	//Gimme some fucking covering fire!
 					$input_text_f1 = FIN1_BE	//Gimme some fucking covering fire!
-					speaker_f1 = swat14_f1
+					speaker_f1 = swat_f1[13]
 					GOSUB load_audio_f1
-				ENDIF
+				BREAK
+			ENDSWITCH
 			ENDIF
 		ENDIF
 
@@ -4153,7 +3837,7 @@ IF roofmotel_f1flag = 1
 			POINT_CAMERA_AT_POINT 2194.1025 -1157.9785 33.9628 JUMP_CUT
 
 			IF NOT IS_CHAR_DEAD sweet
-				IF NOT IS_CHAR_DEAD exthelidriver_f1
+			AND NOT IS_CHAR_DEAD exthelidriver_f1
 					WAIT 200
 					IF NOT IS_CHAR_DEAD exthelidriver_f1
 						TASK_LOOK_AT_CHAR scplayer exthelidriver_f1 3000
@@ -4168,7 +3852,6 @@ IF roofmotel_f1flag = 1
 					PRINT_NOW FIN1_AA 3000 1
 					TIMERB = 0
 					sweetexit_f1flag = 7
-				ENDIF
 			ENDIF
 
 		ENDIF
@@ -4177,7 +3860,7 @@ IF roofmotel_f1flag = 1
 	IF sweetexit_f1flag = 7
 		IF TIMERB > 2500
 			IF NOT IS_CHAR_DEAD sweet
-				IF NOT IS_CAR_DEAD extpoliceheli_f1
+			AND NOT IS_CAR_DEAD extpoliceheli_f1
 
 					//////////////////////////////////////////////////////////////////////////////////////
 					//////////////////////////////////////////////////////////////////////////////////////
@@ -4188,43 +3871,43 @@ IF roofmotel_f1flag = 1
 					SET_FIXED_CAMERA_POSITION 2176.6411 -1179.4252 38.9175 0.0 0.0 0.0
 					POINT_CAMERA_AT_POINT 2177.1365 -1178.5883 38.6847 JUMP_CUT
 
-					IF NOT IS_CHAR_DEAD swat1_f1
-						IF swat1_f1flag = 0
-							enemy_f1 = swat1_f1
+					IF NOT IS_CHAR_DEAD swat_f1[0]
+						IF swat_f1flag[0] = 0
+							enemy_f1 = swat_f1[0]
 							enemytarget_f1 = scplayer
 							GOSUB stayshoot_f1label
-							swat1_f1flag = 1
+							swat_f1flag[0] = 1
 						ENDIF
 					ENDIF
 
-					IF NOT IS_CHAR_DEAD swat2_f1
-						IF swat2_f1flag = 0
-							enemy_f1 = swat2_f1
+					IF NOT IS_CHAR_DEAD swat_f1[1]
+						IF swat_f1flag[1] = 0
+							enemy_f1 = swat_f1[1]
 							IF NOT IS_CHAR_DEAD sweet
 								enemytarget_f1 = sweet
 							ENDIF
 							GOSUB stayshootnoduck_f1label
-							swat2_f1flag = 1
+							swat_f1flag[1] = 1
 						ENDIF
 					ENDIF
 
-					IF NOT IS_CHAR_DEAD swat3_f1
-						IF swat3_f1flag = 0
-							enemy_f1 = swat3_f1
+					IF NOT IS_CHAR_DEAD swat_f1[2]
+						IF swat_f1flag[2] = 0
+							enemy_f1 = swat_f1[2]
 							IF NOT IS_CHAR_DEAD sweet
 								enemytarget_f1 = sweet
 							ENDIF
 							GOSUB stayshootnoduck_f1label
-							swat3_f1flag = 1
+							swat_f1flag[2] = 1
 						ENDIF
 					ENDIF
 
-					IF NOT IS_CHAR_DEAD swat4_f1
-						IF swat4_f1flag = 0
-							enemy_f1 = swat4_f1
+					IF NOT IS_CHAR_DEAD swat_f1[3]
+						IF swat_f1flag[3] = 0
+							enemy_f1 = swat_f1[3]
 							enemytarget_f1 = scplayer
 							GOSUB stayshootnoduck_f1label
-							swat4_f1flag = 1
+							swat_f1flag[3] = 1
 						ENDIF
 					ENDIF
 
@@ -4232,7 +3915,6 @@ IF roofmotel_f1flag = 1
 					TASK_GO_STRAIGHT_TO_COORD scplayer 2198.424 -1158.32 33.56 PEDMOVE_RUN 5000 //2193.91 -1164.24 32.86 PEDMOVE_RUN 5000
 					TIMERB = 0
 					sweetexit_f1flag = 8
-				ENDIF
 			ENDIF
 		ENDIF
 	ENDIF
@@ -4240,7 +3922,7 @@ IF roofmotel_f1flag = 1
 	IF sweetexit_f1flag = 8
 		IF TIMERB > 1500
 			IF NOT IS_CAR_DEAD extpoliceheli_f1
-				IF NOT IS_CHAR_DEAD sweet
+			AND NOT IS_CHAR_DEAD sweet
 
 					IF IS_PLAYBACK_GOING_ON_FOR_CAR extpoliceheli_f1
 						STOP_PLAYBACK_RECORDED_CAR extpoliceheli_f1
@@ -4260,7 +3942,6 @@ IF roofmotel_f1flag = 1
 					HELI_GOTO_COORDS extpoliceheli_f1 2194.97 -1182.27 37.0 7.0 7.0
 					TIMERB = 0
 					sweetexit_f1flag = 9
-				ENDIF
 			ENDIF
 		ENDIF
 	ENDIF
@@ -4320,10 +4001,10 @@ IF roofmotel_f1flag = 1
 							ENDIF
 
 							DELETE_CAR extpoliceheli_f1
-							DELETE_CHAR swat1_f1
-							DELETE_CHAR swat2_f1
-							DELETE_CHAR swat3_f1
-							DELETE_CHAR swat4_f1
+							DELETE_CHAR swat_f1[0]
+							DELETE_CHAR swat_f1[1]
+							DELETE_CHAR swat_f1[2]
+							DELETE_CHAR swat_f1[3]
 
 							//creating everything
 							REQUEST_MODEL POLMAV
@@ -4345,52 +4026,19 @@ IF roofmotel_f1flag = 1
 							ENDIF
 
 							CREATE_CAR POLMAV 2249.51 -1111.52 56.1 extpoliceheli_f1
-							SET_PETROL_TANK_WEAKPOINT extpoliceheli_f1 FALSE
-							SET_CAR_ONLY_DAMAGED_BY_PLAYER extpoliceheli_f1 TRUE
-							SET_CAR_FORWARD_SPEED extpoliceheli_f1 30.0
-							SET_CAR_HEALTH extpoliceheli_f1 2000
+							CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION2 SWAT exthelidriver_f1
+							GOSUB l1f1_outside_heli_cutscene_setup // FIXEDGROVE: moved setup code to gosub
+
+							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat_f1[0]
+							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat_f1[1]
+							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat_f1[2]
+							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat_f1[3]
+							GOSUB l1f1_outside_heli_guys_cutscene_setup // FIXEDGROVE: moved setup code to gosub
+
 							CREATE_SEARCHLIGHT_ON_VEHICLE extpoliceheli_f1 0.0 1.0 -0.5 2193.73 -1166.85 34.06 3.0 0.4 helispotlight_f1
 							POINT_SEARCHLIGHT_AT_CHAR helispotlight_f1 sweet 0.2
-							CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION2 SWAT exthelidriver_f1
-							SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-							LOCK_CAR_DOORS extpoliceheli_f1 CARLOCK_LOCKED
-							SET_CHAR_CANT_BE_DRAGGED_OUT exthelidriver_f1 TRUE
-							SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-							SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
-							SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
 							SET_CAR_COORDINATES extpoliceheli_f1 2188.28 -1176.54 39.54
 							SET_CAR_HEADING extpoliceheli_f1 210.0
-
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2161.84 -1154.26 25.09 swat1_f1
-							SET_CHAR_RELATIONSHIP swat1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_RELATIONSHIP swat1_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-							SET_CHAR_DECISION_MAKER swat1_f1 extmotel_DM
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 25.09 swat2_f1
-							SET_CHAR_RELATIONSHIP swat2_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_DECISION_MAKER swat2_f1 extmotel_DM
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -5.09 swat3_f1
-							SET_CHAR_RELATIONSHIP swat3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_RELATIONSHIP swat3_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-							SET_CHAR_DECISION_MAKER swat3_f1 extmotel_DM
-							CREATE_CHAR PEDTYPE_MISSION4 SWAT 2159.84 -1154.26 -8.09 swat4_f1
-							SET_CHAR_RELATIONSHIP swat4_f1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
-							SET_CHAR_DECISION_MAKER swat4_f1 extmotel_DM
-
-							swat1_f1flag = 0
-							swat2_f1flag = 0
-							swat3_f1flag = 0
-							swat4_f1flag = 0
-							ATTACH_CHAR_TO_CAR swat1_f1 extpoliceheli_f1 1.4 1.3 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat1_f1 150
-							SET_CHAR_SHOOT_RATE swat1_f1 70
-							ATTACH_CHAR_TO_CAR swat2_f1 extpoliceheli_f1 1.4 -0.8 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat2_f1 150
-							SET_CHAR_SHOOT_RATE swat2_f1 70
-							ATTACH_CHAR_TO_CAR swat3_f1 extpoliceheli_f1 -1.4 1.3 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat3_f1 150
-							SET_CHAR_SHOOT_RATE swat3_f1 70
-							ATTACH_CHAR_TO_CAR swat4_f1 extpoliceheli_f1 -1.4 -0.8 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
-							SET_CHAR_HEALTH swat4_f1 150
 
 							LOAD_SCENE 2193.86 -1157.682 33.563
 
@@ -4406,20 +4054,19 @@ IF roofmotel_f1flag = 1
 
 						ENDIF
 
-						swat1_f1flag = 0
-						swat2_f1flag = 0
-						swat3_f1flag = 0
-						swat4_f1flag = 0
+						swat_f1flag[0] = 0
+						swat_f1flag[1] = 0
+						swat_f1flag[2] = 0
+						swat_f1flag[3] = 0
 
 						//////////////////////////////////////////////////////////////////////////////////////
 						IF NOT IS_CHAR_DEAD sweet
-							IF NOT IS_CHAR_DEAD exthelidriver_f1
+						AND NOT IS_CHAR_DEAD exthelidriver_f1
 								SET_CHAR_PROOFS	sweet FALSE TRUE TRUE TRUE FALSE
 								GIVE_WEAPON_TO_CHAR sweet WEAPONTYPE_MP5 99999
 								enemy_f1 = sweet
 								enemytarget_f1 = exthelidriver_f1
 								GOSUB stayshootnoduck_f1label
-							ENDIF
 						ENDIF
 						IF NOT IS_CAR_DEAD extpoliceheli_f1
 							SET_HELI_REACHED_TARGET_DISTANCE extpoliceheli_f1 3
@@ -4428,7 +4075,7 @@ IF roofmotel_f1flag = 1
 
 						// FIXEDGROVE: START - heal the player like the vending machine and food vendor scripts
 						GET_CHAR_HEALTH scplayer temp_integer_1
-						temp_integer_1 += 100
+						l1f1_count += 100
 						SET_CHAR_HEALTH scplayer temp_integer_1
 						// FIXDEDGROVE: END
 
@@ -4591,31 +4238,31 @@ IF roofmotel_f1flag = 2
 		ENDIF
 
 		//sweet runs to bottom of stairs when heli is shot down
-		IF swat1_f1flag = 0
-			IF IS_CHAR_DEAD swat1_f1
-				DETACH_CHAR_FROM_CAR swat1_f1
-				swat1_f1flag = 1
+		IF swat_f1flag[0] = 0
+			IF IS_CHAR_DEAD swat_f1[0]
+				DETACH_CHAR_FROM_CAR swat_f1[0]
+				swat_f1flag[0] = 1
 			ENDIF
 		ENDIF
 
-		IF swat2_f1flag = 0
-			IF IS_CHAR_DEAD swat2_f1
-				DETACH_CHAR_FROM_CAR swat2_f1
-				swat2_f1flag = 1
+		IF swat_f1flag[1] = 0
+			IF IS_CHAR_DEAD swat_f1[1]
+				DETACH_CHAR_FROM_CAR swat_f1[1]
+				swat_f1flag[1] = 1
 			ENDIF
 		ENDIF
 
-		IF swat3_f1flag = 0
-			IF IS_CHAR_DEAD swat3_f1
-				DETACH_CHAR_FROM_CAR swat3_f1
-				swat3_f1flag = 1
+		IF swat_f1flag[2] = 0
+			IF IS_CHAR_DEAD swat_f1[2]
+				DETACH_CHAR_FROM_CAR swat_f1[2]
+				swat_f1flag[2] = 1
 			ENDIF
 		ENDIF
 
-		IF swat4_f1flag = 0
-			IF IS_CHAR_DEAD swat4_f1
-				DETACH_CHAR_FROM_CAR swat4_f1
-				swat4_f1flag = 1
+		IF swat_f1flag[3] = 0
+			IF IS_CHAR_DEAD swat_f1[3]
+				DETACH_CHAR_FROM_CAR swat_f1[3]
+				swat_f1flag[3] = 1
 			ENDIF
 		ENDIF
 
@@ -4747,7 +4394,7 @@ IF roofmotel_f1flag = 3
 ENDIF
 
 IF roofmotel_f1flag > 1
-	IF roofmotel_f1flag < 4
+AND roofmotel_f1flag < 4
 		IF sweetexit_f1flag < 23
 
 			GOSUB process_audio_f1
@@ -4757,35 +4404,32 @@ IF roofmotel_f1flag > 1
 				IF NOT IS_CAR_DEAD extpoliceheli_f1
 
 					// FIXEDGROVE: asigned speakers
-					IF progressaudio_f1flag = 0
-						IF handlingaudio_f1flag = 0
+					IF handlingaudio_f1flag = 0
+						// FIXEDGROVE: changed if-chain to switch-case
+						SWITCH progressaudio_f1flag
+						CASE 0
 							IF sweetexit_f1flag > 11
 								audio_label_f1 = SOUND_FIN1_JM	//CJ, dump on that helicopter!
 								$input_text_f1 = FIN1_JM	//CJ, dump on that helicopter!
 								speaker_f1 = sweet
 								GOSUB load_audio_f1
 							ENDIF
-						ENDIF
-					ENDIF
-
-					IF progressaudio_f1flag = 1
-						IF handlingaudio_f1flag = 0
+						BREAK
+						CASE 1
 							audio_label_f1 = SOUND_FIN1_BY //This is Buzzard 1, we are taking ground fire!
 							$input_text_f1 = FIN1_BY //This is Buzzard 1, we are taking ground fire!
 							speaker_f1 = exthelidriver_f1
 							GOSUB load_audio_f1
-						ENDIF
-					ENDIF
-
-					IF progressaudio_f1flag = 2
-						IF handlingaudio_f1flag = 0
+						BREAK
+						CASE 2
 							IF sweetexit_f1flag > 14
 								audio_label_f1 = SOUND_FIN1_JL	//CJ, that chopper’s all over us! Hit it!
 								$input_text_f1 = FIN1_JL	//CJ, that chopper’s all over us! Hit it!
 								speaker_f1 = sweet
 								GOSUB load_audio_f1
 							ENDIF
-						ENDIF
+						BREAK
+						ENDSWITCH
 					ENDIF
 				ENDIF
 			ENDIF
@@ -4804,7 +4448,6 @@ IF roofmotel_f1flag > 1
 			ENDIF
 
 		ENDIF
-	ENDIF
 ENDIF
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4914,24 +4557,19 @@ IF sweetexit_f1flag = 23
 			
 			DELETE_CAR extpoliceheli_f1
 			DELETE_CHAR exthelidriver_f1
-			DELETE_CHAR swat1_f1
-			DELETE_CHAR swat2_f1
-			DELETE_CHAR swat3_f1
-			DELETE_CHAR swat4_f1
+			DELETE_CHAR swat_f1[0]
+			DELETE_CHAR swat_f1[1]
+			DELETE_CHAR swat_f1[2]
+			DELETE_CHAR swat_f1[3]
 			CLEAR_AREA 2192.65 -1194.78 100.0 100.0 TRUE
 
 			CREATE_CAR POLMAV 2130.004 -1196.324 28.198 extpoliceheli_f1
-			SET_PETROL_TANK_WEAKPOINT extpoliceheli_f1 FALSE
-			SET_CAR_HEADING extpoliceheli_f1 336.905
 			CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION1 LAPD1 exthelidriver_f1
-			SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
-			SET_CHAR_SUFFERS_CRITICAL_HITS exthelidriver_f1 FALSE
-			SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER exthelidriver_f1 TRUE
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER extpoliceheli_f1 TRUE
+			SET_CAR_HEADING extpoliceheli_f1 336.905
+			SET_PETROL_TANK_WEAKPOINT extpoliceheli_f1 FALSE
 			SET_CAR_PROOFS extpoliceheli_f1 FALSE TRUE TRUE FALSE FALSE
-			SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
 			SET_CAR_VISIBLE extpoliceheli_f1 FALSE
+			GOSUB l1f1_outside_heli_cutscene2_setup // FIXEDGROVE: moved setup code to gosub
 
 			CREATE_CAR GREENWOO 2203.498 -1217.624 23.579 sweet_car
 			SET_RADIO_CHANNEL RS_MODERN_HIP_HOP
@@ -4944,80 +4582,69 @@ IF sweetexit_f1flag = 23
 			CHANGE_CAR_COLOUR sweet_car 59 34
 			SET_CAR_PROOFS sweet_car FALSE TRUE TRUE TRUE TRUE
 			SET_CAR_HEALTH sweet_car 6000
-			SET_CAN_BURST_CAR_TYRES sweet_car FALSE 
+			SET_CAN_BURST_CAR_TYRES sweet_car FALSE
 
-			CREATE_CAR COPCARLA 2169.1943 -1270.0591 22.8203 policecar1_f1	//1st car chasing player
-			SET_PETROL_TANK_WEAKPOINT policecar1_f1 FALSE
-			SET_CAR_HEADING policecar1_f1 357.0326
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar1_f1 TRUE
-			SET_CAR_HEALTH policecar1_f1 750
-			CREATE_CHAR_INSIDE_CAR policecar1_f1 PEDTYPE_MISSION1 LAPD1 cop1_f1
-			SET_CHAR_DECISION_MAKER cop1_f1 motel_DM
-			SET_CHAR_HEALTH cop1_f1 100
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop1_f1 FALSE
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop1_f1 TRUE
-			CREATE_CHAR_AS_PASSENGER policecar1_f1 PEDTYPE_MISSION1 LAPD1 0 cop2_f1
-			SET_CHAR_DECISION_MAKER cop2_f1 motel_dm
-			SET_CHAR_HEALTH cop2_f1 200
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop2_f1 TRUE
-			GIVE_WEAPON_TO_CHAR cop2_f1 WEAPONTYPE_MP5 99999
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop2_f1 FALSE
-			CAR_SET_IDLE policecar1_f1
-			SET_CAR_VISIBLE policecar1_f1 FALSE
+			// FIXEDGROVE: START - moved setup code to gosub
+			CREATE_CAR COPCARLA 2169.1943 -1270.0591 22.8203 policecar_f1[0]	//1st car chasing player
+			SET_CAR_HEADING policecar_f1[0] 357.0326
+			CREATE_CHAR_INSIDE_CAR policecar_f1[0] PEDTYPE_MISSION1 LAPD1 cop_f1[0]
+			CREATE_CHAR_AS_PASSENGER policecar_f1[0] PEDTYPE_MISSION1 LAPD1 0 cop_f1[1]
+			l1f1_car_select = 0
+			l1f1_cop1 = 0
+			l1f1_cop2 = 1
+			l1f1_petrol_weakpoint = FALSE
+			l1f1_critical_hits = FALSE
+			l1f1_shot_in_vehicle = TRUE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_HEALTH policecar_f1[0] 750
+			SET_CAR_VISIBLE policecar_f1[0] FALSE
+			SET_CHAR_HEALTH cop_f1[0] 100
+			SET_CHAR_HEALTH cop_f1[1] 200
 
-			CREATE_CAR COPCARLA 2172.5264 -1280.7343 22.9766 policecar2_f1	//2nd car chasing player
-			SET_PETROL_TANK_WEAKPOINT policecar2_f1 FALSE
-			SET_CAR_HEADING policecar2_f1 0.9448
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar2_f1 TRUE
-			SET_CAR_HEALTH policecar2_f1 500
-			CREATE_CHAR_INSIDE_CAR policecar2_f1 PEDTYPE_MISSION1 LAPD1 cop3_f1
-			SET_CAR_PROOFS policecar2_f1 FALSE TRUE TRUE TRUE TRUE
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop3_f1 TRUE
-			SET_CHAR_HEALTH cop3_f1 100
-			SET_CHAR_DECISION_MAKER cop3_f1 motel_DM
-			CREATE_CHAR_AS_PASSENGER policecar2_f1 PEDTYPE_MISSION1 LAPD1 0 cop4_f1
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop4_f1 TRUE
-			SET_CHAR_DECISION_MAKER cop4_f1 motel_dm
-			SET_CHAR_HEALTH cop4_f1 200
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop4_f1 FALSE
-			GIVE_WEAPON_TO_CHAR cop4_f1 WEAPONTYPE_MP5 99999
-			CAR_SET_IDLE policecar2_f1
-			SET_CAR_VISIBLE policecar2_f1 FALSE
+			CREATE_CAR COPCARLA 2172.5264 -1280.7343 22.9766 policecar_f1[1]	//2nd car chasing player
+			SET_CAR_HEADING policecar_f1[1] 0.9448
+			CREATE_CHAR_INSIDE_CAR policecar_f1[1] PEDTYPE_MISSION1 LAPD1 cop_f1[2]
+			CREATE_CHAR_AS_PASSENGER policecar_f1[1] PEDTYPE_MISSION1 LAPD1 0 cop_f1[3]
+			l1f1_car_select = 1
+			l1f1_cop1 = 2
+			l1f1_cop2 = 3
+			l1f1_critical_hits = TRUE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_PROOFS policecar_f1[1] FALSE TRUE TRUE TRUE TRUE
+			SET_CAR_HEALTH policecar_f1[1] 500
+			SET_CAR_VISIBLE policecar_f1[1] FALSE
+			SET_CHAR_HEALTH cop_f1[2] 100
+			SET_CHAR_HEALTH cop_f1[3] 200
 
-			CREATE_CAR COPCARLA 2223.11 -1150.118 24.92 policecar3_f1	//3rd, hits train
-			SET_PETROL_TANK_WEAKPOINT policecar3_f1 FALSE
-			CREATE_CHAR_INSIDE_CAR policecar3_f1 PEDTYPE_MISSION1 LAPD1 cop5_f1
-			SET_CHAR_CAN_BE_SHOT_IN_VEHICLE cop5_f1 FALSE
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar3_f1 TRUE
-			SET_CAR_HEALTH policecar3_f1 1000
-			SET_CHAR_DECISION_MAKER cop5_f1 motel_DM
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop5_f1 TRUE
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop5_f1 FALSE
-			CREATE_CHAR_AS_PASSENGER policecar3_f1 PEDTYPE_MISSION1 LAPD1 0 cop6_f1
-			SET_CHAR_DECISION_MAKER cop6_f1 motel_dm
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop6_f1 TRUE
-			SET_CHAR_HEALTH cop6_f1 200
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop6_f1 FALSE
-			GIVE_WEAPON_TO_CHAR cop6_f1 WEAPONTYPE_MP5 99999
-			CAR_SET_IDLE policecar3_f1
+			CREATE_CAR COPCARLA 2223.11 -1150.118 24.92 policecar_f1[2]	//3rd, hits train
+			CREATE_CHAR_INSIDE_CAR policecar_f1[2] PEDTYPE_MISSION1 LAPD1 cop_f1[4]
+			CREATE_CHAR_AS_PASSENGER policecar_f1[2] PEDTYPE_MISSION1 LAPD1 0 cop_f1[5]
+			l1f1_car_select = 2
+			l1f1_cop1 = 4
+			l1f1_cop2 = 5
+			l1f1_critical_hits = FALSE
+			l1f1_shot_in_vehicle = FALSE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_HEALTH policecar_f1[2] 1000
+			SET_CHAR_HEALTH cop_f1[5] 200
 
-			CREATE_CAR COPCARLA 2388.808 -1259.431 22.94 policecar4_f1	//waiting outside garage
-			SET_CAR_HEADING policecar4_f1 89.36
-			SET_PETROL_TANK_WEAKPOINT policecar4_f1 FALSE
-			SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar4_f1 TRUE
-			SET_CAR_HEALTH policecar4_f1 900
-			CREATE_CHAR_INSIDE_CAR policecar4_f1 PEDTYPE_MISSION1 LAPD1 cop7_f1
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop7_f1 TRUE
-			SET_CHAR_DECISION_MAKER cop7_f1 motel_DM
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop7_f1 FALSE
-			SET_CHAR_HEALTH cop7_f1 100
-			CREATE_CHAR_AS_PASSENGER policecar4_f1 PEDTYPE_MISSION1 LAPD1 0 cop8_f1
-			SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop8_f1 TRUE
-			SET_CHAR_HEALTH cop8_f1 150
-			SET_CHAR_DECISION_MAKER cop8_f1 motel_dm
-			GIVE_WEAPON_TO_CHAR cop8_f1 WEAPONTYPE_MP5 9999
-			SET_CHAR_SUFFERS_CRITICAL_HITS cop8_f1 FALSE
-			CAR_SET_IDLE policecar4_f1
+			CREATE_CAR COPCARLA 2388.808 -1259.431 22.94 policecar_f1[3]	//waiting outside garage
+			SET_CAR_HEADING policecar_f1[3] 89.36
+			CREATE_CHAR_INSIDE_CAR policecar_f1[3] PEDTYPE_MISSION1 LAPD1 cop_f1[6]
+			CREATE_CHAR_AS_PASSENGER policecar_f1[3] PEDTYPE_MISSION1 LAPD1 0 cop_f1[7]
+			l1f1_car_select = 3
+			l1f1_cop1 = 6
+			l1f1_cop2 = 7
+			l1f1_shot_in_vehicle = TRUE
+			GOSUB l1f1_policecar_setup
+			GOSUB l1f1_outside_guys_setup
+			SET_CAR_HEALTH policecar_f1[3] 900
+			SET_CHAR_HEALTH cop_f1[6] 100
+			SET_CHAR_HEALTH cop_f1[7] 150
+			// FIXEDGROVE: END - moved setup code to gosub
 
 			SWITCH_RANDOM_TRAINS OFF
 			DELETE_ALL_TRAINS
@@ -5055,8 +4682,8 @@ ENDIF
 //sweet and player now down the stairs looking at sweet's car
 IF rails_f1flag = 2
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 				IF TIMERA > 1500
 					TASK_LOOK_AT_CHAR scplayer big_smoke 3000
 					START_PLAYBACK_RECORDED_CAR sweet_car 330
@@ -5067,30 +4694,26 @@ IF rails_f1flag = 2
 					TIMERA = 0
 					rails_f1flag = 3
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 
 IF rails_f1flag = 3
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 				IF TIMERA > 500
 					TASK_PLAY_ANIM scplayer prtial_gngtlkH GANGS 4.0 FALSE TRUE TRUE FALSE -1
 					rails_f1flag = 4
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 
 IF rails_f1flag = 4
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 				IF HAS_MISSION_AUDIO_FINISHED 1
 					TASK_LOOK_AT_CHAR sweet big_smoke 5000
 					CLEAR_PRINTS
@@ -5106,17 +4729,15 @@ IF rails_f1flag = 4
 					POINT_CAMERA_AT_POINT 2178.3723 -1191.8152 24.2692 JUMP_CUT
 					rails_f1flag = 5
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 
 IF rails_f1flag = 5
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					// FIXEDGROVE: START - moved this check here to make the facial anim sync with the voiceline
 					IF HAS_MISSION_AUDIO_FINISHED 2
 						STOP_CHAR_FACIAL_TALK scplayer
@@ -5140,12 +4761,12 @@ IF rails_f1flag = 5
 								TASK_ENTER_CAR_AS_PASSENGER scplayer sweet_car 5000 2
 								TASK_GO_STRAIGHT_TO_COORD sweet 2181.51 -1201.97 24.0 PEDMOVE_RUN 5000
 
-								IF NOT IS_CAR_DEAD policecar1_f1
-									SWITCH_CAR_SIREN policecar1_f1 ON
+								IF NOT IS_CAR_DEAD policecar_f1[0]
+									SWITCH_CAR_SIREN policecar_f1[0] ON
 								ENDIF
 
-								IF NOT IS_CAR_DEAD policecar2_f1
-									SWITCH_CAR_SIREN policecar2_f1 ON								
+								IF NOT IS_CAR_DEAD policecar_f1[1]
+									SWITCH_CAR_SIREN policecar_f1[1] ON								
 								ENDIF
 
 								TIMERA = 0
@@ -5154,17 +4775,14 @@ IF rails_f1flag = 5
 							ENDIF
 						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF		
 	ENDIF
 ENDIF
 
 IF rails_f1flag = 6
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					IF TIMERA > 2000
 						SET_CHAR_COORDINATES sweet 2176.78 -1196.64 23.18
 						TASK_ENTER_CAR_AS_PASSENGER sweet sweet_car 6000 1
@@ -5174,9 +4792,6 @@ IF rails_f1flag = 6
 						POINT_CAMERA_AT_POINT 2178.8660 -1195.1960 24.2959 JUMP_CUT
 						rails_f1flag = 7
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -5193,11 +4808,11 @@ ENDIF
 
 IF rails_f1flag = 8
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					IF HAS_MISSION_AUDIO_FINISHED 1
-						IF HAS_MISSION_AUDIO_LOADED 2
+					AND HAS_MISSION_AUDIO_LOADED 2
 							IF IS_CHAR_SITTING_IN_CAR sweet	sweet_car
 
 								TASK_PLAY_ANIM sweet CAR_Sc4_BL CAR_CHAT 8.0 FALSE FALSE FALSE FALSE -1
@@ -5215,23 +4830,23 @@ IF rails_f1flag = 8
 								ENDIF
 
 								//start playing two recorded chasing police cars
-								IF NOT IS_CAR_DEAD policecar1_f1
-									SET_CAR_VISIBLE policecar1_f1 TRUE
-									START_PLAYBACK_RECORDED_CAR policecar1_f1 333
-									ADD_BLIP_FOR_CAR policecar1_f1 policecar1_f1blip
-									CHANGE_BLIP_DISPLAY policecar1_f1blip BLIP_ONLY
-									SET_CAR_HEALTH policecar1_f1 1000
-									policecar1_f1flag = 1 //car started
-									policecar1swap_f1flag = 1
+								IF NOT IS_CAR_DEAD policecar_f1[0]
+									SET_CAR_VISIBLE policecar_f1[0] TRUE
+									START_PLAYBACK_RECORDED_CAR policecar_f1[0] 333
+									ADD_BLIP_FOR_CAR policecar_f1[0] policecar_f1blip[0]
+									CHANGE_BLIP_DISPLAY policecar_f1blip[0] BLIP_ONLY
+									SET_CAR_HEALTH policecar_f1[0] 1000
+									policecar_f1flag[0] = 1 //car started
+									policecarswap_f1flag[0] = 1
 								ENDIF
 
-								IF NOT IS_CAR_DEAD policecar2_f1
-									SET_CAR_VISIBLE policecar2_f1 TRUE
-									START_PLAYBACK_RECORDED_CAR policecar2_f1 334
-									ADD_BLIP_FOR_CAR policecar2_f1 policecar2_f1blip
-									CHANGE_BLIP_DISPLAY policecar2_f1blip BLIP_ONLY
-									policecar2_f1flag = 1 //car started
-									policecar2swap_f1flag = 1
+								IF NOT IS_CAR_DEAD policecar_f1[1]
+									SET_CAR_VISIBLE policecar_f1[1] TRUE
+									START_PLAYBACK_RECORDED_CAR policecar_f1[1] 334
+									ADD_BLIP_FOR_CAR policecar_f1[1] policecar_f1blip[1]
+									CHANGE_BLIP_DISPLAY policecar_f1blip[1] BLIP_ONLY
+									policecar_f1flag[1] = 1 //car started
+									policecarswap_f1flag[1] = 1
 								ENDIF
 								
 								TIMERA = 0
@@ -5242,27 +4857,20 @@ IF rails_f1flag = 8
 									WARP_CHAR_INTO_CAR_AS_PASSENGER sweet sweet_car 1
 								ENDIF
 							ENDIF
-						ENDIF
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
 IF rails_f1flag = 9
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CHAR_DEAD ryder
-			IF NOT IS_CHAR_DEAD big_smoke
-				IF NOT IS_CHAR_DEAD sweet
+	AND NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD sweet
 					IF TIMERA > 500
 						STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: stop player facial anim
 						TIMERA = 0
 						rails_f1flag = 10
 					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -5318,16 +4926,16 @@ IF rails_f1flag = 12
 
 			difficulty_f1flag++
 
-			IF NOT IS_CHAR_DEAD cop2_f1
+			IF NOT IS_CHAR_DEAD cop_f1[1]
 				IF difficulty_f1flag > 1
-					TASK_DRIVE_BY cop2_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+					TASK_DRIVE_BY cop_f1[1] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 40
 				ELSE
-					TASK_DRIVE_BY cop2_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 75 //60
+					TASK_DRIVE_BY cop_f1[1] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 75 //60
 				ENDIF
 			ENDIF
 			
-			IF NOT IS_CHAR_DEAD cop4_f1
-				TASK_DRIVE_BY cop4_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 60
+			IF NOT IS_CHAR_DEAD cop_f1[3]
+				TASK_DRIVE_BY cop_f1[3] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 60
 			ENDIF
 			SET_CAR_HEALTH sweet_car 6000 //5000
 			GET_CAR_HEALTH sweet_car carhealth_f1
@@ -5410,20 +5018,20 @@ IF motelchase_f1flag = 1
 	ENDIF
 
 	IF rails_f1flag = 14
-		IF NOT IS_CAR_DEAD policecar3_f1
-			IF LOCATE_CAR_2D policecar3_f1 2284.98 -1146.61 3.0 3.0 FALSE
+		IF NOT IS_CAR_DEAD policecar_f1[2]
+			IF LOCATE_CAR_2D policecar_f1[2] 2284.98 -1146.61 3.0 3.0 FALSE
 				TIMERB = 0
 				actiontext_f1flag = 1
-				SET_CAR_HEALTH policecar3_f1 750
+				SET_CAR_HEALTH policecar_f1[2] 750
 				rails_f1flag = 15
 			ENDIF
 		ENDIF
 	ENDIF
 
 	IF rails_f1flag = 15
-		IF NOT IS_CAR_DEAD policecar3_f1
+		IF NOT IS_CAR_DEAD policecar_f1[2]
 			IF TIMERB > 1100
-				EXPLODE_CAR policecar3_f1
+				EXPLODE_CAR policecar_f1[2]
 				rails_f1flag = 16
 			ENDIF
 		ENDIF
@@ -5433,14 +5041,14 @@ IF motelchase_f1flag = 1
 	IF copcars_f1flag = 1
 		IF NOT IS_CAR_DEAD sweet_car
 			IF LOCATE_CAR_2D sweet_car 2223.11 -1150.118 20.0 20.0 FALSE
-				IF NOT IS_CAR_DEAD policecar3_f1
-					START_PLAYBACK_RECORDED_CAR policecar3_f1 335
-					ADD_BLIP_FOR_CAR policecar3_f1 policecar3_f1blip
-					CHANGE_BLIP_DISPLAY policecar3_f1blip BLIP_ONLY
-					policecar3swap_f1flag = 1
-					policecar3_f1flag = 1	//car started
-					IF NOT IS_CHAR_DEAD cop6_f1
-						TASK_DRIVE_BY cop6_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+				IF NOT IS_CAR_DEAD policecar_f1[2]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[2] 335
+					ADD_BLIP_FOR_CAR policecar_f1[2] policecar_f1blip[2]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[2] BLIP_ONLY
+					policecarswap_f1flag[2] = 1
+					policecar_f1flag[2] = 1	//car started
+					IF NOT IS_CHAR_DEAD cop_f1[5]
+						TASK_DRIVE_BY cop_f1[5] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 40
 					ENDIF
 				ENDIF
 				copcars_f1flag = 2
@@ -5452,51 +5060,49 @@ IF motelchase_f1flag = 1
 	IF copcars_f1flag = 2
 		IF NOT IS_CAR_DEAD sweet_car
 		 	IF LOCATE_CAR_2D sweet_car 2352.54 -1271.86 10.1 10.1 FALSE
-				IF NOT IS_CAR_DEAD policecar4_f1
-					START_PLAYBACK_RECORDED_CAR policecar4_f1 336
-					ADD_BLIP_FOR_CAR policecar4_f1 policecar4_f1blip
-					CHANGE_BLIP_DISPLAY policecar4_f1blip BLIP_ONLY
-					policecar4_f1flag = 1	//car started
-					policecar4swap_f1flag = 1
-					IF NOT IS_CHAR_DEAD cop8_f1
-						TASK_DRIVE_BY cop8_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 75
+				IF NOT IS_CAR_DEAD policecar_f1[3]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[3] 336
+					ADD_BLIP_FOR_CAR policecar_f1[3] policecar_f1blip[3]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[3] BLIP_ONLY
+					policecar_f1flag[3] = 1	//car started
+					policecarswap_f1flag[3] = 1
+					IF NOT IS_CHAR_DEAD cop_f1[7]
+						TASK_DRIVE_BY cop_f1[7] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 75
 					ENDIF
 					DELETE_MISSION_TRAIN train_f1
 					DELETE_MISSION_TRAINS
 					MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
 
-					CREATE_CAR COPCARLA 2500.697 -1443.776 28.28 policecar5_f1	//comes in front of the player smacks into players bumper
-					SET_PETROL_TANK_WEAKPOINT policecar5_f1 FALSE
-					SET_CAR_HEADING policecar5_f1 90.4588
-					SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar5_f1 TRUE
-					SET_CAR_HEALTH policecar5_f1 750
-					CREATE_CHAR_INSIDE_CAR policecar5_f1 PEDTYPE_MISSION1 LAPD1 cop9_f1
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop9_f1 TRUE
-					SET_CHAR_DECISION_MAKER cop9_f1 motel_DM
-					SET_CHAR_SUFFERS_CRITICAL_HITS cop9_f1 FALSE
-					SET_CHAR_HEALTH cop9_f1 200
-					CREATE_CHAR_AS_PASSENGER policecar5_f1 PEDTYPE_MISSION1 LAPD1 0 cop10_f1
-					SET_CHAR_DECISION_MAKER cop10_f1 motel_dm
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop10_f1 TRUE
-					SET_CHAR_HEALTH cop10_f1 100
-					GIVE_WEAPON_TO_CHAR cop10_f1 WEAPONTYPE_MP5 9999
-					SET_CHAR_SUFFERS_CRITICAL_HITS cop10_f1 FALSE
-					CAR_SET_IDLE policecar5_f1
+					// FIXEDGROVE: START - moved setup code to gosub
+					CREATE_CAR COPCARLA 2500.697 -1443.776 28.28 policecar_f1[4]	//comes in front of the player smacks into players bumper
+					SET_CAR_HEADING policecar_f1[4] 90.4588
+					CREATE_CHAR_INSIDE_CAR policecar_f1[4] PEDTYPE_MISSION1 LAPD1 cop_f1[8]
+					CREATE_CHAR_AS_PASSENGER policecar_f1[4] PEDTYPE_MISSION1 LAPD1 0 cop_f1[9]
+					l1f1_car_select = 4
+					l1f1_cop1 = 8
+					l1f1_cop2 = 9
+					l1f1_petrol_weakpoint = FALSE
+					l1f1_critical_hits = FALSE
+					l1f1_shot_in_vehicle = TRUE
+					GOSUB l1f1_policecar_setup
+					GOSUB l1f1_outside_guys_setup
+					SET_CAR_HEALTH policecar_f1[4] 750
+					SET_CHAR_HEALTH cop_f1[8] 200
+					SET_CHAR_HEALTH cop_f1[9] 100
 
-					CREATE_CAR COPCARLA 2478.223 -1321.966 28.252 policecar7_f1	//comes out of side	
-					SET_CAR_HEADING policecar7_f1 356.585
-					SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar7_f1 TRUE
-					SET_CAR_HEALTH policecar7_f1 280
-					CAR_SET_IDLE policecar7_f1
-					CREATE_CHAR_INSIDE_CAR policecar7_f1 PEDTYPE_MISSION1 LAPD1 cop11_f1
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop11_f1 TRUE
-					SET_CHAR_DECISION_MAKER cop11_f1 motel_DM
-					CREATE_CHAR_AS_PASSENGER policecar7_f1 PEDTYPE_MISSION1 LAPD1 0 cop12_f1
-					SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop12_f1 TRUE
-					SET_CHAR_DECISION_MAKER cop12_f1 motel_dm
-					SET_CHAR_SUFFERS_CRITICAL_HITS cop12_f1 FALSE
-					GIVE_WEAPON_TO_CHAR cop12_f1 WEAPONTYPE_MP5 9999
-					CAR_SET_IDLE policecar7_f1
+					CREATE_CAR COPCARLA 2478.223 -1321.966 28.252 policecar_f1[6]	//comes out of side	
+					SET_CAR_HEADING policecar_f1[6] 356.585
+					CREATE_CHAR_INSIDE_CAR policecar_f1[6] PEDTYPE_MISSION1 LAPD1 cop_f1[10]
+					CREATE_CHAR_AS_PASSENGER policecar_f1[6] PEDTYPE_MISSION1 LAPD1 0 cop_f1[11]
+					l1f1_car_select = 6
+					l1f1_cop1 = 10
+					l1f1_cop2 = 11
+					l1f1_petrol_weakpoint = TRUE
+					l1f1_critical_hits = TRUE
+					GOSUB l1f1_policecar_setup
+					GOSUB l1f1_outside_guys_setup
+					SET_CAR_HEALTH policecar_f1[6] 280
+					// FIXEDGROVE: END
 				ENDIF
 				copcars_f1flag = 3
 			ENDIF		
@@ -5507,45 +5113,45 @@ IF motelchase_f1flag = 1
 	IF copcars_f1flag = 3
 		IF NOT IS_CAR_DEAD sweet_car
 		 	IF LOCATE_CAR_2D sweet_car 2394.67 -1442.43 10.1 10.1 FALSE
-				IF NOT IS_CAR_DEAD policecar5_f1
-					policecar5_f1flag = 1	//car started
-					policecar5swap_f1flag = 1
-					START_PLAYBACK_RECORDED_CAR policecar5_f1 337
-					ADD_BLIP_FOR_CAR policecar5_f1 policecar5_f1blip
-					CHANGE_BLIP_DISPLAY policecar5_f1blip BLIP_ONLY
-					SWITCH_CAR_SIREN policecar5_f1 ON
-					IF NOT IS_CHAR_DEAD cop10_f1
+				IF NOT IS_CAR_DEAD policecar_f1[4]
+					policecar_f1flag[4] = 1	//car started
+					policecarswap_f1flag[4] = 1
+					START_PLAYBACK_RECORDED_CAR policecar_f1[4] 337
+					ADD_BLIP_FOR_CAR policecar_f1[4] policecar_f1blip[4]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[4] BLIP_ONLY
+					SWITCH_CAR_SIREN policecar_f1[4] ON
+					IF NOT IS_CHAR_DEAD cop_f1[9]
 						IF difficulty_f1flag > 1
-							TASK_DRIVE_BY cop10_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 30
+							TASK_DRIVE_BY cop_f1[9] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 30
 						ELSE
-							TASK_DRIVE_BY cop10_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 75
+							TASK_DRIVE_BY cop_f1[9] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 75
 						ENDIF
 					ENDIF
 
 					DELETE_ALL_TRAINS
 
-					CREATE_CAR COPCARLA 2447.036 -1370.772 22.64 policecar6_f1 //stationary
-					SET_CAR_HEADING policecar6_f1 270.267
-					CAR_SET_IDLE policecar6_f1
-					SET_CAR_HEALTH policecar6_f1 250
-					SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar6_f1 TRUE
-					ADD_BLIP_FOR_CAR policecar6_f1 policecar6_f1blip
-					CHANGE_BLIP_DISPLAY policecar6_f1blip BLIP_ONLY
+					CREATE_CAR COPCARLA 2447.036 -1370.772 22.64 policecar_f1[5] //stationary
+					SET_CAR_HEADING policecar_f1[5] 270.267
+					CAR_SET_IDLE policecar_f1[5]
+					SET_CAR_HEALTH policecar_f1[5] 250
+					SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[5] TRUE
+					ADD_BLIP_FOR_CAR policecar_f1[5] policecar_f1blip[5]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[5] BLIP_ONLY
 
-					CREATE_CHAR PEDTYPE_MISSION1 LAPD1 2448.77 -1368.898 23.60 cop13_f1
-					SET_CHAR_DECISION_MAKER cop13_f1 motel_DM
-					GIVE_WEAPON_TO_CHAR cop13_f1 WEAPONTYPE_MP5 999
-					enemy_f1 = cop13_f1
+					CREATE_CHAR PEDTYPE_MISSION1 LAPD1 2448.77 -1368.898 23.60 cop_f1[12]
+					SET_CHAR_DECISION_MAKER cop_f1[12] motel_DM
+					GIVE_WEAPON_TO_CHAR cop_f1[12] WEAPONTYPE_MP5 999
+					enemy_f1 = cop_f1[12]
 					enemytarget_f1 = scplayer
 					GOSUB stayshootnoduck_f1label
 
-					CREATE_CHAR PEDTYPE_MISSION1 LAPD1 2444.387 -1369.356 24.02 cop14_f1
-					SET_CHAR_DECISION_MAKER cop14_f1 motel_DM
-					GIVE_WEAPON_TO_CHAR cop14_f1 WEAPONTYPE_MP5 999
-					enemy_f1 = cop14_f1
+					CREATE_CHAR PEDTYPE_MISSION1 LAPD1 2444.387 -1369.356 24.02 cop_f1[13]
+					SET_CHAR_DECISION_MAKER cop_f1[13] motel_DM
+					GIVE_WEAPON_TO_CHAR cop_f1[13] WEAPONTYPE_MP5 999
+					enemy_f1 = cop_f1[13]
 					enemytarget_f1 = scplayer
 					GOSUB stayshootnoduck_f1label
-					policecar6_f1flag = 1 //car started
+					policecar_f1flag[5] = 1 //car started
 				ENDIF
 				copcars_f1flag = 4
 			ENDIF		
@@ -5556,16 +5162,16 @@ IF motelchase_f1flag = 1
 	IF copcars_f1flag = 4
 		IF NOT IS_CAR_DEAD sweet_car
 			IF LOCATE_CAR_2D sweet_car 2448.94 -1311.15 30.1 30.1 FALSE
-				IF NOT IS_CAR_DEAD policecar7_f1
-					START_PLAYBACK_RECORDED_CAR policecar7_f1 338
-					SWITCH_CAR_SIREN policecar7_f1 ON
-					policecar7_f1flag = 1// car started
-					policecar7swap_f1flag = 1
-					IF NOT IS_CHAR_DEAD cop11_f1
-						TASK_DRIVE_BY cop11_f1 -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 60
+				IF NOT IS_CAR_DEAD policecar_f1[6]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[6] 338
+					SWITCH_CAR_SIREN policecar_f1[6] ON
+					policecar_f1flag[6] = 1// car started
+					policecarswap_f1flag[6] = 1
+					IF NOT IS_CHAR_DEAD cop_f1[10]
+						TASK_DRIVE_BY cop_f1[10] -1 sweet_car 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 60
 					ENDIF
-					ADD_BLIP_FOR_CAR policecar7_f1 policecar7_f1blip
-					CHANGE_BLIP_DISPLAY policecar7_f1blip BLIP_ONLY
+					ADD_BLIP_FOR_CAR policecar_f1[6] policecar_f1blip[6]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[6] BLIP_ONLY
 				ENDIF
 				copcars_f1flag = 5
 			ENDIF
@@ -5575,271 +5181,55 @@ IF motelchase_f1flag = 1
 	////////////////////////////////////////////if cars are dead mark as no longer needed
 
 	//swap seat
-	IF policecar1swap_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar1_f1
-			IF NOT IS_CHAR_DEAD cop1_f1
-			ELSE
-				IF NOT IS_CHAR_DEAD cop2_f1
-					IF IS_CHAR_IN_CAR cop2_f1 policecar1_f1
-						GET_DRIVER_OF_CAR policecar1_f1 driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop2_f1 policecar1_f1
-							policecar1swap_f1flag = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar1_f1
-					policecar1swap_f1flag = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecar1swap_f1flag = 2
-		IF IS_CHAR_DEAD cop2_f1
-			STOP_PLAYBACK_RECORDED_CAR policecar1_f1
-			policecar1swap_f1flag = 3
-		ENDIF 
-	ENDIF
 
-
-	IF policecar1_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar1_f1
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar1_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar1_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop1_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop2_f1
-				REMOVE_BLIP policecar1_f1blip 
-				policecar1_f1flag = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar1_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop1_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop2_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar1_f1
-			REMOVE_BLIP policecar1_f1blip 
-			policecar1_f1flag = 2
-		ENDIF
-
-	ENDIF
-
-	//swap seat
-	IF policecar2swap_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar2_f1
-			IF NOT IS_CHAR_DEAD cop3_f1
-			ELSE
-				IF NOT IS_CHAR_DEAD cop4_f1
-					IF IS_CHAR_IN_CAR cop4_f1 policecar2_f1
-						GET_DRIVER_OF_CAR policecar2_f1 driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop4_f1 policecar2_f1
-							policecar2swap_f1flag = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar2_f1
-					policecar2swap_f1flag = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecar2swap_f1flag = 2
-		IF IS_CHAR_DEAD cop4_f1
-			STOP_PLAYBACK_RECORDED_CAR policecar2_f1
-			policecar2swap_f1flag = 3
-		ENDIF 
-	ENDIF
-
-	IF policecar2_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar2_f1
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar2_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar2_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop3_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop4_f1
-				REMOVE_BLIP policecar2_f1blip 
-				policecar2_f1flag = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar2_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop3_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop4_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar2_f1
-			REMOVE_BLIP policecar2_f1blip 
-			policecar2_f1flag = 2
-		ENDIF
-	ENDIF
-
-	IF policecar3_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar3_f1
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar3_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar3_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop5_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop6_f1
-				REMOVE_BLIP policecar3_f1blip 
-				MARK_CAR_AS_NO_LONGER_NEEDED train_f1
-				MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
-				policecar3_f1flag = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar3_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop5_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop6_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar3_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED train_f1
-			MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
-			REMOVE_BLIP policecar3_f1blip 
-			policecar3_f1flag = 2
-		ENDIF
-	ENDIF
-
-
-	//swap seat
-	IF policecar4swap_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar4_f1
-			IF NOT IS_CHAR_DEAD cop7_f1
-			ELSE
-				IF NOT IS_CHAR_DEAD cop8_f1
-					IF IS_CHAR_IN_CAR cop8_f1 policecar4_f1
-						GET_DRIVER_OF_CAR policecar4_f1 driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop8_f1 policecar4_f1
-							policecar4swap_f1flag = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar4_f1
-					policecar4swap_f1flag = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecar4swap_f1flag = 2
-		IF IS_CHAR_DEAD cop8_f1
-			STOP_PLAYBACK_RECORDED_CAR policecar4_f1
-			policecar4swap_f1flag = 3
-		ENDIF 
-	ENDIF
-
-	IF policecar4_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar4_f1
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar4_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar4_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop7_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop8_f1
-				REMOVE_BLIP policecar4_f1blip 
-				policecar4_f1flag = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar4_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop7_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop8_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar4_f1
-			REMOVE_BLIP policecar4_f1blip 
-			policecar4_f1flag = 2
-		ENDIF
-	ENDIF
-
-
-	//swap seat
-	IF policecar5swap_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar5_f1
-			IF NOT IS_CHAR_DEAD cop9_f1
-			ELSE
-				IF NOT IS_CHAR_DEAD cop10_f1
-					IF IS_CHAR_IN_CAR cop10_f1 policecar5_f1
-						GET_DRIVER_OF_CAR policecar5_f1 driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop10_f1 policecar5_f1
-							policecar5swap_f1flag = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar5_f1
-					policecar5swap_f1flag = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecar5swap_f1flag = 2
-		IF IS_CHAR_DEAD cop10_f1
-			STOP_PLAYBACK_RECORDED_CAR policecar5_f1
-			policecar5swap_f1flag = 3
-		ENDIF 
-	ENDIF
-
-	IF policecar5_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar5_f1
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar5_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar5_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop9_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop10_f1
-				REMOVE_BLIP policecar5_f1blip 
-				policecar5_f1flag = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar5_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop9_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop10_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar5_f1
-			REMOVE_BLIP policecar5_f1blip 
-			policecar5_f1flag = 2
-		ENDIF
-	ENDIF
-
-	IF policecar6_f1flag = 1
-		IF IS_CAR_DEAD policecar6_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop13_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop14_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar6_f1
-			REMOVE_BLIP policecar6_f1blip
-			policecar6_f1flag = 2
-		ENDIF
-	ENDIF
-
-	IF policecar7swap_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar7_f1
-			IF NOT IS_CHAR_DEAD cop11_f1
-			ELSE
-				IF NOT IS_CHAR_DEAD cop12_f1
-					IF IS_CHAR_IN_CAR cop12_f1 policecar7_f1
-						GET_DRIVER_OF_CAR policecar7_f1 driverofcar_f1
-						IF driverofcar_f1 = -1
-							TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop12_f1 policecar7_f1
-							policecar7swap_f1flag = 2
-						ENDIF
-					ENDIF
-				ELSE
-					STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-					policecar7swap_f1flag = 2
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-	IF policecar7swap_f1flag = 2
-		IF IS_CHAR_DEAD cop12_f1
-			STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-			policecar7swap_f1flag = 3
-		ENDIF 
-	ENDIF
-
-
-	IF policecar7_f1flag = 1
-		IF NOT IS_CAR_DEAD policecar7_f1
-			IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar7_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop11_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop12_f1
-				REMOVE_BLIP policecar7_f1blip 
-				policecar7_f1flag = 2
-			ENDIF
-		ELSE
-			STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop11_f1
-			MARK_CHAR_AS_NO_LONGER_NEEDED cop12_f1
-			MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
-			REMOVE_BLIP policecar7_f1blip 
-			policecar7_f1flag = 2
-		ENDIF
-	ENDIF
+// FIXEDGROVE: START - replaced duplicate code with a function
+	l1f1_car_select = 0
+	WHILE l1f1_car_select < 7
+		SWITCH l1f1_car_select
+		CASE 0
+			l1f1_cop1 = 0
+			l1f1_cop2 = 1
+			l1f1_swap_seat = TRUE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		CASE 1
+			l1f1_cop1 = 2
+			l1f1_cop2 = 3
+		BREAK
+		CASE 2
+			l1f1_cop1 = 4
+			l1f1_cop2 = 5
+			l1f1_swap_seat = FALSE
+		BREAK
+		CASE 3
+			l1f1_cop1 = 6
+			l1f1_cop2 = 7
+			l1f1_swap_seat = TRUE
+		BREAK
+		CASE 4
+			l1f1_cop1 = 8
+			l1f1_cop2 = 9
+		BREAK
+		CASE 5
+			l1f1_cop1 = 12
+			l1f1_cop2 = 13
+			l1f1_swap_seat = FALSE
+			l1f1_record_check = FALSE
+			l1f1_skip_mark_check = TRUE
+		BREAK
+		CASE 6
+			l1f1_cop1 = 10
+			l1f1_cop2 = 11
+			l1f1_swap_seat = TRUE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		ENDSWITCH
+		GOSUB l1f1_swapped
+		l1f1_car_select++
+	ENDWHILE
+// FIXEDGROVE: END
 
 	IF extpoliceheli_f1flag = 0
 		IF IS_CAR_DEAD extpoliceheli_f1
@@ -5877,173 +5267,173 @@ IF textrails_f1flag = 1
 	GOSUB process_audio_f1
 
 	// FIXEDGROVE: assigned speakers
-	IF progressaudio_f1flag = 0
-		IF handlingaudio_f1flag = 0
+	IF handlingaudio_f1flag = 0
+		// FIXEDGROVE: changed if-chain to switch-case
+		SWITCH progressaudio_f1flag
+		CASE 0
 			audio_label_f1 = SOUND_FIN1_KF	//Eh man, I’m running low.
 			$input_text_f1 = FIN1_KF //Eh man, I’m running low.
 			speaker_f1 = scplayer
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 1
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 1
 			audio_label_f1 = SOUND_FIN1_KG	//I got a ‘K here!
 			$input_text_f1 = FIN1_KG //I got a ‘K here!
 			speaker_f1 = ryder
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 2
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 2
 			audio_label_f1 = SOUND_FIN1_KH //This is a fucking antique!
 			$input_text_f1 = FIN1_KH //This is a fucking antique!
 			speaker_f1 = 0
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 3
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 3
 			audio_label_f1 = SOUND_FIN1_KI //Yeah, well… Emmet ain’t the Pentagon!
 			$input_text_f1 = FIN1_KI //Yeah, well… Emmet ain’t the Pentagon!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 4
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 4
 			audio_label_f1 = SOUND_FIN1_KJ //You got it off Emmet? Shit…
 			$input_text_f1 = FIN1_KJ //You got it off Emmet? Shit…
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 5
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 5
 			audio_label_f1 = SOUND_FIN1_ZC	//CJ, cover the rear!
 			$input_text_f1 = FIN1_ZC	//CJ, cover the rear!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
+		BREAK
 
 	//car hit by train
-	IF progressaudio_f1flag = 6
-		IF handlingaudio_f1flag = 0
+		CASE 6
 			IF actiontext_f1flag = 1
 				audio_label_f1 = SOUND_FIN1_KM	//Man, they’s got smoked!  Did you see that?
 				$input_text_f1 = FIN1_KM	//Man, they’s got smoked!  Did you see that?
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 7
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 7
 			audio_label_f1 = SOUND_FIN1_KL	//Damn! That was close!
 			$input_text_f1 = FIN1_KL	//Damn! That was close!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 8
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 8
 			IF DOES_SEARCHLIGHT_EXIST helispotlight_f1
 				SET_SEARCHLIGHT_CLIP_IF_COLLIDING helispotlight_f1 TRUE
 			ENDIF
 			audio_label_f1 = SOUND_FIN1_KO	//Man, it’s getting intense! It’s getting worse out here!
 			$input_text_f1 = FIN1_KO	//Man, it’s getting intense! It’s getting worse out here!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 9
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 9
 			audio_label_f1 = SOUND_FIN1_KP	//It’s like World War VIII!
 			$input_text_f1 = FIN1_KP	//It’s like World War VIII!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-
-	//out of the garage
-	IF actiontext_f1flag = 1
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2372.35 -1283.33 15.0 15.0 FALSE
-			actiontext_f1flag = 2
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 10
-		IF actiontext_f1flag = 2
-			IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 2
 				audio_label_f1 = SOUND_FIN1_KS //Hey, CJ, watch to the left!
 				$input_text_f1 = FIN1_KS //Hey, CJ, watch to the left!
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 11
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 11
 			IF DOES_SEARCHLIGHT_EXIST helispotlight_f1
 				SET_SEARCHLIGHT_CLIP_IF_COLLIDING helispotlight_f1 FALSE
 			ENDIF
 			audio_label_f1 = SOUND_FIN1_KT	//Your left or my left?
 			$input_text_f1 = FIN1_KT	//Your left or my left?
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 12
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 12
 			audio_label_f1 = SOUND_FIN1_KU	//Hell, I don’t know, just shoot everybody, motherfucker!
 			$input_text_f1 = FIN1_KU	//Hell, I don’t know, just shoot everybody, motherfucker!
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 13
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 13
 			audio_label_f1 = SOUND_FIN1_CB	//Four bangers in blue 4door heading back into South Central.
 			$input_text_f1 = FIN1_CB	//Four bangers in blue 4door heading back into South Central.
-			GOSUB load_audio_f1
-		ENDIF
-	ENDIF
-
-	//car in front
-	IF actiontext_f1flag = 2
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2424.42 -1446.57 15.0 15.0 FALSE
-			actiontext_f1flag = 3
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 14
-		IF actiontext_f1flag = 3
-			IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 14
+			IF actiontext_f1flag = 3
 				audio_label_f1 = SOUND_FIN1_LD //Trouble up ahead!
 				$input_text_f1 = FIN1_LD //Trouble up ahead!
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-
-	//car behind and to the right side
-	IF actiontext_f1flag = 3
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2453.78 -1333.3 10.0 10.0 FALSE
-			actiontext_f1flag = 4
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 15
-		IF actiontext_f1flag = 3
-			IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 15
+			IF actiontext_f1flag = 3
 				audio_label_f1 = SOUND_FIN1_ZD	//Carl, they all over our ass, baby!
 				$input_text_f1 = FIN1_ZD	//Carl, they all over our ass, baby!
-				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
-	ENDIF
-
-	IF actiontext_f1flag = 4
-		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2454.1 -1313.02 10.0 10.0 FALSE
-			actiontext_f1flag = 5
-		ENDIF
-	ENDIF
-	IF progressaudio_f1flag = 16
-		IF handlingaudio_f1flag = 0
+		BREAK
+		CASE 16
 			IF actiontext_f1flag = 5
 				audio_label_f1 = SOUND_FIN1_KX	//CJ, watch our right!
 				$input_text_f1 = FIN1_KX	//CJ, watch our right!
+			ENDIF
+		BREAK
+		ENDSWITCH
+
+		SWITCH progressaudio_f1flag
+		CASE 0
+		CASE 1
+		CASE 2
+		CASE 3
+		CASE 4
+		CASE 5
+		CASE 7
+		CASE 8
+		CASE 9
+		CASE 11
+		CASE 12
+		CASE 13
+			GOSUB load_audio_f1
+		BREAK
+
+		CASE 6
+			IF actiontext_f1flag = 1
 				GOSUB load_audio_f1
 			ENDIF
-		ENDIF
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 2
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 14
+			IF actiontext_f1flag = 3
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 15
+			IF actiontext_f1flag = 3
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 16
+			IF actiontext_f1flag = 5
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
+
+	SWITCH actiontext_f1flag
+	//out of the garage
+	CASE 1
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2372.35 -1283.33 15.0 15.0 FALSE
+			actiontext_f1flag = 2
+		ENDIF
+	BREAK
+
+	//car in front
+	CASE 2
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2424.42 -1446.57 15.0 15.0 FALSE
+			actiontext_f1flag = 3
+		ENDIF
+	BREAK
+
+	//car behind and to the right side
+	CASE 3
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2453.78 -1333.3 10.0 10.0 FALSE
+			actiontext_f1flag = 4
+		ENDIF
+	BREAK
+
+	CASE 4
+		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2454.1 -1313.02 10.0 10.0 FALSE
+			actiontext_f1flag = 5
+		ENDIF
+	BREAK
+	ENDSWITCH
+
 
 ENDIF
 
@@ -6063,59 +5453,31 @@ IF motelchase_f1flag = 2
 	SET_NEAR_CLIP 0.1
 
 	//remove all cars and peds
-	STOP_PLAYBACK_RECORDED_CAR policecar1_f1
-	DELETE_CAR policecar1_f1
-	REMOVE_BLIP policecar1_f1blip
-	STOP_PLAYBACK_RECORDED_CAR policecar2_f1
-	DELETE_CAR policecar2_f1
-	REMOVE_BLIP policecar2_f1blip
-	STOP_PLAYBACK_RECORDED_CAR policecar3_f1
-	DELETE_CAR policecar3_f1
-	REMOVE_BLIP policecar3_f1blip
-	STOP_PLAYBACK_RECORDED_CAR policecar4_f1
-	DELETE_CAR policecar4_f1
-	REMOVE_BLIP policecar4_f1blip
-	STOP_PLAYBACK_RECORDED_CAR policecar5_f1
-	DELETE_CAR policecar5_f1
-	REMOVE_BLIP policecar5_f1blip
-	DELETE_CAR policecar6_f1
-	REMOVE_BLIP policecar6_f1blip
-	STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-	DELETE_CAR policecar7_f1
-	REMOVE_BLIP policecar7_f1blip
-	DELETE_CHAR cop1_f1
-	DELETE_CHAR cop2_f1
-	DELETE_CHAR cop3_f1
-	DELETE_CHAR cop4_f1
-	DELETE_CHAR cop5_f1
-	DELETE_CHAR cop6_f1
-	DELETE_CHAR cop7_f1
-	DELETE_CHAR cop8_f1
-	DELETE_CHAR cop9_f1
-	DELETE_CHAR cop10_f1
-	DELETE_CHAR cop11_f1
-	DELETE_CHAR cop12_f1
-	DELETE_CHAR cop13_f1
-	DELETE_CHAR cop14_f1
+	// FIXEDGROVE: while-loop to avoid repeats
+	l1f1_count = 0
+	WHILE l1f1_count < 7
+		IF NOT l1f1_count = 5
+			STOP_PLAYBACK_RECORDED_CAR policecar_f1[l1f1_count]
+		ENDIF
+		DELETE_CAR policecar_f1[l1f1_count]
+		REMOVE_BLIP policecar_f1blip[l1f1_count]
+		l1f1_count++
+	ENDWHILE
+	l1f1_count = 0
+	WHILE l1f1_count < 14
+		DELETE_CHAR cop_f1[l1f1_count]
+		l1f1_count++
+	ENDWHILE
 
 	//reset flags that I am going to use again
+	// FIXEDGROVE: while-loop to avoid repeats
 	copcars_f1flag = 0
-	policecar1_f1flag =	0
-	policecar2_f1flag =	0
-	policecar3_f1flag =	0
-	policecar4_f1flag =	0
-	policecar5_f1flag =	0
-	policecar6_f1flag =	0
-	policecar7_f1flag =	0
-	policecar8_f1flag =	0
-	policecar1swap_f1flag =	0
-	policecar2swap_f1flag =	0
-	policecar3swap_f1flag =	0
-	policecar4swap_f1flag =	0
-	policecar5swap_f1flag =	0
-	policecar6swap_f1flag =	0
-	policecar7swap_f1flag =	0
-	policecar8swap_f1flag =	0
+	l1f1_count = 0
+	WHILE l1f1_count < 8
+		policecar_f1flag[l1f1_count] =	0
+		policecarswap_f1flag[l1f1_count] =	0
+		l1f1_count++
+	ENDWHILE
 
 
 	REQUEST_CAR_RECORDING 331
@@ -6215,14 +5577,14 @@ IF motelchase_f1flag = 2
 	CREATE_CHAR_INSIDE_CAR copbike2_f1 PEDTYPE_MISSION1 LAPDM1 biker2_f1
 	SET_CHAR_DECISION_MAKER biker2_f1 motel_DM
 
-	CREATE_CAR COPCARLA 2505.736 -1256.742 33.64 policecar1_f1	//police car that crashes into scaffolding 
-	SET_PETROL_TANK_WEAKPOINT policecar1_f1 FALSE
-	SET_CAR_HEADING policecar1_f1 268.42
-	CREATE_CHAR_INSIDE_CAR policecar1_f1 PEDTYPE_MISSION1 LAPD1 cop1_f1
-	SET_CHAR_DECISION_MAKER cop1_f1 motel_DM
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop1_f1 FALSE
-	SET_CHAR_CAN_BE_SHOT_IN_VEHICLE cop1_f1 FALSE
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop1_f1 TRUE
+	CREATE_CAR COPCARLA 2505.736 -1256.742 33.64 policecar_f1[0]	//police car that crashes into scaffolding 
+	SET_PETROL_TANK_WEAKPOINT policecar_f1[0] FALSE
+	SET_CAR_HEADING policecar_f1[0] 268.42
+	CREATE_CHAR_INSIDE_CAR policecar_f1[0] PEDTYPE_MISSION1 LAPD1 cop_f1[0]
+	SET_CHAR_DECISION_MAKER cop_f1[0] motel_DM
+	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[0] FALSE
+	SET_CHAR_CAN_BE_SHOT_IN_VEHICLE cop_f1[0] FALSE
+	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[0] TRUE
 
 	CREATE_OBJECT munch_donut 2570.59 -1247.66 44.88 donut_f1 //45.07  //47.4
 
@@ -6282,76 +5644,65 @@ IF motelchase_f1flag = 2
 	SET_OBJECT_HEADING sca6_f1 170.0
 	sca_f1flag = 1
 
-	CREATE_CAR COPCARLA 2520.49 -1485.04 22.84 policecar2_f1 //first chaser through car wash
-	SET_PETROL_TANK_WEAKPOINT policecar2_f1 FALSE
-	SET_CAR_HEADING policecar2_f1 1.33
-	SET_CAR_HEALTH policecar2_f1 750
-	SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar2_f1 TRUE
-	CREATE_CHAR_INSIDE_CAR policecar2_f1 PEDTYPE_MISSION1 LAPD1 cop2_f1
-	SET_CHAR_DECISION_MAKER cop2_f1 motel_DM
-	SET_CHAR_HEALTH cop2_f1 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop2_f1 TRUE
-	CREATE_CHAR_AS_PASSENGER policecar2_f1 PEDTYPE_MISSION1 LAPD1 0 cop3_f1
-	SET_CHAR_DECISION_MAKER cop3_f1 motel_dm
-	SET_CHAR_HEALTH cop3_f1 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop3_f1 TRUE
-	GIVE_WEAPON_TO_CHAR cop3_f1 WEAPONTYPE_MP5 9999
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop3_f1 FALSE
-	CAR_SET_IDLE policecar2_f1
+	// FIXEDGROVE: START - moved setup code to gosub
+	CREATE_CAR COPCARLA 2520.49 -1485.04 22.84 policecar_f1[1] //first chaser through car wash
+	SET_CAR_HEADING policecar_f1[1] 1.33
+	CREATE_CHAR_INSIDE_CAR policecar_f1[1] PEDTYPE_MISSION1 LAPD1 cop_f1[1]
+	CREATE_CHAR_AS_PASSENGER policecar_f1[1] PEDTYPE_MISSION1 LAPD1 0 cop_f1[2]
+	l1f1_car_select = 1
+	l1f1_cop1 = 1
+	l1f1_cop2 = 2
+	l1f1_petrol_weakpoint = FALSE
+	l1f1_critical_hits = TRUE
+	l1f1_shot_in_vehicle = TRUE
+	GOSUB l1f1_policecar_setup
+	GOSUB l1f1_outside_guys_setup
+	SET_CAR_HEALTH policecar_f1[1] 750
+	SET_CHAR_HEALTH cop_f1[1] 100
+	SET_CHAR_HEALTH cop_f1[2] 100
 
-	CREATE_CAR COPCARLA 2532.98 -1502.372 23.67 policecar3_f1 //2nd chaser thru car wash
-	SET_PETROL_TANK_WEAKPOINT policecar3_f1 FALSE
-	SET_CAR_HEADING policecar3_f1 266.9
-	SET_CAR_HEALTH policecar3_f1 600 //800
-	SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar3_f1 TRUE
-	CREATE_CHAR_INSIDE_CAR policecar3_f1 PEDTYPE_MISSION1 LAPD1 cop4_f1
-	SET_CHAR_DECISION_MAKER cop4_f1 motel_DM
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop4_f1 FALSE
-	SET_CHAR_HEALTH cop4_f1 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop4_f1 TRUE
-	CREATE_CHAR_AS_PASSENGER policecar3_f1 PEDTYPE_MISSION1 LAPD1 0 cop5_f1
-	SET_CHAR_DECISION_MAKER cop5_f1 motel_dm
-	SET_CHAR_HEALTH cop5_f1 100
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop5_f1 TRUE
-	GIVE_WEAPON_TO_CHAR cop5_f1 WEAPONTYPE_MP5 9999
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop5_f1 FALSE
-	CAR_SET_IDLE policecar3_f1
+	CREATE_CAR COPCARLA 2532.98 -1502.372 23.67 policecar_f1[2] //2nd chaser thru car wash
+	SET_CAR_HEADING policecar_f1[2] 266.9
+	CREATE_CHAR_INSIDE_CAR policecar_f1[2] PEDTYPE_MISSION1 LAPD1 cop_f1[3]
+	CREATE_CHAR_AS_PASSENGER policecar_f1[2] PEDTYPE_MISSION1 LAPD1 0 cop_f1[4]
+	l1f1_car_select = 2
+	l1f1_cop1 = 3
+	l1f1_cop2 = 4
+	l1f1_critical_hits = FALSE
+	GOSUB l1f1_policecar_setup
+	GOSUB l1f1_outside_guys_setup
+	SET_CAR_HEALTH policecar_f1[2] 600 //800
+	SET_CHAR_HEALTH cop_f1[3] 100
+	SET_CHAR_HEALTH cop_f1[4] 100
 
-	CREATE_CAR COPCARLA 2510.967 -1448.138 28.398 policecar8_f1 //chase that goes away after car wash
-	SET_PETROL_TANK_WEAKPOINT policecar8_f1 FALSE
-	SET_CAR_HEADING policecar8_f1 72.49
-	SET_CAR_HEALTH policecar8_f1 325
-	SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar8_f1 TRUE
-	CREATE_CHAR_INSIDE_CAR policecar8_f1 PEDTYPE_MISSION1 LAPD1 cop7_f1
-	SET_CHAR_DECISION_MAKER cop7_f1 motel_DM
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop7_f1 FALSE
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop7_f1 TRUE
-	CREATE_CHAR_AS_PASSENGER policecar8_f1 PEDTYPE_MISSION1 LAPD1 0 cop8_f1
-	SET_CHAR_DECISION_MAKER cop8_f1 motel_dm
-	SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop8_f1 TRUE
-	GIVE_WEAPON_TO_CHAR cop8_f1 WEAPONTYPE_MP5 9999
-	SET_CHAR_SUFFERS_CRITICAL_HITS cop8_f1 FALSE
-	CAR_SET_IDLE policecar8_f1
+	CREATE_CAR COPCARLA 2510.967 -1448.138 28.398 policecar_f1[7] //chase that goes away after car wash
+	SET_CAR_HEADING policecar_f1[7] 72.49
+	CREATE_CHAR_INSIDE_CAR policecar_f1[7] PEDTYPE_MISSION1 LAPD1 cop_f1[6]
+	CREATE_CHAR_AS_PASSENGER policecar_f1[7] PEDTYPE_MISSION1 LAPD1 0 cop_f1[7]
+	l1f1_car_select = 7
+	l1f1_cop1 = 6
+	l1f1_cop2 = 7
+	GOSUB l1f1_policecar_setup
+	GOSUB l1f1_outside_guys_setup
+	SET_CAR_HEALTH policecar_f1[7] 325
+	// FIXEDGROVE: END
 
 	IF NOT IS_CAR_DEAD sweet_car
-		IF NOT IS_CAR_DEAD policecar1_f1
-			IF NOT IS_CAR_DEAD copbike2_f1
-				IF NOT IS_CAR_DEAD copbike3_f1
+	AND NOT IS_CAR_DEAD policecar_f1[0]
+	AND NOT IS_CAR_DEAD copbike2_f1
+	AND NOT IS_CAR_DEAD copbike3_f1
 					FREEZE_CAR_POSITION sweet_car FALSE
 					START_PLAYBACK_RECORDED_CAR sweet_car 331
-					START_PLAYBACK_RECORDED_CAR policecar1_f1 339
+					START_PLAYBACK_RECORDED_CAR policecar_f1[0] 339
 					START_PLAYBACK_RECORDED_CAR copbike2_f1 371 
 					START_PLAYBACK_RECORDED_CAR copbike3_f1 372
 					SWITCH_CAR_SIREN copbike3_f1 ON
 					bikerjumper3_f1flag = 2
-					ADD_BLIP_FOR_CAR policecar1_f1 policecar1_f1blip
-					CHANGE_BLIP_DISPLAY policecar1_f1blip BLIP_ONLY
-					policecar1_f1flag = 1
-					SWITCH_CAR_SIREN policecar1_f1 ON
+					ADD_BLIP_FOR_CAR policecar_f1[0] policecar_f1blip[0]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[0] BLIP_ONLY
+					policecar_f1flag[0] = 1
+					SWITCH_CAR_SIREN policecar_f1[0] ON
 					TIMERA = 0
-				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 
 
@@ -6668,303 +6019,263 @@ IF NOT IS_CAR_DEAD sweet_car
 		GOSUB process_audio_f1
 
 
-		IF progressaudio_f1flag = 0
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LA	//Eyes front, CJ!
-				$input_text_f1 = FIN1_LA	//Eyes front, CJ!
+		IF handlingaudio_f1flag = 0
+		// FIXEDGROVE: changed if-chain to switch-case
+		SWITCH progressaudio_f1flag
+		CASE 0
+			audio_label_f1 = SOUND_FIN1_LA	//Eyes front, CJ!
+			$input_text_f1 = FIN1_LA	//Eyes front, CJ!
+		BREAK
+		CASE 1
+			IF actiontext_f1flag = 1
+				audio_label_f1 = SOUND_FIN1_BK	//Surprise, homeboy!
+				$input_text_f1 = FIN1_BK //Surprise, homeboy!
+			ENDIF
+		BREAK
+		CASE 2
+			audio_label_f1 = SOUND_FIN1_KK	//Holy shit! Look at that!
+			$input_text_f1 = FIN1_KK	//Holy shit! Look at that!
+		BREAK
+		CASE 3
+			audio_label_f1 = SOUND_FIN1_KR //Wish I’d stayed at home and watched the game!
+			$input_text_f1 = FIN1_KR //Wish I’d stayed at home and watched the game!
+		BREAK
+		CASE 4
+			IF actiontext_f1flag = 2
+				audio_label_f1 = SOUND_FIN1_ZB	//Carl, behind us!  Behind us!
+				$input_text_f1 = FIN1_ZB //Carl, behind us!  Behind us!
+			ENDIF
+		BREAK
+		CASE 5
+			audio_label_f1 = SOUND_FIN1_LL	//Put up your windows!
+			$input_text_f1 = FIN1_LL//Put up your windows!
+		BREAK
+		CASE 6
+			audio_label_f1 = SOUND_FIN1_LI	//Smoke, what the FUCK are you doin’?
+			$input_text_f1 = FIN1_LI  //Smoke, what the FUCK are you doin’?
+		BREAK
+		CASE 7
+			IF actiontext_f1flag = 4
+				audio_label_f1 = SOUND_FIN1_LP	//Dammit, Smoke, I got soap in my eyes!
+				$input_text_f1 = FIN1_LP//Dammit, Smoke, I got soap in my eyes!
+			ENDIF
+		BREAK
+		CASE 8
+			audio_label_f1 = SOUND_FIN1_MK	//Smoke, you’re insane!
+			$input_text_f1 = FIN1_MK	//Smoke, you’re insane!
+		BREAK
+		CASE 9
+			audio_label_f1 = SOUND_FIN1_LJ	//I like things clean!
+			$input_text_f1 = FIN1_LJ	//I like things clean!
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 5
+				audio_label_f1 = SOUND_FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
+				$input_text_f1 = FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
+			ENDIF
+		BREAK
+		CASE 11
+			audio_label_f1 = SOUND_FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
+			$input_text_f1 = FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
+		BREAK
+		CASE 12
+			audio_label_f1 = SOUND_FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
+			$input_text_f1 = FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
+		BREAK
+		CASE 13
+			audio_label_f1 = SOUND_FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
+			$input_text_f1 = FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
+		BREAK
+
+		//2nd bike jumper
+		CASE 14
+			IF actiontext_f1flag = 7
+				audio_label_f1 = SOUND_FIN1_BL //Heads up, brother!
+				$input_text_f1 = FIN1_BL //Heads up, brother!
+			ENDIF
+		BREAK
+		CASE 15
+			audio_label_f1 = SOUND_FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
+			$input_text_f1 = FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
+		BREAK
+		CASE 16
+			audio_label_f1 = SOUND_FIN1_LX	//Somebody shoot him!
+			$input_text_f1 = FIN1_LX //Somebody shoot him!
+		BREAK
+		CASE 17
+			audio_label_f1 = SOUND_FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
+			$input_text_f1 = FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
+		BREAK
+		CASE 18
+			audio_label_f1 = SOUND_FIN1_ZC	//CJ, cover the rear!
+			$input_text_f1 = FIN1_ZC	//CJ, cover the rear!
+		BREAK
+
+		//from the road block to just before the cut of the car bursting through the advertising sign
+		CASE 20
+			IF actiontext_f1flag = 8
+				audio_label_f1 = SOUND_FIN1_MA //OH SHIT! Roadblock up ahead!
+				$input_text_f1 = FIN1_MA //OH SHIT! Roadblock up ahead!
+			ENDIF
+		BREAK
+		CASE 21
+			audio_label_f1 = SOUND_FIN1_MB	//The K's jammed!
+			$input_text_f1 = FIN1_MB	//The K's jammed!
+		BREAK
+		CASE 22
+			audio_label_f1 = SOUND_FIN1_MD	//Fuckit, I’m going through!
+			$input_text_f1 = FIN1_MD	//Fuckit, I’m going through!
+		BREAK
+		CASE 23
+			audio_label_f1 = SOUND_FIN1_ME	//CJ, we got the ghetto bird up ahead!
+			$input_text_f1 = FIN1_ME	//CJ, we got the ghetto bird up ahead!
+		BREAK
+		CASE 24
+			audio_label_f1 = SOUND_FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
+			$input_text_f1 = FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
+		BREAK
+		CASE 25
+			audio_label_f1 = SOUND_FIN1_MH //Back up, Smoke, Back up!
+			$input_text_f1 = FIN1_MH //Back up, Smoke, Back up!
+		BREAK
+		CASE 26
+			audio_label_f1 = SOUND_FIN1_MI //Hell no, I’m going through!
+			$input_text_f1 = FIN1_MI //Hell no, I’m going through!
+		BREAK
+		CASE 27
+			audio_label_f1 = SOUND_FIN1_MT //Oh man we gonna diiie!
+			$input_text_f1 = FIN1_MT //Oh man we gonna diiie!
+		BREAK
+		CASE 28
+			audio_label_f1 = SOUND_FIN1_ML	//Oooooooh SHIIIIIIIT!
+			$input_text_f1 = FIN1_ML //Oooooooh SHIIIIIIIT!
+		BREAK
+		CASE 29
+			audio_label_f1 = SOUND_FIN1_MR //Slow down, Smoke, SLOW DOWN!
+			$input_text_f1 = FIN1_MR //Slow down, Smoke, SLOW DOWN!
+		BREAK
+		CASE 30
+			audio_label_f1 = SOUND_FIN1_MS //Oh shit, the brakes is out!
+			$input_text_f1 = FIN1_MS //Oh shit, the brakes is out!
+		BREAK
+		ENDSWITCH
+
+		SWITCH progressaudio_f1flag
+		CASE 0
+		CASE 2
+		CASE 3
+		CASE 5
+		CASE 6
+		CASE 8
+		CASE 9
+		CASE 11
+		CASE 12
+		CASE 13
+		CASE 15
+		CASE 16
+		CASE 17
+		CASE 18
+		CASE 21
+		CASE 22
+		CASE 23
+		CASE 24
+		CASE 25
+		CASE 26
+		CASE 27
+		CASE 28
+		CASE 29
+		CASE 30
+			GOSUB load_audio_f1
+		BREAK
+
+		CASE 1
+			IF actiontext_f1flag = 1
 				GOSUB load_audio_f1
 			ENDIF
+		BREAK
+		CASE 4
+			IF actiontext_f1flag = 2
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 7
+			IF actiontext_f1flag = 4
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 10
+			IF actiontext_f1flag = 5
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 14
+			IF actiontext_f1flag = 7
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		CASE 20
+			IF actiontext_f1flag = 8
+				GOSUB load_audio_f1
+			ENDIF
+		BREAK
+		ENDSWITCH
 		ENDIF
 
-		IF policecarexplode_f1flag = 0
+		SWITCH policecarexplode_f1flag
+		CASE 0
 			IF TIMERB > 53000
 				IF NOT IS_CHAR_DEAD biker2_f1
 					TASK_DIE biker2_f1
-					policecarexplode_f1flag = 1
-				ELSE
-					policecarexplode_f1flag = 1
 				ENDIF
+				policecarexplode_f1flag = 1
 			ENDIF
-		ENDIF
-		IF policecarexplode_f1flag = 3
+		BREAK
+		CASE 3
 			IF TIMERB > 58900
-				IF NOT IS_CAR_DEAD policecar1_f1
-					EXPLODE_CAR policecar1_f1
-					policecarexplode_f1flag = 4
-				ELSE
-					policecarexplode_f1flag = 4
+				IF NOT IS_CAR_DEAD policecar_f1[0]
+					EXPLODE_CAR policecar_f1[0]
 				ENDIF
+				policecarexplode_f1flag = 4
 			ENDIF
-		ENDIF
-		IF policecarexplode_f1flag = 4
+		BREAK
+		CASE 4
 			IF TIMERB > 85200
-				IF NOT IS_CAR_DEAD policecar2_f1
-					EXPLODE_CAR	policecar2_f1
-					policecarexplode_f1flag = 5
-				ELSE
-					policecarexplode_f1flag = 5
+				IF NOT IS_CAR_DEAD policecar_f1[1]
+					EXPLODE_CAR	policecar_f1[1]
 				ENDIF
+				policecarexplode_f1flag = 5
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 
-		IF actiontext_f1flag = 1
-			IF progressaudio_f1flag = 1
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_BK	//Surprise, homeboy!
-					$input_text_f1 = FIN1_BK //Surprise, homeboy!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 2
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_KK	//Holy shit! Look at that!
-				$input_text_f1 = FIN1_KK	//Holy shit! Look at that!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 3
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_KR //Wish I’d stayed at home and watched the game!
-				$input_text_f1 = FIN1_KR //Wish I’d stayed at home and watched the game!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 1
+		SWITCH actiontext_f1flag
+		CASE 1
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2545.15 -1460.3 15.0 15.0 FALSE
 				actiontext_f1flag = 2
 			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 2
-			IF progressaudio_f1flag = 4
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_ZB	//Carl, behind us!  Behind us!
-					$input_text_f1 = FIN1_ZB //Carl, behind us!  Behind us!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 5
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LL	//Put up your windows!
-				$input_text_f1 = FIN1_LL//Put up your windows!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 6
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LI	//Smoke, what the FUCK are you doin’?
-				$input_text_f1 = FIN1_LI  //Smoke, what the FUCK are you doin’?
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
+		BREAK
 
 		//soap in eyes
-		IF actiontext_f1flag = 2//3
+		CASE 2//3
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2451.92 -1461.5 12.0 12.0 FALSE
 				actiontext_f1flag = 4
 			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 4
-			IF progressaudio_f1flag = 7
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_LP	//Dammit, Smoke, I got soap in my eyes!
-					$input_text_f1 = FIN1_LP//Dammit, Smoke, I got soap in my eyes!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 8
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_MK	//Smoke, you’re insane!
-				$input_text_f1 = FIN1_MK	//Smoke, you’re insane!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 9
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LJ	//I like things clean!
-				$input_text_f1 = FIN1_LJ	//I like things clean!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
+		BREAK
 
 		//after the car wash
-		IF actiontext_f1flag = 4
+		CASE 4
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2344.98 -1382.22 18.0 18.0 FALSE
 				actiontext_f1flag = 5
 			ENDIF
-		ENDIF
-
-		IF actiontext_f1flag = 5
-			IF progressaudio_f1flag = 10
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
-					$input_text_f1 = FIN1_LQ	//Hey, ain’t we been here before? // FIXEDGROVE: swapped with next line
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
 
 		//going around in circles
-		IF actiontext_f1flag = 5
+		CASE 5
 			IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2305.51 -1370.01 18.0 18.0 FALSE
 				actiontext_f1flag = 6
 			ENDIF
-		ENDIF
-
-		IF progressaudio_f1flag = 11
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
-				$input_text_f1 = FIN1_LT	//Hey, I’m taking what options I have, a’ight? // FIXEDGROVE: swapped with next line
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 12
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
-				$input_text_f1 = FIN1_LU	//This ain't no Sunday cruise, CJ! // FIXEDGROVE: added back unused line
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 13
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
-				$input_text_f1 = FIN1_LV	//Maybe if you have a nice word with these officers they’ll let us on our way!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		//2nd bike jumper
-		IF actiontext_f1flag = 7
-			IF progressaudio_f1flag = 14
-				IF handlingaudio_f1flag = 0
-					audio_label_f1 = SOUND_FIN1_BL //Heads up, brother!
-					$input_text_f1 = FIN1_BL //Heads up, brother!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 15
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
-				$input_text_f1 = FIN1_LW	//Hey, man, some idiot’s hanging off the back of the car!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 16
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_LX	//Somebody shoot him!
-				$input_text_f1 = FIN1_LX //Somebody shoot him!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 17
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
-				$input_text_f1 = FIN1_ZA //Oh shit!  All I got in my rearview is bad guys!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF progressaudio_f1flag = 18
-			IF handlingaudio_f1flag = 0
-				audio_label_f1 = SOUND_FIN1_ZC	//CJ, cover the rear!
-				$input_text_f1 = FIN1_ZC	//CJ, cover the rear!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-
-		//from the road block to just before the cut of the car bursting through the advertising sign
-		IF actiontext_f1flag = 8
-			IF handlingaudio_f1flag = 0
-				IF progressaudio_f1flag = 20
-					audio_label_f1 = SOUND_FIN1_MA //OH SHIT! Roadblock up ahead!
-					$input_text_f1 = FIN1_MA //OH SHIT! Roadblock up ahead!
-					GOSUB load_audio_f1
-				ENDIF
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 21
-				audio_label_f1 = SOUND_FIN1_MB	//The K's jammed!
-				$input_text_f1 = FIN1_MB	//The K's jammed!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 22
-				audio_label_f1 = SOUND_FIN1_MD	//Fuckit, I’m going through!
-				$input_text_f1 = FIN1_MD	//Fuckit, I’m going through!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 23
-				audio_label_f1 = SOUND_FIN1_ME	//CJ, we got the ghetto bird up ahead!
-				$input_text_f1 = FIN1_ME	//CJ, we got the ghetto bird up ahead!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 24
-				audio_label_f1 = SOUND_FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
-				$input_text_f1 = FIN1_EA //This is the LSPD do not – HEY! WHAT THE FUCK? TOO LOW!!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 25
-				audio_label_f1 = SOUND_FIN1_MH //Back up, Smoke, Back up!
-				$input_text_f1 = FIN1_MH //Back up, Smoke, Back up!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 26
-				audio_label_f1 = SOUND_FIN1_MI //Hell no, I’m going through!
-				$input_text_f1 = FIN1_MI //Hell no, I’m going through!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 27
-				audio_label_f1 = SOUND_FIN1_MT //Oh man we gonna diiie!
-				$input_text_f1 = FIN1_MT //Oh man we gonna diiie!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 28
-				audio_label_f1 = SOUND_FIN1_ML	//Oooooooh SHIIIIIIIT!
-				$input_text_f1 = FIN1_ML //Oooooooh SHIIIIIIIT!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-	
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 29
-				audio_label_f1 = SOUND_FIN1_MR //Slow down, Smoke, SLOW DOWN!
-				$input_text_f1 = FIN1_MR //Slow down, Smoke, SLOW DOWN!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
-
-		IF handlingaudio_f1flag = 0
-			IF progressaudio_f1flag = 30
-				audio_label_f1 = SOUND_FIN1_MS //Oh shit, the brakes is out!
-				$input_text_f1 = FIN1_MS //Oh shit, the brakes is out!
-				GOSUB load_audio_f1
-			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 
 
@@ -6973,8 +6284,8 @@ IF NOT IS_CAR_DEAD sweet_car
 
 
 		IF sca_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar1_f1
-				IF LOCATE_CAR_2D policecar1_f1 2566.12 -1322.35 1.5 1.5 FALSE
+			IF NOT IS_CAR_DEAD policecar_f1[0]
+				IF LOCATE_CAR_2D policecar_f1[0] 2566.12 -1322.35 1.5 1.5 FALSE
 					// FIXEDGROVE: START - break all the scaffoldings the original script didn't
 					IF DOES_OBJECT_EXIST sca1_f1
 						BREAK_OBJECT sca1_f1 TRUE
@@ -7004,45 +6315,45 @@ IF NOT IS_CAR_DEAD sweet_car
 
 		IF copcars_f1flag = 1
 			IF LOCATE_CAR_2D sweet_car 2564.68 -1442.47 15.0 15.0 FALSE
-				IF NOT IS_CAR_DEAD policecar2_f1
-					START_PLAYBACK_RECORDED_CAR policecar2_f1 373
-					ADD_BLIP_FOR_CAR policecar2_f1 policecar2_f1blip
-					CHANGE_BLIP_DISPLAY policecar2_f1blip BLIP_ONLY
-					SWITCH_CAR_SIREN policecar2_f1 ON
-					policecar2_f1flag = 1
-					policecar2swap_f1flag = 1
+				IF NOT IS_CAR_DEAD policecar_f1[1]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[1] 373
+					ADD_BLIP_FOR_CAR policecar_f1[1] policecar_f1blip[1]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[1] BLIP_ONLY
+					SWITCH_CAR_SIREN policecar_f1[1] ON
+					policecar_f1flag[1] = 1
+					policecarswap_f1flag[1] = 1
 				ENDIF
-				IF NOT IS_CAR_DEAD policecar3_f1
-					START_PLAYBACK_RECORDED_CAR policecar3_f1 374
-					ADD_BLIP_FOR_CAR policecar3_f1 policecar3_f1blip
-					CHANGE_BLIP_DISPLAY policecar3_f1blip BLIP_ONLY
-					SWITCH_CAR_SIREN policecar3_f1 ON
-					policecar3_f1flag = 1
-					policecar3swap_f1flag = 1
+				IF NOT IS_CAR_DEAD policecar_f1[2]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[2] 374
+					ADD_BLIP_FOR_CAR policecar_f1[2] policecar_f1blip[2]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[2] BLIP_ONLY
+					SWITCH_CAR_SIREN policecar_f1[2] ON
+					policecar_f1flag[2] = 1
+					policecarswap_f1flag[2] = 1
 				ENDIF
-				IF NOT IS_CAR_DEAD policecar8_f1
-					START_PLAYBACK_RECORDED_CAR policecar8_f1 380
-					ADD_BLIP_FOR_CAR policecar8_f1 policecar8_f1blip
-					CHANGE_BLIP_DISPLAY policecar8_f1blip BLIP_ONLY
-					SWITCH_CAR_SIREN policecar8_f1 ON
-					policecar8_f1flag = 1
-					policecar8swap_f1flag = 1
-				ENDIF
-
-				IF NOT IS_CHAR_DEAD cop3_f1
-					TASK_DRIVE_BY cop3_f1 scplayer -1 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+				IF NOT IS_CAR_DEAD policecar_f1[7]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[7] 380
+					ADD_BLIP_FOR_CAR policecar_f1[7] policecar_f1blip[7]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[7] BLIP_ONLY
+					SWITCH_CAR_SIREN policecar_f1[7] ON
+					policecar_f1flag[7] = 1
+					policecarswap_f1flag[7] = 1
 				ENDIF
 
-				IF NOT IS_CHAR_DEAD cop5_f1
+				IF NOT IS_CHAR_DEAD cop_f1[2]
+					TASK_DRIVE_BY cop_f1[2] scplayer -1 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+				ENDIF
+
+				IF NOT IS_CHAR_DEAD cop_f1[4]
 					IF difficulty_f1flag > 1
-						TASK_DRIVE_BY cop5_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 30
+						TASK_DRIVE_BY cop_f1[4] -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 30
 					ELSE
-						TASK_DRIVE_BY cop5_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 75
+						TASK_DRIVE_BY cop_f1[4] -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 75
 					ENDIF
 				ENDIF
 
-				IF NOT IS_CHAR_DEAD cop8_f1
-					TASK_DRIVE_BY cop8_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+				IF NOT IS_CHAR_DEAD cop_f1[7]
+					TASK_DRIVE_BY cop_f1[7] -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
 				ENDIF
 				
 				PLAY_FX_SYSTEM jetwashfx1_f1
@@ -7082,60 +6393,51 @@ IF NOT IS_CAR_DEAD sweet_car
 				SET_CAR_ONLY_DAMAGED_BY_PLAYER copbike4_f1 TRUE
 				SET_CAR_PROOFS copbike4_f1 TRUE TRUE TRUE TRUE TRUE
 
-				CREATE_CAR COPCARLA 2222.98 -1303.52 22.654 policecar5_f1 //car that comes out with the bike
-				SET_PETROL_TANK_WEAKPOINT policecar5_f1 FALSE
-				SET_CAR_HEADING policecar5_f1 269.409
-				SET_CAR_HEALTH policecar5_f1 850
-				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar5_f1 TRUE
-				CREATE_CHAR_INSIDE_CAR policecar5_f1 PEDTYPE_MISSION1 LAPD1 cop9_f1
-				SET_CHAR_DECISION_MAKER cop9_f1 motel_DM
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop9_f1 FALSE
-				SET_CHAR_HEALTH cop9_f1 100
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop9_f1 TRUE
-				CREATE_CHAR_AS_PASSENGER policecar5_f1 PEDTYPE_MISSION1 LAPD1 0 cop10_f1
-				SET_CHAR_DECISION_MAKER cop10_f1 motel_dm
-				SET_CHAR_HEALTH cop10_f1 100
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop10_f1 TRUE
-				GIVE_WEAPON_TO_CHAR cop10_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop10_f1 FALSE
-				CAR_SET_IDLE policecar5_f1
+				// FIXEDGROVE: START - moved setup code to gosub
+				CREATE_CAR COPCARLA 2222.98 -1303.52 22.654 policecar_f1[4] //car that comes out with the bike
+				SET_CAR_HEADING policecar_f1[4] 269.409
+				CREATE_CHAR_INSIDE_CAR policecar_f1[4] PEDTYPE_MISSION1 LAPD1 cop_f1[8]
+				CREATE_CHAR_AS_PASSENGER policecar_f1[4] PEDTYPE_MISSION1 LAPD1 0 cop_f1[9]
+				l1f1_car_select = 4
+				l1f1_cop1 = 8
+				l1f1_cop2 = 9
+				l1f1_petrol_weakpoint = FALSE
+				l1f1_critical_hits = FALSE
+				l1f1_shot_in_vehicle = TRUE
+				GOSUB l1f1_policecar_setup
+				GOSUB l1f1_outside_guys_setup
+				SET_CAR_HEALTH policecar_f1[4] 850
+				SET_CHAR_HEALTH cop_f1[8] 100
+				SET_CHAR_HEALTH cop_f1[9] 100
 
-				CREATE_CAR COPCARLA 2250.63 -1380.995 22.65 policecar6_f1 //at the bottom of the road
-				SET_PETROL_TANK_WEAKPOINT policecar6_f1 FALSE
-				SET_CAR_HEADING policecar6_f1 268.1
-				SET_CAR_HEALTH policecar6_f1 800
-				SET_CAR_PROOFS policecar6_f1 FALSE FALSE TRUE FALSE FALSE
-				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar6_f1 TRUE
-				CREATE_CHAR_INSIDE_CAR policecar6_f1 PEDTYPE_MISSION1 LAPD1 cop12_f1
-				SET_CHAR_DECISION_MAKER cop12_f1 motel_DM
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop12_f1 FALSE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop12_f1 TRUE
-				CREATE_CHAR_AS_PASSENGER policecar6_f1 PEDTYPE_MISSION1 LAPD1 0 cop13_f1
-				SET_CHAR_DECISION_MAKER cop13_f1 motel_dm
-				SET_CHAR_HEALTH cop13_f1 200
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop13_f1 TRUE
-				GIVE_WEAPON_TO_CHAR cop13_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop13_f1 FALSE
-				CAR_SET_IDLE policecar6_f1
+				CREATE_CAR COPCARLA 2250.63 -1380.995 22.65 policecar_f1[5] //at the bottom of the road
+				SET_CAR_HEADING policecar_f1[5] 268.1
+				CREATE_CHAR_INSIDE_CAR policecar_f1[5] PEDTYPE_MISSION1 LAPD1 cop_f1[11]
+				CREATE_CHAR_AS_PASSENGER policecar_f1[5] PEDTYPE_MISSION1 LAPD1 0 cop_f1[12]
+				l1f1_car_select = 5
+				l1f1_cop1 = 11
+				l1f1_cop2 = 12
+				GOSUB l1f1_policecar_setup
+				GOSUB l1f1_outside_guys_setup
+				SET_CAR_HEALTH policecar_f1[5] 800
+				SET_CAR_PROOFS policecar_f1[5] FALSE FALSE TRUE FALSE FALSE
+				SET_CHAR_HEALTH cop_f1[12] 200
 
 // FIXEDGROVE: START - uncomment
-				CREATE_CAR COPCARLA 2330.692 -1304.53 23.9 policecar7_f1 // opposite the alley entrance
-				SET_CAR_HEADING policecar7_f1 87.107
-				SET_CAR_HEALTH policecar7_f1 750
-				SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar7_f1 TRUE
-				CREATE_CHAR_INSIDE_CAR policecar7_f1 PEDTYPE_MISSION1 LAPD1 cop14_f1
-				SET_CHAR_DECISION_MAKER cop14_f1 motel_DM
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop14_f1 FALSE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop14_f1 TRUE
-				CREATE_CHAR_AS_PASSENGER policecar7_f1 PEDTYPE_MISSION1 LAPD1 0 cop15_f1
-				SET_CHAR_DECISION_MAKER cop15_f1 motel_dm
-				SET_CHAR_HEALTH cop15_f1 200
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop15_f1 TRUE
-
-				GIVE_WEAPON_TO_CHAR cop15_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS cop15_f1 FALSE
-				CAR_SET_IDLE policecar7_f1
+				CREATE_CAR COPCARLA 2330.692 -1304.53 23.9 policecar_f1[6] // opposite the alley entrance
+				SET_CAR_HEADING policecar_f1[6] 87.107
+				CREATE_CHAR_INSIDE_CAR policecar_f1[6] PEDTYPE_MISSION1 LAPD1 cop_f1[13]
+				CREATE_CHAR_AS_PASSENGER policecar_f1[6] PEDTYPE_MISSION1 LAPD1 0 cop_f1[14]
+				l1f1_car_select = 6
+				l1f1_cop1 = 13
+				l1f1_cop2 = 14
+				l1f1_petrol_weakpoint = TRUE
+				GOSUB l1f1_policecar_setup
+				GOSUB l1f1_outside_guys_setup
+				SET_CAR_HEALTH policecar_f1[6] 750
+				SET_CHAR_HEALTH cop_f1[14] 200
 // FIXEDGROVE: END
+				// FIXEDGROVE: END - moved setup code to gosub
    				copcars_f1flag = 3
 			ENDIF
 		ENDIF
@@ -7143,16 +6445,16 @@ IF NOT IS_CAR_DEAD sweet_car
 		IF copcars_f1flag = 3
 			IF LOCATE_CAR_2D sweet_car 2304.185 -1364.711 20.0 20.0 FALSE 
 				
-				IF NOT IS_CAR_DEAD policecar6_f1
-					START_PLAYBACK_RECORDED_CAR policecar6_f1 377
-					ADD_BLIP_FOR_CAR policecar6_f1 policecar6_f1blip
-					CHANGE_BLIP_DISPLAY policecar6_f1blip BLIP_ONLY
-					SWITCH_CAR_SIREN policecar6_f1 ON
-					policecar6_f1flag = 1
-					policecar6swap_f1flag = 1
+				IF NOT IS_CAR_DEAD policecar_f1[5]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[5] 377
+					ADD_BLIP_FOR_CAR policecar_f1[5] policecar_f1blip[5]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[5] BLIP_ONLY
+					SWITCH_CAR_SIREN policecar_f1[5] ON
+					policecar_f1flag[5] = 1
+					policecarswap_f1flag[5] = 1
 				ENDIF
-				IF NOT IS_CHAR_DEAD cop13_f1
-					TASK_DRIVE_BY cop13_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 30
+				IF NOT IS_CHAR_DEAD cop_f1[12]
+					TASK_DRIVE_BY cop_f1[12] -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 30
 				ENDIF
 
 				KILL_FX_SYSTEM jetwashfx1_f1
@@ -7171,30 +6473,30 @@ IF NOT IS_CAR_DEAD sweet_car
 						bikerjumper4_f1flag = 3
 					ENDIF
 				ENDIF
-				IF NOT IS_CAR_DEAD policecar5_f1
-					START_PLAYBACK_RECORDED_CAR policecar5_f1 376
-					ADD_BLIP_FOR_CAR policecar5_f1 policecar5_f1blip
-					CHANGE_BLIP_DISPLAY policecar5_f1blip BLIP_ONLY
-					SWITCH_CAR_SIREN policecar5_f1 ON
-					policecar5_f1flag = 1
-					policecar5swap_f1flag = 1
+				IF NOT IS_CAR_DEAD policecar_f1[4]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[4] 376
+					ADD_BLIP_FOR_CAR policecar_f1[4] policecar_f1blip[4]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[4] BLIP_ONLY
+					SWITCH_CAR_SIREN policecar_f1[4] ON
+					policecar_f1flag[4] = 1
+					policecarswap_f1flag[4] = 1
 				ENDIF
 // FIXEDGROVE: START - uncomment
-				IF NOT IS_CAR_DEAD policecar7_f1
-					START_PLAYBACK_RECORDED_CAR policecar7_f1 379
-					ADD_BLIP_FOR_CAR policecar7_f1 policecar7_f1blip
-					CHANGE_BLIP_DISPLAY policecar7_f1blip BLIP_ONLY
-					SWITCH_CAR_SIREN policecar7_f1 ON
-					policecar7_f1flag = 1
-					policecar7swap_f1flag = 1
+				IF NOT IS_CAR_DEAD policecar_f1[6]
+					START_PLAYBACK_RECORDED_CAR policecar_f1[6] 379
+					ADD_BLIP_FOR_CAR policecar_f1[6] policecar_f1blip[6]
+					CHANGE_BLIP_DISPLAY policecar_f1blip[6] BLIP_ONLY
+					SWITCH_CAR_SIREN policecar_f1[6] ON
+					policecar_f1flag[6] = 1
+					policecarswap_f1flag[6] = 1
 				ENDIF
 // FIXEDGROVE: END
-				IF NOT IS_CHAR_DEAD cop10_f1
-					TASK_DRIVE_BY cop10_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+				IF NOT IS_CHAR_DEAD cop_f1[9]
+					TASK_DRIVE_BY cop_f1[9] -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
 				ENDIF
 // FIXEDGROVE: START - uncomment
-				IF NOT IS_CHAR_DEAD cop15_f1
-					TASK_DRIVE_BY cop15_f1 -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
+				IF NOT IS_CHAR_DEAD cop_f1[14]
+					TASK_DRIVE_BY cop_f1[14] -1 sweet_car 0.0 0.0 0.0 500.0 DRIVEBY_AI_ALL_DIRN TRUE 40
 				ENDIF
 // FIXEDGROVE: END
 				DELETE_CHAR bikerjumper3_f1
@@ -7209,23 +6511,19 @@ IF NOT IS_CAR_DEAD sweet_car
 				//create two guys to get run over
 				CREATE_CHAR PEDTYPE_MISSION1 LAPD1 2127.116 -1381.61 23.88 copleft_f1
 				SET_CHAR_HEADING copleft_f1	84.93
-				SET_CHAR_DECISION_MAKER copleft_f1 motel_dm
 				SET_CHAR_PROOFS copleft_f1 TRUE TRUE TRUE TRUE TRUE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER copleft_f1 TRUE
-				GIVE_WEAPON_TO_CHAR copleft_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS copleft_f1 FALSE
 				SET_CHAR_ACCURACY copleft_f1 5
+				l1f1_char_name = copleft_f1
+				GOSUB l1f1_outside_guys_passenger_setup // FIXEDGROVE: moved setup code to gosub
 				enemy_f1 = copleft_f1
 				enemytarget_f1 = scplayer
 				GOSUB stayshootnoduck_f1label
 
 				CREATE_CHAR PEDTYPE_MISSION1 LAPDM1 2127.09 -1382.81 23.32 copright_f1
-				SET_CHAR_DECISION_MAKER copright_f1 motel_dm
 				SET_CHAR_PROOFS copright_f1 TRUE TRUE TRUE TRUE TRUE
-				SET_CHAR_ONLY_DAMAGED_BY_PLAYER copright_f1 TRUE
-				GIVE_WEAPON_TO_CHAR copright_f1 WEAPONTYPE_MP5 9999
-				SET_CHAR_SUFFERS_CRITICAL_HITS copright_f1 FALSE
 				SET_CHAR_ACCURACY copright_f1 5
+				l1f1_char_name = copright_f1
+				GOSUB l1f1_outside_guys_passenger_setup // FIXEDGROVE: moved setup code to gosub
 				enemy_f1 = copright_f1
 				enemytarget_f1 = scplayer
 				GOSUB stayshootnoduck_f1label
@@ -7304,8 +6602,8 @@ IF NOT IS_CAR_DEAD sweet_car
 		IF copcars_f1flag = 6
 			IF LOCATE_CAR_2D sweet_car 2081.93 -1261.68 6.0 6.0 FALSE
 
-				IF NOT IS_CAR_DEAD policecar6_f1
-					SET_CAR_HEALTH policecar6_f1 249
+				IF NOT IS_CAR_DEAD policecar_f1[5]
+					SET_CAR_HEALTH policecar_f1[5] 249
 				ENDIF
 
 				copcars_f1flag = 7
@@ -7364,7 +6662,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		//heli setpiece
 		IF copcars_f1flag = 8
 			IF NOT IS_CHAR_DEAD copleft_f1
-				IF NOT IS_CHAR_DEAD copright_f1
+			AND NOT IS_CHAR_DEAD copright_f1
 					IF IS_CHAR_TOUCHING_VEHICLE copleft_f1 sweet_car
 					OR IS_CHAR_TOUCHING_VEHICLE copright_f1 sweet_car
 						copleft_f1flag = 1
@@ -7375,21 +6673,15 @@ IF NOT IS_CAR_DEAD sweet_car
 						DELETE_SEARCHLIGHT helispotlight_f1
 						CREATE_CAR POLMAV 2170.27 -1523.73 24.76 extpoliceheli_f1
 						CREATE_CHAR_INSIDE_CAR extpoliceheli_f1 PEDTYPE_MISSION1 LAPD1 exthelidriver_f1
-						SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
+						GOSUB l1f1_outside_heli_cutscene2_setup // FIXEDGROVE: moved setup code to gosub
+						SET_CAR_PROOFS extpoliceheli_f1 TRUE TRUE TRUE TRUE TRUE
 						START_PLAYBACK_RECORDED_CAR extpoliceheli_f1 381
 						TIMERA = 0
 						TIMERB = 0
-						SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
-						SET_CHAR_SUFFERS_CRITICAL_HITS exthelidriver_f1 FALSE
-						SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
-						SET_CHAR_ONLY_DAMAGED_BY_PLAYER exthelidriver_f1 TRUE
-						SET_CAR_ONLY_DAMAGED_BY_PLAYER extpoliceheli_f1 TRUE
-						SET_CAR_PROOFS extpoliceheli_f1 TRUE TRUE TRUE TRUE TRUE
 						CREATE_FX_SYSTEM blood_heli 2170.74 -1445.63 25.12 TRUE bloodfx1_f1
 						CREATE_FX_SYSTEM blood_heli 2170.92 -1450.5 25.0 TRUE bloodfx2_f1
 						CREATE_FX_SYSTEM blood_heli 2171.11 -1447.04 25.13 TRUE bloodfx3_f1
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
@@ -7682,325 +6974,58 @@ IF NOT IS_CAR_DEAD sweet_car
 			ENDIF
 		ENDIF
 
-		IF policecar1_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar1_f1
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar1_f1
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar1_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop1_f1
-					REMOVE_BLIP policecar1_f1blip 
-					policecar1_f1flag = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar1_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop1_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar1_f1
-				REMOVE_BLIP policecar1_f1blip 
-				policecar1_f1flag = 2
-			ENDIF
-		ENDIF
-
 		//swap seat
-		IF policecar2swap_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar2_f1
-				IF NOT IS_CHAR_DEAD cop2_f1
-				ELSE
-					IF NOT IS_CHAR_DEAD cop3_f1
-						IF IS_CHAR_IN_CAR cop3_f1 policecar2_f1
-							GET_DRIVER_OF_CAR policecar2_f1 driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop3_f1 policecar2_f1
-								policecar2swap_f1flag = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar2_f1
-						policecar2swap_f1flag = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecar2swap_f1flag = 2
-			IF IS_CHAR_DEAD cop3_f1
-				STOP_PLAYBACK_RECORDED_CAR policecar2_f1
-				policecar2swap_f1flag = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar2_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar2_f1
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar2_f1
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar2_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop2_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop3_f1
-					REMOVE_BLIP policecar2_f1blip 
-					policecar2_f1flag = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar2_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop2_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop3_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar2_f1
-				REMOVE_BLIP policecar2_f1blip 
-				policecar2_f1flag = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-		IF policecar3swap_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar3_f1
-				IF NOT IS_CHAR_DEAD cop4_f1
-				ELSE
-					IF NOT IS_CHAR_DEAD cop5_f1
-						IF IS_CHAR_IN_CAR cop5_f1 policecar3_f1
-							GET_DRIVER_OF_CAR policecar3_f1 driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop5_f1 policecar3_f1
-								policecar3swap_f1flag = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar3_f1
-						policecar3swap_f1flag = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecar3swap_f1flag = 2
-			IF IS_CHAR_DEAD cop5_f1
-				STOP_PLAYBACK_RECORDED_CAR policecar3_f1
-				policecar3swap_f1flag = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar3_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar3_f1
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar3_f1
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar3_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop4_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop5_f1
-					REMOVE_BLIP policecar3_f1blip 
-					policecar3_f1flag = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar3_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop4_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop5_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar3_f1
-				REMOVE_BLIP policecar3_f1blip 
-				policecar3_f1flag = 2
-			ENDIF
-		ENDIF
-
-		IF policecar4_f1flag = 1
-			IF IS_CAR_DEAD policecar4_f1
-				REMOVE_BLIP policecar4_f1blip
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop6_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar4_f1
-				policecar4_f1flag = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-		IF policecar5swap_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar5_f1
-				IF NOT IS_CHAR_DEAD cop9_f1
-				ELSE
-					IF NOT IS_CHAR_DEAD cop10_f1
-						IF IS_CHAR_IN_CAR cop10_f1 policecar5_f1
-							GET_DRIVER_OF_CAR policecar5_f1 driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop10_f1 policecar5_f1
-								policecar5swap_f1flag = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar5_f1
-						policecar5swap_f1flag = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecar5swap_f1flag = 2
-			IF IS_CHAR_DEAD cop10_f1
-				STOP_PLAYBACK_RECORDED_CAR policecar5_f1
-				policecar5swap_f1flag = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar5_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar5_f1
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar5_f1
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar5_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop9_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop10_f1
-					REMOVE_BLIP policecar5_f1blip 
-					policecar5_f1flag = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar5_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop9_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop10_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar5_f1
-				REMOVE_BLIP policecar5_f1blip 
-				policecar5_f1flag = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-		IF policecar6swap_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar6_f1
-				IF NOT IS_CHAR_DEAD cop12_f1
-				ELSE
-					IF NOT IS_CHAR_DEAD cop13_f1
-						IF IS_CHAR_IN_CAR cop13_f1 policecar6_f1
-							GET_DRIVER_OF_CAR policecar6_f1 driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop13_f1 policecar6_f1
-								policecar6swap_f1flag = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar6_f1
-						policecar6swap_f1flag = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecar6swap_f1flag = 2
-			IF IS_CHAR_DEAD cop13_f1
-				STOP_PLAYBACK_RECORDED_CAR policecar6_f1
-				policecar6swap_f1flag = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar6_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar6_f1
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar6_f1
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar6_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop12_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop13_f1
-					REMOVE_BLIP policecar6_f1blip 
-					policecar6_f1flag = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar6_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop12_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop13_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar6_f1
-				REMOVE_BLIP policecar6_f1blip 
-				policecar6_f1flag = 2
-			ENDIF
-		ENDIF
-
-		//swap seat
-// FIXEDGROVE: START - uncomment
-		IF policecar7swap_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar7_f1
-				IF NOT IS_CHAR_DEAD cop14_f1
-				ELSE
-					IF NOT IS_CHAR_DEAD cop15_f1
-						IF IS_CHAR_IN_CAR cop15_f1 policecar7_f1
-							GET_DRIVER_OF_CAR policecar7_f1 driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop15_f1 policecar7_f1
-								policecar7swap_f1flag = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-						policecar7swap_f1flag = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecar7swap_f1flag = 2
-			IF IS_CHAR_DEAD cop15_f1
-				STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-				policecar7swap_f1flag = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar7_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar7_f1
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar7_f1
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop14_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop15_f1
-					REMOVE_BLIP policecar7_f1blip 
-					policecar7_f1flag = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar7_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop14_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop15_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar7_f1
-				REMOVE_BLIP policecar7_f1blip 
-				policecar7_f1flag = 2
-			ENDIF
-		ENDIF
+// FIXEDGROVE: START - replaced duplicate code with a function
+	l1f1_car_select = 0
+	WHILE l1f1_car_select < 8
+		SWITCH l1f1_car_select
+		CASE 0
+			l1f1_cop1 = 0
+			l1f1_cop2 = -1
+			l1f1_swap_seat = FALSE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		CASE 1
+			l1f1_cop1 = 1
+			l1f1_cop2 = 2
+			l1f1_swap_seat = TRUE
+		BREAK
+		CASE 2
+			l1f1_cop1 = 3
+			l1f1_cop2 = 4
+		BREAK
+		CASE 3
+			l1f1_cop1 = 5
+			l1f1_cop2 = -1
+			l1f1_swap_seat = FALSE
+			l1f1_record_check = FALSE
+			l1f1_skip_mark_check = TRUE
+		BREAK
+		CASE 4
+			l1f1_cop1 = 8
+			l1f1_cop2 = 9
+			l1f1_swap_seat = TRUE
+			l1f1_record_check = TRUE
+			l1f1_skip_mark_check = FALSE
+		BREAK
+		CASE 5
+			l1f1_cop1 = 11
+			l1f1_cop2 = 12
+		BREAK
+		CASE 6
+			l1f1_cop1 = 13
+			l1f1_cop2 = 14
+		BREAK
+		CASE 7
+			l1f1_cop1 = 6
+			l1f1_cop2 = 7
+		BREAK
+		ENDSWITCH
+		GOSUB l1f1_swapped
+		l1f1_car_select++
+	ENDWHILE
 // FIXEDGROVE: END
-
-		//swap seat
-		IF policecar8swap_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar8_f1
-				IF NOT IS_CHAR_DEAD cop7_f1
-				ELSE
-					IF NOT IS_CHAR_DEAD cop8_f1
-						IF IS_CHAR_IN_CAR cop8_f1 policecar8_f1
-							GET_DRIVER_OF_CAR policecar8_f1 driverofcar_f1
-							IF driverofcar_f1 = -1
-								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop8_f1 policecar8_f1
-								policecar8swap_f1flag = 2
-							ENDIF
-						ENDIF
-					ELSE
-						STOP_PLAYBACK_RECORDED_CAR policecar8_f1
-						policecar8swap_f1flag = 2
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-		IF policecar8swap_f1flag = 2
-			IF IS_CHAR_DEAD cop8_f1
-				STOP_PLAYBACK_RECORDED_CAR policecar8_f1
-				policecar8swap_f1flag = 3
-			ENDIF 
-		ENDIF
-
-		IF policecar8_f1flag = 1
-			IF NOT IS_CAR_DEAD policecar8_f1
-				IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar8_f1
-					MARK_CAR_AS_NO_LONGER_NEEDED policecar8_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop7_f1
-					MARK_CHAR_AS_NO_LONGER_NEEDED cop8_f1
-					REMOVE_BLIP policecar8_f1blip
-					IF policecar4_f1flag = 1
-						IF IS_CAR_DEAD policecar4_f1
-							REMOVE_BLIP policecar4_f1blip
-							MARK_CHAR_AS_NO_LONGER_NEEDED cop6_f1
-							MARK_CAR_AS_NO_LONGER_NEEDED policecar8_f1
-							policecar4_f1flag = 2
-						ENDIF
-					ENDIF
-					policecar8_f1flag = 2
-				ENDIF
-			ELSE
-				STOP_PLAYBACK_RECORDED_CAR policecar8_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop7_f1
-				MARK_CHAR_AS_NO_LONGER_NEEDED cop8_f1
-				MARK_CAR_AS_NO_LONGER_NEEDED policecar8_f1
-				REMOVE_BLIP policecar8_f1blip 
-				IF policecar4_f1flag = 1
-					IF IS_CAR_DEAD policecar4_f1
-						REMOVE_BLIP policecar4_f1blip
-						MARK_CHAR_AS_NO_LONGER_NEEDED cop6_f1
-						MARK_CAR_AS_NO_LONGER_NEEDED policecar8_f1
-						policecar4_f1flag = 2
-					ENDIF
-				ENDIF
-				policecar8_f1flag = 2
-			ENDIF
-		ENDIF
 
 
 		///////////////////////////////////////////////////	Second Biker jumping
@@ -8010,7 +7035,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		//keep him in the seated anim
 		IF bikerjumper4_f1flag = 1	
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					IF IS_CHAR_PLAYING_ANIM bikerjumper4_f1 MD_BIKE_Jmp_BL
 						GET_CHAR_ANIM_CURRENT_TIME bikerjumper4_f1 MD_BIKE_Jmp_BL animframebk_jmp
 							IF animframebk_jmp = 0.0
@@ -8018,7 +7043,6 @@ IF NOT IS_CAR_DEAD sweet_car
 								bikerjumper4_f1flag = 2
 							ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
@@ -8037,7 +7061,7 @@ IF NOT IS_CAR_DEAD sweet_car
 		//attach to the car
 		IF bikerjumper4_f1flag = 4
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					IF IS_CHAR_PLAYING_ANIM bikerjumper4_f1 MD_BIKE_Jmp_BL
 						GET_CHAR_ANIM_CURRENT_TIME bikerjumper4_f1 MD_BIKE_Jmp_BL animframebk_jmp
 							IF animframebk_jmp = 1.0
@@ -8058,14 +7082,13 @@ IF NOT IS_CAR_DEAD sweet_car
 								ENDIF
 							ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
 		//punch player
 		IF bikerjumper4_f1flag = 5
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					IF IS_CHAR_PLAYING_ANIM bikerjumper4_f1 MD_BIKE_Lnd_BL
 						GET_CHAR_ANIM_CURRENT_TIME bikerjumper4_f1 MD_BIKE_Lnd_BL animframebk_jmp
 							IF animframebk_jmp > 0.037
@@ -8073,20 +7096,17 @@ IF NOT IS_CAR_DEAD sweet_car
 								bikerjumper4_f1flag = 6
 							ENDIF
 					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 
 		//set peds heading when on bike	
 		IF bikerjumper4_f1flag > 0
-			IF bikerjumper4_f1flag < 4
+		AND bikerjumper4_f1flag < 4
 				IF NOT IS_CAR_DEAD copbike4_f1
-					IF NOT IS_CHAR_DEAD bikerjumper4_f1
+				AND NOT IS_CHAR_DEAD bikerjumper4_f1
 						GET_CAR_HEADING copbike4_f1 bikerjumper4_f1heading
 						SET_CHAR_HEADING bikerjumper4_f1 bikerjumper4_f1heading
-					ENDIF
 				ENDIF
-			ENDIF
 		ENDIF
 
 		//set peds heading when on bike	
@@ -8112,10 +7132,9 @@ IF NOT IS_CAR_DEAD sweet_car
 		//set peds heading when on bike	
 		IF bikerjumper4_f1flag > 4
 			IF NOT IS_CAR_DEAD sweet_car
-				IF NOT IS_CHAR_DEAD bikerjumper4_f1
+			AND NOT IS_CHAR_DEAD bikerjumper4_f1
 					GET_CAR_HEADING sweet_car bikerjumper4_f1heading
 					SET_CHAR_HEADING bikerjumper4_f1 bikerjumper4_f1heading
-				ENDIF
 			ENDIF
 		ENDIF
 
@@ -8457,8 +7476,8 @@ ENDIF
 
 IF helisetpiece_f1flag = 11
 	IF NOT IS_CAR_DEAD trailer_f1
-		IF NOT IS_CAR_DEAD sweet_car
-			IF NOT IS_CAR_DEAD truck_f1
+	AND NOT IS_CAR_DEAD sweet_car
+	AND NOT IS_CAR_DEAD truck_f1
 				IF IS_CAR_TOUCHING_CAR sweet_car truck_f1
 				OR TIMERB > 4350
 //					IF NOT IS_CAR_DEAD trailer_f1
@@ -8487,8 +7506,6 @@ IF helisetpiece_f1flag = 11
 					TIMERA = 0
 					helisetpiece_f1flag = 12
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -8644,9 +7661,9 @@ IF helisetpiece_f1flag > 16
 ENDIF
 IF finalcut_f1flag = 2
 	IF HAS_MISSION_AUDIO_FINISHED 2
-		IF HAS_MISSION_AUDIO_LOADED 1
+	AND HAS_MISSION_AUDIO_LOADED 1
 			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD sweet
+			AND NOT IS_CHAR_DEAD sweet
 					CLEAR_PRINTS
 					STOP_CHAR_FACIAL_TALK sweet
 					PLAY_MISSION_AUDIO 1 //Fuck this! We gotta get outta here!
@@ -8655,24 +7672,20 @@ IF finalcut_f1flag = 2
 					CLEAR_MISSION_AUDIO 2
 					LOAD_MISSION_AUDIO 2 SOUND_FIN1_MX //Ryder’s right, everybody split up – we’ll meet up later.
 					finalcut_f1flag = 3
-				ENDIF
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 IF finalcut_f1flag = 3
 	IF HAS_MISSION_AUDIO_LOADED 2
-		IF HAS_MISSION_AUDIO_FINISHED 1
+	AND HAS_MISSION_AUDIO_FINISHED 1
 			IF NOT IS_CHAR_DEAD ryder
-				IF NOT IS_CHAR_DEAD sweet
+			AND NOT IS_CHAR_DEAD sweet
 					STOP_CHAR_FACIAL_TALK ryder
 					START_CHAR_FACIAL_TALK sweet 5000
 					PLAY_MISSION_AUDIO 2 //Ryder’s right, everybody split up – we’ll meet up later.
 					PRINT_NOW FIN1_MX 5000 1 
 					finalcut_f1flag = 4
-				ENDIF
 			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 IF finalcut_f1flag = 4
@@ -8689,8 +7702,8 @@ ENDIF
 
 IF helisetpiece_f1flag = 17
 	IF NOT IS_CHAR_DEAD sweet
-		IF NOT IS_CHAR_DEAD big_smoke
-			IF NOT IS_CHAR_DEAD ryder
+	AND NOT IS_CHAR_DEAD big_smoke
+	AND NOT IS_CHAR_DEAD ryder
 				IF IS_CHAR_PLAYING_ANIM big_smoke END_SC1_SMO
 					GET_CHAR_ANIM_CURRENT_TIME big_smoke END_SC1_SMO animstate_f1
 						IF animstate_f1 = 1.0
@@ -8703,8 +7716,6 @@ IF helisetpiece_f1flag = 17
 							helisetpiece_f1flag = 18
 						ENDIF
 				ENDIF
-			ENDIF
-		ENDIF
 	ENDIF
 ENDIF
 
@@ -8764,6 +7775,205 @@ ENDIF
 
 GOTO moteldeal_mainloop
 
+// FIXEDGROVE: START - replaced duplicate code with functions
+l1f1_outside_heli_setup:
+LOCK_CAR_DOORS extpoliceheli_f1 CARLOCK_LOCKED
+SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
+SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
+SET_CHAR_CANT_BE_DRAGGED_OUT exthelidriver_f1 TRUE
+RETURN
+
+l1f1_outside_heli_cutscene_setup:
+GOSUB l1f1_outside_heli_setup
+SET_PETROL_TANK_WEAKPOINT extpoliceheli_f1 FALSE
+SET_CAR_ONLY_DAMAGED_BY_PLAYER extpoliceheli_f1 TRUE
+SET_CAR_FORWARD_SPEED extpoliceheli_f1 30.0
+SET_CAR_HEALTH extpoliceheli_f1 2000
+SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
+RETURN
+
+l1f1_outside_heli_guys_cutscene_setup:
+l1f1_count = 0
+WHILE l1f1_count < 4
+SET_CHAR_RELATIONSHIP swat_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_SPECIAL
+IF l1f1_count = 0
+OR l1f1_count = 2
+SET_CHAR_RELATIONSHIP swat_f1[l1f1_count] ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+ENDIF
+SET_CHAR_DECISION_MAKER swat_f1[l1f1_count] extmotel_DM
+swat_f1flag[l1f1_count] = 0
+SET_CHAR_HEALTH swat_f1[l1f1_count] 150
+SET_CHAR_SHOOT_RATE swat_f1[l1f1_count] 70
+l1f1_count++
+ENDWHILE
+ATTACH_CHAR_TO_CAR swat_f1[0] extpoliceheli_f1 1.4 1.3 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
+ATTACH_CHAR_TO_CAR swat_f1[1] extpoliceheli_f1 1.4 -0.8 -0.1 FACING_RIGHT 190.0 WEAPONTYPE_MP5
+ATTACH_CHAR_TO_CAR swat_f1[2] extpoliceheli_f1 -1.4 1.3 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
+ATTACH_CHAR_TO_CAR swat_f1[3] extpoliceheli_f1 -1.4 -0.8 -0.1 FACING_LEFT 190.0 WEAPONTYPE_MP5
+RETURN
+
+l1f1_outside_heli_cutscene2_setup:
+SET_HELI_BLADES_FULL_SPEED extpoliceheli_f1
+SET_CHAR_CAN_BE_SHOT_IN_VEHICLE exthelidriver_f1 FALSE
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER exthelidriver_f1 TRUE
+SET_CAR_ONLY_DAMAGED_BY_PLAYER extpoliceheli_f1 TRUE
+SET_CHAR_DECISION_MAKER exthelidriver_f1 motel_DM
+SET_CHAR_SUFFERS_CRITICAL_HITS exthelidriver_f1 FALSE
+RETURN
+
+l1f1_outside_grove_setup:
+IF l1f1_special_flag = FALSE
+	TASK_PLAY_ANIM grove_f1[l1f1_count] IDLE_CHAT PED 8.0 TRUE FALSE FALSE FALSE -1
+ENDIF
+START_CHAR_FACIAL_TALK grove_f1[l1f1_count] 7000 // FIXEDGROVE: add facial talk anim to grove member
+SET_CHAR_DECISION_MAKER grove_f1[l1f1_count] motel_DM
+SET_CHAR_NEVER_TARGETTED grove_f1[l1f1_count] TRUE
+RETURN
+
+l1f1_outside_motel_grove_setup:
+TASK_TURN_CHAR_TO_FACE_COORD l1f1_char_name 2217.87 -1162.6 25.33
+SET_CHAR_DECISION_MAKER l1f1_char_name extmotel_DM
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_PISTOL 9999
+SET_CHAR_NEVER_TARGETTED l1f1_char_name TRUE
+SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION4
+SET_CHAR_DECISION_MAKER l1f1_char_name extmotel_DM
+RETURN
+
+l1f1_outside_motel_swat_setup:
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_MP5 3000
+TASK_TURN_CHAR_TO_FACE_COORD l1f1_char_name 2217.87 -1162.6 25.33
+SET_CHAR_ACCURACY l1f1_char_name 30
+SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION3
+IF l1f1_special_flag = FALSE
+SET_CHAR_RELATIONSHIP l1f1_char_name ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
+ENDIF
+SET_CHAR_DECISION_MAKER l1f1_char_name extmotel_DM
+RETURN
+
+l1f1_inside_motel_grove_setup:
+SET_CHAR_HAS_USED_ENTRY_EXIT l1f1_char_name 2232.41 -1160.04 20.0
+SET_CHAR_NEVER_TARGETTED l1f1_char_name TRUE
+IF l1f1_special_flag = FALSE
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
+SET_CHAR_DECISION_MAKER l1f1_char_name motel_DM
+ENDIF
+RETURN
+
+l1f1_inside_motel_swat_setup:
+SET_CHAR_HAS_USED_ENTRY_EXIT l1f1_char_name 2232.41 -1160.04 20.0
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_MP5 9999
+SET_CHAR_DECISION_MAKER l1f1_char_name motel_DM
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
+RETURN
+
+l1f1_policecar_setup:
+IF l1f1_petrol_weakpoint = FALSE
+	SET_PETROL_TANK_WEAKPOINT policecar_f1[l1f1_car_select] FALSE
+ENDIF
+SET_CAR_ONLY_DAMAGED_BY_PLAYER policecar_f1[l1f1_car_select] TRUE
+CAR_SET_IDLE policecar_f1[l1f1_car_select]
+RETURN
+
+l1f1_outside_guys_setup:
+SET_CHAR_DECISION_MAKER cop_f1[l1f1_cop1] motel_DM
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER cop_f1[l1f1_cop1] TRUE
+IF l1f1_critical_hits = FALSE
+	SET_CHAR_SUFFERS_CRITICAL_HITS cop_f1[l1f1_cop1] FALSE
+ENDIF
+IF l1f1_shot_in_vehicle = FALSE
+	SET_CHAR_CAN_BE_SHOT_IN_VEHICLE cop_f1[l1f1_cop1] FALSE
+ENDIF
+l1f1_char_name = cop_f1[l1f1_cop2]
+GOSUB l1f1_outside_guys_passenger_setup
+RETURN
+
+l1f1_outside_guys_passenger_setup:
+SET_CHAR_DECISION_MAKER l1f1_char_name motel_dm
+SET_CHAR_ONLY_DAMAGED_BY_PLAYER l1f1_char_name TRUE
+SET_CHAR_SUFFERS_CRITICAL_HITS l1f1_char_name FALSE
+GIVE_WEAPON_TO_CHAR l1f1_char_name WEAPONTYPE_MP5 99999
+RETURN
+
+l1f1_swapped:
+	IF l1f1_swap_seat = TRUE
+		IF policecarswap_f1flag[l1f1_car_select] = 1
+			IF NOT IS_CAR_DEAD policecar_f1[l1f1_car_select]
+				IF IS_CHAR_DEAD cop_f1[l1f1_cop1]
+					IF NOT IS_CHAR_DEAD cop_f1[l1f1_cop2]
+						IF IS_CHAR_IN_CAR cop_f1[l1f1_cop2] policecar_f1[l1f1_car_select]
+							GET_DRIVER_OF_CAR policecar_f1[l1f1_car_select] driverofcar_f1
+							IF driverofcar_f1 = -1
+								TASK_SHUFFLE_TO_NEXT_CAR_SEAT cop_f1[l1f1_cop2] policecar_f1[l1f1_car_select]
+								policecarswap_f1flag[l1f1_car_select] = 2
+							ENDIF
+						ENDIF
+					ELSE
+						IF l1f1_record_check = TRUE
+							STOP_PLAYBACK_RECORDED_CAR policecar_f1[l1f1_car_select]
+						ENDIF
+						policecarswap_f1flag[l1f1_car_select] = 2
+					ENDIF
+				ENDIF
+			ENDIF
+		ENDIF
+		IF policecarswap_f1flag[l1f1_car_select] = 2
+			IF IS_CHAR_DEAD cop_f1[l1f1_cop2]
+				IF l1f1_record_check = TRUE
+					STOP_PLAYBACK_RECORDED_CAR policecar_f1[l1f1_car_select]
+				ENDIF
+				policecarswap_f1flag[l1f1_car_select] = 3
+			ENDIF
+		ENDIF
+	ENDIF
+
+	IF policecar_f1flag[l1f1_car_select] = 1
+		IF NOT IS_CAR_DEAD policecar_f1[l1f1_car_select]
+			IF l1f1_skip_mark_check = FALSE
+				IF l1f1_record_check = TRUE
+					IF NOT IS_PLAYBACK_GOING_ON_FOR_CAR policecar_f1[l1f1_car_select]
+						GOSUB l1f1_mark_no_need
+					ENDIF
+				ELSE
+					GOSUB l1f1_mark_no_need
+				ENDIF
+			ENDIF
+		ELSE
+			IF l1f1_record_check = TRUE
+				STOP_PLAYBACK_RECORDED_CAR policecar_f1[l1f1_car_select]
+			ENDIF
+			GOSUB l1f1_mark_no_need
+		ENDIF
+	ENDIF
+RETURN
+
+l1f1_mark_no_need:
+	IF NOT l1f1_cop1 = -1
+		MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[l1f1_cop1]
+	ENDIF
+	IF NOT l1f1_cop2 = -1
+		MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[l1f1_cop2]
+	ENDIF
+	MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[l1f1_car_select]
+	REMOVE_BLIP policecar_f1blip[l1f1_car_select]
+	IF motelchase_f1flag = 1
+	AND l1f1_car_select = 2
+		MARK_CAR_AS_NO_LONGER_NEEDED train_f1
+		MARK_MODEL_AS_NO_LONGER_NEEDED STREAK
+	ENDIF
+	IF motelchase_f1flag = 7
+	AND l1f1_car_select = 7
+		IF policecar_f1flag[3] = 1
+			IF IS_CAR_DEAD policecar_f1[3]
+				REMOVE_BLIP policecar_f1blip[3]
+				MARK_CHAR_AS_NO_LONGER_NEEDED cop_f1[5]
+				MARK_CAR_AS_NO_LONGER_NEEDED policecar_f1[7]
+				policecar_f1flag[3] = 2
+			ENDIF
+		ENDIF
+	ENDIF
+	policecar_f1flag[l1f1_car_select] = 2
+RETURN
+// FIXEDGROVE: END
 
 load_audio_f1:
 IF handlingaudio_f1flag = 0
@@ -8941,9 +8151,11 @@ RETURN
 mission_drugs4_failed:
 PRINT_BIG ( M_FAIL ) 5000 1 //"Mission Failed"
 // FIXEDGROVE: START - give 4 stars if the player fails the mission after arriving to the motel
-IF moteldeal_f1flag > 0
-	SET_MAX_WANTED_LEVEL 4
-	ALTER_WANTED_LEVEL player1 4
+IF IS_PLAYER_PLAYING player1
+	IF moteldeal_f1flag > 0
+		SET_MAX_WANTED_LEVEL 4
+		ALTER_WANTED_LEVEL player1 4
+	ENDIF
 ENDIF
 // FIXEDGROVE: END
 DELETE_OBJECT advert_f1
@@ -9142,23 +8354,22 @@ MARK_MODEL_AS_NO_LONGER_NEEDED PETROTR
 SET_MAX_WANTED_LEVEL 4 		///////		WANTED LEVEL ASK FILSHIE ABOUT WHAT IT SHOULD BE SET BACK TO AT THIS POINT
 DELETE_CAR extpoliceheli_f1
 //blips
-REMOVE_BLIP policecar1_f1blip
-REMOVE_BLIP policecar2_f1blip
-REMOVE_BLIP policecar3_f1blip
-REMOVE_BLIP policecar4_f1blip
-REMOVE_BLIP policecar5_f1blip
-REMOVE_BLIP policecar6_f1blip
-REMOVE_BLIP policecar7_f1blip
-REMOVE_BLIP policecar8_f1blip
+	// FIXEDGROVE: while-loop to avoid repeats
+	l1f1_count = 0
+	WHILE l1f1_count < 8
+	REMOVE_BLIP policecar_f1blip[l1f1_count]
+	l1f1_count++
+	ENDWHILE
 //detach
 IF IS_PLAYER_PLAYING PLAYER1
 	SET_PLAYER_DUCK_BUTTON PLAYER1 TRUE
 	SET_PLAYER_FIRE_BUTTON PLAYER1 TRUE
-	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE: changed from SHUT_CHAR_UP
-	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
 	//SET_PLAYER_FAST_RELOAD PLAYER1 FALSE
 	//Interior
 ENDIF
+
+SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE: changed from SHUT_CHAR_UP, moved out of above check
+STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
 
 //detach bad guys
 IF NOT IS_CHAR_DEAD bikerjumper3_f1

@@ -17,8 +17,9 @@ Currently in beta status.
 Get latest release here: https://github.com/BagelBoy9272/ScriptFixSA/releases
 
 ## Installation
+Read [save files](#save-files-compatibility) and [mod compatibility](#mod-compatibility) notes below first.
 
-Extract the downloaded .zip file and replace main.scm and scripts.img inside data\scripts directory, but read save files and mod compatibility notes below first.
+Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modloader folder. Alternatively, you may move the `data` folder to the root directory of your game.
 
 ## List of changes
 
@@ -35,8 +36,9 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Corrected 'missions attempted' and 'missions passed' stats.
 
 **Intro cutscene:**
-- Restored pre-JP size for text
+- Fixed text fading to be independent of framerate
 - Fixed stretched text
+- Restored pre-JP size for text
 - Restored console train speed
 
 **Big Smoke/Sweet & Kendl:**
@@ -203,6 +205,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed jarring time shift in the ending cutscene caused by the script setting the time to 7:00 AM 
 - Fixed characters not using their intended animation groups 
 - Add 4 star wanted level if the player fails the mission after getting to the motel 
+- Tidied up code to accomodate new changes under the size limit
 
 **Green Sabre:**
 - Fixed Grove member floating a bit in a cutscene
@@ -306,6 +309,8 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Made it so voicelines and subtitles don't cut out during the fade out after a cutscene skip
 
 **Test Drive:**
+- Restored Cesar voiceline about a motorbike on the road
+- Restored peds that would enter a bus
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Customs Fast Track:**
@@ -315,6 +320,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Black Project:**
+- Fixed player being silent, even if they're discovered
 - Restored the inaccessible post-mission SPAS-12 pickup so it actually spawns during the mission
 - Restored 'To hover in the jetpack...' message from consoles
 
@@ -391,6 +397,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 
 **End Of The Line:**
 - Fixed swat member being spawned out of bounds due to a typo
+- Changed Tenpenny's shotgun to a SPAS-12 to match the cutscene
 - Disabled mod garages to prevent issues
 
 **GFs:**
@@ -406,6 +413,13 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Now GFs that like fast driving will comment on it
 - Only play the "take home happy" voicelines if the date was actually good, otherwise play the "take home angry" lines
 - Added unused "OFFER_DANCE" lines for GFs, now these will play if the player is on a dancing date and they are inside a club
+- Eat out dates now cost money depending on the location
+- "Weight gained" notification (and all stat updates) will show up immediately after an "eat out" cutscene instead of waiting until the date finished
+- Made the kiss and gift check a little more lenient
+- Fixed kiss and gift help box showing up during two-timing (it's not possible during it)
+- Fixed an obscure bug where Michelle would drive off without the player in her special drive date
+- Fixed an obscure bug where the widescreen effect remained enabled after being arrested during the cutscene of leaving a girlfriend at home
+- Fixed two-timing interrupting the cutscene of leaving a girlfriend at home
 - Fixed Millie using a Feltzer instead of a Club in two-timing events
 - Fixed two-timing only working if you always rolled the chance for it, and never got caught
 - Fixed car bj increasing progress indefinitely
@@ -437,11 +451,15 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
   - Now the excitement bar is hidden during an ending
 
 **Parachute:**
+- Fixed physics to be independent of framerate
 - Fixed landing animation
 - Fixed a bug where the parachute "fails to open" if you have the "keep weapons after death" bonus and you die with a parachute in your inventory
+- Fixed parachute being removed from the player's inventory if they died while faceplanting
 - Fixed weird twitch after landing
 - Fixed parachute going through the floor
 - Fixed a bug that would make it not possible to switch weapons if you started a mission while landing with the parachute
+- Removed forced death if you landed without opening your parachute
+- Added death voiceline to the player if they die while skydiving
 - Uncommented some code to allow the full "landing in water" anim for parachute to play
 
 **Misc:**
@@ -454,9 +472,12 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed possible softlock if the player answered a loanshark phone call while 'Are You Going To San Fierro?' wasn't unlocked
 - Fixed script not checking if player answered Rosenberg's phone call before enabling 'Vertical Bird'
 - Fixed player not being set in their original coordinates correctly after Sweet's gym call
+- Fixed 'Valet' triggering two mission passed tunes
 - Fixed phone ringing immediately after 'Valet'
 - Fixed exercise bike exit animation not playing
 - Fixed boxers inside the LS gym standing still after fighting the instructor
+- Fixed bench press power bar draining significantly faster than intended due to a PC port typo
+- Fixed flawed delta-time scaling in gym equipment from the PC port, restoring intended resistance and drain rates
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
@@ -468,6 +489,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed street food not counting towards 'food budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
 - Fixed upper bound on a random number generator in the dance minigame, bringing back an unintentionally unused partner model
+- Fixed a memory leak related to crack dealers, which could manifest as their customer not despawning if killed
 - Fixed typo in the license plate of Cesar's car
 - Fixed lines for a restaurant shopkeeper reacting to the player vomiting being overriden by the "BOUGHT_ENOUGH" lines
 - Fixed a bug in the code for restaurants that made the cleanup always run if the player bought more than 11 food items
@@ -477,10 +499,12 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Fixed badly positioned 'no medal' sprite in Driving School introduced in JP version development
 - Fixed camera not resetting instantly after quitting Bike School
 - Fixed Boat School to not despawn the player if they flip a boat in water
+- Fixed Boat School award music not playing in the final lesson
 - Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
 - Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
-- Fixed Flint Intersection and Flint Range zones being assigned the desert popcycle instead of the countryside one
+- Fixed Flint Intersection, Flint Range and Montgomery Intersection zones being assigned the desert popcycle instead of the countryside one
 - Fixed SUN2, RIH5b and RIH6a zones missing properties due to a copy-paste oversight
+- Fixed missing turf for Grove Street due to a copy-paste oversight
 - Fixed missing turf for Da Nang Boys due to a copy-paste oversight
 - Fixed infrared goggles not respawning after being picked up
 - Fixed body armour inside Madd Dogg's mansion not respawning after being picked up
@@ -491,9 +515,12 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Moved an armour pickup in Area 69 closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
 - Improved Forbidden Area switches
-- Added population properties to a tiny alleway zone in East Los Santos
+- Added population properties to a lot of previously missing zones
+- Tweaked demographics of a few exising zones, now you can spot the hispanic drug dealer in East Los Santos and Las Colinas, and the biker drug dealer in SF
 - Added italian mafia turf to Caligula's Palace and a little bit of The Strip next to it
 - Added triad turf to the Four Dragons Casino after Woozie's phonecall about it
+- Made upper East Los Santos Vagos turf to match the lore better
+- Switched on two forgotten Greenwood and BMX generators in Jefferson motel
 - Made Ryder's car stop spawning after 'Pier 69'
 - Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completed
 - Changed 'Customs Fast Track' reward vehicle to a Jester instead of a Savanna
@@ -505,6 +532,7 @@ Extract the downloaded .zip file and replace main.scm and scripts.img inside dat
 - Turn taxi lights off when the taxi submission ends
 - Made Bike Shool and Boat School use blank 'no medal' sprite in languages other than english
 - Made food carts use corresponding ped models
+- Now you don't have to look away for the food cart vendor to spawn
 - Tourists will drop their camera when killed
 - Made triad members spawn as bouncers in Four Dragons casino
 - Pool now increases previously unused 'Wins in Pool', 'Losses in Pool', and '8-Balls in Pool' stats
@@ -560,9 +588,11 @@ Notes and pro tips:
 - Compiled OG files always had debug lines converted to UPPERCASE, however plagued sc.exe doesn't do that and leaves case as is. I decided not to bother patching that for now, since it's a benign side effect.
 
 ## Thanks
-
+ 
 **Sergeanur** for curing the original scripts.  
+**Contributors** to Sanny Builder Library.  
 **Silent** for help in implementing his script fixes.  
-**bamspeedy1298** for his stats guide on GameFAQS.  
-**OrionSR**, **TheoTTG**, **Deezire**, **Silent**, **Domiiniik**, **ArmanCan**, **StreetFonso**, **Nick007J**, **Vadim M** and **Kaizo M** for documenting script bugs and oddities.
+**bamspeedy1298** for their stats guide on GameFAQS.  
+**Kaizo M** for their Speech Context and Mission Audio Debugger.  
+**OrionSR**, **TheoTTG**, **Deezire**, **Silent**, **Domiiniik**, **ArmanCan**, **StreetFonso**, **Nick007J**, **MuraSoraZone**, **Vadim M** and **Kaizo M** for documenting script bugs and oddities.  
 

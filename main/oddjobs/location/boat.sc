@@ -571,15 +571,6 @@ WAIT 0
 
 			//quitting the boat school
 			IF IS_BUTTON_PRESSED PAD1 BUTTON_CANCEL // FIXEDGROVE: use button variables instead of copypasted code for JP version
-
-				// FIXEDGROVE: START
-				DO_FADE 500 FADE_OUT
-				WHILE GET_FADING_STATUS
-					WAIT 0
-					GOSUB boat_drawing_tv_screen
-				ENDWHILE
-				// FIXEDGROVE: END
-
 				GOTO mission_boat_failed
 			ENDIF
 
@@ -3682,6 +3673,7 @@ boat_refresh_hover:
 						//opening next level
 					IF boat_which_missions_are_open_flag = 5
 						IF overall_boat_score < boat_hover_qualify
+							REPORT_MISSION_AUDIO_EVENT_AT_POSITION -1000.0 -1000.0 -1000.0 SOUND_AWARD_TRACK_START // FIXEDGROVE: was missing before
 							boat_print_top_scores_flag = 2
 							boat_which_missions_are_open_flag = 5
 							// All tests complete!
@@ -6333,10 +6325,9 @@ SET_CAMERA_BEHIND_PLAYER
 RESTORE_CAMERA_JUMPCUT
 
 // FIXEDGROVE: START
-DO_FADE 500 FADE_IN
-WHILE GET_FADING_STATUS
-	WAIT 0
-ENDWHILE
+IF instructor_boat_dead_flag = 1
+	DO_FADE 500 FADE_IN
+ENDIF
 // FIXEDGROVE: END
 RETURN
 

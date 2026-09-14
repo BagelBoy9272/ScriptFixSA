@@ -1735,7 +1735,7 @@ FORCE_ALL_VEHICLE_LIGHTS_OFF FALSE
 //SHUT_PLAYER_UP player1 FALSE
 HIDE_ALL_FRONTEND_BLIPS FALSE
 
-// FIXEDGROVE: START - moved from mission_passed_mm to fix a free healthcare exploit
+// FIXEDGROVE: START - moved from mission_blood_passed to fix a free healthcare exploit
 CANCEL_OVERRIDE_RESTART
 SET_FREE_HEALTH_CARE player1 FALSE
 // FIXEDGROVE: END

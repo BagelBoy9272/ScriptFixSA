@@ -90,18 +90,6 @@ GOTO hotdog_vendor_loop
 // Moved from top of main
 VAR_INT BUTTON_ACCEPT BUTTON_CANCEL BUTTON_BET_UP BUTTON_BET_DOWN
 
-IF IS_JAPANESE_VERSION
-	BUTTON_ACCEPT = CIRCLE
-	BUTTON_CANCEL = CROSS
-	BUTTON_BET_UP = TRIANGLE
-	BUTTON_BET_DOWN = SQUARE
-ELSE
-	BUTTON_ACCEPT = CROSS
-	BUTTON_CANCEL = TRIANGLE
-	BUTTON_BET_UP = SQUARE
-	BUTTON_BET_DOWN = CIRCLE
-ENDIF
-
 // Used for a console REV 8 barber shop blip and a missing pizza blip
 VAR_INT extra_blips[2]
 
@@ -128,7 +116,6 @@ VAR_INT crackfact_front_gate
 
 // BASKETBALL
 VAR_INT bball_ball // global handle for the ball
-bball_ball = -1
 
 // LOWRIDER SPEECH FLAGS
 VAR_INT lowr_speech_state lowr_speech_request lowr_speech_counter
