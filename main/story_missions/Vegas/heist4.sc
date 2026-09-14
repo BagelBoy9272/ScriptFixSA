@@ -2646,23 +2646,14 @@ RETURN
 // *********************************** MISSION CLEANUP *************************************
 mission_hst4_cleanup:
 
-SET_PLAYER_CONTROL player1 ON
-
 SET_PLAYER_GROUP_RECRUITMENT player1 TRUE
 
 SET_GROUP_FOLLOW_STATUS hst4_group TRUE
 
-SET_PLAYER_GROUP_TO_FOLLOW_NEVER player1 FALSE
-
 //FREEZE_CHAR_POSITION scplayer FALSE
- SET_CAR_DENSITY_MULTIPLIER 1.0
 
 CLEAR_MISSION_AUDIO 3
 
-RELEASE_WEATHER
-
-
-SWITCH_COPS_ON_BIKES ON
 
 REMOVE_BLIP	mission_blip
 REMOVE_BLIP motorbike_blip[0]

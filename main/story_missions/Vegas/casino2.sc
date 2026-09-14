@@ -3023,8 +3023,6 @@ mission_casino2_passed:
 
 	CLEAR_WANTED_LEVEL player1
 
-	RELEASE_WEATHER
-
 	FORCE_WEATHER WEATHER_SUNNY_LA
 
 	REMOVE_BLIP quarry_contact_blip
@@ -3125,10 +3123,7 @@ mission_cleanup_casino2:
 	GET_GAME_TIMER timer_mobile_start //Used to reset the mobile phone timer so it doesn't ring immediately after the mission
 
 	CLEAR_WANTED_LEVEL player1
-
-	DONT_SUPPRESS_CAR_MODEL dumper
 	
-	RELEASE_WEATHER
 	MISSION_HAS_FINISHED
 
 	flag_player_on_mission = 0

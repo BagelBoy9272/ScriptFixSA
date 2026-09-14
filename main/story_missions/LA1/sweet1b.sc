@@ -2148,9 +2148,6 @@ mission_cleanup_sweet1b:
 	entry_exit_status = FALSE
 	$entry_exit_name = LACRAK
 	START_NEW_SCRIPT switch_entry_exit_after_mission
-	IF IS_PLAYER_PLAYING player1
-		SET_PLAYER_DRUNKENNESS Player1 0
-	ENDIF
 	flag_player_on_mission = 0
 	GET_GAME_TIMER timer_mobile_start //Used to reset the mobile phone timer so it doesn't ring immediately after the mission
 	SWITCH_ROADS_BACK_TO_ORIGINAL 2272.9219 -1649.5563 14.3311 2266.1013 -1633.2192 14.3505 // FIXEDGROVE: remove rather than turn on
@@ -2183,7 +2180,6 @@ mission_cleanup_sweet1b:
 	SWITCH_CAR_GENERATOR gen_car7 101
 	REMOVE_CHAR_ELEGANTLY ryder
 	UNLOAD_SPECIAL_CHARACTER 1
-	ENABLE_AMBIENT_CRIME TRUE
 	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE
 	MISSION_HAS_FINISHED

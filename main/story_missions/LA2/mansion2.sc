@@ -8618,22 +8618,7 @@ Mansion2_Mission_Cleanup:
 
 	// === RESTORE ENVIRONMENT SETTINGS ===
 	// ------------------------------------
-
-	SET_PED_DENSITY_MULTIPLIER	1.0
-	SET_CAR_DENSITY_MULTIPLIER	1.0
-	SET_WANTED_MULTIPLIER		1.0
 	SWITCH_EMERGENCY_SERVICES	ON
-	SWITCH_RANDOM_TRAINS		ON
-	SWITCH_AMBIENT_PLANES		ON
-	RELEASE_WEATHER
-
-
-	// Make sure the player gets a 6* rating again whenever he sets foot on the aircraft carrier
-	SET_DISABLE_MILITARY_ZONES FALSE
-
-
-	// Switch off the Aircraft Carrier's SAM sites
-	SET_AIRCRAFT_CARRIER_SAM_SITE ON
 
 
 	// Don't force interior lighting again
@@ -8641,15 +8626,8 @@ Mansion2_Mission_Cleanup:
 
 
 	// Make sure the player can talk again
-	IF NOT IS_CHAR_DEAD scplayer
-		ENABLE_CHAR_SPEECH scplayer
-	ENDIF
+	ENABLE_CHAR_SPEECH scplayer
 
-
-	// Restore switched off road
-	// -------------------------
-
-//	SWITCH_ROADS_BACK_TO_ORIGINAL xlo ylo zlo xhi yhi zhi
 
 
 	// Make sure the mobile phone doesn't ring immediately after a mission

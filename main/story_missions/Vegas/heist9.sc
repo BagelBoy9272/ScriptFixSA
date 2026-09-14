@@ -9202,15 +9202,7 @@ mission_cleanup_heist9:
 
 	disable_mod_garage = 0
 
-	IF NOT IS_CHAR_DEAD scplayer
-
-		STOP_CHAR_FACIAL_TALK scplayer
-
-	ENDIF
-
-	SET_WANTED_MULTIPLIER 1.0
-
-	SET_RADAR_ZOOM 0
+	STOP_CHAR_FACIAL_TALK scplayer
 	
 	REPEAT 11 v
 
@@ -9479,10 +9471,6 @@ mission_cleanup_heist9:
 	REMOVE_ANIMATION FIGHT_B
 
 	MISSION_HAS_FINISHED
-
-	SET_PED_DENSITY_MULTIPLIER 1.0
-
-	SET_CAR_DENSITY_MULTIPLIER 1.0
 
 RETURN
 

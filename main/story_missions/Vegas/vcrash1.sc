@@ -962,8 +962,6 @@ mission_vcr1_cleanup:
 REMOVE_BLIP mission_blip
 REMOVE_BLIP mission_blip2
 
-SET_AREA51_SAM_SITE on
-
 remove_pickup the_stuff
 
 if not is_car_dead heli2

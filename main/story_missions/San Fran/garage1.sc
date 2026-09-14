@@ -4565,10 +4565,6 @@ RETURN
 
 mission_garag1_passed:
 
-
-
-
-
 	//flag_pp1_mission1_passed = 1
  //	PRINT_WITH_NUMBER_BIG M_PASS 100 5000 1
  //	ADD_SCORE player1 100
@@ -4584,10 +4580,6 @@ mission_garag1_passed:
 
 	PLAYER_MADE_PROGRESS 1
 	SET_INT_STAT PASSED_GARAGE1 1
-
-	
-
-
 
    /*	START_NEW_SCRIPT steal_mission_loop
 	REMOVE_BLIP steal_contact_blip
@@ -4610,11 +4602,6 @@ mission_garag1_passed:
 
 		  */
 
-
-
- 
-
-
 RETURN
 		
 // *****************************
@@ -4631,15 +4618,9 @@ RETURN
 // *****************************
 
 mission_cleanup_garag1:
-	CAMERA_RESET_NEW_SCRIPTABLES
-	DISABLE_ALL_ENTRY_EXITS FALSE
+//	SHUT_CHAR_UP scplayer TRUE
+	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 
-	IF IS_PLAYER_PLAYING player1
-   //		SHUT_CHAR_UP scplayer TRUE
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-
-	ENDIF
-	SWITCH_RANDOM_TRAINS ON
  /*	IF NOT IS_CHAR_DEAD scplayer
 	//	IF flag_garage_doors = 0
 	   //	IF flag_mission_garag1_failed = 1
@@ -4693,7 +4674,6 @@ mission_cleanup_garag1:
 	REMOVE_ANIMATION CAR_CHAT
 	REMOVE_ANIMATION smoking
 
-
  //	REMOVE_BLIP blip_hub_garag1
 	REMOVE_BLIP blip_players_car_garag1
 	REMOVE_BLIP blip_hospital 
@@ -4703,13 +4683,9 @@ mission_cleanup_garag1:
 		SET_CAR_HEALTH car_player_garag1 600
 	ENDIF
 
-
-
-
 	MARK_CAR_AS_NO_LONGER_NEEDED car_player_garag1 
 	MARK_CAR_AS_NO_LONGER_NEEDED car_mech2_garag1
 	MARK_CAR_AS_NO_LONGER_NEEDED car_mech1_garag1 
-
 
 	MARK_CAR_AS_NO_LONGER_NEEDED car_mech2_garag1
 	DELETE_CAR rc_heli_garage1
@@ -4720,7 +4696,6 @@ mission_cleanup_garag1:
  //	MARK_CHAR_AS_NO_LONGER_NEEDED char_mech_garag1[2]
  //	MARK_CHAR_AS_NO_LONGER_NEEDED char_mech_garag1[3]
 
-
 	REMOVE_CHAR_ELEGANTLY char_truth_garag1
 	REMOVE_CHAR_ELEGANTLY char_mech_garag1[0]
 	REMOVE_CHAR_ELEGANTLY char_mech_garag1[1]
@@ -4728,23 +4703,13 @@ mission_cleanup_garag1:
 	REMOVE_CHAR_ELEGANTLY char_mech_garag1[3]
 	REMOVE_CHAR_ELEGANTLY pony_driver_garage1
 
-
-
 //	SWITCH_ROADS_BACK_TO_ORIGINAL -5000.5276 -5000.4624 -1000.8299 5000.5276 5000.4624 1000.82993	
  //	SWITCH_PED_ROADS_BACK_TO_ORIGINAL -5000.5276 -5000.4624 -1000.8299 5000.5276 5000.4624 1000.82993
 
-
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	SET_PED_DENSITY_MULTIPLIER 1.0
-
-
-
-
 	DELETE_OBJECT object_zeros_bench
 
-
-   MARK_MODEL_AS_NO_LONGER_NEEDED bomb
-   MARK_MODEL_AS_NO_LONGER_NEEDED SATCHEL
+    MARK_MODEL_AS_NO_LONGER_NEEDED bomb
+    MARK_MODEL_AS_NO_LONGER_NEEDED SATCHEL
 	MARK_MODEL_AS_NO_LONGER_NEEDED emperor
 	MARK_MODEL_AS_NO_LONGER_NEEDED HOTDOG
 	MARK_MODEL_AS_NO_LONGER_NEEDED pony
@@ -4754,20 +4719,13 @@ mission_cleanup_garag1:
    	MARK_MODEL_AS_NO_LONGER_NEEDED HOTDOG
 	MARK_MODEL_AS_NO_LONGER_NEEDED cigar
 
-
 	DELETE_OBJECT dwaynes_blunt
-
-	SET_SCRIPT_LIMIT_TO_GANG_SIZE 99
-
-
-	RELEASE_WEATHER
 
 	UNLOAD_SPECIAL_CHARACTER 1 // unloading zero
 	UNLOAD_SPECIAL_CHARACTER 2 // unloading zero
 
 	UNLOAD_SPECIAL_CHARACTER 3 // unloading zero
 	UNLOAD_SPECIAL_CHARACTER 4 // unloading zero
-
 
 	GET_GAME_TIMER timer_mobile_start
 
@@ -4780,48 +4738,9 @@ mission_cleanup_garag1:
 
 	ENDIF  */
 
-	flag_go_to_mechanic1_garag1 = 0
-	flag_go_to_mechanic2_garag1 = 0
-	flag_go_to_mechanic3_garag1	= 0
-	flag_go_to_mechanic4_garag1 = 0
-	flag_go_to_hub_garag1 = 0
-	flag_go_to_hospital_garag1 = 0
-	flag_go_to_police_station_garag1 = 0
-
-
-
-	flag_cutscene_garage1 = 0
-
-	flag_lod_close_to_desstination = 0
-
-	flag_text_garage1 = 0
-
-	flag_garage_doors = 0
-
-
-	flag_mission_garag1_passed = 0
-	flag_mission_garag1_failed = 0
-	flag_player_out_of_car_garag1 = 0
-
-
-	flag_loose_mech3_garag1 = 0
-	flag_is_mech3_off_bike_garag1 = 0
-	flag_is_zero_on_bike = 0
-
-	flag_is_truth_in_car = 0
-	flag_is_mechanic2_in_car = 0
-	flag_is_mechanic1_in_car = 0
-
-	flag_help_text_garage1 = 0
-
 	STOP_FX_SYSTEM exhale_smoke_effect
 
-
-
 	flag_player_on_mission = 0
-
-
-
 
 	MISSION_HAS_FINISHED
 RETURN

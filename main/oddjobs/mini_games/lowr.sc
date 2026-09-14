@@ -3355,8 +3355,6 @@ mission_cleanup_LOWR:
 		STOP_BEAT_TRACK
 	ENDIF
 
-	DONT_SUPPRESS_CAR_MODEL SAVANNA
-
 	// terminate beat display script (if it's running)
 	bd_terminate_script = 1
 

@@ -1999,11 +1999,6 @@ RETURN
 // *****************************
 
 mission_cleanup_zero2:
-	DISABLE_ALL_ENTRY_EXITS FALSE
-	CAMERA_RESET_NEW_SCRIPTABLES
-
-	DISPLAY_CAR_NAMES TRUE
-
 
 	IF IS_PLAYER_PLAYING Player1
 		SET_PLAYER_CONTROL player1 ON
@@ -2027,10 +2022,6 @@ mission_cleanup_zero2:
 	ENDIF
 	MARK_CAR_AS_NO_LONGER_NEEDED rc_van_zero2
 
-
-
-	RELEASE_WEATHER
-
 	REMOVE_BLIP blip_landing_zero2
 
 	DELETE_CAR car_enemy_vans_zero2[0]
@@ -2041,23 +2032,13 @@ mission_cleanup_zero2:
 	DELETE_CHAR char_3_buddy_with_MICRO_UZI[0]
 	DELETE_CHAR char_3_buddy_with_MICRO_UZI[3]
 
-
-
 	REMOVE_BLIP blip_rctiger_zero2[0] 
 	REMOVE_BLIP blip_rctiger_zero2[1] 
 	REMOVE_BLIP blip_rctiger_zero2[2] 
 	REMOVE_BLIP blip_rctiger_zero2[3] 
 	REMOVE_BLIP blip_rctiger_zero2[4] 
-	
 
-
-
-
-
-
-
-  //	DELETE_CAR rc_cutscene_heli_zero2
-
+  //DELETE_CAR rc_cutscene_heli_zero2
 
 	REMOVE_RC_BUGGY
 
@@ -2067,8 +2048,6 @@ mission_cleanup_zero2:
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED mtbike
 	MARK_MODEL_AS_NO_LONGER_NEEDED sanchez
-
-
 
 	UNLOAD_SPECIAL_CHARACTER 1
 

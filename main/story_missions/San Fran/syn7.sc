@@ -2968,21 +2968,11 @@ RETURN
 // ******************************************************************************************************
 
 mission_cleanup_syn7:
-								
-	IF NOT IS_CHAR_DEAD scplayer
 
-		STOP_CHAR_FACIAL_TALK scplayer
+	STOP_CHAR_FACIAL_TALK scplayer
 
-	ENDIF
-
-	// Density Multipliers
 	REMOVE_CAR_RECORDING 483
 	REMOVE_CAR_RECORDING 485
-
-
-	SET_PED_DENSITY_MULTIPLIER 1.0
-
-	SET_CAR_DENSITY_MULTIPLIER 1.0
 
 	CLEAR_ONSCREEN_TIMER s7_timer
 
@@ -3057,8 +3047,6 @@ mission_cleanup_syn7:
 	ENDIF
 
   	flag_player_on_mission = 0
-
-	SET_GROUP_SEPARATION_RANGE Players_Group 30.0
 
 	GET_GAME_TIMER timer_mobile_start
 

@@ -4559,7 +4559,6 @@ mission_cleanup_SWEET6:
 
 	CLEAR_ONSCREEN_COUNTER lowrider_pscore
 	CLEAR_ONSCREEN_COUNTER lowrider_oscore
-	DISPLAY_RADAR TRUE
 
 	// FIXEDGROVE: START - comment out since it cleared the mission passed tune
 	/*
@@ -4569,8 +4568,6 @@ mission_cleanup_SWEET6:
 	ENDIF
 	*/
 	// FIXEDGROVE: END
-		
-	DONT_SUPPRESS_CAR_MODEL SAVANNA
 
 	// terminate beat display script (if it's running)
 	bd_terminate_script = 1
@@ -4578,10 +4575,6 @@ mission_cleanup_SWEET6:
 	// remove decision makers
 	REMOVE_DECISION_MAKER empty_dm
 	REMOVE_DECISION_MAKER tough_dm
-
-	// === RESTORE ENVIRONMENT SETTINGS ===
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
 
 	GET_GAME_TIMER timer_mobile_start
 	

@@ -2545,7 +2545,6 @@ GOTO bcou_main_mission_loop
  // **************************************** Mission bcou failed ***********************
 
 mission_bcou_failed:
-SET_PLAYER_CAN_DO_DRIVE_BY player1 TRUE
 
 //PRINT_BIG ( M_FAIL ) 5000 1 //"Mission Failed"
 
@@ -2840,13 +2839,6 @@ mission_cleanup_bcou:
 CLEAR_HELP
 
 CLEAR_MISSION_AUDIO 3
-
-IF IS_PLAYER_PLAYING player1
-	SET_PLAYER_CAN_DO_DRIVE_BY player1 TRUE
-
-	SET_PLAYER_CONTROL player1 ON
-
-ENDIF
 
 CLEAR_ONSCREEN_TIMER bcou_timelimit
 CLEAR_ONSCREEN_COUNTER bags_on_bike

@@ -3287,29 +3287,18 @@ mission_triathalon_passed:
 	CLEAR_WANTED_LEVEL player1
     PLAY_MISSION_PASSED_TUNE 2
 	PRINT_BIG RACES18 5000 1  // Winner!
-	IF triathalon_selection =1
-
-		 
+	IF triathalon_selection = 1
 		PRINT_WITH_NUMBER TRAI1 10000 5000 2 	//"YOU HAVE WON: $~1~"
 	//	PRINT_WITH_2_NUMBERS_NOW TIME mins seconds 5000 1
 		ADD_SCORE player1 10000
 		
 	ENDIF
 
-
-
-
-	IF triathalon_selection =2
+	IF triathalon_selection = 2
 		PRINT_WITH_NUMBER TRAI1 20000 5000 2 	//"YOU HAVE WON: $~1~"
 	//	PRINT_WITH_2_NUMBERS_NOW TIME mins seconds 5000 1
 		ADD_SCORE player1 20000
-
 	ENDIF
-
-
-
-
-
 
 	triathalon_timer = triathalon_timer / 1000
 	//REGISTER_FASTEST_TIME 12 triathalon_timer
@@ -3339,81 +3328,40 @@ mission_triathalon_passed:
 		   //	SET_PLAYER_NEVER_GETS_TIRED Player1 TRUE
 		   SET_INT_STAT STAMINA 1000
 		ENDIF
-	ENDIF 
-			 
+	ENDIF		 
 
 RETURN
 		
 
-
 // mission cleanup
 
 mission_cleanup_triathalon:
-	flag_player_on_mission = 0 
 
+	// FIXEDGROVE: use loop for cleanup
+	REPEAT 12 temp_integer_1
+		MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[temp_integer_1]
+	ENDREPEAT
 
-
-
-
-
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[0]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[1]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[2]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[3]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[4]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[5]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[6]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[7]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[8]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[9]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[10]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_triathalon[11]
-
-
-	MARK_MODEL_AS_NO_LONGER_NEEDED wmybe
-    MARK_MODEL_AS_NO_LONGER_NEEDED bmybe
-    MARK_MODEL_AS_NO_LONGER_NEEDED hmybe
-    MARK_MODEL_AS_NO_LONGER_NEEDED wmybell
     MARK_MODEL_AS_NO_LONGER_NEEDED mtbike
 
-
-
 	MARK_CHAR_AS_NO_LONGER_NEEDED flag_girl_triathalon
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[0]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[1]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[2]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[3]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[4]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[5]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[6]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[7]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[8]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[9]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[10]
 
-
-	
-
-
-	DISPLAY_CAR_NAMES TRUE
+	// FIXEDGROVE: use loop for cleanup
+	REPEAT 11 temp_integer_1
+		MARK_CHAR_AS_NO_LONGER_NEEDED spectator_triathalon[temp_integer_1]
+	ENDREPEAT
 
 	//CLEAR_ONSCREEN_TIMER triathalon_timer
 
 	REMOVE_BLIP	first_blip_triathalon
 	GET_GAME_TIMER timer_mobile_start
 
-	DISABLE_ALL_ENTRY_EXITS FALSE
-
 	//SWITCH_ROADS_BACK_TO_ORIGINAL -5000.5276 -5000.4624 -1000.8299 5000.5276 5000.4624 1000.82993	
    //	SWITCH_PED_ROADS_BACK_TO_ORIGINAL -5000.5276 -5000.4624 -1000.8299 5000.5276 5000.4624 1000.82993
 
 
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	SET_PED_DENSITY_MULTIPLIER 1.0
-
-	SET_MESSAGE_FORMATTING FALSE 380 464
-
 	USE_TEXT_COMMANDS FALSE
+	flag_player_on_mission = 0
 	MISSION_HAS_FINISHED
 RETURN
 

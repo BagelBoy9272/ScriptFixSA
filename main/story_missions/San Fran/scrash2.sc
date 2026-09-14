@@ -4915,14 +4915,9 @@ mission_cleanup_SCrash2:
 
 
 	// === RESTORE ENVIRONMENT SETTINGS ===
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	SET_WANTED_MULTIPLIER 1.0
-
 
 	// Switch on emergency services
 	SWITCH_EMERGENCY_SERVICES ON
-	SWITCH_RANDOM_TRAINS ON
 
 
 	// Make sure the mobile phone doesn't ring immediately after a mission

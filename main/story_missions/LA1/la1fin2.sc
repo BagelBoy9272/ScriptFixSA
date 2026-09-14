@@ -3319,18 +3319,6 @@ mission_cleanup_la1fin2:
 
 	//
 
-	CLEAR_SKIP
-
-	IF NOT IS_CHAR_DEAD scplayer
-		TASK_USE_MOBILE_PHONE scplayer FALSE
-	ENDIF
-
-
-
-
-
-//	reset gang sizes
-//	SET_SCRIPT_LIMIT_TO_GANG_SIZE 99
 
 	// remove animations
 //	REMOVE_ANIMATION SWAT
@@ -3353,8 +3341,6 @@ mission_cleanup_la1fin2:
 	MARK_MODEL_AS_NO_LONGER_NEEDED LAPD1 
 	REMOVE_ANIMATION POLICE
 
-
-	SET_PLAYER_CONTROL player1 ON
 
 	// unload special characters
 	UNLOAD_SPECIAL_CHARACTER 1 
@@ -3385,29 +3371,15 @@ mission_cleanup_la1fin2:
 	REMOVE_IPL Barriers1
 
 
-	// reset multipliers
-	SET_WANTED_MULTIPLIER 1.0
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-
 	// set emergency services
 	SWITCH_EMERGENCY_SERVICES ON
 
    	// remove decision makers
 	REMOVE_DECISION_MAKER lf2_dec
 
-	SET_CREATE_RANDOM_GANG_MEMBERS ON
-
 	flag_player_on_mission = 0
 	GET_GAME_TIMER timer_mobile_start
 	MISSION_HAS_FINISHED
-	SET_SCRIPT_LIMIT_TO_GANG_SIZE 99
-
-
-
-
-
-
 
 RETURN
 

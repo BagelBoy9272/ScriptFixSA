@@ -679,13 +679,7 @@ RETURN
 
 mission_cleanup_zero5:
 
-	CAMERA_RESET_NEW_SCRIPTABLES
-
  //	SET_AREA_VISIBLE 0
-
-
-
-
 
 	flag_player_on_mission = 0
 	SET_POLICE_IGNORE_PLAYER player1 OFF
@@ -699,24 +693,6 @@ mission_cleanup_zero5:
 		ENDIF
 	ENDIF
 
-
-	RELEASE_WEATHER
-										  
-
-
-
-
-	SET_PLAYER_CONTROL player1 ON
-
-
-	DISABLE_ALL_ENTRY_EXITS FALSE
-
-
-
-
-
-
-
 	REMOVE_RC_BUGGY
 
 	MARK_MODEL_AS_NO_LONGER_NEEDED topfun
@@ -727,7 +703,6 @@ mission_cleanup_zero5:
 	 
 	GET_GAME_TIMER timer_mobile_start
 
-	DISPLAY_CAR_NAMES TRUE
 	MISSION_HAS_FINISHED
 RETURN
 

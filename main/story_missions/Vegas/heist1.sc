@@ -5102,8 +5102,6 @@ RETURN
 // ********************************** mission cleanup ***********************************
 
 mission_cleanup_heist1:
-//RELEASE_WEATHER
-
 
 
 SWITCH_ENTRY_EXIT paper FALSE
@@ -5135,8 +5133,6 @@ SET_OBJECT_HEADING fourdragons_door 0.0
 
 ENDIF
 
-
-SET_RADAR_ZOOM 0
 
 //HIDE_ALL_FRONTEND_BLIPS FALSE
 

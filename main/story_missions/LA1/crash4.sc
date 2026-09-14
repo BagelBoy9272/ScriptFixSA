@@ -1191,17 +1191,12 @@ MARK_MODEL_AS_NO_LONGER_NEEDED Laejeffersalpha
 MARK_MODEL_AS_NO_LONGER_NEEDED LaeLODpark02
 MARK_MODEL_AS_NO_LONGER_NEEDED Laemacpark02
 
-SET_PED_DENSITY_MULTIPLIER 1.0
-SET_ONLY_CREATE_GANG_MEMBERS FALSE
-
 flag_player_on_mission = 0
 flag_on_doberman_mission = 0
 
 REMOVE_BLIP area_blip_crash4
 REMOVE_BLIP enemy_blip_crash4
 REMOVE_BLIP weapon_pickup_blip_crash4
-
-CAN_TRIGGER_GANG_WAR_WHEN_ON_A_MISSION FALSE
 
 GET_GAME_TIMER timer_mobile_start
 
