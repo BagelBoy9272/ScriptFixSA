@@ -210,6 +210,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 
 **Green Sabre:**
 - Fixed Grove member floating a bit in a cutscene
+- Fixed Flint County barriers being removed even if you didn't pass the mission
 
 **Local Liquor Store:**
 - Increased upper bound of random number generator, improving randomness for the 'they are getting away' line selection
