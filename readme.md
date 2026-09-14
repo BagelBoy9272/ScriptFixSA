@@ -17,8 +17,9 @@ Currently in beta status.
 Get latest release here: https://github.com/BagelBoy9272/ScriptFixSA/releases
 
 ## Installation
+Read [save files](#save-files-compatibility) and [mod compatibility](#mod-compatibility) notes below first.
 
-Extract the downloaded .zip file and replace main.scm and scripts.img inside data\scripts directory, but read save files and mod compatibility notes below first.
+Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modloader folder. Alternatively, you may move the `data` folder to the root directory of your game.
 
 ## List of changes
 
@@ -586,9 +587,11 @@ Notes and pro tips:
 - Compiled OG files always had debug lines converted to UPPERCASE, however plagued sc.exe doesn't do that and leaves case as is. I decided not to bother patching that for now, since it's a benign side effect.
 
 ## Thanks
-
+ 
 **Sergeanur** for curing the original scripts.  
+**Contributors** to Sanny Builder Library.  
 **Silent** for help in implementing his script fixes.  
-**bamspeedy1298** for his stats guide on GameFAQS.  
-**OrionSR**, **TheoTTG**, **Deezire**, **Silent**, **Domiiniik**, **ArmanCan**, **StreetFonso**, **Nick007J**, **Vadim M** and **Kaizo M** for documenting script bugs and oddities.
+**bamspeedy1298** for their stats guide on GameFAQS.  
+**Kaizo M** for their Speech Context and Mission Audio Debugger.  
+**OrionSR**, **TheoTTG**, **Deezire**, **Silent**, **Domiiniik**, **ArmanCan**, **StreetFonso**, **Nick007J**, **MuraSoraZone**, **Vadim M** and **Kaizo M** for documenting script bugs and oddities.  
 
