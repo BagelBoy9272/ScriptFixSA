@@ -2543,7 +2543,7 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			ENDIF
 
-			IF DOES_BLIP_EXIST s7_escape_ramp
+			IF DOES_BLIP_EXIST s7_truck_blip // FIXEDGROVE: was 's7_escape_ramp'
 
 				REMOVE_BLIP s7_truck_blip
 
