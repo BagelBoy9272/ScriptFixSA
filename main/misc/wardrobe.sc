@@ -1947,6 +1947,8 @@ draw_remove_menu_wardrobe:
 
 		PRINT_HELP_FOREVER (REMOH1)
 		SET_MENU_COLUMN remove_menu_wardrobe 0 DUMMY $menu_item[0] $menu_item[1] $menu_item[2] $menu_item[3] $menu_item[4] $menu_item[5] $menu_item[6] $menu_item[7] $menu_item[8] $menu_item[9] $menu_item[10] $menu_item[11]
+
+		SET_ACTIVE_MENU_ITEM remove_menu_wardrobe third_menu_item_picked_wardrobe // FIXEDGROVE: restore selection
 					 		
 		flag_remove_menu_drawn_wardrobe = 1
 
