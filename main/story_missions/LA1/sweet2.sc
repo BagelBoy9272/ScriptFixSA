@@ -172,16 +172,6 @@ mission_start_sweet2:
 REGISTER_MISSION_GIVEN
 
 flag_player_on_mission = 1
-tag_target_counter = 0
-tag_index = 0
-smoke_group_spilt_blip = 0
-barrel2_exists = 0
-gun_help = 0
-smoke_shots_off = 0
-smoke_car_blip_removed = 0
-smoke_sitting_in_car = 0
-played_the_timer = 0
-get_in_counter_sweet2 = 0
 
 beer_bottleX[0] = 2440.58 //on dumpster
 beer_bottleY[0] = -1979.89 
@@ -2790,7 +2780,7 @@ SWITCH_WIDESCREEN OFF
 SET_PLAYER_CONTROL player1 ON
 print_help_sweet2 = 0
 
-WHILE NOT print_help_sweet2 = 2
+WHILE NOT print_help_sweet2 = 3
 	WAIT 0
 
 	GET_AREA_VISIBLE new_visible_area
@@ -2820,18 +2810,23 @@ WHILE NOT print_help_sweet2 = 2
 		IF new_visible_area	= 0
 			IF LOCATE_CHAR_ON_FOOT_3D scplayer 2244.4800 -1664.0599 14.4690	10.0 10.0 5.0 FALSE
 				REMOVE_BLIP shooting_range_blip
-				WAIT 2000
 				print_help_sweet2 = 2
 			ENDIF
 		ENDIF
 	ENDIF
 
+	IF print_help_sweet2 = 2
+		IF NOT GET_FADING_STATUS // FIXEDGROVE: wait until the fade is over rather than arbritary wait
+			print_help_sweet2 = 3
+		ENDIF
+	ENDIF
+
 ENDWHILE
 
-
-RESTORE_CAMERA_JUMPCUT
-SWITCH_WIDESCREEN OFF
-SET_PLAYER_CONTROL player1 ON
+// FIXEDGROVE: comment these out
+//RESTORE_CAMERA_JUMPCUT 
+//SWITCH_WIDESCREEN OFF
+//SET_PLAYER_CONTROL player1 ON
 
 GOTO mission_sweet2_passed
 

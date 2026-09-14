@@ -81,6 +81,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Nines And AKs:**
 - Made "cycling through targets" help box only show up if using a controller, otherwise display unused help box about gun recoil
 - Restored help text about weapons while going to Smoke's place
+- Removed jumpcut and arbitrary wait before the Mission Passed text after exiting the clothes shop
 
 **Drive-By:**
 - Fixed player floating a bit at the start of the mission
