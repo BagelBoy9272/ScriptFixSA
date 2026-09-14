@@ -507,7 +507,7 @@ GF_Sex_State3:
 			iSubStateStatus = 0
 			BREAK
 		ELSE 
-			IF excitement = 100
+			IF excitement >= 100 // FIXEDGROVE: add '>'
 				//--- Move on to the GOOD ending
 				iSexState =	5
 				iSubStateStatus = 0
@@ -785,7 +785,7 @@ GF_Sex_State6:
 		GOSUB GF_Sex_LoopSexAtGivenSpeed //Uses TIMERB and fTemp[0] - Fills in the excitement meter
 	 			
 		//--- See if the girl had enough plasure...
-		IF excitement = 100
+		IF excitement >= 100 // FIXEDGROVE: add '>'
 			SET_BIT iSexMachineFlags 1 // Set the next state as NON TRANSITABLE
 			SET_BIT iDateReport SEX_WAS_GOOD // Mark SEX as Good for the Dating Agent
 
