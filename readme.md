@@ -320,6 +320,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Increased upper bound in a random number generator, bringing back an unintentionally unused random car plate
 
 **Black Project:**
+- Fixed player being silent, even if they're discovered
 - Restored the inaccessible post-mission SPAS-12 pickup so it actually spawns during the mission
 - Restored 'To hover in the jetpack...' message from consoles
 
