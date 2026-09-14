@@ -187,6 +187,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added facial talk anim to voicelines 
 - Added facial talk anim to Grove members outside the motel
 - Added back missing subititles for swat lines
+- Added "fake" wanted level after reaching the motel
 - Fixed code for healing the player setting his health to 100 even if he had more 
 - Disabled collision for Grove member that falls from the railling, and made him silent 
 - Slightly adjusted dead Grove member position to avoid clipping and make sense contextually 
@@ -205,7 +206,6 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Opened front passenger seat of Sweet's car in the final cutscene
 - Fixed jarring time shift in the ending cutscene caused by the script setting the time to 7:00 AM 
 - Fixed characters not using their intended animation groups 
-- Add 4 star wanted level if the player fails the mission after getting to the motel 
 - Tidied up code to accomodate new changes under the size limit
 
 **Green Sabre:**
