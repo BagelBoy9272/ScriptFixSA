@@ -166,6 +166,8 @@ LVAR_INT cutscene_car2_casino10 car2_driver_casino10
 LVAR_INT dummy1_casino10 dummy2_casino10 dummy3_casino10 dummy4_casino10 dummy5_casino10
 LVAR_INT dummy6_casino10 dummy7_casino10 dummy8_casino10 dummy9_casino10 dummy10_casino10
 
+LVAR_INT trip_skip_vehicle_casino10 // FIXEDGROVE
+
 // *************************************** MISSION DIALOGUE ***************************************
 
 casino10_chat_switch:
@@ -930,16 +932,40 @@ PRINT_NOW (CM10_1) 10000 1 //"Get to the Vegas airport, we have a chartered jet 
 ADD_BLIP_FOR_COORD 1707.828 1606.639 9.055 airport_blip2_casino10
 CLEAR_AREA 1707.828 1606.639 9.055 2.0 FALSE 
 
+// FIXEDGROVE: START - added trip skip
+REQUEST_MODEL FCR900
+WHILE NOT HAS_MODEL_LOADED FCR900
+	WAIT 0
+ENDWHILE
+CREATE_CAR FCR900 2163.2490 1679.9757 9.8125 trip_skip_vehicle_casino10
+SET_CAR_HEADING trip_skip_vehicle_casino10 350.0
+// FIXEDGROVE: END
+
 // waiting for the player to get to the airport
 WHILE NOT LOCATE_CHAR_ANY_MEANS_3D scplayer 1707.828 1606.639 9.055 4.0 4.0 3.0 FALSE
 
 	WAIT 0
+
+	// FIXEDGROVE: START - added trip skip
+	IF trip_skip_flag_casino10 = 1
+		SET_UP_SKIP_FOR_VEHICLE_FINISHED_BY_SCRIPT 2163.2490 1679.9757 9.8125 0.0 trip_skip_vehicle_casino10
+		trip_skip_flag_casino10 = 2
+	ENDIF
+	IF trip_skip_flag_casino10 = 2
+		IF IS_SKIP_WAITING_FOR_SCRIPT_TO_FADE_IN
+			GOTO trip_skip_destination
+		ENDIF
+	ENDIF
+	// FIXEDGROVE: END
 
 	IF IS_PS2_KEYBOARD_KEY_PRESSED PS2_KEY_S
     	GOTO mission_casino10_passed  
 	ENDIF
 
 ENDWHILE
+
+MARK_MODEL_AS_NO_LONGER_NEEDED FCR900 // FIXEDGROVE
+CLEAR_SKIP // FIXEDGROVE
 
 REMOVE_BLIP airport_blip2_casino10
  		 
@@ -1078,6 +1104,14 @@ WHILE casino10_index <= cell_index_end
 	ENDIF
 
 ENDWHILE
+// FIXEDGROVE: END
+
+// FIXEDGROVE: START - added trip skip
+trip_skip_destination:
+trip_skip_flag_casino10 = 1
+MARK_MODEL_AS_NO_LONGER_NEEDED FCR900
+MARK_CAR_AS_NO_LONGER_NEEDED trip_skip_vehicle_casino10
+CLEAR_SKIP
 // FIXEDGROVE: END
 
 SET_FADING_COLOUR 0 0 0
@@ -2841,6 +2875,7 @@ MARK_MODEL_AS_NO_LONGER_NEEDED SENTINEL
 MARK_MODEL_AS_NO_LONGER_NEEDED TAXI
 MARK_MODEL_AS_NO_LONGER_NEEDED BMYBU
 MARK_MODEL_AS_NO_LONGER_NEEDED WFYBU
+MARK_MODEL_AS_NO_LONGER_NEEDED FCR900 // FIXEDGROVE
 
  UNLOAD_SPECIAL_CHARACTER 1
  UNLOAD_SPECIAL_CHARACTER 2
