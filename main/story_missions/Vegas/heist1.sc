@@ -1868,10 +1868,8 @@ IF he1_progress = 5
 	IF he1_collisionfix = 0
 		IF LOCATE_CHAR_ANY_MEANS_3D scplayer 2414.8115 1124.4351 9.8130 50.0 50.0 20.0 FALSE
 			CREATE_CHAR PEDTYPE_CIVMALE wmybu 366.2195 178.2328 1007.3984 he1_pop[0]
-			DISABLE_CHAR_SPEECH	he1_pop[0] FALSE
-			SET_CHAR_DECISION_MAKER he1_pop[0] he1_touristdm
-
 			SET_CHAR_HEADING he1_pop[0] 256.0
+
 //			FLUSH_ROUTE
 //			EXTEND_ROUTE 367.3111 168.4707 1007.3906 
 //			EXTEND_ROUTE 366.9487 215.3946 1007.3906  
@@ -1881,65 +1879,39 @@ IF he1_progress = 5
 //			  			
 //			TASK_FOLLOW_POINT_ROUTE he1_pop[0] PEDMOVE_WALK FOLLOW_ROUTE_LOOP
 //			SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_pop[0] 150.0
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[0] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_CIVMALE bmybu 367.4051 178.2571 1007.3971 he1_pop[1]
-			SET_CHAR_DECISION_MAKER he1_pop[1] he1_touristdm
-			DISABLE_CHAR_SPEECH	he1_pop[1] FALSE
-
 			SET_CHAR_HEADING he1_pop[1] 75.0
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[1] 2415.3479 1123.9423 10.0
-
 
 			CREATE_CHAR PEDTYPE_CIVMALE bmybu 336.2050 173.5649 1018.9844 he1_pop[2]
-			SET_CHAR_DECISION_MAKER he1_pop[2] he1_touristdm
-				DISABLE_CHAR_SPEECH	he1_pop[2] FALSE
-
 			SET_CHAR_HEADING he1_pop[2] 21.0
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[2] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_CIVMALE wmybu 335.1483 175.8309 1018.9844 he1_pop[3]
-			SET_CHAR_DECISION_MAKER he1_pop[3] he1_touristdm
-					DISABLE_CHAR_SPEECH	he1_pop[3] FALSE
-
 			SET_CHAR_HEADING he1_pop[3] 200.0
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[3] 2415.3479 1123.9423 10.0
-
 
 			CREATE_CHAR PEDTYPE_CIVMALE bmybu 347.6199 171.2935 1018.9912 he1_pop[4]
-			SET_CHAR_DECISION_MAKER he1_pop[4] he1_touristdm
-					DISABLE_CHAR_SPEECH	he1_pop[4] FALSE
-
 			SET_CHAR_HEADING he1_pop[4] 89.0
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[4] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_CIVMALE wmybu 347.7367 172.3383 1018.9912 he1_pop[5]
-			SET_CHAR_DECISION_MAKER he1_pop[5] he1_touristdm
-					DISABLE_CHAR_SPEECH	he1_pop[5] FALSE
-
 			SET_CHAR_HEADING he1_pop[5] 270.0
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[5] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_CIVMALE wmybu 360.7583 175.1333 1018.9844 he1_pop[6]
-			SET_CHAR_DECISION_MAKER he1_pop[6] he1_touristdm
-					DISABLE_CHAR_SPEECH	he1_pop[6] FALSE
-
 			SET_CHAR_HEADING he1_pop[6] 162.0
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[6] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_CIVFEMALE BFYRI 361.4531 176.2417 1018.9844 he1_pop[7]
-			SET_CHAR_DECISION_MAKER he1_pop[7] he1_touristdm
 			SET_CHAR_HEADING he1_pop[7] 0.0
-					DISABLE_CHAR_SPEECH	he1_pop[7] FALSE
-
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[7] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_CIVMALE bmybu 359.5063 177.6107 1018.9844 he1_pop[8]
-			SET_CHAR_DECISION_MAKER he1_pop[8] he1_touristdm
 			SET_CHAR_HEADING he1_pop[8] 184.0
-					DISABLE_CHAR_SPEECH	he1_pop[8] FALSE
 
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[8] 2415.3479 1123.9423 10.0
+			he1_Tempint = 0
+			WHILE he1_Tempint < 9
+				SET_CHAR_DECISION_MAKER he1_pop[he1_Tempint] he1_touristdm
+				SET_CHAR_HAS_USED_ENTRY_EXIT he1_pop[he1_Tempint] 2415.3479 1123.9423 10.0
+				DISABLE_CHAR_SPEECH	he1_pop[he1_Tempint] FALSE
+				he1_Tempint++
+			ENDWHILE
+
 			TASK_SIT_DOWN he1_pop[8] 500000
 
 
@@ -1948,7 +1920,6 @@ IF he1_progress = 5
 
 			//CREATE_CHAR PEDTYPE_CIVFEMALE BFYRI 359.5056 172.7443 1007.3893  he1_recept1
 			CREATE_CHAR PEDTYPE_CIVFEMALE BFYRI 359.7724 173.5793 1007.3893  he1_recept1
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_recept1 2415.3479 1123.9423 10.0
 
 		   //	SET_CHAR_HEADING he1_recept1 278.367
 			
@@ -1961,117 +1932,86 @@ IF he1_progress = 5
 
 		  	CREATE_CHAR PEDTYPE_MISSION1 wmysgrd 365.3421 188.8672 1007.3906 he1_guard[0]
 			SET_CHAR_HEADING he1_guard[0] 172.9746
-			SET_CHAR_DECISION_MAKER he1_guard[0] he1_emptydm
-			GIVE_WEAPON_TO_CHAR he1_guard[0] WEAPONTYPE_PISTOL 30000
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_guard[0] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_MISSION1 wmysgrd 376.3221 170.1705 1007.3978 he1_guard[1]
 			SET_CHAR_HEADING he1_guard[1] 314.7879
-			SET_CHAR_DECISION_MAKER he1_guard[1] he1_emptydm
-			GIVE_WEAPON_TO_CHAR he1_guard[1] WEAPONTYPE_PISTOL 30000
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_guard[1] 2415.3479 1123.9423 10.0
 
 			
 												 //351.5772 161.7314 1024.7812
 			CREATE_CHAR PEDTYPE_MISSION1 wmysgrd 351.8366 163.8015 1024.7863 he1_guard[2]//351.6945 160.0155 1024.7888 he1_guard[2]
 			SET_CHAR_HEADING he1_guard[2] 239.6//293.7879
-			SET_CHAR_DECISION_MAKER he1_guard[2] he1_emptydm
-			GIVE_WEAPON_TO_CHAR he1_guard[2] WEAPONTYPE_PISTOL 30000
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_guard[2] 2415.3479 1123.9423 10.0
+
+			he1_Tempint = 0
+			WHILE he1_Tempint < 3
+				SET_CHAR_DECISION_MAKER he1_guard[he1_Tempint] he1_emptydm
+				GIVE_WEAPON_TO_CHAR he1_guard[he1_Tempint] WEAPONTYPE_PISTOL 30000
+				SET_CHAR_HAS_USED_ENTRY_EXIT he1_guard[he1_Tempint] 2415.3479 1123.9423 10.0
+				he1_Tempint++
+			ENDWHILE
 
 			CREATE_CHAR PEDTYPE_MISSION1 wmybu 355.1732 172.5407 1024.7812 he1_bystander[0]
 			SET_CHAR_HEADING he1_bystander[0] 259.56
-			SET_CHAR_DECISION_MAKER he1_bystander[0] he1_touristdm
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_bystander[0] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_MISSION1 bmybu 355.8736 172.4779 1024.7812 he1_bystander[1]
 			SET_CHAR_HEADING he1_bystander[1] 80.67
-			SET_CHAR_DECISION_MAKER he1_bystander[1] he1_touristdm
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_bystander[1] 2415.3479 1123.9423 10.0				
 
 			CREATE_CHAR PEDTYPE_MISSION1 wmybu 362.3390 155.2859 1024.7812 he1_bystander[2]
 			SET_CHAR_HEADING he1_bystander[2] 178.989
-			SET_CHAR_DECISION_MAKER he1_bystander[2] he1_touristdm
-			TASK_SCRATCH_HEAD he1_bystander[2]
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_bystander[2] 2415.3479 1123.9423 10.0
 
 			CREATE_CHAR PEDTYPE_MISSION1 bmybu 362.7949 156.2016 1024.7812 he1_bystander[3]
 			SET_CHAR_HEADING he1_bystander[3] 20.989
-			SET_CHAR_DECISION_MAKER he1_bystander[3] he1_touristdm
-			TASK_SCRATCH_HEAD he1_bystander[3]
-			SET_CHAR_HAS_USED_ENTRY_EXIT he1_bystander[3] 2415.3479 1123.9423 10.0
 
-			IF NOT IS_CHAR_DEAD he1_pop[0]
-			IF NOT IS_CHAR_DEAD he1_pop[1]
-				CLEAR_CHAR_TASKS he1_pop[0]
-				CLEAR_CHAR_TASKS he1_pop[1]
+			he1_Tempint = 0
+			WHILE he1_Tempint < 4
+				SET_CHAR_DECISION_MAKER he1_bystander[he1_Tempint] he1_touristdm
+				SET_CHAR_HAS_USED_ENTRY_EXIT he1_bystander[he1_Tempint] 2415.3479 1123.9423 10.0
+				he1_Tempint++
+			ENDWHILE
+
+			TASK_SCRATCH_HEAD he1_bystander[2]
+			TASK_SCRATCH_HEAD he1_bystander[3]
+
+			temp_integer_1 = 0
+			temp_integer_2 = 1
+			WHILE temp_integer_1 < 5
+			IF NOT IS_CHAR_DEAD he1_pop[temp_integer_1]
+			AND NOT IS_CHAR_DEAD he1_pop[temp_integer_2]
+				CLEAR_CHAR_TASKS he1_pop[temp_integer_1]
+				CLEAR_CHAR_TASKS he1_pop[temp_integer_2]
 			   //	TASK_LOOK_ABOUT he1_pop[0] -1
 			   //	TASK_LOOK_ABOUT he1_pop[1] -1
-
-				TASK_CHAT_WITH_CHAR he1_pop[0] he1_pop[1]  true true //ped0 will lead the chatting
-				TASK_CHAT_WITH_CHAR he1_pop[1] he1_pop[0] false true //ped1 will follow ped0 at chatting
-			ENDIF
-			ENDIF
-
-			IF NOT IS_CHAR_DEAD he1_pop[2]
-			IF NOT IS_CHAR_DEAD he1_pop[3]
 				//TASK_WANDER_COP he1_pop[2]
 				//TASK_WANDER_COP he1_pop[3]
-				CLEAR_CHAR_TASKS he1_pop[2]
-				CLEAR_CHAR_TASKS he1_pop[3]
-
 				//TASK_LOOK_ABOUT he1_pop[2] -1
 				//TASK_LOOK_ABOUT he1_pop[3] -1
-
-			  	TASK_CHAT_WITH_CHAR he1_pop[2] he1_pop[3]  true true //ped0 will lead the chatting
-			   	TASK_CHAT_WITH_CHAR he1_pop[3] he1_pop[2] false true //ped1 will follow ped0 at chatting
-			ENDIF
-			ENDIF
-
-			IF NOT IS_CHAR_DEAD he1_pop[4]
-			IF NOT IS_CHAR_DEAD he1_pop[5]
 				//TASK_WANDER_CRIMINAL he1_pop[4]
 				//TASK_WANDER_CRIMINAL he1_pop[5]
-				CLEAR_CHAR_TASKS he1_pop[4]
-				CLEAR_CHAR_TASKS he1_pop[5]
-
 			   //	TASK_LOOK_ABOUT he1_pop[4] -1
 			   //	TASK_LOOK_ABOUT he1_pop[5] -1
-
-			  		TASK_CHAT_WITH_CHAR he1_pop[4] he1_pop[5]  true true //ped0 will lead the chatting
-			   		TASK_CHAT_WITH_CHAR he1_pop[5] he1_pop[4] false true //ped1 will follow ped0 at chatting
+				TASK_CHAT_WITH_CHAR he1_pop[temp_integer_1] he1_pop[temp_integer_2]  true true //ped0 will lead the chatting
+				TASK_CHAT_WITH_CHAR he1_pop[temp_integer_2] he1_pop[temp_integer_1] false true //ped1 will follow ped0 at chatting
 			ENDIF
-			ENDIF
+			temp_integer_1++
+			temp_integer_2++
+			ENDWHILE
 
-			
-			IF NOT IS_CHAR_DEAD he1_bystander[0]
-			IF NOT IS_CHAR_DEAD he1_bystander[1]
-				CLEAR_CHAR_TASKS he1_bystander[0]
-				CLEAR_CHAR_TASKS he1_bystander[1]
-
+			temp_integer_1 = 0
+			temp_integer_2 = 1
+			WHILE temp_integer_1 < 3
+			IF NOT IS_CHAR_DEAD he1_bystander[temp_integer_1]
+			AND NOT IS_CHAR_DEAD he1_bystander[temp_integer_2]
+				CLEAR_CHAR_TASKS he1_bystander[temp_integer_1]
+				CLEAR_CHAR_TASKS he1_bystander[temp_integer_2]
 				//TASK_LOOK_ABOUT he1_bystander[0] -1
 				//TASK_LOOK_ABOUT he1_bystander[1] -1
-
-
-
-				TASK_CHAT_WITH_CHAR he1_bystander[0] he1_bystander[1]  true true //ped0 will lead the chatting
-				TASK_CHAT_WITH_CHAR he1_bystander[1] he1_bystander[0] false true //ped1 will follow ped0 at chatting
-			ENDIF
-			ENDIF
-
-			IF NOT IS_CHAR_DEAD he1_bystander[2]
-			IF NOT IS_CHAR_DEAD he1_bystander[3]
-				CLEAR_CHAR_TASKS he1_bystander[2]
-				CLEAR_CHAR_TASKS he1_bystander[3]
-
 				//TASK_LOOK_ABOUT he1_bystander[2] -1
 				//TASK_LOOK_ABOUT he1_bystander[3] -1
-
-				
-			 	TASK_CHAT_WITH_CHAR he1_bystander[2] he1_bystander[3]  true true //ped0 will lead the chatting
-			 	TASK_CHAT_WITH_CHAR he1_bystander[3] he1_bystander[2] false true //ped1 will follow ped0 at chatting
+				TASK_CHAT_WITH_CHAR he1_bystander[temp_integer_1] he1_bystander[temp_integer_2]  true true //ped0 will lead the chatting
+				TASK_CHAT_WITH_CHAR he1_bystander[temp_integer_2] he1_bystander[temp_integer_1] false true //ped1 will follow ped0 at chatting
 			ENDIF
-			ENDIF
+			temp_integer_1++
+			temp_integer_2++
+			ENDWHILE
 
 
 			MARK_MODEL_AS_NO_LONGER_NEEDED wmybu
@@ -2406,18 +2346,7 @@ IF he1_progress = 20
 	
 	 IF IS_CONVERSATION_AT_NODE he1_recept1 HEQ4
 
-		//CLEAR_CONVERSATION
-		CLEAR_HELP
-		REMOVE_BLIP he1_receptB
-		REMOVE_BLIP he1_officesB
-   
-		//ADD_BLIP_FOR_COORD 346.9205 165.9382 1024.7812 he1_plansB
-		//CHANGE_BLIP_COLOUR he1_plansB YELLOW
-		he1_progress = 24
-		he1_convofix = 0
-
-		//SET_PLAYER_CONTROL player1 ON
-	   //	RESTORE_CAMERA
+		GOSUB he1_node_heq4
 	
 	ENDIF
 
@@ -2431,19 +2360,7 @@ IF he1_progress = 20
 	//IF IS_CONVERSATION_AT_NODE he1_recept1 HEIQ4
 	IF IS_CONVERSATION_AT_NODE he1_recept1 HEQ4c
 
-		//CLEAR_CONVERSATION
-		CLEAR_HELP
-		REMOVE_BLIP he1_receptB
-		REMOVE_BLIP he1_officesB
-		he1_convofix = 0
-
-		
-	   //	ADD_BLIP_FOR_COORD 346.9205 165.9382 1024.7812 he1_plansB
-		//CHANGE_BLIP_COLOUR he1_plansB YELLOW
-		he1_progress = 24
-		//SET_PLAYER_CONTROL player1 ON
-		//RESTORE_CAMERA
-
+		GOSUB he1_node_heq4
 	
 	ENDIF
 
@@ -2451,26 +2368,8 @@ IF he1_progress = 20
 
 
 	IF IS_CONVERSATION_AT_NODE he1_recept1 HEX1b
-	   //	CLEAR_CONVERSATION
-		//WAIT 4000
-		PRINT_HELP_FOREVER HEIH9
-		he1_attractattention = 1
-		he1_progress = 22
-		he1_convofix = 0
 
-		IF NOT IS_CHAR_DEAD he1_recept1
-			CLEAR_CHAR_TASKS he1_recept1
-			TASK_SIT_DOWN he1_recept1 10000
-			ADD_BLIP_FOR_CHAR he1_recept1 he1_receptB
-			CHANGE_BLIP_COLOUR he1_receptB BLUE
-
-
-			//SET_PLAYER_CONTROL player1 ON
-			//RESTORE_CAMERA
-
-		ENDIF 
-
-
+		GOSUB he1_node_hex1
 		
 	ENDIF
 
@@ -2480,50 +2379,15 @@ IF he1_progress = 20
 
 	//IF IS_CONVERSATION_AT_NODE he1_recept1 HEIQ5
 	IF IS_CONVERSATION_AT_NODE he1_recept1 HEQ5
-	   //	CLEAR_CONVERSATION
-		//WAIT 4000
-		PRINT_HELP_FOREVER HEIH9
-		he1_attractattention = 1
-		he1_progress = 22
-		he1_convofix = 0
 
-		IF NOT IS_CHAR_DEAD he1_recept1
-			CLEAR_CHAR_TASKS he1_recept1
-			TASK_SIT_DOWN he1_recept1 10000
-			ADD_BLIP_FOR_CHAR he1_recept1 he1_receptB
-			CHANGE_BLIP_COLOUR he1_receptB BLUE
-
-
-			//SET_PLAYER_CONTROL player1 ON
-			//RESTORE_CAMERA
-
-		ENDIF 
-
-
+		GOSUB he1_node_hex1
 		
 	ENDIF
 	
 	//IF IS_CONVERSATION_AT_NODE he1_recept1 HEIX1
 	IF IS_CONVERSATION_AT_NODE he1_recept1 HEX1
-	   	//CLEAR_CONVERSATION
-		//WAIT 4000
-		PRINT_HELP_FOREVER HEIH9
-		he1_attractattention = 1
-		he1_progress = 22
-		he1_convofix = 0
 
-
-		IF NOT IS_CHAR_DEAD he1_recept1
-			CLEAR_CHAR_TASKS he1_recept1
-			TASK_SIT_DOWN he1_recept1 10000
-			ADD_BLIP_FOR_CHAR he1_recept1 he1_receptB
-			CHANGE_BLIP_COLOUR he1_receptB BLUE
-
-
-			//SET_PLAYER_CONTROL player1 ON
-			//RESTORE_CAMERA
-
-		ENDIF 
+		GOSUB he1_node_hex1
 
 	ENDIF
 
@@ -2693,16 +2557,32 @@ IF he1_failconditions  = 1
 	IF he1_drillstarted = 0 
 		
 
+		temp_integer_1 = 0
+		WHILE temp_integer_1 < 3
+		IF NOT IS_CHAR_DEAD he1_guard[temp_integer_1]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[temp_integer_1] scplayer
+				CLEAR_CHAR_TASKS he1_guard[temp_integer_1]
+				TASK_KILL_CHAR_ON_FOOT he1_guard[temp_integer_1] scplayer
+				//WAIT 2000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+			ENDIF
+		ENDIF
+		temp_integer_1++
+		ENDWHILE
+
+
 		IF NOT IS_CHAR_DEAD he1_guard[0] 
 			IF he1_progress < 40
-			IF he1_stairprompt = 0
-			IF he1_convofix = 0
+			AND he1_stairprompt = 0
+			AND he1_convofix = 0
 			IF TIMERA > 2000
 				IF he1_weaponaimed = 0
 				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[0]
 				TASK_TURN_CHAR_TO_FACE_CHAR he1_guard[0] scplayer
-				IF NOT IS_CHAR_DEAD he1_guard[1]
-					IF NOT IS_CHAR_DEAD he1_guard[2]
+					IF NOT IS_CHAR_DEAD he1_guard[1]
+					AND NOT IS_CHAR_DEAD he1_guard[2]
 						CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[1]
 						CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[2]
 						TASK_TURN_CHAR_TO_FACE_CHAR he1_guard[1] scplayer
@@ -2711,68 +2591,22 @@ IF he1_failconditions  = 1
 						he1_checkchat = 1
 					ENDIF
 				ENDIF
-				ENDIF
-			ENDIF
-			ENDIF
 			ENDIF
 			ENDIF
 
 
 
 
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[0] scplayer
-				CLEAR_CHAR_TASKS he1_guard[0]
-				TASK_KILL_CHAR_ON_FOOT he1_guard[0] scplayer
-				//WAIT 2000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-			ENDIF
 
 			IF he1_hideweaponcheck = 0
-			IF HAS_CHAR_SPOTTED_CHAR he1_guard[0] scplayer
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
-			   //IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
-					CLEAR_PRINTS
-					CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					he1_audio_underway = 0
-					he1_audio_playing = 0
-
-					
-			   		he1_counter = 7
-			   		//PRINT_NOW HEI1_44 4000 1	
-					TIMERB = 0
-					he1_hideweaponcheck = 1
-			   //	ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-
-			ENDIF
+			AND HAS_CHAR_SPOTTED_CHAR he1_guard[0] scplayer
+				GOSUB he1_weaponcheck
 			ENDIF
 
 			IF he1_weaponaimed = 1 
-				IF he1_gaim[0] = 0
-				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[0]
-				TASK_STAY_IN_SAME_PLACE he1_guard[0] TRUE
-				TASK_AIM_GUN_AT_CHAR he1_guard[0] scplayer 5000
-				//he1_weaponaimed = 2
-				he1_gaim[0] = 1
+				temp_integer_1 = 0
+				IF he1_gaim[temp_integer_1] = 0
+					GOSUB he1_weaponaim
 				ENDIF
 			ENDIF
 
@@ -2781,61 +2615,16 @@ IF he1_failconditions  = 1
 		
 		IF NOT IS_CHAR_DEAD he1_guard[1]
    
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[1] scplayer
-				CLEAR_CHAR_TASKS he1_guard[1]
-				TASK_KILL_CHAR_ON_FOOT he1_guard[1] scplayer
-				//WAIT 2000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-			ENDIF
  
 
 			IF he1_hideweaponcheck = 0
-			IF HAS_CHAR_SPOTTED_CHAR he1_guard[1] scplayer
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
-			  // IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
-
-					CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					CLEAR_PRINTS
-					he1_audio_underway = 0
-					he1_audio_playing = 0
-
-					he1_counter = 7
-			    	//PRINT_NOW HEI1_44 4000 1	
-					TIMERB = 0
-					he1_hideweaponcheck = 1
-				//ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-			ENDIF
+			AND HAS_CHAR_SPOTTED_CHAR he1_guard[1] scplayer
+				GOSUB he1_weaponcheck
 			ENDIF
 
 			IF he1_weaponaimed = 1
-				IF he1_gaim[1] = 0
-				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[1]
-				TASK_STAY_IN_SAME_PLACE he1_guard[1] TRUE
-
-				TASK_AIM_GUN_AT_CHAR he1_guard[1] scplayer 5000
-				//he1_weaponaimed = 2
-				he1_gaim[1] = 1
-				ENDIF
+				temp_integer_1 = 1
+				GOSUB he1_weaponaim
 			ENDIF
 
 		ENDIF
@@ -2849,19 +2638,11 @@ IF he1_failconditions  = 1
 			ENDIF
 		 */
 			
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[2] scplayer
-				CLEAR_CHAR_TASKS he1_guard[2]
-				TASK_KILL_CHAR_ON_FOOT he1_guard[2] scplayer
-				//WAIT 2000
-				PRINT_NOW HEI1_50 4000 1
-			  	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-			ENDIF
 			
 		   //	IF HAS_CHAR_SPOTTED_CHAR he1_guard[2] scplayer
 				
 				IF he1_conversationOK = 1
-				IF he1_cameracheck = 0
+				AND he1_cameracheck = 0
 
 				//Critical Area here!!!!!!!!!!!!!!!!!  Cues cutscene!!!!!!!!!!!!!!!!!!!!
 				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -2875,7 +2656,6 @@ IF he1_failconditions  = 1
 						ENDIF
 						
 					ENDIF
-				ENDIF
 				ENDIF
 
 			 //ENDIF
@@ -2897,57 +2677,15 @@ IF he1_failconditions  = 1
 			
 			IF he1_hideweaponcheck = 0
    		   //	IF HAS_CHAR_SPOTTED_CHAR he1_guard[2] scplayer
-			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE   // dodgy!
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
-			   //IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
-			   //IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
-			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
-			    IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
-
-
-					CLEAR_PRINTS
-					CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					he1_audio_underway = 0
-					he1_audio_playing = 0
-					IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
-					he1_counter = 10
-					ELSE
-					he1_counter = 7
-					ENDIF
-
-			    	//PRINT_NOW HEI1_48 4000 1	
-					TIMERB = 0
-					he1_hideweaponcheck = 1
-					he1_level3 = 1
-				//ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
-				ENDIF
+			AND LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE   // dodgy!
 			
-				ENDIF
+				GOSUB he1_weaponcheck
 
-			ENDIF
 			ENDIF
 	 
 			IF he1_weaponaimed = 1
-				IF he1_gaim[2] = 0
-				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[2]
-				TASK_STAY_IN_SAME_PLACE he1_guard[2] TRUE
-
-				TASK_AIM_GUN_AT_CHAR he1_guard[2] scplayer 5000
-				//he1_weaponaimed = 2
-				he1_gaim[2] = 1
-				ENDIF
+				temp_integer_1 = 2
+				GOSUB he1_weaponaim
 			ENDIF
 
 
@@ -3088,181 +2826,58 @@ IF he1_failconditions  = 1
 			ENDIF
 
 
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
-		 		he1_hideweaponcheck = 0
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-			 	CLEAR_MISSION_AUDIO he1_alt_slot
-				CLEAR_MISSION_AUDIO he1_audio_slot
-				CLEAR_PRINTS
-				he1_audio_underway = 0
-				he1_audio_playing = 0
-
-				he1_counter = 8
-				//PRINT_NOW HEI1_45 4000 1
-			ENDIF
-
-			
+			temp_integer_1 = 0
+			WHILE temp_integer_1 < 9
+			SWITCH temp_integer_1
+				CASE 0
+				temp_integer_2 = WEAPONTYPE_CAMERA
+				BREAK
+				CASE 1
+				temp_integer_2 = WEAPONTYPE_UNARMED
+				BREAK
+				CASE 2
+				temp_integer_2 = WEAPONTYPE_BRASSKNUCKLE
+				BREAK
+				CASE 3
+				temp_integer_2 = WEAPONTYPE_FLOWERS
+				BREAK
+				CASE 4
+				temp_integer_2 = WEAPONTYPE_DILDO1
+				BREAK
+				CASE 5
+				temp_integer_2 = WEAPONTYPE_DILDO2
+				BREAK
+				CASE 6
+				temp_integer_2 = WEAPONTYPE_VIBE1
+				BREAK
+				CASE 7
+				temp_integer_2 = WEAPONTYPE_VIBE2
+				BREAK
+				CASE 8
+				temp_integer_2 = WEAPONTYPE_PARACHUTE
+				BREAK
+			ENDSWITCH
 			IF NOT he1_level3 = 1
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
-				he1_hideweaponcheck	= 0
-				CLEAR_MISSION_AUDIO he1_alt_slot
-				CLEAR_MISSION_AUDIO he1_audio_slot
-				CLEAR_PRINTS
-				he1_audio_underway = 0
-				he1_audio_playing = 0
-				he1_counter = 8
-				//PRINT_NOW HEI1_45 4000 1
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-		  	ENDIF
+			AND NOT temp_integer_1 = 0
+				IF IS_CURRENT_CHAR_WEAPON scplayer temp_integer_2
+					he1_hideweaponcheck	= 0
+					CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					CLEAR_PRINTS
+					he1_audio_underway = 0
+					he1_audio_playing = 0
+					he1_counter = 8
+					//PRINT_NOW HEI1_45 4000 1
+					he1_weaponaimed = 0
+					he1_gaim[0] = 0
+					he1_gaim[1] = 0
+					he1_gaim[2] = 0
+					he1_level3 = 0
+			  	ENDIF
 			ENDIF
-			
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
-				he1_hideweaponcheck	= 0
-				CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					CLEAR_PRINTS
-					he1_audio_underway = 0
-				he1_audio_playing = 0
+			temp_integer_1++
+			ENDWHILE
 
-				he1_counter = 8
-				//PRINT_NOW HEI1_45 4000 1
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-		  	ENDIF
-
-//			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
-//		 		he1_hideweaponcheck = 0
-//				he1_weaponaimed = 0
-//				he1_gaim[0] = 0
-//				he1_gaim[1] = 0
-//				he1_gaim[2] = 0
-//				he1_level3 = 0
-//				CLEAR_MISSION_AUDIO he1_alt_slot
-//				CLEAR_MISSION_AUDIO he1_audio_slot
-//				CLEAR_PRINTS
-//				he1_audio_underway = 0
-//				he1_audio_playing = 0
-//
-//				he1_counter = 8
-//				//PRINT_NOW HEI1_45 4000 1
-//			ENDIF
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
-				he1_hideweaponcheck	= 0
-				CLEAR_MISSION_AUDIO he1_alt_slot
-				CLEAR_MISSION_AUDIO he1_audio_slot
-				CLEAR_PRINTS
-				he1_audio_underway = 0
-				he1_audio_playing = 0
-
-				he1_counter = 8
-				//PRINT_NOW HEI1_45 4000 1
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-		  	ENDIF
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
-				he1_hideweaponcheck	= 0
-			  	CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					CLEAR_PRINTS
-					he1_audio_underway = 0
-				he1_audio_playing = 0
-
-			   	he1_counter = 8
-			   //	PRINT_NOW HEI1_45 4000 1
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-		  	ENDIF
-
-				IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
-		 		he1_hideweaponcheck = 0
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-				CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					CLEAR_PRINTS
-					he1_audio_underway = 0
-				he1_audio_playing = 0
-
-				he1_counter = 8
-				//PRINT_NOW HEI1_45 4000 1
-			ENDIF
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
-				he1_hideweaponcheck	= 0
-				CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					CLEAR_PRINTS
-					he1_audio_underway = 0
-				he1_audio_playing = 0
-
-				he1_counter = 8
-				//PRINT_NOW HEI1_45 4000 1
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-		  	ENDIF
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
-				he1_hideweaponcheck	= 0
-			   CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					CLEAR_PRINTS
-					he1_audio_underway = 0
-				he1_audio_playing = 0
-
-			   	he1_counter = 8
-			   //	PRINT_NOW HEI1_45 4000 1
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-		  	ENDIF
-			
-			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
-				he1_hideweaponcheck	= 0
-				CLEAR_MISSION_AUDIO he1_alt_slot
-					CLEAR_MISSION_AUDIO he1_audio_slot
-					CLEAR_PRINTS
-					he1_audio_underway = 0
-				he1_audio_playing = 0
-
-				he1_counter = 8
-				//PRINT_NOW HEI1_45 4000 1
-				he1_weaponaimed = 0
-				he1_gaim[0] = 0
-				he1_gaim[1] = 0
-				he1_gaim[2] = 0
-				he1_level3 = 0
-
-		  	ENDIF
 
 			IF IS_CHAR_SHOOTING scplayer
 				//WAIT 1000
@@ -3276,193 +2891,53 @@ IF he1_failconditions  = 1
 		ENDIF
 
 		
-		IF DOES_CHAR_EXIST he1_pop[0]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[0] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[0]
-				CLEAR_CHAR_TASKS he1_pop[0]
-		   		TASK_SMART_FLEE_CHAR he1_pop[0] scplayer 100.0 -1
+		temp_integer_1 = 0
+		WHILE temp_integer_1 < 14
+			SWITCH temp_integer_1
+			CASE 0
+			CASE 1
+			CASE 2
+			CASE 3
+			CASE 4
+			CASE 5
+			CASE 6
+			CASE 7
+			CASE 8
+			he1_char_name = he1_pop[temp_integer_1]
+			BREAK
+			CASE 9
+			he1_char_name = he1_recept1
+			BREAK
+			CASE 10
+			he1_char_name = he1_bystander[0]
+			BREAK
+			CASE 11
+			he1_char_name = he1_bystander[1]
+			BREAK
+			CASE 12
+			he1_char_name = he1_bystander[2]
+			BREAK
+			CASE 13
+			he1_char_name = he1_bystander[3]
+			BREAK
+		ENDSWITCH
+		IF DOES_CHAR_EXIST he1_char_name
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_char_name scplayer
+				IF NOT IS_CHAR_DEAD he1_char_name
+				CLEAR_CHAR_TASKS he1_char_name
+		   		TASK_SMART_FLEE_CHAR he1_char_name scplayer 100.0 -1
 				//WAIT 1000
+				IF temp_integer > 9
+					GOSUB he1_guardresponse
+				ENDIF
 				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
+				GOSUB he1_kickout
 				GOTO mission_heist1_failed
 				ENDIF
 			ENDIF
 		ENDIF
-
-		IF DOES_CHAR_EXIST he1_pop[1]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[1] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[1]
-				CLEAR_CHAR_TASKS he1_pop[1]
-		   		TASK_SMART_FLEE_CHAR he1_pop[1] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-		
-		IF DOES_CHAR_EXIST he1_pop[2]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[2] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[2]
-				CLEAR_CHAR_TASKS he1_pop[2]
-		   		TASK_SMART_FLEE_CHAR he1_pop[2] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			  	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_pop[3]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[3] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[3]
-				CLEAR_CHAR_TASKS he1_pop[3]
-		   		TASK_SMART_FLEE_CHAR he1_pop[3] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-			IF DOES_CHAR_EXIST he1_pop[4]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[4] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[4]
-				CLEAR_CHAR_TASKS he1_pop[4]
-		   		TASK_SMART_FLEE_CHAR he1_pop[4] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_pop[5]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[5] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[5]
-				CLEAR_CHAR_TASKS he1_pop[5]
-		   		TASK_SMART_FLEE_CHAR he1_pop[5] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_pop[6]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[6] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[6]
-				CLEAR_CHAR_TASKS he1_pop[6]
-		   		TASK_SMART_FLEE_CHAR he1_pop[6] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			 	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-			IF DOES_CHAR_EXIST he1_pop[7]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[7] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[7]
-				CLEAR_CHAR_TASKS he1_pop[7]
-		   		TASK_SMART_FLEE_CHAR he1_pop[7] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_pop[8]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[8] scplayer
-				IF NOT IS_CHAR_DEAD he1_pop[8]
-				CLEAR_CHAR_TASKS he1_pop[8]
-		   		TASK_SMART_FLEE_CHAR he1_pop[8] scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-				gosub he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_recept1
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_recept1 scplayer
-				IF NOT IS_CHAR_DEAD he1_recept1
-				CLEAR_CHAR_TASKS he1_recept1
-		   		TASK_SMART_FLEE_CHAR he1_recept1 scplayer 100.0 -1
-				//WAIT 1000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_bystander[0]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[0] scplayer
-				IF NOT IS_CHAR_DEAD he1_bystander[0]
-				CLEAR_CHAR_TASKS he1_bystander[0]
-		   		TASK_SMART_FLEE_CHAR he1_bystander[0] scplayer 100.0 -1
-				//WAIT 1000
-				GOSUB he1_guardresponse
-				PRINT_NOW HEI1_50 4000 1
-			   GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_bystander[1]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[1] scplayer
-				IF NOT IS_CHAR_DEAD he1_bystander[1]
-				CLEAR_CHAR_TASKS he1_bystander[1]
-		   		TASK_SMART_FLEE_CHAR he1_bystander[1] scplayer 100.0 -1
-				//WAIT 1000
-				GOSUB he1_guardresponse
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
-
-
-		IF DOES_CHAR_EXIST he1_bystander[2]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[2] scplayer
-				IF NOT IS_CHAR_DEAD he1_bystander[2]
-				CLEAR_CHAR_TASKS he1_bystander[2]
-		   		TASK_SMART_FLEE_CHAR he1_bystander[2] scplayer 100.0 -1
-				//WAIT 1000
-				GOSUB he1_guardresponse
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-
-			
-				
-		ENDIF
-
-		IF DOES_CHAR_EXIST he1_bystander[3]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[3] scplayer
-				IF NOT IS_CHAR_DEAD he1_bystander[3]
-				CLEAR_CHAR_TASKS he1_bystander[3]
-		   		TASK_SMART_FLEE_CHAR he1_bystander[3] scplayer 100.0 -1
-				//WAIT 1000
-				GOSUB he1_guardresponse
-				PRINT_NOW HEI1_50 4000 1
-			  	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-				ENDIF
-			ENDIF
-		ENDIF
+		temp_integer_1++
+		ENDWHILE
 
 
 
@@ -3604,102 +3079,41 @@ IF he1_progress > 9
 	IF he1_progress < 45
 
 			
-			IF NOT IS_CHAR_DEAD he1_pop[0]
-			IF NOT IS_CHAR_DEAD he1_pop[1]
-				GET_SCRIPT_TASK_STATUS he1_pop[0] TASK_CHAT_WITH_CHAR task_state
+			temp_integer_1 = 0
+			temp_integer_2 = 1
+			WHILE temp_integer_1 < 7
+			IF NOT IS_CHAR_DEAD he1_pop[temp_integer_1]
+			AND NOT IS_CHAR_DEAD he1_pop[temp_integer_2]
+				GET_SCRIPT_TASK_STATUS he1_pop[temp_integer_1] TASK_CHAT_WITH_CHAR task_state
 				IF task_state = FINISHED_TASK
-				GET_SCRIPT_TASK_STATUS he1_pop[1] TASK_CHAT_WITH_CHAR task_state
+				GET_SCRIPT_TASK_STATUS he1_pop[temp_integer_2] TASK_CHAT_WITH_CHAR task_state
 				IF task_state = FINISHED_TASK
 
-					CLEAR_CHAR_TASKS he1_pop[0]
-					CLEAR_CHAR_TASKS he1_pop[1]
-						
+					CLEAR_CHAR_TASKS he1_pop[temp_integer_1]
+					CLEAR_CHAR_TASKS he1_pop[temp_integer_2]
 				   //	TASK_LOOK_ABOUT he1_pop[0] -1
 				   //	TASK_LOOK_ABOUT he1_pop[1] -1
-
-				   	TASK_CHAT_WITH_CHAR he1_pop[0] he1_pop[1]  true true //ped0 will lead the chatting
-				   	TASK_CHAT_WITH_CHAR he1_pop[1] he1_pop[0] false true //ped1 will follow ped0 at chatting
-				ENDIF
-				ENDIF
-			ENDIF
-			ENDIF
-			
-
-			
-			IF NOT IS_CHAR_DEAD he1_pop[2]
-			IF NOT IS_CHAR_DEAD he1_pop[3]
-				GET_SCRIPT_TASK_STATUS he1_pop[2] TASK_CHAT_WITH_CHAR task_state
-				IF task_state = FINISHED_TASK
-				GET_SCRIPT_TASK_STATUS he1_pop[3] TASK_CHAT_WITH_CHAR task_state
-				IF task_state = FINISHED_TASK
-
-					CLEAR_CHAR_TASKS he1_pop[2]
-					CLEAR_CHAR_TASKS he1_pop[3]
-
 				//TASK_WANDER_COP he1_pop[2]
 				//TASK_WANDER_COP he1_pop[3]
 				   //	TASK_LOOK_ABOUT he1_pop[2] -1
 				//TASK_LOOK_ABOUT he1_pop[3] -1
-
-				
-			  	   	TASK_CHAT_WITH_CHAR he1_pop[2] he1_pop[3]  true true //ped0 will lead the chatting
-			   	   	TASK_CHAT_WITH_CHAR he1_pop[3] he1_pop[2] false true //ped1 will follow ped0 at chatting
-				ENDIF
-				ENDIF
-			ENDIF
-			ENDIF
-
-			IF NOT IS_CHAR_DEAD he1_pop[4]
-			IF NOT IS_CHAR_DEAD he1_pop[5]
-				GET_SCRIPT_TASK_STATUS he1_pop[4] TASK_CHAT_WITH_CHAR task_state
-				IF task_state = FINISHED_TASK
-				GET_SCRIPT_TASK_STATUS he1_pop[5] TASK_CHAT_WITH_CHAR task_state
-				IF task_state = FINISHED_TASK
-
-					CLEAR_CHAR_TASKS he1_pop[4]
-					CLEAR_CHAR_TASKS he1_pop[5]
-
 				//TASK_WANDER_CRIMINAL he1_pop[4]
 				//TASK_WANDER_CRIMINAL he1_pop[5]
 				   //	TASK_LOOK_ABOUT he1_pop[4] -1
 				   //	TASK_LOOK_ABOUT he1_pop[5] -1
-				
-
-
-			  	   TASK_CHAT_WITH_CHAR he1_pop[4] he1_pop[5]  true true //ped0 will lead the chatting
-			   	   	TASK_CHAT_WITH_CHAR he1_pop[5] he1_pop[4] false true //ped1 will follow ped0 at chatting
-				ENDIF
-				ENDIF
-			ENDIF
-			ENDIF
-
-
-			IF NOT IS_CHAR_DEAD he1_pop[6]
-			IF NOT IS_CHAR_DEAD he1_pop[7]
-				GET_SCRIPT_TASK_STATUS he1_pop[6] TASK_CHAT_WITH_CHAR task_state
-				IF task_state = FINISHED_TASK
-				GET_SCRIPT_TASK_STATUS he1_pop[7] TASK_CHAT_WITH_CHAR task_state
-				IF task_state = FINISHED_TASK
-
-					CLEAR_CHAR_TASKS he1_pop[6]
-					CLEAR_CHAR_TASKS he1_pop[7]
-
 				   //	TASK_LOOK_ABOUT he1_pop[6] -1
 				   //	TASK_LOOK_ABOUT he1_pop[7] -1
-
-
-				//TASK_WANDER_CRIMINAL he1_pop[4]
-				//TASK_WANDER_CRIMINAL he1_pop[5]
-				
-			  	   	TASK_CHAT_WITH_CHAR he1_pop[6] he1_pop[7]  true true //ped0 will lead the chatting
-			   	   	TASK_CHAT_WITH_CHAR he1_pop[7] he1_pop[6] false true //ped1 will follow ped0 at chatting
+				//TASK_WANDER_CRIMINAL he1_pop[6]
+				//TASK_WANDER_CRIMINAL he1_pop[7]
+				   	TASK_CHAT_WITH_CHAR he1_pop[temp_integer_1] he1_pop[temp_integer_2]  true true //ped0 will lead the chatting
+				   	TASK_CHAT_WITH_CHAR he1_pop[temp_integer_2] he1_pop[temp_integer_1] false true //ped1 will follow ped0 at chatting
 				ENDIF
 				ENDIF
 			ENDIF
-			ENDIF
+			temp_integer_1++
+			temp_integer_2++
+			ENDWHILE
 
-
-		   
 	
 		he1_checkchat = 0
 	
@@ -3714,47 +3128,14 @@ ENDIF
 
 IF he1_progress = 45
 
-		IF NOT IS_CHAR_DEAD he1_pop[2]
-	   		   CLEAR_CHAR_TASKS he1_pop[2]
-			  // SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_bystander[3] 150.0
-	   		   TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[2] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
-	   	ENDIF
-
-		IF NOT IS_CHAR_DEAD he1_pop[4]
-	   		   CLEAR_CHAR_TASKS he1_pop[4]
-			  // SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_bystander[3] 150.0
-	   		   TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[4] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
-	   	ENDIF
-
-	   	IF NOT IS_CHAR_DEAD he1_pop[3]
-	   		   CLEAR_CHAR_TASKS he1_pop[3]
-			  // SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_bystander[3] 150.0
-	   		   TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[3] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
-	   	ENDIF
-
-		IF NOT IS_CHAR_DEAD he1_pop[5]
-	   		   CLEAR_CHAR_TASKS he1_pop[5]
-			  // SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_bystander[3] 150.0
-	   		   TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[5] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
-	   	ENDIF
-
-		IF NOT IS_CHAR_DEAD he1_pop[6]
-	   		   CLEAR_CHAR_TASKS he1_pop[6]
-			  // SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_bystander[3] 150.0
-	   		   TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[6] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
-	   	ENDIF
-
-	   	IF NOT IS_CHAR_DEAD he1_pop[7]
-	   		   CLEAR_CHAR_TASKS he1_pop[7]
-			  // SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_bystander[3] 150.0
-	   		   TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[7] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
-	   	ENDIF
-
-		IF NOT IS_CHAR_DEAD he1_pop[8]
-	   		   CLEAR_CHAR_TASKS he1_pop[8]
-			  // SET_FOLLOW_NODE_THRESHOLD_DISTANCE he1_bystander[3] 150.0
-	   		   TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[8] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
-	   	ENDIF
+		temp_integer_1 = 2
+		WHILE temp_integer_1 < 9
+			IF NOT IS_CHAR_DEAD he1_pop[temp_integer_1]
+				CLEAR_CHAR_TASKS he1_pop[temp_integer_1]
+				TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[temp_integer_1] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
+			ENDIF
+		temp_integer_1++
+		ENDWHILE
 
 
 		IF NOT IS_CHAR_DEAD he1_bystander[3]
@@ -4061,46 +3442,21 @@ IF he1_progress = 60
 
 
 	IF he1_evacuation = 1
-			
-		IF he1_byhit[3] = 0
-			IF NOT IS_CHAR_DEAD he1_bystander[3]
-			   	IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[3] scplayer
-	   		   	CLEAR_CHAR_TASKS he1_bystander[3]
-		     	TASK_SMART_FLEE_CHAR he1_bystander[3] scplayer 100.0 -1	
-				he1_byhit[3] = 1
-				ENDIF
+
+	he1_TempInt = 3
+	WHILE he1_TempInt >= 0
+	IF he1_byhit[he1_TempInt] = 0
+		IF NOT IS_CHAR_DEAD he1_bystander[he1_TempInt]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[he1_TempInt] scplayer
+			CLEAR_CHAR_TASKS he1_bystander[he1_TempInt]
+			TASK_SMART_FLEE_CHAR he1_bystander[he1_TempInt] scplayer 100.0 -1	
+			he1_byhit[he1_TempInt] = 1
 			ENDIF
 		ENDIF
-		IF he1_byhit[2] = 0
-			IF NOT IS_CHAR_DEAD he1_bystander[2]
-				IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[2] scplayer
-
-	   		   	CLEAR_CHAR_TASKS he1_bystander[2]
-		     	TASK_SMART_FLEE_CHAR he1_bystander[2] scplayer 100.0 -1	
-				he1_byhit[2] = 1
-				ENDIF
-		    ENDIF
-		ENDIF
-		IF he1_byhit[1] = 0
-			IF NOT IS_CHAR_DEAD he1_bystander[1]
-				IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[1] scplayer
-
-	   		   	CLEAR_CHAR_TASKS he1_bystander[1]
-		     	TASK_SMART_FLEE_CHAR he1_bystander[1] scplayer 100.0 -1	
-				he1_byhit[1] = 1
-				ENDIF
-		    ENDIF
-		ENDIF
-		IF he1_byhit[0] = 0
-			IF NOT IS_CHAR_DEAD he1_bystander[0]
-				IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[0] scplayer
-
-		   		CLEAR_CHAR_TASKS he1_bystander[0]
-		     	TASK_SMART_FLEE_CHAR he1_bystander[0] scplayer 100.0 -1	
-				he1_byhit[0] = 1
-				ENDIF
-		    ENDIF
-		ENDIF
+	ENDIF
+	he1_TempInt--
+	ENDWHILE
+		
 		
 
 	ENDIF
@@ -4846,22 +4202,15 @@ IF he1_finalsequence = 15
 	timera = 0
 	CLEAR_CHAR_TASKS scplayer
 	
-	IF IS_CHAR_IN_ANY_CAR scplayer
    		OPEN_SEQUENCE_TASK he1_playerseq
-   			TASK_LEAVE_ANY_CAR -1		
-			TASK_GO_STRAIGHT_TO_COORD -1 1913.6818 962.0125 9.8203 PEDMOVE_WALK -1
-		CLOSE_SEQUENCE_TASK he1_playerseq
-		PERFORM_SEQUENCE_TASK scplayer he1_playerseq
-		CLEAR_SEQUENCE_TASK he1_playerseq
-	ELSE
-		OPEN_SEQUENCE_TASK he1_playerseq
-   		 
+			IF IS_CHAR_IN_ANY_CAR scplayer
+   				TASK_LEAVE_ANY_CAR -1		
+			ENDIF
 			TASK_GO_STRAIGHT_TO_COORD -1 1913.6818 962.0125 9.8203 PEDMOVE_WALK -1
 		CLOSE_SEQUENCE_TASK he1_playerseq
 		PERFORM_SEQUENCE_TASK scplayer he1_playerseq
 		CLEAR_SEQUENCE_TASK he1_playerseq
 
-	ENDIF
 
 ENDIF
 
