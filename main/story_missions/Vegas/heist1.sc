@@ -4393,6 +4393,82 @@ ENDIF
 
 GOTO heist1_main_mission_loop
 
+// FIXEDGROVE: START
+he1_node_heq4:
+		//CLEAR_CONVERSATION
+		CLEAR_HELP
+		REMOVE_BLIP he1_receptB
+		REMOVE_BLIP he1_officesB
+		//ADD_BLIP_FOR_COORD 346.9205 165.9382 1024.7812 he1_plansB
+		//CHANGE_BLIP_COLOUR he1_plansB YELLOW
+		he1_progress = 24
+		he1_convofix = 0
+		//SET_PLAYER_CONTROL player1 ON
+		//RESTORE_CAMERA
+RETURN
+
+he1_node_hex1:
+	IF IS_CONVERSATION_AT_NODE he1_recept1 HEX1
+	   	//CLEAR_CONVERSATION
+		//WAIT 4000
+		PRINT_HELP_FOREVER HEIH9
+		he1_attractattention = 1
+		he1_progress = 22
+		he1_convofix = 0
+		IF NOT IS_CHAR_DEAD he1_recept1
+			CLEAR_CHAR_TASKS he1_recept1
+			TASK_SIT_DOWN he1_recept1 10000
+			ADD_BLIP_FOR_CHAR he1_recept1 he1_receptB
+			CHANGE_BLIP_COLOUR he1_receptB BLUE
+			//SET_PLAYER_CONTROL player1 ON
+			//RESTORE_CAMERA
+		ENDIF 
+	ENDIF
+RETURN
+
+he1_weaponcheck:
+	IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
+	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
+	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
+	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
+	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
+		IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
+		AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
+			IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+			CLEAR_PRINTS
+			CLEAR_MISSION_AUDIO he1_alt_slot
+			CLEAR_MISSION_AUDIO he1_audio_slot
+			he1_audio_underway = 0
+			he1_audio_playing = 0
+			//PRINT_NOW HEI1_48 4000 1	
+			TIMERB = 0
+			he1_hideweaponcheck = 1
+			he1_counter = 7
+			ELSE
+				IF NOT IS_CHAR_DEAD he1_guard[2]
+					IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE
+						he1_counter = 10
+					ENDIF
+				ENDIF
+			ENDIF
+			IF NOT IS_CHAR_DEAD he1_guard[2]
+				IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE
+					he1_level3 = 1
+				ENDIF
+			ENDIF
+		ENDIF
+	ENDIF
+RETURN
+
+he1_weaponaim:
+	CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[temp_integer_1]
+	TASK_STAY_IN_SAME_PLACE he1_guard[temp_integer_1] TRUE
+	TASK_AIM_GUN_AT_CHAR he1_guard[temp_integer_1] scplayer 5000
+	//he1_weaponaimed = 2
+	he1_gaim[temp_integer_1] = 1
+RETURN
+// FIXEDGROVE: END
 
 he1_guardresponse:
 IF NOT IS_CHAR_DEAD he1_guard[2]
