@@ -2927,7 +2927,7 @@ IF he1_failconditions  = 1
 				CLEAR_CHAR_TASKS he1_char_name
 		   		TASK_SMART_FLEE_CHAR he1_char_name scplayer 100.0 -1
 				//WAIT 1000
-				IF temp_integer > 9
+				IF temp_integer_1 > 9
 					GOSUB he1_guardresponse
 				ENDIF
 				PRINT_NOW HEI1_50 4000 1
@@ -4408,7 +4408,6 @@ he1_node_heq4:
 RETURN
 
 he1_node_hex1:
-	IF IS_CONVERSATION_AT_NODE he1_recept1 HEX1
 	   	//CLEAR_CONVERSATION
 		//WAIT 4000
 		PRINT_HELP_FOREVER HEIH9
@@ -4423,7 +4422,6 @@ he1_node_hex1:
 			//SET_PLAYER_CONTROL player1 ON
 			//RESTORE_CAMERA
 		ENDIF 
-	ENDIF
 RETURN
 
 he1_weaponcheck:
@@ -4435,7 +4433,7 @@ he1_weaponcheck:
 	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
 		IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
 		AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
-			IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+		IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
 			CLEAR_PRINTS
 			CLEAR_MISSION_AUDIO he1_alt_slot
 			CLEAR_MISSION_AUDIO he1_audio_slot
@@ -4445,13 +4443,13 @@ he1_weaponcheck:
 			TIMERB = 0
 			he1_hideweaponcheck = 1
 			he1_counter = 7
-			ELSE
-				IF NOT IS_CHAR_DEAD he1_guard[2]
-					IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE
-						he1_counter = 10
-					ENDIF
+		ELSE
+			IF NOT IS_CHAR_DEAD he1_guard[2]
+				IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE
+					he1_counter = 10
 				ENDIF
 			ENDIF
+		ENDIF
 			IF NOT IS_CHAR_DEAD he1_guard[2]
 				IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE
 					he1_level3 = 1
