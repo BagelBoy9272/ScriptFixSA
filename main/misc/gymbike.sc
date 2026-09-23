@@ -796,7 +796,7 @@ IF startexbike_flag = 1
 					INCREMENT_INT_STAT DIST_EXERCISE_BIKE distanceon_bike
                     bike_longest = TIMERB
                     bike_longest = bike_longest / 1000
-                    INCREMENT_INT_STAT LONGEST_EXERCISE_BIKE_TIME bike_longest
+                    REGISTER_INT_STAT LONGEST_EXERCISE_BIKE_TIME bike_longest // FIXEDGROVE: register instead of increment
 
 					IF NOT IS_CHAR_DEAD scplayer
                     	TASK_PLAY_ANIM scplayer gym_bike_getoff GYMNASIUM 4.0 FALSE FALSE FALSE FALSE -1

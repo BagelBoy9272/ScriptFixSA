@@ -477,6 +477,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed 'Valet' triggering two mission passed tunes
 - Fixed phone ringing immediately after 'Valet'
 - Fixed exercise bike exit animation not playing
+- Fixed 'longest time on threadmill/gymbike' stats listing the total cumulative time spent on those objects instead of the longest session
 - Fixed boxers inside the LS gym standing still after fighting the instructor
 - Fixed bench press power bar draining significantly faster than intended due to a PC port typo
 - Fixed flawed delta-time scaling in gym equipment from the PC port, restoring intended resistance and drain rates
