@@ -2437,6 +2437,7 @@ LOWR_m_stage_6:
 				current_wager *= 2
 				PRINT_WITH_NUMBER_BIG ( WINNER ) current_wager 5000 1 //"Mission Passed!"
 				ADD_SCORE player1 current_wager
+				SET_PLAYER_MOOD PLAYER1 MOOD_WR 180000 // FIXEDGROVE: change mood to wisecracking for 3 minutes
 				m_passed = 1
 			ELSE
 				PRINT_NOW LOW_33 5000 1 // you failed the lowrider challenge

@@ -555,6 +555,8 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Menus won't reset the highlighted row when selecting an item
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Enabled ambient valet from the start of the game, and restored it for LS and LV (though you can't work there)
+- Changed player's mood to 'wisecracking' after winning in gambling, lowrider, pool or coffee
+- Reused player's casino winning voicelines for winning in pool
 - Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
 - Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy

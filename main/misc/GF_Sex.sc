@@ -350,6 +350,12 @@ GF_Sex_State2:
 			SET_PLAYER_CONTROL player1 ON 		
 			SET_EVERYONE_IGNORE_PLAYER player1 FALSE			 						
 
+			// FIXEDGROVE: START - change mood to wisecracking for 6 minutes
+			IF IS_BIT_SET iDateReport SEX_WAS_GOOD
+				SET_PLAYER_MOOD PLAYER1 MOOD_WR 360000
+			ENDIF
+			// FIXEDGROVE: END
+
 			//--- Remove GIMP SUIT if it's on
 			IF IS_PLAYER_WEARING Player1 CLOTHES_TEX_EXTRA1 gimpleg 
 				GIVE_PLAYER_CLOTHES Player1 0 0 CLOTHES_TEX_EXTRA1
