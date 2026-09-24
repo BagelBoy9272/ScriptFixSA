@@ -2454,7 +2454,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 m5_dialogue_setup://////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 // FIXEDGROVE: assigned speakers
-IF m5_speech_goals = 1
+SWITCH m5_speech_goals
+CASE 1
 	$m5_print_label[0] = &LOC4_CA // Shit, I'll go rustle up some homies!
 	$m5_print_label[1] = &LOC4_CB // Oh man, I'll go get us some more back up!
 	$m5_print_label[2] = &LOC4_CC // I'll go get Smoke and some Grove boys!
@@ -2467,9 +2468,9 @@ IF m5_speech_goals = 1
 	m5_speaker[1] = ryder
 	m5_speaker[2] = ryder
 	m5_last_label = m5_random_last_label
-ENDIF
+BREAK
 
-IF m5_speech_goals = 2
+CASE 2
 	$m5_print_label[0] = &LOC4_AA // Yo, get some cars and block the road!
 	$m5_print_label[1] = &LOC4_AB // The rest of you get strapped!
 	$m5_print_label[2] = &LOC4_AC // Pick your positions - Carl get some cover!
@@ -2497,9 +2498,9 @@ IF m5_speech_goals = 2
 	m5_speaker[6] = sweet
 	m5_speaker[7] = sweet
 	m5_last_label = m5_random_last_label
-ENDIF
+BREAK
 
-IF m5_speech_goals = 3
+CASE 3
 	$m5_print_label[0] = &LOC4_BA // GROVE IS KING!!
 	$m5_print_label[1] = &LOC4_BB // Man, I ain't seen Ballas roll in that strength before!
 	$m5_print_label[2] = &LOC4_BC // They heard Carl Johnson was running with his brother again!
@@ -2524,7 +2525,8 @@ IF m5_speech_goals = 3
 	//m5_speaker[5] = sweet
 	m5_speaker[5] = scplayer
 	m5_last_label = 6
-ENDIF
+BREAK
+ENDSWITCH
 
 m5_slot_load = m5_speech_control_flag
 m5_slot1 = 0
@@ -2537,7 +2539,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 m5_overall_dialogue:////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF m5_speech_goals = 2 //sweet giving orders
+SWITCH m5_speech_goals
+CASE 2 //sweet giving orders
 	IF m5_speech_control_flag < m5_last_label
 		GOSUB m5_loading_dialogue
 		GOSUB m5_playing_dialogue
@@ -2553,10 +2556,10 @@ IF m5_speech_goals = 2 //sweet giving orders
 	ELSE
 		m5_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
 
-IF m5_speech_goals = 1 //ryder cutscene dialogue
-OR m5_speech_goals = 3 //final cutscene dialogue
+CASE 1 //ryder cutscene dialogue
+CASE 3 //final cutscene dialogue
 	IF m5_speech_control_flag < m5_last_label
 		GOSUB m5_loading_dialogue
 		GOSUB m5_playing_dialogue
@@ -2564,7 +2567,8 @@ OR m5_speech_goals = 3 //final cutscene dialogue
 	ELSE
 		m5_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
+ENDSWITCH
 ////////////////////////////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
