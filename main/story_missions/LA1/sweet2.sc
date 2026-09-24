@@ -3007,25 +3007,28 @@ get_back_in_the_car_sweet2:
 	
 
 	CLEAR_MISSION_AUDIO 2
-	IF get_in_counter_sweet2 = 0
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AA //Get in
-	ENDIF
+	SWITCH get_in_counter_sweet2
+	CASE 0
+		audio_sound_file = SOUND_SMOX_AA //Get in
+	BREAK
 
-	IF get_in_counter_sweet2 = 1
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AB //In the ride!
-	ENDIF
+	CASE 1
+		audio_sound_file = SOUND_SMOX_AB //In the ride!
+	BREAK
 
-	IF get_in_counter_sweet2 = 2
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AC //Get in the car!
-	ENDIF
+	CASE 2
+		audio_sound_file = SOUND_SMOX_AC //Get in the car!
+	BREAK
 
-	IF get_in_counter_sweet2 = 3   
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AD //Come on, playa, get in!
-	ENDIF
+	CASE 3   
+		audio_sound_file = SOUND_SMOX_AD //Come on, playa, get in!
+	BREAK
 
-	IF get_in_counter_sweet2 = 4   
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AE //Come on, wise man, get in the car!
-	ENDIF
+	CASE 4   
+		audio_sound_file = SOUND_SMOX_AE //Come on, wise man, get in the car!
+	BREAK
+	ENDSWITCH
+		LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -3049,21 +3052,24 @@ get_back_in_the_car_sweet2:
 
 	PLAY_MISSION_AUDIO 2 
 	  	
-	IF get_in_counter_sweet2 = 0
-		PRINT_NOW ( SMOX_AA ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet2 = 1
-		PRINT_NOW ( SMOX_AB ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet2 = 2
-		PRINT_NOW ( SMOX_AC ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet2 = 3
-		PRINT_NOW ( SMOX_AD ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet2 = 4
-		PRINT_NOW ( SMOX_AE ) 3000 1 
-	ENDIF
+	SWITCH get_in_counter_sweet2
+	CASE 0
+		$audio_string = &SMOX_AA 
+	BREAK
+	CASE 1
+		$audio_string = &SMOX_AB 
+	BREAK
+	CASE 2
+		$audio_string = &SMOX_AC 
+	BREAK
+	CASE 3
+		$audio_string = &SMOX_AD 
+	BREAK
+	CASE 4
+		$audio_string = &SMOX_AE 
+	BREAK
+	ENDSWITCH
+		PRINT_NOW ( $audio_string ) 3000 1 
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0
@@ -3095,88 +3101,82 @@ RETURN
 
 start_talking_sweet2:
   
-	IF sweet2_audio_chat[sweet2_index] = SOUND_SWE3_AA
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_AF
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_AK
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GN
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_HA
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_HC
+	SWITCH sweet2_audio_chat[sweet2_index]
+	CASE SOUND_SWE3_AA
+	CASE SOUND_SWE3_AF
+	CASE SOUND_SWE3_AK
+	CASE SOUND_SWE3_GN
+	CASE SOUND_SWE3_HA
+	CASE SOUND_SWE3_HC
+	CASE SOUND_SWE3_HF
+	CASE SOUND_MSWE07A
+	CASE SOUND_MSWE07C
+	CASE SOUND_MSWE07E
+	CASE SOUND_MSWE07J
+	CASE SOUND_SWE3_JB
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
 		START_CHAR_FACIAL_TALK scplayer 3000
-		RETURN
-	ENDIF
+	BREAK
 
-	IF sweet2_audio_chat[sweet2_index] = SOUND_SWE3_HF
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07A
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07C
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07E
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07J
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_JB
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-		START_CHAR_FACIAL_TALK scplayer 3000
-		RETURN
-	ENDIF
-
-	IF sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GC
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GG
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GH
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GJ
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GK
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GL
+	CASE SOUND_SWE3_GC
+	CASE SOUND_SWE3_GG
+	CASE SOUND_SWE3_GH
+	CASE SOUND_SWE3_GJ
+	CASE SOUND_SWE3_GK
+	CASE SOUND_SWE3_GL
 		IF NOT IS_CHAR_DEAD	emmet
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH emmet TRUE
 			START_CHAR_FACIAL_TALK emmet 3000
 		ENDIF
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	big_smoke
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke TRUE
 			START_CHAR_FACIAL_TALK big_smoke 3000
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 
 
 stop_talking_sweet2:
 
-	IF sweet2_audio_chat[sweet2_index] = SOUND_SWE3_AA
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_AF
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_AK
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GN
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_HA
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_HC
+	SWITCH sweet2_audio_chat[sweet2_index]
+	CASE SOUND_SWE3_AA
+	CASE SOUND_SWE3_AF
+	CASE SOUND_SWE3_AK
+	CASE SOUND_SWE3_GN
+	CASE SOUND_SWE3_HA
+	CASE SOUND_SWE3_HC
+	CASE SOUND_SWE3_HF
+	CASE SOUND_MSWE07A
+	CASE SOUND_MSWE07C
+	CASE SOUND_MSWE07E
+	CASE SOUND_MSWE07J
+	CASE SOUND_SWE3_JB
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 		STOP_CHAR_FACIAL_TALK scplayer
-		RETURN
-	ENDIF
+	BREAK
 
-	IF sweet2_audio_chat[sweet2_index] = SOUND_SWE3_HF
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07A
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07C
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07E
-	OR sweet2_audio_chat[sweet2_index] = SOUND_MSWE07J
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_JB
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-		STOP_CHAR_FACIAL_TALK scplayer
-		RETURN
-	ENDIF
-
-	IF sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GC
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GG
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GH
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GJ
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GK
-	OR sweet2_audio_chat[sweet2_index] = SOUND_SWE3_GL
+	CASE SOUND_SWE3_GC
+	CASE SOUND_SWE3_GG
+	CASE SOUND_SWE3_GH
+	CASE SOUND_SWE3_GJ
+	CASE SOUND_SWE3_GK
+	CASE SOUND_SWE3_GL
 		IF NOT IS_CHAR_DEAD	emmet
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH emmet FALSE
 			STOP_CHAR_FACIAL_TALK emmet
 		ENDIF
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	big_smoke
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke FALSE
 			STOP_CHAR_FACIAL_TALK big_smoke
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 
