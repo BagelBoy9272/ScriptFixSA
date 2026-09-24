@@ -2830,34 +2830,40 @@ get_back_in_bike_group:
 	CLEAR_MISSION_AUDIO 2
 	IF switch_traffic_back_on = 1
 		IF play_catch_up_audio = 1 //SWEET
-			IF get_in_counter_intro1 = 0		   
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EA //Move it, CJ, move it!
-			ENDIF
-			IF get_in_counter_intro1 = 1
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EB //Keep up, CJ!
-			ENDIF
-			IF get_in_counter_intro1 = 2
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EC //C’mon, CJ, pedal like a motherfucker!
-			ENDIF
-			IF get_in_counter_intro1 = 3   
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_DB //Move it, CJ, not far to the Grove!
-			ENDIF
+			SWITCH get_in_counter_intro1
+			CASE 0
+				audio_sound_file = SOUND_INT1_EA //Move it, CJ, move it!
+			BREAK
+			CASE 1
+				audio_sound_file = SOUND_INT1_EB //Keep up, CJ!
+			BREAK
+			CASE 2
+				audio_sound_file = SOUND_INT1_EC //C’mon, CJ, pedal like a motherfucker!
+			BREAK
+			CASE 3
+				audio_sound_file = SOUND_INT1_DB //Move it, CJ, not far to the Grove!
+			BREAK
+			ENDSWITCH
+				LOAD_MISSION_AUDIO 2 audio_sound_file
 		ENDIF
 	ENDIF
 	IF switch_traffic_back_on = 2
 		IF play_catch_up_audio = 1 //RYDER
-			IF get_in_counter_intro1 = 0
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EH //Move it, CJ - you’re embarrassing us, nigga!
-			ENDIF
-			IF get_in_counter_intro1 = 1
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EG //What’s the matter, fool? You tired?
-			ENDIF
-			IF get_in_counter_intro1 = 2
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EI //keep up, motherfucker!
-			ENDIF
-			IF get_in_counter_intro1 = 3
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_FG //Typical, CJ! Leaving the homies behind, huh?
-			ENDIF 
+			SWITCH get_in_counter_intro1
+			CASE 0
+				audio_sound_file = SOUND_INT1_EH //Move it, CJ - you’re embarrassing us, nigga!
+			BREAK
+			CASE 1
+				audio_sound_file = SOUND_INT1_EG //What’s the matter, fool? You tired?
+			BREAK
+			CASE 2
+				audio_sound_file = SOUND_INT1_EI //keep up, motherfucker!
+			BREAK
+			CASE 3
+				audio_sound_file = SOUND_INT1_FG //Typical, CJ! Leaving the homies behind, huh?
+			BREAK
+			ENDSWITCH
+				LOAD_MISSION_AUDIO 2 audio_sound_file
 		ENDIF
 	ENDIF
 	
@@ -2871,34 +2877,40 @@ get_back_in_bike_group:
 	PLAY_MISSION_AUDIO 2 
 	IF switch_traffic_back_on = 1
 		IF play_catch_up_audio = 1 //SWEET  	
-			IF get_in_counter_intro1 = 0	 
-				PRINT_NOW ( INT1_EA ) 3000 1 //Move it, CJ, move it!
-			ENDIF								
-			IF get_in_counter_intro1 = 1	
-				PRINT_NOW ( INT1_EB ) 3000 1 //Keep up, CJ!
-			ENDIF							   	 
-			IF get_in_counter_intro1 = 2	
-				PRINT_NOW ( INT1_EC ) 3000 1 //C’mon, CJ, pedal like a motherfucker!
-			ENDIF						 	   
-			IF get_in_counter_intro1 = 3	
-				PRINT_NOW ( INT1_BD ) 3000 1 //Move it, CJ, not far to the Grove!
-			ENDIF						   
+			SWITCH get_in_counter_intro1
+			CASE 0
+				$audio_string = &INT1_EA //Move it, CJ, move it!
+			BREAK
+			CASE 1
+				$audio_string = &INT1_EB //Keep up, CJ!
+			BREAK
+			CASE 2
+				$audio_string = &INT1_EC //C’mon, CJ, pedal like a motherfucker!
+			BREAK
+			CASE 3
+				$audio_string = &INT1_BD //Move it, CJ, not far to the Grove!
+			BREAK
+			ENDSWITCH
+				PRINT_NOW ( $audio_string ) 3000 1
 		ENDIF
 	ENDIF
 	IF switch_traffic_back_on = 2
 		IF play_catch_up_audio = 1 //RYDER
-			IF get_in_counter_intro1 = 0  
-				PRINT_NOW ( INT1_EH ) 3000 1 //Move it, CJ - you’re embarrassing us, nigga!	
-			ENDIF
-			IF get_in_counter_intro1 = 1	 
-				PRINT_NOW ( INT1_EG ) 3000 1 //What’s the matter, fool? You tired?
-			ENDIF							 						   	 
-			IF get_in_counter_intro1 = 2	
-				PRINT_NOW ( INT1_EI ) 3000 1 //I said keep up, motherfucker!
-			ENDIF
-			IF get_in_counter_intro1 = 3
-				PRINT_NOW ( INT1_FG ) 3000 1 //Typical, CJ! Leaving the homies behind, huh?
-			ENDIF 	   
+			SWITCH get_in_counter_intro1
+			CASE 0
+				$audio_string = &INT1_EH //Move it, CJ - you’re embarrassing us, nigga!	
+			BREAK
+			CASE 1
+				$audio_string = &INT1_EG //What’s the matter, fool? You tired?
+			BREAK
+			CASE 2
+				$audio_string = &INT1_EI //I said keep up, motherfucker!
+			BREAK
+			CASE 3
+				$audio_string = &INT1_FG //Typical, CJ! Leaving the homies behind, huh?
+			BREAK
+			ENDSWITCH
+				PRINT_NOW ( $audio_string ) 3000 1
 		ENDIF
 	ENDIF
 
@@ -2919,18 +2931,21 @@ get_back_in_bike_group_smoke:
 	CLEAR_MISSION_AUDIO 2
 	IF switch_traffic_back_on = 2
 		IF play_catch_up_audio_smoke = 1 //SMOKE
-			IF get_in_counter_intro1_2 = 0
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EJ //What’s matter, CJ?  Can’t keep up with the fat man?
-			ENDIF
-			IF get_in_counter_intro1_2 = 1
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_ED //C’mon man, you gotta keep up!
-			ENDIF
-			IF get_in_counter_intro1_2 = 2
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EE //Keep up, CJ!
-			ENDIF
-			IF get_in_counter_intro1_2 = 3
-				LOAD_MISSION_AUDIO 2 SOUND_INT1_EF //Don’t lose us, CJ!
-			ENDIF
+			SWITCH get_in_counter_intro1_2
+			CASE 0
+				audio_sound_file = SOUND_INT1_EJ //What’s matter, CJ?  Can’t keep up with the fat man?
+			BREAK
+			CASE 1
+				audio_sound_file = SOUND_INT1_ED //C’mon man, you gotta keep up!
+			BREAK
+			CASE 2
+				audio_sound_file = SOUND_INT1_EE //Keep up, CJ!
+			BREAK
+			CASE 3
+				audio_sound_file = SOUND_INT1_EF //Don’t lose us, CJ!
+			BREAK
+			ENDSWITCH
+				LOAD_MISSION_AUDIO 2 audio_sound_file
 		ENDIF
 	ENDIF
 
@@ -2944,18 +2959,21 @@ get_back_in_bike_group_smoke:
 	PLAY_MISSION_AUDIO 2 
 	IF switch_traffic_back_on = 2
 		IF play_catch_up_audio_smoke = 1 //SMOKE
-			IF get_in_counter_intro1_2 = 0   	
-				PRINT_NOW ( INT1_EJ ) 3000 1 //What’s matter, CJ?  Can’t keep up with the fat man? 
-			ENDIF
-			IF get_in_counter_intro1_2 = 1	 
-				PRINT_NOW ( INT1_ED ) 3000 1 //C’mon man, you gotta keep up!
-			ENDIF								
-			IF get_in_counter_intro1_2 = 2  	
-				PRINT_NOW ( INT1_EE ) 3000 1 //Keep up, CJ! 
-			ENDIF							 
-			IF get_in_counter_intro1_2 = 3  	
-				PRINT_NOW ( INT1_EF ) 3000 1 //Don’t lose us, CJ! 
-			ENDIF			 	 
+			SWITCH get_in_counter_intro1_2
+			CASE 0
+				$audio_string = &INT1_EJ //What’s matter, CJ?  Can’t keep up with the fat man? 
+			BREAK
+			CASE 1
+				$audio_string = &INT1_ED //C’mon man, you gotta keep up!
+			BREAK
+			CASE 2
+				$audio_string = &INT1_EE //Keep up, CJ! 
+			BREAK
+			CASE 3
+				$audio_string = &INT1_EF //Don’t lose us, CJ! 
+			BREAK
+			ENDSWITCH
+				PRINT_NOW ( $audio_string ) 3000 1
 		ENDIF
 	ENDIF
 
