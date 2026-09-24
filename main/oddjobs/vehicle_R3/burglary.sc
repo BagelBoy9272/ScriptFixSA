@@ -1203,6 +1203,7 @@ ENDIF
 
 				ENDIF // burglary_bar_displayed = 0
 			ELSE
+				SHUT_CHAR_UP scplayer FALSE // FIXEDGROVE
 				IF burglary_bar_displayed = 1										
 					
 					CLEAR_ONSCREEN_COUNTER burglary_player_stealth
@@ -1445,14 +1446,12 @@ RETURN
 mission_cleanup_burgl:
 
 disable_mod_garage = 0
-
-IF IS_PLAYER_PLAYING player1			   
-	SHUT_CHAR_UP scplayer FALSE
-ENDIF
+		   
+SHUT_CHAR_UP scplayer FALSE
 
 
-DRAW_ODDJOB_TITLE_BEFORE_FADE   TRUE
-ENABLE_BURGLARY_HOUSES           FALSE
+DRAW_ODDJOB_TITLE_BEFORE_FADE TRUE
+ENABLE_BURGLARY_HOUSES FALSE
 CHANGE_GARAGE_TYPE $burglary_garage[0] GARAGE_CLOSE_WHEN_EMPTY
 CHANGE_GARAGE_TYPE $burglary_garage[1] GARAGE_CLOSE_WHEN_EMPTY
 CHANGE_GARAGE_TYPE $burglary_garage[2] GARAGE_CLOSE_WHEN_EMPTY
