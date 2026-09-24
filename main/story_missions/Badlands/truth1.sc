@@ -1806,122 +1806,80 @@ IF triggeredaction_tflag = 1
 
 		GOSUB process_audio_t1
 
-		IF progressaudio_t1flag = 1
-			IF handlingudio_t1flag = 0
+		IF handlingudio_t1flag = 0
+			SWITCH progressaudio_t1flag
+			CASE 1
 				audio_label_t1 = SOUND_MCES05A //  Eh.
 				$input_text_t1 = MCES05A //  Eh.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 2
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 2
 				audio_label_t1 = SOUND_MCES05B //  Carl, is Cesar.
 				$input_text_t1 = MCES05B //  Carl, is Cesar.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 3
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 3
 				audio_label_t1 = SOUND_MCES05C //  Whassup?
 				$input_text_t1 = MCES05C //  Whassup?
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 4
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 4
 				audio_label_t1 = SOUND_MCES05D //  Bad stinking shit, that’s wassup, holmes.
 				$input_text_t1 = MCES05D //  Bad stinking shit, that’s wassup, holmes.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 5
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 5
 				audio_label_t1 = SOUND_MCES05E //  What’s wrong – where’s Kendl, is she ok?
 				$input_text_t1 = MCES05E //  What’s wrong – where’s Kendl, is she ok?
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 6
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 6
 				audio_label_t1 = SOUND_MCES05F //  She’s with me – she ok for now.
 				$input_text_t1 = MCES05F //  She’s with me – she ok for now.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 7
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 7
 				audio_label_t1 = SOUND_MCES05G //  The Varrios Los Aztecas; it’s over, all gone.
 				$input_text_t1 = MCES05G //  The Varrios Los Aztecas; it’s over, all gone.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 8
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 8
 				audio_label_t1 = SOUND_MCES05H //  There’s a price on my head – maybe Kendl’s too
 				$input_text_t1 = MCES05H //  There’s a price on my head – maybe Kendl’s too
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 9
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 9
 				audio_label_t1 = SOUND_MCES05J //  What happened?
 				$input_text_t1 = MCES05J //  What happened?
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 10
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 10
 				audio_label_t1 = SOUND_MCES05K //  Trust and respect, honor; they don’t mean jack in Los Santos now.
 				$input_text_t1 = MCES05K //  Trust and respect, honor; they don’t mean jack in Los Santos now.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 11
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 11
 				audio_label_t1 = SOUND_MCES05L //  My OG’s, my esse’s – all dead or in hiding, eh.
 				$input_text_t1 = MCES05L //  My OG’s, my esse’s – all dead or in hiding, eh.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 12
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 12
 				audio_label_t1 = SOUND_MCES05M //  Get out of town.
 				$input_text_t1 = MCES05M //  Get out of town.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 13
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 13
 				audio_label_t1 = SOUND_MCES05N //  Head over to Angel Pine, rent you and Kendl a trailer I’ll meet you there.
 				$input_text_t1 = MCES05N //  Head over to Angel Pine, rent you and Kendl a trailer I’ll meet you there.
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 14
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 14
 				audio_label_t1 = SOUND_MCES05O //  Ok, I just got some shit to take of and –
 				$input_text_t1 = MCES05O //  Ok, I just got some shit to take of and –
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 15
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 15
 				audio_label_t1 = SOUND_MCES05P //  No! Just get my sister out of town and someplace safe!
 				$input_text_t1 = MCES05P //  No! Just get my sister out of town and someplace safe!
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 16
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 16
 				audio_label_t1 = SOUND_MCES05Q //  Please don’t shit with me on this one, I can’t lose her, man!
 				$input_text_t1 = MCES05Q //  Please don’t shit with me on this one, I can’t lose her, man!
-				GOSUB load_audio_t1
-			ENDIF
-		ENDIF
-		IF progressaudio_t1flag = 17
-			IF handlingudio_t1flag = 0
+			BREAK
+			CASE 17
 				audio_label_t1 = SOUND_MCES05R //  Sure thing, holmes, We’ll see you in Angel Pine.
 				$input_text_t1 = MCES05R //  Sure thing, holmes, We’ll see you in Angel Pine.
+			BREAK
+			ENDSWITCH
+
+			IF progressaudio_t1flag > 0
+			AND progressaudio_t1flag < 18
 				GOSUB load_audio_t1
 			ENDIF
 		ENDIF
