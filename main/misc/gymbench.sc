@@ -687,7 +687,7 @@ AND NOT IS_CHAR_DEAD scplayer
 	
 		IF animstate_flag = 3
 		AND NOT IS_CHAR_DEAD scplayer
-			IF current_Language = 0
+			IF current_Language = LANGUAGE_ENGLISH
 				SWITCH weight_bpress
 
 					CASE 1
