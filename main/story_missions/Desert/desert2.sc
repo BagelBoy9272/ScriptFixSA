@@ -2191,7 +2191,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 des2_dialogue_setup://///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF des2_speech_goals = 1
+SWITCH des2_speech_goals
+CASE 1
 	$des2_print_label[0] = &DES2_AA // I got here as fast as I could, CJ.
 	$des2_print_label[1] = &DES2_AB // You sure did, how did you know I needed help?
 	$des2_print_label[2] = &DES2_AC // Man, you losing it, man.
@@ -2206,24 +2207,24 @@ IF des2_speech_goals = 1
 	des2_audio_label[4] = SOUND_DES2_AE 
 	des2_audio_label[5] = SOUND_DES2_AF 
 	des2_last_label = 6
-ENDIF
+BREAK
 
-IF des2_speech_goals = 2
+CASE 2
 	$des2_print_label[0] = &DES2_BA // We need to 'jack a truck on the freeway. 
 	$des2_print_label[1] = &DES2_BB // It's headed to San Fierro.
 
 	des2_audio_label[0] = SOUND_DES2_BA 
 	des2_audio_label[1] = SOUND_DES2_BB 
 	des2_last_label = 2
-ENDIF
+BREAK
 
-IF des2_speech_goals = 3
+CASE 3
 	$des2_print_label[0] = &DES2_BC // We can get on the freeway here, holmes.
 	des2_audio_label[0] = SOUND_DES2_BC 
 	des2_last_label = 1
-ENDIF
+BREAK
 
-IF des2_speech_goals = 4
+CASE 4
 	$des2_print_label[0] = &DES2_CA // Man, you crazy, this is the rail bridge! 
 	$des2_print_label[1] = &DES2_CB // The road bridge is over there!
 	$des2_print_label[2] = &DES2_CC // We jacking a train, holmes?
@@ -2232,9 +2233,9 @@ IF des2_speech_goals = 4
 	des2_audio_label[1] = SOUND_DES2_CB 
 	des2_audio_label[2] = SOUND_DES2_CC 
 	des2_last_label = des2_random_last_label
-ENDIF
+BREAK
 
-IF des2_speech_goals = 5
+CASE 5
 	$des2_print_label[0] = &DES2_DA // You missed the turnpike, holmes! 
 	$des2_print_label[1] = &DES2_DB // The freeway's back there!
 	$des2_print_label[2] = &DES2_DC // Dude, you missed the turn!
@@ -2243,9 +2244,9 @@ IF des2_speech_goals = 5
 	des2_audio_label[1] = SOUND_DES2_DB 
 	des2_audio_label[2] = SOUND_DES2_DC 
 	des2_last_label = des2_random_last_label
-ENDIF
+BREAK
 
-IF des2_speech_goals = 6
+CASE 6
 	$des2_print_label[0] = &DES2_EA // There's the rig up ahead!	
 	$des2_print_label[1] = &DES2_EB // What's the plan?
 	$des2_print_label[2] = &DES2_EC // I'm gonna pull alongside and you're gonna hop on board!
@@ -2260,9 +2261,9 @@ IF des2_speech_goals = 6
 	des2_audio_label[4] = SOUND_DES2_EE 
 	des2_audio_label[5] = SOUND_DES2_EF 
 	des2_last_label = des2_random_last_label	   
-ENDIF
+BREAK
 
-IF des2_speech_goals = 7
+CASE 7
 	$des2_print_label[0] = &DES2_FA // Closer, CJ, closer! 
 	$des2_print_label[1] = &DES2_FB // Just a little closer!
 	$des2_print_label[2] = &DES2_FC // I am not a kangaroo, holmes, get closer!
@@ -2271,10 +2272,10 @@ IF des2_speech_goals = 7
 	des2_audio_label[1] = SOUND_DES2_FB 
 	des2_audio_label[2] = SOUND_DES2_FC 
 	des2_last_label = des2_random_last_label
-ENDIF
+BREAK
 
 /*
-IF des2_speech_goals = 8
+CASE 8
 	$des2_print_label[0] = &DES2_GA // Hold her steady, CJ! 
 	$des2_print_label[1] = &DES2_GB // Steady... steady!
 	$des2_print_label[2] = &DES2_GC // Just let me get my balance!
@@ -2283,9 +2284,9 @@ IF des2_speech_goals = 8
 	des2_audio_label[1] = SOUND_DES2_GB 
 	des2_audio_label[2] = SOUND_DES2_GC 
 	des2_last_label = des2_random_last_label
-ENDIF
+BREAK
 */
-IF des2_speech_goals = 9
+CASE 9
 	$des2_print_label[0] = &DES2_HA // Speed up, CJ! 
 	$des2_print_label[1] = &DES2_HB // Match the truck's speed!
 	$des2_print_label[2] = &DES2_HC // Keep level, CJ, keep it level!
@@ -2294,9 +2295,9 @@ IF des2_speech_goals = 9
 	des2_audio_label[1] = SOUND_DES2_HB 
 	des2_audio_label[2] = SOUND_DES2_HC 
 	des2_last_label = des2_random_last_label
-ENDIF
+BREAK
 
-IF des2_speech_goals = 10
+CASE 10
 	$des2_print_label[0] = &DES2_JA // Slow down, CJ! 
 	$des2_print_label[1] = &DES2_JB // Just a bit slower!
 	$des2_print_label[2] = &DES2_JC // Calm it down, CJ, you're too fast!
@@ -2305,9 +2306,9 @@ IF des2_speech_goals = 10
 	des2_audio_label[1] = SOUND_DES2_JB 
 	des2_audio_label[2] = SOUND_DES2_JC 
 	des2_last_label = des2_random_last_label
-ENDIF
+BREAK
 
-IF des2_speech_goals = 11
+CASE 11
 	$des2_print_label[0] = &DES2_KA // Ok, CJ, let's get this rig back to the garage!
 	//$des2_print_label[1] = &DES2_KB // Where we going to take this thing?
 	//$des2_print_label[2] = &DES2_KC // There's a haulage firm over in Whetstone county.
@@ -2320,15 +2321,15 @@ IF des2_speech_goals = 11
 	//des2_audio_label[3] = SOUND_DES2_KC 
 	//des2_audio_label[4] = SOUND_DES2_KC 
 	des2_last_label = 1
-ENDIF
+BREAK
 
-IF des2_speech_goals = 12
+CASE 12
 	$des2_print_label[0] = &DES2_LA // See you later, holmes!
 	des2_audio_label[0] = SOUND_DES2_LA 
 	des2_last_label = 1
-ENDIF
+BREAK
 
-IF des2_speech_goals = 14
+CASE 14
 	$des2_print_label[0] = &CESX_BA // Wait up, CJ!
 	$des2_print_label[1] = &CESX_BB // Hang ten, CJ!
 	$des2_print_label[2] = &CESX_BC // Hold up!
@@ -2339,9 +2340,9 @@ IF des2_speech_goals = 14
 	des2_audio_label[2] = SOUND_CESX_BC 
 	des2_audio_label[3] = SOUND_CESX_BD 
  	des2_last_label = des2_random_last_label 
-ENDIF
+BREAK
 
-IF des2_speech_goals = 17
+CASE 17
 	$des2_print_label[0] = &CESX_AA // Get in, CJ, get in!
 	$des2_print_label[1] = &CESX_AB // Hop in, holmes!
 	$des2_print_label[2] = &CESX_AC // All aboard - heh heh!
@@ -2356,7 +2357,8 @@ IF des2_speech_goals = 17
 	des2_audio_label[4] = SOUND_CESX_AE 
 	des2_audio_label[5] = SOUND_CESX_AF 
  	des2_last_label = des2_random_last_label 
-ENDIF
+BREAK
+ENDSWITCH
 
 des2_slot_load = des2_speech_control_flag
 des2_slot1 = 0
