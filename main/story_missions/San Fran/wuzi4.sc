@@ -3586,7 +3586,8 @@ RETURN//////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 w5_dialogue_setup://///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-IF w5_speech_goals = 1
+SWITCH w5_speech_goals
+CASE 1
 	$w5_print_label[0] = &WUZ4_KA // Hey CJ, what you doing here?
 	$w5_print_label[1] = &WUZ4_KB // Just bumped into Woozie on his way out.
 	$w5_print_label[2] = &WUZ4_KC // He filled me in, thought I'd roll along with you!
@@ -3599,9 +3600,9 @@ IF w5_speech_goals = 1
 	w5_audio_label[3] = SOUND_WUZ4_KD
 	w5_audio_label[4] = SOUND_WUZ4_KE
 	w5_last_label = 5
-ENDIF
+BREAK
 
-IF w5_speech_goals = 2
+CASE 2
 	$w5_print_label[0] = &WUZ4_LA // Where we headed?
 	$w5_print_label[1] = &WUZ4_LB // It's moored out in the bay!
 	$w5_print_label[2] = &WUZ4_LC // Oh yeah, I see it!
@@ -3614,9 +3615,9 @@ IF w5_speech_goals = 2
 	w5_audio_label[3] = SOUND_WUZ4_LD
 	w5_audio_label[4] = SOUND_WUZ4_LE
 	w5_last_label = 5
-ENDIF
+BREAK
 
-IF w5_speech_goals = 3
+CASE 3
 	$w5_print_label[0] = &WUZ4_MA // Holy fuck, they're gunning for us already!
 	$w5_print_label[1] = &WUZ4_MB // I see 'em!
 	$w5_print_label[2] = &WUZ4_MC // They're all over the containers!
@@ -3629,9 +3630,9 @@ IF w5_speech_goals = 3
 	w5_audio_label[3] = SOUND_WUZ4_MD
 	w5_audio_label[4] = SOUND_WUZ4_ME
 	w5_last_label = 5
-ENDIF
+BREAK
 
-IF w5_speech_goals = 4
+CASE 4
 	$w5_print_label[0] = &WUZ4_NA // RPG! RPG!
 	$w5_print_label[1] = &WUZ4_NB // Where? Which side?	//debug - doesn't print atm... check when dialogue is in
 	$w5_print_label[2] = &WUZ4_NC // We're hit!
@@ -3644,50 +3645,50 @@ IF w5_speech_goals = 4
 	w5_audio_label[3] = SOUND_WUZ4_NE
 	w5_audio_label[4] = SOUND_WUZ4_NF
 	w5_last_label = w5_random_last_label
-ENDIF
+BREAK
 
-IF w5_speech_goals = 5
+CASE 5
 	$w5_print_label[0] = &WUZ4_AA // Can you see any survivors?
 	$w5_print_label[1] = &WUZ4_AB // No. Nobody's getting out of that alive!
 
 	w5_audio_label[0] = SOUND_WUZ4_AA
 	w5_audio_label[1] = SOUND_WUZ4_AB
 	w5_last_label = w5_random_last_label
-ENDIF
+BREAK
 
-IF w5_speech_goals = 6
+CASE 6
 	$w5_print_label[0] = &WUZ4_FA // Keep it down, you want to bring the snakehead down here?
 
 	w5_audio_label[0] = SOUND_WUZ4_FA
 	w5_last_label = 1
-ENDIF
+BREAK
 
-IF w5_speech_goals = 7
+CASE 7
 	$w5_print_label[0] = &WUZ4_CA // Not long until we're drinking cola in the free West, eh!
 	$w5_print_label[1] = &WUZ4_CB // Hey, who the fuck are you?
 
 	w5_audio_label[0] = SOUND_WUZ4_CA
 	w5_audio_label[1] = SOUND_WUZ4_CB
 	w5_last_label = w5_random_last_label
-ENDIF
+BREAK
 
-IF w5_speech_goals = 8
+CASE 8
 	$w5_print_label[0] = &WUZ4_HA // Stick this up your ass!
 
 	w5_audio_label[0] = SOUND_WUZ4_HA
 	w5_last_label = 1
-ENDIF
+BREAK
 
-IF w5_speech_goals = 9
+CASE 9
 	$w5_print_label[0] = &WUZ4_JA // Hey you, help us!
 	$w5_print_label[1] = &WUZ4_JB // Hey, please, help us!
 
 	w5_audio_label[0] = SOUND_WUZ4_JA
 	w5_audio_label[1] = SOUND_WUZ4_JB
 	w5_last_label = w5_random_last_label
-ENDIF
+BREAK
 
-IF w5_speech_goals = 10
+CASE 10
 	$w5_print_label[0] = &WUZ4_JC // Please, the snakehead tricked us, we're virtual prisoners.
 	$w5_print_label[1] = &WUZ4_JD // Please help us escape!
 	$w5_print_label[2] = &WUZ4_JE // The Snakehead is up on the bridge...
@@ -3696,30 +3697,31 @@ IF w5_speech_goals = 10
 	w5_audio_label[1] = SOUND_WUZ4_JD
 	w5_audio_label[2] = SOUND_WUZ4_JE
 	w5_last_label = w5_random_last_label
-ENDIF
+BREAK
 
-IF w5_speech_goals = 11
+CASE 11
 	$w5_print_label[0] = &WUZ4_JF // Thank you for everything!
 
 	w5_audio_label[0] = SOUND_WUZ4_JF
 	w5_last_label = 1
-ENDIF
+BREAK
 
-IF w5_speech_goals = 12
+CASE 12
 	$w5_print_label[0] = &WUZ4_OA // Oh, man, I hurt!
 	$w5_print_label[1] = &WUZ4_ZA // Damn, lost everything but my blade!
 
 	w5_audio_label[0] = SOUND_WUZ4_OA
 	w5_audio_label[1] = SOUND_WUZ4_ZA
 	w5_last_label = 2
-ENDIF
+BREAK
 
-IF w5_speech_goals = 13
+CASE 13
 	$w5_print_label[0] = &WUZ4_PA // Enough! We settle this here!
 
 	w5_audio_label[0] = SOUND_WUZ4_PA
 	w5_last_label = 1
-ENDIF
+BREAK
+ENDSWITCH
 
 //REMOVED DIALOGUE
 //[WUZ4_BA:WUZI4]Keep it down, you want to bring the snakehead down here?
@@ -3741,11 +3743,12 @@ RETURN//////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 w5_overall_dialogue:///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-IF w5_speech_goals = 1 //cutscene dialogue between pilot and player
-OR w5_speech_goals = 2 //2nd convo between pilot and player
-OR w5_speech_goals = 3 //Pilot telling player he is getting shot at
-OR w5_speech_goals = 4 //Pilot telling player about the missile and that the heli is going down.
-OR w5_speech_goals = 5 //Two guards checking the wreckage
+SWITCH w5_speech_goals
+CASE 1 //cutscene dialogue between pilot and player
+CASE 2 //2nd convo between pilot and player
+CASE 3 //Pilot telling player he is getting shot at
+CASE 4 //Pilot telling player about the missile and that the heli is going down.
+CASE 5 //Two guards checking the wreckage
 	IF w5_speech_control_flag < w5_last_label
 		GOSUB w5_loading_dialogue
 		GOSUB w5_playing_dialogue
@@ -3753,14 +3756,14 @@ OR w5_speech_goals = 5 //Two guards checking the wreckage
 	ELSE
 		w5_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
 
 
-IF w5_speech_goals = 6 //Keep it down, you want to bring the snakehead down here?
-OR w5_speech_goals = 7 //3 guards talking to each other it the cutscene.
-OR w5_speech_goals = 10 //refugees talking to player in cutscene after being released.
-OR w5_speech_goals = 11 //Thank you for everything!
-OR w5_speech_goals = 12 //Oh, man, I hurt!  | Shit, lost all my weapons!
+CASE 6 //Keep it down, you want to bring the snakehead down here?
+CASE 7 //3 guards talking to each other it the cutscene.
+CASE 10 //refugees talking to player in cutscene after being released.
+CASE 11 //Thank you for everything!
+CASE 12 //Oh, man, I hurt!  | Shit, lost all my weapons!
 	IF w5_speech_control_flag < w5_last_label
 		GOSUB w5_loading_dialogue
 		GOSUB w5_playing_dialogue
@@ -3768,9 +3771,9 @@ OR w5_speech_goals = 12 //Oh, man, I hurt!  | Shit, lost all my weapons!
 	ELSE
 		w5_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
 
-IF w5_speech_goals = 8 //Stick this up your ass!
+CASE 8 //Stick this up your ass!
 	IF w5_speech_control_flag < w5_last_label
 		GOSUB w5_loading_dialogue
 		GOSUB w5_playing_dialogue
@@ -3786,9 +3789,9 @@ IF w5_speech_goals = 8 //Stick this up your ass!
 	ELSE
 		w5_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
 
-IF w5_speech_goals = 9 //Refugees pleading with player.
+CASE 9 //Refugees pleading with player.
 	IF w5_speech_control_flag < w5_last_label
 		GOSUB w5_loading_dialogue
 		GOSUB w5_playing_dialogue
@@ -3804,9 +3807,9 @@ IF w5_speech_goals = 9 //Refugees pleading with player.
 	ELSE
 		w5_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
 
-IF w5_speech_goals = 13 //Snakehead talking 
+CASE 13 //Snakehead talking 
 	IF w5_speech_control_flag < w5_last_label
 		GOSUB w5_loading_dialogue
 		GOSUB w5_playing_dialogue
@@ -3822,7 +3825,8 @@ IF w5_speech_goals = 13 //Snakehead talking
 	ELSE
 		w5_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
+ENDSWITCH
 ///////////////////////////////////////////////////////////////////////////////////////////
 RETURN/////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
