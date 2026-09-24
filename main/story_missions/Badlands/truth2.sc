@@ -1939,7 +1939,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 t2_dialogue_setup://////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF t2_speech_goals = 1
+SWITCH t2_speech_goals
+CASE 1
 	$t2_print_label[0] = &TRU2_AA // Assholes! Republican assholes!		
 	$t2_print_label[1] = &TRU2_AB // I don't feel too good..
 	$t2_print_label[2] = &TRU2_AC // It's a crying shame, ain't it.
@@ -1958,18 +1959,18 @@ IF t2_speech_goals = 1
 	t2_audio_label[6] = SOUND_TRU2_BB 
 	t2_audio_label[7] = SOUND_TRU2_BC 
 	t2_last_label = 8
-ENDIF
+BREAK
 
-IF t2_speech_goals = 2
+CASE 2
 	$t2_print_label[0] =  &TRU2_CA // Hey, I'm kinda busy, lemme get back at you. 
 	$t2_print_label[1] =  &TRU2_CB // Carl, it's me! Get those cops off my damned tail!
 	
 	t2_audio_label[0] = SOUND_TRU2_CA 
 	t2_audio_label[1] = SOUND_TRU2_CB 
 	t2_last_label = 2 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 3
+CASE 3
 	$t2_print_label[0] = &TRU2_DA // What you pulled over for?   	
 	$t2_print_label[1] = &TRU2_DB // You better drive. I haven't driven in 15 years. 
 	$t2_print_label[2] = &TRU2_DC // You were doing alright!   
@@ -1994,9 +1995,9 @@ IF t2_speech_goals = 3
 	t2_audio_label[9] = SOUND_TRU2_OE 
 	t2_audio_label[10] = SOUND_TRU2_OF 
 	t2_last_label = 11 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 4
+CASE 4
 	$t2_print_label[0] = &TRU2_EA // Jesus, we're screwed, when did you get this?
 	$t2_print_label[1] = &TRU2_EB // 1967 
 	$t2_print_label[2] = &TRU2_EC // How do you get around if you don't drive?
@@ -2011,9 +2012,9 @@ IF t2_speech_goals = 4
 	t2_audio_label[4] = SOUND_TRU2_EF 												  
 	t2_audio_label[5] = SOUND_TRU2_EG 
 	t2_last_label = 6 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 5
+CASE 5
 	$t2_print_label[0] = &TRU2_FA // Hey, you want a hit on this? A little Temple Charis  
 	$t2_print_label[1] = &TRU2_FB // in a cocktail with some Nepalese munga munga.
 	$t2_print_label[2] = &TRU2_FC // Put that thing out, I can't see. 
@@ -2036,9 +2037,9 @@ IF t2_speech_goals = 5
 	t2_audio_label[8] = SOUND_TRU2_FJ 
 	t2_audio_label[9] = SOUND_TRU2_FK 
 	t2_last_label = 10 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 6
+CASE 6
 	$t2_print_label[0] = &TRU2_GA // Hey, does this thing go any faster?
 	$t2_print_label[1] = &TRU2_GB // Man, we got 3 tonnes of grass on board,
 	$t2_print_label[2] = &TRU2_GC // the engine block is held together with a macrame hammock and it's running on 15-year-old cooking oil. 
@@ -2057,9 +2058,9 @@ IF t2_speech_goals = 6
 	t2_audio_label[6] = SOUND_TRU2_GH 
 	t2_audio_label[7] = SOUND_TRU2_GJ 
 	t2_last_label = 8 
-ENDIF
+BREAK
 				
-IF t2_speech_goals = 7
+CASE 7
 	$t2_print_label[0] = &TRU2_HA // What's with all the aluminium foil, man?
 	$t2_print_label[1] = &TRU2_HB // Protection from mind control, dude.
 	$t2_print_label[2] = &TRU2_HC // Mind control?
@@ -2090,18 +2091,18 @@ IF t2_speech_goals = 7
 	t2_audio_label[12] = SOUND_TRU2_HN 
 	t2_audio_label[13] = SOUND_TRU2_HO 
 	t2_last_label = 14 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 8
+CASE 8
 	$t2_print_label[0] = &TRU2_JA // We got a chopper on our tail, we'll never shake 'em now.
 	$t2_print_label[1] = &TRU2_JB // Hold on, I got a little something back here I was saving for a rainy day..
 
 	t2_audio_label[0] = SOUND_TRU2_JA 
 	t2_audio_label[1] = SOUND_TRU2_JB 
 	t2_last_label = 2 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 9
+CASE 9
 	$t2_print_label[0] = &TRU2_KA // Holy motherfucker!
 	$t2_print_label[1] = &TRU2_KB // Where'd you get this?
 	$t2_print_label[2] = &TRU2_KC // Found it in a bail of Thai Sticks.
@@ -2112,9 +2113,9 @@ IF t2_speech_goals = 9
 	t2_audio_label[2] = SOUND_TRU2_KC 
 	t2_audio_label[3] = SOUND_TRU2_KD 
 	t2_last_label = 4 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 10
+CASE 10
 	$t2_print_label[0] = &TRU2_LA // There she is, brother; San Fierro: the City of Psychadelic Wonders!
 	$t2_print_label[1] = &TRU2_LB // I'm amazed I've never been before.
 	$t2_print_label[2] = &TRU2_LC // There ain't a better place to escape the man, man.
@@ -2129,18 +2130,18 @@ IF t2_speech_goals = 10
 	t2_audio_label[4] = SOUND_TRU2_MB 
 	t2_audio_label[5] = SOUND_TRU2_MC 
 	t2_last_label = 6 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 11
+CASE 11
 	$t2_print_label[0] = &TRU2_NA // This is the place. 	
 	$t2_print_label[1] = &TRU2_NB // Jesus, dude, you've been fed a bummer! 
 
 	t2_audio_label[0] = SOUND_TRU2_NA 
 	t2_audio_label[1] = SOUND_TRU2_NB 
 	t2_last_label = 2 
-ENDIF
+BREAK
 
-IF t2_speech_goals = 12
+CASE 12
 	$t2_print_label[0] = &TRUX_AA // Get in the car, quick!
 	$t2_print_label[1] = &TRUX_AB // Get in the car, it's a Faraday cage!
 	$t2_print_label[2] = &TRUX_AC // C'mon, Carl, get in!
@@ -2149,7 +2150,8 @@ IF t2_speech_goals = 12
 	t2_audio_label[1] = SOUND_TRUX_AB 
 	t2_audio_label[2] = SOUND_TRUX_AC 
  	t2_last_label = t2_random_last_label 
-ENDIF
+BREAK
+ENDSWITCH
 
 t2_slot_load = t2_speech_control_flag
 t2_slot1 = 0
@@ -2162,11 +2164,12 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 t2_overall_dialogue:////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF t2_speech_goals = 1 //While the truth and the player are burning the weed
-OR t2_speech_goals = 2 //telling player that he needs to get the cops off his tail
-OR t2_speech_goals = 8 //telling player a chopper is following
-OR t2_speech_goals = 9 //telling player where truth got the rocketlauncher from
-OR t2_speech_goals = 11 //final piece of text
+SWITCH t2_speech_goals
+CASE 1 //While the truth and the player are burning the weed
+CASE 2 //telling player that he needs to get the cops off his tail
+CASE 8 //telling player a chopper is following
+CASE 9 //telling player where truth got the rocketlauncher from
+CASE 11 //final piece of text
 	IF t2_speech_control_flag < t2_last_label
 		GOSUB t2_loading_dialogue
 		GOSUB t2_playing_dialogue
@@ -2182,12 +2185,14 @@ OR t2_speech_goals = 11 //final piece of text
 	ELSE
 		t2_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK
+ENDSWITCH	
 
 IF t2_goals = 3
 OR t2_goals = 4
 	IF IS_CHAR_SITTING_IN_CAR scplayer t2_mothership
-		IF t2_speech_goals = 3 //telling player why truth has stopped driving
+		SWITCH t2_speech_goals
+		CASE 3 //telling player why truth has stopped driving
 			IF t2_speech_control_flag < t2_last_label
 				GOSUB t2_loading_dialogue
 				GOSUB t2_playing_dialogue
@@ -2204,13 +2209,13 @@ OR t2_goals = 4
 				timerb = 0
 				t2_speech_goals = 0
 			ENDIF
-		ENDIF
+		BREAK
 	
-		IF t2_speech_goals = 4 //random banter 1
-		OR t2_speech_goals = 5 //random banter 2
-		OR t2_speech_goals = 6 //random banter 3
-		OR t2_speech_goals = 7 //random banter 4
-		OR t2_speech_goals = 10	//telling player about san fran
+		CASE 4 //random banter 1
+		CASE 5 //random banter 2
+		CASE 6 //random banter 3
+		CASE 7 //random banter 4
+		CASE 10	//telling player about san fran
 			IF t2_speech_control_flag < t2_last_label
 				GOSUB t2_loading_dialogue
 				GOSUB t2_playing_dialogue
@@ -2230,7 +2235,8 @@ OR t2_goals = 4
 				timerb = 0 
 				t2_speech_goals = 0
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
 	IF NOT IS_CHAR_IN_CAR scplayer t2_mothership
 		IF t2_speech_goals < 12 
@@ -2252,7 +2258,8 @@ OR t2_goals = 4
 ENDIF
 
 IF t2_goals < 4
-	IF t2_speech_goals = 12 //carl is out of car
+	SWITCH t2_speech_goals
+	CASE 12 //carl is out of car
 		IF NOT IS_CHAR_IN_CAR scplayer t2_mothership
 			IF t2_speech_control_flag < t2_last_label
 				GOSUB t2_loading_dialogue
@@ -2280,18 +2287,18 @@ IF t2_goals < 4
 			CLEAR_PRINTS 
 			//GOSUB t2_dialogue_setup
 		ENDIF
-	ENDIF
+	BREAK
 
-	IF t2_speech_goals = 13 //carl has been out of car and has returned
+	CASE 13 //carl has been out of car and has returned
 		IF IS_CHAR_SITTING_IN_CAR scplayer t2_mothership 
 			t2_speech_goals = 14
 			t2_speech_control_flag = 0
 			CLEAR_PRINTS 
 			//GOSUB t2_dialogue_setup
 		ENDIF
-	ENDIF
+	BREAK
 
-	IF t2_speech_goals = 14 //where player has returned to the car
+	CASE 14 //where player has returned to the car
 		IF IS_CHAR_SITTING_IN_CAR scplayer t2_mothership 	
 			timerb = 0
 			t2_speech_goals = t2_storing_speech_goals_number
@@ -2310,7 +2317,8 @@ IF t2_goals < 4
 			t2_random_last_label = t2_speech_control_flag + 1 
 			GOSUB t2_dialogue_setup
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 ENDIF	
 ////////////////////////////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
