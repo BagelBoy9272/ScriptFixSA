@@ -5226,11 +5226,12 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 r2_overall_dialogue:////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF r2_speech_goals = 1 //Initial convo outside sweets
-OR r2_speech_goals = 4 //cutscene with OG's
-OR r2_speech_goals = 6 //cutscene in alleyway
-OR r2_speech_goals = 8 //cutscene checking on how hazer is
-OR r2_speech_goals = 9 // Behind us!
+SWITCH r2_speech_goals
+CASE 1 //Initial convo outside sweets
+CASE 4 //cutscene with OG's
+CASE 6 //cutscene in alleyway
+CASE 8 //cutscene checking on how hazer is
+CASE 9 // Behind us!
 	IF r2_speech_control_flag < r2_last_label
 		GOSUB r2_loading_dialogue
 		GOSUB r2_playing_dialogue
@@ -5238,12 +5239,12 @@ OR r2_speech_goals = 9 // Behind us!
 	ELSE
 		r2_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF r2_speech_goals = 10 // Let's fucking finish this!
-OR r2_speech_goals = 11 // This is a Vagos neighborhood now!
-OR r2_speech_goals = 12 // Torch those Aztecas!
-OR r2_speech_goals = 13 //final cutscene
+CASE 10 // Let's fucking finish this!
+CASE 11 // This is a Vagos neighborhood now!
+CASE 12 // Torch those Aztecas!
+CASE 13 //final cutscene
 	IF r2_speech_control_flag < r2_last_label
 		GOSUB r2_loading_dialogue
 		GOSUB r2_playing_dialogue
@@ -5251,10 +5252,10 @@ OR r2_speech_goals = 13 //final cutscene
 	ELSE
 		r2_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF r2_speech_goals = 5 //dialogue where cesar is shouting about killing the enemy in the huts
-OR r2_speech_goals = 7 // Hazer!
+CASE 5 //dialogue where cesar is shouting about killing the enemy in the huts
+CASE 7 // Hazer!
 	IF r2_speech_control_flag < r2_last_label
 		GOSUB r2_loading_dialogue
 		GOSUB r2_playing_dialogue
@@ -5270,7 +5271,8 @@ OR r2_speech_goals = 7 // Hazer!
 	ELSE
 		r2_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
+ENDSWITCH
 
 
 IF r2_speech_goals = 9 //Behind us!
@@ -5379,7 +5381,8 @@ IF r2_goals = 0
 			ENDIF
 		ENDIF
 
-		IF r2_speech_goals = 14 //cesar is out of the group
+		SWITCH r2_speech_goals
+		CASE 14 //cesar is out of the group
 			IF NOT IS_GROUP_MEMBER cesar Players_Group
 				IF r2_speech_control_flag < r2_last_label
 					GOSUB r2_loading_dialogue
@@ -5401,18 +5404,18 @@ IF r2_goals = 0
 				PRINT_NOW ( R2_12 ) 7000 1 // You have left Cesar behind.
 				r2_speech_goals = 15	
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF r2_speech_goals = 15 //cesar has been out of the group and has returned
+		CASE 15 //cesar has been out of the group and has returned
 			IF IS_GROUP_MEMBER cesar Players_Group 
 				r2_speech_goals = 16
 				r2_speech_control_flag = 0
 				CLEAR_PRINTS
 				//GOSUB r2_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF r2_speech_goals = 16 //cesar is back in group
+		CASE 16 //cesar is back in group
 			IF IS_GROUP_MEMBER cesar Players_Group 	
 				timerb = 0
 				r2_speech_goals = r2_storing_speech_goals_number
@@ -5435,7 +5438,8 @@ IF r2_goals = 0
 				r2_random_last_label = r2_speech_control_flag + 1 
 				GOSUB r2_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF	
 ENDIF
 ////////////////////////////////////////////////////////////////////////////
@@ -5445,7 +5449,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 r2_dialogue_setup://////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF r2_speech_goals = 1
+SWITCH r2_speech_goals
+CASE 1
 	$r2_print_label[0] = &ROT2_AA // Ok, so what's the plan?		
 	$r2_print_label[1] = &ROT2_AB // We're going to meet three of my veterano's over at Unity Station.		
 	$r2_print_label[2] = &ROT2_AD // Three, is that all?		
@@ -5456,9 +5461,9 @@ IF r2_speech_goals = 1
 	r2_audio_label[2] = SOUND_ROT2_AD 
 	r2_audio_label[3] = SOUND_ROT2_AE 
 	r2_last_label = 4
-ENDIF
+BREAK
 
-IF r2_speech_goals = 2
+CASE 2
 	$r2_print_label[0] = &ROT2_BA // Shit's real serious, man, look at the streets, eh.
 	$r2_print_label[1] = &ROT2_BB // Yeah, we better watch ourselves.
 	$r2_print_label[2] = &ROT2_BC // Don't want to get caught on Ballas turf while this shit's going down.
@@ -5469,9 +5474,9 @@ IF r2_speech_goals = 2
 	r2_audio_label[2] = SOUND_ROT2_BC 
 	r2_audio_label[3] = SOUND_ROT2_BD 
 	r2_last_label = 4
-ENDIF
+BREAK
 
-IF r2_speech_goals = 3
+CASE 3
 	$r2_print_label[0] = &ROT2_CA // While we here, I, eerr, I have a question to ask you.
 	$r2_print_label[1] = &ROT2_CB // Yeah? What?
 	$r2_print_label[2] = &ROT2_CC // Well it's... it's personal.
@@ -5506,9 +5511,9 @@ IF r2_speech_goals = 3
 	r2_audio_label[14] = SOUND_ROT2_CP 
 	r2_audio_label[15] = SOUND_ROT2_CQ 
 	r2_last_label = 16
-ENDIF
+BREAK
 	
-IF r2_speech_goals = 4
+CASE 4
 	$r2_print_label[0] = &ROT2_DA // Those Vagos, man, I'm gonna gut those cacos.
 	$r2_print_label[1] = &ROT2_DB // Raspalo hasta el hueso!
 
@@ -5538,9 +5543,9 @@ IF r2_speech_goals = 4
 	r2_audio_label[10] = SOUND_ROT2_DL 
 	r2_audio_label[11] = SOUND_ROT2_DM 
 	r2_last_label = r2_random_last_label
-ENDIF
+BREAK
 
-IF r2_speech_goals = 5
+CASE 5
 	$r2_print_label[0] = &ROT2_EA // That's the last of them, let's move out!	DONE
 
 	//$r2_print_label[1] = &ROT2_EB // Everybody ok? Let's hit 'em! 
@@ -5585,7 +5590,7 @@ IF r2_speech_goals = 5
 	//r2_audio_label[16] = SOUND_ROT2_ER 
 	//r2_audio_label[17] = SOUND_ROT2_ES 
 	r2_last_label = r2_random_last_label
-ENDIF
+BREAK
 
 	//$r2_print_label[9] = &ROT2_EK // Vagos boys!
 	//$r2_print_label[10] = &ROT2_EL // LSV's!
@@ -5596,7 +5601,7 @@ ENDIF
 	//$r2_print_label[22] = &ROT2_EU // They're on the roofs!
 	
 
-IF r2_speech_goals = 6
+CASE 6
 	$r2_print_label[0] = &ROT2_FA // That was the easy bit, eh.
 	$r2_print_label[1] = &ROT2_FB // Now we go into the viper's nest.
 	$r2_print_label[2] = &ROT2_FC // This is where it gets tough.
@@ -5613,16 +5618,16 @@ IF r2_speech_goals = 6
 	r2_audio_label[5] = SOUND_ROT2_FG 
 	r2_audio_label[6] = SOUND_ROT2_FH 
 	r2_last_label = r2_random_last_label
-ENDIF
+BREAK
 
-IF r2_speech_goals = 7
+CASE 7
 	$r2_print_label[0] = &ROT2_GA // Hazer!
 
 	r2_audio_label[0] = SOUND_ROT2_GA 
 	r2_last_label = 1
-ENDIF
+BREAK
 	
-IF r2_speech_goals = 8
+CASE 8
 	$r2_print_label[0] = &ROT2_GB // Shit, Hazer...
 	$r2_print_label[1] = &ROT2_GC // He is pretty bad, Cesar...
 	$r2_print_label[2] = &ROT2_GD // Heads up! More Vagos!
@@ -5633,9 +5638,9 @@ IF r2_speech_goals = 8
 	r2_audio_label[2] = SOUND_ROT2_GD 
 	r2_audio_label[3] = SOUND_ROT2_EW 
 	r2_last_label = 4
-ENDIF
+BREAK
 
-IF r2_speech_goals = 9
+CASE 9
 	$r2_print_label[0] = &ROT2_HA // Behind us!
 	$r2_print_label[1] = &ROT2_HB // More Vagos Behind us!
 	$r2_print_label[2] = &ROT2_HC // Northsiders behind us!
@@ -5644,18 +5649,18 @@ IF r2_speech_goals = 9
 	r2_audio_label[1] = SOUND_ROT2_HB 
 	r2_audio_label[2] = SOUND_ROT2_HC 
 	r2_last_label = r2_random_last_label
-ENDIF
+BREAK
 
-IF r2_speech_goals = 10
+CASE 10
 	$r2_print_label[0] = &ROT2_JA // Let's fucking finish this!
 	$r2_print_label[1] = &ROT2_JB // I'm with you, man, let's take 'em!
 
 	r2_audio_label[0] = SOUND_ROT2_JA 
 	r2_audio_label[1] = SOUND_ROT2_JB 
 	r2_last_label = 2
-ENDIF
+BREAK
 
-IF r2_speech_goals = 11
+CASE 11
 	$r2_print_label[0] = &ROT2_KA // This is a Vagos neighborhood now!
 	$r2_print_label[1] = &ROT2_KB // Vagos rule this varrio now - Aztecas are no more!
 	$r2_print_label[2] = &ROT2_KC // Find a new home, assholes, Vagos own this 'hood!
@@ -5664,9 +5669,9 @@ IF r2_speech_goals = 11
 	r2_audio_label[1] = SOUND_ROT2_KB 
 	r2_audio_label[2] = SOUND_ROT2_KC 
 	r2_last_label = r2_random_last_label
-ENDIF
+BREAK
 	
-IF r2_speech_goals = 12
+CASE 12
 	$r2_print_label[0] = &ROT2_LA // Torch those Aztecas!
 	$r2_print_label[1] = &ROT2_LB // Burn them!
 	$r2_print_label[2] = &ROT2_LC // Burn, Aztecas, burn!
@@ -5675,9 +5680,9 @@ IF r2_speech_goals = 12
 	r2_audio_label[1] = SOUND_ROT2_LB 
 	r2_audio_label[2] = SOUND_ROT2_LC 
 	r2_last_label = r2_random_last_label
-ENDIF
+BREAK
 	
-IF r2_speech_goals = 13
+CASE 13
 	$r2_print_label[0] = &ROT2_MA // That's the last of 'em.
 	$r2_print_label[1] = &ROT2_MB // How is Hazer?
 	$r2_print_label[2] = &ROT2_MC // We need to get him to a hospital.
@@ -5697,9 +5702,9 @@ IF r2_speech_goals = 13
 	r2_audio_label[6] = SOUND_ROT2_MG 
 	r2_audio_label[7] = SOUND_ROT2_MH 
 	r2_last_label = r2_random_last_label
-ENDIF
+BREAK
 
-IF r2_speech_goals = 14
+CASE 14
 	$r2_print_label[0] = &CESX_BA // Wait up, CJ!
 	$r2_print_label[1] = &CESX_BB // Hang ten, CJ!
 	$r2_print_label[2] = &CESX_BC // Hold up!
@@ -5710,7 +5715,8 @@ IF r2_speech_goals = 14
 	r2_audio_label[2] = SOUND_CESX_BC 
 	r2_audio_label[3] = SOUND_CESX_BD 
  	r2_last_label = r2_random_last_label 
-ENDIF
+BREAK
+ENDSWITCH
 
 r2_slot_load = r2_speech_control_flag
 r2_slot1 = 0
