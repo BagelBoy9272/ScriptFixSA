@@ -1878,20 +1878,18 @@ IF outsidearea51_d8flag = 5
 				IF random1_ctr > 1
 					audio_label_d8 = SOUND_DES8_BD //Code Blue! Searchlights set to tracking mode!
 					$input_text_d8 = DES8_BD //Code Blue! Searchlights set to tracking mode!
-					GOSUB load_audio_d8
 				ENDIF
 				IF random1_ctr = 1
 					audio_label_d8 = SOUND_DES8_BB //Code Blue! Set the Searchlight perimeter to tracking mode!
 					$input_text_d8 = DES8_BB //Code Blue! Set the Searchlight perimeter to tracking mode!
-					GOSUB load_audio_d8
 					random1_ctr++
 				ENDIF
 				IF random1_ctr = 0
 					audio_label_d8 = SOUND_DES8_BA //Possible intruder sighted. Condition Blue! Set searchlights to tracking mode!
 					$input_text_d8 = DES8_BA //Possible intruder sighted. Condition Blue! Set searchlights to tracking mode!
-					GOSUB load_audio_d8
 					random1_ctr++
 				ENDIF
+					GOSUB load_audio_d8
 
 			ENDIF
 		ENDIF
@@ -1905,20 +1903,18 @@ IF outsidearea51_d8flag = 5
 				IF random2_ctr > 1
 					audio_label_d8 = SOUND_DES8_CC //Perimeter is secure. Standing down from Code Blue!
 					$input_text_d8 = DES8_CC //Perimeter is secure. Standing down from Code Blue!
-					GOSUB load_audio_d8
 				ENDIF
 				IF random2_ctr = 1
 					audio_label_d8 = SOUND_DES8_CB //No further sign of intrusion. Stand down, repeat, stand down!
 					$input_text_d8 = DES8_CB //No further sign of intrusion. Stand down, repeat, stand down!
-					GOSUB load_audio_d8
 					random2_ctr++
 				ENDIF
 				IF random2_ctr = 0
 					audio_label_d8 = SOUND_DES8_CA //Sighting unconfirmed. Stand down from Condition Blue!
 					$input_text_d8 = DES8_CA //Sighting unconfirmed. Stand down from Condition Blue!
-					GOSUB load_audio_d8
 					random2_ctr++
 				ENDIF
+					GOSUB load_audio_d8
 	
 			ENDIF
 		ENDIF
@@ -1926,26 +1922,24 @@ IF outsidearea51_d8flag = 5
 
 	//definately spotted
 	IF spotlightstage_d8flag = 3
-		IF progressaudio_d8flag = 0
-			IF handlingudio_d8flag = 0
+		IF handlingudio_d8flag = 0
+			SWITCH progressaudio_d8flag
+			CASE 0
 				audio_label_d8 = SOUND_DES8_DC //This is a code red! All personnel adopt intruder protocols!
 				$input_text_d8 = DES8_DC //This is a code red! All personnel adopt intruder protocols!
 				GOSUB load_audio_d8
-			ENDIF
-		ENDIF
-		IF progressaudio_d8flag = 1
-			IF handlingudio_d8flag = 0
+			BREAK
+			CASE 1
 				audio_label_d8 = SOUND_DES8_EE //All towers are cleared to use lethal force, repeat, lethal force!
 				$input_text_d8 = DES8_EE //All towers are cleared to use lethal force, repeat, lethal force!
 				GOSUB load_audio_d8
-			ENDIF
-		ENDIF
-		IF progressaudio_d8flag = 2
-			IF handlingudio_d8flag = 0
+			BREAK
+			CASE 2
 				audio_label_d8 = SOUND_DES8_ED //Lock down protocols initiated! Blast doors and security tower isolated!
 				$input_text_d8 = DES8_ED //Lock down protocols initiated! Blast doors and security tower isolated!
 				GOSUB load_audio_d8
-			ENDIF
+			BREAK
+			ENDSWITCH
 		ENDIF
 	
 		IF progressaudio_d8flag = 3
@@ -2262,173 +2256,142 @@ IF inside_d8flag = 1
 
 		IF room_d8flag < 3
 
-			IF progressaudio_d8flag = 0
-				IF handlingudio_d8flag = 0
+			IF handlingudio_d8flag = 0
+
+				IF progressaudio_d8flag > 1
+				AND progressaudio_d8flag < 15
+					IF TIMERB > 5000
+						$input_text_d8 = DUMMY
+					ENDIF
+				ENDIF
+
+				SWITCH progressaudio_d8flag
+				CASE 0
 					audio_label_d8 = SOUND_DES8_FB //Installation personnel please be aware we are at Condition Red. This is not a drill!
 					$input_text_d8 = DES8_FB //Installation personnel please be aware we are at Condition Red. This is not a drill!
 					GOSUB load_audio_d8
-				ENDIF
-			ENDIF
-			IF progressaudio_d8flag = 1
-				IF handlingudio_d8flag = 0
+				BREAK
+				CASE 1
 					audio_label_d8 = SOUND_DES8_FC //This facility has been breached, all security personnel head to the research labs now!
 					$input_text_d8 = DES8_FC //This facility has been breached, all security personnel head to the research labs now!
 					GOSUB load_audio_d8
 					TIMERB = 0
-				ENDIF
-			ENDIF
+				BREAK
 
 			//text below should not come up
-			IF TIMERB > 10000
-				IF progressaudio_d8flag = 2
-					IF handlingudio_d8flag = 0
+				CASE 2
+					IF TIMERB > 10000
 						audio_label_d8 = SOUND_DES8_GD //Personnel are reminded that the downloading of pornography is strictly prohibited.
-						$input_text_d8 = DUMMY //Personnel are reminded that the downloading of pornography is strictly prohibited.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 7500
-				IF progressaudio_d8flag = 3
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 3
+					IF TIMERB > 7500
 						audio_label_d8 = SOUND_DES8_GE //The Composites Lab would like to remind Diagnostics that their fridge is off limits to Diagnostics staff!
-						$input_text_d8 = DUMMY //The Composites Lab would like to remind Diagnostics that their fridge is off limits to Diagnostics staff!
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 5500
-				IF progressaudio_d8flag = 4
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 4
+					IF TIMERB > 5500
 						audio_label_d8 = SOUND_DES8_GJ //Diagnostics would like to point out that they know that the Composites Lab stole their coffee last weekend.
-						$input_text_d8 = DUMMY //Diagnostics would like to point out that they know that the Composites Lab stole their coffee last weekend.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 8000
-				IF progressaudio_d8flag = 5
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 5
+					IF TIMERB > 8000
 						audio_label_d8 = SOUND_DES8_GA //All personnel wishing to go to Shezan tonight, please inform reception at your earliest convenience.
-						$input_text_d8 = DUMMY //All personnel wishing to go to Shezan tonight, please inform reception at your earliest convenience.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 12000
-				IF progressaudio_d8flag = 6
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 6
+					IF TIMERB > 12000
 						audio_label_d8 = SOUND_DES8_GK //Could whoever stole the Composite Lab’s mugs please return them.
-						$input_text_d8 = DUMMY //Could whoever stole the Composite Lab’s mugs please return them.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 12500
-				IF progressaudio_d8flag = 7
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 7
+					IF TIMERB > 12500
 						audio_label_d8 = SOUND_DES8_GG //The Globular Deli have arrived in the canteen.
-						$input_text_d8 = DUMMY //The Globular Deli have arrived in the canteen.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 12000
-				IF progressaudio_d8flag = 8
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 8
+					IF TIMERB > 12000
 						audio_label_d8 = SOUND_DES8_GC //Tonight’s menu is posted in the canteen. Barf bags can be ordered from human resources.
-						$input_text_d8 = DUMMY //Tonight’s menu is posted in the canteen. Barf bags can be ordered from human resources.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 25000
-				IF progressaudio_d8flag = 9
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 9
+					IF TIMERB > 25000
 						audio_label_d8 = SOUND_DES8_GL //Could the owner of the alien culture in the Diagnostics Lab’s fridge, kindly remove it please!
-						$input_text_d8 = DUMMY //Could the owner of the alien culture in the Diagnostics Lab’s fridge, kindly remove it please!
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 15000
-				IF progressaudio_d8flag = 10
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 10
+					IF TIMERB > 15000
 						audio_label_d8 = SOUND_DES8_GM //Personnel found stealing alien technology will NOT be invited on the next staff night out!
-						$input_text_d8 = DUMMY //Personnel found stealing alien technology will NOT be invited on the next staff night out!
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 20000
-				IF progressaudio_d8flag = 11
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 11
+					IF TIMERB > 20000
 						audio_label_d8 = SOUND_DES8_GF	//Can personnel please make sure that they shut all the windows before they leave tonight!
-						$input_text_d8 = DUMMY	//Can personnel please make sure that they shut all the windows before they leave tonight!
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 15000
-				IF progressaudio_d8flag = 12
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 12
+					IF TIMERB > 15000
 						audio_label_d8 = SOUND_DES8_GN //Could all personnel remember that the quarantine breach alarm test has now been moved to Monday mornings.
-						$input_text_d8 = DUMMY //Could all personnel remember that the quarantine breach alarm test has now been moved to Monday mornings.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 10000
-				IF progressaudio_d8flag = 13
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 13
+					IF TIMERB > 10000
 						audio_label_d8 = SOUND_DES8_GB //Personnel are reminded that running in corridors whilst holding scissors is NOT permitted.
-						$input_text_d8 = DUMMY //Personnel are reminded that running in corridors whilst holding scissors is NOT permitted.
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
-			ENDIF
-			IF TIMERB > 12000
-				IF progressaudio_d8flag = 14
-					IF handlingudio_d8flag = 0
+				BREAK
+				CASE 14
+					IF TIMERB > 12000
 						audio_label_d8 = SOUND_DES8_GH //The Cola machine has now been re-filled!
-						$input_text_d8 = DUMMY //The Cola machine has now been re-filled!
 						GOSUB load_audio_d8
 						TIMERB = 0
 					ENDIF
-				ENDIF
+				BREAK
+				ENDSWITCH
 			ENDIF
 
 		ENDIF
 
 		IF jetdoor_d8flag = 2
 
-			IF progressaudio_d8flag = 0
-				IF TIMERB > 2000
-					IF handlingudio_d8flag = 0
+			IF handlingudio_d8flag = 0
+				SWITCH progressaudio_d8flag
+				CASE 0
+					IF TIMERB > 2000
 						audio_label_d8 = SOUND_DES8_HA //Code red, code red!
 						$input_text_d8 = DST8_34 //Code red, code red!
 						GOSUB load_audio_d8
 					ENDIF
-				ENDIF
-			ENDIF
-			IF progressaudio_d8flag = 1
-				IF handlingudio_d8flag = 0
+				BREAK
+				CASE 1
 					audio_label_d8 = SOUND_DES8_HB	//Intruder has penetrated the project! All military personnel to the launch bay IMMEDIATELY!”	
 					$input_text_d8 = DES8_HB	//Intruder has penetrated the project! All military personnel to the launch bay IMMEDIATELY!”	
 					GOSUB load_audio_d8
-				ENDIF
+				BREAK
+				ENDSWITCH
 			ENDIF
 
 		ENDIF
@@ -3111,26 +3074,24 @@ IF inside_d8flag = 2
 
 		GOSUB process_audio_d8	
 
-		IF progressaudio_d8flag = 0
-			IF handlingudio_d8flag = 0
+		IF handlingudio_d8flag = 0
+			SWITCH progressaudio_d8flag
+			CASE 0
 				audio_label_d8 = SOUND_DES8_JA //Intruder is stealing the jet pack! All military personnel outside and fire at will!
 				$input_text_d8 = DST8_35 //Intruder is stealing the jet pack! All military personnel outside and fire at will!
 				GOSUB load_audio_d8
-			ENDIF
-		ENDIF
-		IF progressaudio_d8flag = 1
-			IF handlingudio_d8flag = 0
+			BREAK
+			CASE 1
 				audio_label_d8 = SOUND_DES8_JB //Take him out! That’s a $60,000,000 project!
 				$input_text_d8 = DES8_JB //Take him out! That’s a $60,000,000 project!
 				GOSUB load_audio_d8
-			ENDIF
-		ENDIF
-		IF progressaudio_d8flag = 2
-			IF handlingudio_d8flag = 0
+			BREAK
+			CASE 2
 				audio_label_d8 = SOUND_DES8_JC //Get the General Mills on the line!
 				$input_text_d8 = DES8_JC //Get the General Mills on the line!
 				GOSUB load_audio_d8
-			ENDIF
+			BREAK
+			ENDSWITCH
 		ENDIF
 
 	ENDIF
