@@ -552,6 +552,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added facial talking anim to phonecalls
 - Now you can get phonecalls while in interiors
 - Made Vagos taking over VLA turf happen after Cesar's call about going to Angel Pine instead of an unrelated missable Catalina phone call
+- Removed stats menu display while answering a phonecall
 - Menus won't reset the highlighted row when selecting an item
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Enabled ambient valet from the start of the game, and restored it for LS and LV (though you can't work there)

@@ -4480,6 +4480,8 @@ GOTO cell_phone_GF_inner
 
 
 mobile_rings:
+	SET_PLAYER_DISPLAY_VITAL_STATS_BUTTON PLAYER1 FALSE // FIXEDGROVE
+
 	ring_a_ding_ding = 0
 
 	flag_player_on_mission = 1
@@ -4582,6 +4584,8 @@ mobile_rings:
 			RETURN
 		ENDIF
 	ENDWHILE
+
+	SET_PLAYER_DISPLAY_VITAL_STATS_BUTTON PLAYER1 TRUE // FIXEDGROVE
 	
 	CLEAR_HELP
 	CLEAR_MISSION_AUDIO 1
@@ -4784,9 +4788,10 @@ mobile_message_cleanup:
 			TASK_USE_MOBILE_PHONE scplayer FALSE
 		//ENDIF
 		//SET_PLAYER_CONTROL player1 ON // FIXEDGROVE: this should be fine to remove, conflicts with some minigames that take away player control
-		SET_EVERYONE_IGNORE_PLAYER player1 OFF
-		SHUT_CHAR_UP scplayer FALSE
 	ENDIF
+	SET_EVERYONE_IGNORE_PLAYER player1 OFF
+	SHUT_CHAR_UP scplayer FALSE
+	SET_PLAYER_DISPLAY_VITAL_STATS_BUTTON PLAYER1 TRUE // FIXEDGROVE
 	GET_GAME_TIMER timer_mobile_start
 	timer_mobile_diff = 0
 	GET_GAME_TIMER timer_mobile_now
