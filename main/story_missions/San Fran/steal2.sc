@@ -4086,7 +4086,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 st2_overall_dialogue:///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF st2_speech_goals = 1 //initial dialogue with cesar
+SWITCH st2_speech_goals
+CASE 1 //initial dialogue with cesar
 	IF st2_speech_control_flag < st2_last_label
 		GOSUB st2_loading_dialogue
 		GOSUB st2_playing_dialogue
@@ -4102,11 +4103,11 @@ IF st2_speech_goals = 1 //initial dialogue with cesar
 	ELSE
 		st2_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF st2_speech_goals = 4 //cutscene before going upstairs at showroom
-OR st2_speech_goals = 5 //cutscene upstairs at showroom
-OR st2_speech_goals = 6 //cutscene jumping out of the showroom
+CASE 4 //cutscene before going upstairs at showroom
+CASE 5 //cutscene upstairs at showroom
+CASE 6 //cutscene jumping out of the showroom
 	IF st2_speech_control_flag < st2_last_label
 		GOSUB st2_loading_dialogue
 		GOSUB st2_playing_dialogue
@@ -4114,14 +4115,14 @@ OR st2_speech_goals = 6 //cutscene jumping out of the showroom
 	ELSE
 		st2_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF st2_speech_goals = 7 //walkie talkie working?
-OR st2_speech_goals = 8 //all the main dialogue
-OR st2_speech_goals = 9 //get back to the garage
-OR st2_speech_goals = 10 //did you see that?
-OR st2_speech_goals = 11 //back up!
-OR st2_speech_goals = 12 //see you back at the hub
+CASE 7 //walkie talkie working?
+CASE 8 //all the main dialogue
+CASE 9 //get back to the garage
+CASE 10 //did you see that?
+CASE 11 //back up!
+CASE 12 //see you back at the hub
 	IF st2_speech_control_flag < st2_last_label
 		GOSUB st2_loading_dialogue
 		GOSUB st2_playing_dialogue
@@ -4137,7 +4138,8 @@ OR st2_speech_goals = 12 //see you back at the hub
 	ELSE
 		st2_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
+ENDSWITCH
 
 IF steal2_goals = 0
 	IF st2_control_flag = 0
@@ -4225,7 +4227,8 @@ IF steal2_goals = 0
 			ENDIF
 		ENDIF
 		
-		IF st2_speech_goals = 14 //cesar is out of the group
+		SWITCH st2_speech_goals
+		CASE 14 //cesar is out of the group
 			IF NOT IS_GROUP_MEMBER cesar Players_Group
 				IF st2_speech_control_flag < st2_last_label
 					GOSUB st2_loading_dialogue
@@ -4247,18 +4250,18 @@ IF steal2_goals = 0
 				PRINT ( STE2_10 ) 7000 1 //You have left Cesar behind.
 				st2_speech_goals = 15	
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF st2_speech_goals = 15 //cesar has been out of the group and has returned
+		CASE 15 //cesar has been out of the group and has returned
 			IF IS_GROUP_MEMBER cesar Players_Group 
 				st2_speech_goals = 16
 				st2_speech_control_flag = 0
 				CLEAR_PRINTS
 				//GOSUB st2_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF st2_speech_goals = 16 //cesar is back in group
+		CASE 16 //cesar is back in group
 			IF IS_GROUP_MEMBER cesar Players_Group 	
 				timerb = 0
 				st2_speech_goals = st2_storing_speech_goals_number
@@ -4277,7 +4280,8 @@ IF steal2_goals = 0
 				st2_random_last_label = st2_speech_control_flag + 1 
 				GOSUB st2_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
 ENDIF	
 
@@ -4288,13 +4292,14 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 st2_dialogue_setup://///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF st2_speech_goals = 1
+SWITCH st2_speech_goals
+CASE 1
 	$st2_print_label[0] = &STL2_AA // Ok, let's go and get those wheels!		
 	st2_audio_label[0] = SOUND_STL2_AA 
 	st2_last_label = 1
-ENDIF
+BREAK
 
-IF st2_speech_goals = 2
+CASE 2
 	$st2_print_label[0] = &STL2_BA // I like this place, you know.		
 	$st2_print_label[1] = &STL2_BB // What? Where?		
 	$st2_print_label[2] = &STL2_BC // San Fierro, man.		
@@ -4321,9 +4326,9 @@ IF st2_speech_goals = 2
 	st2_audio_label[10] = SOUND_STL2_BL 
 	st2_audio_label[11] = SOUND_STL2_BM 
 	st2_last_label = 12
-ENDIF
+BREAK
 
-IF st2_speech_goals = 3
+CASE 3
 	$st2_print_label[0] = &STL2_CA // Who's this 'Truth' guy, holmes? Is he all there?
 	$st2_print_label[1] = &STL2_CB // He just sees everything from a very different perspective, is all.
 	$st2_print_label[2] = &STL2_CC // At first I thought he was just another acid casualty fruit cake.
@@ -4340,9 +4345,9 @@ IF st2_speech_goals = 3
 	st2_audio_label[5] = SOUND_STL2_CF 
 	st2_audio_label[6] = SOUND_STL2_CG 
 	st2_last_label = 7
-ENDIF
+BREAK
 
-IF st2_speech_goals = 4
+CASE 4
 	$st2_print_label[0] = &STL2_DA // This is the place!
 	$st2_print_label[1] = &STL2_DB // Here we go, holmes.
 	$st2_print_label[2] = &STL2_DC // This is it, CJ!
@@ -4365,9 +4370,9 @@ IF st2_speech_goals = 4
 	st2_audio_label[7] = SOUND_STL2_DJ 
 	st2_audio_label[8] = SOUND_STL2_DK 
 	st2_last_label = st2_random_last_label
-ENDIF
+BREAK
 
-IF st2_speech_goals = 5
+CASE 5
 	$st2_print_label[0] = &STL2_EA // Can I help you two, eerr, gentlemen?
 	$st2_print_label[1] = &STL2_EB // Yeah, you can help us by going and helping some other motherfucker.
 	$st2_print_label[2] = &STL2_EC // Y- yeah, that sounds like a good idea!
@@ -4380,16 +4385,16 @@ IF st2_speech_goals = 5
 	st2_audio_label[3] = SOUND_STL2_ED 
 	st2_audio_label[4] = SOUND_STL2_EE 
 	st2_last_label = 5
-ENDIF
+BREAK
  
-IF st2_speech_goals = 6
+CASE 6
 	$st2_print_label[0] = &STL2_EF // Holy fuck!
 
 	st2_audio_label[0] = SOUND_STL2_EF 
 	st2_last_label = 1
-ENDIF
+BREAK
 
-IF st2_speech_goals = 7
+CASE 7
 	$st2_print_label[0] = &STL2_FA // Hey, CJ, is this walkie talkie working?
 	$st2_print_label[1] = &STL2_FB // Yeah, reading you loud and clear!
 	$st2_print_label[2] = &STL2_FC // C'mon, CJ, see if you can keep up with Cesar Vialpando!
@@ -4398,9 +4403,9 @@ IF st2_speech_goals = 7
 	st2_audio_label[1] = SOUND_STL2_FB 
 	st2_audio_label[2] = SOUND_STL2_FC 
 	st2_last_label = 3
-ENDIF
+BREAK
 
-IF st2_speech_goals = 8
+CASE 8
 	$st2_print_label[0] = &STL2_FD // Beat the tram up the hill!
 	$st2_print_label[1] = &STL2_FE // Piece of chocolate cake!
 	$st2_print_label[2] = &STL2_FF // This tram driver must be shitting himself!
@@ -4427,9 +4432,9 @@ IF st2_speech_goals = 8
 	st2_audio_label[10] = SOUND_STL2_HB 
 	st2_audio_label[11] = SOUND_STL2_HC 
 	st2_last_label = st2_random_last_label
-ENDIF
+BREAK
 
-IF st2_speech_goals = 9
+CASE 9
 	$st2_print_label[0] = &STL2_FL // Ok, Cesar, that's enough fun.	
 	$st2_print_label[1] = &STL2_FM // Let's get these cars back to the garage!
 	$st2_print_label[2] = &STL2_FN // Ok, CJ, I know a quick route!
@@ -4438,9 +4443,9 @@ IF st2_speech_goals = 9
 	st2_audio_label[1] = SOUND_STL2_FM 
 	st2_audio_label[2] = SOUND_STL2_FN 
 	st2_last_label = 3
-ENDIF
+BREAK
 
-IF st2_speech_goals = 10
+CASE 10
 	$st2_print_label[0] = &STL2_FR // Fuck, holmes, did you see that?
 	$st2_print_label[1] = &STL2_GA // Yeah, can we think about getting back 
 	$st2_print_label[2] = &STL2_GB // before I end up in a carwreck barbeque?
@@ -4451,27 +4456,27 @@ IF st2_speech_goals = 10
 	st2_audio_label[2] = SOUND_STL2_GB 
 	st2_audio_label[3] = SOUND_STL2_HA 
 	st2_last_label = 4																		   
-ENDIF
+BREAK
 
-IF st2_speech_goals = 11
+CASE 11
 	$st2_print_label[0] = &STL2_HD // Uh-oh, more cops!
 	$st2_print_label[1] = &STL2_HE // BACK UP, HOLMES, BACK UP!
 
 	st2_audio_label[0] = SOUND_STL2_HD 
 	st2_audio_label[1] = SOUND_STL2_HE 
 	st2_last_label = 2
-ENDIF
+BREAK
 
-IF st2_speech_goals = 12
+CASE 12
 	$st2_print_label[0] = &STL2_HF // Ok, we're good.
 	$st2_print_label[1] = &STL2_HG // See you back at the hub, CJ!
 
 	st2_audio_label[0] = SOUND_STL2_HF 
 	st2_audio_label[1] = SOUND_STL2_HG 
 	st2_last_label = 2
-ENDIF
+BREAK
 
-IF st2_speech_goals = 14
+CASE 14
 	$st2_print_label[0] = &CESX_BA // Wait up, CJ!
 	$st2_print_label[1] = &CESX_BB // Hang ten, CJ!
 	$st2_print_label[2] = &CESX_BC // Hold up!
@@ -4482,7 +4487,8 @@ IF st2_speech_goals = 14
 	st2_audio_label[2] = SOUND_CESX_BC 
 	st2_audio_label[3] = SOUND_CESX_BD 
  	st2_last_label = st2_random_last_label 
-ENDIF
+BREAK
+ENDSWITCH
 
 st2_slot_load = st2_speech_control_flag
 st2_slot1 = 0

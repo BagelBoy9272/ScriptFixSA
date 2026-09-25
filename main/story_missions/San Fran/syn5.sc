@@ -4230,14 +4230,15 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 syn5_dialogue_setup://////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF syn5_speech_goals = 1
+SWITCH syn5_speech_goals
+CASE 1
 	$syn5_print_label[0] = &SYN5_AA // Hey, holmes, I'm  up here. Go around back!
 
 	syn5_audio_label[0] = SOUND_SYN5_AA
 	syn5_last_label = 1
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 2
+CASE 2
 	$syn5_print_label[0] = &SYN5_BA // Hey man.
 	$syn5_print_label[1] = &SYN5_BB // Nice job getting that phone message, man.
 
@@ -4274,9 +4275,9 @@ IF syn5_speech_goals = 2
 	syn5_audio_label[12] = SOUND_SYN5_BM
 	syn5_audio_label[13] = SOUND_SYN5_BN
 	syn5_last_label = syn5_random_last_label
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 3
+CASE 3
 	//$syn5_print_label[0] = &SYN5_CA // Take the shot, CJ, they'll be up there any moment!
 	$syn5_print_label[1] = &SYN5_CB // Shit they've walked right into it!
 	$syn5_print_label[2] = &SYN5_CC // Take 'em out, CJ, they're in the thick of it!
@@ -4291,9 +4292,9 @@ IF syn5_speech_goals = 3
 	syn5_audio_label[4] = SOUND_SYN5_CE
 	syn5_audio_label[5] = SOUND_SYN5_CF
 	syn5_last_label = syn5_random_last_label
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 4
+CASE 4
 	$syn5_print_label[0] = &SYN5_DA // One down...
 	$syn5_print_label[1] = &SYN5_DB // That's it, CJ, keep icing those Rifa!
 	$syn5_print_label[2] = &SYN5_DC // Just a few more, holmes...
@@ -4307,9 +4308,9 @@ IF syn5_speech_goals = 4
 	syn5_audio_label[3] = SOUND_SYN5_DD
 	syn5_audio_label[4] = SOUND_SYN5_DE
 	syn5_last_label = syn5_random_last_label
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 5
+CASE 5
 	$syn5_print_label[0] = &SYN5_EA // Oh, man, you let them get wiped out!
 	$syn5_print_label[1] = &SYN5_EB // CJ, what happened? You let them get cut to pieces!
 	$syn5_print_label[2] = &SYN5_EC // We can't do this without Woozie's boys, man...
@@ -4320,20 +4321,20 @@ IF syn5_speech_goals = 5
 	syn5_audio_label[2] = SOUND_SYN5_EC
 	syn5_audio_label[3] = SOUND_SYN5_ED
 	syn5_last_label = syn5_random_last_label
-ENDIF
+BREAK
 
 /*
-IF syn5_speech_goals = 6
+CASE 6
 	$syn5_print_label[0] = &SYN5_FA // Nice one, CJ!
 	$syn5_print_label[1] = &SYN5_FB // Let's head on over and see what we can see.
 
 	syn5_audio_label[0] = SOUND_SYN5_FA
 	syn5_audio_label[1] = SOUND_SYN5_FB
 	syn5_last_label = 2
-ENDIF
+BREAK
 */
 
-IF syn5_speech_goals = 7
+CASE 7
 	$syn5_print_label[0] = &SYN5_GZ // Man, my shooting was fresh! 
 	//$syn5_print_label[1] = &SYN5_GB // We should be able to see everything from up here.
 	$syn5_print_label[2] = &SYN5_GC // Here comes T-Bone....
@@ -4370,9 +4371,9 @@ IF syn5_speech_goals = 7
 	
 	syn5_audio_label[13] = SOUND_SYN5_GW
 	syn5_last_label = syn5_random_last_label
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 8
+CASE 8
 	$syn5_print_label[0] = &SYN5_HH // Mendez, I see you, Rifa motherfucker!
 
 	$syn5_print_label[1] = &SYN5_HA // Ryder, you sherm-head assshole, 
@@ -4397,9 +4398,9 @@ IF syn5_speech_goals = 8
 	//syn5_audio_label[9] = SOUND_SYN5_HD	
 	//syn5_audio_label[10] = SOUND_SYN5_HG
 	syn5_last_label = syn5_random_last_label
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 9
+CASE 9
 	$syn5_print_label[0] = &SYN5_JA // Hey, that's my boat!
 	$syn5_print_label[1] = &SYN5_JB // Oh my god, my boat!
 	$syn5_print_label[2] = &SYN5_JC // Stop, you thieving bastard!
@@ -4408,9 +4409,9 @@ IF syn5_speech_goals = 9
 	syn5_audio_label[1] = SOUND_SYN5_JB	
 	syn5_audio_label[2] = SOUND_SYN5_JC	
 	syn5_last_label = syn5_random_last_label
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 10
+CASE 10
 	$syn5_print_label[0] = &MOBRING // Phone ringing
 	$syn5_print_label[1] = &SYN5_KA // yo
 	$syn5_print_label[2] = &SYN5_KB // You ok, holmes, we been watching from the pier with binoculars!
@@ -4425,18 +4426,18 @@ IF syn5_speech_goals = 10
 	syn5_audio_label[4] = SOUND_SYN5_KD	
 	syn5_audio_label[5] = SOUND_SYN5_KE	
 	syn5_last_label = 6
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 11 
+CASE 11 
 	$syn5_print_label[0] = &SYN5_HE // You sold us out, Ryder, you fucked us all!
 	$syn5_print_label[1] = &SYN5_HF // I'm a... I'm a motherfucking genius!
 
 	syn5_audio_label[0] = SOUND_SYN5_HE	
 	syn5_audio_label[1] = SOUND_SYN5_HF	
 	syn5_last_label = 2
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 14
+CASE 14
 	$syn5_print_label[0] = &CESX_BA // Wait up, CJ!
 	$syn5_print_label[1] = &CESX_BB // Hang ten, CJ!
 	$syn5_print_label[2] = &CESX_BC // Hold up!
@@ -4447,7 +4448,8 @@ IF syn5_speech_goals = 14
 	syn5_audio_label[2] = SOUND_CESX_BC 
 	syn5_audio_label[3] = SOUND_CESX_BD 
  	syn5_last_label = syn5_random_last_label 
-ENDIF
+BREAK
+ENDSWITCH
 
 syn5_slot_load = syn5_speech_control_flag
 syn5_slot1 = 0
@@ -4460,12 +4462,13 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 syn5_overall_dialogue://////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
-IF syn5_speech_goals = 1 //cutscene dialogue where cesar is telling player he is up above him.
-OR syn5_speech_goals = 2 //cutscene dialogue where cesar is telling player about tbone's security.
-OR syn5_speech_goals = 5 //cutscene dialogue of triad leader dying
-OR syn5_speech_goals = 7 //cutscene dialogue showing the baddies arriving at the meet
-OR syn5_speech_goals = 8 //cutscene dialogue where ryder gets shot
-OR syn5_speech_goals = 10 //cutscene dialogue at end of cesar telling player good job
+SWITCH syn5_speech_goals
+CASE 1 //cutscene dialogue where cesar is telling player he is up above him.
+CASE 2 //cutscene dialogue where cesar is telling player about tbone's security.
+CASE 5 //cutscene dialogue of triad leader dying
+CASE 7 //cutscene dialogue showing the baddies arriving at the meet
+CASE 8 //cutscene dialogue where ryder gets shot
+CASE 10 //cutscene dialogue at end of cesar telling player good job
 	IF syn5_speech_control_flag < syn5_last_label
 		GOSUB syn5_loading_dialogue
 		GOSUB syn5_playing_dialogue
@@ -4473,10 +4476,10 @@ OR syn5_speech_goals = 10 //cutscene dialogue at end of cesar telling player goo
 	ELSE
 		syn5_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 3 //dialogue where cesar is telling player that wuzi's guys are getting killed
-OR syn5_speech_goals = 4 //dialogue where cesar is giving player sniping advice
+CASE 3 //dialogue where cesar is telling player that wuzi's guys are getting killed
+CASE 4 //dialogue where cesar is giving player sniping advice
 	IF syn5_speech_control_flag < syn5_last_label
 		GOSUB syn5_loading_dialogue
 		GOSUB syn5_playing_dialogue
@@ -4492,9 +4495,9 @@ OR syn5_speech_goals = 4 //dialogue where cesar is giving player sniping advice
 	ELSE
 		syn5_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 9 //party dude shouting about his boat
+CASE 9 //party dude shouting about his boat
 	IF syn5_speech_control_flag < syn5_last_label
 		GOSUB syn5_loading_dialogue
 		GOSUB syn5_playing_dialogue
@@ -4510,9 +4513,9 @@ IF syn5_speech_goals = 9 //party dude shouting about his boat
 	ELSE
 		syn5_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF syn5_speech_goals = 11 //ryder
+CASE 11 //ryder
 	IF syn5_speech_control_flag < syn5_last_label
 		GOSUB syn5_loading_dialogue
 		GOSUB syn5_playing_dialogue
@@ -4528,7 +4531,8 @@ IF syn5_speech_goals = 11 //ryder
 	ELSE
 		syn5_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
+ENDSWITCH
 
 IF syn5_goals = 5
 	IF syn5_control_flag = 0
@@ -4552,7 +4556,8 @@ IF syn5_goals = 5
 			ENDIF
 		ENDIF
 		
-		IF syn5_speech_goals = 14 //cesar is out of the group
+		SWITCH syn5_speech_goals
+		CASE 14 //cesar is out of the group
 			IF NOT IS_GROUP_MEMBER cesar Players_Group
 				IF syn5_speech_control_flag < syn5_last_label
 					GOSUB syn5_loading_dialogue
@@ -4574,18 +4579,18 @@ IF syn5_goals = 5
 				PRINT ( SYN5_10 ) 7000 1 //You have left Cesar behind.
 				syn5_speech_goals = 15	
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF syn5_speech_goals = 15 //cesar has been out of the group and has returned
+		CASE 15 //cesar has been out of the group and has returned
 			IF IS_GROUP_MEMBER cesar Players_Group 
 				syn5_speech_goals = 16
 				syn5_speech_control_flag = 0
 				CLEAR_PRINTS
 				//GOSUB syn5_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF syn5_speech_goals = 16 //cesar is back in group
+		CASE 16 //cesar is back in group
 			IF IS_GROUP_MEMBER cesar Players_Group 	
 				timerb = 0
 				syn5_speech_goals = syn5_storing_speech_goals_number
@@ -4604,7 +4609,8 @@ IF syn5_goals = 5
 				syn5_random_last_label = syn5_speech_control_flag + 1 
 				GOSUB syn5_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
 ENDIF
 
