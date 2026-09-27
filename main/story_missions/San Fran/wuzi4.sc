@@ -2707,7 +2707,7 @@ WAIT 0
 				DELETE_CHAR w5_refugees[1] 
 				DELETE_CHAR w5_refugees[2] 
 				DELETE_CHAR w5_refugees[3] 
-				GOTO mission_wuzi5_
+				GOTO mission_wuzi5_passed
 			ENDIF
 		ENDIF 	 
 	ENDIF
@@ -2867,12 +2867,12 @@ PRINT_BIG M_FAIL 5000 1
 RETURN
 
    
-// mission wuzi5 
-mission_wuzi5_:
+// mission wuzi5 passed
+mission_wuzi5_passed:
 flag_wuzi_mission_counter ++
 REMOVE_BLIP wuzi_contact_blip
-//flag_wuzi5_mission1_ = 1
-PRINT_WITH_NUMBER_BIG ( M_PASSS ) 15000 5000 1 //"Mission !" //100 being the amount of cash
+//flag_wuzi5_mission1_passed = 1
+PRINT_WITH_NUMBER_BIG ( M_PASSS ) 15000 5000 1 //"Mission Passed!" //100 being the amount of cash
 ADD_SCORE player1 15000//amount of cash
 AWARD_PLAYER_MISSION_RESPECT 30//amount of respect
 SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_DISLIKE PEDTYPE_GANG_VIET PEDTYPE_PLAYER1 // FIXEDGROVE: make viets dislike CJ
@@ -3904,8 +3904,3 @@ RETURN//////////////////////////////////////////////////////////////////////////
 
 
 }
-								 
-
-
-
-
