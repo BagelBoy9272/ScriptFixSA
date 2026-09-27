@@ -603,3 +603,4 @@ Notes and pro tips:
 **bamspeedy1298** for their stats guide on GameFAQS.  
 **Kaizo M** for their Speech Context and Mission Audio Debugger.  
 **OrionSR**, **TheoTTG**, **Deezire**, **Silent**, **Domiiniik**, **ArmanCan**, **StreetFonso**, **Nick007J**, **MuraSoraZone**, **Vadim M** and **Kaizo M** for documenting script bugs and oddities.  
+
