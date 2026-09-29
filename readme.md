@@ -310,7 +310,8 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Reverted another minor change that was made for debug
 - Made T-bone unheadshottable
 - Made it so voicelines and subtitles don't cut out during the fade out after a cutscene skip
-
+- Rifas will be unfriendly to the Grove after this mission
+ 
 **Test Drive:**
 - Restored Cesar voiceline about a motorbike on the road
 - Restored peds that would enter a bus
