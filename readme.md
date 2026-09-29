@@ -286,7 +286,8 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **The Da Nang Thang:**
 - Added an extra member variant
 - Fixed a cutscene softlock
-
+- Da Nang Boys will be unfriendly to the Grove after this mission
+  
 **Outrider:**
 - Now player teleports outside of the crack factory instead of just at the door after the ending cutscene (needed since the new freeroam gate would lock them inside)
 - Changed some models to be random
