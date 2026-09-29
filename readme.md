@@ -349,6 +349,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Breaking The Bank At Caligula's:**
 - Fixed this mission permanently altering PEDTYPE_CIVMALE relationship towards player
 - Fixed the player's haircut being temporarily reset for no apparent reason
+- Mafia will be unfriendly to the Grove and the Triads after this mission
 
 **Vertical Bird:**
 - Increased upper limit in random number generator, bringing back an unused route for a forklift
