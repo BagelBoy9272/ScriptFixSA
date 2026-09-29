@@ -548,6 +548,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Made the motel props from 'Reuniting The Families' spawn in freeroam
 - Made the storm drain grate from 'Just Business' spawn in freeroam
 - Made the house windows from 'Burning Desire' spawn in freeroam
+- Made The Truth's weed farm from 'Are You Going to San Fierro?' spawn in freeroam
 - Made crack factory front gate spawn in freeroam
 - Restored unique custom plates for import/export from PS2 REV 1
 - ®️ Now you can quit the "Let's Get Ready to Bumble" arcade game mid-game

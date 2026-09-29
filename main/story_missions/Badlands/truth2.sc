@@ -947,7 +947,11 @@ GOTO mission_truth2_loop
 
 mission_truth2_failed:
 REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_FLAMETHROWER  
-REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_ROCKETLAUNCHER  
+REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_ROCKETLAUNCHER
+// FIXEDGROVE: START - restore weed farm state
+REMOVE_IPL truthsfarm 
+REQUEST_IPL	truthsfarm
+// FIXEDGROVE: END  
 PRINT_BIG M_FAIL 5000 1
 RETURN
 
@@ -965,6 +969,7 @@ PLAYER_MADE_PROGRESS 1
 flag_truth_mission_counter ++
 REMOVE_BLIP truth_contact_blip
 
+REMOVE_IPL truthsfarm // FIXEDGROVE: now removed only on mission pass rather than cleanup
 
 TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME MOB_SF
 START_NEW_SCRIPT cell_phone_sanfran
@@ -994,7 +999,8 @@ mission_cleanup_truth2:
 IF IS_STRING_EMPTY $shop_name
 	RESTORE_CAMERA_JUMPCUT
 ENDIF
-REMOVE_IPL_DISCREETLY truthsfarm
+//REMOVE_IPL_DISCREETLY truthsfarm // FIXEDGROVE: now removed only on mission pass since it appears in freeroam
+EXTINGUISH_FIRE_AT_POINT -913.3 -1720.5 76.6 300.0 // FIXEDGROVE: added so the weed stops burning
 REMOVE_BLIP t2_truths_farm_blip
 IF NOT IS_CAR_DEAD t2_chopper 
 	HELI_GOTO_COORDS t2_chopper 0.0 0.0 200.0 0.0 200.0 

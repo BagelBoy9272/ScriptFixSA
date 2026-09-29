@@ -3096,6 +3096,8 @@ DONT_REMOVE_OBJECT crackfact_front_gate
 
 //VAR_INT cement_hole // used in the building site in san fran
 
+REQUEST_IPL	truthsfarm // FIXEDGROVE: truth's weed farm
+
 // ***********************************************************************************
 //
 //					   			CRANE STUFF - Neil
