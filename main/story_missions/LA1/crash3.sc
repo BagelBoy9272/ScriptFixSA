@@ -2601,26 +2601,24 @@ IF crash_c3flag = 11
 
 			GOSUB process_audio_c3
 
-			IF progressaudio_c3flag = 0
-				IF handlingudio_c3flag = 0
+			IF handlingudio_c3flag = 0
+				SWITCH progressaudio_c3flag
+				CASE 0
 					audio_label_c3 = SOUND_CRA3_DB	//Stop, we could do business!
 					$input_text_c3 = CRA3_DB	//Stop, we could do business!
 					GOSUB load_audio_c3
-				ENDIF
-			ENDIF
-			IF progressaudio_c3flag = 1
-				IF handlingudio_c3flag = 0
+				BREAK
+				CASE 1
 					audio_label_c3 = SOUND_CRA3_DC	//Fuck you, Americansky! I’m gone!
 					$input_text_c3 = CRA3_DC	//Fuck you, Americansky! I’m gone!
 					GOSUB load_audio_c3
-				ENDIF
-			ENDIF
-			IF progressaudio_c3flag = 2
-				IF handlingudio_c3flag = 0
+				BREAK
+				CASE 2
 					audio_label_c3 = SOUND_CRA3_DD	//Doing business in america is dangerous!
 					$input_text_c3 = CRA3_DD	//Doing business in america is dangerous!
 					GOSUB load_audio_c3
-				ENDIF
+				BREAK
+				ENDSWITCH
 			ENDIF
 
 		ENDIF

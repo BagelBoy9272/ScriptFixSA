@@ -2225,60 +2225,37 @@ IF sw4_stage = 5
 					GET_GAME_TIMER sw4_timer_end[0]
 					sw4_timer_diff[0] = sw4_timer_end[0] - sw4_timer_start[0]
 					IF sw4_timer_diff[0] > 250
-						IF sw4_stopped_text = 0
-							IF sw4_audio_playing = 0
-							AND sw4_counter = 0
+						IF sw4_audio_playing = 0
+						AND sw4_counter = 0
+						SWITCH sw4_stopped_text
+						CASE 0
 								sw4_counter = 20 // RYDER: Holy shit we’re sitting ducks!
 								//PRINT_NOW ( SWE4_DA ) 3000 1 // RYDER: Holy shit we’re sitting ducks!
-								GET_GAME_TIMER sw4_timer_start[0]
-								sw4_stopped = 2
-							ENDIF
-						ENDIF
-						IF sw4_stopped_text = 1
-							IF sw4_audio_playing = 0
-							AND sw4_counter = 0
+						BREAK
+						CASE 1
 								sw4_counter = 21 // RYDER: Oh man, oh man, move! MOVE!
 								//PRINT_NOW ( SWE4_DB ) 3000 1 // RYDER: Oh man, oh man, move! MOVE!
-								GET_GAME_TIMER sw4_timer_start[0]
-								sw4_stopped = 2
-							ENDIF
-						ENDIF
-						IF sw4_stopped_text = 2
-							IF sw4_audio_playing = 0
-							AND sw4_counter = 0
+						BREAK
+						CASE 2
 								sw4_counter = 22 // RYDER: What you doing, CJ?!
 								//PRINT_NOW ( SWE4_DC ) 3000 1 // RYDER: What you doing, CJ?!
-								GET_GAME_TIMER sw4_timer_start[0]
-								sw4_stopped = 2
-							ENDIF
-						ENDIF
-						IF sw4_stopped_text = 3
-							IF sw4_audio_playing = 0
-							AND sw4_counter = 0
+						BREAK
+						CASE 3
 								sw4_counter = 23 // RYDER: He’s trying to get us killed!
 								//PRINT_NOW ( SWE4_DD ) 3000 1 // RYDER: He’s trying to get us killed!
-								GET_GAME_TIMER sw4_timer_start[0]
-								sw4_stopped = 2
-							ENDIF
-						ENDIF
-						IF sw4_stopped_text = 4
-							IF sw4_audio_playing = 0
-							AND sw4_counter = 0
+						BREAK
+						CASE 4
 								sw4_counter = 24 // RYDER: He’s trying to get us killed!
 								//PRINT_NOW ( SWE4_DE ) 3000 1 // RYDER: He’s trying to get us killed!
-								GET_GAME_TIMER sw4_timer_start[0]
-								sw4_stopped = 2
-							ENDIF
-						ENDIF
-						IF sw4_stopped_text = 5
-							IF sw4_audio_playing = 0
-							AND sw4_counter = 0
+						BREAK
+						CASE 5
 								sw4_counter = 25 // RYDER: Move it, CJ, move it!
 								//PRINT_NOW ( SWE4_DF ) 3000 1 // RYDER: Move it, CJ, move it!
+						ENDIF
+						BREAK
+						ENDSWITCH
 								GET_GAME_TIMER sw4_timer_start[0]
 								sw4_stopped = 2
-							ENDIF
-						ENDIF
 
 					ENDIF
 				ELSE
@@ -2403,131 +2380,132 @@ IF sw4_stage = 6
 AND sw4_text_timer_flag = 18
 	GET_GAME_TIMER sw4_blip_timer_end
 	sw4_blip_timer_diff = sw4_blip_timer_end - sw4_blip_timer_start 
-	IF sw4_blip_counter = 0
+	SWITCH sw4_blip_counter
+	CASE 0
 		IF sw4_blip_timer_diff > 500
 			PRINT_HELP ( SWE4_07 ) // Marked on Radar as a Spray can
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 1
+	BREAK
+	CASE 1
 		IF sw4_blip_timer_diff > 1000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 2
+	BREAK
+	CASE 2
 		IF sw4_blip_timer_diff > 1500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 3
+	BREAK
+	CASE 3
 		IF sw4_blip_timer_diff > 2000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 4
+	BREAK
+	CASE 4
 		IF sw4_blip_timer_diff > 2500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 5
+	BREAK
+	CASE 5
 		IF sw4_blip_timer_diff > 3000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 6
+	BREAK
+	CASE 6
 		IF sw4_blip_timer_diff > 3500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 7
+	BREAK
+	CASE 7
 		IF sw4_blip_timer_diff > 4000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 8
+	BREAK
+	CASE 8
 		IF sw4_blip_timer_diff > 4500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 9
+	BREAK
+	CASE 9
 		IF sw4_blip_timer_diff > 5000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 10
+	BREAK
+	CASE 10
 		IF sw4_blip_timer_diff > 5500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 11
+	BREAK
+	CASE 11
 		IF sw4_blip_timer_diff > 6000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 12
+	BREAK
+	CASE 12
 		IF sw4_blip_timer_diff > 6500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 13
+	BREAK
+	CASE 13
 		IF sw4_blip_timer_diff > 7000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 14
+	BREAK
+	CASE 14
 		IF sw4_blip_timer_diff > 7500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 15
+	BREAK
+	CASE 15
 		IF sw4_blip_timer_diff > 8000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 16
+	BREAK
+	CASE 16
 		IF sw4_blip_timer_diff > 8500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 17
+	BREAK
+	CASE 17
 		IF sw4_blip_timer_diff > 9000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 18
+	BREAK
+	CASE 18
 		IF sw4_blip_timer_diff > 9500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 19
+	BREAK
+	CASE 19
 		IF sw4_blip_timer_diff > 10000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
@@ -2535,7 +2513,8 @@ AND sw4_text_timer_flag = 18
 			ADD_BLIP_FOR_COORD 2075.55 -1831.09 12.21 sw4_spray_marker
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 	IF sw4_cut = 0
 		IF NOT IS_CHAR_DEAD scplayer
 			IF LOCATE_CHAR_IN_CAR_3D scplayer 2075.55 -1831.09 12.21 4.0 4.0 4.0 TRUE
@@ -2880,29 +2859,25 @@ AND sw4_stage < 8
 				GET_GAME_TIMER sw4_timer_end[0]
 				sw4_timer_diff[0] = sw4_timer_end[0] - sw4_timer_start[0]
 				IF sw4_timer_diff[0] > 200
-					IF sw4_stopped_text = 0
-						IF sw4_audio_playing = 0
-						AND sw4_counter = 0
+					IF sw4_audio_playing = 0
+					AND sw4_counter = 0
+					SWITCH sw4_stopped_text
+					CASE 0
 							sw4_counter = 26 // RYDER: I told you he was a buster!
 							sw4_stopped_text = 5
 							//PRINT ( SWE4_EA ) 3000 1 // RYDER: I told you he was a buster!
-						ENDIF
-					ENDIF
-					IF sw4_stopped_text = 1
-						IF sw4_audio_playing = 0
-						AND sw4_counter = 0
+					BREAK
+					CASE 1
 							sw4_counter = 27 // SWEET: Don’t run out on me again, Carl!
 							sw4_stopped_text = 5
 							//PRINT ( SWE4_EB ) 3000 1 // SWEET: Don’t run out on me again, Carl!
-						ENDIF
-					ENDIF
-					IF sw4_stopped_text = 2
-						IF sw4_audio_playing = 0
-						AND sw4_counter = 0
+					BREAK
+					CASE 2
 							sw4_counter = 28 // SMOKE: Carl’s quitting on us!
 							sw4_stopped_text = 5
 							//PRINT ( SWE4_EC ) 3000 1 // SMOKE: Carl’s quitting on us!
-						ENDIF
+					BREAK
+					ENDSWITCH
 					ENDIF
 				ENDIF
 			ENDIF
@@ -3084,36 +3059,26 @@ IF sw4_blipped = 0
 				GET_GAME_TIMER sw4_text_timer_start
 			ENDIF 
 		ENDIF
-		IF sw4_text_timer_flag = 0
-			IF sw4_audio_playing = 0
-			AND	sw4_counter = 0
+		IF sw4_audio_playing = 0
+		AND	sw4_counter = 0
+		SWITCH sw4_text_timer_flag
+		CASE 0
 				sw4_counter = 1	 // RYDER: Where we going, homie?
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 1
-			IF sw4_audio_playing = 0
-			AND	sw4_counter = 0
+		BREAK
+		CASE 1
 				sw4_counter = 2	// SWEET: Rollin’ Heights Ballas country.
-			ENDIF	
-		ENDIF
-		IF sw4_text_timer_flag = 2
-			IF sw4_audio_playing = 0
-			AND	sw4_counter = 0
+		BREAK
+		CASE 2
 				sw4_counter = 5	// RYDER: Do us a little drive by?
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 6
-			IF sw4_audio_playing = 0
-			AND	sw4_counter = 0
+		BREAK
+		CASE 6
 				sw4_counter = 9	// RYDER: No, you’re our chauffeur for this little gig!
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 7
-			IF sw4_audio_playing = 0
-			AND	sw4_counter = 0
+		BREAK
+		CASE 7
 				sw4_counter = 10 // CARL: Gee, thanks.
 				//PRINT ( SWE4_AJ ) 100 1 // CARL: Gee, thanks.
-			ENDIF
+		BREAK
+		ENDSWITCH
 		ENDIF
 		IF sw4_text_timer_flag = 8
 			IF sw4_audio_playing = 0
@@ -3122,33 +3087,22 @@ IF sw4_blipped = 0
 		ENDIF
 	ENDIF
 	IF sw4_stage = 4
-		IF sw4_text_timer_flag = 9
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		IF sw4_audio_playing = 0
+		AND sw4_counter = 0
+		SWITCH sw4_text_timer_flag
+		CASE 9
 				sw4_counter = 12 // SWEET: Alright – Ballas turf, you dogs ready?
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 10
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		BREAK
+		CASE 10
 				sw4_counter = 13 // CARL: Sure, dude, I’m ready.
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 11
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		BREAK
+		CASE 11
 				sw4_counter = 14 // SWEET: Carl, Just concentrate on the driving and we’ll take care of the shooting.
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 12
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		BREAK
+		CASE 12
 				sw4_counter = 15 // RYDER: Listen to the man. Try not to park us up a tree or nothin’.
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 13
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		BREAK
+		CASE 13
 				sw4_counter = 16 // SWEET: Yeah if the car stops, we’re dead meat.
 				IF NOT IS_CHAR_DEAD	sw4_flat_hood[2]
 					TASK_PLAY_ANIM sw4_flat_hood[2] gsign3 GHANDS 4.0 FALSE FALSE FALSE FALSE 0
@@ -3157,7 +3111,8 @@ IF sw4_blipped = 0
 					//TASK_PLAY_ANIM sw4_flat_hood[3] smkcig_prtl GANGS 4.0 FALSE FALSE FALSE FALSE 0
 					TASK_PLAY_ANIM sw4_flat_hood[3] drnkbr_prtl GANGS 4.0 FALSE FALSE FALSE FALSE 0
 				ENDIF
-			ENDIF
+		BREAK
+		ENDSWITCH
 		ENDIF
 	ENDIF
 	IF sw4_stage = 6
@@ -3185,15 +3140,12 @@ IF sw4_blipped = 0
 				ENDIF 
 			ENDIF
 		ELSE
-			IF sw4_text_timer_flag = 14
-				IF sw4_audio_playing = 0
-				AND sw4_counter = 0
+			IF sw4_audio_playing = 0
+			AND sw4_counter = 0
+				IF sw4_text_timer_flag = 14
 					sw4_counter = 55 // RYDER: CJ, you trying to get us busted?
 				ENDIF
-			ENDIF	
-			IF sw4_text_timer_flag = 15
-				IF sw4_audio_playing = 0
-				AND sw4_counter = 0
+				IF sw4_text_timer_flag = 15
 					sw4_counter = 56 // SWEET: C’mon CJ, we gotta lose all this attention!
 				ENDIF
 			ENDIF
@@ -3206,39 +3158,29 @@ IF sw4_blipped = 0
 	ENDIF
 	IF sw4_stage = 7
 	AND sw4_help = 4
-		GET_GAME_TIMER sw4_text_timer_end 
-		sw4_text_timer_diff = sw4_text_timer_end - sw4_text_timer_start
-		IF sw4_text_timer_diff > 6000
-			IF sw4_text_timer_flag = 18
-				IF sw4_audio_playing = 0
-				AND sw4_counter = 0
+		IF sw4_audio_playing = 0
+		AND sw4_counter = 0
+		SWITCH sw4_text_timer_flag
+		CASE 18
+			GET_GAME_TIMER sw4_text_timer_end 
+			sw4_text_timer_diff = sw4_text_timer_end - sw4_text_timer_start
+			IF sw4_text_timer_diff > 6000
 					sw4_counter = 37 // SWEET: Holy fuck, Grove is back, man, Grove is back!
-				ENDIF
-			ENDIF
-		ENDIF																																  
-		IF sw4_text_timer_flag = 19
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+			BREAK
+		BREAK
+		CASE 19
 				sw4_counter = 38 // CARL: Righteous, dude, they was totally unprepared for us!
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 20
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		BREAK
+		CASE 20
 				sw4_counter = 39 // RYDER: I’m amazed you didn’t get us killed, CJ.
-			ENDIF
-		ENDIF
-		IF sw4_text_timer_flag = 21
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		BREAK
+		CASE 21
 				sw4_counter = 40 // RYDER: Yo, check it, am I dead?
-			ENDIF
-		ENDIF
-	   	IF sw4_text_timer_flag = 22
-			IF sw4_audio_playing = 0
-			AND sw4_counter = 0
+		BREAK
+		CASE 22
 				sw4_counter = 41 // SWEET: Hey, Carl, ignore that motherfucker, you did good today.
-			ENDIF
+		BREAK
+		ENDSWITCH
 		ENDIF
 	ENDIF
 ENDIF

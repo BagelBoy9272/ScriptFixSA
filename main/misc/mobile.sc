@@ -4195,38 +4195,40 @@ cell_phone_random_inner:
 							// LOAD SHARK REMINDER***************************************************************** 					
 							IF flag_mob_random[10] = 0
 								//PRINT_HELP ( ANSWER )
-								IF loan_shark_reminder = 7
+								SWITCH loan_shark_reminder
+								CASE 7
 									call_number = LOANSHARK_CALL8
 									loan_shark_reminder = 0
-								ENDIF
-								IF loan_shark_reminder = 6
+								BREAK
+								CASE 6
 									call_number = LOANSHARK_CALL7 
 									loan_shark_reminder = 7
-								ENDIF
-								IF loan_shark_reminder = 5
+								BREAK
+								CASE 5
 									call_number = LOANSHARK_CALL6 
 									loan_shark_reminder = 6
-								ENDIF
-								IF loan_shark_reminder = 4
+								BREAK
+								CASE 4
 									call_number = LOANSHARK_CALL5 
 									loan_shark_reminder = 5
-								ENDIF
-								IF loan_shark_reminder = 3
+								BREAK
+								CASE 3
 									call_number = LOANSHARK_CALL4 
 									loan_shark_reminder = 4
-								ENDIF
-								IF loan_shark_reminder = 2
+								BREAK
+								CASE 2
 									call_number = LOANSHARK_CALL3 
 									loan_shark_reminder = 3
-								ENDIF
-								IF loan_shark_reminder = 1
+								BREAK
+								CASE 1
 									call_number = LOANSHARK_CALL2 
 									loan_shark_reminder = 2
-								ENDIF
-								IF loan_shark_reminder = 0
+								BREAK
+								CASE 0
 									call_number = LOANSHARK_CALL1 
 									loan_shark_reminder = 1
-								ENDIF
+								BREAK
+								ENDSWITCH
 								GOSUB mobile_rings
 								IF flag_player_answered_phone = 1	
 									GOSUB mobile_chat_switch
@@ -4245,38 +4247,40 @@ cell_phone_random_inner:
 							IF flag_mob_random[10] = 1
 								IF flag_mob_random[11] = 0
 									//PRINT_HELP ( ANSWER )
-									IF loan_shark_hitmen = 7
+									SWITCH loan_shark_hitmen
+									CASE 7
 										call_number = LOANSHARK_CALL16 
 										loan_shark_hitmen = 0
-									ENDIF
-									IF loan_shark_hitmen = 6
+									BREAK
+									CASE 6
 										call_number = LOANSHARK_CALL15 
 										loan_shark_hitmen = 7
-									ENDIF
-									IF loan_shark_hitmen = 5
+									BREAK
+									CASE 5
 										call_number = LOANSHARK_CALL14 
 										loan_shark_hitmen = 6
-									ENDIF
-									IF loan_shark_hitmen = 4
+									BREAK
+									CASE 4
 										call_number = LOANSHARK_CALL13 
 										loan_shark_hitmen = 5
-									ENDIF
-									IF loan_shark_hitmen = 3
+									BREAK
+									CASE 3
 										call_number = LOANSHARK_CALL12 
 										loan_shark_hitmen = 4
-									ENDIF
-									IF loan_shark_hitmen = 2
+									BREAK
+									CASE 2
 										call_number = LOANSHARK_CALL11 
 										loan_shark_hitmen = 3
-									ENDIF
-									IF loan_shark_hitmen = 1
+									BREAK
+									CASE 1
 										call_number = LOANSHARK_CALL10 
 										loan_shark_hitmen = 2
-									ENDIF
-									IF loan_shark_hitmen = 0
+									BREAK
+									CASE 0
 										call_number = LOANSHARK_CALL9
 										loan_shark_hitmen = 1
-									ENDIF
+									BREAK
+									ENDSWITCH
 									GOSUB mobile_rings
 									IF flag_player_answered_phone = 1	
 										GOSUB mobile_chat_switch

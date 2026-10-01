@@ -3728,9 +3728,9 @@ IF tw7_goals = 1
 			tw7_random_last_label = tw7_speech_control_flag + 1 
 			GOSUB tw7_dialogue_setup
 		ENDIF
-	ENDIF	
-
-	IF tw7_speech_goals = 11 //carl is out of car
+	ENDIF
+	SWITCH tw7_speech_goals
+	CASE 11 //carl is out of car
 		IF NOT IS_CHAR_IN_CAR scplayer tw7_smokes_car
 			IF tw7_speech_control_flag < tw7_last_label
 				GOSUB tw7_loading_dialogue
@@ -3775,18 +3775,18 @@ IF tw7_goals = 1
 			CLEAR_PRINTS 
 			//GOSUB tw7_dialogue_setup
 		ENDIF
-	ENDIF
+	BREAK
 
-	IF tw7_speech_goals = 12 //carl has been out of car and has returned
+	CASE 12 //carl has been out of car and has returned
 		IF IS_CHAR_SITTING_IN_CAR scplayer tw7_smokes_car 
 			tw7_speech_goals = 13
 			tw7_speech_control_flag = 0
 			CLEAR_PRINTS 
 			//GOSUB tw7_dialogue_setup
 		ENDIF
-	ENDIF
+	BREAK
 
-	IF tw7_speech_goals = 13 //where player has returned to the car
+	CASE 13 //where player has returned to the car
 		IF IS_CHAR_SITTING_IN_CAR scplayer tw7_smokes_car 	
 			timerb = 0 
 			tw7_speech_goals = tw7_storing_speech_goals_number
@@ -3809,15 +3809,17 @@ IF tw7_goals = 1
 			tw7_random_last_label = tw7_speech_control_flag + 1 
 			GOSUB tw7_dialogue_setup
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 ENDIF
 
-IF tw7_speech_goals = 3 //cutscene in car about to get out and ring doorbell 
-OR tw7_speech_goals = 4 //cutscene at the house 
-OR tw7_speech_goals = 5 //first convo as player and mcstrap get on the bike
-OR tw7_speech_goals = 8 //cutscene after killing ass bandit 
-OR tw7_speech_goals = 10 //cutscene at burger shot 
+SWITCH tw7_speech_goals
+CASE 3 //cutscene in car about to get out and ring doorbell 
+CASE 4 //cutscene at the house 
+CASE 5 //first convo as player and mcstrap get on the bike
+CASE 8 //cutscene after killing ass bandit 
+CASE 10 //cutscene at burger shot 
 	IF tw7_goals < 50 // FIXEDGROVE: not in the special 'kill ass bandit early' stage
 		IF tw7_speech_control_flag < tw7_last_label
 			GOSUB tw7_loading_dialogue
@@ -3827,7 +3829,8 @@ OR tw7_speech_goals = 10 //cutscene at burger shot
 			tw7_speech_goals = 0
 		ENDIF
 	ENDIF
-ENDIF
+BREAK
+ENDSWITCH
 
 IF tw7_goals > 3
 	IF tw7_goals < 14
@@ -3892,7 +3895,8 @@ IF tw7_goals > 3
 		ENDIF
 
 
-		IF tw7_speech_goals = 14 //mc_strap is out of the group
+		SWITCH tw7_speech_goals
+		CASE 14 //mc_strap is out of the group
 			IF NOT IS_GROUP_MEMBER mc_strap Players_Group
 				IF tw7_speech_control_flag < tw7_last_label
 					GOSUB tw7_loading_dialogue
@@ -3914,18 +3918,18 @@ IF tw7_goals > 3
 				PRINT_NOW ( SMK1_09 ) 7000 1 //You have left OG Loc behind.
 				tw7_speech_goals = 15
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF tw7_speech_goals = 15 //mc_strap has been out of the group and has returned
+		CASE 15 //mc_strap has been out of the group and has returned
 			IF IS_GROUP_MEMBER mc_strap Players_Group 
 				tw7_speech_goals = 16
 				tw7_speech_control_flag = 0
 				CLEAR_PRINTS
 				//GOSUB tw7_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF tw7_speech_goals = 16 //mc_strap is back in group
+		CASE 16 //mc_strap is back in group
 			IF IS_GROUP_MEMBER mc_strap Players_Group 	
 				timerb = 0
 				tw7_speech_goals = tw7_storing_speech_goals_number
@@ -3951,12 +3955,14 @@ IF tw7_goals > 3
 				tw7_random_last_label = tw7_speech_control_flag + 1 
 				GOSUB tw7_dialogue_setup
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
 ENDIF
 
-IF tw7_speech_goals = 6 //freddy giving mc_strap hassle  
-OR tw7_speech_goals = 7 //freddy giving player hassle before freddy is killed 
+SWITCH tw7_speech_goals
+CASE 6 //freddy giving mc_strap hassle  
+CASE 7 //freddy giving player hassle before freddy is killed 
 	IF tw7_speech_control_flag < tw7_last_label
 		GOSUB tw7_loading_dialogue
 		GOSUB tw7_playing_dialogue
@@ -3972,9 +3978,9 @@ OR tw7_speech_goals = 7 //freddy giving player hassle before freddy is killed
 	ELSE
 		tw7_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
 
-IF tw7_speech_goals = 17 //I'm gonna kill that cheeky motherfucker!  
+CASE 17 //I'm gonna kill that cheeky motherfucker!  
 	IF tw7_speech_control_flag < tw7_last_label
 		GOSUB tw7_loading_dialogue
 		GOSUB tw7_playing_dialogue
@@ -3991,7 +3997,8 @@ IF tw7_speech_goals = 17 //I'm gonna kill that cheeky motherfucker!
 	ELSE
 		tw7_speech_goals = 0
 	ENDIF
-ENDIF
+BREAK
+ENDSWITCH
 
 ////////////////////////////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
@@ -4001,7 +4008,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 tw7_dialogue_setup://///////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 // FIXEDGROVE: assigned speakers
-IF tw7_speech_goals = 1
+SWITCH tw7_speech_goals
+CASE 1
 	$tw7_print_label[0] = &SMO1_AA // Good to hang with you, brother. I'm sorry I can get a little tense.
 	$tw7_print_label[1] = &SMO1_AC // Don't worry about it.
 	$tw7_print_label[2] = &SMO1_AD // And it ain't Jeffery no more. It's OG Loc
@@ -4029,8 +4037,8 @@ IF tw7_speech_goals = 1
 	tw7_speaker[6] = big_smoke
 	tw7_speaker[7] = big_smoke
 	tw7_last_label = 8 
-ENDIF
-IF tw7_speech_goals = 2
+BREAK
+CASE 2
 	$tw7_print_label[0] = &SMO1_BA // What are your plans, homie, now you're a free man.
 	$tw7_print_label[1] = &SMO1_BB // I ain't free, my parole officer lined me up with a job!
 	$tw7_print_label[2] = &SMO1_BC // Motherfucker! Always keeping a guy down.
@@ -4055,8 +4063,8 @@ IF tw7_speech_goals = 2
 	tw7_speaker[5] = sweet
 	tw7_speaker[6] = mc_strap
 	tw7_last_label = 7
-ENDIF
-IF tw7_speech_goals = 3
+BREAK
+CASE 3
 	$tw7_print_label[0] = &SMO1_CA // This is the place
 	$tw7_print_label[1] = &SMO1_CB // Ain't this a Vagos' 'hood?
 	$tw7_print_label[2] = &SMO1_CC // Don't give a shit.
@@ -4081,9 +4089,9 @@ IF tw7_speech_goals = 3
 	tw7_speaker[5] = sweet
 	tw7_speaker[6] = sweet
 	tw7_last_label = 7
-ENDIF
+BREAK
 
-IF tw7_speech_goals = 4
+CASE 4
 	$tw7_print_label[0] = &SMO1_CH // Freddy! I've come for you, motherfucker!
 	$tw7_print_label[1] = &SMO1_DB // Hey, Loc, wait a second!
 	$tw7_print_label[2] = &SMO1_CJ // Jeffery, you got the wrong idea, man - that was just a prison thing!
@@ -4121,8 +4129,8 @@ IF tw7_speech_goals = 4
 	tw7_speaker[8] = 0
 	tw7_speaker[9] = mc_strap
 	tw7_last_label = tw7_random_last_label
-ENDIF
-IF tw7_speech_goals = 5
+BREAK
+CASE 5
 	$tw7_print_label[0] = &SMO1_EA // Hey Loc, you gone crazy?!							   
 	$tw7_print_label[1] = &SMO1_EB // Back off, CJ, I gotta protect my rep!	
 	
@@ -4132,8 +4140,8 @@ IF tw7_speech_goals = 5
 	tw7_speaker[0] = scplayer
 	tw7_speaker[1] = mc_strap
 	tw7_last_label = 2
-ENDIF
-IF tw7_speech_goals = 6
+BREAK
+CASE 6
 	$tw7_print_label[0] = &SMO1_FA // Oooo! Chase me! Chase me!
 	$tw7_print_label[1] = &SMO1_FB // C'mon, honey, I'm losing my patience!
 	$tw7_print_label[2] = &SMO1_FC // I like a fast ass, not a slow ass!
@@ -4171,8 +4179,8 @@ IF tw7_speech_goals = 6
 	tw7_speaker[8] = tw7_ass_bandit
 	tw7_speaker[9] = tw7_ass_bandit
 	tw7_last_label = tw7_random_last_label
-ENDIF
-IF tw7_speech_goals = 7
+BREAK
+CASE 7
 	$tw7_print_label[0] = &SMO1_GA // He's broken my heart!
 	$tw7_print_label[1] = &SMO1_GB // Get him, boys!
 
@@ -4182,8 +4190,8 @@ IF tw7_speech_goals = 7
 	tw7_speaker[0] = tw7_ass_bandit
 	tw7_speaker[1] = tw7_ass_bandit
 	tw7_last_label = 2
-ENDIF
-IF tw7_speech_goals = 8
+BREAK
+CASE 8
 	$tw7_print_label[0] = &SMO1_HA // Don't say a damn thing.
 	$tw7_print_label[1] = &SMO1_HB // Was you lonely, Loc?
 	$tw7_print_label[2] = &SMO1_HC // Hey, I like a nice moustache myself!
@@ -4216,8 +4224,8 @@ IF tw7_speech_goals = 8
 	tw7_speaker[6] = scplayer
 	tw7_speaker[7] = mc_strap
 	tw7_last_label = 8
-ENDIF
-IF tw7_speech_goals = 9
+BREAK
+CASE 9
 	$tw7_print_label[0] = &SMO1_JA // It's the Burger Shot, Verona Beach. 
 	$tw7_print_label[1] = &SMO1_JB // You're the boss
 	$tw7_print_label[2] = &SMO1_JC // Coz I'm keen With the hygiene,
@@ -4251,8 +4259,8 @@ IF tw7_speech_goals = 9
 	tw7_speaker[8] = mc_strap
 	tw7_speaker[9] = scplayer
 	tw7_last_label = 10
-ENDIF
-IF tw7_speech_goals = 10
+BREAK
+CASE 10
 	$tw7_print_label[0] = &SMO1_KA // Thanks for the ride, CJ.
 	$tw7_print_label[1] = &SMO1_KB // Don't be a stranger.
 	$tw7_print_label[2] = &SMO1_KC // Sure thing, I'll see you around
@@ -4271,9 +4279,9 @@ IF tw7_speech_goals = 10
 	tw7_speaker[3] = mc_strap
 	tw7_speaker[4] = mc_strap
 	tw7_last_label = 5
-ENDIF
+BREAK
 
-IF tw7_speech_goals = 11
+CASE 11
 	$tw7_print_label[0] = &SMOX_AA // Get in
 	$tw7_print_label[1] = &SMOX_AB // In the ride!
 	$tw7_print_label[2] = &SMOX_AC // Get in the car!
@@ -4295,9 +4303,9 @@ IF tw7_speech_goals = 11
 	tw7_speaker[4] = big_smoke
 	tw7_speaker[5] = big_smoke
  	tw7_last_label = tw7_random_last_label 
-ENDIF
+BREAK
 
-IF tw7_speech_goals = 14
+CASE 14
 	$tw7_print_label[0] = &LOCX_AA // Hold up, CJ!
 	$tw7_print_label[1] = &LOCX_AB // Hey, wait up, dog!
 	$tw7_print_label[2] = &LOCX_AC // Hold it, CJ!
@@ -4310,9 +4318,9 @@ IF tw7_speech_goals = 14
 	tw7_speaker[1] = mc_strap
 	tw7_speaker[2] = mc_strap
  	tw7_last_label = tw7_random_last_label 
-ENDIF
+BREAK
 
-IF tw7_speech_goals = 17   
+CASE 17   
 	$tw7_print_label[0] = SMO1_GC // I'm gonna kill that cheeky motherfucker!
 	$tw7_print_label[1] = SMO1_GD // Your ass is mine!
 	$tw7_print_label[2] = SMO1_GE // No, I didn't mean it like that!
@@ -4328,7 +4336,8 @@ IF tw7_speech_goals = 17
 	tw7_speaker[2] = mc_strap
 	tw7_speaker[3] = mc_strap
 	tw7_last_label = 4 
-ENDIF
+BREAK
+ENDSWITCH
 
 tw7_slot_load = tw7_speech_control_flag
 tw7_slot1 = 0

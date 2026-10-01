@@ -464,90 +464,78 @@ IF carter_faflag = 0
 		GOSUB process_audio_fa
 
 		//play mission audio
-		IF progressaudio_faflag = 0
-			IF handlingudio_faflag = 0
+		IF handlingudio_faflag = 0
+			SWITCH progressaudio_faflag
+			CASE 0
 				IF TIMERB > 5500
 					audio_label_fa = SOUND_ROT4_AA	//We sure he’s in Eat Los Santos?
 					$input_text_fa = ROT4_AA	//We sure he’s in Eat Los Santos?
 					GOSUB load_audio_fa
 				ENDIF
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 1
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 1
 				audio_label_fa = SOUND_ROT4_AB	//Yeah, right on the edge of Los Flores – some old apartments and a warehouse.
 				$input_text_fa = ROT4_AB	//Yeah, right on the edge of Los Flores – some old apartments and a warehouse.
-				GOSUB load_audio_fa
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 2
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 2
 				audio_label_fa = SOUND_ROT4_AC //He’s as good as dead!
 				$input_text_fa = ROT4_AC //He’s as good as dead!
-				GOSUB load_audio_fa
 				TIMERB = 0
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 3
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 3
 				IF TIMERB > 3000
 					audio_label_fa = SOUND_ROT4_BA //I can’t believe you bought the same crap car!
 					$input_text_fa = ROT4_BA //I can’t believe you bought the same crap car!
 					GOSUB load_audio_fa
 				ENDIF
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 4
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 4
 				audio_label_fa = SOUND_ROT4_BB	//Hey, if it ain’t broke, don’t fix it.
 				$input_text_fa = ROT4_BB	//Hey, if it ain’t broke, don’t fix it.
-				GOSUB load_audio_fa
 				TIMERA = 0
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 5
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 5
 				IF TIMERB > 12000
 					audio_label_fa = SOUND_ROT4_BC //So this is it, huh?
 					$input_text_fa = ROT4_BC //So this is it, huh?
 					GOSUB load_audio_fa
 				ENDIF
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 6
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 6
 				audio_label_fa = SOUND_ROT4_BE //Johnson boys sorting shit out.
 				$input_text_fa = ROT4_BE //Johnson boys sorting shit out.
-				GOSUB load_audio_fa
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 7
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 7
 				audio_label_fa = SOUND_ROT4_BF //Yeah.
 				$input_text_fa = ROT4_BF //Yeah.
-				GOSUB load_audio_fa
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 8
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 8
 				audio_label_fa = SOUND_ROT4_BG //Nervous?
 				$input_text_fa = ROT4_BG //Nervous?
-				GOSUB load_audio_fa
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 9
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 9
 				audio_label_fa = SOUND_ROT4_BH //Yeah.
 				$input_text_fa = ROT4_BH //Yeah.
-				GOSUB load_audio_fa
-			ENDIF
-		ENDIF
-		IF progressaudio_faflag = 10
-			IF handlingudio_faflag = 0
+			BREAK
+			CASE 10
 				audio_label_fa = SOUND_ROT4_BJ //Me too, me too.
 				$input_text_fa = ROT4_BJ //Me too, me too.
+			BREAK
+			ENDSWITCH
+
+			SWITCH progressaudio_faflag
+			CASE 1
+			CASE 2
+			CASE 4
+			CASE 6
+			CASE 7
+			CASE 8
+			CASE 9
+			CASE 10
 				GOSUB load_audio_fa
-			ENDIF
+			BREAK
+			ENDSWITCH
+
 		ENDIF
 
 
@@ -4147,49 +4135,42 @@ IF carter_faflag = 5
 			GOSUB process_audio_fa
 
 			//play mission audio
-			IF progressaudio_faflag = 0
-				IF handlingudio_faflag = 0
+			IF handlingudio_faflag = 0
+				SWITCH progressaudio_faflag
+				CASE 0
 					audio_label_fa = SOUND_ROT4_UA //You wearing body armour, Smoke?
 					$input_text_fa = ROT4_UA //You wearing body armour, Smoke?
-					GOSUB load_audio_fa
-				ENDIF
-			ENDIF
-			IF progressaudio_faflag = 1
-				IF handlingudio_faflag = 0
+				BREAK
+				CASE 1
 					audio_label_fa = SOUND_ROT4_UB //Man, I’m disappointed in you – thought you were gangsta!
 					$input_text_fa = ROT4_UB //Man, I’m disappointed in you – thought you were gangsta!
-					GOSUB load_audio_fa
-				ENDIF
-			ENDIF
-			IF progressaudio_faflag = 2
-				IF handlingudio_faflag = 0
+				BREAK
+				CASE 2
 					audio_label_fa = SOUND_ROT4_UC //Hey, I’m a motherfucking celebrity.
 					$input_text_fa = ROT4_UC //Hey, I’m a motherfucking celebrity.
-					GOSUB load_audio_fa
-				ENDIF
-			ENDIF
-			IF progressaudio_faflag = 3
-				IF handlingudio_faflag = 0
+				BREAK
+				CASE 3
 					audio_label_fa = SOUND_ROT4_UD //All kinds of crazy cats out there want a piece of me!
 					$input_text_fa = ROT4_UD //All kinds of crazy cats out there want a piece of me!
-					GOSUB load_audio_fa
-				ENDIF
-			ENDIF
-			IF progressaudio_faflag = 4
-				IF handlingudio_faflag = 0
+				BREAK
+				CASE 4
 					audio_label_fa = SOUND_ROT4_ZB //Somebody save the Smoke!
 					$input_text_fa = ROT4_ZB //Somebody save the Smoke!
-					GOSUB load_audio_fa
-				ENDIF
-			ENDIF
-			IF lightsout_faflag = 1
-				IF progressaudio_faflag = 5
-					IF handlingudio_faflag = 0
+				BREAK
+				CASE 5
+					IF lightsout_faflag = 1
 						audio_label_fa = SOUND_ROT4_ZA	//Shoot 'em!  Help me!
 						$input_text_fa = RM4_31	//Shoot 'em!  Help me!
 						GOSUB load_audio_fa
 					ENDIF
+				BREAK
+				ENDSWITCH
+
+				IF progressaudio_faflag >= 0
+				AND progressaudio_faflag < 5
+					GOSUB load_audio_fa
 				ENDIF
+
 			ENDIF
 
 		 ENDIF

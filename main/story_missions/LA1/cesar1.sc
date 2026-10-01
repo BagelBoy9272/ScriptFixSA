@@ -598,70 +598,39 @@ IF cs1_stage = 1
 			ENDIF
 
 			IF cs1_dialogue_playing = 1
-				IF cs1_random_dialogue = 0
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				IF cs1_audio_playing = 0
+				AND cs1_counter = 0
+				SWITCH cs1_random_dialogue
+				CASE 0
 						cs1_counter = 1	// Hey, keep up, holmes!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF cs1_random_dialogue = 1
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				BREAK
+				CASE 1
 						cs1_counter = 2	// Not far now, eh!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF cs1_random_dialogue = 2
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				BREAK
+				CASE 2
 						cs1_counter = 3	// C'mon, Carl, follow us!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF cs1_random_dialogue = 3
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				BREAK
+				CASE 3
 						cs1_counter = 4	// Nearly there, Carl!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-
-				IF cs1_random_dialogue = 4
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				BREAK
+				CASE 4
 						cs1_counter = 5	// You gonna have to drive better than that, CJ!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF cs1_random_dialogue = 5
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				BREAK
+				CASE 5
 						cs1_counter = 6	// Hey, CJ, you wrecking your car, eh!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF cs1_random_dialogue = 6
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				BREAK
+				CASE 6
 						cs1_counter = 7	// Carl, your driving is an embarrassment!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF cs1_random_dialogue = 7
-					IF cs1_audio_playing = 0
-					AND cs1_counter = 0
+				BREAK
+				CASE 7
 						cs1_counter = 8	// Oh, Carl, I thought you said you could drive!
-						GET_GAME_TIMER cs1_text_timer_start
-						cs1_dialogue_playing = 2								
-					ENDIF 
+				BREAK
+				ENDSWITCH
+				ENDIF
+				IF cs1_random_dialogue >= 0
+				AND cs1_random_dialogue < 8
+					GET_GAME_TIMER cs1_text_timer_start
+					cs1_dialogue_playing = 2
 				ENDIF
 				IF cs1_random_dialogue = 8
 					PRINT_NOW ( CES1_04 ) 100 1 // ~s~Follow ~b~Cesar ~s~to the race start.
@@ -672,6 +641,7 @@ IF cs1_stage = 1
 						cs1_dialogue_playing = 2								
 					ENDIF 
 				ENDIF
+
 			ENDIF
 
 			IF cs1_dialogue_playing = 2
