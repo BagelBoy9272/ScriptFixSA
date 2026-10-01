@@ -390,6 +390,10 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Cut Throat Bussiness:**
 - Set camera behind the player and fade in after the initial cutscene
 
+**Beat Down on B-Dup:**
+- Fixed 'That's it, I know it!' line when locating B-Dup's house not playing due to an off-by-one mistake
+- Made Sweet less useless
+
 **Grove 4 Life:**
 - Fixed Sweet and player spawning outside CJ's house instead of Sweet's house
 
