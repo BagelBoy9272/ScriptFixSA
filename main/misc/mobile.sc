@@ -4,7 +4,7 @@ SCRIPT_NAME	CELLFON
 
 // MOBILE PHONECALL
 VAR_INT	flag_mob_la1[10] flag_mob_LA2[4] flag_mob_cat[10] flag_mob_random[12] flag_mob_vegas[17] flag_mob_sanfran[12] loan_shark_reminder loan_shark_hitmen
-VAR_INT ring_a_ding_ding mobile_pause // flag_mobile_dialogue
+VAR_INT ring_a_ding_ding mobile_pause
 VAR_INT terminate_cat_calls	call_number 		
 VAR_INT flag_mobile_timer flag_player_answered_phone Thekeycard_contact_blip
 VAR_INT flag_new_cont players_skipping_the_call	skip_the_mobile_call millies_like_stat
@@ -189,6 +189,8 @@ MISSION_END
 LVAR_INT mobile_speaker[20] // FIXEDGROVE: stores the current speaker for a line
 LVAR_INT call_number_gf_variation // FIXEDGROVE: stores gf phonecall conversation variation
 
+LVAR_INT mobile_check_result // FIXEDGROVE: makes a subroutine return if death_checker said so
+
 mobile_chat_switch:
 
 // FIXEDGROVE: START - clean the array so we only have to set it when the player talks
@@ -345,7 +347,7 @@ IF call_number < COOCHIE_MOBILE
 		cell_index_end = 9
 	BREAK
 	
-	CASE SWEET_MOBILE_CALL5	//NEED TO ADD THIS*******************************************************************************************
+	CASE SWEET_MOBILE_CALL5
 		$mobile_print_labels[0] = &MSWE08A	//Whattup, bro?
 		$mobile_print_labels[1] = &MSWE08B	//CJ, I been thinking.
 		$mobile_print_labels[2] = &MSWE08C	//The city’s big, but it ain’t that big.
@@ -4336,7 +4338,7 @@ cell_phone_GF_inner:
 	IF IS_PLAYER_PLAYING player1
 		IF player_is_completely_safe_for_mobile = 1
 			IF timer_mobile_diff > call_delay
-				SET_BIT iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEGROVE
+				SET_BIT iAgentFlags MOBILE_CALL_COULD_ANSWER // FIXEDGROVE
 				// COOCHIE PHONE CALL. ************************************************************************************ 					
 				IF iGFCaller = COOCHIE
 					//PRINT_HELP ( ANSWER )
@@ -4620,52 +4622,9 @@ RETURN
 loading_and_playing_audio:
 	WHILE NOT HAS_MISSION_AUDIO_LOADED audio_slot_mobile
 		WAIT 0
-		IF NOT IS_PLAYER_PLAYING player1
-			flag_player_answered_phone = 2
+		GOSUB death_checker
+		IF mobile_check_result = 1
 			RETURN
-		ELSE
-//			IF NOT main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls in interiors
-			IF IS_CHAR_IN_WATER scplayer
-			OR IS_CHAR_SHOOTING scplayer
-			OR NOT IS_CHAR_ON_FOOT scplayer
-			OR flag_player_on_mission = 0
-			OR NOT IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: added for some cases
-			OR NOT player_fall_state = 0
-				flag_player_answered_phone = 2
-				CLEAR_HELP
-				RETURN
-			ENDIF
-
-			
-			IF IS_GANG_WAR_FIGHTING_GOING_ON
-			OR IS_PLAYER_USING_JETPACK Player1
-			OR IS_MINIGAME_IN_PROGRESS
-				flag_player_answered_phone = 2
-				CLEAR_HELP
-				RETURN
-			ENDIF
-			
-			IF flag_player_answered_phone = 0
-			AND ring_a_ding_ding > 0
-				IF NOT IS_CHAR_SHOOTING scplayer
-					IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER1
-					AND CAN_PLAYER_START_MISSION player1
-						flag_player_answered_phone = 1
-						RETURN
-					ENDIF
-				ENDIF
-			ENDIF
-			
-			IF players_skipping_the_call = 1
-				IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-					players_skipping_the_call = 2
-					RETURN	
-				ENDIF
-			ENDIF
-			IF flag_player_on_mission = 0
-				flag_player_answered_phone = 2
-				RETURN
-			ENDIF
 		ENDIF
 	ENDWHILE
 	IF NOT IS_CHAR_IN_WATER scplayer
@@ -4678,99 +4637,55 @@ RETURN
 has_audio_finished:
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED audio_slot_mobile
 		WAIT 0
-		IF NOT IS_PLAYER_PLAYING player1
-			flag_player_answered_phone = 2
+		GOSUB death_checker
+		IF mobile_check_result = 1
 			RETURN
-		ELSE
-//			IF NOT main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls in interiors
-			IF IS_CHAR_IN_WATER scplayer
-			OR IS_CHAR_SHOOTING scplayer
-			OR NOT IS_CHAR_ON_FOOT scplayer
-			OR flag_player_on_mission = 0
-			OR NOT IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: added for some cases
-			OR NOT player_fall_state = 0
-				flag_player_answered_phone = 2
-				CLEAR_HELP
-				RETURN
-			ENDIF
-			
-			IF IS_GANG_WAR_FIGHTING_GOING_ON
-			OR IS_PLAYER_USING_JETPACK Player1
-			OR IS_MINIGAME_IN_PROGRESS
-				flag_player_answered_phone = 2
-				CLEAR_HELP
-				RETURN
-			ENDIF
-
-			IF flag_player_answered_phone = 0
-			AND ring_a_ding_ding > 0
-				IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER1
-				AND CAN_PLAYER_START_MISSION player1
-					flag_player_answered_phone = 1
-					RETURN
-				ENDIF
-			ENDIF
-			
-			IF players_skipping_the_call = 1
-				IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-					players_skipping_the_call = 2
-					RETURN	
-				ENDIF
-			ENDIF
-			IF flag_player_on_mission = 0
-				flag_player_answered_phone = 2
-				RETURN
-			ENDIF
 		ENDIF
 	ENDWHILE
 RETURN
 
 
 death_checker:
-	IF NOT IS_PLAYER_PLAYING player1
-		flag_player_answered_phone = 2
-		RETURN
-	ELSE
-//		IF NOT main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls in interiors
-		IF IS_CHAR_IN_WATER scplayer
-		OR IS_CHAR_SHOOTING scplayer
-		OR NOT IS_CHAR_ON_FOOT scplayer
-		OR flag_player_on_mission = 0
-		OR NOT IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: added for some cases
-		OR NOT player_fall_state = 0
-			flag_player_answered_phone = 2
-			CLEAR_HELP
-			RETURN
-		ENDIF
-		
-		IF IS_GANG_WAR_FIGHTING_GOING_ON
-		OR IS_PLAYER_USING_JETPACK Player1
-		OR IS_MINIGAME_IN_PROGRESS
-			flag_player_answered_phone = 2
-			CLEAR_HELP
-			RETURN
-		ENDIF
+	mobile_check_result = 0 // FIXEDGROVE: new flag that signals to the caller that they should return
 
-		IF flag_player_answered_phone = 0
-		AND ring_a_ding_ding > 0
-			IF NOT IS_CHAR_SHOOTING scplayer
-				IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER1
-				AND CAN_PLAYER_START_MISSION player1
-					flag_player_answered_phone = 1
-					RETURN
-				ENDIF
-			ENDIF
-		ENDIF
-		
-		IF players_skipping_the_call = 1
-			IF IS_BUTTON_PRESSED PAD1 TRIANGLE
-				players_skipping_the_call = 2
-				RETURN	
-			ENDIF
-		ENDIF
-		IF flag_player_on_mission = 0
-			flag_player_answered_phone = 2
+//	IF NOT main_visible_area = 0 // FIXEDGROVE: removed to allow phonecalls in interiors
+	IF IS_CHAR_IN_WATER scplayer
+	OR IS_CHAR_SHOOTING scplayer
+	OR NOT IS_CHAR_ON_FOOT scplayer
+	OR flag_player_on_mission = 0
+	OR NOT IS_PLAYER_CONTROL_ON player1 // FIXEDGROVE: added for some cases
+	OR NOT player_fall_state = 0
+		flag_player_answered_phone = 2
+		mobile_check_result = 1
+		CLEAR_HELP
+		RETURN
+	ENDIF
+	
+	IF IS_GANG_WAR_FIGHTING_GOING_ON
+	OR IS_PLAYER_USING_JETPACK Player1
+	OR IS_MINIGAME_IN_PROGRESS
+	OR NOT IS_PLAYER_PLAYING player1
+		flag_player_answered_phone = 2
+		mobile_check_result = 1
+		CLEAR_HELP
+		RETURN
+	ENDIF
+
+	IF flag_player_answered_phone = 0
+	AND ring_a_ding_ding > 0
+		IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER1
+		AND CAN_PLAYER_START_MISSION player1
+			flag_player_answered_phone = 1
+			mobile_check_result = 1
 			RETURN
+		ENDIF
+	ENDIF
+	
+	IF players_skipping_the_call = 1
+		IF IS_BUTTON_PRESSED PAD1 TRIANGLE
+			players_skipping_the_call = 2
+			mobile_check_result = 1
+			RETURN	
 		ENDIF
 	ENDIF
 RETURN
@@ -4827,7 +4742,7 @@ load_and_play_mobile_calls:
 
 	audio_slot_mobile = 1
 	GOSUB loading_and_playing_audio
-	// FIXEDOGROVE: START - add facial talk anim
+	// FIXEDGROVE: START - add facial talk anim
 	IF mobile_speaker[cell_index_start] = SPEAKER_PLAYER
 		START_CHAR_FACIAL_TALK scplayer 30000
 	ENDIF
@@ -4845,11 +4760,11 @@ load_and_play_mobile_calls:
 	IF cell_index_start <= cell_index_end
 		audio_slot_mobile = 2
 		GOSUB loading_and_playing_audio
-		// FIXEDOGROVE: START - add facial talk anim
+		// FIXEDGROVE: START - add facial talk anim
 		IF mobile_speaker[cell_index_start] = SPEAKER_PLAYER
 			START_CHAR_FACIAL_TALK scplayer 30000
 		ENDIF
-		// FIXEDOGROVE: END
+		// FIXEDGROVE: END
 		PRINT_NOW ( $mobile_print_labels[cell_index_start] ) 10000 1 //rhubarb rhubarb
 		GOSUB has_audio_finished
 		STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
