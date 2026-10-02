@@ -43,6 +43,7 @@ LVAR_INT t2_flamethrower_control_flag t2_flame_ammo t2_rocketlauncher_control_fl
 LVAR_INT t2_speech_goals t2_speech_control_flag t2_speech_flag 
 LVAR_TEXT_LABEL t2_print_label[16] 
 LVAR_INT t2_audio_label[16] 
+LVAR_INT t2_speaker[16] // FIXEDGROVE
 LVAR_INT t2_played_random_speech[5] t2_last_label 
 LVAR_INT t2_slot1 t2_slot2 t2_slot_load t2_play_which_slot
 LVAR_INT t2_random_last_label
@@ -71,62 +72,9 @@ CLEAR_PRINTS
 WAIT 0
 // *************************************Set Flags/variables*********************************
 t2_cop_timer = 331000 //5 and a half minutes
-t2_goals = 0
-t2_control_flag = 0
-t2_skip_cutscene_flag = 0 
-t2_deathcheck_flag = 0 
 
-t2_int = 0
-WHILE t2_int < 44
-t2_weed_burnt[t2_int] = 0 
-t2_int++
-ENDWHILE
 t2_total_weed_burnt = 44
-
-t2_one_cop_alive_in_area = 0
-t2_car_check_flag = 0
-
-t2_flamethrower_control_flag = 0
-t2_flame_ammo = 0
-
-t2_city = 0
-
-t2_x = 0.0 
-t2_y = 0.0 
-t2_z = 0.0 
-t2_x2 = 0.0 
-t2_y2 = 0.0 
-t2_z2 = 0.0
-
-t2_faded_flag = 0
-t2_drunkeness = 0 
-t2_beer_goggles = 0
 t2_weed_check = 44
-
-t2_speech_goals = 0
-t2_speech_control_flag = 0
-t2_speech_flag = 0
-t2_played_random_speech[0] = 0
-t2_played_random_speech[1] = 0
-t2_played_random_speech[2] = 0
-t2_played_random_speech[3] = 0
-t2_played_random_speech[4] = 0
-t2_last_label = 0
-t2_slot1 = 0 
-t2_slot2 = 0 
-t2_slot_load = 0
-t2_play_which_slot = 0
-
-
-t2_rocketlauncher_control_flag = 0
-
-t2_storing_speech_control_number = 0
-t2_storing_speech_goals_number = 0
-
-t2_random_last_label = 0
-
-
-
 
 
 // ****************************************START OF CUTSCENE********************************
@@ -160,7 +108,7 @@ REQUEST_MODEL POLMAV
 REQUEST_MODEL CSHER 
 
 REQUEST_MODEL FLAME
-REQUEST_MODEL COLT45
+//REQUEST_MODEL COLT45 // FIXEDGROVE: commented, unused
 
 LOAD_SPECIAL_CHARACTER 1 truth
 
@@ -362,8 +310,6 @@ WAIT 0
 					MAKE_PLAYER_GANG_DISAPPEAR
 					//HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer TRUE
 
-					SHUT_ALL_CHARS_UP TRUE
-
 					SET_PLAYER_DRUNKENNESS player1 0
 
 					REMOVE_PICKUP t2_flame_pickup 
@@ -453,9 +399,7 @@ WAIT 0
 					CLEAR_AREA -1075.5 -1648.0 75.1 1.0 TRUE
 					SET_CHAR_COORDINATES scplayer -1075.5 -1648.0 75.1
 					SET_CHAR_HEADING scplayer 268.0
-				ENDIF 
-				
-				SHUT_ALL_CHARS_UP FALSE
+				ENDIF
 				
 				FREEZE_ONSCREEN_TIMER FALSE
 				FREEZE_CAR_POSITION t2_mothership FALSE
@@ -554,9 +498,6 @@ WAIT 0
 				SET_CAR_STATUS t2_mothership STATUS_PLAYER
 				CLEAR_THIS_PRINT TRU2_17 				
 				PRINT_NOW ( TRU2_12 ) 7000 1 // Drive the Mothership to San Fran.
-				
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH truth TRUE
 
 				REMOVE_BLIP t2_truths_farm_blip 
 				ADD_BLIP_FOR_COORD -2031.3 178.5 27.9 t2_truths_farm_blip 
@@ -667,9 +608,6 @@ WAIT 0
 					CLEAR_MISSION_AUDIO 2
 					t2_speech_goals = 0
 				
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH truth FALSE
-				
 					SET_PLAYER_CONTROL player1 OFF
 					MARK_MODEL_AS_NO_LONGER_NEEDED CSHER
 
@@ -727,7 +665,7 @@ WAIT 0
 				SET_CHAR_ONLY_DAMAGED_BY_PLAYER truth TRUE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS truth 0.0 -10.0 5.0 t2_x t2_y t2_z   
 				
-				REQUEST_MODEL NITESTICK 
+				//REQUEST_MODEL NITESTICK // FIXEDGROVE: commented, unused
 						  
 				LOAD_SCENE t2_x t2_y t2_z 
 				CLEAR_AREA t2_x t2_y t2_z 30.0 TRUE
@@ -827,8 +765,6 @@ WAIT 0
 
 			SET_FIXED_CAMERA_POSITION -2025.0 172.3 28.0 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT -2032.9 163.0 30.88 JUMP_CUT
-					
-			SHUT_ALL_CHARS_UP TRUE
 
 			CLEAR_AREA -2028.9 172.3 27.8 30.0 TRUE
 			CLEAR_CHAR_TASKS_IMMEDIATELY scplayer 	
@@ -902,8 +838,6 @@ WAIT 0
 			
 				CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
 				//SET_CHAR_HEADING scplayer 276.1 
-				
-				SHUT_ALL_CHARS_UP FALSE
 
 				SET_PLAYER_CONTROL player1 ON
 				SWITCH_WIDESCREEN OFF
@@ -996,9 +930,6 @@ RETURN
 // mission cleanup
 mission_cleanup_truth2:
 //SET_CAMERA_BEHIND_PLAYER 
-IF IS_STRING_EMPTY $shop_name
-	RESTORE_CAMERA_JUMPCUT
-ENDIF
 //REMOVE_IPL_DISCREETLY truthsfarm // FIXEDGROVE: now removed only on mission pass since it appears in freeroam
 EXTINGUISH_FIRE_AT_POINT -913.3 -1720.5 76.6 300.0 // FIXEDGROVE: added so the weed stops burning
 REMOVE_BLIP t2_truths_farm_blip
@@ -1022,16 +953,14 @@ MARK_MODEL_AS_NO_LONGER_NEEDED POLMAV
 MARK_MODEL_AS_NO_LONGER_NEEDED CSHER
 MARK_MODEL_AS_NO_LONGER_NEEDED FLAME
 MARK_MODEL_AS_NO_LONGER_NEEDED ROCKETLA
-MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
-MARK_MODEL_AS_NO_LONGER_NEEDED NITESTICK 
+//MARK_MODEL_AS_NO_LONGER_NEEDED COLT45 // FIXEDGROVE: commented, unused
+//MARK_MODEL_AS_NO_LONGER_NEEDED NITESTICK // FIXEDGROVE: commented, unused
 REMOVE_CHAR_ELEGANTLY truth
 UNLOAD_SPECIAL_CHARACTER 1
 //CLEAR_ONSCREEN_COUNTER t2_total_weed_burnt
 CLEAR_ONSCREEN_TIMER t2_cop_timer
-IF NOT IS_CHAR_DEAD scplayer 
-	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-ENDIF
-SHUT_ALL_CHARS_UP FALSE
+SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 t2_int = 0
 WHILE t2_int < 44
 REMOVE_BLIP t2_weed_blips[t2_int]
@@ -1235,6 +1164,9 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 t2_dialogue_setup://////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
+
+// FIXEDGROVE: assigned speakers
+
 IF t2_speech_goals = 1
 	$t2_print_label[0] = &TRU2_AA // Assholes! Republican assholes!		
 	$t2_print_label[1] = &TRU2_AB // I don't feel too good..
@@ -1253,6 +1185,16 @@ IF t2_speech_goals = 1
 	t2_audio_label[5] = SOUND_TRU2_BA 
 	t2_audio_label[6] = SOUND_TRU2_BB 
 	t2_audio_label[7] = SOUND_TRU2_BC 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = scplayer
+	t2_speaker[2] = truth
+	t2_speaker[3] = scplayer
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+	t2_speaker[6] = scplayer
+	t2_speaker[7] = scplayer
+
 	t2_last_label = 8
 ENDIF
 
@@ -1262,6 +1204,10 @@ IF t2_speech_goals = 2
 	
 	t2_audio_label[0] = SOUND_TRU2_CA 
 	t2_audio_label[1] = SOUND_TRU2_CB 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+
 	t2_last_label = 2 
 ENDIF
 
@@ -1289,6 +1235,19 @@ IF t2_speech_goals = 3
 	t2_audio_label[8] = SOUND_TRU2_OD 
 	t2_audio_label[9] = SOUND_TRU2_OE 
 	t2_audio_label[10] = SOUND_TRU2_OF 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = truth
+	t2_speaker[5] = scplayer
+	t2_speaker[6] = -1
+	t2_speaker[7] = scplayer
+	t2_speaker[8] = scplayer
+	t2_speaker[9] = scplayer
+	t2_speaker[10] = scplayer
+
 	t2_last_label = 11 
 ENDIF
 
@@ -1306,6 +1265,14 @@ IF t2_speech_goals = 4
 	t2_audio_label[3] = SOUND_TRU2_ED 
 	t2_audio_label[4] = SOUND_TRU2_EF 												  
 	t2_audio_label[5] = SOUND_TRU2_EG 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = truth
+	t2_speaker[5] = scplayer
+
 	t2_last_label = 6 
 ENDIF
 
@@ -1331,6 +1298,18 @@ IF t2_speech_goals = 5
 	t2_audio_label[7] = SOUND_TRU2_FH 
 	t2_audio_label[8] = SOUND_TRU2_FJ 
 	t2_audio_label[9] = SOUND_TRU2_FK 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = scplayer
+	t2_speaker[5] = truth
+	t2_speaker[6] = truth
+	t2_speaker[7] = truth
+	t2_speaker[8] = truth
+	t2_speaker[9] = scplayer
+
 	t2_last_label = 10 
 ENDIF
 
@@ -1352,6 +1331,16 @@ IF t2_speech_goals = 6
 	t2_audio_label[5] = SOUND_TRU2_GG 
 	t2_audio_label[6] = SOUND_TRU2_GH 
 	t2_audio_label[7] = SOUND_TRU2_GJ 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = truth
+	t2_speaker[3] = scplayer
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+	t2_speaker[6] = truth
+	t2_speaker[7] = truth
+
 	t2_last_label = 8 
 ENDIF
 				
@@ -1385,6 +1374,22 @@ IF t2_speech_goals = 7
 	t2_audio_label[11] = SOUND_TRU2_HM 
 	t2_audio_label[12] = SOUND_TRU2_HN 
 	t2_audio_label[13] = SOUND_TRU2_HO 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+	t2_speaker[6] = scplayer
+	t2_speaker[7] = truth
+	t2_speaker[8] = truth
+	t2_speaker[9] = scplayer
+	t2_speaker[10] = truth
+	t2_speaker[11] = truth
+	t2_speaker[12] = scplayer
+	t2_speaker[13] = scplayer
+
 	t2_last_label = 14 
 ENDIF
 
@@ -1394,6 +1399,10 @@ IF t2_speech_goals = 8
 
 	t2_audio_label[0] = SOUND_TRU2_JA 
 	t2_audio_label[1] = SOUND_TRU2_JB 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+
 	t2_last_label = 2 
 ENDIF
 
@@ -1407,6 +1416,12 @@ IF t2_speech_goals = 9
 	t2_audio_label[1] = SOUND_TRU2_KB 
 	t2_audio_label[2] = SOUND_TRU2_KC 
 	t2_audio_label[3] = SOUND_TRU2_KD 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = scplayer
+	t2_speaker[2] = truth
+	t2_speaker[3] = truth
+
 	t2_last_label = 4 
 ENDIF
 
@@ -1424,6 +1439,14 @@ IF t2_speech_goals = 10
 	t2_audio_label[3] = SOUND_TRU2_MA 
 	t2_audio_label[4] = SOUND_TRU2_MB 
 	t2_audio_label[5] = SOUND_TRU2_MC 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = scplayer
+	t2_speaker[2] = truth
+	t2_speaker[3] = scplayer
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+
 	t2_last_label = 6 
 ENDIF
 
@@ -1433,7 +1456,11 @@ IF t2_speech_goals = 11
 
 	t2_audio_label[0] = SOUND_TRU2_NA 
 	t2_audio_label[1] = SOUND_TRU2_NB 
-	t2_last_label = 2 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+
+	t2_last_label = 2
 ENDIF
 
 IF t2_speech_goals = 12
@@ -1444,6 +1471,11 @@ IF t2_speech_goals = 12
 	t2_audio_label[0] = SOUND_TRUX_AA 
 	t2_audio_label[1] = SOUND_TRUX_AB 
 	t2_audio_label[2] = SOUND_TRUX_AC 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+	t2_speaker[2] = truth
+
  	t2_last_label = t2_random_last_label 
 ENDIF
 
@@ -1640,10 +1672,24 @@ t2_playing_dialogue:////////////////////////////////////////////////////////
 //slot 1
 IF t2_play_which_slot = 1 
 	IF t2_slot1 = 1
-		IF HAS_MISSION_AUDIO_LOADED 1	 
-			PLAY_MISSION_AUDIO 1
-			PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
-			t2_slot1 = 2
+		IF HAS_MISSION_AUDIO_LOADED 1
+			// FIXEDGROVE: only do speech stuff if the char exists 
+			IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+				// FIXEDGROVE: wait until the character finishes speaking
+				IF NOT IS_CHAR_TALKING t2_speaker[t2_speech_control_flag]
+					// FIXEDGROVE: START
+					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] TRUE
+					START_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag] 10000
+					// FIXEDGROVE: END
+					PLAY_MISSION_AUDIO 1
+					PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+					t2_slot1 = 2
+				ENDIF
+			ELSE
+				PLAY_MISSION_AUDIO 1
+				PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+				t2_slot1 = 2
+			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -1651,10 +1697,24 @@ ENDIF
 //slot 2
 IF t2_play_which_slot = 2 
 	IF t2_slot2 = 1
-		IF HAS_MISSION_AUDIO_LOADED 2	 
-			PLAY_MISSION_AUDIO 2
-			PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
-			t2_slot2 = 2
+		IF HAS_MISSION_AUDIO_LOADED 2
+			// FIXEDGROVE: only do speech stuff if the char exists
+			IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+				// FIXEDGROVE: wait until the character finishes speaking
+				IF NOT IS_CHAR_TALKING t2_speaker[t2_speech_control_flag]
+					// FIXEDGROVE: START
+					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] TRUE
+					START_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag] 10000
+					// FIXEDGROVE: END
+					PLAY_MISSION_AUDIO 2
+					PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+					t2_slot2 = 2
+				ENDIF
+			ELSE
+				PLAY_MISSION_AUDIO 2
+				PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+				t2_slot2 = 2
+			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -1668,6 +1728,12 @@ t2_finishing_dialogue://////////////////////////////////////////////////////
 //slot 1
 IF t2_slot1 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 1
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: START
 		CLEAR_THIS_PRINT $t2_print_label[t2_speech_control_flag]
 		t2_speech_control_flag ++		
 		t2_play_which_slot = 2
@@ -1678,6 +1744,12 @@ ENDIF
 //slot 2
 IF t2_slot2 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 2
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: START
 		CLEAR_THIS_PRINT $t2_print_label[t2_speech_control_flag]
 		t2_speech_control_flag ++		
 		t2_play_which_slot = 1

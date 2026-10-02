@@ -257,6 +257,10 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed Woozie ped model being used instead of Claude
 - Swapped an opponent's car with Claude's car, to match the cutscene
 
+**Are You Going to San Fierro?...:**
+- Added facial talk anim to voicelines
+- Don't disable all char speech
+
 **Deconstruction:**
 - Added check to not delete a mission car if the player is using it
 
