@@ -331,13 +331,16 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Green Goo:**
 - Fixed phone ringing immediately after the mission
 
+**Fender Ketchup:**
+- Fixed right handbrake turns not counting 
+- Restored audio for the ending cutscene
+
 **You've Had Your Chips:**
 - Moved parked car at beginning of the mission to a parking spot
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
 
-**Fender Ketchup:**
-- Fixed right handbrake turns not counting 
-- Restored audio for the ending cutscene
+**Don Peyote:**
+- Restored a few unused voicelines most likely caused by oversights
 
 **Intensive Care:**
 - Fixed mafia driver not driving
