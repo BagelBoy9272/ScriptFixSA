@@ -278,6 +278,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 
 **Ran Fa Li:**
 - Fixed the enemy Sabre driver doing the drive-by task instead of the passenger
+- Restored unused 'Don't just stand there, get that car!' line for the guys after the car, most likely caused by an oversight
 - Changed some models to be random
 
 **Lure:**
