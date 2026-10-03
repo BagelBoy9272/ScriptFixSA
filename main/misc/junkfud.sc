@@ -1947,25 +1947,17 @@ display_text_food:
 		
 		// Create the menu with all available food items and their prices.
 
-		IF current_Language = LANGUAGE_ENGLISH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU FOODCHO 29.0 145.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU FOODCHO 29.0 145.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU FOODCHO 29.0 165.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU FOODCHO 29.0 145.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU FOODCHO 29.0 145.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU FOODCHO 29.0 165.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
+		BREAK
+		ENDSWITCH
 
 		SET_MENU_COLUMN_ORIENTATION cost_menu_shops 0 FO_LEFT 
 		SET_MENU_COLUMN cost_menu_shops 0 MEAL $shop_item_label DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY

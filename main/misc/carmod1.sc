@@ -2530,25 +2530,18 @@ draw_main_menu_carmod:
 		IF IS_XBOX_VERSION
 			CREATE_MENU UPGRADE 29.0 155.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
 		ELSE
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				CREATE_MENU UPGRADE 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_FRENCH
-					CREATE_MENU UPGRADE 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_GERMAN
-						CREATE_MENU UPGRADE 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_ITALIAN
-							CREATE_MENU UPGRADE 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-						ELSE
-							IF current_Language = LANGUAGE_SPANISH
-								CREATE_MENU UPGRADE 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
+			BREAK
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+				CREATE_MENU UPGRADE 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
+			BREAK
+			ENDSWITCH
 		ENDIF
 		
 		SET_ACTIVE_MENU_ITEM main_menu_shops upgrade_meun1_selected // FIXEDGROVE: restore selection
@@ -2573,25 +2566,18 @@ draw_sub_menu_mod:
 		IF IS_XBOX_VERSION
 			CREATE_MENU UPGRADE 29.0 155.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
 		ELSE
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				CREATE_MENU UPGRADE 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_FRENCH
-					CREATE_MENU UPGRADE 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_GERMAN
-						CREATE_MENU UPGRADE 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_ITALIAN
-							CREATE_MENU UPGRADE 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-						ELSE
-							IF current_Language = LANGUAGE_SPANISH
-								CREATE_MENU UPGRADE 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
+			BREAK
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+				CREATE_MENU UPGRADE 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
+			BREAK
+			ENDSWITCH
 		ENDIF
 
 		SET_ACTIVE_MENU_ITEM sub_menu_shops upgrade_meun2_selected // FIXEDGROVE: restore selection
@@ -2634,25 +2620,18 @@ draw_colour_menu:
 		
 		PRINT_HELP_FOREVER MODH6 
 
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU_GRID CARM1 29.0 145.0 25.7 8 TRUE TRUE FO_LEFT colour_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU_GRID CARM1 29.0 145.0 25.7 8 TRUE TRUE FO_LEFT colour_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU_GRID CARM1 29.0 155.0 25.7 8 TRUE TRUE FO_LEFT colour_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU_GRID CARM1 29.0 145.0 25.7 8 TRUE TRUE FO_LEFT colour_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU_GRID CARM1 29.0 145.0 25.7 8 TRUE TRUE FO_LEFT colour_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU_GRID CARM1 29.0 155.0 25.7 8 TRUE TRUE FO_LEFT colour_menu_shops
+		BREAK
+		ENDSWITCH
 
 		colour_menu_drawn_shops = 1
 	ENDIF
@@ -3607,25 +3586,18 @@ draw_menu4_mod_shop:
 		IF IS_XBOX_VERSION
 			CREATE_MENU UPGRADE 29.0 155.0 93.0 2 TRUE TRUE FO_LEFT forth_menu_shops
 		ELSE
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				CREATE_MENU UPGRADE 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT forth_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_FRENCH
-					CREATE_MENU UPGRADE 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT forth_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_GERMAN
-						CREATE_MENU UPGRADE 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT forth_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_ITALIAN
-							CREATE_MENU UPGRADE 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT forth_menu_shops
-						ELSE
-							IF current_Language = LANGUAGE_SPANISH
-								CREATE_MENU UPGRADE 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT forth_menu_shops
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
+			BREAK
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+				CREATE_MENU UPGRADE 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT forth_menu_shops
+			BREAK
+			ENDSWITCH
 		ENDIF
 
 		SET_ACTIVE_MENU_ITEM forth_menu_shops upgrade_meun4_selected // FIXEDGROVE: restore selection
@@ -3633,14 +3605,10 @@ draw_menu4_mod_shop:
 		SET_MENU_COLUMN_ORIENTATION forth_menu_shops 0 FO_LEFT
 		SET_MENU_COLUMN forth_menu_shops 0 UPGRADE $forth_menu_item1 $forth_menu_item2 DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY
 		
-		IF flag_no_of_car_colours = 1 
-			SET_MENU_COLUMN_ORIENTATION forth_menu_shops 1 FO_LEFT 
-			SET_MENU_COLUMN forth_menu_shops 1 COST DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY
-			SET_MENU_ITEM_WITH_NUMBER forth_menu_shops 1 0 DOLLAR 150 
-		ELSE
-			SET_MENU_COLUMN_ORIENTATION forth_menu_shops 1 FO_LEFT
-			SET_MENU_COLUMN forth_menu_shops 1 COST DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY
-			SET_MENU_ITEM_WITH_NUMBER forth_menu_shops 1 0 DOLLAR 150 
+		SET_MENU_COLUMN_ORIENTATION forth_menu_shops 1 FO_LEFT 
+		SET_MENU_COLUMN forth_menu_shops 1 COST DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY
+		SET_MENU_ITEM_WITH_NUMBER forth_menu_shops 1 0 DOLLAR 150 
+		IF NOT flag_no_of_car_colours = 1 
 			SET_MENU_ITEM_WITH_NUMBER forth_menu_shops 1 1 DOLLAR 150 
 		ENDIF
 
@@ -3875,25 +3843,18 @@ draw_third_menu_shops:
 		IF IS_XBOX_VERSION
 			CREATE_MENU UPGRADE 29.0 155.0 93.0 2 FALSE TRUE FO_LEFT third_menu_shops
 		ELSE
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				CREATE_MENU UPGRADE 29.0 145.0 93.0 2 FALSE TRUE FO_LEFT third_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_FRENCH
-					CREATE_MENU UPGRADE 29.0 165.0 93.0 2 FALSE TRUE FO_LEFT third_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_GERMAN
-						CREATE_MENU UPGRADE 29.0 165.0 93.0 2 FALSE TRUE FO_LEFT third_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_ITALIAN
-							CREATE_MENU UPGRADE 29.0 145.0 93.0 2 FALSE TRUE FO_LEFT third_menu_shops
-						ELSE
-							IF current_Language = LANGUAGE_SPANISH
-								CREATE_MENU UPGRADE 29.0 145.0 93.0 2 FALSE TRUE FO_LEFT third_menu_shops
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
+			BREAK
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+				CREATE_MENU UPGRADE 29.0 165.0 93.0 2 FALSE TRUE FO_LEFT third_menu_shops
+			BREAK
+			ENDSWITCH
 		ENDIF
 		
 		SET_MENU_COLUMN_ORIENTATION third_menu_shops 0 FO_LEFT
