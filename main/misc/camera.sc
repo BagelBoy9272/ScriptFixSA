@@ -23,10 +23,6 @@ Camera:
     ENDIF
 	VAR_TEXT_LABEL16 txtArse
 
-	iCameraVariableStep = 0
-	iBePhotographedState = 0
-	iPictureTakingState = 0
-
 	//--- INITLIALISE THE ANGLES TABLE:
     fAngle[0] = 0.0
 	fAngle[1] = 25.0
@@ -48,12 +44,7 @@ Camera_Main_Loop:
 						
 						IF IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER1
 							
-							IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001  
-								CLEAR_HELP 
-							ENDIF
-							IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-								CLEAR_HELP 
-							ENDIF
+							GOSUB Camera_Clear_Help
 							iCameraVariableStep = 0 // speed up the time step
 							iBePhotographedState = 0
 							iHavePrintedHelp = 0
@@ -75,12 +66,7 @@ Camera_Main_Loop:
 						ENDIF
 					ELSE
 						//--- Camera is not the current weapon...
-						IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-							CLEAR_HELP 
-						ENDIF
-						IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-							CLEAR_HELP 
-						ENDIF
+						GOSUB Camera_Clear_Help
 						SET_PHOTO_CAMERA_EFFECT	FALSE
 						iCameraVariableStep = CAMERA_TIME_STEP_SLOW
 						iPictureTakingState = 0
@@ -89,12 +75,7 @@ Camera_Main_Loop:
 					ENDIF
 				ELSE
 					//--- Player is not standing still...
-					IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-						CLEAR_HELP 
-					ENDIF
-					IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-						CLEAR_HELP 
-					ENDIF
+					GOSUB Camera_Clear_Help
 					iCameraVariableStep = CAMERA_TIME_STEP_SLOW
 					iPictureTakingState = 0
 					iBePhotographedState = 0
@@ -102,32 +83,28 @@ Camera_Main_Loop:
 				ENDIF
 			ELSE
 				//--- Player has camera but is not safe...
-				IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-					CLEAR_HELP
-				ENDIF
-				IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-					CLEAR_HELP 
-				ENDIF
+				GOSUB Camera_Clear_Help
 				SET_PHOTO_CAMERA_EFFECT	FALSE
 				iCameraVariableStep = CAMERA_TIME_STEP_SLOW
 				iPictureTakingState = 0
-				iBePhotographedState = 0
 				iHavePrintedHelp = 0
-				IF iBePhotographedState >= 3
-					IF NOT IS_CHAR_DEAD iGangGuy					 				
+				IF iBePhotographedState > 3 // FIXEDRGROVE: made non inclusive
+					IF DOES_CHAR_EXIST iGangGuy // FIXEDGROVE: was 'NOT IS_CHAR_DEAD'
 						FREEZE_CHAR_POSITION iGangGuy FALSE
-						SET_CHAR_VISIBLE iGangGuy TRUE						
-						IF flag_player_on_mission = 0 
-						AND iCode = 0 
-							SET_CAMERA_BEHIND_PLAYER
-							RESTORE_CAMERA_JUMPCUT
-						ENDIF						
+						SET_CHAR_VISIBLE iGangGuy TRUE
 					ENDIF
+					// FIXEDGROVE: move this out of the iGangGuy check
+					IF flag_player_on_mission = 0 
+					AND iCode = 0 
+						SET_CAMERA_BEHIND_PLAYER
+						RESTORE_CAMERA_JUMPCUT
+					ENDIF	
 				ENDIF
+				iBePhotographedState = 0 // FIXEDGROVE: reset state after checking it
 			ENDIF
 		ELSE
 			//--- No camera in inventory...
-			IF iBePhotographedState >= 3  
+			IF iBePhotographedState > 3 // FIXEDRGROVE: made non inclusive
 				//--- Call this to keep the camera in memory
 				REQUEST_MODEL CAMERA
 				iCameraVariableStep = 0 
@@ -332,9 +309,9 @@ SWITCH iBePhotographedState
 
 	CASE 2
 		IF NOT IS_CHAR_DEAD iGangGuy
-		AND IS_GROUP_MEMBER iGangGuy players_group
+		AND IS_CHAR_ON_FOOT scplayer // FIXEDGROVE: swapped these checks to ensure char exists
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer iGangGuy 2.5 2.5 2.5 FALSE
-			AND IS_CHAR_ON_FOOT scplayer 
+			AND IS_GROUP_MEMBER iGangGuy players_group // FIXEDGROVE: swapped these checks to ensure char exists
 				
 				IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER1
                  	SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_PHOTO_CARL iTemp
@@ -350,9 +327,9 @@ SWITCH iBePhotographedState
 
 	CASE 3
 		IF NOT IS_CHAR_DEAD iGangGuy
-		AND IS_GROUP_MEMBER iGangGuy players_group
+		AND IS_CHAR_ON_FOOT scplayer // FIXEDGROVE: swapped these checks to ensure char exists
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer iGangGuy 2.5 2.5 2.5 FALSE
-			AND IS_CHAR_ON_FOOT scplayer 
+			AND IS_GROUP_MEMBER iGangGuy players_group // FIXEDGROVE: swapped these checks to ensure char exists
 				
 				IF NOT IS_BUTTON_PRESSED PAD1 LEFTSHOULDER1
             	    ++iBePhotographedState
@@ -370,13 +347,7 @@ SWITCH iBePhotographedState
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer iGangGuy 3.0 3.0 2.0 FALSE
 			AND IS_CHAR_ON_FOOT scplayer 
 			AND IS_GROUP_MEMBER iGangGuy players_group
-				IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-					CLEAR_HELP 
-				ENDIF
-				IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-					CLEAR_HELP 
-				ENDIF
-				CLEAR_PRINTS
+				GOSUB Camera_Clear_Help
 				FREEZE_CHAR_POSITION iGangGuy TRUE
 				SET_CHAR_VISIBLE iGangGuy FALSE
 				GET_CHAR_COORDINATES iGangGuy fMinX fMinY fMinZ								
@@ -386,6 +357,7 @@ SWITCH iBePhotographedState
 				SET_PHOTO_CAMERA_EFFECT TRUE
 				GET_AMMO_IN_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA iTemp2
 				REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_CAMERA 
+				SET_PLAYER_ENTER_CAR_BUTTON PLAYER1 FALSE // FIXEDGROVE: added so the player doesn't get into a car accidentally
 				++iBePhotographedState
 			ELSE
 				iBePhotographedState = 0
@@ -413,17 +385,13 @@ SWITCH iBePhotographedState
 				ENDIF
 				
 			ELSE
-				IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-					CLEAR_HELP 
-				ENDIF
-				IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-					CLEAR_HELP 
-				ENDIF
+				GOSUB Camera_Clear_Help
 				FREEZE_CHAR_POSITION iGangGuy FALSE
 				SET_CHAR_VISIBLE iGangGuy TRUE
 				SET_PHOTO_CAMERA_EFFECT	FALSE
 				GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_CAMERA iTemp2
 				SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+				SET_PLAYER_ENTER_CAR_BUTTON PLAYER1 TRUE // FIXEDGROVE: added so the player doesn't get into a car accidentally
 				GET_ACTIVE_CAMERA_COORDINATES fMaxX fMaxY fMaxZ
 				IF fMaxX = fMinX 
 				AND fMaxY = fMinY 
@@ -434,12 +402,13 @@ SWITCH iBePhotographedState
 				iBePhotographedState = 0
 			ENDIF
 		ELSE			
-			IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-				CLEAR_HELP 
+			GOSUB Camera_Clear_Help
+			// FIXEDGROVE: START - fix guy being invisible if killed
+			IF DOES_CHAR_EXIST iGangGuy
+				FREEZE_CHAR_POSITION iGangGuy FALSE
+				SET_CHAR_VISIBLE iGangGuy TRUE
 			ENDIF
-			IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-				CLEAR_HELP 
-			ENDIF
+			// FIXEDGROVE: END
 			GET_ACTIVE_CAMERA_COORDINATES fMaxX fMaxY fMaxZ
 			IF fMaxX = fMinX 
 			AND fMaxY = fMinY 
@@ -450,7 +419,9 @@ SWITCH iBePhotographedState
 			SET_PHOTO_CAMERA_EFFECT	FALSE
 			GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_CAMERA iTemp2
 			SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+			SET_PLAYER_ENTER_CAR_BUTTON PLAYER1 TRUE // FIXEDGROVE: added so the player doesn't get into a car accidentally
 			iBePhotographedState = 0
+			iHavePrintedHelp = 0 // FIXEDGROVE: reset help
 		ENDIF
 	BREAK
 
@@ -459,19 +430,19 @@ SWITCH iBePhotographedState
 		CLEAR_PRINTS
 		SET_PHOTO_CAMERA_EFFECT	FALSE
 		TAKE_PHOTO TRUE
+		// FIXEDGROVE: START - reduce ammo and play sound effect
+		iTemp2--
+		IF DOES_CHAR_EXIST iGangGuy
+			REPORT_MISSION_AUDIO_EVENT_AT_CHAR iGangGuy SOUND_CAMERA_SHOT
+		ENDIF
+		// FIXEDGROVE: END
 		WAIT 100
 		++iBePhotographedState
 	BREAK
 
 	CASE 7
-		IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-			CLEAR_HELP 
-		ENDIF
-		IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-			CLEAR_HELP 
-		ENDIF
-		CLEAR_PRINTS
-		IF NOT IS_CHAR_DEAD iGangGuy
+		GOSUB Camera_Clear_Help
+		IF DOES_CHAR_EXIST iGangGuy // FIXEDGROVE: was 'NOT IS_CHAR_DEAD'
 			FREEZE_CHAR_POSITION iGangGuy FALSE
 			SET_CHAR_VISIBLE iGangGuy TRUE
 		ENDIF
@@ -480,6 +451,7 @@ SWITCH iBePhotographedState
 		SET_PHOTO_CAMERA_EFFECT	FALSE
 		GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_CAMERA iTemp2
 		SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+		SET_PLAYER_ENTER_CAR_BUTTON PLAYER1 TRUE // FIXEDGROVE: added so the player doesn't get into a car accidentally
 		iBePhotographedState = 0	
 	BREAK
 
@@ -515,26 +487,34 @@ Camera_Check_Player_Is_Safe:
 	ENDIF
 
 RETURN
+// FIXEDGROVE: START - duplicate code into subroutine
+/*******************************************
+			CLEAR CAMERA HELP
+********************************************/
+Camera_Clear_Help:
+	IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
+	OR IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
+		CLEAR_HELP 
+	ENDIF
+RETURN
+// FIXEDGROVE: END
 /*******************************************
 				CLEAN UP 
 ********************************************/
 Camera_CleanUp:
  
-	IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_001
-		CLEAR_HELP 
-	ENDIF
-
-	IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED CAM_002
-		CLEAR_HELP 
-	ENDIF
-
-	IF NOT IS_CHAR_DEAD iGangGuy
-		FREEZE_CHAR_POSITION iGangGuy FALSE
-		SET_CHAR_VISIBLE iGangGuy TRUE
-	ENDIF
-
-	IF flag_player_on_mission = 0
-		IF iBePhotographedState >= 3
+	GOSUB Camera_Clear_Help	
+	IF iBePhotographedState > 3 // FIXEDRGROVE: made non inclusive
+		IF DOES_CHAR_EXIST iGangGuy // FIXEDGROVE: was 'NOT IS_CHAR_DEAD'
+			FREEZE_CHAR_POSITION iGangGuy FALSE
+			SET_CHAR_VISIBLE iGangGuy TRUE
+		ENDIF
+		// FIXEDGROVE: START - restore camera
+		GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_CAMERA iTemp2
+		SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+		// FIXEDGROVE: END
+		SET_PLAYER_ENTER_CAR_BUTTON PLAYER1 TRUE // FIXEDGROVE: added so the player doesn't get into a car accidentally
+		IF flag_player_on_mission = 0
 			GET_ACTIVE_CAMERA_COORDINATES fMaxX fMaxY fMaxZ
 			IF fMaxX = fMinX 
 			AND fMaxY = fMinY 
@@ -542,9 +522,6 @@ Camera_CleanUp:
 				SET_CAMERA_BEHIND_PLAYER
 				RESTORE_CAMERA_JUMPCUT
 			ENDIF
-		ELSE
-			SET_CAMERA_BEHIND_PLAYER
-			RESTORE_CAMERA_JUMPCUT
 		ENDIF
 	ENDIF
 

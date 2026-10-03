@@ -519,6 +519,10 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed camera not resetting instantly after quitting Bike School
 - Fixed Boat School to not despawn the player if they flip a boat in water
 - Fixed Boat School award music not playing in the final lesson
+- Fixed Grove member being invisible if you killed them while they were taking a picture of you
+- Fixed missing camera sound effect when a Grove member takes a picture of you
+- Fixed camera going missing when a Grove member is taking a picture of you and you get into a car
+- Fixed camera ammo not depleting when a Grove member takes a picture of you
 - Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
 - Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
 - Fixed Flint Intersection, Flint Range and Montgomery Intersection zones being assigned the desert popcycle instead of the countryside one
@@ -533,6 +537,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Moved AK47 and Sawn-Off pickups in film studios closer to the ground
 - Moved an armour pickup in Area 69 closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
+- Disabled enter car button while a Grove member is taking a picture of you
 - Improved Forbidden Area switches
 - Added population properties to a lot of previously missing zones
 - Tweaked demographics of a few exising zones, now you can spot the hispanic drug dealer in East Los Santos and Las Colinas, and the biker drug dealer in SF
