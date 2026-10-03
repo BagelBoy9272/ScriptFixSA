@@ -2936,7 +2936,8 @@ DONT_REMOVE_OBJECT h9_door_c
 //TRIP SKIP VARIABLE FOR SMOKE1
 VAR_INT tw7_trip_skip_flag
 tw7_trip_skip_flag = 0
-VAR_INT unused_3 // FIXEDGROVE: unused
+VAR_INT trip_skip_flag_casino10 // FIXEDGROVE: repurposed unused variable, used for Saint Mark Bistro mission
+trip_skip_flag_casino10 = 0
 
 
 ///////doors for riot2 mission
