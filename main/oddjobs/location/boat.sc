@@ -6273,12 +6273,12 @@ RETURN
 //
 
 boat_deletingbuoys:
-	buoy_counter = 0
 
-	WHILE buoy_counter < 50
+	// FIXEDGROVE: new logic for deletion, count down to 0 to only delete as many objects were created
+	WHILE buoy_counter > 0
+		buoy_counter--
 		DELETE_OBJECT boat_buoys[buoy_counter]
 		DELETE_OBJECT boat_ramps[buoy_counter]
-		buoy_counter ++
 	ENDWHILE
 
 RETURN
