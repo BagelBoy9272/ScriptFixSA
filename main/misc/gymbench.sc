@@ -333,11 +333,10 @@ AND NOT IS_CHAR_DEAD scplayer
 		IF current_Language = 4
 		OR current_Language = 2
 			CREATE_MENU GYM1_E 31.0 180.0 184.0 1 TRUE TRUE FO_CENTRE main_menu_bench
-			SET_MENU_COLUMN main_menu_bench 0 GYM1_72 GYM1_8 GYM1_9 GYM1_10 GYM1_11 GYM1_12 GYM1_13 GYM1_14 GYM1_15 GYM1_16 GYM1_17 DUMMY DUMMY
 		ELSE
 			CREATE_MENU GYM1_E 31.0 150.0 184.0 1 TRUE TRUE FO_CENTRE main_menu_bench
-			SET_MENU_COLUMN main_menu_bench 0 GYM1_72 GYM1_8 GYM1_9 GYM1_10 GYM1_11 GYM1_12 GYM1_13 GYM1_14 GYM1_15 GYM1_16 GYM1_17 DUMMY DUMMY
 		ENDIF
+		SET_MENU_COLUMN main_menu_bench 0 GYM1_72 GYM1_8 GYM1_9 GYM1_10 GYM1_11 GYM1_12 GYM1_13 GYM1_14 GYM1_15 GYM1_16 GYM1_17 DUMMY DUMMY
 		SET_ACTIVE_MENU_ITEM main_menu_bench 0
 
 
@@ -373,55 +372,57 @@ AND NOT IS_CHAR_DEAD scplayer
 		bench_out_of_loop:
 
 		//text
-		IF weight_bpress = 1
+		SWITCH weight_bpress // FIXEDGROVE: changed from IF to SWITCH
+		CASE 1
 			weightbp = 1.0 	      // 1.0
 			incmusclestatbp = 5.0 // 0.8
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 2
+		CASE 2
 			incmusclestatbp = 5.2
 			weightbp = 2.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 3
+		CASE 3
 			incmusclestatbp = 5.3
 			weightbp = 3.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 4
+		CASE 4
 			incmusclestatbp = 5.5
 			weightbp = 4.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 5
+		CASE 5
 			incmusclestatbp = 6.0
 			weightbp = 5.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 6
+		CASE 6
 			incmusclestatbp = 6.5
 			weightbp = 6.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 7
+		CASE 7
 			incmusclestatbp = 7.0
 			weightbp = 7.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 8
+		CASE 8
 			incmusclestatbp = 7.5
 			weightbp = 8.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 9
+		CASE 9
 			incmusclestatbp = 8.0
 			weightbp = 9.0
-		ENDIF
+		BREAK
 
-		IF weight_bpress = 10
+		CASE 10
 			incmusclestatbp = 8.5
 			weightbp = 10.0
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 		IF NOT IS_CHAR_DEAD scplayer
 
@@ -687,6 +688,7 @@ AND NOT IS_CHAR_DEAD scplayer
 	
 		IF animstate_flag = 3
 		AND NOT IS_CHAR_DEAD scplayer
+			/* // FIXEDGROVE: START - comment out to keep only metric, otherwise stat is incorrect
 			IF current_Language = LANGUAGE_ENGLISH
 				SWITCH weight_bpress
 
@@ -722,7 +724,7 @@ AND NOT IS_CHAR_DEAD scplayer
 					BREAK
 
 				ENDSWITCH
-			ELSE
+			ELSE */ // FIXEDGROVE: END
 				SWITCH weight_bpress
 
 					CASE 1
@@ -757,7 +759,7 @@ AND NOT IS_CHAR_DEAD scplayer
 					BREAK
 
 				ENDSWITCH
-			ENDIF
+			// ENDIF // FIXEDGROVE
 
 			GET_INT_STAT HEAVIEST_WEIGHT_BENCH_PRESS temp_bench_weight
 
@@ -781,221 +783,231 @@ AND NOT IS_CHAR_DEAD scplayer
 
 			IF temp_muscle_stat < 1000.0
 				//text
-				IF weight_bpress = 1
+				SWITCH weight_bpress // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatbp = 1.0 // 0.8
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 2
+				CASE 2
 					incmusclestatbp = 1.2
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 3
+				CASE 3
 					incmusclestatbp = 1.3
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 4
+				CASE 4
 					incmusclestatbp = 1.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 5
+				CASE 5
 					incmusclestatbp = 2.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 6
+				CASE 6
 					incmusclestatbp = 2.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 7
+				CASE 7
 					incmusclestatbp = 3.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 8
+				CASE 8
 					incmusclestatbp = 4.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 9
+				CASE 9
 					incmusclestatbp = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 10
+				CASE 10
 					incmusclestatbp = 6.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat < 800.0
 				//text
-				IF weight_bpress = 1
+				SWITCH weight_bpress // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatbp = 2.0 // 0.8
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 2
+				CASE 2
 					incmusclestatbp = 2.2
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 3
+				CASE 3
 					incmusclestatbp = 2.3
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 4
+				CASE 4
 					incmusclestatbp = 2.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 5
+				CASE 5
 					incmusclestatbp = 3.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 6
+				CASE 6
 					incmusclestatbp = 3.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 7
+				CASE 7
 					incmusclestatbp = 4.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 8   
+				CASE 8   
 					incmusclestatbp = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 9
+				CASE 9
 					incmusclestatbp = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 10
+				CASE 10
 					incmusclestatbp = 7.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat < 600.0
 				//text
-				IF weight_bpress = 1
+				SWITCH weight_bpress // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatbp = 3.0 // 0.8
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 2
+				CASE 2
 					incmusclestatbp = 3.2
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 3
+				CASE 3
 					incmusclestatbp = 3.3
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 4
+				CASE 4
 					incmusclestatbp = 3.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 5
+				CASE 5
 					incmusclestatbp = 4.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 6
+				CASE 6
 					incmusclestatbp = 4.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 7
+				CASE 7
 					incmusclestatbp = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 8
+				CASE 8
 					incmusclestatbp = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 9
+				CASE 9
 					incmusclestatbp = 7.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 10
+				CASE 10
 					incmusclestatbp = 8.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat < 400.0
 				//text
-				IF weight_bpress = 1
+				SWITCH weight_bpress // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatbp = 4.0 // 0.8
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 2
+				CASE 2
 					incmusclestatbp = 4.2
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 3
+				CASE 3
 					incmusclestatbp = 4.3
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 4
+				CASE 4
 					incmusclestatbp = 4.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 5
+				CASE 5
 					incmusclestatbp = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 6
+				CASE 6
 					incmusclestatbp = 5.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 7
+				CASE 7
 					incmusclestatbp = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 8
+				CASE 8
 					incmusclestatbp = 7.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 9
+				CASE 9
 					incmusclestatbp = 8.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 10
+				CASE 10
 					incmusclestatbp = 9.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat < 200.0
 				//text
-				IF weight_bpress = 1
+				SWITCH weight_bpress // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatbp = 5.0 // 0.8
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 2
+				CASE 2
 					incmusclestatbp = 5.2
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 3
+				CASE 3
 					incmusclestatbp = 5.3
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 4
+				CASE 4
 					incmusclestatbp = 5.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 5
+				CASE 5
 					incmusclestatbp = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 6
+				CASE 6
 					incmusclestatbp = 6.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 7
+				CASE 7
 					incmusclestatbp = 7.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 8
+				CASE 8
 					incmusclestatbp = 7.5
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 9
+				CASE 9
 					incmusclestatbp = 8.0
-				ENDIF
+				BREAK
 
-				IF weight_bpress = 10
+				CASE 10
 					incmusclestatbp = 8.5
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
