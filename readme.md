@@ -584,6 +584,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Reused player's casino winning voicelines for winning in pool
 - Re-enabled player speech in burglary if they're caught
 - Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)
+- Added unused 'no more bets' voicelines to blackjack, matching wheel of fortune and roulette
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
 - Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy
 - Added unused "hit", "stick, "double" and "split" lines for the player while playing blackjack
