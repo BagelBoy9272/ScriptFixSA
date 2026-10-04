@@ -498,6 +498,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed bench press power bar draining significantly faster than intended due to a PC port typo
 - Fixed flawed delta-time scaling in gym equipment from the PC port, restoring intended resistance and drain rates
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
+- Fixed basketball settings, such as disabled weapon cycle and enter car buttons, not being reset if you got into a mission while in the minigame
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
 - Fixed crappy cone deletion code in bike school and driving school deleting random objects (Blackboard glitch)
