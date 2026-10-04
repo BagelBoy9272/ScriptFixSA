@@ -502,6 +502,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
 - Fixed crappy cone deletion code in bike school and driving school deleting random objects (Blackboard glitch)
+- Fixed slot machine not enabling its ped attractor
 - Fixed missing Pizza Stack icon in Montgomery
 - ®️ Fixed missing barber shop icon in El Quebrados
 - Fixed duplicated Binco icon in Juniper Hill, SF

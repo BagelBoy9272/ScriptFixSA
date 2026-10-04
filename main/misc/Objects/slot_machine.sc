@@ -49,6 +49,12 @@ IF flag = 1
 	CREATE_OBJECT_NO_OFFSET CJ_Wheel_1 x y z reel[0]
 ENDIF
 
+// FIXEDGROVE: START - enable the attractor
+IF DOES_OBJECT_EXIST slot_machine
+	ENABLE_DISABLED_ATTRACTORS_ON_OBJECT slot_machine TRUE
+ENDIF
+// FIXEDGROVE: END
+
 
 slot_machine_loop:
 	WAIT 0
