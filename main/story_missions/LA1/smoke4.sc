@@ -5948,7 +5948,11 @@ IF jumpchase_s4flag = 2
 				SET_CHAR_PROOFS big_smoke TRUE TRUE TRUE TRUE TRUE
 			ENDIF
 			SET_CHAR_PROOFS scplayer TRUE TRUE TRUE TRUE TRUE
-			DELETE_OBJECT grate_s4 // FIXEDGROVE: delete the global object
+			// FIXEDGROVE: START - delete the global object
+			IF DOES_OBJECT_EXIST grate_s4
+				DELETE_OBJECT grate_s4
+			ENDIF
+			// FIXEDGROVE: END
 			CREATE_OBJECT_NO_OFFSET storm_drain_cover 2631.852 -1482.75 18.109 grate_s4
 			grate_s4flag = 1
 			progressaudio_s4flag = 0
@@ -6956,7 +6960,9 @@ RETURN
 mission_drugs1_failed:
 PRINT_BIG ( M_FAIL ) 5000 1 //"Mission Failed"
 // FIXEDGROVE: START - delete the grate and recreate it
-DELETE_OBJECT grate_s4
+IF DOES_OBJECT_EXIST grate_s4
+	DELETE_OBJECT grate_s4
+ENDIF
 CREATE_OBJECT_NO_OFFSET storm_drain_cover 2631.852 -1482.75 18.109 grate_s4
 SET_OBJECT_HEALTH grate_s4 150
 DONT_REMOVE_OBJECT grate_s4
