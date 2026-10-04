@@ -517,7 +517,6 @@ MARK_MODEL_AS_NO_LONGER_NEEDED CAMPER
 REMOVE_CHAR_ELEGANTLY sweet
 UNLOAD_SPECIAL_CHARACTER 1 
 REMOVE_BLIP r1_control_blip
-ENABLE_AMBIENT_CRIME TRUE
 SWITCH_CAR_GENERATOR gen_car7 101 // FIXEDGROVE: enable sweet's car in grove street
 GET_GAME_TIMER timer_mobile_start
 flag_player_on_mission = 0

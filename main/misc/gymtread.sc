@@ -874,7 +874,7 @@ AND NOT IS_CHAR_DEAD scplayer
 
 					tread_longest = tread_longest / 1000
 
-					INCREMENT_INT_STAT LONGEST_TREADMILL_TIME tread_longest
+					REGISTER_INT_STAT LONGEST_TREADMILL_TIME tread_longest // FIXEDGROVE: register instead of increment
 
 					CLEAR_HELP
 

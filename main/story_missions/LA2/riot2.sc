@@ -4169,7 +4169,6 @@ ENDIF
 SHUT_ALL_CHARS_UP FALSE
 REMOVE_CHAR_ELEGANTLY cesar
 UNLOAD_SPECIAL_CHARACTER 1	
-SET_GUNSHOT_SENSE_RANGE_FOR_RIOT2 -1.0																	   
 REMOVE_BLIP r2_control_blip
 REMOVE_BLIP r2_final_blips[0]
 REMOVE_BLIP r2_final_blips[1]
@@ -4223,7 +4222,6 @@ REMOVE_BLIP r2_garage_blips[0]
 REMOVE_BLIP r2_garage_blips[1]
 REMOVE_BLIP r2_garage_blips[2]
 REMOVE_BLIP r2_garage_blips[3]
-ENABLE_AMBIENT_CRIME TRUE
 GET_GAME_TIMER timer_mobile_start
 flag_player_on_mission = 0
 MISSION_HAS_FINISHED

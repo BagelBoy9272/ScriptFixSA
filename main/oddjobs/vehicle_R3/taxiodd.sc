@@ -3600,12 +3600,7 @@ Taxiodd_Mission_Cleanup:
 
 	// === RESTORE ENVIRONMENT SETTINGS ===
 	// ------------------------------------
-
-	SET_PED_DENSITY_MULTIPLIER	1.0
-	SET_CAR_DENSITY_MULTIPLIER	1.0
-	SET_WANTED_MULTIPLIER		1.0
 	SWITCH_EMERGENCY_SERVICES	ON
-	SWITCH_RANDOM_TRAINS		ON
 
 
 	// Restore switched off road

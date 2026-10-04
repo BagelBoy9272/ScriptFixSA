@@ -79,6 +79,8 @@ IF bball_active = 1
 		IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
 		OR DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_INGAME
 			TERMINATE_THIS_SCRIPT
+		ELSE
+			bball_active = 0
 		ENDIF
 	ELSE
 		bball_active = 0
@@ -216,6 +218,7 @@ bball_loop:
 						ENDIF
 					ELSE
 						MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
+						bball_ball = -1 // FIXEDGROVE
 						m_stage = 0
 						bball_active = 0
 					ENDIF
@@ -297,12 +300,14 @@ bball_loop:
 							SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
 							MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
 							bball_active = 0
+							bball_ball = -1 // FIXEDGROVE
 							m_stage = 0	
 						ENDIF
 					ELSE	
 						SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
 						MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
 						bball_active = 0
+						bball_ball = -1 // FIXEDGROVE
 						m_stage = 0
 					ENDIF
 				BREAK
@@ -393,6 +398,7 @@ bball_loop:
 
 		ELSE
 			bball_active = 0
+			bball_ball = -1 // FIXEDGROVE
 			GOSUB terminate_bball 
 		ENDIF
 	 
@@ -402,12 +408,10 @@ GOTO bball_loop
 
 terminate_bball:
 
+	GOSUB bball_cleanup_minigame // FIXEDGROVE: added, previously the minigame wasn't being cleaned up
+	
 	MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
-	IF IS_PLAYER_PLAYING player1
-		IF flag_player_on_mission = 0
-			SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-		ENDIF
-	ENDIF
+
 	TERMINATE_THIS_SCRIPT
 
 RETURN
@@ -543,6 +547,7 @@ bball_update_ball_collision_cleanup:
 					ELSE
 						//WRITE_DEBUG quit3
 						DELETE_OBJECT m_ball
+						bball_ball = -1 // FIXEDGROVE
 					ENDIF
 				ENDIF
 				
@@ -780,9 +785,7 @@ RETURN
 // ******************************************************************************************
 bball_cleanup_minigame:
 	
-
-	IF IS_PLAYER_PLAYING player1
-
+	IF bball_is_active = 1 // FIXEDGROVE: only clean up if the minigame actually initialized
 		// weapon stuff ////////////////////////////
 		// give smg weapon back to char
 		
@@ -826,7 +829,13 @@ bball_cleanup_minigame:
 			DELETE_OBJECT char_obj
 		ENDIF
 
-		RESTORE_CAMERA
+		// FIXEDGROVE: paranoid check, only clear these when not on a mission
+		IF flag_player_on_mission = 0
+			RESTORE_CAMERA
+			SET_PLAYER_CONTROL player1 ON
+			CLEAR_CHAR_TASKS scplayer
+		ENDIF
+		
 		bball_camera_type = 0
 		REMOVE_ANIMATION BSKTBALL
 		MARK_MODEL_AS_NO_LONGER_NEEDED BBALL_INGAME
@@ -844,9 +853,7 @@ bball_cleanup_minigame:
 		SET_CAR_DENSITY_MULTIPLIER 1.0
 
 		SET_PLAYER_CYCLE_WEAPON_BUTTON player1 TRUE
-		CLEAR_CHAR_TASKS scplayer
 		SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-		SET_PLAYER_CONTROL player1 ON
 		
 		SET_MINIGAME_IN_PROGRESS FALSE
 		//terminate_script = 1

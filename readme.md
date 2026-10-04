@@ -81,6 +81,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Nines And AKs:**
 - Made "cycling through targets" help box only show up if using a controller, otherwise display unused help box about gun recoil
 - Restored help text about weapons while going to Smoke's place
+- Removed jumpcut and arbitrary wait before the Mission Passed text after exiting the clothes shop
 
 **Drive-By:**
 - Fixed player floating a bit at the start of the mission
@@ -186,6 +187,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added facial talk anim to voicelines 
 - Added facial talk anim to Grove members outside the motel
 - Added back missing subititles for swat lines
+- Added "fake" wanted level after reaching the motel
 - Fixed code for healing the player setting his health to 100 even if he had more 
 - Disabled collision for Grove member that falls from the railling, and made him silent 
 - Slightly adjusted dead Grove member position to avoid clipping and make sense contextually 
@@ -204,11 +206,11 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Opened front passenger seat of Sweet's car in the final cutscene
 - Fixed jarring time shift in the ending cutscene caused by the script setting the time to 7:00 AM 
 - Fixed characters not using their intended animation groups 
-- Add 4 star wanted level if the player fails the mission after getting to the motel 
 - Tidied up code to accomodate new changes under the size limit
 
 **Green Sabre:**
 - Fixed Grove member floating a bit in a cutscene
+- Fixed Flint County barriers being removed even if you didn't pass the mission
 
 **Local Liquor Store:**
 - Increased upper bound of random number generator, improving randomness for the 'they are getting away' line selection
@@ -255,6 +257,10 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed Woozie ped model being used instead of Claude
 - Swapped an opponent's car with Claude's car, to match the cutscene
 
+**Are You Going to San Fierro?...:**
+- Added facial talk anim to voicelines
+- Don't disable all char speech
+
 **Deconstruction:**
 - Added check to not delete a mission car if the player is using it
 
@@ -276,6 +282,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 
 **Ran Fa Li:**
 - Fixed the enemy Sabre driver doing the drive-by task instead of the passenger
+- Restored unused 'Don't just stand there, get that car!' line for the guys after the car, most likely caused by an oversight
 - Changed some models to be random
 
 **Lure:**
@@ -284,7 +291,8 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **The Da Nang Thang:**
 - Added an extra member variant
 - Fixed a cutscene softlock
-
+- Da Nang Boys will be unfriendly to the Grove after this mission
+  
 **Outrider:**
 - Now player teleports outside of the crack factory instead of just at the door after the ending cutscene (needed since the new freeroam gate would lock them inside)
 - Changed some models to be random
@@ -307,7 +315,8 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Reverted another minor change that was made for debug
 - Made T-bone unheadshottable
 - Made it so voicelines and subtitles don't cut out during the fade out after a cutscene skip
-
+- Rifas will be unfriendly to the Grove after this mission
+ 
 **Test Drive:**
 - Restored Cesar voiceline about a motorbike on the road
 - Restored peds that would enter a bus
@@ -327,13 +336,16 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Green Goo:**
 - Fixed phone ringing immediately after the mission
 
+**Fender Ketchup:**
+- Fixed right handbrake turns not counting 
+- Restored audio for the ending cutscene
+
 **You've Had Your Chips:**
 - Moved parked car at beginning of the mission to a parking spot
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
 
-**Fender Ketchup:**
-- Fixed right handbrake turns not counting 
-- Restored audio for the ending cutscene
+**Don Peyote:**
+- Restored a few unused voicelines most likely caused by oversights
 
 **Intensive Care:**
 - Fixed mafia driver not driving
@@ -345,6 +357,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Breaking The Bank At Caligula's:**
 - Fixed this mission permanently altering PEDTYPE_CIVMALE relationship towards player
 - Fixed the player's haircut being temporarily reset for no apparent reason
+- Mafia will be unfriendly to the Grove and the Triads after this mission
 
 **Vertical Bird:**
 - Increased upper limit in random number generator, bringing back an unused route for a forklift
@@ -384,6 +397,10 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 
 **Cut Throat Bussiness:**
 - Set camera behind the player and fade in after the initial cutscene
+
+**Beat Down on B-Dup:**
+- Fixed 'That's it, I know it!' line when locating B-Dup's house not playing due to an off-by-one mistake
+- Made Sweet less useless
 
 **Grove 4 Life:**
 - Fixed Sweet and player spawning outside CJ's house instead of Sweet's house
@@ -475,10 +492,13 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed 'Valet' triggering two mission passed tunes
 - Fixed phone ringing immediately after 'Valet'
 - Fixed exercise bike exit animation not playing
+- Fixed 'longest time on threadmill/gymbike' stats listing the total cumulative time spent on those objects instead of the longest session
+- Fixed 'furthest hoop' stat doing imperial unit conversion twice if imperial units are enabled
 - Fixed boxers inside the LS gym standing still after fighting the instructor
 - Fixed bench press power bar draining significantly faster than intended due to a PC port typo
 - Fixed flawed delta-time scaling in gym equipment from the PC port, restoring intended resistance and drain rates
 - Fixed gym glitch by using 'Days Passed' stat instead of calendar date
+- Fixed basketball settings, such as disabled weapon cycle and enter car buttons, not being reset if you got into a mission while in the minigame
 - Fixed basketball glitch
 - Fixed Quadruple Insane Stunt
 - Fixed crappy cone deletion code in bike school and driving school deleting random objects (Blackboard glitch)
@@ -500,6 +520,10 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed camera not resetting instantly after quitting Bike School
 - Fixed Boat School to not despawn the player if they flip a boat in water
 - Fixed Boat School award music not playing in the final lesson
+- Fixed Grove member being invisible if you killed them while they were taking a picture of you
+- Fixed missing camera sound effect when a Grove member takes a picture of you
+- Fixed camera going missing when a Grove member is taking a picture of you and you get into a car
+- Fixed camera ammo not depleting when a Grove member takes a picture of you
 - Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
 - Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
 - Fixed Flint Intersection, Flint Range and Montgomery Intersection zones being assigned the desert popcycle instead of the countryside one
@@ -514,12 +538,14 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Moved AK47 and Sawn-Off pickups in film studios closer to the ground
 - Moved an armour pickup in Area 69 closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
+- Disabled enter car button while a Grove member is taking a picture of you
 - Improved Forbidden Area switches
 - Added population properties to a lot of previously missing zones
 - Tweaked demographics of a few exising zones, now you can spot the hispanic drug dealer in East Los Santos and Las Colinas, and the biker drug dealer in SF
 - Added italian mafia turf to Caligula's Palace and a little bit of The Strip next to it
 - Added triad turf to the Four Dragons Casino after Woozie's phonecall about it
 - Made upper East Los Santos Vagos turf to match the lore better
+- Changed a Rifa territory in King's to be beside the rest of their turf (instead of completely separate)
 - Switched on two forgotten Greenwood and BMX generators in Jefferson motel
 - Made Ryder's car stop spawning after 'Pier 69'
 - Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completed
@@ -541,6 +567,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Made the motel props from 'Reuniting The Families' spawn in freeroam
 - Made the storm drain grate from 'Just Business' spawn in freeroam
 - Made the house windows from 'Burning Desire' spawn in freeroam
+- Made The Truth's weed farm from 'Are You Going to San Fierro?' spawn in freeroam
 - Made crack factory front gate spawn in freeroam
 - Restored unique custom plates for import/export from PS2 REV 1
 - ®️ Now you can quit the "Let's Get Ready to Bumble" arcade game mid-game
@@ -549,9 +576,13 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added facial talking anim to phonecalls
 - Now you can get phonecalls while in interiors
 - Made Vagos taking over VLA turf happen after Cesar's call about going to Angel Pine instead of an unrelated missable Catalina phone call
+- Removed stats menu display while answering a phonecall
 - Menus won't reset the highlighted row when selecting an item
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Enabled ambient valet from the start of the game, and restored it for LS and LV (though you can't work there)
+- Changed player's mood to 'wisecracking' after winning in gambling, lowrider, pool or coffee
+- Reused player's casino winning voicelines for winning in pool
+- Re-enabled player speech in burglary if they're caught
 - Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
 - Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy

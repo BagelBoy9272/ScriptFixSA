@@ -1558,8 +1558,8 @@ IF cas4_mission_progression_flag = 0
 							IF NOT IS_MESSAGE_BEING_DISPLAYED
 								SWITCH cas4_fight_audio1
 									CASE 0
-										IF cas4_audio_playing = 0										
-											cas4_audio_counter = 9	//CAS4_Ca  I'm the manager i get the front seat
+										IF cas4_audio_playing = 0									
+											cas4_audio_counter = 9	//CAS4_Ca  Your turn in the boot, ol'lad!	
 											cas4_fight_audio1 = 1
 											GET_GAME_TIMER cas4_text_timer_start										
 										ENDIF
@@ -1569,7 +1569,7 @@ IF cas4_mission_progression_flag = 0
 										cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 										IF cas4_text_timer_diff > 1000
 											IF cas4_audio_playing = 0												
-												cas4_audio_counter = 10 //CAS4_Cb  Hey thats my seat	
+												cas4_audio_counter = 10 //CAS4_Cb  Oooo, this is comfy!	
 												cas4_fight_audio1 = 2
 												GET_GAME_TIMER cas4_text_timer_start
 											ENDIF
@@ -1580,7 +1580,7 @@ IF cas4_mission_progression_flag = 0
 										cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 										IF cas4_text_timer_diff > 1000
 											IF cas4_audio_playing = 0												
-												cas4_audio_counter = 11 //CAS4_Cc  Hey thats my seat	
+												cas4_audio_counter = 11 //CAS4_Cc  I'm the manager i get the front seat
 												cas4_fight_audio1 = 3
 												GET_GAME_TIMER cas4_text_timer_start
 											ENDIF
@@ -1602,7 +1602,7 @@ IF cas4_mission_progression_flag = 0
 										cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 										IF cas4_text_timer_diff > 1000
 											IF cas4_audio_playing = 0												
-												cas4_audio_counter = 19 //CAS4_CD  Hey thats my seat	
+												cas4_audio_counter = 19 //CAS4_CL  You're my manager this is all your fault!	
 												cas4_fight_audio1 = 5
 												GET_GAME_TIMER cas4_text_timer_start
 											ENDIF
@@ -1649,7 +1649,7 @@ IF cas4_mission_progression_flag = 0
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
 												IF cas4_audio_playing = 0												
-													cas4_audio_counter = 15 //CAS4_Cc  Hey thats my seat	
+													cas4_audio_counter = 15 //CAS4_Cc  I'm the manager i get the front seat
 													cas4_fight_audio2 = 3
 													GET_GAME_TIMER cas4_text_timer_start
 												ENDIF
@@ -1912,13 +1912,14 @@ IF cas4_mission_progression_flag = 0
 								IF cas4_banter1_completed = 1
 									IF NOT IS_MESSAGE_BEING_DISPLAYED
 									SWITCH cas4_puke_audio
+										// FIXEDGROVE: added missing line
 										CASE 0									
 											
 											SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH cas4_paul_ped TRUE
 											SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH cas4_macca_ped TRUE
 
 											IF cas4_audio_playing = 0										
-												cas4_audio_counter = 62	//CAS4_NB//]You look as pale as a drowned baby, mate!
+												cas4_audio_counter = 61	//CAS4_NA//]Oh fuck, I've got the shakes!
 												cas4_puke_audio = 1
 												GET_GAME_TIMER cas4_text_timer_start										
 											ENDIF
@@ -1927,30 +1928,30 @@ IF cas4_mission_progression_flag = 0
 											GET_GAME_TIMER cas4_text_timer_end
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
-												IF cas4_audio_playing = 0
-													cas4_audio_counter = 63//CAS4_NC//]Oh god, I think I'm going to chuck!	
+												IF cas4_audio_playing = 0										
+													cas4_audio_counter = 62	//CAS4_NB//]You look as pale as a drowned baby, mate!
 													cas4_puke_audio = 2
-													GET_GAME_TIMER cas4_text_timer_start
+													GET_GAME_TIMER cas4_text_timer_start										
 												ENDIF
-											ENDIF	
+											ENDIF
 											BREAK
 										CASE 2
 											GET_GAME_TIMER cas4_text_timer_end
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
 												IF cas4_audio_playing = 0
-													cas4_audio_counter = 64//CAS4_ND//]What you need is some food down you!	
+													cas4_audio_counter = 63//CAS4_NC//]Oh god, I think I'm going to chuck!	
 													cas4_puke_audio = 3
 													GET_GAME_TIMER cas4_text_timer_start
 												ENDIF
-											ENDIF
+											ENDIF	
 											BREAK
 										CASE 3
 											GET_GAME_TIMER cas4_text_timer_end
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
 												IF cas4_audio_playing = 0
-													cas4_audio_counter = 65//CAS4_NE//](Paul nearly vomits)	
+													cas4_audio_counter = 64//CAS4_ND//]What you need is some food down you!	
 													cas4_puke_audio = 4
 													GET_GAME_TIMER cas4_text_timer_start
 												ENDIF
@@ -1961,7 +1962,7 @@ IF cas4_mission_progression_flag = 0
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
 												IF cas4_audio_playing = 0
-													cas4_audio_counter = 66//CAS4_NF//]A fried egg sanger with mayonaise will sort you out.	
+													cas4_audio_counter = 65//CAS4_NE//](Paul nearly vomits)	
 													cas4_puke_audio = 5
 													GET_GAME_TIMER cas4_text_timer_start
 												ENDIF
@@ -1972,7 +1973,7 @@ IF cas4_mission_progression_flag = 0
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
 												IF cas4_audio_playing = 0
-													cas4_audio_counter = 67//CAS4_NG//](Paul nearly vomits again)	
+													cas4_audio_counter = 66//CAS4_NF//]A fried egg sanger with mayonaise will sort you out.	
 													cas4_puke_audio = 6
 													GET_GAME_TIMER cas4_text_timer_start
 												ENDIF
@@ -1983,7 +1984,7 @@ IF cas4_mission_progression_flag = 0
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
 												IF cas4_audio_playing = 0
-													cas4_audio_counter = 68//CAS4_NH//]Or a pickled egg!	
+													cas4_audio_counter = 67//CAS4_NG//](Paul nearly vomits again)	
 													cas4_puke_audio = 7
 													GET_GAME_TIMER cas4_text_timer_start
 												ENDIF
@@ -1994,8 +1995,19 @@ IF cas4_mission_progression_flag = 0
 											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 											IF cas4_text_timer_diff > 1000
 												IF cas4_audio_playing = 0
-													cas4_audio_counter = 69//CAS4_NJ//]Pull over, NOW!	
+													cas4_audio_counter = 68//CAS4_NH//]Or a pickled egg!	
 													cas4_puke_audio = 8
+													GET_GAME_TIMER cas4_text_timer_start
+												ENDIF
+											ENDIF
+											BREAK
+										CASE 8
+											GET_GAME_TIMER cas4_text_timer_end
+											cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
+											IF cas4_text_timer_diff > 1000
+												IF cas4_audio_playing = 0
+													cas4_audio_counter = 69//CAS4_NJ//]Pull over, NOW!	
+													cas4_puke_audio = 9
 													GET_GAME_TIMER cas4_text_timer_start
 												ENDIF
 											ENDIF
@@ -2482,7 +2494,7 @@ IF cas4_mission_progression_flag = 0
 												IF cas4_text_timer_diff > 1000
 													IF cas4_audio_playing = 0
 														cas4_audio_counter = 53 // CAS4_KH I'm fit to burst, ol'lad!	
-														cas4_piss_audio = 5
+														cas4_piss_audio = 4 // FIXEDGROVE: was '5'
 														GET_GAME_TIMER cas4_text_timer_start
 													ENDIF
 												ENDIF
@@ -2526,7 +2538,7 @@ IF cas4_mission_progression_flag = 0
 												CASE 0																								
 													IF cas4_audio_playing = 0													
 														cas4_audio_counter = 55 // CAS4_LA I can't hold it any longer!	
-														cas4_piss_audio = 2
+														cas4_piss_audio = 1 // FIXEDGROVE: was '2'
 														GET_GAME_TIMER cas4_text_timer_start
 													ENDIF													
 													BREAK
@@ -2536,7 +2548,7 @@ IF cas4_mission_progression_flag = 0
 													IF cas4_text_timer_diff > 1000
 														IF cas4_audio_playing = 0
 															cas4_audio_counter = 56 // CAS4_LB Oh fuck!	
-															cas4_piss_audio = 3
+															cas4_piss_audio = 2 // FIXEDGROVE: was '3'
 															GET_GAME_TIMER cas4_text_timer_start
 														ENDIF
 													ENDIF
@@ -2547,7 +2559,7 @@ IF cas4_mission_progression_flag = 0
 													IF cas4_text_timer_diff > 1000
 														IF cas4_audio_playing = 0
 															cas4_audio_counter = 57 // CAS4_LC Hey, what the fuck?	
-															cas4_piss_audio = 5
+															cas4_piss_audio = 3 // FIXEDGROVE: was '5'
 															cas4_sfx_counter = 1
 															GET_GAME_TIMER cas4_text_timer_start
 														ENDIF
@@ -2559,29 +2571,18 @@ IF cas4_mission_progression_flag = 0
 													IF cas4_text_timer_diff > 1000
 														IF cas4_audio_playing = 0
 															cas4_audio_counter = 58 // CAS4_LD Argh! Stop it!
-															cas4_piss_audio = 5
+															cas4_piss_audio = 4 // FIXEDGROVE: was '5'
 															GET_GAME_TIMER cas4_text_timer_start
 														ENDIF
 													ENDIF
-													BREAK																								
+													BREAK
 												CASE 4
 													GET_GAME_TIMER cas4_text_timer_end
 													cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
 													IF cas4_text_timer_diff > 1000
 														IF cas4_audio_playing = 0
-															cas4_audio_counter = 58 // CAS4_LD Argh! Stop it!
-															cas4_piss_audio = 5
-															GET_GAME_TIMER cas4_text_timer_start
-														ENDIF
-													ENDIF
-													BREAK
-												CASE 5
-													GET_GAME_TIMER cas4_text_timer_end
-													cas4_text_timer_diff = cas4_text_timer_end - cas4_text_timer_start
-													IF cas4_text_timer_diff > 1000
-														IF cas4_audio_playing = 0
 															cas4_audio_counter = 59 // CAS4_LE Point it out the fucking window!
-															cas4_piss_audio = 6
+															cas4_piss_audio = 5
 															GET_GAME_TIMER cas4_text_timer_start
 														ENDIF
 													ENDIF
@@ -6836,16 +6837,11 @@ mission_cleanup_casino4:
 GET_GAME_TIMER timer_mobile_start
 SET_POLICE_IGNORE_PLAYER player1 OFF
 
-
-IF IS_PLAYER_PLAYING player1			   
-	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-ENDIF
+			   
+SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 
 KILL_FX_SYSTEM cas4_vomit
 KILL_FX_SYSTEM cas4_piss
-
-SET_PED_DENSITY_MULTIPLIER 1.0
-SET_CAR_DENSITY_MULTIPLIER 1.0
 
 /////////////////////////    REMOVE_BLIPS
 REMOVE_BLIP cas4_end_blip

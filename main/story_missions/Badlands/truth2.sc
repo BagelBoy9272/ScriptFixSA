@@ -43,6 +43,7 @@ LVAR_INT t2_flamethrower_control_flag t2_flame_ammo t2_rocketlauncher_control_fl
 LVAR_INT t2_speech_goals t2_speech_control_flag t2_speech_flag 
 LVAR_TEXT_LABEL t2_print_label[16] 
 LVAR_INT t2_audio_label[16] 
+LVAR_INT t2_speaker[16] // FIXEDGROVE
 LVAR_INT t2_played_random_speech[5] t2_last_label 
 LVAR_INT t2_slot1 t2_slot2 t2_slot_load t2_play_which_slot
 LVAR_INT t2_random_last_label
@@ -54,7 +55,7 @@ LVAR_INT t2_seq t2_empty_ped_decision_maker
 
 //debug
 
-
+LVAR_INT t2_int
 
 
 // ****************************************Mission Start************************************
@@ -71,101 +72,9 @@ CLEAR_PRINTS
 WAIT 0
 // *************************************Set Flags/variables*********************************
 t2_cop_timer = 331000 //5 and a half minutes
-t2_goals = 0
-t2_control_flag = 0
-t2_skip_cutscene_flag = 0 
-t2_deathcheck_flag = 0 
 
-t2_weed_burnt[0] = 0 
-t2_weed_burnt[1] = 0 
-t2_weed_burnt[2] = 0 
-t2_weed_burnt[3] = 0 
-t2_weed_burnt[4] = 0 
-t2_weed_burnt[5] = 0 
-t2_weed_burnt[6] = 0 
-t2_weed_burnt[7] = 0 
-t2_weed_burnt[8] = 0 
-t2_weed_burnt[9] = 0 
-t2_weed_burnt[10] = 0 
-t2_weed_burnt[11] = 0 
-t2_weed_burnt[12] = 0 
-t2_weed_burnt[13] = 0 
-t2_weed_burnt[14] = 0 
-t2_weed_burnt[15] = 0 
-t2_weed_burnt[16] = 0 
-t2_weed_burnt[17] = 0 
-t2_weed_burnt[18] = 0 
-t2_weed_burnt[19] = 0 
-t2_weed_burnt[20] = 0 
-t2_weed_burnt[21] = 0 
-t2_weed_burnt[22] = 0 
-t2_weed_burnt[23] = 0 
-t2_weed_burnt[24] = 0 
-t2_weed_burnt[25] = 0 
-t2_weed_burnt[26] = 0 
-t2_weed_burnt[27] = 0 
-t2_weed_burnt[28] = 0 
-t2_weed_burnt[29] = 0 
-t2_weed_burnt[30] = 0 
-t2_weed_burnt[31] = 0 
-t2_weed_burnt[32] = 0 
-t2_weed_burnt[33] = 0 
-t2_weed_burnt[34] = 0 
-t2_weed_burnt[35] = 0 
-t2_weed_burnt[36] = 0 
-t2_weed_burnt[37] = 0 
-t2_weed_burnt[38] = 0 
-t2_weed_burnt[39] = 0 
-t2_weed_burnt[40] = 0 
-t2_weed_burnt[41] = 0 
-t2_weed_burnt[42] = 0 
-t2_weed_burnt[43] = 0 
 t2_total_weed_burnt = 44
-
-t2_one_cop_alive_in_area = 0
-t2_car_check_flag = 0
-
-t2_flamethrower_control_flag = 0
-t2_flame_ammo = 0
-
-t2_city = 0
-
-t2_x = 0.0 
-t2_y = 0.0 
-t2_z = 0.0 
-t2_x2 = 0.0 
-t2_y2 = 0.0 
-t2_z2 = 0.0
-
-t2_faded_flag = 0
-t2_drunkeness = 0 
-t2_beer_goggles = 0
 t2_weed_check = 44
-
-t2_speech_goals = 0
-t2_speech_control_flag = 0
-t2_speech_flag = 0
-t2_played_random_speech[0] = 0
-t2_played_random_speech[1] = 0
-t2_played_random_speech[2] = 0
-t2_played_random_speech[3] = 0
-t2_played_random_speech[4] = 0
-t2_last_label = 0
-t2_slot1 = 0 
-t2_slot2 = 0 
-t2_slot_load = 0
-t2_play_which_slot = 0
-
-
-t2_rocketlauncher_control_flag = 0
-
-t2_storing_speech_control_number = 0
-t2_storing_speech_goals_number = 0
-
-t2_random_last_label = 0
-
-
-
 
 
 // ****************************************START OF CUTSCENE********************************
@@ -199,7 +108,7 @@ REQUEST_MODEL POLMAV
 REQUEST_MODEL CSHER 
 
 REQUEST_MODEL FLAME
-REQUEST_MODEL COLT45
+//REQUEST_MODEL COLT45 // FIXEDGROVE: commented, unused
 
 LOAD_SPECIAL_CHARACTER 1 truth
 
@@ -265,181 +174,14 @@ LOCK_CAR_DOORS t2_chopper CARLOCK_LOCKED
 SET_CHAR_CAN_BE_SHOT_IN_VEHICLE t2_pilot FALSE
 SET_CHAR_DECISION_MAKER t2_pilot t2_empty_ped_decision_maker
 
-ADD_BLIP_FOR_COORD -1062.1 -1631.7 75.3 t2_weed_blips[0]    
-CHANGE_BLIP_SCALE t2_weed_blips[0] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[0] COORD_BLIP_APPEARANCE_ENEMY
-  
-ADD_BLIP_FOR_COORD -1052.3 -1631.7 75.3 t2_weed_blips[1]    
-CHANGE_BLIP_SCALE t2_weed_blips[1] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[1] COORD_BLIP_APPEARANCE_ENEMY 
- 
-ADD_BLIP_FOR_COORD -1042.4 -1631.7 75.3 t2_weed_blips[2]    
-CHANGE_BLIP_SCALE t2_weed_blips[2] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[2] COORD_BLIP_APPEARANCE_ENEMY 
- 
-ADD_BLIP_FOR_COORD -1032.6 -1631.7 75.3 t2_weed_blips[3]    									   
-CHANGE_BLIP_SCALE t2_weed_blips[3] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[3] COORD_BLIP_APPEARANCE_ENEMY
- 							   
-ADD_BLIP_FOR_COORD -1023.1 -1631.7 75.3 t2_weed_blips[4]    									   
-CHANGE_BLIP_SCALE t2_weed_blips[4] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[4] COORD_BLIP_APPEARANCE_ENEMY
- 							   
-ADD_BLIP_FOR_COORD -1062.1 -1622.2 75.3 t2_weed_blips[5]   										   
-CHANGE_BLIP_SCALE t2_weed_blips[5] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[5] COORD_BLIP_APPEARANCE_ENEMY 
-							   
-ADD_BLIP_FOR_COORD -1052.3 -1622.2 75.3 t2_weed_blips[6]   										   
-CHANGE_BLIP_SCALE t2_weed_blips[6] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[6] COORD_BLIP_APPEARANCE_ENEMY 
-							   
-ADD_BLIP_FOR_COORD -1042.4 -1622.2 75.3 t2_weed_blips[7]   										   
-CHANGE_BLIP_SCALE t2_weed_blips[7] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[7] COORD_BLIP_APPEARANCE_ENEMY 
-							   
-ADD_BLIP_FOR_COORD -1032.6 -1622.2 75.3 t2_weed_blips[8]   										   
-CHANGE_BLIP_SCALE t2_weed_blips[8] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[8] COORD_BLIP_APPEARANCE_ENEMY 
-							   
-ADD_BLIP_FOR_COORD -1023.1 -1622.2 75.3 t2_weed_blips[9]  										   
-CHANGE_BLIP_SCALE t2_weed_blips[9] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[9] COORD_BLIP_APPEARANCE_ENEMY  
-						   
-ADD_BLIP_FOR_COORD -991.92 -1703.1 75.3 t2_weed_blips[10]  										   
-CHANGE_BLIP_SCALE t2_weed_blips[10] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[10] COORD_BLIP_APPEARANCE_ENEMY	
-						   
-ADD_BLIP_FOR_COORD -982.38 -1703.1 75.3 t2_weed_blips[11]  										   
-CHANGE_BLIP_SCALE t2_weed_blips[11] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[11] COORD_BLIP_APPEARANCE_ENEMY 
-						   
-ADD_BLIP_FOR_COORD -991.92 -1693.6 75.3 t2_weed_blips[12] 										   
-CHANGE_BLIP_SCALE t2_weed_blips[12] 1 															   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[12] COORD_BLIP_APPEARANCE_ENEMY	
-						   
-ADD_BLIP_FOR_COORD -982.38 -1693.6 75.3 t2_weed_blips[13]  										   
-CHANGE_BLIP_SCALE t2_weed_blips[13] 1 															   	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[13] COORD_BLIP_APPEARANCE_ENEMY	
-						   	 
-ADD_BLIP_FOR_COORD -991.92 -1684.1 75.3 t2_weed_blips[14]   										 
-CHANGE_BLIP_SCALE t2_weed_blips[14] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[14] COORD_BLIP_APPEARANCE_ENEMY	
-							 
-ADD_BLIP_FOR_COORD -982.38 -1684.1 75.3 t2_weed_blips[15]   										 
-CHANGE_BLIP_SCALE t2_weed_blips[15] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[15] COORD_BLIP_APPEARANCE_ENEMY 
-							 
-ADD_BLIP_FOR_COORD -1011.8 -1667.6 75.3 t2_weed_blips[16]   											 
-CHANGE_BLIP_SCALE t2_weed_blips[16] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[16] COORD_BLIP_APPEARANCE_ENEMY 
-							 
-ADD_BLIP_FOR_COORD -1011.8 -1658.1 75.3 t2_weed_blips[17]   											 
-CHANGE_BLIP_SCALE t2_weed_blips[17] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[17] COORD_BLIP_APPEARANCE_ENEMY
- 							 
-ADD_BLIP_FOR_COORD -1011.8 -1648.7 75.3 t2_weed_blips[18]  											 
-CHANGE_BLIP_SCALE t2_weed_blips[18] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[18] COORD_BLIP_APPEARANCE_ENEMY
- 							 
-ADD_BLIP_FOR_COORD -1000.7 -1667.6 75.3 t2_weed_blips[19]   											 
-CHANGE_BLIP_SCALE t2_weed_blips[19] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[19] COORD_BLIP_APPEARANCE_ENEMY
-								 
-ADD_BLIP_FOR_COORD -1000.7 -1658.1 75.3 t2_weed_blips[20]  											 
-CHANGE_BLIP_SCALE t2_weed_blips[20] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[20] COORD_BLIP_APPEARANCE_ENEMY	
-							 
-ADD_BLIP_FOR_COORD -1000.7 -1648.7 75.3 t2_weed_blips[21]  											 
-CHANGE_BLIP_SCALE t2_weed_blips[21] 1 																 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[21] COORD_BLIP_APPEARANCE_ENEMY 
-							 
-ADD_BLIP_FOR_COORD -1011.8 -1672.3 75.3 t2_weed_blips[22]  
-CHANGE_BLIP_SCALE t2_weed_blips[22] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[22] COORD_BLIP_APPEARANCE_ENEMY 
-
-ADD_BLIP_FOR_COORD -991.92 -1688.8 75.3 t2_weed_blips[23]  												 
-CHANGE_BLIP_SCALE t2_weed_blips[23] 1 																	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[23] COORD_BLIP_APPEARANCE_ENEMY
-  								 
-ADD_BLIP_FOR_COORD -982.38 -1688.8 75.3 t2_weed_blips[24]  												 
-CHANGE_BLIP_SCALE t2_weed_blips[24] 1 																	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[24] COORD_BLIP_APPEARANCE_ENEMY
- 								 
-ADD_BLIP_FOR_COORD -982.38 -1698.2 75.3 t2_weed_blips[25]  												 
-CHANGE_BLIP_SCALE t2_weed_blips[25] 1 																	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[25] COORD_BLIP_APPEARANCE_ENEMY 
-								 
-ADD_BLIP_FOR_COORD -991.92 -1698.2 75.3 t2_weed_blips[26]  												 
-CHANGE_BLIP_SCALE t2_weed_blips[26] 1 																	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[26] COORD_BLIP_APPEARANCE_ENEMY 
-								 
-ADD_BLIP_FOR_COORD -982.38 -1707.7 75.3 t2_weed_blips[27]  												 
-CHANGE_BLIP_SCALE t2_weed_blips[27] 1 																	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[27] COORD_BLIP_APPEARANCE_ENEMY 
-								 
-ADD_BLIP_FOR_COORD -1011.8 -1662.8 75.3 t2_weed_blips[28]  												 
-CHANGE_BLIP_SCALE t2_weed_blips[28] 1 																	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[28] COORD_BLIP_APPEARANCE_ENEMY	
-								 
-ADD_BLIP_FOR_COORD -1000.7 -1672.3 75.3 t2_weed_blips[29]  												 
-CHANGE_BLIP_SCALE t2_weed_blips[29] 1 																	 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[29] COORD_BLIP_APPEARANCE_ENEMY 
-								 
-ADD_BLIP_FOR_COORD -1011.8 -1653.4 75.3 t2_weed_blips[30]  								   
-CHANGE_BLIP_SCALE t2_weed_blips[30] 1 													   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[30] COORD_BLIP_APPEARANCE_ENEMY 
- 				   
-ADD_BLIP_FOR_COORD -1032.6 -1636.3 75.3 t2_weed_blips[31]  								   
-CHANGE_BLIP_SCALE t2_weed_blips[31] 1 													   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[31] COORD_BLIP_APPEARANCE_ENEMY 
-				   
-ADD_BLIP_FOR_COORD -1052.3 -1636.3 75.3 t2_weed_blips[32]  								   
-CHANGE_BLIP_SCALE t2_weed_blips[32] 1 													   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[32] COORD_BLIP_APPEARANCE_ENEMY	
-				   
-ADD_BLIP_FOR_COORD -1042.4 -1636.3 75.3 t2_weed_blips[33]  								   
-CHANGE_BLIP_SCALE t2_weed_blips[33] 1 													   
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[33] COORD_BLIP_APPEARANCE_ENEMY 
- 				   
-ADD_BLIP_FOR_COORD -1062.1 -1626.8 75.3 t2_weed_blips[34]  								   
-CHANGE_BLIP_SCALE t2_weed_blips[34] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[34] COORD_BLIP_APPEARANCE_ENEMY
- 
-ADD_BLIP_FOR_COORD -991.92 -1707.7 75.3 t2_weed_blips[35]  
-CHANGE_BLIP_SCALE t2_weed_blips[35] 1 															  
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[35] COORD_BLIP_APPEARANCE_ENEMY 
-						  
-ADD_BLIP_FOR_COORD -1023.1 -1626.8 75.3 t2_weed_blips[36]  										  
-CHANGE_BLIP_SCALE t2_weed_blips[36] 1 															  
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[36] COORD_BLIP_APPEARANCE_ENEMY
- 						  
-ADD_BLIP_FOR_COORD -1000.7 -1662.8 75.3 t2_weed_blips[37]  										  
-CHANGE_BLIP_SCALE t2_weed_blips[37] 1 															  
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[37] COORD_BLIP_APPEARANCE_ENEMY 
-						  
-ADD_BLIP_FOR_COORD -1000.7 -1653.4 75.3 t2_weed_blips[38]  
-CHANGE_BLIP_SCALE t2_weed_blips[38] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[38] COORD_BLIP_APPEARANCE_ENEMY 
-
-ADD_BLIP_FOR_COORD -1032.6 -1626.8 75.3 t2_weed_blips[39]  
-CHANGE_BLIP_SCALE t2_weed_blips[39] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[39] COORD_BLIP_APPEARANCE_ENEMY 
-
-ADD_BLIP_FOR_COORD -1042.4 -1626.8 75.3 t2_weed_blips[40]  
-CHANGE_BLIP_SCALE t2_weed_blips[40] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[40] COORD_BLIP_APPEARANCE_ENEMY  
-
-ADD_BLIP_FOR_COORD -1052.3 -1626.8 75.3 t2_weed_blips[41]  
-CHANGE_BLIP_SCALE t2_weed_blips[41] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[41] COORD_BLIP_APPEARANCE_ENEMY 
-
-ADD_BLIP_FOR_COORD -1062.1 -1636.3 75.3 t2_weed_blips[42]  
-CHANGE_BLIP_SCALE t2_weed_blips[42] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[42] COORD_BLIP_APPEARANCE_ENEMY
- 
-ADD_BLIP_FOR_COORD -1023.1 -1636.3 75.3 t2_weed_blips[43]  
-CHANGE_BLIP_SCALE t2_weed_blips[43] 1 
-SET_COORD_BLIP_APPEARANCE t2_weed_blips[43] COORD_BLIP_APPEARANCE_ENEMY  
+t2_int = 0
+WHILE t2_int < 44
+	GOSUB t2_coords
+	ADD_BLIP_FOR_COORD t2_x t2_y t2_z t2_weed_blips[t2_int]
+	CHANGE_BLIP_SCALE t2_weed_blips[t2_int] 1 
+	SET_COORD_BLIP_APPEARANCE t2_weed_blips[t2_int] COORD_BLIP_APPEARANCE_ENEMY
+	t2_int++
+ENDWHILE
 
 //DISPLAY_ONSCREEN_COUNTER_WITH_STRING t2_total_weed_burnt COUNTER_DISPLAY_NUMBER TRU2_05 
 DISPLAY_ONSCREEN_TIMER_WITH_STRING t2_cop_timer TIMER_DOWN TRU2_06  // Cops arrival
@@ -524,363 +266,19 @@ WAIT 0
 		////////checking if player has used up all his flamethrower////////////////
 		GOSUB t2_flamethrower
 		
-		IF t2_weed_burnt[0] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1062.1 -1631.7 75.3 1.0 GRASSPLANT FALSE TRUE 
+		t2_int = 0
+		WHILE t2_int < 44
+		IF t2_weed_burnt[t2_int] = 0
+			GOSUB t2_coords
+			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED t2_x t2_y t2_z 1.0 GRASSPLANT FALSE TRUE 
 				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[0] 
+				REMOVE_BLIP t2_weed_blips[t2_int] 
 				t2_total_weed_burnt --
-				t2_weed_burnt[0] = 1
+				t2_weed_burnt[t2_int] = 1
 			ENDIF
 		ENDIF
-		IF t2_weed_burnt[1] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1052.3 -1631.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[1] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[1] = 1
-			ENDIF
-		ENDIF
-		
-		IF t2_weed_burnt[2] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1042.4 -1631.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[2] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[2] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[3] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1032.6 -1631.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[3] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[3] = 1
-			ENDIF
-		ENDIF
-
-		IF t2_weed_burnt[4] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1023.1 -1631.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[4] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[4] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[5] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1062.1 -1622.2 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[5] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[5] = 1
-			ENDIF
-		ENDIF
-
-		IF t2_weed_burnt[6] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1052.3 -1622.2 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[6] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[6] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[7] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1042.4 -1622.2 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[7] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[7] = 1
-			ENDIF
-		ENDIF
-		
-		IF t2_weed_burnt[8] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1032.6 -1622.2 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[8] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[8] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[9] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1023.1 -1622.2 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[9] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[9] = 1
-			ENDIF
-		ENDIF
-
-		IF t2_weed_burnt[10] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -991.92 -1703.1 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[10] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[10] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[11] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -982.38 -1703.1 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[11] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[11] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[12] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -991.92 -1693.6 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[12] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[12] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[13] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -982.38 -1693.6 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[13] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[13] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[14] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -991.92 -1684.1 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[14] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[14] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[15] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -982.38 -1684.1 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[15] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[15] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[16] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1011.8 -1667.6 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[16] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[16] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[17] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1011.8 -1658.1 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[17] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[17] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[18] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1011.8 -1648.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[18] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[18] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[19] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1000.7 -1667.6 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[19] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[19] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[20] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1000.7 -1658.1 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[20] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[20] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[21] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1000.7 -1648.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[21] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[21] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[22] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1011.8 -1672.3 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[22] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[22] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[23] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -991.92 -1688.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[23] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[23] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[24] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -982.38 -1688.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[24] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[24] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[25] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -982.38 -1698.2 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[25] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[25] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[26] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -991.92 -1698.2 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[26] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[26] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[27] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -982.38 -1707.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[27] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[27] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[28] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1011.8 -1662.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[28] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[28] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[29] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1000.7 -1672.3 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[29] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[29] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[30] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1011.8 -1653.4 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[30] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[30] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[31] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1032.6 -1636.3 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[31] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[31] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[32] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1052.3 -1636.3 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[32] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[32] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[33] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1042.4 -1636.3 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[33] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[33] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[34] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1062.1 -1626.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[34] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[34] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[35] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -991.92 -1707.7 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[35] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[35] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[36] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1023.1 -1626.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[36] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[36] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[37] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1000.7 -1662.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[37] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[37] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[38] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1000.7 -1653.4 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[38] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[38] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[39] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1032.6 -1626.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[39] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[39] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[40] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1042.4 -1626.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[40] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[40] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[41] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1052.3 -1626.8 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[41] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[41] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[42] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1062.1 -1636.3 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[42] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[42] = 1
-			ENDIF
-		ENDIF
-		IF t2_weed_burnt[43] = 0
-			IF IS_CLOSEST_OBJECT_OF_TYPE_SMASHED_OR_DAMAGED -1023.1 -1636.3 75.3 1.0 GRASSPLANT FALSE TRUE 
-				ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
-				REMOVE_BLIP t2_weed_blips[43] 
-				t2_total_weed_burnt --
-				t2_weed_burnt[43] = 1
-			ENDIF
-		ENDIF
+		t2_int++
+		ENDWHILE
 
 		IF t2_total_weed_burnt = 0
 			MARK_MODEL_AS_NO_LONGER_NEEDED FLAME
@@ -911,8 +309,6 @@ WAIT 0
 					SWITCH_WIDESCREEN ON
 					MAKE_PLAYER_GANG_DISAPPEAR
 					//HIDE_CHAR_WEAPON_FOR_SCRIPTED_CUTSCENE scplayer TRUE
-
-					SHUT_ALL_CHARS_UP TRUE
 
 					SET_PLAYER_DRUNKENNESS player1 0
 
@@ -1003,9 +399,7 @@ WAIT 0
 					CLEAR_AREA -1075.5 -1648.0 75.1 1.0 TRUE
 					SET_CHAR_COORDINATES scplayer -1075.5 -1648.0 75.1
 					SET_CHAR_HEADING scplayer 268.0
-				ENDIF 
-				
-				SHUT_ALL_CHARS_UP FALSE
+				ENDIF
 				
 				FREEZE_ONSCREEN_TIMER FALSE
 				FREEZE_CAR_POSITION t2_mothership FALSE
@@ -1104,9 +498,6 @@ WAIT 0
 				SET_CAR_STATUS t2_mothership STATUS_PLAYER
 				CLEAR_THIS_PRINT TRU2_17 				
 				PRINT_NOW ( TRU2_12 ) 7000 1 // Drive the Mothership to San Fran.
-				
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH truth TRUE
 
 				REMOVE_BLIP t2_truths_farm_blip 
 				ADD_BLIP_FOR_COORD -2031.3 178.5 27.9 t2_truths_farm_blip 
@@ -1217,9 +608,6 @@ WAIT 0
 					CLEAR_MISSION_AUDIO 2
 					t2_speech_goals = 0
 				
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH truth FALSE
-				
 					SET_PLAYER_CONTROL player1 OFF
 					MARK_MODEL_AS_NO_LONGER_NEEDED CSHER
 
@@ -1277,7 +665,7 @@ WAIT 0
 				SET_CHAR_ONLY_DAMAGED_BY_PLAYER truth TRUE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS truth 0.0 -10.0 5.0 t2_x t2_y t2_z   
 				
-				REQUEST_MODEL NITESTICK 
+				//REQUEST_MODEL NITESTICK // FIXEDGROVE: commented, unused
 						  
 				LOAD_SCENE t2_x t2_y t2_z 
 				CLEAR_AREA t2_x t2_y t2_z 30.0 TRUE
@@ -1377,8 +765,6 @@ WAIT 0
 
 			SET_FIXED_CAMERA_POSITION -2025.0 172.3 28.0 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT -2032.9 163.0 30.88 JUMP_CUT
-					
-			SHUT_ALL_CHARS_UP TRUE
 
 			CLEAR_AREA -2028.9 172.3 27.8 30.0 TRUE
 			CLEAR_CHAR_TASKS_IMMEDIATELY scplayer 	
@@ -1452,8 +838,6 @@ WAIT 0
 			
 				CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
 				//SET_CHAR_HEADING scplayer 276.1 
-				
-				SHUT_ALL_CHARS_UP FALSE
 
 				SET_PLAYER_CONTROL player1 ON
 				SWITCH_WIDESCREEN OFF
@@ -1497,7 +881,11 @@ GOTO mission_truth2_loop
 
 mission_truth2_failed:
 REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_FLAMETHROWER  
-REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_ROCKETLAUNCHER  
+REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_ROCKETLAUNCHER
+// FIXEDGROVE: START - restore weed farm state
+REMOVE_IPL truthsfarm 
+REQUEST_IPL	truthsfarm
+// FIXEDGROVE: END  
 PRINT_BIG M_FAIL 5000 1
 RETURN
 
@@ -1515,6 +903,7 @@ PLAYER_MADE_PROGRESS 1
 flag_truth_mission_counter ++
 REMOVE_BLIP truth_contact_blip
 
+REMOVE_IPL truthsfarm // FIXEDGROVE: now removed only on mission pass rather than cleanup
 
 TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME MOB_SF
 START_NEW_SCRIPT cell_phone_sanfran
@@ -1541,14 +930,8 @@ RETURN
 // mission cleanup
 mission_cleanup_truth2:
 //SET_CAMERA_BEHIND_PLAYER 
-IF IS_PLAYER_PLAYING player1
-	SET_DRUNK_INPUT_DELAY player1 0
-	SET_PLAYER_DRUNKENNESS player1 0
-ENDIF
-IF IS_STRING_EMPTY $shop_name
-	RESTORE_CAMERA_JUMPCUT
-ENDIF
-REMOVE_IPL_DISCREETLY truthsfarm
+//REMOVE_IPL_DISCREETLY truthsfarm // FIXEDGROVE: now removed only on mission pass since it appears in freeroam
+EXTINGUISH_FIRE_AT_POINT -913.3 -1720.5 76.6 300.0 // FIXEDGROVE: added so the weed stops burning
 REMOVE_BLIP t2_truths_farm_blip
 IF NOT IS_CAR_DEAD t2_chopper 
 	HELI_GOTO_COORDS t2_chopper 0.0 0.0 200.0 0.0 200.0 
@@ -1570,60 +953,19 @@ MARK_MODEL_AS_NO_LONGER_NEEDED POLMAV
 MARK_MODEL_AS_NO_LONGER_NEEDED CSHER
 MARK_MODEL_AS_NO_LONGER_NEEDED FLAME
 MARK_MODEL_AS_NO_LONGER_NEEDED ROCKETLA
-MARK_MODEL_AS_NO_LONGER_NEEDED COLT45
-MARK_MODEL_AS_NO_LONGER_NEEDED NITESTICK 
+//MARK_MODEL_AS_NO_LONGER_NEEDED COLT45 // FIXEDGROVE: commented, unused
+//MARK_MODEL_AS_NO_LONGER_NEEDED NITESTICK // FIXEDGROVE: commented, unused
 REMOVE_CHAR_ELEGANTLY truth
 UNLOAD_SPECIAL_CHARACTER 1
 //CLEAR_ONSCREEN_COUNTER t2_total_weed_burnt
 CLEAR_ONSCREEN_TIMER t2_cop_timer
-IF NOT IS_CHAR_DEAD scplayer 
-	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-ENDIF
-SHUT_ALL_CHARS_UP FALSE
-REMOVE_BLIP t2_weed_blips[0]
-REMOVE_BLIP t2_weed_blips[1]
-REMOVE_BLIP t2_weed_blips[2]
-REMOVE_BLIP t2_weed_blips[3]
-REMOVE_BLIP t2_weed_blips[4]
-REMOVE_BLIP t2_weed_blips[5]
-REMOVE_BLIP t2_weed_blips[6]
-REMOVE_BLIP t2_weed_blips[7]
-REMOVE_BLIP t2_weed_blips[8]
-REMOVE_BLIP t2_weed_blips[9]
-REMOVE_BLIP t2_weed_blips[10]
-REMOVE_BLIP t2_weed_blips[11]
-REMOVE_BLIP t2_weed_blips[12]
-REMOVE_BLIP t2_weed_blips[13]
-REMOVE_BLIP t2_weed_blips[14]
-REMOVE_BLIP t2_weed_blips[15]
-REMOVE_BLIP t2_weed_blips[16]
-REMOVE_BLIP t2_weed_blips[17]
-REMOVE_BLIP t2_weed_blips[18]
-REMOVE_BLIP t2_weed_blips[19]
-REMOVE_BLIP t2_weed_blips[20]
-REMOVE_BLIP t2_weed_blips[21]
-REMOVE_BLIP t2_weed_blips[22]
-REMOVE_BLIP t2_weed_blips[23]
-REMOVE_BLIP t2_weed_blips[24]
-REMOVE_BLIP t2_weed_blips[25]
-REMOVE_BLIP t2_weed_blips[26]
-REMOVE_BLIP t2_weed_blips[27]
-REMOVE_BLIP t2_weed_blips[28]
-REMOVE_BLIP t2_weed_blips[29]
-REMOVE_BLIP t2_weed_blips[30]
-REMOVE_BLIP t2_weed_blips[31]
-REMOVE_BLIP t2_weed_blips[32]
-REMOVE_BLIP t2_weed_blips[33]
-REMOVE_BLIP t2_weed_blips[34]
-REMOVE_BLIP t2_weed_blips[35]
-REMOVE_BLIP t2_weed_blips[36]
-REMOVE_BLIP t2_weed_blips[37]
-REMOVE_BLIP t2_weed_blips[38]
-REMOVE_BLIP t2_weed_blips[39]
-REMOVE_BLIP t2_weed_blips[40]
-REMOVE_BLIP t2_weed_blips[41]
-REMOVE_BLIP t2_weed_blips[42]
-REMOVE_BLIP t2_weed_blips[43]
+SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
+STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
+t2_int = 0
+WHILE t2_int < 44
+REMOVE_BLIP t2_weed_blips[t2_int]
+t2_int++
+ENDWHILE
 GET_GAME_TIMER timer_mobile_start
 flag_player_on_mission = 0
 MISSION_HAS_FINISHED
@@ -1667,28 +1009,11 @@ t2_flamethrower:////////////////////////////////////////////////////////////
 IF t2_flamethrower_control_flag = 0
 	GET_AMMO_IN_CHAR_WEAPON scplayer WEAPONTYPE_FLAMETHROWER t2_flame_ammo
 	IF t2_flame_ammo = 0 
-		REMOVE_BLIP t2_weed_blips[0]
-		REMOVE_BLIP t2_weed_blips[1]
-		REMOVE_BLIP t2_weed_blips[2]
-		REMOVE_BLIP t2_weed_blips[3]
-		REMOVE_BLIP t2_weed_blips[4]
-		REMOVE_BLIP t2_weed_blips[5]
-		REMOVE_BLIP t2_weed_blips[6]
-		REMOVE_BLIP t2_weed_blips[7]
-		REMOVE_BLIP t2_weed_blips[8]
-		REMOVE_BLIP t2_weed_blips[9]
-		REMOVE_BLIP t2_weed_blips[10]
-		REMOVE_BLIP t2_weed_blips[11]
-		REMOVE_BLIP t2_weed_blips[12]
-		REMOVE_BLIP t2_weed_blips[13]
-		REMOVE_BLIP t2_weed_blips[14]
-		REMOVE_BLIP t2_weed_blips[15]
-		REMOVE_BLIP t2_weed_blips[16]
-		REMOVE_BLIP t2_weed_blips[17]
-		REMOVE_BLIP t2_weed_blips[18]
-		REMOVE_BLIP t2_weed_blips[19]
-		REMOVE_BLIP t2_weed_blips[20]
-		REMOVE_BLIP t2_weed_blips[21]
+		t2_int = 0
+		WHILE t2_int < 44
+		REMOVE_BLIP t2_weed_blips[t2_int]
+		t2_int++
+		ENDWHILE
 		REMOVE_BLIP t2_truths_farm_blip
 		CREATE_PICKUP_WITH_AMMO flame PICKUP_ONCE 3000 -1100.3 -1640.4 76.4 t2_flame_pickup
 		ADD_BLIP_FOR_PICKUP t2_flame_pickup t2_truths_farm_blip 
@@ -1701,116 +1026,16 @@ ENDIF
 IF t2_flamethrower_control_flag = 1
 	IF HAS_PICKUP_BEEN_COLLECTED t2_flame_pickup 
 		REMOVE_BLIP t2_truths_farm_blip 
-		IF t2_weed_burnt[0] = 0
-			ADD_BLIP_FOR_COORD -1061.9 -1630.7 75.3 t2_weed_blips[0]   //1st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[0] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[0] COORD_BLIP_APPEARANCE_ENEMY  
+		t2_int = 0
+		WHILE t2_int < 44
+		IF t2_weed_burnt[t2_int] = 0
+			GOSUB t2_coords
+			ADD_BLIP_FOR_COORD t2_x t2_y t2_z t2_weed_blips[t2_int]   //1st row, 1st part 
+			CHANGE_BLIP_SCALE t2_weed_blips[t2_int] 1 
+			SET_COORD_BLIP_APPEARANCE t2_weed_blips[t2_int] COORD_BLIP_APPEARANCE_ENEMY  
 		ENDIF
-		IF t2_weed_burnt[1] = 0
-			ADD_BLIP_FOR_COORD -1062.3 -1621.4 75.3 t2_weed_blips[1]   //1st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[1] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[1] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[2] = 0
-			ADD_BLIP_FOR_COORD -1052.8 -1630.8 75.3 t2_weed_blips[2]   //2st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[2] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[2] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[3] = 0
-			ADD_BLIP_FOR_COORD -1052.8 -1621.4 75.3 t2_weed_blips[3]   //2st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[3] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[3] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[4] = 0
-			ADD_BLIP_FOR_COORD -1042.8 -1630.8 75.3 t2_weed_blips[4]   //3st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[4] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[4] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[5] = 0
-			ADD_BLIP_FOR_COORD -1042.8 -1621.4 75.3 t2_weed_blips[5]   //3st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[5] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[5] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[6] = 0
-			ADD_BLIP_FOR_COORD -1032.8 -1630.8 75.3 t2_weed_blips[6]   //4st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[6] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[6] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[7] = 0
-			ADD_BLIP_FOR_COORD -1032.8 -1621.4 75.3 t2_weed_blips[7]   //4st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[7] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[7] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[8] = 0
-			ADD_BLIP_FOR_COORD -1022.8 -1630.8 75.3 t2_weed_blips[8]   //5st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[8] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[8] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[9] = 0
-			ADD_BLIP_FOR_COORD -1022.8 -1621.4 75.3 t2_weed_blips[9]   //5st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[9] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[9] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[10] = 0
-			ADD_BLIP_FOR_COORD -1012.1 -1666.8 75.3 t2_weed_blips[10]   //6st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[10] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[10] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-	  	IF t2_weed_burnt[11] = 0
-			ADD_BLIP_FOR_COORD -1012.8 -1657.4 75.3 t2_weed_blips[11]   //6st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[11] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[11] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[12] = 0
-			ADD_BLIP_FOR_COORD -1012.8 -1648.4 75.3 t2_weed_blips[12]   //6st row, 3st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[12] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[12] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[13] = 0
-			ADD_BLIP_FOR_COORD -1000.1 -1666.8 75.3 t2_weed_blips[13]   //7st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[13] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[13] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[14] = 0
-			ADD_BLIP_FOR_COORD -1000.8 -1657.4 75.3 t2_weed_blips[14]   //7st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[14] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[14] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[15] = 0
-			ADD_BLIP_FOR_COORD -1000.8 -1648.4 75.3 t2_weed_blips[15]   //7st row, 3st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[15] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[15] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[16] = 0
-			ADD_BLIP_FOR_COORD -992.1 -1702.8 75.3 t2_weed_blips[16]   //8st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[16] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[16] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[17] = 0
-			ADD_BLIP_FOR_COORD -992.8 -1693.4 75.3 t2_weed_blips[17]   //8st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[17] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[17] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[18] = 0
-			ADD_BLIP_FOR_COORD -992.8 -1684.4 75.3 t2_weed_blips[18]   //8st row, 3st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[18] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[18] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[19] = 0
-			ADD_BLIP_FOR_COORD -982.1 -1702.8 75.3 t2_weed_blips[19]   //9st row, 1st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[19] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[19] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[20] = 0
-			ADD_BLIP_FOR_COORD -982.8 -1693.4 75.3 t2_weed_blips[20]   //9st row, 2st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[20] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[20] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
-		IF t2_weed_burnt[21] = 0
-		   	ADD_BLIP_FOR_COORD -982.8 -1684.4 75.3 t2_weed_blips[21]   //9st row, 3st part 
-			CHANGE_BLIP_SCALE t2_weed_blips[21] 1 
-			SET_COORD_BLIP_APPEARANCE t2_weed_blips[21] COORD_BLIP_APPEARANCE_ENEMY  
-		ENDIF
+		t2_int++
+		ENDWHILE
 		PRINT_NOW ( TRU2_01 ) 11000 1 //Go and help The Truth destroy the weed.
 		t2_flamethrower_control_flag = 0
 	ENDIF
@@ -1939,6 +1164,8 @@ RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 t2_dialogue_setup://////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
+// FIXEDGROVE: assigned speakers
+
 SWITCH t2_speech_goals
 CASE 1
 	$t2_print_label[0] = &TRU2_AA // Assholes! Republican assholes!		
@@ -1958,6 +1185,16 @@ CASE 1
 	t2_audio_label[5] = SOUND_TRU2_BA 
 	t2_audio_label[6] = SOUND_TRU2_BB 
 	t2_audio_label[7] = SOUND_TRU2_BC 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = scplayer
+	t2_speaker[2] = truth
+	t2_speaker[3] = scplayer
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+	t2_speaker[6] = scplayer
+	t2_speaker[7] = scplayer
+
 	t2_last_label = 8
 BREAK
 
@@ -1967,6 +1204,10 @@ CASE 2
 	
 	t2_audio_label[0] = SOUND_TRU2_CA 
 	t2_audio_label[1] = SOUND_TRU2_CB 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+
 	t2_last_label = 2 
 BREAK
 
@@ -1994,6 +1235,19 @@ CASE 3
 	t2_audio_label[8] = SOUND_TRU2_OD 
 	t2_audio_label[9] = SOUND_TRU2_OE 
 	t2_audio_label[10] = SOUND_TRU2_OF 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = truth
+	t2_speaker[5] = scplayer
+	t2_speaker[6] = -1
+	t2_speaker[7] = scplayer
+	t2_speaker[8] = scplayer
+	t2_speaker[9] = scplayer
+	t2_speaker[10] = scplayer
+
 	t2_last_label = 11 
 BREAK
 
@@ -2011,6 +1265,14 @@ CASE 4
 	t2_audio_label[3] = SOUND_TRU2_ED 
 	t2_audio_label[4] = SOUND_TRU2_EF 												  
 	t2_audio_label[5] = SOUND_TRU2_EG 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = truth
+	t2_speaker[5] = scplayer
+
 	t2_last_label = 6 
 BREAK
 
@@ -2036,6 +1298,18 @@ CASE 5
 	t2_audio_label[7] = SOUND_TRU2_FH 
 	t2_audio_label[8] = SOUND_TRU2_FJ 
 	t2_audio_label[9] = SOUND_TRU2_FK 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = scplayer
+	t2_speaker[5] = truth
+	t2_speaker[6] = truth
+	t2_speaker[7] = truth
+	t2_speaker[8] = truth
+	t2_speaker[9] = scplayer
+
 	t2_last_label = 10 
 BREAK
 
@@ -2057,6 +1331,16 @@ CASE 6
 	t2_audio_label[5] = SOUND_TRU2_GG 
 	t2_audio_label[6] = SOUND_TRU2_GH 
 	t2_audio_label[7] = SOUND_TRU2_GJ 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = truth
+	t2_speaker[3] = scplayer
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+	t2_speaker[6] = truth
+	t2_speaker[7] = truth
+
 	t2_last_label = 8 
 BREAK
 				
@@ -2090,6 +1374,22 @@ CASE 7
 	t2_audio_label[11] = SOUND_TRU2_HM 
 	t2_audio_label[12] = SOUND_TRU2_HN 
 	t2_audio_label[13] = SOUND_TRU2_HO 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+	t2_speaker[2] = scplayer
+	t2_speaker[3] = truth
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+	t2_speaker[6] = scplayer
+	t2_speaker[7] = truth
+	t2_speaker[8] = truth
+	t2_speaker[9] = scplayer
+	t2_speaker[10] = truth
+	t2_speaker[11] = truth
+	t2_speaker[12] = scplayer
+	t2_speaker[13] = scplayer
+
 	t2_last_label = 14 
 BREAK
 
@@ -2099,6 +1399,10 @@ CASE 8
 
 	t2_audio_label[0] = SOUND_TRU2_JA 
 	t2_audio_label[1] = SOUND_TRU2_JB 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = truth
+
 	t2_last_label = 2 
 BREAK
 
@@ -2112,6 +1416,12 @@ CASE 9
 	t2_audio_label[1] = SOUND_TRU2_KB 
 	t2_audio_label[2] = SOUND_TRU2_KC 
 	t2_audio_label[3] = SOUND_TRU2_KD 
+
+	t2_speaker[0] = scplayer
+	t2_speaker[1] = scplayer
+	t2_speaker[2] = truth
+	t2_speaker[3] = truth
+
 	t2_last_label = 4 
 BREAK
 
@@ -2129,6 +1439,14 @@ CASE 10
 	t2_audio_label[3] = SOUND_TRU2_MA 
 	t2_audio_label[4] = SOUND_TRU2_MB 
 	t2_audio_label[5] = SOUND_TRU2_MC 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = scplayer
+	t2_speaker[2] = truth
+	t2_speaker[3] = scplayer
+	t2_speaker[4] = truth
+	t2_speaker[5] = truth
+
 	t2_last_label = 6 
 BREAK
 
@@ -2138,9 +1456,13 @@ CASE 11
 
 	t2_audio_label[0] = SOUND_TRU2_NA 
 	t2_audio_label[1] = SOUND_TRU2_NB 
-	t2_last_label = 2 
-BREAK
 
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+
+	t2_last_label = 2
+BREAK
+  
 CASE 12
 	$t2_print_label[0] = &TRUX_AA // Get in the car, quick!
 	$t2_print_label[1] = &TRUX_AB // Get in the car, it's a Faraday cage!
@@ -2149,6 +1471,11 @@ CASE 12
 	t2_audio_label[0] = SOUND_TRUX_AA 
 	t2_audio_label[1] = SOUND_TRUX_AB 
 	t2_audio_label[2] = SOUND_TRUX_AC 
+
+	t2_speaker[0] = truth
+	t2_speaker[1] = truth
+	t2_speaker[2] = truth
+
  	t2_last_label = t2_random_last_label 
 BREAK
 ENDSWITCH
@@ -2352,10 +1679,24 @@ t2_playing_dialogue:////////////////////////////////////////////////////////
 //slot 1
 IF t2_play_which_slot = 1 
 	IF t2_slot1 = 1
-		IF HAS_MISSION_AUDIO_LOADED 1	 
-			PLAY_MISSION_AUDIO 1
-			PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
-			t2_slot1 = 2
+		IF HAS_MISSION_AUDIO_LOADED 1
+			// FIXEDGROVE: only do speech stuff if the char exists 
+			IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+				// FIXEDGROVE: wait until the character finishes speaking
+				IF NOT IS_CHAR_TALKING t2_speaker[t2_speech_control_flag]
+					// FIXEDGROVE: START
+					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] TRUE
+					START_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag] 10000
+					// FIXEDGROVE: END
+					PLAY_MISSION_AUDIO 1
+					PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+					t2_slot1 = 2
+				ENDIF
+			ELSE
+				PLAY_MISSION_AUDIO 1
+				PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+				t2_slot1 = 2
+			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -2363,10 +1704,24 @@ ENDIF
 //slot 2
 IF t2_play_which_slot = 2 
 	IF t2_slot2 = 1
-		IF HAS_MISSION_AUDIO_LOADED 2	 
-			PLAY_MISSION_AUDIO 2
-			PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
-			t2_slot2 = 2
+		IF HAS_MISSION_AUDIO_LOADED 2
+			// FIXEDGROVE: only do speech stuff if the char exists
+			IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+				// FIXEDGROVE: wait until the character finishes speaking
+				IF NOT IS_CHAR_TALKING t2_speaker[t2_speech_control_flag]
+					// FIXEDGROVE: START
+					SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] TRUE
+					START_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag] 10000
+					// FIXEDGROVE: END
+					PLAY_MISSION_AUDIO 2
+					PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+					t2_slot2 = 2
+				ENDIF
+			ELSE
+				PLAY_MISSION_AUDIO 2
+				PRINT_NOW ( $t2_print_label[t2_speech_control_flag] ) 4500 1 //
+				t2_slot2 = 2
+			ENDIF
 		ENDIF
 	ENDIF
 ENDIF
@@ -2380,6 +1735,12 @@ t2_finishing_dialogue://////////////////////////////////////////////////////
 //slot 1
 IF t2_slot1 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 1
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: START
 		CLEAR_THIS_PRINT $t2_print_label[t2_speech_control_flag]
 		t2_speech_control_flag ++		
 		t2_play_which_slot = 2
@@ -2390,12 +1751,204 @@ ENDIF
 //slot 2
 IF t2_slot2 = 2
 	IF HAS_MISSION_AUDIO_FINISHED 2
+		// FIXEDGROVE: START
+		IF NOT IS_CHAR_DEAD t2_speaker[t2_speech_control_flag]
+			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH t2_speaker[t2_speech_control_flag] FALSE
+			STOP_CHAR_FACIAL_TALK t2_speaker[t2_speech_control_flag]
+		ENDIF
+		// FIXEDGROVE: START
 		CLEAR_THIS_PRINT $t2_print_label[t2_speech_control_flag]
 		t2_speech_control_flag ++		
 		t2_play_which_slot = 1
 		t2_slot2 = 0
 	ENDIF
 ENDIF
+////////////////////////////////////////////////////////////////////////////
+RETURN//////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////
+t2_coords://////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+SWITCH t2_int
+CASE 0
+t2_x = -1062.1
+t2_y = -1631.7
+BREAK
+CASE 1
+t2_x = -1052.3
+t2_y = -1631.7
+BREAK
+CASE 2
+t2_x = -1042.4
+t2_y = -1631.7
+BREAK
+CASE 3
+t2_x = -1032.6
+t2_y = -1631.7
+BREAK
+CASE 4
+t2_x = -1023.1
+t2_y = -1631.7
+BREAK
+CASE 5
+t2_x = -1062.1
+t2_y = -1622.2
+BREAK
+CASE 6
+t2_x = -1052.3
+t2_y = -1622.2
+BREAK
+CASE 7
+t2_x = -1042.4
+t2_y = -1622.2
+BREAK
+CASE 8
+t2_x = -1032.6
+t2_y = -1622.2
+BREAK
+CASE 9
+t2_x = -1023.1
+t2_y = -1622.2
+BREAK
+CASE 10
+t2_x = -991.92
+t2_y = -1703.1
+BREAK
+CASE 11
+t2_x = -982.38
+t2_y = -1703.1
+BREAK
+CASE 12
+t2_x = -991.92
+t2_y = -1693.6
+BREAK
+CASE 13
+t2_x = -982.38
+t2_y = -1693.6
+BREAK
+CASE 14
+t2_x = -991.92
+t2_y = -1684.1
+BREAK
+CASE 15
+t2_x = -982.38
+t2_y = -1684.1
+BREAK
+CASE 16
+t2_x = -1011.8
+t2_y = -1667.6
+BREAK
+CASE 17
+t2_x = -1011.8
+t2_y = -1658.1
+BREAK
+CASE 18
+t2_x = -1011.8
+t2_y = -1648.7
+BREAK
+CASE 19
+t2_x = -1000.7
+t2_y = -1667.6
+BREAK
+CASE 20
+t2_x = -1000.7
+t2_y = -1658.1
+BREAK
+CASE 21
+t2_x = -1000.7
+t2_y = -1648.7
+BREAK
+CASE 22
+t2_x = -1011.8
+t2_y = -1672.3
+BREAK
+CASE 23
+t2_x = -991.92
+t2_y = -1688.8
+BREAK
+CASE 24
+t2_x = -982.38
+t2_y = -1688.8
+BREAK
+CASE 25
+t2_x = -982.38
+t2_y = -1698.2
+BREAK
+CASE 26
+t2_x = -991.92
+t2_y = -1698.2
+BREAK
+CASE 27
+t2_x = -982.38
+t2_y = -1707.7
+BREAK
+CASE 28
+t2_x = -1011.8
+t2_y = -1662.8
+BREAK
+CASE 29
+t2_x = -1000.7
+t2_y = -1672.3
+BREAK
+CASE 30
+t2_x = -1011.8
+t2_y = -1653.4
+BREAK
+CASE 31
+t2_x = -1032.6
+t2_y = -1636.3
+BREAK
+CASE 32
+t2_x = -1052.3
+t2_y = -1636.3
+BREAK
+CASE 33
+t2_x = -1042.4
+t2_y = -1636.3
+BREAK
+CASE 34
+t2_x = -1062.1
+t2_y = -1626.8
+BREAK
+CASE 35
+t2_x = -991.92
+t2_y = -1707.7
+BREAK
+CASE 36
+t2_x = -1023.1
+t2_y = -1626.8
+BREAK
+CASE 37
+t2_x = -1000.7
+t2_y = -1662.8
+BREAK
+CASE 38
+t2_x = -1000.7
+t2_y = -1653.4
+BREAK
+CASE 39
+t2_x = -1032.6
+t2_y = -1626.8
+BREAK
+CASE 40
+t2_x = -1042.4
+t2_y = -1626.8
+BREAK
+CASE 41
+t2_x = -1052.3
+t2_y = -1626.8
+BREAK
+CASE 42
+t2_x = -1062.1
+t2_y = -1636.3
+BREAK
+CASE 43
+t2_x = -1023.1
+t2_y = -1636.3
+BREAK
+ENDSWITCH
+t2_z = 75.3
 ////////////////////////////////////////////////////////////////////////////
 RETURN//////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////

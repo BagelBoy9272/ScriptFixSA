@@ -2549,6 +2549,8 @@ bj_m_stage_6:
 				ENDIF
 				// FIXEDGROVE: END
 
+				SET_PLAYER_MOOD PLAYER1 MOOD_WR 180000 // FIXEDGROVE: change mood to wisecracking for 3 minutes
+
 				REGISTER_INT_STAT BIGGEST_GAMBLING_WIN temp_int
 
 				temp_float  =# temp_int 

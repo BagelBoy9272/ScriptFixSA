@@ -2419,8 +2419,6 @@ mission_cleanup_doc2:
 
 	REMOVE_ANIMATION ON_LOOKERS
 
-	RELEASE_WEATHER
-
 	GET_GAME_TIMER timer_mobile_start // Used to reset the mobile phone timer so it doesn't ring immediately after the mission
 
 	MISSION_HAS_FINISHED

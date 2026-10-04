@@ -2491,19 +2491,6 @@ Desert6_mission_cleanup:
 	MARK_MODEL_AS_NO_LONGER_NEEDED	AMMO_CAPSULE
 
 
-	// === RESTORE ENVIRONMENT SETTINGS ===
-	// ------------------------------------
-	SET_PED_DENSITY_MULTIPLIER	1.0
-	SET_CAR_DENSITY_MULTIPLIER	1.0
-	SET_WANTED_MULTIPLIER		1.0
-	SWITCH_AMBIENT_PLANES		ON
-	RELEASE_WEATHER
-
-
-	// Make sure the player gets a 6* rating again whenever he sets foot on the aircraft carrier
-	SET_DISABLE_MILITARY_ZONES FALSE
-
-
 	// Restore switched off road
 	// -------------------------
 //	SWITCH_ROADS_BACK_TO_ORIGINAL -2319.8967 -2719.9604 28.4250 -2197.9482 -2482.0303 44.5080

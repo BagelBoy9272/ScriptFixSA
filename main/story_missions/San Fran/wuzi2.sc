@@ -3816,7 +3816,6 @@ mission_wuzi2_CLEANUP:
 		
 		IF IS_PLAYER_PLAYING player1
 			SET_PLAYER_GROUP_RECRUITMENT player1 TRUE
-			SET_SCRIPT_LIMIT_TO_GANG_SIZE 99
 		ENDIF
 
 		START_NEW_SCRIPT terminate_audio_controller
@@ -3887,7 +3886,6 @@ mission_wuzi2_CLEANUP:
 			pointer_W2 ++
 		ENDWHILE
 
-		RELEASE_WEATHER
 	ELSE
 		IF IS_PLAYER_PLAYING player1
 			SET_PLAYER_CONTROL player1 OFF

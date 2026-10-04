@@ -8378,25 +8378,20 @@ mission_cleanup_Crash1:
 
 
 	// Get rid of the Player's mission specific weapons
-	IF IS_PLAYER_PLAYING player1
-		REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_MOLOTOV
-		REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_EXTINGUISHER
+	REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_MOLOTOV
+	REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_EXTINGUISHER
 
-		// ...restore the player's fire damage
-		SET_CHAR_FIRE_DAMAGE_MULTIPLIER scplayer 1.0
+	// ...restore the player's fire damage
+	SET_CHAR_FIRE_DAMAGE_MULTIPLIER scplayer 1.0
 
-		// ...make sure the player can sprint again
-		DISABLE_PLAYER_SPRINT player1 FALSE
+	// ...make sure the player can sprint again
+	DISABLE_PLAYER_SPRINT player1 FALSE
 
-		// ...make sure the player's group follows his commands again
-		SET_PLAYER_GROUP_TO_FOLLOW_ALWAYS player1 FALSE
+	// ...make sure player is allowed to talk again
+	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 
-		// ...make sure player is allowed to talk again
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-
-		// ...make sure player is not moving his mouth
-		STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
-	ENDIF
+	// ...make sure player is not moving his mouth
+	STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE
 
 
 	// Fires
@@ -8450,12 +8445,6 @@ mission_cleanup_Crash1:
 			
 	// Heat haze
 	SET_HEATHAZE_EFFECT FALSE
-
-	// === RESTORE ENVIRONMENT SETTINGS ===
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	SET_WANTED_MULTIPLIER 1.0
-	SET_RADAR_ZOOM 0
 
 
 	// Restore Player settings

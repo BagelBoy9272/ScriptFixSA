@@ -1108,6 +1108,8 @@ wof_m_stage_5:
 		
 		IF temp_int > 0
 		
+			SET_PLAYER_MOOD PLAYER1 MOOD_WR 180000 // FIXEDGROVE: change mood to wisecracking for 3 minutes
+
 			// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
 			GET_CHAR_COORDINATES scplayer x y z
 			GET_RANDOM_CHAR_IN_SPHERE x y z GAMB_PROXIMITY_FOR_CONGRATS TRUE FALSE FALSE temp_ped

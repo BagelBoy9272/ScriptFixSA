@@ -266,9 +266,10 @@ WAIT 0
 			temp_float2 *= 0.1
 			temp_float += temp_float2
 			
-			IF NOT ARE_MEASUREMENTS_IN_METRES
-				CONVERT_METRES_TO_FEET temp_float temp_float
-			ENDIF
+			// FIXEDGROVE: commented, the game does imperial conversions on the fly
+			//IF NOT ARE_MEASUREMENTS_IN_METRES
+				//CONVERT_METRES_TO_FEET temp_float temp_float
+			//ENDIF
 
 			REGISTER_FLOAT_STAT LONGEST_BASKETBALL temp_float	
 			flag++

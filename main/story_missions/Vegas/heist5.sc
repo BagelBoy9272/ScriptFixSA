@@ -2317,8 +2317,6 @@ IF flag_player_using_gun_heist5 = 1
 ENDIF
 // FIXEDGROVE: END
 
-SET_WANTED_MULTIPLIER 1.0
-
 IF d5_bronze_generator_unlocked = 1
 	SWITCH_CAR_GENERATOR d5_bronze_generator 101
 ENDIF
@@ -2345,7 +2343,6 @@ ENDIF
 
 gate_stay_open = 0
 
-SWITCH_AMBIENT_PLANES TRUE
 SWITCH_POLICE_HELIS TRUE
 
 flag_player_on_mission = 0
