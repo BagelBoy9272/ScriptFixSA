@@ -523,7 +523,6 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed Grove member being invisible if you killed them while they were taking a picture of you
 - Fixed missing camera sound effect when a Grove member takes a picture of you
 - Fixed camera going missing when a Grove member is taking a picture of you and you get into a car
-- Fixed camera ammo not depleting when a Grove member takes a picture of you
 - Fixed 'The Green Sabre' not switching on traffic to Flint County bridges
 - Fixed 'T-Bone Mendez' erroneously switching on the Easter Basin highway traffic before the barriers were removed
 - Fixed Flint Intersection, Flint Range and Montgomery Intersection zones being assigned the desert popcycle instead of the countryside one
