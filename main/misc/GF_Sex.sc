@@ -64,8 +64,8 @@ GF_Sex:
 	
 	
 	//--- Streaming requests 
+	GOSUB GF_Sex_StreamGFModel // Uses iGFidx to retrieve the proper sexy version
 	IF iCensoredVersion = 0  	 
-		GOSUB GF_Sex_StreamGFModel // Uses iGFidx to retrieve the proper sexy version // FIXEDGROVE: was outside this check
 		GOSUB GF_Sex_StreamAnims
 	ENDIF
 	 
