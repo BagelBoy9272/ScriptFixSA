@@ -7,6 +7,7 @@ SCRIPT_NAME ARCADE
 
 LVAR_INT arcade_cabinet
 LVAR_INT arcade_help
+LVAR_INT arcade_model
 
 arcade_help = 0
 IF arcade_help = -1
@@ -46,24 +47,24 @@ IF DOES_OBJECT_EXIST arcade_cabinet
 								WHILE GET_FADING_STATUS
 									WAIT 0
 								ENDWHILE
-								if DOES_OBJECT_HAVE_THIS_MODEL arcade_cabinet CJ_COIN_OP_2
+								GET_OBJECT_MODEL arcade_cabinet arcade_model
+								SWITCH arcade_model
+								CASE CJ_COIN_OP_2
 									load_and_launch_mission_if_poss = DUAL_SC
-								else
-									if DOES_OBJECT_HAVE_THIS_MODEL arcade_cabinet CJ_COIN_OP_3
-									or DOES_OBJECT_HAVE_THIS_MODEL arcade_cabinet SWANK_CONSOLE
+								BREAK
+									CASE CJ_COIN_OP_3
+									CASE SWANK_CONSOLE
 										load_and_launch_mission_if_poss = NONE_SC
-									else
-										if DOES_OBJECT_HAVE_THIS_MODEL arcade_cabinet CJ_COIN_OP_1
-										or DOES_OBJECT_HAVE_THIS_MODEL arcade_cabinet SNESISH
+									BREAK
+										CASE CJ_COIN_OP_1
+										CASE SNESISH
 											load_and_launch_mission_if_poss = GRAV_SC
-										else
-											if DOES_OBJECT_HAVE_THIS_MODEL arcade_cabinet CJ_COIN_OP
-											or DOES_OBJECT_HAVE_THIS_MODEL arcade_cabinet LOW_CONSOLE
+										BREAK
+											CASE CJ_COIN_OP
+											CASE LOW_CONSOLE
 												load_and_launch_mission_if_poss = SHTR_SC
-											endif
-										endif
-									endif
-								endif
+											BREAK
+								ENDSWITCH
 								WAIT 0
 								WAIT 0
 								WAIT 0
