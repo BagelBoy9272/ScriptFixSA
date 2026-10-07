@@ -24,25 +24,27 @@ loaded_tex_ld_slot = 0
 lvar_int slot_cost
 generate_random_int_in_range 0 5 slot_cost
 
-if slot_cost = 1
-	slot_cost = 5
-endif
-
-if slot_cost = 0
+SWITCH slot_cost
+CASE 0
 	slot_cost = 1
-endif
+BREAK
 
-if slot_cost = 2
+CASE 1
+	slot_cost = 5
+BREAK
+
+CASE 2
 	slot_cost = 10
-endif
+BREAK
 
-if slot_cost = 3
+CASE 3
 	slot_cost = 20
-endif
+BREAK
 
-if slot_cost = 4
+CASE 4
 	slot_cost = 50
-endif
+BREAK
+ENDSWITCH
 
 IF flag = 1
 	CREATE_OBJECT_NO_OFFSET KB_BANDIT_U 0.0 0.0 0.0 slot_machine 
@@ -380,42 +382,39 @@ if loaded_tex_ld_slot = 1
 		temp_float_1 = reel_rotation[an] / 20.0
 		temp_integer_1 =# temp_float_1
 		
-		if an = 0
+		x_temp = reel_sprite_x[0]
+		SWITCH an
+		CASE 0
 			temp_integer_2 = reel1_winnings[temp_integer_1]
-			x_temp = reel_sprite_x[0]
-		endif
-		if an = 1
+		BREAK
+		CASE 1
 			temp_integer_2 = reel2_winnings[temp_integer_1]
-			x_temp = reel_sprite_x[0] + 64.0
-		endif
-		if an = 2
+			x_temp += 64.0
+		BREAK
+		CASE 2
 			temp_integer_2 = reel3_winnings[temp_integer_1]
-			x_temp = reel_sprite_x[0] + 128.0
-		endif
+			x_temp += 128.0
+		BREAK
+		ENDSWITCH
 		
 		
+		SET_SPRITES_DRAW_BEFORE_FADE TRUE
 		if temp_integer_2 = cherry
-		    SET_SPRITES_DRAW_BEFORE_FADE TRUE
 			DRAW_SPRITE	1 x_temp reel_sprite_y[0] 64.0 64.0 200 200 200 255
 		endif
 		if temp_integer_2 = grape
-			SET_SPRITES_DRAW_BEFORE_FADE TRUE
 			DRAW_SPRITE	2 x_temp reel_sprite_y[0] 64.0 64.0 200 200 200 255
 		endif
 		if temp_integer_2 = r_69
-			SET_SPRITES_DRAW_BEFORE_FADE TRUE
 			DRAW_SPRITE	3 x_temp reel_sprite_y[0] 64.0 64.0 200 200 200 255
 		endif
 		if temp_integer_2 = bell
-			SET_SPRITES_DRAW_BEFORE_FADE TRUE
 			DRAW_SPRITE	4 x_temp reel_sprite_y[0] 64.0 64.0 200 200 200 255
 		endif
 		if temp_integer_2 = bar1_o
-			SET_SPRITES_DRAW_BEFORE_FADE TRUE
 			DRAW_SPRITE	5 x_temp reel_sprite_y[0] 64.0 64.0 200 200 200 255
 		endif
 		if temp_integer_2 = bar2_o
-			SET_SPRITES_DRAW_BEFORE_FADE TRUE
 			DRAW_SPRITE	6 x_temp reel_sprite_y[0] 64.0 64.0 200 200 200 255
 		endif
 		++ an
