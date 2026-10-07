@@ -78,41 +78,43 @@ else
 	endif
 endif
 
-if spin_result = 0
-or spin_result = 1
-or spin_result = 2
-or spin_result = 3
-or spin_result = 4
+switch spin_result
+case 0
+case 1
+case 2
+case 3
+case 4
 	chip_value = 2
 	lvar_int coloured_chips
 	coloured_chips = chip_stack07
-endif
-if spin_result = 5
-or spin_result = 6
-or spin_result = 7
-or spin_result = 8
-or spin_result = 9
+break
+case 5
+case 6
+case 7
+case 8
+case 9
 	chip_value = 20
 	coloured_chips = chip_stack08
-endif
-if spin_result = 10
-or spin_result = 11
-or spin_result = 12
-or spin_result = 13
+break
+case 10
+case 11
+case 12
+case 13
 	chip_value = 200
 	coloured_chips = chip_stack12
-endif
-if spin_result = 14
-or spin_result = 15
-or spin_result = 16
+break
+case 14
+case 15
+case 16
 	chip_value = 2000
 	coloured_chips = chip_stack09
-endif
-if spin_result = 17
-or spin_result = 18
+break
+case 17
+case 18
 	chip_value = 20000
 	coloured_chips = chip_stack11
-endif
+break
+endswitch
 
 spin_result = 0
 
@@ -215,21 +217,23 @@ roulette_script_loop:
 								GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS roulette_table -1.839 -2.4444 -0.6 x y z
 								GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS roulette_table 0.761 0.9556 0.6 x_temp y_temp z_temp
 								IF IS_CHAR_IN_AREA_ON_FOOT_3D scplayer x y z x_temp y_temp z_temp 0 //LOCATE_CHAR_ON_FOOT_3D scplayer x y z 1.3 1.7 0.6 0
-									if chip_value = 2
+									switch chip_value
+									case 2
 										PRINT_HELP_FOREVER SLOT_06 //PRESS <BUTTON> TO USE OBJECT
-									endif
-									if chip_value = 20
+									break
+									case 20
 										PRINT_HELP_FOREVER SLOT_07 //PRESS <BUTTON> TO USE OBJECT
-									endif
-									if chip_value = 200
+									break
+									case 200
 										PRINT_HELP_FOREVER SLOT_08 //PRESS <BUTTON> TO USE OBJECT
-									endif
-									if chip_value = 2000
+									break
+									case 2000
 										PRINT_HELP_FOREVER SLOT_09 //PRESS <BUTTON> TO USE OBJECT
-									endif
-									if chip_value = 20000
+									break
+									case 20000
 										PRINT_HELP_FOREVER SLOT_10 //PRESS <BUTTON> TO USE OBJECT
-									endif
+									break
+									endswitch
 									load_MISSION_AUDIO 4 SOUND_BANK_ROULETTE 
 									++ flag
 								ENDIF
@@ -248,7 +252,8 @@ roulette_script_loop:
 											IF IS_BUTTON_PRESSED PAD1 TRIANGLE
 												IF pad1_triangle_pressed = 0
 													GET_INT_STAT GAMBLING gambling_stat
-													if chip_value = 20
+													switch chip_value
+													case 20
 														
 														if not gambling_stat >= 1
 															
@@ -263,8 +268,8 @@ roulette_script_loop:
 															endif
 															GOTO roulette_script_loop
 														endif
-													endif
-													if chip_value = 200
+													break
+													case 200
 														
 														if not gambling_stat >= 10
 														
@@ -279,8 +284,8 @@ roulette_script_loop:
 															endif
 															GOTO roulette_script_loop
 														endif
-													endif
-													if chip_value = 2000
+													break
+													case 2000
 														
 														if not gambling_stat >= 100
 															
@@ -295,8 +300,8 @@ roulette_script_loop:
 															endif
 															GOTO roulette_script_loop
 														endif
-													endif
-													if chip_value = 20000
+													break
+													case 20000
 														
 														if not gambling_stat > 999
 															
@@ -311,7 +316,8 @@ roulette_script_loop:
 															endif
 															GOTO roulette_script_loop
 														endif
-													endif
+													break
+													endswitch
 													CLEAR_HELP
 
 													SET_PLAYER_CONTROL player1 OFF
@@ -402,38 +408,34 @@ roulette_script_loop:
 							    DRAW_SPRITE 1 sprite_x sprite_y 64.0 64.0 0 0 0 255
 							sprite_x -= 2.0
 							sprite_y -= 2.0
-							IF spin_result = 0
+							SWITCH spin_result
+							CASE 0
 							   	DRAW_SPRITE 3 sprite_x sprite_y 64.0 64.0 180 180 180 255
-							ELSE
-								IF spin_result = 1
-								OR spin_result = 3
-								OR spin_result = 5
-								OR spin_result = 7
-								OR spin_result = 9
-								OR spin_result = 12
-							   		DRAW_SPRITE 2 sprite_x sprite_y 64.0 64.0 180 180 180 255
-								ELSE
-									IF spin_result = 14
-									OR spin_result = 16
-									OR spin_result = 18
-									OR spin_result = 19
-									OR spin_result = 21
-									OR spin_result = 23
-							   			DRAW_SPRITE 2 sprite_x sprite_y 64.0 64.0 180 180 180 255
-									ELSE
-										IF spin_result = 25
-										OR spin_result = 27
-										OR spin_result = 30
-										OR spin_result = 32
-										OR spin_result = 34
-										OR spin_result = 36
+							BREAK
+								CASE 1
+								CASE 3
+								CASE 5
+								CASE 7
+								CASE 9
+								CASE 12
+									CASE 14
+									CASE 16
+									CASE 18
+									CASE 19
+									CASE 21
+									CASE 23
+										CASE 25
+										CASE 27
+										CASE 30
+										CASE 32
+										CASE 34
+										CASE 36
 							   				DRAW_SPRITE 2 sprite_x sprite_y 64.0 64.0 180 180 180 255
-										ELSE
+										BREAK
+										DEFAULT
 							   				DRAW_SPRITE 1 sprite_x sprite_y 64.0 64.0 180 180 180 255
-										ENDIF
-									ENDIF
-								ENDIF
-							ENDIF
+										BREAK
+							ENDSWITCH
 
 							VAR_FLOAT text_positionn_x text_positionn_y
 						 	text_positionn_x = sprite_x + -1.6679
@@ -1206,12 +1208,13 @@ RETURN
 
 
 check_and_add_winnings:
-	IF spin_result = 0
+	SWITCH spin_result
+	CASE 0
 		spot_bets[0] *= 36
 		winnings_this_round += spot_bets[0]
 		spot_bets[0] = 0
-	ENDIF
-	IF spin_result = 1
+	BREAK
+	CASE 1
 		spot_bets[1] *= 36
 		winnings_this_round += spot_bets[1]
 
@@ -1244,8 +1247,8 @@ check_and_add_winnings:
 		
 		spot_bets[140] *= 6
 		winnings_this_round += spot_bets[140]
-	ENDIF
-	IF spin_result = 2
+	BREAK
+	CASE 2
 		spot_bets[2] *= 36
 		winnings_this_round += spot_bets[2]
 
@@ -1284,8 +1287,8 @@ check_and_add_winnings:
 		
 		spot_bets[140] *= 6
 		winnings_this_round += spot_bets[140]
-	ENDIF
-	IF spin_result = 3
+	BREAK
+	CASE 3
 		spot_bets[3] *= 36
 		winnings_this_round += spot_bets[3]
 
@@ -1318,8 +1321,8 @@ check_and_add_winnings:
 		
 		spot_bets[140] *= 6
 		winnings_this_round += spot_bets[140]
-	ENDIF
-	IF spin_result = 4
+	BREAK
+	CASE 4
 		spot_bets[4] *= 36
 		winnings_this_round += spot_bets[4]
 
@@ -1361,8 +1364,8 @@ check_and_add_winnings:
 		
 		spot_bets[141] *= 6
 		winnings_this_round += spot_bets[141]
-	ENDIF
-	IF spin_result = 5
+	BREAK
+	CASE 5
 		spot_bets[5] *= 36
 		winnings_this_round += spot_bets[5]
 
@@ -1413,8 +1416,8 @@ check_and_add_winnings:
 		
 		spot_bets[141] *= 6
 		winnings_this_round += spot_bets[141]
-	ENDIF
-	IF spin_result = 6
+	BREAK
+	CASE 6
 		spot_bets[6] *= 36
 		winnings_this_round += spot_bets[6]
 
@@ -1456,8 +1459,8 @@ check_and_add_winnings:
 		
 		spot_bets[141] *= 6
 		winnings_this_round += spot_bets[141]
-	ENDIF
-	IF spin_result = 7
+	BREAK
+	CASE 7
 		spot_bets[7] *= 36
 		winnings_this_round += spot_bets[7]
 
@@ -1499,8 +1502,8 @@ check_and_add_winnings:
 		
 		spot_bets[142] *= 6
 		winnings_this_round += spot_bets[142]
-	ENDIF
-	IF spin_result = 8
+	BREAK
+	CASE 8
 		spot_bets[8] *= 36
 		winnings_this_round += spot_bets[8]
 
@@ -1551,8 +1554,8 @@ check_and_add_winnings:
 		
 		spot_bets[142] *= 6
 		winnings_this_round += spot_bets[142]
-	ENDIF
-	IF spin_result = 9
+	BREAK
+	CASE 9
 		spot_bets[9] *= 36
 		winnings_this_round += spot_bets[9]
 
@@ -1594,8 +1597,8 @@ check_and_add_winnings:
 		
 		spot_bets[142] *= 6
 		winnings_this_round += spot_bets[142]
-	ENDIF
-	IF spin_result = 10
+	BREAK
+	CASE 10
 		spot_bets[10] *= 36
 		winnings_this_round += spot_bets[10]
 
@@ -1637,8 +1640,8 @@ check_and_add_winnings:
 		
 		spot_bets[143] *= 6
 		winnings_this_round += spot_bets[143]
-	ENDIF
-	IF spin_result = 11
+	BREAK
+	CASE 11
 		spot_bets[11] *= 36
 		winnings_this_round += spot_bets[11]
 
@@ -1689,8 +1692,8 @@ check_and_add_winnings:
 		
 		spot_bets[143] *= 6
 		winnings_this_round += spot_bets[143]
-	ENDIF
-	IF spin_result = 12
+	BREAK
+	CASE 12
 		spot_bets[12] *= 36
 		winnings_this_round += spot_bets[12]
 
@@ -1732,8 +1735,8 @@ check_and_add_winnings:
 		
 		spot_bets[143] *= 6
 		winnings_this_round += spot_bets[143]
-	ENDIF
-	IF spin_result = 13
+	BREAK
+	CASE 13
 		spot_bets[13] *= 36
 		winnings_this_round += spot_bets[13]
 
@@ -1775,8 +1778,8 @@ check_and_add_winnings:
 		
 		spot_bets[144] *= 6
 		winnings_this_round += spot_bets[144]
-	ENDIF
-	IF spin_result = 14
+	BREAK
+	CASE 14
 		spot_bets[14] *= 36
 		winnings_this_round += spot_bets[14]
 
@@ -1827,8 +1830,8 @@ check_and_add_winnings:
 		
 		spot_bets[144] *= 6
 		winnings_this_round += spot_bets[144]
-	ENDIF
-	IF spin_result = 15
+	BREAK
+	CASE 15
 		spot_bets[15] *= 36
 		winnings_this_round += spot_bets[15]
 
@@ -1870,8 +1873,8 @@ check_and_add_winnings:
 		
 		spot_bets[144] *= 6
 		winnings_this_round += spot_bets[144]
-	ENDIF
-	IF spin_result = 16
+	BREAK
+	CASE 16
 		spot_bets[16] *= 36
 		winnings_this_round += spot_bets[16]
 
@@ -1913,8 +1916,8 @@ check_and_add_winnings:
 		
 		spot_bets[145] *= 6
 		winnings_this_round += spot_bets[145]
-	ENDIF
-	IF spin_result = 17
+	BREAK
+	CASE 17
 		spot_bets[17] *= 36
 		winnings_this_round += spot_bets[17]
 
@@ -1965,8 +1968,8 @@ check_and_add_winnings:
 		
 		spot_bets[145] *= 6
 		winnings_this_round += spot_bets[145]
-	ENDIF
-	IF spin_result = 18
+	BREAK
+	CASE 18
 		spot_bets[18] *= 36
 		winnings_this_round += spot_bets[18]
 
@@ -2008,8 +2011,8 @@ check_and_add_winnings:
 		
 		spot_bets[145] *= 6
 		winnings_this_round += spot_bets[145]
-	ENDIF
-	IF spin_result = 19
+	BREAK
+	CASE 19
 		spot_bets[19] *= 36
 		winnings_this_round += spot_bets[19]
 
@@ -2051,8 +2054,8 @@ check_and_add_winnings:
 		
 		spot_bets[146] *= 6
 		winnings_this_round += spot_bets[146]
-	ENDIF
-	IF spin_result = 20
+	BREAK
+	CASE 20
 		spot_bets[20] *= 36
 		winnings_this_round += spot_bets[20]
 
@@ -2103,8 +2106,8 @@ check_and_add_winnings:
 		
 		spot_bets[146] *= 6
 		winnings_this_round += spot_bets[146]
-	ENDIF
-	IF spin_result = 21
+	BREAK
+	CASE 21
 		spot_bets[21] *= 36
 		winnings_this_round += spot_bets[21]
 
@@ -2146,8 +2149,8 @@ check_and_add_winnings:
 		
 		spot_bets[146] *= 6
 		winnings_this_round += spot_bets[146]
-	ENDIF
-	IF spin_result = 22
+	BREAK
+	CASE 22
 		spot_bets[22] *= 36
 		winnings_this_round += spot_bets[22]
 
@@ -2189,8 +2192,8 @@ check_and_add_winnings:
 		
 		spot_bets[147] *= 6
 		winnings_this_round += spot_bets[147]
-	ENDIF
-	IF spin_result = 23
+	BREAK
+	CASE 23
 		spot_bets[23] *= 36
 		winnings_this_round += spot_bets[23]
 
@@ -2241,8 +2244,8 @@ check_and_add_winnings:
 		
 		spot_bets[147] *= 6
 		winnings_this_round += spot_bets[147]
-	ENDIF
-	IF spin_result = 24
+	BREAK
+	CASE 24
 		spot_bets[24] *= 36
 		winnings_this_round += spot_bets[24]
 
@@ -2284,8 +2287,8 @@ check_and_add_winnings:
 		
 		spot_bets[147] *= 6
 		winnings_this_round += spot_bets[147]
-	ENDIF
-	IF spin_result = 25
+	BREAK
+	CASE 25
 		spot_bets[25] *= 36
 		winnings_this_round += spot_bets[25]
 
@@ -2327,8 +2330,8 @@ check_and_add_winnings:
 		
 		spot_bets[148] *= 6
 		winnings_this_round += spot_bets[148]
-	ENDIF
-	IF spin_result = 26
+	BREAK
+	CASE 26
 		spot_bets[26] *= 36
 		winnings_this_round += spot_bets[26]
 
@@ -2379,8 +2382,8 @@ check_and_add_winnings:
 		
 		spot_bets[148] *= 6
 		winnings_this_round += spot_bets[148]
-	ENDIF
-	IF spin_result = 27
+	BREAK
+	CASE 27
 		spot_bets[27] *= 36
 		winnings_this_round += spot_bets[27]
 
@@ -2422,8 +2425,8 @@ check_and_add_winnings:
 		
 		spot_bets[148] *= 6
 		winnings_this_round += spot_bets[148]
-	ENDIF
-	IF spin_result = 28
+	BREAK
+	CASE 28
 		spot_bets[28] *= 36
 		winnings_this_round += spot_bets[28]
 
@@ -2465,8 +2468,8 @@ check_and_add_winnings:
 		
 		spot_bets[149] *= 6
 		winnings_this_round += spot_bets[149]
-	ENDIF
-	IF spin_result = 29
+	BREAK
+	CASE 29
 		spot_bets[29] *= 36
 		winnings_this_round += spot_bets[29]
 
@@ -2517,8 +2520,8 @@ check_and_add_winnings:
 		
 		spot_bets[149] *= 6
 		winnings_this_round += spot_bets[149]
-	ENDIF
-	IF spin_result = 30
+	BREAK
+	CASE 30
 		spot_bets[30] *= 36
 		winnings_this_round += spot_bets[30]
 
@@ -2560,8 +2563,8 @@ check_and_add_winnings:
 		
 		spot_bets[149] *= 6
 		winnings_this_round += spot_bets[149]
-	ENDIF
-	IF spin_result = 31
+	BREAK
+	CASE 31
 		spot_bets[31] *= 36
 		winnings_this_round += spot_bets[31]
 
@@ -2603,8 +2606,8 @@ check_and_add_winnings:
 		
 		spot_bets[150] *= 6
 		winnings_this_round += spot_bets[150]
-	ENDIF
-	IF spin_result = 32
+	BREAK
+	CASE 32
 		spot_bets[32] *= 36
 		winnings_this_round += spot_bets[32]
 
@@ -2655,8 +2658,8 @@ check_and_add_winnings:
 		
 		spot_bets[150] *= 6
 		winnings_this_round += spot_bets[150]
-	ENDIF
-	IF spin_result = 33
+	BREAK
+	CASE 33
 		spot_bets[33] *= 36
 		winnings_this_round += spot_bets[33]
 
@@ -2698,8 +2701,8 @@ check_and_add_winnings:
 		
 		spot_bets[150] *= 6
 		winnings_this_round += spot_bets[150]
-	ENDIF
-	IF spin_result = 34
+	BREAK
+	CASE 34
 		spot_bets[34] *= 36
 		winnings_this_round += spot_bets[34]
 
@@ -2732,8 +2735,8 @@ check_and_add_winnings:
 		
 		spot_bets[150] *= 6
 		winnings_this_round += spot_bets[150]
-	ENDIF
-	IF spin_result = 35
+	BREAK
+	CASE 35
 		spot_bets[35] *= 36
 		winnings_this_round += spot_bets[35]
 
@@ -2772,8 +2775,8 @@ check_and_add_winnings:
 		
 		spot_bets[150] *= 6
 		winnings_this_round += spot_bets[150]
-	ENDIF
-	IF spin_result = 36
+	BREAK
+	CASE 36
 		spot_bets[36] *= 36
 		winnings_this_round += spot_bets[36]
 
@@ -2806,7 +2809,8 @@ check_and_add_winnings:
 		
 		spot_bets[150] *= 6
 		winnings_this_round += spot_bets[150]
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 
