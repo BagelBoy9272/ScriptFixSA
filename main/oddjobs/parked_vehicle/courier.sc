@@ -2549,105 +2549,111 @@ mission_bcou_failed:
 //PRINT_BIG ( M_FAIL ) 5000 1 //"Mission Failed"
 
 IF bcou_city = LEVEL_SANFRANCISCO
-	IF bcou_SFrunscompleted = 0
+	SWITCH bcou_SFrunscompleted
+	CASE 0
 		PRINT_BIG bcou_40 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_SFrunscompleted = 1
+	CASE 1
 		PRINT_BIG bcou_41 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_SFrunscompleted = 2
+	CASE 2
 		PRINT_BIG bcou_42 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_SFrunscompleted = 3
+	CASE 3
 		PRINT_BIG bcou_43 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_SFrunscompleted = 4
+	CASE 4
 		PRINT_BIG bcou_44 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_SFrunscompleted = 5
+	CASE 5
 		PRINT_BIG bcou_45 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_SFrunscompleted = 6
+	CASE 6
 		PRINT_BIG bcou_46 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_SFrunscompleted = 7
+	CASE 7
 	  	PRINT_BIG bcou_47 5000 1
-	ENDIF
+	BREAK
+	ENDSWITCH
 ENDIF
 
 IF bcou_city = LEVEL_LASVEGAS
-	IF bcou_LVrunscompleted = 0
+	SWITCH bcou_LVrunscompleted
+	CASE 0
 		PRINT_BIG bcou_40 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LVrunscompleted = 1
+	CASE 1
 		PRINT_BIG bcou_41 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LVrunscompleted = 2
+	CASE 2
 		PRINT_BIG bcou_42 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LVrunscompleted = 3
+	CASE 3
 		PRINT_BIG bcou_43 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LVrunscompleted = 4
+	CASE 4
 		PRINT_BIG bcou_44 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LVrunscompleted = 5
+	CASE 5
 		PRINT_BIG bcou_45 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LVrunscompleted = 6
+	CASE 6
 		PRINT_BIG bcou_46 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LVrunscompleted = 7
+	CASE 7
 	  	PRINT_BIG bcou_47 5000 1
-	ENDIF
+	BREAK
+	ENDSWITCH
 ENDIF
 
 IF bcou_city = LEVEL_LOSANGELES
-	IF bcou_LArunscompleted = 0
+	SWITCH bcou_LArunscompleted
+	CASE 0
 		PRINT_BIG bcou_40 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LArunscompleted = 1
+	CASE 1
 		PRINT_BIG bcou_41 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LArunscompleted = 2
+	CASE 2
 		PRINT_BIG bcou_42 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LArunscompleted = 3
+	CASE 3
 		PRINT_BIG bcou_43 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LArunscompleted = 4
+	CASE 4
 		PRINT_BIG bcou_44 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LArunscompleted = 5
+	CASE 5
 		PRINT_BIG bcou_45 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LArunscompleted = 6
+	CASE 6
 		PRINT_BIG bcou_46 5000 1
-	ENDIF
+	BREAK
 
-	IF bcou_LArunscompleted = 7
+	CASE 7
 	  	PRINT_BIG bcou_47 5000 1
-	ENDIF
+	BREAK
+	ENDSWITCH
 ENDIF
 
 RETURN
