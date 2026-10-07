@@ -2380,132 +2380,131 @@ IF sw4_stage = 6
 AND sw4_text_timer_flag = 18
 	GET_GAME_TIMER sw4_blip_timer_end
 	sw4_blip_timer_diff = sw4_blip_timer_end - sw4_blip_timer_start 
-	SWITCH sw4_blip_counter
-	CASE 0
+	IF sw4_blip_counter = 0
 		IF sw4_blip_timer_diff > 500
 			PRINT_HELP ( SWE4_07 ) // Marked on Radar as a Spray can
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 1
+	ENDIF
+	IF sw4_blip_counter = 1
 		IF sw4_blip_timer_diff > 1000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 2
+	ENDIF
+	IF sw4_blip_counter = 2
 		IF sw4_blip_timer_diff > 1500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 3
+	ENDIF
+	IF sw4_blip_counter = 3
 		IF sw4_blip_timer_diff > 2000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 4
+	ENDIF
+	IF sw4_blip_counter = 4
 		IF sw4_blip_timer_diff > 2500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 5
+	ENDIF
+	IF sw4_blip_counter = 5
 		IF sw4_blip_timer_diff > 3000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 6
+	ENDIF
+	IF sw4_blip_counter = 6
 		IF sw4_blip_timer_diff > 3500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 7
+	ENDIF
+	IF sw4_blip_counter = 7
 		IF sw4_blip_timer_diff > 4000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 8
+	ENDIF
+	IF sw4_blip_counter = 8
 		IF sw4_blip_timer_diff > 4500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 9
+	ENDIF
+	IF sw4_blip_counter = 9
 		IF sw4_blip_timer_diff > 5000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 10
+	ENDIF
+	IF sw4_blip_counter = 10
 		IF sw4_blip_timer_diff > 5500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 11
+	ENDIF
+	IF sw4_blip_counter = 11
 		IF sw4_blip_timer_diff > 6000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 12
+	ENDIF
+	IF sw4_blip_counter = 12
 		IF sw4_blip_timer_diff > 6500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 13
+	ENDIF
+	IF sw4_blip_counter = 13
 		IF sw4_blip_timer_diff > 7000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 14
+	ENDIF
+	IF sw4_blip_counter = 14
 		IF sw4_blip_timer_diff > 7500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 15
+	ENDIF
+	IF sw4_blip_counter = 15
 		IF sw4_blip_timer_diff > 8000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 16
+	ENDIF
+	IF sw4_blip_counter = 16
 		IF sw4_blip_timer_diff > 8500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 17
+	ENDIF
+	IF sw4_blip_counter = 17
 		IF sw4_blip_timer_diff > 9000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 18
+	ENDIF
+	IF sw4_blip_counter = 18
 		IF sw4_blip_timer_diff > 9500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	CASE 19
+	ENDIF
+	IF sw4_blip_counter = 19
 		IF sw4_blip_timer_diff > 10000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
@@ -2513,8 +2512,7 @@ AND sw4_text_timer_flag = 18
 			ADD_BLIP_FOR_COORD 2075.55 -1831.09 12.21 sw4_spray_marker
 			sw4_blip_counter++
 		ENDIF
-	BREAK
-	ENDSWITCH
+	ENDIF
 	IF sw4_cut = 0
 		IF NOT IS_CHAR_DEAD scplayer
 			IF LOCATE_CHAR_IN_CAR_3D scplayer 2075.55 -1831.09 12.21 4.0 4.0 4.0 TRUE
