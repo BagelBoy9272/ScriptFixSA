@@ -252,6 +252,7 @@ LVAR_INT light_oldhours light_oldmins
 LVAR_INT he1_wantedfix
 
 
+LVAR_INT he1_char_name // FIXEDGROVE
 
 
 
@@ -2677,10 +2678,11 @@ IF he1_failconditions  = 1
 			
 			IF he1_hideweaponcheck = 0
    		   //	IF HAS_CHAR_SPOTTED_CHAR he1_guard[2] scplayer
-			AND LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE   // dodgy!
+			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE   // dodgy!
 			
 				GOSUB he1_weaponcheck
 
+			ENDIF
 			ENDIF
 	 
 			IF he1_weaponaimed = 1
