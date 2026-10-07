@@ -3387,23 +3387,25 @@ sw4_dialogue_pos:
 	AND NOT sw4_counter < 46
 		sw4_audio_char = 0
 	ENDIF
-	IF sw4_counter = 12
-	OR sw4_counter = 14
-	OR sw4_counter = 16
-	OR sw4_counter = 42
-	OR sw4_counter = 43	
+	SWITCH sw4_counter
+	CASE 12
+	CASE 14
+	CASE 16
+	CASE 42
+	CASE 43	
 		sw4_audio_char = sw4_sweet
-	ENDIF
-	IF sw4_counter = 13
-	OR sw4_counter = 44
+	BREAK
+	CASE 13
+	CASE 44
 		sw4_audio_char = scplayer
-	ENDIF
-	IF sw4_counter = 15
+	BREAK
+	CASE 15
 		sw4_audio_char = sw4_ryder
-	ENDIF
-	IF sw4_counter = 45
+	BREAK
+	CASE 45
 		sw4_audio_char = sw4_smoke
-	ENDIF	
+	BREAK	
+	ENDSWITCH
 
 RETURN
 
