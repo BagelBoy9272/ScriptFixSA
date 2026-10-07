@@ -350,6 +350,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Intensive Care:**
 - Fixed mafia driver not driving
 
+**The Meat Business:**
+- Added 2 unused line variations for when the player gets locked in the freezer
+
 **Up, Up And Away!:**
 - Fixed stationary minigun removing the player's heavy weaponry
 - Fixed minigun not being removed if the player dies while using it
