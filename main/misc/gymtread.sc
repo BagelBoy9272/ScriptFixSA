@@ -284,11 +284,10 @@ AND NOT IS_CHAR_DEAD scplayer
 		IF current_Language = 4
 		OR current_Language = 2
 			CREATE_MENU GYM1_F 31.0 180.0 184.0 1 TRUE TRUE FO_CENTRE main_menu_tread
-			SET_MENU_COLUMN main_menu_tread 0 GYM1_89 GYM1_61 GYM1_62 GYM1_63 GYM1_64 GYM1_65 GYM1_66 GYM1_67 GYM1_68 GYM1_69 GYM1_70 DUMMY DUMMY
 		ELSE
 			CREATE_MENU GYM1_F 31.0 150.0 184.0 1 TRUE TRUE FO_CENTRE main_menu_tread
-			SET_MENU_COLUMN main_menu_tread 0 GYM1_89 GYM1_61 GYM1_62 GYM1_63 GYM1_64 GYM1_65 GYM1_66 GYM1_67 GYM1_68 GYM1_69 GYM1_70 DUMMY DUMMY
 		ENDIF
+		SET_MENU_COLUMN main_menu_tread 0 GYM1_89 GYM1_61 GYM1_62 GYM1_63 GYM1_64 GYM1_65 GYM1_66 GYM1_67 GYM1_68 GYM1_69 GYM1_70 DUMMY DUMMY
 		SET_ACTIVE_MENU_ITEM main_menu_tread 0
 
 
@@ -539,55 +538,57 @@ AND NOT IS_CHAR_DEAD scplayer
 				ENDIF
 			ENDIF
 			
-			IF levelbar_tread = 1
+			SWITCH levelbar_tread
+			CASE 1
 				levelbar_float = 1.0
 				level_treadresitance = 9.5 //was 12	 start_tread_resistance
-			ENDIF	
+			BREAK	
 
-			IF levelbar_tread = 2
+			CASE 2
 				levelbar_float = 2.0
 				level_treadresitance = 8.5
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_tread = 3
+			CASE 3
 				levelbar_float = 3.0
 				level_treadresitance = 7.5
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_tread = 4
+			CASE 4
 				levelbar_float = 4.0
 				level_treadresitance = 6.5
-			ENDIF	
+			BREAK	
 
-			IF levelbar_tread = 5
+			CASE 5
 				levelbar_float = 5.0
 				level_treadresitance = 5.5
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_tread = 6
+			CASE 6
 				levelbar_float = 6.0
 				level_treadresitance = 4.5
-			ENDIF		
+			BREAK		
 
-			IF levelbar_tread = 7
+			CASE 7
 				levelbar_float = 7.0
 				level_treadresitance = 3.5
-			ENDIF	
+			BREAK	
 
-			IF levelbar_tread = 8
+			CASE 8
 				levelbar_float = 8.0
 				level_treadresitance = 2.5
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_tread = 9
+			CASE 9
 				levelbar_float = 9.0
 				level_treadresitance = 1.5
-			ENDIF
+			BREAK
 
-			IF levelbar_tread = 10
+			CASE 10
 				levelbar_float = 10.0
 				level_treadresitance = 0.5
-			ENDIF		
+			BREAK		
+			ENDSWITCH
 			
 
 			//player has started			
@@ -704,63 +705,53 @@ AND NOT IS_CHAR_DEAD scplayer
 		    //Animation speeds
 			
 			IF speed_tread >= 0.0
-				IF speed_tread <= 10.0
+			AND speed_tread <= 10.0
 					animspeed_tread = 0.9
-				ENDIF
 			ENDIF
 
 			IF speed_tread >= 11.0 
-				IF speed_tread <= 20.0
+			AND speed_tread <= 20.0
 					animspeed_tread = 0.97
-				ENDIF
 			ENDIF
 
 			IF speed_tread >= 21.0
-				IF speed_tread <= 30.0
+			AND speed_tread <= 30.0
 					animspeed_tread = 1.04
-				ENDIF
 			ENDIF
 			
 			IF speed_tread >= 31.0
-				IF speed_tread <= 40.0
+			AND speed_tread <= 40.0
 					animspeed_tread = 1.11
-				ENDIF
 			ENDIF			
 
 			IF speed_tread >= 41.0
-				IF speed_tread <= 50.0
+			AND speed_tread <= 50.0
 					animspeed_tread = 1.18
-				ENDIF
 			ENDIF
 
 			IF speed_tread >= 51.0
-				IF speed_tread <= 60.0
+			AND speed_tread <= 60.0
 					animspeed_tread = 1.25
-				ENDIF
 			ENDIF
 
 			IF speed_tread >= 61.0
-				IF speed_tread <= 70.0
+			AND speed_tread <= 70.0
 					animspeed_tread = 1.32
-				ENDIF
 			ENDIF
 			
 			IF speed_tread >= 71.0
-				IF speed_tread <= 80.0
+			AND speed_tread <= 80.0
 					animspeed_tread = 1.39
-		 		ENDIF
 			ENDIF			
 
 			IF speed_tread >= 81.0
-				IF speed_tread <= 90.0
+			AND speed_tread <= 90.0
 					animspeed_tread = 1.46
-				ENDIF
 			ENDIF
 
 			IF speed_tread >= 91.0
-				IF speed_tread <= 100.0
+			AND speed_tread <= 100.0
 					animspeed_tread = 1.53
-				ENDIF
 			ENDIF
 
 			IF NOT IS_CHAR_DEAD scplayer
