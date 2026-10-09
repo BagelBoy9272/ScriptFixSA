@@ -2552,38 +2552,23 @@ ENDIF
 
 
 // Fail condition area
+// Fail condition area
 IF he1_failconditions  = 1
 	
 	IF he1_inbuilding = 1
 	IF he1_drillstarted = 0 
 		
 
-		temp_integer_1 = 0
-		WHILE temp_integer_1 < 3
-		IF NOT IS_CHAR_DEAD he1_guard[temp_integer_1]
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[temp_integer_1] scplayer
-				CLEAR_CHAR_TASKS he1_guard[temp_integer_1]
-				TASK_KILL_CHAR_ON_FOOT he1_guard[temp_integer_1] scplayer
-				//WAIT 2000
-				PRINT_NOW HEI1_50 4000 1
-			   	GOSUB he1_kickout
-				GOTO mission_heist1_failed
-			ENDIF
-		ENDIF
-		temp_integer_1++
-		ENDWHILE
-
-
 		IF NOT IS_CHAR_DEAD he1_guard[0] 
 			IF he1_progress < 40
-			AND he1_stairprompt = 0
-			AND he1_convofix = 0
+			IF he1_stairprompt = 0
+			IF he1_convofix = 0
 			IF TIMERA > 2000
 				IF he1_weaponaimed = 0
 				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[0]
 				TASK_TURN_CHAR_TO_FACE_CHAR he1_guard[0] scplayer
-					IF NOT IS_CHAR_DEAD he1_guard[1]
-					AND NOT IS_CHAR_DEAD he1_guard[2]
+				IF NOT IS_CHAR_DEAD he1_guard[1]
+					IF NOT IS_CHAR_DEAD he1_guard[2]
 						CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[1]
 						CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[2]
 						TASK_TURN_CHAR_TO_FACE_CHAR he1_guard[1] scplayer
@@ -2592,22 +2577,68 @@ IF he1_failconditions  = 1
 						he1_checkchat = 1
 					ENDIF
 				ENDIF
+				ENDIF
+			ENDIF
+			ENDIF
 			ENDIF
 			ENDIF
 
 
 
 
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[0] scplayer
+				CLEAR_CHAR_TASKS he1_guard[0]
+				TASK_KILL_CHAR_ON_FOOT he1_guard[0] scplayer
+				//WAIT 2000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+			ENDIF
 
 			IF he1_hideweaponcheck = 0
-			AND HAS_CHAR_SPOTTED_CHAR he1_guard[0] scplayer
-				GOSUB he1_weaponcheck
+			IF HAS_CHAR_SPOTTED_CHAR he1_guard[0] scplayer
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
+			   //IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
+					CLEAR_PRINTS
+					CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					he1_audio_underway = 0
+					he1_audio_playing = 0
+
+					
+			   		he1_counter = 7
+			   		//PRINT_NOW HEI1_44 4000 1	
+					TIMERB = 0
+					he1_hideweaponcheck = 1
+			   //	ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+
+			ENDIF
 			ENDIF
 
 			IF he1_weaponaimed = 1 
-				temp_integer_1 = 0
-				IF he1_gaim[temp_integer_1] = 0
-					GOSUB he1_weaponaim
+				IF he1_gaim[0] = 0
+				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[0]
+				TASK_STAY_IN_SAME_PLACE he1_guard[0] TRUE
+				TASK_AIM_GUN_AT_CHAR he1_guard[0] scplayer 5000
+				//he1_weaponaimed = 2
+				he1_gaim[0] = 1
 				ENDIF
 			ENDIF
 
@@ -2616,16 +2647,61 @@ IF he1_failconditions  = 1
 		
 		IF NOT IS_CHAR_DEAD he1_guard[1]
    
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[1] scplayer
+				CLEAR_CHAR_TASKS he1_guard[1]
+				TASK_KILL_CHAR_ON_FOOT he1_guard[1] scplayer
+				//WAIT 2000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+			ENDIF
  
 
 			IF he1_hideweaponcheck = 0
-			AND HAS_CHAR_SPOTTED_CHAR he1_guard[1] scplayer
-				GOSUB he1_weaponcheck
+			IF HAS_CHAR_SPOTTED_CHAR he1_guard[1] scplayer
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
+			  // IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
+
+					CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					CLEAR_PRINTS
+					he1_audio_underway = 0
+					he1_audio_playing = 0
+
+					he1_counter = 7
+			    	//PRINT_NOW HEI1_44 4000 1	
+					TIMERB = 0
+					he1_hideweaponcheck = 1
+				//ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+			ENDIF
 			ENDIF
 
 			IF he1_weaponaimed = 1
-				temp_integer_1 = 1
-				GOSUB he1_weaponaim
+				IF he1_gaim[1] = 0
+				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[1]
+				TASK_STAY_IN_SAME_PLACE he1_guard[1] TRUE
+
+				TASK_AIM_GUN_AT_CHAR he1_guard[1] scplayer 5000
+				//he1_weaponaimed = 2
+				he1_gaim[1] = 1
+				ENDIF
 			ENDIF
 
 		ENDIF
@@ -2639,11 +2715,19 @@ IF he1_failconditions  = 1
 			ENDIF
 		 */
 			
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_guard[2] scplayer
+				CLEAR_CHAR_TASKS he1_guard[2]
+				TASK_KILL_CHAR_ON_FOOT he1_guard[2] scplayer
+				//WAIT 2000
+				PRINT_NOW HEI1_50 4000 1
+			  	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+			ENDIF
 			
 		   //	IF HAS_CHAR_SPOTTED_CHAR he1_guard[2] scplayer
 				
 				IF he1_conversationOK = 1
-				AND he1_cameracheck = 0
+				IF he1_cameracheck = 0
 
 				//Critical Area here!!!!!!!!!!!!!!!!!  Cues cutscene!!!!!!!!!!!!!!!!!!!!
 				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -2657,6 +2741,7 @@ IF he1_failconditions  = 1
 						ENDIF
 						
 					ENDIF
+				ENDIF
 				ENDIF
 
 			 //ENDIF
@@ -2679,15 +2764,56 @@ IF he1_failconditions  = 1
 			IF he1_hideweaponcheck = 0
    		   //	IF HAS_CHAR_SPOTTED_CHAR he1_guard[2] scplayer
 			IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE   // dodgy!
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+			   //IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
+			   //IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
+			   IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
+			    IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
+
+
+					CLEAR_PRINTS
+					CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					he1_audio_underway = 0
+					he1_audio_playing = 0
+					IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+					he1_counter = 10
+					ELSE
+					he1_counter = 7
+					ENDIF
+
+			    	//PRINT_NOW HEI1_48 4000 1	
+					TIMERB = 0
+					he1_hideweaponcheck = 1
+					he1_level3 = 1
+				//ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
+				ENDIF
 			
-				GOSUB he1_weaponcheck
+				ENDIF
 
 			ENDIF
 			ENDIF
 	 
 			IF he1_weaponaimed = 1
-				temp_integer_1 = 2
-				GOSUB he1_weaponaim
+				IF he1_gaim[2] = 0
+				CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[2]
+				TASK_STAY_IN_SAME_PLACE he1_guard[2] TRUE
+
+				TASK_AIM_GUN_AT_CHAR he1_guard[2] scplayer 5000
+				//he1_weaponaimed = 2
+				he1_gaim[2] = 1
+				ENDIF
 			ENDIF
 
 
@@ -2828,58 +2954,181 @@ IF he1_failconditions  = 1
 			ENDIF
 
 
-			temp_integer_1 = 0
-			WHILE temp_integer_1 < 9
-			SWITCH temp_integer_1
-				CASE 0
-				temp_integer_2 = WEAPONTYPE_CAMERA
-				BREAK
-				CASE 1
-				temp_integer_2 = WEAPONTYPE_UNARMED
-				BREAK
-				CASE 2
-				temp_integer_2 = WEAPONTYPE_BRASSKNUCKLE
-				BREAK
-				CASE 3
-				temp_integer_2 = WEAPONTYPE_FLOWERS
-				BREAK
-				CASE 4
-				temp_integer_2 = WEAPONTYPE_DILDO1
-				BREAK
-				CASE 5
-				temp_integer_2 = WEAPONTYPE_DILDO2
-				BREAK
-				CASE 6
-				temp_integer_2 = WEAPONTYPE_VIBE1
-				BREAK
-				CASE 7
-				temp_integer_2 = WEAPONTYPE_VIBE2
-				BREAK
-				CASE 8
-				temp_integer_2 = WEAPONTYPE_PARACHUTE
-				BREAK
-			ENDSWITCH
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+		 		he1_hideweaponcheck = 0
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+			 	CLEAR_MISSION_AUDIO he1_alt_slot
+				CLEAR_MISSION_AUDIO he1_audio_slot
+				CLEAR_PRINTS
+				he1_audio_underway = 0
+				he1_audio_playing = 0
+
+				he1_counter = 8
+				//PRINT_NOW HEI1_45 4000 1
+			ENDIF
+
+			
 			IF NOT he1_level3 = 1
-			AND NOT temp_integer_1 = 0
-				IF IS_CURRENT_CHAR_WEAPON scplayer temp_integer_2
-					he1_hideweaponcheck	= 0
-					CLEAR_MISSION_AUDIO he1_alt_slot
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
+				he1_hideweaponcheck	= 0
+				CLEAR_MISSION_AUDIO he1_alt_slot
+				CLEAR_MISSION_AUDIO he1_audio_slot
+				CLEAR_PRINTS
+				he1_audio_underway = 0
+				he1_audio_playing = 0
+				he1_counter = 8
+				//PRINT_NOW HEI1_45 4000 1
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+		  	ENDIF
+			ENDIF
+			
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
+				he1_hideweaponcheck	= 0
+				CLEAR_MISSION_AUDIO he1_alt_slot
 					CLEAR_MISSION_AUDIO he1_audio_slot
 					CLEAR_PRINTS
 					he1_audio_underway = 0
-					he1_audio_playing = 0
-					he1_counter = 8
-					//PRINT_NOW HEI1_45 4000 1
-					he1_weaponaimed = 0
-					he1_gaim[0] = 0
-					he1_gaim[1] = 0
-					he1_gaim[2] = 0
-					he1_level3 = 0
-			  	ENDIF
-			ENDIF
-			temp_integer_1++
-			ENDWHILE
+				he1_audio_playing = 0
 
+				he1_counter = 8
+				//PRINT_NOW HEI1_45 4000 1
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+		  	ENDIF
+
+//			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_SKATEBOARD
+//		 		he1_hideweaponcheck = 0
+//				he1_weaponaimed = 0
+//				he1_gaim[0] = 0
+//				he1_gaim[1] = 0
+//				he1_gaim[2] = 0
+//				he1_level3 = 0
+//				CLEAR_MISSION_AUDIO he1_alt_slot
+//				CLEAR_MISSION_AUDIO he1_audio_slot
+//				CLEAR_PRINTS
+//				he1_audio_underway = 0
+//				he1_audio_playing = 0
+//
+//				he1_counter = 8
+//				//PRINT_NOW HEI1_45 4000 1
+//			ENDIF
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
+				he1_hideweaponcheck	= 0
+				CLEAR_MISSION_AUDIO he1_alt_slot
+				CLEAR_MISSION_AUDIO he1_audio_slot
+				CLEAR_PRINTS
+				he1_audio_underway = 0
+				he1_audio_playing = 0
+
+				he1_counter = 8
+				//PRINT_NOW HEI1_45 4000 1
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+		  	ENDIF
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
+				he1_hideweaponcheck	= 0
+			  	CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					CLEAR_PRINTS
+					he1_audio_underway = 0
+				he1_audio_playing = 0
+
+			   	he1_counter = 8
+			   //	PRINT_NOW HEI1_45 4000 1
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+		  	ENDIF
+
+				IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
+		 		he1_hideweaponcheck = 0
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+				CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					CLEAR_PRINTS
+					he1_audio_underway = 0
+				he1_audio_playing = 0
+
+				he1_counter = 8
+				//PRINT_NOW HEI1_45 4000 1
+			ENDIF
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
+				he1_hideweaponcheck	= 0
+				CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					CLEAR_PRINTS
+					he1_audio_underway = 0
+				he1_audio_playing = 0
+
+				he1_counter = 8
+				//PRINT_NOW HEI1_45 4000 1
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+		  	ENDIF
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
+				he1_hideweaponcheck	= 0
+			   CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					CLEAR_PRINTS
+					he1_audio_underway = 0
+				he1_audio_playing = 0
+
+			   	he1_counter = 8
+			   //	PRINT_NOW HEI1_45 4000 1
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+		  	ENDIF
+			
+			IF IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
+				he1_hideweaponcheck	= 0
+				CLEAR_MISSION_AUDIO he1_alt_slot
+					CLEAR_MISSION_AUDIO he1_audio_slot
+					CLEAR_PRINTS
+					he1_audio_underway = 0
+				he1_audio_playing = 0
+
+				he1_counter = 8
+				//PRINT_NOW HEI1_45 4000 1
+				he1_weaponaimed = 0
+				he1_gaim[0] = 0
+				he1_gaim[1] = 0
+				he1_gaim[2] = 0
+				he1_level3 = 0
+
+		  	ENDIF
 
 			IF IS_CHAR_SHOOTING scplayer
 				//WAIT 1000
@@ -2893,53 +3142,193 @@ IF he1_failconditions  = 1
 		ENDIF
 
 		
-		temp_integer_1 = 0
-		WHILE temp_integer_1 < 14
-			SWITCH temp_integer_1
-			CASE 0
-			CASE 1
-			CASE 2
-			CASE 3
-			CASE 4
-			CASE 5
-			CASE 6
-			CASE 7
-			CASE 8
-			he1_char_name = he1_pop[temp_integer_1]
-			BREAK
-			CASE 9
-			he1_char_name = he1_recept1
-			BREAK
-			CASE 10
-			he1_char_name = he1_bystander[0]
-			BREAK
-			CASE 11
-			he1_char_name = he1_bystander[1]
-			BREAK
-			CASE 12
-			he1_char_name = he1_bystander[2]
-			BREAK
-			CASE 13
-			he1_char_name = he1_bystander[3]
-			BREAK
-		ENDSWITCH
-		IF DOES_CHAR_EXIST he1_char_name
-			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_char_name scplayer
-				IF NOT IS_CHAR_DEAD he1_char_name
-				CLEAR_CHAR_TASKS he1_char_name
-		   		TASK_SMART_FLEE_CHAR he1_char_name scplayer 100.0 -1
+		IF DOES_CHAR_EXIST he1_pop[0]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[0] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[0]
+				CLEAR_CHAR_TASKS he1_pop[0]
+		   		TASK_SMART_FLEE_CHAR he1_pop[0] scplayer 100.0 -1
 				//WAIT 1000
-				IF temp_integer_1 > 9
-					GOSUB he1_guardresponse
-				ENDIF
 				PRINT_NOW HEI1_50 4000 1
-				GOSUB he1_kickout
+			   	GOSUB he1_kickout
 				GOTO mission_heist1_failed
 				ENDIF
 			ENDIF
 		ENDIF
-		temp_integer_1++
-		ENDWHILE
+
+		IF DOES_CHAR_EXIST he1_pop[1]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[1] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[1]
+				CLEAR_CHAR_TASKS he1_pop[1]
+		   		TASK_SMART_FLEE_CHAR he1_pop[1] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+		
+		IF DOES_CHAR_EXIST he1_pop[2]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[2] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[2]
+				CLEAR_CHAR_TASKS he1_pop[2]
+		   		TASK_SMART_FLEE_CHAR he1_pop[2] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			  	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_pop[3]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[3] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[3]
+				CLEAR_CHAR_TASKS he1_pop[3]
+		   		TASK_SMART_FLEE_CHAR he1_pop[3] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+			IF DOES_CHAR_EXIST he1_pop[4]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[4] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[4]
+				CLEAR_CHAR_TASKS he1_pop[4]
+		   		TASK_SMART_FLEE_CHAR he1_pop[4] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_pop[5]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[5] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[5]
+				CLEAR_CHAR_TASKS he1_pop[5]
+		   		TASK_SMART_FLEE_CHAR he1_pop[5] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_pop[6]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[6] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[6]
+				CLEAR_CHAR_TASKS he1_pop[6]
+		   		TASK_SMART_FLEE_CHAR he1_pop[6] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			 	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+			IF DOES_CHAR_EXIST he1_pop[7]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[7] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[7]
+				CLEAR_CHAR_TASKS he1_pop[7]
+		   		TASK_SMART_FLEE_CHAR he1_pop[7] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_pop[8]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_pop[8] scplayer
+				IF NOT IS_CHAR_DEAD he1_pop[8]
+				CLEAR_CHAR_TASKS he1_pop[8]
+		   		TASK_SMART_FLEE_CHAR he1_pop[8] scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+				gosub he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_recept1
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_recept1 scplayer
+				IF NOT IS_CHAR_DEAD he1_recept1
+				CLEAR_CHAR_TASKS he1_recept1
+		   		TASK_SMART_FLEE_CHAR he1_recept1 scplayer 100.0 -1
+				//WAIT 1000
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_bystander[0]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[0] scplayer
+				IF NOT IS_CHAR_DEAD he1_bystander[0]
+				CLEAR_CHAR_TASKS he1_bystander[0]
+		   		TASK_SMART_FLEE_CHAR he1_bystander[0] scplayer 100.0 -1
+				//WAIT 1000
+				GOSUB he1_guardresponse
+				PRINT_NOW HEI1_50 4000 1
+			   GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_bystander[1]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[1] scplayer
+				IF NOT IS_CHAR_DEAD he1_bystander[1]
+				CLEAR_CHAR_TASKS he1_bystander[1]
+		   		TASK_SMART_FLEE_CHAR he1_bystander[1] scplayer 100.0 -1
+				//WAIT 1000
+				GOSUB he1_guardresponse
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
+
+
+		IF DOES_CHAR_EXIST he1_bystander[2]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[2] scplayer
+				IF NOT IS_CHAR_DEAD he1_bystander[2]
+				CLEAR_CHAR_TASKS he1_bystander[2]
+		   		TASK_SMART_FLEE_CHAR he1_bystander[2] scplayer 100.0 -1
+				//WAIT 1000
+				GOSUB he1_guardresponse
+				PRINT_NOW HEI1_50 4000 1
+			   	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+
+			
+				
+		ENDIF
+
+		IF DOES_CHAR_EXIST he1_bystander[3]
+			IF HAS_CHAR_BEEN_DAMAGED_BY_CHAR he1_bystander[3] scplayer
+				IF NOT IS_CHAR_DEAD he1_bystander[3]
+				CLEAR_CHAR_TASKS he1_bystander[3]
+		   		TASK_SMART_FLEE_CHAR he1_bystander[3] scplayer 100.0 -1
+				//WAIT 1000
+				GOSUB he1_guardresponse
+				PRINT_NOW HEI1_50 4000 1
+			  	GOSUB he1_kickout
+				GOTO mission_heist1_failed
+				ENDIF
+			ENDIF
+		ENDIF
 
 
 
@@ -4424,49 +4813,6 @@ he1_node_hex1:
 			//SET_PLAYER_CONTROL player1 ON
 			//RESTORE_CAMERA
 		ENDIF 
-RETURN
-
-he1_weaponcheck:
-	IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
-	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
-	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_FLOWERS
-	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO1
-	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_DILDO2
-	AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE1
-		IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_VIBE2
-		AND NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_PARACHUTE
-		IF NOT IS_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA
-			CLEAR_PRINTS
-			CLEAR_MISSION_AUDIO he1_alt_slot
-			CLEAR_MISSION_AUDIO he1_audio_slot
-			he1_audio_underway = 0
-			he1_audio_playing = 0
-			//PRINT_NOW HEI1_48 4000 1	
-			TIMERB = 0
-			he1_hideweaponcheck = 1
-			he1_counter = 7
-		ELSE
-			IF NOT IS_CHAR_DEAD he1_guard[2]
-				IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE
-					he1_counter = 10
-				ENDIF
-			ENDIF
-		ENDIF
-			IF NOT IS_CHAR_DEAD he1_guard[2]
-				IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer he1_guard[2] 10.0 10.0 2.0 FALSE
-					he1_level3 = 1
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
-RETURN
-
-he1_weaponaim:
-	CLEAR_CHAR_TASKS_IMMEDIATELY he1_guard[temp_integer_1]
-	TASK_STAY_IN_SAME_PLACE he1_guard[temp_integer_1] TRUE
-	TASK_AIM_GUN_AT_CHAR he1_guard[temp_integer_1] scplayer 5000
-	//he1_weaponaimed = 2
-	he1_gaim[temp_integer_1] = 1
 RETURN
 // FIXEDGROVE: END
 
