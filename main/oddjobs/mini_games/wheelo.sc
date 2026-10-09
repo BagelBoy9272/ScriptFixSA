@@ -236,37 +236,36 @@ wof_script: 	////////////////////////////////////////////////////////////////
 															temp_int = 0
 															GET_FLOAT_STAT GAMBLING temp_float
 															
-															IF max_bet = 1000000
+															SWITCH max_bet
+															CASE 1000000
 																IF temp_float < 1000.0
 																	PRINT_NOW GAMBSTA 5000 1
 																	GOSUB wof_not_enough_stats
 																	temp_int = 1
 																ENDIF
-															ELSE
-																IF max_bet = 100000
+															BREAK
+																CASE 100000
 																	IF temp_float < 100.0
 																		PRINT_NOW GAMBSTA 5000 1 
 																		GOSUB wof_not_enough_stats
 																		temp_int = 1
 																	ENDIF
-																ELSE
-																	IF max_bet = 10000
+																BREAK
+																	CASE 10000
 																		IF temp_float < 10.0
 																			PRINT_NOW GAMBSTA 5000 1  
 																			GOSUB wof_not_enough_stats
 																			temp_int = 1
 																		ENDIF
-																	ELSE
-																		IF max_bet = 1000
+																	BREAK
+																		CASE 1000
 																			IF temp_float < 1.0
 																				PRINT_NOW GAMBSTA 5000 1 
 																				GOSUB wof_not_enough_stats
 																				temp_int = 1
 																			ENDIF
-																		ENDIF
-																	ENDIF
-																ENDIF
-															ENDIF
+																		BREAK
+															ENDSWITCH
 
 															IF temp_int = 0
 																IF help_flag = 1
@@ -691,36 +690,45 @@ wof_m_stage_1:
 		IF NOT dpad_is_pressed = temp_int 
 
 			IF dpad_is_pressed = 4
-				IF current_bet_type = 0
-				OR current_bet_type = 1
-				OR current_bet_type = 3
-				OR current_bet_type = 4
+				SWITCH current_bet_type
+				CASE 0
+				CASE 1
+				CASE 3
+				CASE 4
 					current_bet_type += 1
-				ELSE
+				BREAK
+				DEFAULT
 					current_bet_type += -2	
-				ENDIF
+				BREAK
+				ENDSWITCH
 				TIMERA = 0
 			ENDIF
 			IF dpad_is_pressed = 3
-				IF current_bet_type = 1
-				OR current_bet_type = 2
-				OR current_bet_type = 4
-				OR current_bet_type = 5
+				SWITCH current_bet_type
+				CASE 1
+				CASE 2
+				CASE 4
+				CASE 5
 					current_bet_type += -1
-				ELSE
+				BREAK
+				DEFAULT
 					current_bet_type += 2	
-				ENDIF
+				BREAK
+				ENDSWITCH
 				TIMERA = 0
 			ENDIF
 			IF dpad_is_pressed = 1
 			OR dpad_is_pressed = 2
-				IF current_bet_type = 0
-				OR current_bet_type = 1
-				OR current_bet_type = 2
+				SWITCH current_bet_type
+				CASE 0
+				CASE 1
+				CASE 2
 					current_bet_type += 3
-				ELSE
+				BREAK
+				DEFAULT
 					current_bet_type += -3	
-				ENDIF
+				BREAK
+				ENDSWITCH
 				TIMERA = 0
 			ENDIF
 
@@ -890,30 +898,32 @@ wof_m_stage_1:
 		ENDWHILE
 
 		// place marker on table
-		IF current_bet_type = 0
+		SWITCH current_bet_type
+		CASE 0
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS table -0.635 0.253 0.041 x y z
 			SET_OBJECT_COORDINATES marker x y z
-		ENDIF
-		IF current_bet_type = 1
+		BREAK
+		CASE 1
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS table -0.201 0.253 0.041  x y z
 			SET_OBJECT_COORDINATES marker x y z  
-		ENDIF
-		IF current_bet_type = 2
+		BREAK
+		CASE 2
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS table 0.243 0.253 0.041  x y z
 			SET_OBJECT_COORDINATES marker x y z  
-		ENDIF
-		IF current_bet_type = 3
+		BREAK
+		CASE 3
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS table -0.635 -0.106 0.041 x y z
 			SET_OBJECT_COORDINATES marker x y z  
-		ENDIF
-		IF current_bet_type = 4
+		BREAK
+		CASE 4
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS table -0.201 -0.106 0.041 x y z
 			SET_OBJECT_COORDINATES marker x y z  
-		ENDIF
-		IF current_bet_type = 5
+		BREAK
+		CASE 5
 			GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS table 0.243 -0.106 0.041 x y z
 			SET_OBJECT_COORDINATES marker x y z  
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 		SWITCH current_Language
 		CASE LANGUAGE_ITALIAN
@@ -1061,36 +1071,38 @@ wof_m_stage_5:
 		// figure out how much to player
 		temp_int = 0
 		wof_winnings = 0
-		IF wheel_position_value = 1
+		SWITCH wheel_position_value
+		CASE 1
 			IF current_bet[2] > 0
 				wof_winnings = 2 * current_bet[2]
 			ENDIF
-		ENDIF
-		IF wheel_position_value = 2
+		BREAK
+		CASE 2
 			IF current_bet[4] > 0
 				wof_winnings = 3 * current_bet[4]
 			ENDIF
-		ENDIF
-		IF wheel_position_value = 5
+		BREAK
+		CASE 5
 			IF current_bet[1] > 0
 				wof_winnings = 6 * current_bet[1]
 			ENDIF
-		ENDIF
-		IF wheel_position_value = 10
+		BREAK
+		CASE 10
 			IF current_bet[3] > 0
 				wof_winnings = 11 * current_bet[3]
 			ENDIF
-		ENDIF
-		IF wheel_position_value = 20
+		BREAK
+		CASE 20
 			IF current_bet[0] > 0
 				wof_winnings = 21 * current_bet[0]
 			ENDIF	
-		ENDIF
-		IF wheel_position_value = 40
+		BREAK
+		CASE 40
 			IF current_bet[5] > 0
 				wof_winnings = 41 * current_bet[5] 
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 		TIMERA = 0
 
@@ -1633,277 +1645,224 @@ RETURN
 
 
 get_wheel_position_value:
-	IF wheel_position = 1
+	SWITCH wheel_position
+	CASE 1
 		wheel_position_value = 40
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 2
+	CASE 2
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 3
+	CASE 3
 		wheel_position_value = 10
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 4
+	CASE 4
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 5
+	CASE 5
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 6
+	CASE 6
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 7
+	CASE 7
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 8
+	CASE 8
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 9
+	CASE 9
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 10
+	CASE 10
 		wheel_position_value = 10
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 11
+	CASE 11
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 12
+	CASE 12
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 13
+	CASE 13
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 14
+	CASE 14
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 15
+	CASE 15
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 16
+	CASE 16
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 17
+	CASE 17
 		wheel_position_value = 20
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 18
+	CASE 18
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 19
+	CASE 19
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 20
+	CASE 20
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 21
+	CASE 21
 		wheel_position_value = 10
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 22
+	CASE 22
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 23
+	CASE 23
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 24
+	CASE 24
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 25
+	CASE 25
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 26
+	CASE 26
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 27
+	CASE 27
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 28
+	CASE 28
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 29
+	CASE 29
 		wheel_position_value = 40
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 30
+	CASE 30
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 31
+	CASE 31
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 32
+	CASE 32
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 33
+	CASE 33
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 34
+	CASE 34
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 35
+	CASE 35
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 36
+	CASE 36
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 37
+	CASE 37
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 38
+	CASE 38
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 39
+	CASE 39
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 40
+	CASE 40
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 41
+	CASE 41
 		wheel_position_value = 20	  
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 42
+	CASE 42
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 43
+	CASE 43
 		wheel_position_value = 10
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 44
+	CASE 44
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 45
+	CASE 45
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 46
+	CASE 46
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 47
+	CASE 47
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 48
+	CASE 48
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 49
+	CASE 49
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 50
+	CASE 50
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 51
+	CASE 51
 		wheel_position_value = 5
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 52
+	CASE 52
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 53
+	CASE 53
 		wheel_position_value = 2
-		GOTO get_wheel_position_value_end
-	ENDIF
+	BREAK
 
-	IF wheel_position = 54
+	CASE 54
 		wheel_position_value = 1
-		GOTO get_wheel_position_value_end
-	ENDIF		
+	BREAK
+	ENDSWITCH
 	
-get_wheel_position_value_end:
 RETURN
 
 wof_generate_chipstack:

@@ -326,44 +326,46 @@ BD_MapButtonToBeat:
 
 	sprite_num = 0
 
-	IF this_beat_type = SPRITE_CROSS
+	SWITCH this_beat_type
+	CASE SPRITE_CROSS
 		sprite_num = SPRITE_CROSS
-	ENDIF
-	IF this_beat_type = SPRITE_SQUARE
+	BREAK
+	CASE SPRITE_SQUARE
 		sprite_num = SPRITE_SQUARE
-	ENDIF
-	IF this_beat_type = SPRITE_TRIANGLE
+	BREAK
+	CASE SPRITE_TRIANGLE
 		sprite_num = SPRITE_TRIANGLE
-	ENDIF
-	IF this_beat_type = SPRITE_CIRCLE
+	BREAK
+	CASE SPRITE_CIRCLE
 		sprite_num = SPRITE_CIRCLE
-	ENDIF
+	BREAK
 
 	// analogue directions
-	IF this_beat_type = SPRITE_STKLEFT  // left	
+	CASE SPRITE_STKLEFT  // left	
 		sprite_num = SPRITE_STKLEFT													
-	ENDIF																
-	IF this_beat_type = SPRITE_STKRGHT // right	
+	BREAK																
+	CASE SPRITE_STKRGHT // right	
 		sprite_num = SPRITE_STKRGHT													
-	ENDIF																
-	IF this_beat_type = SPRITE_STKUR // up & right								
+	BREAK																
+	CASE SPRITE_STKUR // up & right								
 		sprite_num = SPRITE_STKUR													
-	ENDIF
-	IF this_beat_type = SPRITE_STKDL // down & left
+	BREAK
+	CASE SPRITE_STKDL // down & left
 		sprite_num = SPRITE_STKDL
-	ENDIF
-	IF this_beat_type = SPRITE_STKUP // up
+	BREAK
+	CASE SPRITE_STKUP // up
 		sprite_num = SPRITE_STKUP
-	ENDIF
-	IF this_beat_type = SPRITE_STKDWN // down
+	BREAK
+	CASE SPRITE_STKDWN // down
 		sprite_num = SPRITE_STKDWN
-	ENDIF
-	IF this_beat_type = SPRITE_STKUL // up & left
+	BREAK
+	CASE SPRITE_STKUL // up & left
 		sprite_num = SPRITE_STKUL
-	ENDIF
-	IF this_beat_type = SPRITE_STKDR // down & right
+	BREAK
+	CASE SPRITE_STKDR // down & right
 		sprite_num = SPRITE_STKDR
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 

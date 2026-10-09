@@ -55,7 +55,7 @@ MISSION_END
 	LVAR_INT sw4_player_group sw4_passenger sw4_forty 
 	VAR_INT sw4_health_display sw4_health
 	LVAR_FLOAT sw4_closest_ped_dist sw4_gosub_dist sw4_anim_time
-	LVAR_INT sw4_char_model[3] sw4_char_select // FIXEDGROVE
+	LVAR_INT sw4_char_model[3] sw4_char_select sw4_temp_int // FIXEDGROVE
 
 // ---- Dialogue
 	LVAR_TEXT_LABEL sw4_text[62]
@@ -453,25 +453,11 @@ MISSION_END
 	RETURN
 	
 	sw4_flat_hood_delete:
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[0]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[1]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[2]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[3]
-
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[4]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[5]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[6]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[7]
-
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[8]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[9]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[10] 
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[11]
-
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[12]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[13]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[14]
-		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[15]
+		sw4_temp_int = 0
+		WHILE sw4_temp_int < 16
+		MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[sw4_temp_int]
+		sw4_temp_int++
+		ENDWHILE
 	RETURN
 
 // ------------------------------------------------------------------------------------------------
@@ -731,22 +717,11 @@ mission_start_sweet4:
 
 	sw4_dead_count = 0
 
-	sw4_hood_dead[0] = 0	
-	sw4_hood_dead[1] = 0	
-	sw4_hood_dead[2] = 0	
-	sw4_hood_dead[3] = 0	
-	sw4_hood_dead[4] = 0	
-	sw4_hood_dead[5] = 0	
-	sw4_hood_dead[6] = 0	
-	sw4_hood_dead[7] = 0	
-	sw4_hood_dead[8] = 0	
-	sw4_hood_dead[9] = 0	
-	sw4_hood_dead[10] = 0	
-	sw4_hood_dead[11] = 0	
-	sw4_hood_dead[12] = 0	
-	sw4_hood_dead[13] = 0	
-	sw4_hood_dead[14] = 0	
-   	sw4_hood_dead[15] = 0	
+	sw4_temp_int = 0
+	WHILE sw4_temp_int < 16
+	sw4_hood_dead[sw4_temp_int] = 0	
+	sw4_temp_int++
+	ENDWHILE
 
 	sw4_group_dead[0] = 0
 	sw4_group_dead[1] = 0
@@ -1774,14 +1749,12 @@ AND sw4_cut >= 6 // or up
 						DELETE_OBJECT sw4_forty
 						//DROP_OBJECT sw4_flat_hood[3] TRUE
 						SET_CURRENT_CHAR_WEAPON sw4_flat_hood[3] WEAPONTYPE_PISTOL
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[0] sw4_hood_react[0]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[0]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[1] sw4_hood_react[1]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[1]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[2] sw4_hood_react[2]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[2]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[3] sw4_hood_react[3]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[3]
+						sw4_temp_int = 0
+						WHILE sw4_temp_int < 4
+						PERFORM_SEQUENCE_TASK sw4_flat_hood[sw4_temp_int] sw4_hood_react[sw4_temp_int]
+						CLEAR_SEQUENCE_TASK sw4_hood_react[sw4_temp_int]
+						sw4_temp_int++
+						ENDWHILE
 						sw4_attack[0] = 1
 					ENDIF
 				ENDIF
@@ -1799,14 +1772,12 @@ AND sw4_cut >= 6 // or up
 					AND NOT IS_CHAR_DEAD sw4_flat_hood[6]
 					AND NOT IS_CHAR_DEAD sw4_flat_hood[7]
 					AND NOT IS_CAR_DEAD sw4_hood_car[1]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[4] sw4_hood_react[4]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[4]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[5] sw4_hood_react[5]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[5]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[6] sw4_hood_react[6]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[6]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[7] sw4_hood_react[7]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[7]
+						sw4_temp_int = 4
+						WHILE sw4_temp_int < 8
+						PERFORM_SEQUENCE_TASK sw4_flat_hood[sw4_temp_int] sw4_hood_react[sw4_temp_int]
+						CLEAR_SEQUENCE_TASK sw4_hood_react[sw4_temp_int]
+						sw4_temp_int++
+						ENDWHILE
 						sw4_attack[1] = 1
 					ENDIF
 				ENDIF
@@ -1823,14 +1794,12 @@ AND sw4_cut >= 6 // or up
 					IF NOT IS_CHAR_DEAD	sw4_flat_hood[9]
 					AND NOT IS_CHAR_DEAD sw4_flat_hood[10]
 					AND NOT IS_CHAR_DEAD sw4_flat_hood[11]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[8]  sw4_hood_react[8]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[8] 
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[9]  sw4_hood_react[9] 
-						CLEAR_SEQUENCE_TASK sw4_hood_react[9]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[10] sw4_hood_react[10]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[10]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[11] sw4_hood_react[11]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[11]
+						sw4_temp_int = 8
+						WHILE sw4_temp_int < 12
+						PERFORM_SEQUENCE_TASK sw4_flat_hood[sw4_temp_int] sw4_hood_react[sw4_temp_int]
+						CLEAR_SEQUENCE_TASK sw4_hood_react[sw4_temp_int]
+						sw4_temp_int++
+						ENDWHILE
 						sw4_attack[2] = 1
 					ENDIF
 				ENDIF
@@ -1847,14 +1816,12 @@ AND sw4_cut >= 6 // or up
 					IF NOT IS_CHAR_DEAD	sw4_flat_hood[13]
 					AND NOT IS_CHAR_DEAD sw4_flat_hood[14]
 					AND NOT IS_CHAR_DEAD sw4_flat_hood[15]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[12] sw4_hood_react[12]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[12]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[13] sw4_hood_react[13]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[13]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[14] sw4_hood_react[14]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[14]
-						PERFORM_SEQUENCE_TASK sw4_flat_hood[15] sw4_hood_react[15]
-						CLEAR_SEQUENCE_TASK sw4_hood_react[15]
+						sw4_temp_int = 12
+						WHILE sw4_temp_int < 16
+						PERFORM_SEQUENCE_TASK sw4_flat_hood[sw4_temp_int] sw4_hood_react[sw4_temp_int]
+						CLEAR_SEQUENCE_TASK sw4_hood_react[sw4_temp_int]
+						sw4_temp_int++
+						ENDWHILE
 						sw4_attack[3] = 1
 					ENDIF
 				ENDIF
@@ -1955,38 +1922,18 @@ IF sw4_stage > 4
 	ENDIF
 	IF sw4_hood_create[0] = 1
 		IF sw4_group_active = 1 
-			IF sw4_hood_dead[0] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[0]
-					REMOVE_BLIP sw4_flat_hood_blip[0]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[0]
+			sw4_temp_int = 0
+			WHILE sw4_temp_int < 4
+			IF sw4_hood_dead[sw4_temp_int] = 0
+				IF IS_CHAR_DEAD sw4_flat_hood[sw4_temp_int]
+					REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
+					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[sw4_temp_int]
 					sw4_dead_count++
-					sw4_hood_dead[0] = 1
+					sw4_hood_dead[sw4_temp_int] = 1
 				ENDIF
 			ENDIF
-		   	IF sw4_hood_dead[1] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[1]
-					REMOVE_BLIP sw4_flat_hood_blip[1]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[1]
-					sw4_dead_count++
-					sw4_hood_dead[1] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[2] = 0
-			   	IF IS_CHAR_DEAD sw4_flat_hood[2]
-					REMOVE_BLIP sw4_flat_hood_blip[2]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[2]
-					sw4_dead_count++
-					sw4_hood_dead[2] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[3] = 0
-			   	IF IS_CHAR_DEAD sw4_flat_hood[3]
-					REMOVE_BLIP sw4_flat_hood_blip[3]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[3]
-					sw4_dead_count++
-					sw4_hood_dead[3] = 1
-				ENDIF
-			ENDIF
+			sw4_temp_int++
+			ENDWHILE
 			IF sw4_group_dead[0] = 0
 				IF sw4_hood_dead[0] = 1
 				AND sw4_hood_dead[1] = 1
@@ -2007,38 +1954,18 @@ IF sw4_stage > 4
 	ENDIF
 	IF sw4_hood_create[1] = 1
 		IF sw4_group_active = 2
-			IF sw4_hood_dead[4] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[4]
-					REMOVE_BLIP sw4_flat_hood_blip[4]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[4]
+			sw4_temp_int = 4
+			WHILE sw4_temp_int < 8
+			IF sw4_hood_dead[sw4_temp_int] = 0
+				IF IS_CHAR_DEAD sw4_flat_hood[sw4_temp_int]
+					REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
+					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[sw4_temp_int]
 					sw4_dead_count++
-					sw4_hood_dead[4] = 1
+					sw4_hood_dead[sw4_temp_int] = 1
 				ENDIF
 			ENDIF
-			IF sw4_hood_dead[5] = 0
-		   	   	IF IS_CHAR_DEAD sw4_flat_hood[5]
-					REMOVE_BLIP sw4_flat_hood_blip[5]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[5]
-					sw4_dead_count++
-					sw4_hood_dead[5] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[6] = 0
-			  	IF IS_CHAR_DEAD sw4_flat_hood[6]
-					REMOVE_BLIP sw4_flat_hood_blip[6]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[6]
-					sw4_dead_count++
-					sw4_hood_dead[6] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[7] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[7]
-					REMOVE_BLIP sw4_flat_hood_blip[7]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[7]
-					sw4_dead_count++
-					sw4_hood_dead[7] = 1
-				ENDIF
-			ENDIF
+			sw4_temp_int++
+			ENDWHILE
 			IF sw4_group_dead[1] = 0
 				IF sw4_hood_dead[4] = 1
 				AND sw4_hood_dead[5] = 1
@@ -2059,38 +1986,18 @@ IF sw4_stage > 4
    	ENDIF
 	IF sw4_hood_create[2] = 1
 		IF sw4_group_active = 3
-			IF sw4_hood_dead[8] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[8]
-					REMOVE_BLIP sw4_flat_hood_blip[8]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[8]
+			sw4_temp_int = 8
+			WHILE sw4_temp_int < 12
+			IF sw4_hood_dead[sw4_temp_int] = 0
+				IF IS_CHAR_DEAD sw4_flat_hood[sw4_temp_int]
+					REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
+					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[sw4_temp_int]
 					sw4_dead_count++
-					sw4_hood_dead[8] = 1
+					sw4_hood_dead[sw4_temp_int] = 1
 				ENDIF
 			ENDIF
-			IF sw4_hood_dead[9] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[9]
-					REMOVE_BLIP sw4_flat_hood_blip[9]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[9]
-					sw4_dead_count++
-					sw4_hood_dead[9] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[10] = 0
-			   	IF IS_CHAR_DEAD sw4_flat_hood[10]
-					REMOVE_BLIP sw4_flat_hood_blip[10]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[10]
-					sw4_dead_count++
-					sw4_hood_dead[10] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[11] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[11]
-					REMOVE_BLIP sw4_flat_hood_blip[11]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[11]
-					sw4_dead_count++
-					sw4_hood_dead[11] = 1
-				ENDIF
-			ENDIF
+			sw4_temp_int++
+			ENDWHILE
 			IF sw4_group_dead[2] = 0
 				IF sw4_hood_dead[8] = 1
 				AND sw4_hood_dead[9] = 1
@@ -2111,38 +2018,18 @@ IF sw4_stage > 4
 	ENDIF
 	IF sw4_hood_create[3] = 1
 		IF sw4_group_active = 4
-			IF sw4_hood_dead[12] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[12]
-					REMOVE_BLIP sw4_flat_hood_blip[12]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[12]
+			sw4_temp_int = 12
+			WHILE sw4_temp_int < 16
+			IF sw4_hood_dead[sw4_temp_int] = 0
+				IF IS_CHAR_DEAD sw4_flat_hood[sw4_temp_int]
+					REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
+					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[sw4_temp_int]
 					sw4_dead_count++
-					sw4_hood_dead[12] = 1
+					sw4_hood_dead[sw4_temp_int] = 1
 				ENDIF
 			ENDIF
-			IF sw4_hood_dead[13] = 0
-				IF IS_CHAR_DEAD sw4_flat_hood[13]
-					REMOVE_BLIP sw4_flat_hood_blip[13]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[13]
-					sw4_dead_count++
-					sw4_hood_dead[13] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[14] = 0
-   				IF IS_CHAR_DEAD sw4_flat_hood[14]
-					REMOVE_BLIP sw4_flat_hood_blip[14]
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[14]
-					sw4_dead_count++
-					sw4_hood_dead[14] = 1
-				ENDIF
-			ENDIF
-			IF sw4_hood_dead[15] = 0
- 			   	IF IS_CHAR_DEAD sw4_flat_hood[15]
-					REMOVE_BLIP sw4_flat_hood_blip[15] 
-					MARK_CHAR_AS_NO_LONGER_NEEDED sw4_flat_hood[15]
-					sw4_dead_count++
-					sw4_hood_dead[15] = 1
-				ENDIF
-			ENDIF
+			sw4_temp_int++
+			ENDWHILE
 			IF sw4_group_dead[3] = 0
 				IF sw4_hood_dead[12] = 1
 				AND sw4_hood_dead[13] = 1
@@ -2166,54 +2053,13 @@ IF sw4_stage = 5
 				GET_GAME_TIMER sw4_timer_start[0]
 				GENERATE_RANDOM_INT_IN_RANGE 0 6 sw4_stopped_text // FIXEDGROVE: increase upper limit
 				sw4_hood_acc = 50
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[0]
-					SET_CHAR_ACCURACY sw4_flat_hood[0] sw4_hood_acc
+				sw4_temp_int = 0
+				WHILE sw4_temp_int < 16
+				IF NOT IS_CHAR_DEAD sw4_flat_hood[sw4_temp_int]
+					SET_CHAR_ACCURACY sw4_flat_hood[sw4_temp_int] sw4_hood_acc
 				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[1]
-					SET_CHAR_ACCURACY sw4_flat_hood[1] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[2]
-					SET_CHAR_ACCURACY sw4_flat_hood[2] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[3]
-					SET_CHAR_ACCURACY sw4_flat_hood[3] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[4]
-					SET_CHAR_ACCURACY sw4_flat_hood[4] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[5]
-					SET_CHAR_ACCURACY sw4_flat_hood[5] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[6]
-					SET_CHAR_ACCURACY sw4_flat_hood[6] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[7]
-					SET_CHAR_ACCURACY sw4_flat_hood[7] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[8]
-					SET_CHAR_ACCURACY sw4_flat_hood[8] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[9]
-					SET_CHAR_ACCURACY sw4_flat_hood[9] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[10]
-					SET_CHAR_ACCURACY sw4_flat_hood[10] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[11]
-					SET_CHAR_ACCURACY sw4_flat_hood[11] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[12]
-					SET_CHAR_ACCURACY sw4_flat_hood[12] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[13]
-					SET_CHAR_ACCURACY sw4_flat_hood[13] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[14]
-					SET_CHAR_ACCURACY sw4_flat_hood[14] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[15]
-					SET_CHAR_ACCURACY sw4_flat_hood[15] sw4_hood_acc
-				ENDIF
+				sw4_temp_int++
+				ENDWHILE
 				sw4_stopped = 1
 			ENDIF
 		ENDIF
@@ -2295,54 +2141,13 @@ IF sw4_stage = 5
 				ENDIF  
 				//CLEAR_PRINTS
 				sw4_hood_acc = 30
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[0]
-					SET_CHAR_ACCURACY sw4_flat_hood[0] sw4_hood_acc
+				sw4_temp_int = 0
+				WHILE sw4_temp_int < 16
+				IF NOT IS_CHAR_DEAD sw4_flat_hood[sw4_temp_int]
+					SET_CHAR_ACCURACY sw4_flat_hood[sw4_temp_int] sw4_hood_acc
 				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[1]
-					SET_CHAR_ACCURACY sw4_flat_hood[1] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[2]
-					SET_CHAR_ACCURACY sw4_flat_hood[2] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[3]
-					SET_CHAR_ACCURACY sw4_flat_hood[3] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[4]
-					SET_CHAR_ACCURACY sw4_flat_hood[4] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[5]
-					SET_CHAR_ACCURACY sw4_flat_hood[5] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[6]
-					SET_CHAR_ACCURACY sw4_flat_hood[6] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[7]
-					SET_CHAR_ACCURACY sw4_flat_hood[7] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[8]
-					SET_CHAR_ACCURACY sw4_flat_hood[8] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[9]
-					SET_CHAR_ACCURACY sw4_flat_hood[9] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[10]
-					SET_CHAR_ACCURACY sw4_flat_hood[10] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[11]
-					SET_CHAR_ACCURACY sw4_flat_hood[11] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[12]
-					SET_CHAR_ACCURACY sw4_flat_hood[12] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[13]
-					SET_CHAR_ACCURACY sw4_flat_hood[13] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[14]
-					SET_CHAR_ACCURACY sw4_flat_hood[14] sw4_hood_acc
-				ENDIF
-				IF NOT IS_CHAR_DEAD sw4_flat_hood[15]
-					SET_CHAR_ACCURACY sw4_flat_hood[15] sw4_hood_acc
-				ENDIF
+				sw4_temp_int++
+				ENDWHILE
 			ENDIF
 		ENDIF
 	ENDIF
@@ -2372,22 +2177,11 @@ IF sw4_stage = 5
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			GET_GAME_TIMER sw4_blip_timer_start
 			SET_PED_DENSITY_MULTIPLIER 0.5
-			REMOVE_BLIP sw4_flat_hood_blip[0]
-			REMOVE_BLIP sw4_flat_hood_blip[1]
-			REMOVE_BLIP sw4_flat_hood_blip[2]
-			REMOVE_BLIP sw4_flat_hood_blip[3]
-			REMOVE_BLIP sw4_flat_hood_blip[4]
-			REMOVE_BLIP sw4_flat_hood_blip[5]
-			REMOVE_BLIP sw4_flat_hood_blip[6]
-			REMOVE_BLIP sw4_flat_hood_blip[7]
-			REMOVE_BLIP sw4_flat_hood_blip[8]
-			REMOVE_BLIP sw4_flat_hood_blip[9]
-			REMOVE_BLIP sw4_flat_hood_blip[10]
-			REMOVE_BLIP sw4_flat_hood_blip[11]
-			REMOVE_BLIP sw4_flat_hood_blip[12]
-			REMOVE_BLIP sw4_flat_hood_blip[13]
-			REMOVE_BLIP sw4_flat_hood_blip[14]
-			REMOVE_BLIP sw4_flat_hood_blip[15]
+			sw4_temp_int = 0
+			WHILE sw4_temp_int < 16
+			REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
+			sw4_temp_int++
+			ENDWHILE
 			GET_GAME_TIMER sw4_text_timer_start
 			sw4_text_timer_flag = 14
 			sw4_cut = 0
@@ -2403,131 +2197,132 @@ IF sw4_stage = 6
 AND sw4_text_timer_flag = 18
 	GET_GAME_TIMER sw4_blip_timer_end
 	sw4_blip_timer_diff = sw4_blip_timer_end - sw4_blip_timer_start 
-	IF sw4_blip_counter = 0
+	SWITCH sw4_blip_counter
+	CASE 0
 		IF sw4_blip_timer_diff > 500
 			PRINT_HELP ( SWE4_07 ) // Marked on Radar as a Spray can
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 1
+	BREAK
+	CASE 1
 		IF sw4_blip_timer_diff > 1000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 2
+	BREAK
+	CASE 2
 		IF sw4_blip_timer_diff > 1500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 3
+	BREAK
+	CASE 3
 		IF sw4_blip_timer_diff > 2000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 4
+	BREAK
+	CASE 4
 		IF sw4_blip_timer_diff > 2500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 5
+	BREAK
+	CASE 5
 		IF sw4_blip_timer_diff > 3000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 6
+	BREAK
+	CASE 6
 		IF sw4_blip_timer_diff > 3500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 7
+	BREAK
+	CASE 7
 		IF sw4_blip_timer_diff > 4000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 8
+	BREAK
+	CASE 8
 		IF sw4_blip_timer_diff > 4500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 9
+	BREAK
+	CASE 9
 		IF sw4_blip_timer_diff > 5000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 10
+	BREAK
+	CASE 10
 		IF sw4_blip_timer_diff > 5500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 11
+	BREAK
+	CASE 11
 		IF sw4_blip_timer_diff > 6000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 12
+	BREAK
+	CASE 12
 		IF sw4_blip_timer_diff > 6500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 13
+	BREAK
+	CASE 13
 		IF sw4_blip_timer_diff > 7000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 14
+	BREAK
+	CASE 14
 		IF sw4_blip_timer_diff > 7500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 15
+	BREAK
+	CASE 15
 		IF sw4_blip_timer_diff > 8000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 16
+	BREAK
+	CASE 16
 		IF sw4_blip_timer_diff > 8500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 17
+	BREAK
+	CASE 17
 		IF sw4_blip_timer_diff > 9000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 18
+	BREAK
+	CASE 18
 		IF sw4_blip_timer_diff > 9500
 			REMOVE_BLIP	spray_shop1
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
-	IF sw4_blip_counter = 19
+	BREAK
+	CASE 19
 		IF sw4_blip_timer_diff > 10000
 			REMOVE_BLIP	spray_shop1
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
@@ -2535,7 +2330,8 @@ AND sw4_text_timer_flag = 18
 			ADD_BLIP_FOR_COORD 2075.55 -1831.09 12.21 sw4_spray_marker
 			sw4_blip_counter++
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 	IF sw4_cut = 0
 		IF NOT IS_CHAR_DEAD scplayer
 			IF LOCATE_CHAR_IN_CAR_3D scplayer 2075.55 -1831.09 12.21 4.0 4.0 4.0 TRUE
@@ -2673,9 +2469,8 @@ IF sw4_stage = 8
 		IF sw4_cut = 3
 			GET_GAME_TIMER sw4_timer_end[0]
 			sw4_timer_diff[0] = sw4_timer_end[0] - sw4_timer_start[0]
-			IF sw4_timer_diff[0] > 1000
-				REMOVE_CHAR_ELEGANTLY sw4_ryder
-				IF sw4_cut_text = 2
+			IF sw4_cut_text = 2
+				IF sw4_timer_diff[0] > 1000
 					IF sw4_audio_playing = 0
 					AND sw4_counter = 0
 						sw4_counter = 44
@@ -2742,6 +2537,7 @@ IF sw4_stage = 8
 				ENDIF
 				TASK_PLAY_ANIM scplayer GDB_Car2_PLY GHETTO_DB 4.0 FALSE FALSE FALSE FALSE 1
 				SET_CHAR_HEADING scplayer 223.0
+				REMOVE_CHAR_ELEGANTLY sw4_ryder
 				REMOVE_CHAR_ELEGANTLY sw4_sweet
 				REMOVE_CHAR_ELEGANTLY sw4_smoke
 				GET_GAME_TIMER sw4_timer_start[0]
@@ -2753,7 +2549,8 @@ IF sw4_stage = 8
 			sw4_timer_diff[0] = sw4_timer_end[0] - sw4_timer_start[0]
 			IF sw4_timer_diff[0] > 100
 				IF NOT IS_CAR_DEAD sw4_player_car
-					DELETE_CHAR sw4_smoke
+					DELETE_CHAR sw4_ryder
+					DELETE_CHAR sw4_sweet
 					DELETE_CHAR sw4_smoke
 					RESTORE_CAMERA_JUMPCUT
 					SET_CAMERA_BEHIND_PLAYER
@@ -2796,62 +2593,26 @@ AND sw4_stage < 8
 				ENDIF
 				IF sw4_stage = 5
 					CLEAR_ONSCREEN_COUNTER sw4_health_display
-					IF sw4_group_active = 1
-						IF sw4_hood_dead[0] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[0]
+					SWITCH sw4_group_active
+					CASE 1
+						sw4_temp_int = 0
+					BREAK
+					CASE 2
+						sw4_temp_int = 4
+					BREAK
+					CASE 3
+						sw4_temp_int = 8
+					BREAK
+					CASE 4
+						sw4_temp_int = 12
+					BREAK
+					ENDSWITCH
+					WHILE sw4_temp_int < sw4_temp_int2
+						IF sw4_hood_dead[sw4_temp_int] = 0
+							REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
 						ENDIF
-						IF sw4_hood_dead[1] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[1]
-						ENDIF
-						IF sw4_hood_dead[2] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[2]
-						ENDIF
-						IF sw4_hood_dead[3] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[3]
-						ENDIF
-					ENDIF
-					IF sw4_group_active = 2
-						IF sw4_hood_dead[4] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[4]
-						ENDIF
-						IF sw4_hood_dead[5] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[5]
-						ENDIF
-						IF sw4_hood_dead[6] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[6]
-						ENDIF
-						IF sw4_hood_dead[7] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[7]
-						ENDIF
-					ENDIF
-					IF sw4_group_active = 3
-						IF sw4_hood_dead[8] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[8]
-						ENDIF
-						IF sw4_hood_dead[9] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[9]
-						ENDIF
-						IF sw4_hood_dead[10] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[10]
-						ENDIF
-						IF sw4_hood_dead[11] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[11]
-						ENDIF
-					ENDIF
-					IF sw4_group_active = 4
-						IF sw4_hood_dead[12] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[12]
-						ENDIF
-						IF sw4_hood_dead[13] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[13]
-						ENDIF
-						IF sw4_hood_dead[14] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[14]
-						ENDIF
-						IF sw4_hood_dead[15] = 0
-							REMOVE_BLIP sw4_flat_hood_blip[15]
-						ENDIF
-					ENDIF
+					sw4_temp_int++
+					ENDWHILE
 				ENDIF
 				IF sw4_stage = 6
 					REMOVE_BLIP sw4_spray_marker
@@ -2951,73 +2712,14 @@ AND sw4_stage < 8
 						//SET_ONSCREEN_COUNTER_COLOUR sw4_health_display HUD_COLOUR_RED
 					ENDIF
 
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[0]
-						REMOVE_BLIP sw4_flat_hood_blip[0]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[0] sw4_flat_hood_blip[0]
+					sw4_temp_int = 0
+					WHILE sw4_temp_int < 16
+					IF NOT IS_CHAR_DEAD sw4_flat_hood[sw4_temp_int]
+						REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
+						ADD_BLIP_FOR_CHAR sw4_flat_hood[sw4_temp_int] sw4_flat_hood_blip[sw4_temp_int]
 					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[1]
-						REMOVE_BLIP sw4_flat_hood_blip[1]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[1] sw4_flat_hood_blip[1]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[2]
-						REMOVE_BLIP sw4_flat_hood_blip[2]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[2] sw4_flat_hood_blip[2]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[3]  
-						REMOVE_BLIP sw4_flat_hood_blip[3]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[3] sw4_flat_hood_blip[3]
-					ENDIF
-					
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[4]
-						REMOVE_BLIP sw4_flat_hood_blip[4]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[4] sw4_flat_hood_blip[4]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[5]
-						REMOVE_BLIP sw4_flat_hood_blip[5]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[5] sw4_flat_hood_blip[5]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[6]
-						REMOVE_BLIP sw4_flat_hood_blip[6]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[6] sw4_flat_hood_blip[6]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[7]
-						REMOVE_BLIP sw4_flat_hood_blip[7]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[7] sw4_flat_hood_blip[7]
-					ENDIF
-					
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[8]
-						REMOVE_BLIP sw4_flat_hood_blip[8]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[8] sw4_flat_hood_blip[8]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[9]
-						REMOVE_BLIP sw4_flat_hood_blip[9]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[9] sw4_flat_hood_blip[9]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[10]
-						REMOVE_BLIP sw4_flat_hood_blip[10]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[10] sw4_flat_hood_blip[10]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[11]
-						REMOVE_BLIP sw4_flat_hood_blip[11]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[11] sw4_flat_hood_blip[11]
-					ENDIF
-					
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[12]
-						REMOVE_BLIP sw4_flat_hood_blip[12]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[12] sw4_flat_hood_blip[12]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[13]
-						REMOVE_BLIP sw4_flat_hood_blip[13]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[13] sw4_flat_hood_blip[13]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[14]
-						REMOVE_BLIP sw4_flat_hood_blip[14]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[14] sw4_flat_hood_blip[14]
-					ENDIF
-					IF NOT IS_CHAR_DEAD sw4_flat_hood[15]
-						REMOVE_BLIP sw4_flat_hood_blip[15]
-						ADD_BLIP_FOR_CHAR sw4_flat_hood[15] sw4_flat_hood_blip[15]
-					ENDIF
+					sw4_temp_int++
+					ENDWHILE
 				ENDIF
 				IF sw4_stage = 6
 					sw4_text_timer_flag = 18
@@ -3312,22 +3014,11 @@ mission_cleanup_sweet4:
 	REMOVE_BLIP sw4_hood_blip
 	REMOVE_BLIP sw4_end_blip
 
-	REMOVE_BLIP sw4_flat_hood_blip[0]
-	REMOVE_BLIP sw4_flat_hood_blip[1]
-	REMOVE_BLIP sw4_flat_hood_blip[2]
-	REMOVE_BLIP sw4_flat_hood_blip[3]
-	REMOVE_BLIP sw4_flat_hood_blip[4]
-	REMOVE_BLIP sw4_flat_hood_blip[5]
-	REMOVE_BLIP sw4_flat_hood_blip[6]
-	REMOVE_BLIP sw4_flat_hood_blip[7]
-	REMOVE_BLIP sw4_flat_hood_blip[8]
-	REMOVE_BLIP sw4_flat_hood_blip[9]
-	REMOVE_BLIP sw4_flat_hood_blip[10]
-	REMOVE_BLIP sw4_flat_hood_blip[11]
-	REMOVE_BLIP sw4_flat_hood_blip[12]
-	REMOVE_BLIP sw4_flat_hood_blip[13]
-	REMOVE_BLIP sw4_flat_hood_blip[14]
-	REMOVE_BLIP sw4_flat_hood_blip[15]
+	sw4_temp_int = 0
+	WHILE sw4_temp_int < 16
+	REMOVE_BLIP sw4_flat_hood_blip[sw4_temp_int]
+	sw4_temp_int++
+	ENDWHILE
 
 	REMOVE_BLIP spray_shop1
 	REMOVE_BLIP sw4_spray_marker
