@@ -1673,25 +1673,18 @@ print_tattoo_menu_oncreen_text:
 		$ITEM11 = DUMMY 
 		$ITEM12 = DUMMY 
 		
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU TATTO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU TATTO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU TATTO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU TATTO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU TATTO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU TATTO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
+		BREAK
+		ENDSWITCH
 
 		SET_ACTIVE_MENU_ITEM main_menu_shops shop_main_item_picked_shops // FIXEDGROVE: restore selection
 
@@ -1715,25 +1708,18 @@ print_tattoo_oncreen_text2:
 		IF IS_XBOX_VERSION
 			CREATE_MENU TATTO 29.0 155.0 93.0 2 TRUE TRUE FO_LEFT sub_menu_shops
 		ELSE
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				CREATE_MENU TATTO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT sub_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_FRENCH
-					CREATE_MENU TATTO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT sub_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_GERMAN
-						CREATE_MENU TATTO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT sub_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_ITALIAN
-							CREATE_MENU TATTO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT sub_menu_shops
-						ELSE
-							IF current_Language = LANGUAGE_SPANISH
-								CREATE_MENU TATTO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT sub_menu_shops
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
+			BREAK
+			CASE LANGUAGE_GERMAN
+				CREATE_MENU TATTO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT sub_menu_shops
+			BREAK
+			ENDSWITCH
 		ENDIF
 		
 
@@ -1856,25 +1842,18 @@ draw_remove_tats_menu:
 
 		// Create the 'remove tattoo' menu.
 
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU TATTO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT remove_menu_tattoo
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU TATTO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT remove_menu_tattoo
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU TATTO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT remove_menu_tattoo
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU TATTO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT remove_menu_tattoo
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU TATTO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT remove_menu_tattoo
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU TATTO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT remove_menu_tattoo
+		BREAK
+		ENDSWITCH
 
 		SET_MENU_COLUMN_ORIENTATION remove_menu_tattoo 0 FO_LEFT
 		SET_MENU_COLUMN remove_menu_tattoo 0 TATTO $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11]

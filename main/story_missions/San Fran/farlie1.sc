@@ -4440,21 +4440,23 @@ f1_drawing_medal:///////////////////////////////////////////////////////////////
 		IF IS_JAPANESE_VERSION
 			DISPLAY_TEXT 250.0 75.0 DS1_67  //Get over 70% to pass
 		ELSE
-			IF current_Language = LANGUAGE_ENGLISH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
 				DISPLAY_TEXT 175.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_FRENCH
+			BREAK
+			CASE LANGUAGE_FRENCH
 				DISPLAY_TEXT 83.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_GERMAN
+			BREAK
+			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT 89.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_ITALIAN
+			BREAK
+			CASE LANGUAGE_ITALIAN
 				DISPLAY_TEXT 147.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_SPANISH
+			BREAK
+			CASE LANGUAGE_SPANISH
 				DISPLAY_TEXT 65.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
+			BREAK
+			ENDSWITCH
 		ENDIF
 	ENDIF
 
