@@ -2322,38 +2322,35 @@ RETURN
 
 start_talking_sweet1b:
 
-	IF sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_SA
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_SB
+	SWITCH sweet1b_audio_chat[sweet1b_index]
+	CASE SOUND_SWE1_SA
+	CASE SOUND_SWE1_SB
 		IF NOT IS_CHAR_DEAD	crackhead1
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH crackhead1 TRUE
 			START_CHAR_FACIAL_TALK crackhead1 3000
-			RETURN
 		ENDIF   
-	ENDIF
+	BREAK
 	  
-	IF sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YA
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YC
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YF
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YQ
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YS
+	CASE SOUND_SWE1_YA
+	CASE SOUND_SWE1_YC
+	CASE SOUND_SWE1_YF
+	CASE SOUND_SWE1_YQ
+	CASE SOUND_SWE1_YS
+	CASE SOUND_SWE1_TA
+	CASE SOUND_SWE1_TD
+	CASE SOUND_SWE1_YT
+	CASE SOUND_SWE1_YW
+	CASE SOUND_SWE1_UC
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
 		START_CHAR_FACIAL_TALK scplayer 3000
-		RETURN
-	ENDIF
-
-	IF sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_TA
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_TD
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YT
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YW
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_UC
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-		START_CHAR_FACIAL_TALK scplayer 3000
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	ryder
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder TRUE
 			START_CHAR_FACIAL_TALK ryder 3000
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 
 RETURN
@@ -2361,38 +2358,35 @@ RETURN
 
 stop_talking_sweet1b:
 
-	IF sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_SA
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_SB
+	SWITCH sweet1b_audio_chat[sweet1b_index]
+	CASE SOUND_SWE1_SA
+	CASE SOUND_SWE1_SB
 		IF NOT IS_CHAR_DEAD	crackhead1
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH crackhead1 FALSE
 			STOP_CHAR_FACIAL_TALK crackhead1
-			RETURN
 		ENDIF   
-	ENDIF
+	BREAK
 
-	IF sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YA
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YC
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YF
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YQ
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YS
+	CASE SOUND_SWE1_YA
+	CASE SOUND_SWE1_YC
+	CASE SOUND_SWE1_YF
+	CASE SOUND_SWE1_YQ
+	CASE SOUND_SWE1_YS
+	CASE SOUND_SWE1_TA
+	CASE SOUND_SWE1_TD
+	CASE SOUND_SWE1_YT
+	CASE SOUND_SWE1_YW
+	CASE SOUND_SWE1_UC
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 		STOP_CHAR_FACIAL_TALK scplayer
-		RETURN
-	ENDIF
-
-	IF sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_TA
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_TD
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YT
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_YW
-	OR sweet1b_audio_chat[sweet1b_index] = SOUND_SWE1_UC
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-		STOP_CHAR_FACIAL_TALK scplayer
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	ryder
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder FALSE
 			STOP_CHAR_FACIAL_TALK ryder
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 
 
@@ -2402,25 +2396,28 @@ RETURN
 get_back_in_ryders_group:
 	
 	CLEAR_MISSION_AUDIO 2
-	IF get_in_counter_swee1b = 0
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AL	//Hey buster, wait up!
-	ENDIF
+	SWITCH get_in_counter_swee1b
+	CASE 0
+		audio_sound_file = SOUND_RYDX_AL	//Hey buster, wait up!
+	BREAK
 
-	IF get_in_counter_swee1b = 1
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AM	//Don't you bust on me!
-	ENDIF
+	CASE 1
+		audio_sound_file = SOUND_RYDX_AM	//Don't you bust on me!
+	BREAK
 
-	IF get_in_counter_swee1b = 2
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AN	//Wait up, CJ!
-	ENDIF
+	CASE 2
+		audio_sound_file = SOUND_RYDX_AN	//Wait up, CJ!
+	BREAK
 
-	IF get_in_counter_swee1b = 3			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AO	//Hold up, fool!
-	ENDIF
+	CASE 3			
+		audio_sound_file = SOUND_RYDX_AO	//Hold up, fool!
+	BREAK
 
-	IF get_in_counter_swee1b = 4			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AP	//Hey, CJ, where you at?
-	ENDIF
+	CASE 4			
+		audio_sound_file = SOUND_RYDX_AP	//Hey, CJ, where you at?
+	BREAK
+	ENDSWITCH
+		LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -2439,21 +2436,24 @@ get_back_in_ryders_group:
 
 	PLAY_MISSION_AUDIO 2 
 	  	
-	IF get_in_counter_swee1b = 0	
-		PRINT_NOW (RYDX_AL ) 3000 1 //Hey buster, wait up!
-	ENDIF								
-	IF get_in_counter_swee1b = 1	
-		PRINT_NOW ( RYDX_AM ) 3000 1 //Don't you bust on me!
-	ENDIF							   	 
-	IF get_in_counter_swee1b = 2	
-		PRINT_NOW ( RYDX_AN ) 3000 1 //Wait up, CJ!
-	ENDIF						 	   
-	IF get_in_counter_swee1b = 3	
-		PRINT_NOW ( RYDX_AO	) 3000 1 //Hold up, fool!
-	ENDIF							   
-	IF get_in_counter_swee1b = 4	
-		PRINT_NOW ( RYDX_AP ) 3000 1 //Hey, CJ, where you at? 
-	ENDIF
+	SWITCH get_in_counter_swee1b
+	CASE 0	
+		$audio_string = &RYDX_AL //Hey buster, wait up!
+	BREAK								
+	CASE 1	
+		$audio_string = &RYDX_AM //Don't you bust on me!
+	BREAK							   	 
+	CASE 2	
+		$audio_string = &RYDX_AN //Wait up, CJ!
+	BREAK						 	   
+	CASE 3	
+		$audio_string = &RYDX_AO //Hold up, fool!
+	BREAK							   
+	CASE 4	
+		$audio_string = &RYDX_AP //Hey, CJ, where you at? 
+	BREAK
+	ENDSWITCH
+		PRINT_NOW ( $audio_string ) 3000 1
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0

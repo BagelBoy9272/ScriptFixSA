@@ -2201,33 +2201,36 @@ get_back_in_the_car_intro2:
 	
 
 	CLEAR_MISSION_AUDIO 2
-	IF get_in_counter_intro2 = 0
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AA	//Hop in, CJ.
-	ENDIF
+	SWITCH get_in_counter_intro2
+	CASE 0
+		audio_sound_file = SOUND_RYDX_AA	//Hop in, CJ.
+	BREAK
 
-	IF get_in_counter_intro2 = 1
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AB	//Jump in.
-	ENDIF
+	CASE 1
+		audio_sound_file = SOUND_RYDX_AB	//Jump in.
+	BREAK
 
-	IF get_in_counter_intro2 = 2
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AC	//Get in fool!
-	ENDIF
+	CASE 2
+		audio_sound_file = SOUND_RYDX_AC	//Get in fool!
+	BREAK
 
-	IF get_in_counter_intro2 = 3			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AD	//All aboard, CJ.
-	ENDIF
+	CASE 3
+		audio_sound_file = SOUND_RYDX_AD	//All aboard, CJ.
+	BREAK
 
-	IF get_in_counter_intro2 = 4			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AE //Guess you drivin, huh?
-	ENDIF
+	CASE 4
+		audio_sound_file = SOUND_RYDX_AE //Guess you drivin, huh?
+	BREAK
 
-	IF get_in_counter_intro2 = 5			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AF //C'mon CJ, earn your keep!
-	ENDIF
+	CASE 5
+		audio_sound_file = SOUND_RYDX_AF //C'mon CJ, earn your keep!
+	BREAK
 
-	IF get_in_counter_intro2 = 6			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AG //I'm tripping man, you drive.
-	ENDIF
+	CASE 6
+		audio_sound_file = SOUND_RYDX_AG //I'm tripping man, you drive.
+	BREAK
+	ENDSWITCH
+LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -2252,27 +2255,30 @@ get_back_in_the_car_intro2:
 
 	PLAY_MISSION_AUDIO 2 
 	  	
-	IF get_in_counter_intro2 = 0
-		PRINT_NOW ( RYDX_AA ) 3000 1 //Hop in, CJ.	
-	ENDIF
-	IF get_in_counter_intro2 = 1
-		PRINT_NOW ( RYDX_AB ) 3000 1 //Jump in.
-	ENDIF
-	IF get_in_counter_intro2 = 2
-		PRINT_NOW ( RYDX_AC ) 3000 1 //Get in fool!
-	ENDIF
-	IF get_in_counter_intro2 = 3
-		PRINT_NOW ( RYDX_AD ) 3000 1 //All aboard, CJ.
-	ENDIF
-	IF get_in_counter_intro2 = 4
-		PRINT_NOW ( RYDX_AE ) 3000 1 //Guess you drivin, huh?
-	ENDIF
-	IF get_in_counter_intro2 = 5
-		PRINT_NOW ( RYDX_AF ) 3000 1 //C'mon CJ, earn your keep!
-	ENDIF
-	IF get_in_counter_intro2 = 6
-		PRINT_NOW ( RYDX_AG ) 3000 1 //I'm tripping man, you drive.
-	ENDIF
+	SWITCH get_in_counter_intro2
+	CASE 0
+		$audio_string = &RYDX_AA //Hop in, CJ.	
+	BREAK
+	CASE 1
+		$audio_string = &RYDX_AB //Jump in.
+	BREAK
+	CASE 2
+		$audio_string = &RYDX_AC //Get in fool!
+	BREAK
+	CASE 3
+		$audio_string = &RYDX_AD //All aboard, CJ.
+	BREAK
+	CASE 4
+		$audio_string = &RYDX_AE //Guess you drivin, huh?
+	BREAK
+	CASE 5
+		$audio_string = &RYDX_AF //C'mon CJ, earn your keep!
+	BREAK
+	CASE 6
+		$audio_string = &RYDX_AG //I'm tripping man, you drive.
+	BREAK
+	ENDSWITCH
+		PRINT_NOW ( $audio_string ) 3000 1
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0
@@ -2382,70 +2388,64 @@ RETURN
 
 start_talking_intro2:
 
-	IF intro2_audio_chat[intro2_index] = SOUND_INT2_GB
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_GD
+	SWITCH intro2_audio_chat[intro2_index]
+	CASE SOUND_INT2_GB
+	CASE SOUND_INT2_GD
 		IF NOT IS_CHAR_DEAD	hood_shop_keeper
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH hood_shop_keeper TRUE
 			START_CHAR_FACIAL_TALK hood_shop_keeper 3000
-			RETURN
 		ENDIF   
-	ENDIF
+	BREAK
 	  
-	IF intro2_audio_chat[intro2_index] = SOUND_INT2_CA	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_CE	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_BB	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_BD	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_BF
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE						 
-		START_CHAR_FACIAL_TALK scplayer 3000			 
-		RETURN
-	ENDIF
-
-	IF intro2_audio_chat[intro2_index] = SOUND_INT2_BJ
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_GE
+	CASE SOUND_INT2_CA	 
+	CASE SOUND_INT2_CE	 
+	CASE SOUND_INT2_BB	 
+	CASE SOUND_INT2_BD	 
+	CASE SOUND_INT2_BF
+	CASE SOUND_INT2_BJ
+	CASE SOUND_INT2_GE
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
 		START_CHAR_FACIAL_TALK scplayer 3000
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	ryder
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder TRUE
 			START_CHAR_FACIAL_TALK ryder 3000
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 
 
 stop_talking_intro2:
 
-	IF intro2_audio_chat[intro2_index] = SOUND_INT2_GB
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_GD
+	SWITCH intro2_audio_chat[intro2_index] 
+	CASE SOUND_INT2_GB
+	CASE SOUND_INT2_GD
 		IF NOT IS_CHAR_DEAD	hood_shop_keeper
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH hood_shop_keeper FALSE
 			STOP_CHAR_FACIAL_TALK hood_shop_keeper
-			RETURN
 		ENDIF   
-	ENDIF
+	BREAK
 	  
-	IF intro2_audio_chat[intro2_index] = SOUND_INT2_CA	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_CE	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_BB	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_BD	 
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_BF
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
-		STOP_CHAR_FACIAL_TALK scplayer			 
-		RETURN
-	ENDIF
-
-	IF intro2_audio_chat[intro2_index] = SOUND_INT2_BJ
-	OR intro2_audio_chat[intro2_index] = SOUND_INT2_GE
+	CASE SOUND_INT2_CA	 
+	CASE SOUND_INT2_CE	 
+	CASE SOUND_INT2_BB	 
+	CASE SOUND_INT2_BD	 
+	CASE SOUND_INT2_BF
+	CASE SOUND_INT2_BJ
+	CASE SOUND_INT2_GE
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 		STOP_CHAR_FACIAL_TALK scplayer
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	ryder
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder FALSE
 			STOP_CHAR_FACIAL_TALK ryder
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 
