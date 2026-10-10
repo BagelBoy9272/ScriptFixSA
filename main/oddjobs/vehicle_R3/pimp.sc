@@ -147,6 +147,8 @@ LVAR_INT pimptask_status
 LVAR_INT old_pimplevel		 
 
 LVAR_INT pimp_sfx 												  
+
+LVAR_INT collision_toggle[5] // FIXEDGROVE
 // **************************************** Mission Start **********************************
 
 mission_start_pimp:
@@ -5438,12 +5440,19 @@ ENDIF // whore_trickfind = 50 condition check
 
 //collision management
 
+// FIXEDGROVE: wrapped FREEZE_CHAR in IF condition to avoid running it repeatedly
 IF NOT IS_CHAR_DEAD punter[pimp_trick]
 	
 	IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer punter[pimp_trick] 50.0 50.0 60.0 FALSE	// z was 50.0
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[pimp_trick] FALSE
+		IF collision_toggle[0] = FALSE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[pimp_trick] FALSE
+			collision_toggle[0] = TRUE
+		ENDIF
 	ELSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[pimp_trick] TRUE
+		IF collision_toggle[0] = TRUE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[pimp_trick] TRUE
+			collision_toggle[0] = FALSE
+		ENDIF
 	ENDIF
 
 ENDIF
@@ -5452,9 +5461,15 @@ ENDIF
 IF NOT IS_CHAR_DEAD punter[punter_holder0]
 	
 	IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer punter[punter_holder0] 50.0 50.0 60.0 FALSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder0] FALSE
+		IF collision_toggle[1] = FALSE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder0] FALSE
+			collision_toggle[1] = TRUE
+		ENDIF
 	ELSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder0] TRUE
+		IF collision_toggle[1] = TRUE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder0] TRUE
+			collision_toggle[1] = FALSE
+		ENDIF
 	ENDIF
 
 ENDIF
@@ -5462,9 +5477,15 @@ ENDIF
 IF NOT IS_CHAR_DEAD punter[punter_holder1]
 	
 	IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer punter[punter_holder1] 50.0 50.0 60.0 FALSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder1] FALSE
+		IF collision_toggle[2] = FALSE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder1] FALSE
+			collision_toggle[2] = TRUE
+		ENDIF
 	ELSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder1] TRUE
+		IF collision_toggle[2] = TRUE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION punter[punter_holder1] TRUE
+			collision_toggle[2] = FALSE
+		ENDIF
 	ENDIF
 
 ENDIF
@@ -5472,11 +5493,17 @@ ENDIF
 IF NOT IS_CHAR_DEAD pimp_whore[0]
 	
 	IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer pimp_whore[0] 50.0 50.0 60.0 FALSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[0] FALSE
-		//write_debug ufw
+		IF collision_toggle[3] = FALSE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[0] FALSE
+			collision_toggle[3] = TRUE
+			//write_debug ufw
+		ENDIF
 	ELSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[0] TRUE
-		//write_debug fw
+		IF collision_toggle[3] = TRUE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[0] TRUE
+			collision_toggle[3] = FALSE
+			//write_debug fw
+		ENDIF
 	ENDIF
 
 ENDIF
@@ -5484,11 +5511,17 @@ ENDIF
 IF NOT IS_CHAR_DEAD pimp_whore[1]
 	
 	IF LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer pimp_whore[1] 50.0 50.0 60.0 FALSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[1] FALSE
-		//write_debug ufw1
+		IF collision_toggle[4] = FALSE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[1] FALSE
+			collision_toggle[4] = TRUE
+			//write_debug ufw1
+		ENDIF
 	ELSE
-		FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[1] TRUE
-		//write_debug fw1
+		IF collision_toggle[4] = TRUE
+			FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION pimp_whore[1] TRUE
+			collision_toggle[4] = FALSE
+			//write_debug fw1
+		ENDIF
 	ENDIF
 
 ENDIF
