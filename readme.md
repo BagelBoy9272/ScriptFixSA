@@ -549,6 +549,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added triad turf to the Four Dragons Casino after Woozie's phonecall about it
 - Made upper East Los Santos Vagos turf to match the lore better
 - Changed a Rifa territory in King's to be beside the rest of their turf (instead of completely separate)
+- Added the SHOPPING_BUSY ped group to the two intended areas for it
 - Switched on two forgotten Greenwood and BMX generators in Jefferson motel
 - Made Ryder's car stop spawning after 'Pier 69'
 - Disable spawning of Sweet's car after 'Reuniting the Families' and don't enable it until 'Home Coming' is completed
