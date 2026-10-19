@@ -27,7 +27,7 @@ GF_Sex:
     LVAR_INT iSexState iSubStateStatus iSexMachineFlags	 			// State Machine variables
 	LVAR_FLOAT fX[2] fY[2] fZ[2] fTemp[2] fAngle fSin   
 	LVAR_INT iTemp iTemp2 shaggin_position	iCamera_View iGF_ped iCar
-	LVAR_INT iGFModel // FIXEDGROVE
+	LVAR_TEXT_LABEL $iGFModel // FIXEDGROVE
 
 	//--- Init the vars			
 	iSexState = 0 
@@ -71,10 +71,12 @@ GF_Sex:
 	IF iCensoredVersion = 0  	 
 		GOSUB GF_Sex_StreamGFModel // Uses iGFidx to retrieve the proper sexy version
 		GOSUB GF_Sex_StreamAnims
+		CREATE_CHAR PEDTYPE_CIVFEMALE SPECIAL01 0.0 0.0 0.0 iGF_ped
+	ELSE
+		CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iGF_ped
 	ENDIF
 
 	// moved these here from the GOSUB
-	CREATE_CHAR PEDTYPE_CIVFEMALE iGFModel 0.0 0.0 0.0 iGF_ped
 	SET_CHAR_PROOFS iGF_ped TRUE TRUE TRUE TRUE TRUE
 	SET_CHAR_COLLISION iGF_ped FALSE  				  
 	DONT_REMOVE_CHAR iGF_ped
@@ -1155,36 +1157,36 @@ GF_Sex_StreamGFModel:
 	SWITCH iGFIdx_par
 		
 		CASE COOCHIE
-			iGFModel = GANGRL2
+			$iGFModel = GANGRL2
 		BREAK
 
 		CASE MICHELLE
-			iGFModel = MECGRL2
+			$iGFModel = MECGRL2
 		BREAK
 		
 		CASE KYLIE
-			iGFModel = GUNGRL2
+			$iGFModel = GUNGRL2
 		BREAK
 
 		CASE BARBARA
-			iGFModel = COPGRL2
+			$iGFModel = COPGRL2
 		BREAK
 
 		CASE SUZIE
-			iGFModel = NURGRL2 
+			$iGFModel = NURGRL2 
 		BREAK
 
 		CASE MILLIE
-			iGFModel = CROGRL2
+			$iGFModel = CROGRL2
 		BREAK
 
 	ENDSWITCH
 
 	// FIXEDGROVE: START - changed logic to select the model from the switch-case and use it here
-	LOAD_SPECIAL_CHARACTER 1 iGFModel
+	LOAD_SPECIAL_CHARACTER 1 $iGFModel
 	WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
 		WAIT 0
-		LOAD_SPECIAL_CHARACTER 1 iGFModel
+		LOAD_SPECIAL_CHARACTER 1 $iGFModel
 	ENDWHILE
 	// FIXEDGROVE: END
 
