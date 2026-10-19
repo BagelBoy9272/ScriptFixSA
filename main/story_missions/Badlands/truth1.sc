@@ -1924,14 +1924,15 @@ IF triggeredaction_tflag = 1
 	//1st guy at fence
 	IF audio_t1flag < 100
 
-		IF audio_t1flag = 1
+		SWITCH audio_t1flag
+		CASE 1
 			IF NOT IS_CHAR_DEAD worker1_t1 //CWMOHB2
 				CLEAR_MISSION_AUDIO 1
 				LOAD_MISSION_AUDIO 1 SOUND_TRU1_DF 
 				audio_t1flag = 2
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 2
+		BREAK
+		CASE 2
 			IF NOT IS_CHAR_DEAD worker1_t1 //CWMOHB2
 				IF HAS_MISSION_AUDIO_LOADED 1
 					SHUT_CHAR_UP worker1_t1 TRUE
@@ -1940,21 +1941,21 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 3
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 3
+		BREAK
+		CASE 3
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				audio_t1flag = 4
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 4
+		BREAK
+		CASE 4
 			IF NOT IS_CHAR_DEAD worker1_t1 //CWMOHB2
 				CLEAR_MISSION_AUDIO 1
 				LOAD_MISSION_AUDIO 1 SOUND_TRU1_DG 
 				audio_t1flag = 5
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 5
+		BREAK
+		CASE 5
 			IF NOT IS_CHAR_DEAD worker1_t1 //CWMOHB2
 				IF HAS_MISSION_AUDIO_LOADED 1
 					PRINT_NOW ( TRU1_DG ) 4000 1 //This ain’t no country club, fella!
@@ -1963,8 +1964,8 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 6
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 6
+		BREAK
+		CASE 6
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				IF NOT IS_CHAR_DEAD worker1_t1
@@ -1972,17 +1973,17 @@ IF triggeredaction_tflag = 1
 				ENDIF
 				audio_t1flag = 7
 			ENDIF
-		ENDIF
+		BREAK
 
 		//tractor
-		IF audio_t1flag = 8			 
+		CASE 8			 
 			IF NOT IS_CHAR_DEAD tractorchasedriver2_t1 //CWFYHB
 				CLEAR_MISSION_AUDIO 1
 				LOAD_MISSION_AUDIO 1 SOUND_TRU1_FD 
 				audio_t1flag = 9
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 9
+		BREAK
+		CASE 9
 			IF NOT IS_CHAR_DEAD tractorchasedriver2_t1 //CWFYHB
 				IF HAS_MISSION_AUDIO_LOADED 1
 					PRINT_NOW ( TRU1_FD ) 4000 1 //Beat him down, it’s all he’s good for!
@@ -1991,8 +1992,8 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 10
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 10
+		BREAK
+		CASE 10
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				IF NOT IS_CHAR_DEAD tractorchasedriver2_t1
@@ -2000,11 +2001,11 @@ IF triggeredaction_tflag = 1
 				ENDIF
 				audio_t1flag = 11
 			ENDIF
-		ENDIF
+		BREAK
 
 		//near glass bits
 		//tractor
-		IF audio_t1flag = 12
+		CASE 12
 			IF NOT IS_CHAR_DEAD worker4_t1 //CWFYHB
 				IF HAS_MISSION_AUDIO_FINISHED 1
 					CLEAR_MISSION_AUDIO 1
@@ -2012,8 +2013,8 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 13
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 13
+		BREAK
+		CASE 13
 			IF NOT IS_CHAR_DEAD worker4_t1 //CWFYHB
 				IF HAS_MISSION_AUDIO_LOADED 1
 					PRINT_NOW ( TRU1_FA ) 4000 1 //Hey, who’s this guy?
@@ -2021,22 +2022,22 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 14
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 14
+		BREAK
+		CASE 14
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				audio_t1flag = 15
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 15
+		BREAK
+		CASE 15
 			IF NOT IS_CHAR_DEAD worker5_t1 //CWMYHB1
 				SHUT_CHAR_UP worker5_t1 TRUE
 				CLEAR_MISSION_AUDIO 1
 				LOAD_MISSION_AUDIO 1 SOUND_TRU1_AB	//Dunno but he looks kinda shifty!
 				audio_t1flag = 16
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 16
+		BREAK
+		CASE 16
 			IF NOT IS_CHAR_DEAD worker5_t1 //CWMYHB1
 				IF HAS_MISSION_AUDIO_LOADED 1
 					PRINT_NOW ( TRU1_AB ) 4000 1 //Dunno but he looks kinda shifty!
@@ -2044,21 +2045,21 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 17
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 17
+		BREAK
+		CASE 17
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				audio_t1flag = 18
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 18
+		BREAK
+		CASE 18
 			IF NOT IS_CHAR_DEAD worker5_t1 //CWMYHB1
 				CLEAR_MISSION_AUDIO 1
 				LOAD_MISSION_AUDIO 1 SOUND_TRU1_AD //Roll him in the pig shit!
 				audio_t1flag = 19
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 19
+		BREAK
+		CASE 19
 			IF NOT IS_CHAR_DEAD worker5_t1 //CWMYHB1
 				IF HAS_MISSION_AUDIO_LOADED 1
 					PRINT_NOW TRU1_AD 4000 1 //Roll him in the pig shit!
@@ -2066,8 +2067,8 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 20
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 21
+		BREAK
+		CASE 21
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				IF NOT IS_CHAR_DEAD worker5_t1
@@ -2075,16 +2076,16 @@ IF triggeredaction_tflag = 1
 				ENDIF
 				audio_t1flag = 22
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF audio_t1flag = 23
+		CASE 23
 			IF NOT IS_CHAR_DEAD combinedriver_t1 //CWMYHB1
 				CLEAR_MISSION_AUDIO 1
 				LOAD_MISSION_AUDIO 1 SOUND_TRU1_DE	//He’s a combine rustler!!
 				audio_t1flag = 24
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 24
+		BREAK
+		CASE 24
 			IF NOT IS_CHAR_DEAD combinedriver_t1 //CWMYHB1
 				IF HAS_MISSION_AUDIO_LOADED 1
 					SHUT_CHAR_UP combinedriver_t1 TRUE
@@ -2093,8 +2094,8 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 25
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 26
+		BREAK
+		CASE 26
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				IF NOT IS_CHAR_DEAD combinedriver_t1
@@ -2102,16 +2103,16 @@ IF triggeredaction_tflag = 1
 				ENDIF
 				audio_t1flag = 27
 			ENDIF
-		ENDIF
+		BREAK
 
-		IF audio_t1flag = 28
+		CASE 28
 			IF NOT IS_CHAR_DEAD chaser2_t1 //CWMYHB1
 				CLEAR_MISSION_AUDIO 1
 				LOAD_MISSION_AUDIO 1 SOUND_TRU1_AC //Stop the dang varmint!!
 				audio_t1flag = 29
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 29
+		BREAK
+		CASE 29
 			IF NOT IS_CHAR_DEAD chaser2_t1 //CWMYHB1
 				IF HAS_MISSION_AUDIO_LOADED 1
 					SHUT_CHAR_UP chaser2_t1 TRUE
@@ -2120,8 +2121,8 @@ IF triggeredaction_tflag = 1
 					audio_t1flag = 30
 				ENDIF
 			ENDIF
-		ENDIF
-		IF audio_t1flag = 30
+		BREAK
+		CASE 30
 			IF HAS_MISSION_AUDIO_FINISHED 1
 				CLEAR_PRINTS
 				IF NOT IS_CHAR_DEAD chaser2_t1
@@ -2129,7 +2130,8 @@ IF triggeredaction_tflag = 1
 				ENDIF
 				audio_t1flag = 31
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 	ENDIF
 
