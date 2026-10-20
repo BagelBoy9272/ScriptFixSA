@@ -65,11 +65,9 @@ GOTO Pcustom_Main_Loop
 			STATE MACHINE
 ********************************************/
 Pcustom_State_Machine:
-	SWITCH iPedState	   	
-   		CASE 1 //---STATE 1: 
+	IF iPedState = 1 //---STATE 1: 
 			GOSUB Pcustom_PedState1
-		BREAK
-	ENDSWITCH
+	ENDIF
 RETURN
 /********************************************
 				ORDER FOOD
