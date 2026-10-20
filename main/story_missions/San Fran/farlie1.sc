@@ -4304,13 +4304,8 @@ f1_drawing_tv_screen:///////////////////////////////////////////////////////////
 	GOSUB small_onscreen_text 
 	GET_HUD_COLOUR HUD_COLOUR_YELLOW f1_r f1_g f1_b f1_alpha2
 	SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
-	IF current_Language = LANGUAGE_FRENCH
 		SET_TEXT_SCALE 0.32 1.25 
 		DISPLAY_TEXT 70.0 360.0 DS1_53
-	ELSE
-		SET_TEXT_SCALE 0.32 1.25 
-		DISPLAY_TEXT 70.0 360.0 DS1_53
-	ENDIF
 
 	//drawing help text
 	IF NOT f1_control_flag = 1 //waiting to select which facing track
@@ -4320,40 +4315,18 @@ f1_drawing_tv_screen:///////////////////////////////////////////////////////////
 
 		SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
 
-		IF current_Language = LANGUAGE_FRENCH
 			SET_TEXT_SCALE 0.32 1.25
 			DISPLAY_TEXT 70.0 340.0 DS1_54 	//START
-		ELSE
-			SET_TEXT_SCALE 0.32 1.25
-			DISPLAY_TEXT 70.0 340.0 DS1_54 	//START
-		ENDIF
 		
-		IF NOT f1_which_missions_are_open_flag = 1
 			GOSUB small_onscreen_text 
+		IF NOT f1_which_missions_are_open_flag = 1
 			GET_HUD_COLOUR HUD_COLOUR_YELLOW f1_r f1_g f1_b f1_alpha2
-			SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
-
-			IF current_Language = LANGUAGE_FRENCH
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ELSE
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ENDIF
-			
 		ELSE
-			GOSUB small_onscreen_text 			
 			GET_HUD_COLOUR HUD_COLOUR_GREY f1_r f1_g f1_b f1_alpha2	//navigate greyed out
-			SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
-		   	
-			IF current_Language = LANGUAGE_FRENCH
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ELSE
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ENDIF
 		ENDIF
+			SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
+				SET_TEXT_SCALE 0.32 1.25
+				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
 	ENDIF
 	
 	// New section to draw the joypad buttons separate from the help text
