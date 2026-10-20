@@ -939,6 +939,10 @@ WHILE NOT HAS_MODEL_LOADED FCR900
 ENDWHILE
 CREATE_CAR FCR900 2163.2490 1679.9757 9.8125 trip_skip_vehicle_casino10
 SET_CAR_HEADING trip_skip_vehicle_casino10 350.0
+MARK_MODEL_AS_NO_LONGER_NEEDED FCR900
+IF trip_skip_flag_casino10 = 1
+	SET_UP_SKIP_FOR_VEHICLE_FINISHED_BY_SCRIPT 2163.2490 1679.9757 9.8125 0.0 trip_skip_vehicle_casino10
+ENDIF
 // FIXEDGROVE: END
 
 // waiting for the player to get to the airport
@@ -948,10 +952,6 @@ WHILE NOT LOCATE_CHAR_ANY_MEANS_3D scplayer 1707.828 1606.639 9.055 4.0 4.0 3.0 
 
 	// FIXEDGROVE: START - added trip skip
 	IF trip_skip_flag_casino10 = 1
-		SET_UP_SKIP_FOR_VEHICLE_FINISHED_BY_SCRIPT 2163.2490 1679.9757 9.8125 0.0 trip_skip_vehicle_casino10
-		trip_skip_flag_casino10 = 2
-	ENDIF
-	IF trip_skip_flag_casino10 = 2
 		IF IS_SKIP_WAITING_FOR_SCRIPT_TO_FADE_IN
 			GOTO trip_skip_destination
 		ENDIF
@@ -1109,7 +1109,6 @@ ENDWHILE
 // FIXEDGROVE: START - added trip skip
 trip_skip_destination:
 trip_skip_flag_casino10 = 1
-MARK_MODEL_AS_NO_LONGER_NEEDED FCR900
 MARK_CAR_AS_NO_LONGER_NEEDED trip_skip_vehicle_casino10
 CLEAR_SKIP
 // FIXEDGROVE: END
