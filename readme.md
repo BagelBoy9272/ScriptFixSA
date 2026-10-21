@@ -507,6 +507,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed Quadruple Insane Stunt
 - Fixed crappy cone deletion code in bike school and driving school deleting random objects (Blackboard glitch)
 - Fixed slot machine not enabling its ped attractor
+- Fixed radar showing while the wager menu was active in the lowrider minigame
 - Fixed missing Pizza Stack icon in Montgomery
 - ®️ Fixed missing barber shop icon in El Quebrados
 - Fixed duplicated Binco icon in Juniper Hill, SF
@@ -588,7 +589,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Changed player's mood to 'wisecracking' after winning in gambling, lowrider, pool or coffee
 - Reused player's casino winning voicelines for winning in pool
 - Re-enabled player speech in burglary if they're caught
-- Implemented unused lines as speech feedback in the low-rider minigame (like the dance minigame)
+- Implemented unused lines as speech feedback in the lowrider minigame (like the dance minigame)
 - Added unused 'no more bets' voicelines to blackjack, matching wheel of fortune and roulette
 - Now the valet minigame uses the "VALET_CAR_PARK" lines (previously they were only used in '555 We Tip')
 - Added unused "SHOP_CHAT" lines for barbers and the Ammu-Nation guy, now these will play randomly while browsing haircuts/weapons to buy
