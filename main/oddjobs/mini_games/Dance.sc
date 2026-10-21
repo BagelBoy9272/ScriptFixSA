@@ -2269,17 +2269,17 @@ RETURN
 // FIXEDGROVE: START
 Random_Speech_Function:
 d_amount = 0
-iTemp = 0
-WHILE iTemp < 32
-	IF IS_BIT_SET d_sc_1 iTemp
+i = 0
+WHILE i < 32
+	IF IS_BIT_SET d_sc_1 i
 		d_amount++
 	ENDIF
-	IF iTemp < 24 // 56 - 32
-		IF IS_BIT_SET d_sc_2 iTemp
+	IF i < 24 // 56 - 32
+		IF IS_BIT_SET d_sc_2 i
 			d_amount++
 		ENDIF
 	ENDIF
-	iTemp++
+	i++
 ENDWHILE
 
 IF d_amount >= 56
@@ -2294,36 +2294,37 @@ IF d_amount >= 56
 	ENDIF
 ENDIF
 
-iTemp = FALSE
-WHILE iTemp = FALSE
+Random_Speech_Function_In:
 	GENERATE_RANDOM_INT_IN_RANGE 0 56 iDance_SpeechCounter
 	IF NOT d_oldValue = iDance_SpeechCounter
 		d_amount = iDance_SpeechCounter
 		IF d_amount < 32
 			IF NOT IS_BIT_SET d_sc_1 d_amount
 				SET_BIT d_sc_1 d_amount
-				iTemp = TRUE
+				GOTO Random_Speech_Function_Out
 			ENDIF
 		ELSE
 			d_amount -= 32
 			IF NOT IS_BIT_SET d_sc_2 d_amount
 				SET_BIT d_sc_2 d_amount
-				iTemp = TRUE
+				GOTO Random_Speech_Function_Out
 			ENDIF
 		ENDIF
 	ENDIF
-ENDWHILE
+GOTO Random_Speech_Function_In
+
+Random_Speech_Function_Out:
 iDance_SpeechCounter++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim:
 d_amount = 0
-iTemp = 0
-WHILE iTemp < 16
-	IF IS_BIT_SET d_ac_b iTemp
+i = 0
+WHILE i < 16
+	IF IS_BIT_SET d_ac_b i
 		d_amount++
 	ENDIF
-	iTemp++
+	i++
 ENDWHILE
 
 IF d_amount >= 16
@@ -2331,27 +2332,28 @@ IF d_amount >= 16
 	SET_BIT d_ac_b iAnimCount
 ENDIF
 
-iTemp = FALSE
-WHILE iTemp = FALSE
+Random_Dance_Anim_In:
 	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount
 	IF NOT d_oldValue = iAnimCount
 		IF NOT IS_BIT_SET d_ac_b iAnimCount
 			SET_BIT d_ac_b iAnimCount
-			iTemp = TRUE
+			GOTO Random_Dance_Anim_Out
 		ENDIF
 	ENDIF
-ENDWHILE
+GOTO Random_Dance_Anim_In
+
+Random_Dance_Anim_Out:
 iAnimCount++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim_P:
 d_amount = 0
-iTemp = 0
-WHILE iTemp < 16
-	IF IS_BIT_SET d_ac_p iTemp
+i = 0
+WHILE i < 16
+	IF IS_BIT_SET d_ac_p i
 		d_amount++
 	ENDIF
-	iTemp++
+	i++
 ENDWHILE
 
 IF d_amount >= 16
@@ -2359,16 +2361,17 @@ IF d_amount >= 16
 	SET_BIT d_ac_p iAnimCount_P
 ENDIF
 
-iTemp = FALSE
-WHILE iTemp = FALSE
+Random_Dance_Anim_P_In:
 	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount_P
 	IF NOT d_oldValue = iAnimCount_P
 		IF NOT IS_BIT_SET d_ac_p iAnimCount_P
 			SET_BIT d_ac_p iAnimCount_P
-			iTemp = TRUE
+			GOTO Random_Dance_Anim_P_Out
 		ENDIF
 	ENDIF
-ENDWHILE
+GOTO Random_Dance_Anim_P_In
+
+Random_Dance_Anim_P_Out:
 iAnimCount_P++ // temp needed for the switch-case
 RETURN
 // FIXEDGROVE: END
