@@ -43,8 +43,7 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 	//--- PC ONLY VARS
 	VAR_INT d_sc_1 d_sc_2 d_ac_b d_ac_p // FIXEDGROVE: repurposed
-	VAR_INT d_player_stick_position
-	VAR_INT d_oldValue d_amount d_camCount // FIXEDGROVE: repurposed
+	VAR_INT d_oldValue d_amount d_camCount d_randomType // FIXEDGROVE: repurposed
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -595,13 +594,13 @@ SWITCH iButtonDown
 
 	CASE DANCE_BUTTON_NONE 
 		
-		IF d_player_stick_position = DANCE_STKRGHT
+		IF an = DANCE_STKRGHT
 			iCurrentButton = DANCE_BUTTON_CIRCLE
 			iButtonDown = DANCE_BUTTON_CIRCLE			
 			BREAK
 		ENDIF
 
-		IF d_player_stick_position = DANCE_STKUP
+		IF an = DANCE_STKUP
 			iCurrentButton = DANCE_BUTTON_TRIANGLE
 			iButtonDown = DANCE_BUTTON_TRIANGLE
 			IF NOT IS_JAPANESE_VERSION
@@ -610,13 +609,13 @@ SWITCH iButtonDown
 			BREAK
 		ENDIF
 
-		IF d_player_stick_position = DANCE_STKLEFT
+		IF an = DANCE_STKLEFT
 			iCurrentButton = DANCE_BUTTON_SQUARE
 			iButtonDown = DANCE_BUTTON_SQUARE
 			BREAK
 		ENDIF
 
-		IF d_player_stick_position = DANCE_STKDW
+		IF an = DANCE_STKDW
 			iCurrentButton = DANCE_BUTTON_CROSS
 			iButtonDown = DANCE_BUTTON_CROSS
 			IF IS_JAPANESE_VERSION
@@ -642,7 +641,7 @@ SWITCH iButtonDown
 	
 	CASE DANCE_BUTTON_CIRCLE
 		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0 
+		IF an = 0 
 			iButtonDown = DANCE_BUTTON_NONE
 			BREAK
 		ENDIF
@@ -650,7 +649,7 @@ SWITCH iButtonDown
 
 	CASE DANCE_BUTTON_TRIANGLE
 		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0
+		IF an = 0
 			iButtonDown = DANCE_BUTTON_NONE
 			BREAK
 		ENDIF
@@ -658,7 +657,7 @@ SWITCH iButtonDown
 
 	CASE DANCE_BUTTON_SQUARE
 		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0
+		IF an = 0
 			iButtonDown = DANCE_BUTTON_NONE
 			BREAK
 		ENDIF
@@ -666,7 +665,7 @@ SWITCH iButtonDown
 
 	CASE DANCE_BUTTON_CROSS
 		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0
+		IF an = 0
 			iButtonDown = DANCE_BUTTON_NONE
 			BREAK
 		ENDIF
@@ -760,7 +759,7 @@ Dance_GetTimingOfCurrentBeat:
 			//--- Unverified Beat
 			IF iCurrentButton = DANCE_BUTTON_NONE
 
-				//WRITE_DEBUG_WITH_INT d_player_stick_position d_player_stick_position
+				//WRITE_DEBUG_WITH_INT an an
 
 				//--- No button press - check if the beat is not past
 				IF iTimeToClosestBeat < DANCE_BOUNDS_ALRIGHT_MIN
@@ -845,6 +844,7 @@ RETURN
 ********************************************/
 Dance_PlayGoodAnim:
 
+d_oldValue = iAnimCount // FIXEDGROVE
 GOSUB Random_Dance_Anim // FIXEDGROVE
 d_camCount++ // FIXEDGROVE
 
@@ -907,6 +907,7 @@ RETURN
 ********************************************/
 Dance_PlayMissAnim:
 
+d_oldValue = iAnimCount // FIXEDGROVE
 GOSUB Random_Dance_Anim // FIXEDGROVE
 d_camCount++ // FIXEDGROVE
 
@@ -1178,6 +1179,7 @@ RETURN
 ********************************************/
 Dance_PlayPartnerAnim:
 
+d_oldValue = iAnimCount_P // FIXEDGROVE
 GOSUB Random_Dance_Anim_P // FIXEDGROVE
 
  SWITCH iAnimCount_P
@@ -1542,6 +1544,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechHigh:
 
+d_oldValue = iDance_SpeechCounter // FIXEDGROVE
 GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
@@ -1722,6 +1725,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechLow:
 
+d_oldValue = iDance_SpeechCounter // FIXEDGROVE
 GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
@@ -1902,6 +1906,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechMed:
 
+d_oldValue = iDance_SpeechCounter // FIXEDGROVE
 GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
@@ -2082,6 +2087,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechNot:
 
+d_oldValue = iDance_SpeechCounter // FIXEDGROVE
 GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
@@ -2262,7 +2268,6 @@ RETURN
 ********************************************/
 // FIXEDGROVE: START
 Random_Speech_Function:
-d_oldValue = iDance_SpeechCounter
 d_amount = 0
 iTemp = 0
 WHILE iTemp < 32
@@ -2312,7 +2317,6 @@ iDance_SpeechCounter++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim:
-d_oldValue = iAnimCount
 d_amount = 0
 iTemp = 0
 WHILE iTemp < 16
@@ -2341,7 +2345,6 @@ iAnimCount++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim_P:
-d_oldValue = iAnimCount_P
 d_amount = 0
 iTemp = 0
 WHILE iTemp < 16
@@ -2445,7 +2448,7 @@ Dance_get_stick_position:
 
 	GET_DISTANCE_BETWEEN_COORDS_2D 0.0 0.0 x_temp y_temp z_temp
 	
-	d_player_stick_position = 0
+	an = 0
 
 	IF z_temp > 64.0
 
@@ -2453,31 +2456,31 @@ Dance_get_stick_position:
 		
 		// must be up
 		IF z_temp < 15.0 
-			d_player_stick_position = DANCE_STKUP // up
+			an = DANCE_STKUP // up
 		ELSE
 			IF z_temp < 75.0 
 				IF LStickX > 0
-					d_player_stick_position = DANCE_STKUR // right and up
+					an = DANCE_STKUR // right and up
 				ELSE
-					d_player_stick_position = DANCE_STKUL // left and up
+					an = DANCE_STKUL // left and up
 				ENDIF 
 			ELSE
 				IF z_temp < 105.0 
 					IF LStickX > 0
-						d_player_stick_position = DANCE_STKRGHT // right 
+						an = DANCE_STKRGHT // right 
 					ELSE
-						d_player_stick_position = DANCE_STKLEFT // left 
+						an = DANCE_STKLEFT // left 
 					ENDIF
 				ELSE
 					IF z_temp < 165.0 
 						IF LStickX > 0
-							d_player_stick_position = DANCE_STKDR // right down 
+							an = DANCE_STKDR // right down 
 						ELSE
-							d_player_stick_position = DANCE_STKDL // left down
+							an = DANCE_STKDL // left down
 						ENDIF 	
 					ELSE
 						// must be down	
-						d_player_stick_position = DANCE_STKDW
+						an = DANCE_STKDW
 					ENDIF
 				ENDIF
 			ENDIF
