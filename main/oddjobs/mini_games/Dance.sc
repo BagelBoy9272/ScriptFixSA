@@ -43,7 +43,7 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 	//--- PC ONLY VARS
 	VAR_INT d_sc_1 d_sc_2 d_ac_b d_ac_p // FIXEDGROVE: repurposed
-	VAR_INT d_oldValue d_amount d_camCount d_randomType // FIXEDGROVE: repurposed
+	VAR_INT d_oldValue d_amount d_camCount d_randomTotal // FIXEDGROVE: repurposed
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -844,9 +844,13 @@ RETURN
 ********************************************/
 Dance_PlayGoodAnim:
 
-d_oldValue = iAnimCount // FIXEDGROVE
-GOSUB Random_Dance_Anim // FIXEDGROVE
-d_camCount++ // FIXEDGROVE
+// FIXEDGROVE - START
+d_oldValue = iAnimCount
+GOSUB Random_Function
+iAnimCount = iTemp
+d_camCount++
+// FIXEDGROVE - END
+
 
  SWITCH iAnimCount
 	CASE 1
@@ -907,9 +911,12 @@ RETURN
 ********************************************/
 Dance_PlayMissAnim:
 
-d_oldValue = iAnimCount // FIXEDGROVE
-GOSUB Random_Dance_Anim // FIXEDGROVE
-d_camCount++ // FIXEDGROVE
+// FIXEDGROVE - START
+d_oldValue = iAnimCount
+GOSUB Random_Function
+iAnimCount = iTemp
+d_camCount++
+// FIXEDGROVE - END
 
  SWITCH iAnimCount
 	CASE 1
@@ -1179,8 +1186,11 @@ RETURN
 ********************************************/
 Dance_PlayPartnerAnim:
 
-d_oldValue = iAnimCount_P // FIXEDGROVE
-GOSUB Random_Dance_Anim_P // FIXEDGROVE
+// FIXEDGROVE - START
+d_oldValue = iAnimCount_P
+GOSUB Random_Function
+iAnimCount_P = iTemp
+// FIXEDGROVE - END
 
  SWITCH iAnimCount_P
 	CASE 1
@@ -1544,8 +1554,11 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechHigh:
 
-d_oldValue = iDance_SpeechCounter // FIXEDGROVE
-GOSUB Random_Speech_Function // FIXEDGROVE
+// FIXEDGROVE - START
+d_oldValue = iDance_SpeechCounter
+GOSUB Random_Function
+iDance_SpeechCounter = iTemp
+// FIXEDGROVE - END
 
 SWITCH iDance_SpeechCounter
 
@@ -1725,8 +1738,11 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechLow:
 
-d_oldValue = iDance_SpeechCounter // FIXEDGROVE
-GOSUB Random_Speech_Function // FIXEDGROVE
+// FIXEDGROVE - START
+d_oldValue = iDance_SpeechCounter
+GOSUB Random_Function
+iDance_SpeechCounter = iTemp
+// FIXEDGROVE - END
 
 SWITCH iDance_SpeechCounter
 
@@ -1906,8 +1922,11 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechMed:
 
-d_oldValue = iDance_SpeechCounter // FIXEDGROVE
-GOSUB Random_Speech_Function // FIXEDGROVE
+// FIXEDGROVE - START
+d_oldValue = iDance_SpeechCounter
+GOSUB Random_Function
+iDance_SpeechCounter = iTemp
+// FIXEDGROVE - END
 
 SWITCH iDance_SpeechCounter
 
@@ -2087,8 +2106,11 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechNot:
 
-d_oldValue = iDance_SpeechCounter // FIXEDGROVE
-GOSUB Random_Speech_Function // FIXEDGROVE
+// FIXEDGROVE - START
+d_oldValue = iDance_SpeechCounter
+GOSUB Random_Function
+iDance_SpeechCounter = iTemp
+// FIXEDGROVE - END
 
 SWITCH iDance_SpeechCounter
 
@@ -2267,25 +2289,38 @@ RETURN
 			RANDOM FUNCTIONs
 ********************************************/
 // FIXEDGROVE: START
-Random_Speech_Function:
+Random_Function:
+IF d_oldValue = iDance_SpeechCounter
+	d_randomTotal = 56
+	iTemp = 24 // 56 - 32
+	tempv1 = d_sc_1
+	tempv2 = d_sc_2
+ELSE
+	d_randomTotal = 16
+	IF d_oldValue = iAnimCount
+		tempv1 = d_ac_b
+	ELSE
+		tempv1 = d_ac_p
+	ENDIF
+ENDIF
 d_amount = 0
 i = 0
-WHILE i < 32
-	IF IS_BIT_SET d_sc_1 i
+WHILE i < d_randomTotal
+	IF IS_BIT_SET tempv1 i
 		d_amount++
 	ENDIF
-	IF i < 24 // 56 - 32
-		IF IS_BIT_SET d_sc_2 i
-			d_amount++
+	IF d_randomTotal >= 32
+		IF i < iTemp
+			IF IS_BIT_SET tempv2 i
+				d_amount++
+			ENDIF
 		ENDIF
 	ENDIF
 	i++
 ENDWHILE
 
-IF d_amount >= 56
-	d_sc_1 = 0
-	d_sc_2 = 0
-	d_amount = iDance_SpeechCounter
+IF d_amount >= d_randomTotal
+	d_amount = d_oldValue
 	IF d_amount < 32
 		SET_BIT d_sc_1 d_amount
 	ELSE
@@ -2294,85 +2329,40 @@ IF d_amount >= 56
 	ENDIF
 ENDIF
 
-Random_Speech_Function_In:
-	GENERATE_RANDOM_INT_IN_RANGE 0 56 iDance_SpeechCounter
-	IF NOT d_oldValue = iDance_SpeechCounter
-		d_amount = iDance_SpeechCounter
+Random_Function_In:
+	GENERATE_RANDOM_INT_IN_RANGE 0 d_randomTotal iTemp
+	IF NOT d_oldValue = iTemp
+		d_amount = iTemp
 		IF d_amount < 32
-			IF NOT IS_BIT_SET d_sc_1 d_amount
-				SET_BIT d_sc_1 d_amount
-				GOTO Random_Speech_Function_Out
+			IF NOT IS_BIT_SET tempv1 d_amount
+				SET_BIT tempv1 d_amount
+				GOTO Random_Function_Out
 			ENDIF
 		ELSE
 			d_amount -= 32
-			IF NOT IS_BIT_SET d_sc_2 d_amount
-				SET_BIT d_sc_2 d_amount
-				GOTO Random_Speech_Function_Out
+			IF NOT IS_BIT_SET tempv2 d_amount
+				SET_BIT tempv2 d_amount
+				GOTO Random_Function_Out
 			ENDIF
 		ENDIF
 	ENDIF
-GOTO Random_Speech_Function_In
+GOTO Random_Function_In
 
-Random_Speech_Function_Out:
-iDance_SpeechCounter++ // temp needed for the switch-case
-RETURN
-
-Random_Dance_Anim:
-d_amount = 0
-i = 0
-WHILE i < 16
-	IF IS_BIT_SET d_ac_b i
-		d_amount++
+Random_Function_Out:
+IF d_oldValue = iDance_SpeechCounter
+	d_sc_1 = tempv1
+	d_sc_2 = tempv2
+ELSE
+	d_randomTotal = 16
+	IF d_oldValue = iAnimCount
+		d_ac_b = tempv1
+	ELSE
+		d_ac_p = tempv1
 	ENDIF
-	i++
-ENDWHILE
-
-IF d_amount >= 16
-	d_ac_b = 0
-	SET_BIT d_ac_b iAnimCount
 ENDIF
-
-Random_Dance_Anim_In:
-	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount
-	IF NOT d_oldValue = iAnimCount
-		IF NOT IS_BIT_SET d_ac_b iAnimCount
-			SET_BIT d_ac_b iAnimCount
-			GOTO Random_Dance_Anim_Out
-		ENDIF
-	ENDIF
-GOTO Random_Dance_Anim_In
-
-Random_Dance_Anim_Out:
-iAnimCount++ // temp needed for the switch-case
-RETURN
-
-Random_Dance_Anim_P:
-d_amount = 0
-i = 0
-WHILE i < 16
-	IF IS_BIT_SET d_ac_p i
-		d_amount++
-	ENDIF
-	i++
-ENDWHILE
-
-IF d_amount >= 16
-	d_ac_p = 0
-	SET_BIT d_ac_p iAnimCount_P
-ENDIF
-
-Random_Dance_Anim_P_In:
-	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount_P
-	IF NOT d_oldValue = iAnimCount_P
-		IF NOT IS_BIT_SET d_ac_p iAnimCount_P
-			SET_BIT d_ac_p iAnimCount_P
-			GOTO Random_Dance_Anim_P_Out
-		ENDIF
-	ENDIF
-GOTO Random_Dance_Anim_P_In
-
-Random_Dance_Anim_P_Out:
-iAnimCount_P++ // temp needed for the switch-case
+tempv1 = 0 // reset in any case
+tempv2 = 0 // reset in any case
+iTemp++ // temp needed for the switch-case
 RETURN
 // FIXEDGROVE: END
 /*******************************************
