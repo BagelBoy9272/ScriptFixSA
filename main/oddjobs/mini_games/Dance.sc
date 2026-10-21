@@ -185,7 +185,7 @@ Dance_State0:
 			SET_CHAR_HEADING scplayer fParH
 			GOSUB Dance_PartnerCreate			 
 			GOSUB Dance_CameraViewChange
-			iAnimCount = 0 // reset this here (has been used in Dance_CameraViewChange to initialise it)
+			an = 0 // reset this here (has been used in Dance_CameraViewChange to initialise it)
 
 			PRELOAD_BEAT_TRACK iSoundTrack 			
 			++iSubState
@@ -845,6 +845,7 @@ RETURN
 Dance_PlayGoodAnim:
 
 GOSUB Random_Dance_Anim // FIXEDGROVE
+an++ // FIXEDGROVE
 
  SWITCH iAnimCount
 	CASE 1
@@ -906,6 +907,7 @@ RETURN
 Dance_PlayMissAnim:
 
 GOSUB Random_Dance_Anim // FIXEDGROVE
+an++ // FIXEDGROVE
 
  SWITCH iAnimCount
 	CASE 1
@@ -1054,7 +1056,11 @@ RETURN
 ********************************************/
 Dance_CameraViewChange:
 
-	SWITCH iAnimCount
+IF an > 16
+	an = 0
+ENDIF
+
+	SWITCH an
 
 		CASE -1
 			IF iPartner = DANCE_MISSION_NO_PARTNER
