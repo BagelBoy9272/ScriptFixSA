@@ -43,7 +43,7 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 	//--- PC ONLY VARS
 	VAR_INT d_sc_1 d_sc_2 d_ac_b d_ac_p // FIXEDGROVE: repurposed
-	VAR_INT d_oldValue d_amount d_camCount d_randomTotal // FIXEDGROVE: repurposed
+	VAR_INT d_camCount d_amount d_randomType d_randomTotal // FIXEDGROVE: repurposed
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -63,11 +63,12 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	iLastScoredBeatNumber = -1
 	iLastPrint = -1
 	iAnimCount = -1
+	iAnimCount_P = -1 // FIXEDGROVE: was not set
 	iTemp = 0
 	iDanceScore = 0
 	iDance_SpeechState = DANCE_SPEECH_IDLE
 	iDance_SpeechRequest = -1
-	iDance_SpeechCounter = 1
+	iDance_SpeechCounter = -1 // FIXEDGROVE: was 1
 	iStoredBeat = DANCE_BEAT_NONE
 
 	TIMERA = DANCE_TIME_TO_TRIGGER_SPEECH
@@ -78,6 +79,7 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	d_ac_b = 0
 	d_ac_p = 0
 	d_camCount = -1
+	d_randomType = -1
 	// FIXEDGROVE: END
 
 	//---MAIN LOOP---
@@ -845,12 +847,11 @@ RETURN
 Dance_PlayGoodAnim:
 
 // FIXEDGROVE - START
-d_oldValue = iAnimCount
+d_randomType = 2
 GOSUB Random_Function
 iAnimCount = iTemp
 d_camCount++
 // FIXEDGROVE - END
-
 
  SWITCH iAnimCount
 	CASE 1
@@ -912,7 +913,7 @@ RETURN
 Dance_PlayMissAnim:
 
 // FIXEDGROVE - START
-d_oldValue = iAnimCount
+d_randomType = 2
 GOSUB Random_Function
 iAnimCount = iTemp
 d_camCount++
@@ -1187,7 +1188,7 @@ RETURN
 Dance_PlayPartnerAnim:
 
 // FIXEDGROVE - START
-d_oldValue = iAnimCount_P
+d_randomType = 3
 GOSUB Random_Function
 iAnimCount_P = iTemp
 // FIXEDGROVE - END
@@ -1555,7 +1556,7 @@ RETURN
 Dance_RetrieveSpeechHigh:
 
 // FIXEDGROVE - START
-d_oldValue = iDance_SpeechCounter
+d_randomType = 1
 GOSUB Random_Function
 iDance_SpeechCounter = iTemp
 // FIXEDGROVE - END
@@ -1739,7 +1740,7 @@ RETURN
 Dance_RetrieveSpeechLow:
 
 // FIXEDGROVE - START
-d_oldValue = iDance_SpeechCounter
+d_randomType = 1
 GOSUB Random_Function
 iDance_SpeechCounter = iTemp
 // FIXEDGROVE - END
@@ -1923,7 +1924,7 @@ RETURN
 Dance_RetrieveSpeechMed:
 
 // FIXEDGROVE - START
-d_oldValue = iDance_SpeechCounter
+d_randomType = 1
 GOSUB Random_Function
 iDance_SpeechCounter = iTemp
 // FIXEDGROVE - END
@@ -2107,7 +2108,7 @@ RETURN
 Dance_RetrieveSpeechNot:
 
 // FIXEDGROVE - START
-d_oldValue = iDance_SpeechCounter
+d_randomType = 1
 GOSUB Random_Function
 iDance_SpeechCounter = iTemp
 // FIXEDGROVE - END
@@ -2290,14 +2291,13 @@ RETURN
 ********************************************/
 // FIXEDGROVE: START
 Random_Function:
-IF d_oldValue = iDance_SpeechCounter
+IF d_randomType = 1
 	d_randomTotal = 56
-	iTemp = 24 // 56 - 32
 	tempv1 = d_sc_1
 	tempv2 = d_sc_2
 ELSE
 	d_randomTotal = 16
-	IF d_oldValue = iAnimCount
+	IF d_randomType = 2
 		tempv1 = d_ac_b
 	ELSE
 		tempv1 = d_ac_p
@@ -2306,60 +2306,68 @@ ENDIF
 d_amount = 0
 i = 0
 WHILE i < d_randomTotal
-	IF IS_BIT_SET tempv1 i
-		d_amount++
-	ENDIF
-	IF d_randomTotal >= 32
-		IF i < iTemp
-			IF IS_BIT_SET tempv2 i
-				d_amount++
-			ENDIF
+	IF i < 32
+		IF IS_BIT_SET tempv1 i
+			d_amount++
+		ENDIF
+	ELSE
+		iTemp = i - 32
+		IF IS_BIT_SET tempv2 iTemp
+			d_amount++
 		ENDIF
 	ENDIF
 	i++
 ENDWHILE
 
 IF d_amount >= d_randomTotal
-	d_amount = d_oldValue
+	IF d_randomType = 1
+		d_amount = iDance_SpeechCounter
+	ELSE
+		IF d_randomType = 2
+			d_amount = iAnimCount
+		ELSE
+			d_amount = iAnimCount_P
+		ENDIF
+	ENDIF
+	tempv1 = 0
+	tempv2 = 0
 	IF d_amount < 32
-		SET_BIT d_sc_1 d_amount
+		SET_BIT tempv1 d_amount
 	ELSE
 		d_amount -= 32
-		SET_BIT d_sc_2 d_amount
+		SET_BIT tempv2 d_amount
 	ENDIF
 ENDIF
 
-	GENERATE_RANDOM_INT_IN_RANGE 0 d_randomTotal iTemp
+GENERATE_RANDOM_INT_IN_RANGE 0 d_randomTotal iTemp
+
 Random_Function_In:
-	IF NOT d_oldValue = iTemp
-		d_amount = iTemp
-		IF d_amount < 32
-			IF NOT IS_BIT_SET tempv1 d_amount
-				SET_BIT tempv1 d_amount
-				GOTO Random_Function_Out
-			ENDIF
-		ELSE
-			d_amount -= 32
-			IF NOT IS_BIT_SET tempv2 d_amount
-				SET_BIT tempv2 d_amount
-				GOTO Random_Function_Out
-			ENDIF
+	d_amount = iTemp
+	IF d_amount < 32
+		IF NOT IS_BIT_SET tempv1 d_amount
+			SET_BIT tempv1 d_amount
+			GOTO Random_Function_Out
 		ENDIF
 	ELSE
-		iTemp++
-		IF iTemp >= d_randomTotal
-			iTemp = 0
+		d_amount -= 32
+		IF NOT IS_BIT_SET tempv2 d_amount
+			SET_BIT tempv2 d_amount
+			GOTO Random_Function_Out
 		ENDIF
+	ENDIF
+	iTemp++
+	IF iTemp >= d_randomTotal
+		iTemp = 0
 	ENDIF
 GOTO Random_Function_In
 
 Random_Function_Out:
-IF d_oldValue = iDance_SpeechCounter
+IF d_randomType = 1
 	d_sc_1 = tempv1
 	d_sc_2 = tempv2
 ELSE
 	d_randomTotal = 16
-	IF d_oldValue = iAnimCount
+	IF d_randomType = 2
 		d_ac_b = tempv1
 	ELSE
 		d_ac_p = tempv1
