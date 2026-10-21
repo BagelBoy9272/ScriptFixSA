@@ -42,8 +42,9 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 
 	//--- PC ONLY VARS
-	VAR_INT d_lstickx d_lsticky d_rstickx d_rsticky d_player_stick_position
-	VAR_FLOAT d_temp_float d_vec_x d_vec_y
+	VAR_INT d_sc_1 d_sc_2 d_ac_b d_ac_p // FIXEDGROVE: repurposed
+	VAR_INT d_player_stick_position
+	VAR_INT d_oldValue d_amount d_camCount // FIXEDGROVE: repurposed
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -73,11 +74,11 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	TIMERA = DANCE_TIME_TO_TRIGGER_SPEECH
 
 	// FIXEDGROVE: START - initialize some extra variables
-	tempv1 = 0
-	tempv2 = 0
-	tempv3 = 0
-	tempv4 = 0
-	an = -1
+	d_sc_1 = 0
+	d_sc_2 = 0
+	d_ac_b = 0
+	d_ac_p = 0
+	d_camCount = -1
 	// FIXEDGROVE: END
 
 	//---MAIN LOOP---
@@ -185,7 +186,7 @@ Dance_State0:
 			SET_CHAR_HEADING scplayer fParH
 			GOSUB Dance_PartnerCreate			 
 			GOSUB Dance_CameraViewChange
-			an = 0 // reset this here (has been used in Dance_CameraViewChange to initialise it)
+			d_camCount = 0 // reset this here (has been used in Dance_CameraViewChange to initialise it)
 
 			PRELOAD_BEAT_TRACK iSoundTrack 			
 			++iSubState
@@ -845,7 +846,7 @@ RETURN
 Dance_PlayGoodAnim:
 
 GOSUB Random_Dance_Anim // FIXEDGROVE
-an++ // FIXEDGROVE
+d_camCount++ // FIXEDGROVE
 
  SWITCH iAnimCount
 	CASE 1
@@ -907,7 +908,7 @@ RETURN
 Dance_PlayMissAnim:
 
 GOSUB Random_Dance_Anim // FIXEDGROVE
-an++ // FIXEDGROVE
+d_camCount++ // FIXEDGROVE
 
  SWITCH iAnimCount
 	CASE 1
@@ -1056,11 +1057,11 @@ RETURN
 ********************************************/
 Dance_CameraViewChange:
 
-IF an > 16
-	an = 0
+IF d_camCount > 16
+	d_camCount = 0
 ENDIF
 
-	SWITCH an
+	SWITCH d_camCount
 
 		CASE -1
 			IF iPartner = DANCE_MISSION_NO_PARTNER
@@ -2260,56 +2261,48 @@ RETURN
 			RANDOM FUNCTIONs
 ********************************************/
 // FIXEDGROVE: START
-/*
-tempv1 = iDance_SpeechCounter (first half)
-tempv2 = iDance_SpeechCounter (second half)
-tempv3 = iAnimCount
-tempv4 = iAnimCount_P
-temp_integer_1 = old value
-temp_integer_2 = amount
-*/
 Random_Speech_Function:
-temp_integer_1 = iDance_SpeechCounter
-temp_integer_2 = 0
+d_oldValue = iDance_SpeechCounter
+d_amount = 0
 iTemp = 0
 WHILE iTemp < 32
-	IF IS_BIT_SET tempv1 iTemp
-		temp_integer_2++
+	IF IS_BIT_SET d_sc_1 iTemp
+		d_amount++
 	ENDIF
 	IF iTemp < 24 // 56 - 32
-		IF IS_BIT_SET tempv2 iTemp
-			temp_integer_2++
+		IF IS_BIT_SET d_sc_2 iTemp
+			d_amount++
 		ENDIF
 	ENDIF
 	iTemp++
 ENDWHILE
 
-IF temp_integer_2 >= 56
-	tempv1 = 0
-	tempv2 = 0
-	temp_integer_2 = iDance_SpeechCounter
-	IF temp_integer_2 < 32
-		SET_BIT tempv1 temp_integer_2
+IF d_amount >= 56
+	d_sc_1 = 0
+	d_sc_2 = 0
+	d_amount = iDance_SpeechCounter
+	IF d_amount < 32
+		SET_BIT d_sc_1 d_amount
 	ELSE
-		temp_integer_2 -= 32
-		SET_BIT tempv2 temp_integer_2
+		d_amount -= 32
+		SET_BIT d_sc_2 d_amount
 	ENDIF
 ENDIF
 
 iTemp = FALSE
 WHILE iTemp = FALSE
 	GENERATE_RANDOM_INT_IN_RANGE 0 56 iDance_SpeechCounter
-	IF NOT temp_integer_1 = iDance_SpeechCounter
-		temp_integer_2 = iDance_SpeechCounter
-		IF temp_integer_2 < 32
-			IF NOT IS_BIT_SET tempv1 temp_integer_2
-				SET_BIT tempv1 temp_integer_2
+	IF NOT d_oldValue = iDance_SpeechCounter
+		d_amount = iDance_SpeechCounter
+		IF d_amount < 32
+			IF NOT IS_BIT_SET d_sc_1 d_amount
+				SET_BIT d_sc_1 d_amount
 				iTemp = TRUE
 			ENDIF
 		ELSE
-			temp_integer_2 -= 32
-			IF NOT IS_BIT_SET tempv2 temp_integer_2
-				SET_BIT tempv2 temp_integer_2
+			d_amount -= 32
+			IF NOT IS_BIT_SET d_sc_2 d_amount
+				SET_BIT d_sc_2 d_amount
 				iTemp = TRUE
 			ENDIF
 		ENDIF
@@ -2319,27 +2312,27 @@ iDance_SpeechCounter++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim:
-temp_integer_1 = iAnimCount
-temp_integer_2 = 0
+d_oldValue = iAnimCount
+d_amount = 0
 iTemp = 0
 WHILE iTemp < 16
-	IF IS_BIT_SET tempv3 iTemp
-		temp_integer_2++
+	IF IS_BIT_SET d_ac_b iTemp
+		d_amount++
 	ENDIF
 	iTemp++
 ENDWHILE
 
-IF temp_integer_2 >= 16
-	tempv3 = 0
-	SET_BIT tempv3 iAnimCount
+IF d_amount >= 16
+	d_ac_b = 0
+	SET_BIT d_ac_b iAnimCount
 ENDIF
 
 iTemp = FALSE
 WHILE iTemp = FALSE
 	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount
-	IF NOT temp_integer_1 = iAnimCount
-		IF NOT IS_BIT_SET tempv3 iAnimCount
-			SET_BIT tempv3 iAnimCount
+	IF NOT d_oldValue = iAnimCount
+		IF NOT IS_BIT_SET d_ac_b iAnimCount
+			SET_BIT d_ac_b iAnimCount
 			iTemp = TRUE
 		ENDIF
 	ENDIF
@@ -2348,27 +2341,27 @@ iAnimCount++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim_P:
-temp_integer_1 = iAnimCount_P
-temp_integer_2 = 0
+d_oldValue = iAnimCount_P
+d_amount = 0
 iTemp = 0
 WHILE iTemp < 16
-	IF IS_BIT_SET tempv4 iTemp
-		temp_integer_2++
+	IF IS_BIT_SET d_ac_p iTemp
+		d_amount++
 	ENDIF
 	iTemp++
 ENDWHILE
 
-IF temp_integer_2 >= 16
-	tempv4 = 0
-	SET_BIT tempv4 iAnimCount_P
+IF d_amount >= 16
+	d_ac_p = 0
+	SET_BIT d_ac_p iAnimCount_P
 ENDIF
 
 iTemp = FALSE
 WHILE iTemp = FALSE
 	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount_P
-	IF NOT temp_integer_1 = iAnimCount_P
-		IF NOT IS_BIT_SET tempv4 iAnimCount_P
-			SET_BIT tempv4 iAnimCount_P
+	IF NOT d_oldValue = iAnimCount_P
+		IF NOT IS_BIT_SET d_ac_p iAnimCount_P
+			SET_BIT d_ac_p iAnimCount_P
 			iTemp = TRUE
 		ENDIF
 	ENDIF
@@ -2441,42 +2434,43 @@ RETURN
 ********************************************/
 Dance_get_stick_position:
 
-	GET_POSITION_OF_ANALOGUE_STICKS PAD1 d_lstickx d_lsticky d_rstickx d_rsticky
+// FIXEDGROVE: replaced variables with other ones
+	GET_POSITION_OF_ANALOGUE_STICKS PAD1 LStickX LStickY RStickX RStickY
 
-	d_temp_float =# d_lstickx
-	d_vec_x = d_temp_float
+	z_temp =# LStickX
+	x_temp = z_temp
 
-	d_temp_float =# d_lsticky
-	d_vec_y = d_temp_float
+	z_temp =# LStickY
+	y_temp = z_temp
 
-	GET_DISTANCE_BETWEEN_COORDS_2D 0.0 0.0 d_vec_x d_vec_y d_temp_float
+	GET_DISTANCE_BETWEEN_COORDS_2D 0.0 0.0 x_temp y_temp z_temp
 	
 	d_player_stick_position = 0
 
-	IF d_temp_float > 64.0
+	IF z_temp > 64.0
 
-		GET_ANGLE_BETWEEN_2D_VECTORS d_vec_x d_vec_y 0.0 -1.0 d_temp_float
+		GET_ANGLE_BETWEEN_2D_VECTORS x_temp y_temp 0.0 -1.0 z_temp
 		
 		// must be up
-		IF d_temp_float < 15.0 
+		IF z_temp < 15.0 
 			d_player_stick_position = DANCE_STKUP // up
 		ELSE
-			IF d_temp_float < 75.0 
-				IF d_lstickx > 0
+			IF z_temp < 75.0 
+				IF LStickX > 0
 					d_player_stick_position = DANCE_STKUR // right and up
 				ELSE
 					d_player_stick_position = DANCE_STKUL // left and up
 				ENDIF 
 			ELSE
-				IF d_temp_float < 105.0 
-					IF d_lstickx > 0
+				IF z_temp < 105.0 
+					IF LStickX > 0
 						d_player_stick_position = DANCE_STKRGHT // right 
 					ELSE
 						d_player_stick_position = DANCE_STKLEFT // left 
 					ENDIF
 				ELSE
-					IF d_temp_float < 165.0 
-						IF d_lstickx > 0
+					IF z_temp < 165.0 
+						IF LStickX > 0
 							d_player_stick_position = DANCE_STKDR // right down 
 						ELSE
 							d_player_stick_position = DANCE_STKDL // left down
