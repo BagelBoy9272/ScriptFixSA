@@ -2329,8 +2329,8 @@ IF d_amount >= d_randomTotal
 	ENDIF
 ENDIF
 
-Random_Function_In:
 	GENERATE_RANDOM_INT_IN_RANGE 0 d_randomTotal iTemp
+Random_Function_In:
 	IF NOT d_oldValue = iTemp
 		d_amount = iTemp
 		IF d_amount < 32
@@ -2344,6 +2344,11 @@ Random_Function_In:
 				SET_BIT tempv2 d_amount
 				GOTO Random_Function_Out
 			ENDIF
+		ENDIF
+	ELSE
+		iTemp++
+		IF iTemp >= d_randomTotal
+			iTemp = 0
 		ENDIF
 	ENDIF
 GOTO Random_Function_In
