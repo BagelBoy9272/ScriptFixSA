@@ -1178,7 +1178,7 @@ VAR_INT sc3_missioncar
 VAR_INT valet_mission_terminate
 
 //flags
-VAR_INT valet_oddjob_opened player_on_valet_mission	playing_scrash1 unused_1 force_valet_cleanup // FIXEDGROVE: added unused var
+VAR_INT valet_oddjob_opened player_on_valet_mission	playing_scrash1 unused_2 force_valet_cleanup // FIXEDGROVE: added unused var
 
 //chars (global)
 VAR_INT valet[3] 
@@ -2404,7 +2404,7 @@ flag_on_doberman_mission = 0
 VAR_INT flag_gang_war_active
 flag_gang_war_active = 0
 
-VAR_INT ammu_shop_blip[10] mod_garage_blips[3] barbers_blips[5] pizza_blips[8] burger_blips[10] chicken_blips[12] tattoo_blips[4] gym_blips[2] clothes_blips[16] unused_2 spray_shop[6] // FIXEDGROVE: added unused var
+VAR_INT ammu_shop_blip[10] mod_garage_blips[3] barbers_blips[5] pizza_blips[8] burger_blips[10] chicken_blips[12] tattoo_blips[4] gym_blips[2] clothes_blips[16] unused_3 spray_shop[6] // FIXEDGROVE: added unused var
 
 
 ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
@@ -2936,7 +2936,8 @@ DONT_REMOVE_OBJECT h9_door_c
 //TRIP SKIP VARIABLE FOR SMOKE1
 VAR_INT tw7_trip_skip_flag
 tw7_trip_skip_flag = 0
-VAR_INT unused_3 // FIXEDGROVE: unused
+
+VAR_INT unused_4 // FIXEDGROVE: unused
 
 
 ///////doors for riot2 mission

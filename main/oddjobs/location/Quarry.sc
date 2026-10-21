@@ -53,7 +53,7 @@ IF done_quarry_progress = FALSE
 ENDIF
 
 flag_player_on_mission = TRUE
-flag_player_on_oddjob = TRUE
+//flag_player_on_oddjob = TRUE // FIXEDGROVE: comment, not read
 
 
 // general variables that are in every mission - DON'T DECLARE MISSION SPECIFIC VARIABLES HERE
@@ -4907,7 +4907,7 @@ Quarry_Mission_Cleanup:
 	// Housekeeping
 	// ------------
 	flag_player_on_mission	= FALSE
-	flag_player_on_oddjob	= FALSE
+	//flag_player_on_oddjob	= FALSE  // FIXEDGROVE: comment, not read
 	MISSION_HAS_FINISHED
 
 RETURN
