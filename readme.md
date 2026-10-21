@@ -485,6 +485,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Misc:**
 - Fixed Ryder's car not spawning depending on mission order
 - Fixed pimp submission undoing the relationship change from Ballas towards player set in 'Drive-By'
+- Fixed pimp submission not loading peds correctly if you're not close to them
 - Fixed taxi submission not showing the tutorial help correctly
 - Fixed a free healthcare exploit in Bloodring
 - Fixed flag ped and an spectator spawning below the ground on most races
