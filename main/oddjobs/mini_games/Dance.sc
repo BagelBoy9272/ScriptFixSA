@@ -72,6 +72,14 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 	TIMERA = DANCE_TIME_TO_TRIGGER_SPEECH
 
+	// FIXEDGROVE: START - initialize some extra variables
+	tempv1 = 0
+	tempv2 = 0
+	tempv3 = 0
+	tempv4 = 0
+	an = -1
+	// FIXEDGROVE: END
+
 	//---MAIN LOOP---
 
 Dance_Main_Loop:
@@ -836,7 +844,7 @@ RETURN
 ********************************************/
 Dance_PlayGoodAnim:
 
-GENERATE_RANDOM_INT_IN_RANGE 1 17 iAnimCount // FIXEDGROVE
+GOSUB Random_Dance_Anim // FIXEDGROVE
 
  SWITCH iAnimCount
 	CASE 1
@@ -897,7 +905,7 @@ RETURN
 ********************************************/
 Dance_PlayMissAnim:
 
-GENERATE_RANDOM_INT_IN_RANGE 1 17 iAnimCount // FIXEDGROVE
+GOSUB Random_Dance_Anim // FIXEDGROVE
 
  SWITCH iAnimCount
 	CASE 1
@@ -1163,7 +1171,7 @@ RETURN
 ********************************************/
 Dance_PlayPartnerAnim:
 
-GENERATE_RANDOM_INT_IN_RANGE 1 17 iAnimCount_P // FIXEDGROVE
+GOSUB Random_Dance_Anim_P // FIXEDGROVE
 
  SWITCH iAnimCount_P
 	CASE 1
@@ -1527,7 +1535,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechHigh:
 
-GENERATE_RANDOM_INT_IN_RANGE 1 57 iDance_SpeechCounter // FIXEDGROVE
+GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -1707,7 +1715,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechLow:
 
-GENERATE_RANDOM_INT_IN_RANGE 1 57 iDance_SpeechCounter // FIXEDGROVE
+GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -1887,7 +1895,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechMed:
 
-GENERATE_RANDOM_INT_IN_RANGE 1 57 iDance_SpeechCounter // FIXEDGROVE
+GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -2067,7 +2075,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechNot:
 
-GENERATE_RANDOM_INT_IN_RANGE 1 57 iDance_SpeechCounter // FIXEDGROVE
+GOSUB Random_Speech_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -2242,6 +2250,125 @@ SWITCH iDance_SpeechCounter
 ENDSWITCH
 		LOAD_MISSION_AUDIO 4 iTemp
 RETURN
+/*******************************************
+			RANDOM FUNCTIONs
+********************************************/
+// FIXEDGROVE: START
+Random_Speech_Function:
+/*
+tempv1 = first half
+tempv2 = second half
+temp_integer_1 = amount
+temp_integer_2 = old value
+temp_integer_3 = bit index
+*/
+temp_integer_1 = 0
+temp_integer_2 = iDance_SpeechCounter
+iTemp = 0
+WHILE iTemp < 32
+	IF IS_BIT_SET tempv1 iTemp
+		temp_integer_1++
+	ENDIF
+	IF iTemp < 24 // 56 - 32
+		IF IS_BIT_SET tempv2 iTemp
+			temp_integer_1++
+		ENDIF
+	ENDIF
+	iTemp++
+ENDWHILE
+
+IF temp_integer_1 >= 56
+	tempv1 = 0
+	tempv2 = 0
+	temp_integer_3 = iDance_SpeechCounter
+	IF temp_integer_3 < 32
+		SET_BIT tempv1 temp_integer_3
+	ELSE
+		temp_integer_3 -= 32
+		SET_BIT tempv2 temp_integer_3
+	ENDIF
+ENDIF
+
+iTemp = FALSE
+WHILE iTemp = FALSE
+	GENERATE_RANDOM_INT_IN_RANGE 0 56 iDance_SpeechCounter
+	IF NOT temp_integer_2 = iDance_SpeechCounter
+		temp_integer_3 = iDance_SpeechCounter
+		IF temp_integer_3 < 32
+			IF IS_BIT_SET tempv1 temp_integer_3
+				SET_BIT tempv1 temp_integer_3
+				iTemp = TRUE
+			ENDIF
+		ELSE
+			temp_integer_3 -= 32
+			IF IS_BIT_SET tempv2 temp_integer_3
+				SET_BIT tempv2 temp_integer_3
+				iTemp = TRUE
+			ENDIF
+		ENDIF
+	ENDIF
+ENDWHILE
+iDance_SpeechCounter++ // temp needed for the switch-case
+RETURN
+
+Random_Dance_Anim:
+temp_integer_1 = 0
+temp_integer_2 = iAnimCount
+iTemp = 0
+WHILE iTemp < 16
+	IF IS_BIT_SET tempv3 iTemp
+		temp_integer_1++
+	ENDIF
+	iTemp++
+ENDWHILE
+
+IF temp_integer_1 >= 16
+	tempv3 = 0
+	SET_BIT tempv3 iAnimCount
+ENDIF
+
+iTemp = FALSE
+WHILE iTemp = FALSE
+	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount
+	IF NOT temp_integer_2 = iAnimCount
+		IF IS_BIT_SET tempv3 iAnimCount
+			SET_BIT tempv3 iAnimCount
+			iTemp = TRUE
+		ENDIF
+	ENDIF
+ENDWHILE
+iAnimCount++ // temp needed for the switch-case
+RETURN
+
+Random_Dance_Anim_P:
+temp_integer_1 = 0
+temp_integer_2 = iAnimCount_P
+iTemp = 0
+WHILE iTemp < 16
+	IF IS_BIT_SET tempv4 iTemp
+		temp_integer_1++
+	ENDIF
+	iTemp++
+ENDWHILE
+
+IF temp_integer_1 >= 16
+	tempv4 = 0
+	SET_BIT tempv4 iAnimCount_P
+ENDIF
+
+iTemp = FALSE
+WHILE iTemp = FALSE
+	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount_P
+	IF NOT temp_integer_2 = iAnimCount_P
+		IF IS_BIT_SET tempv4 iAnimCount_P
+			SET_BIT tempv4 iAnimCount_P
+			iTemp = TRUE
+		ENDIF
+	ENDIF
+ENDWHILE
+iAnimCount_P++ // temp needed for the switch-case
+RETURN
+// FIXEDGROVE: END
 /*******************************************
 				CLEAN UP 
 ********************************************/
