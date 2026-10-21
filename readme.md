@@ -585,6 +585,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Menus won't reset the highlighted row when selecting an item
 - Now the first variation for the "getting a haircut" anim is randomly assigned, instead of always starting from the same one
 - Enabled ambient valet from the start of the game, and restored it for LS and LV (though you can't work there)
+- Restored black croupier for wheel of fortune, along with her voicelines
 - Changed player's mood to 'wisecracking' after winning in gambling, lowrider, pool or coffee
 - Reused player's casino winning voicelines for winning in pool
 - Re-enabled player speech in burglary if they're caught
