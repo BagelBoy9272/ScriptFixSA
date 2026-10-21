@@ -2260,55 +2260,56 @@ RETURN
 			RANDOM FUNCTIONs
 ********************************************/
 // FIXEDGROVE: START
-Random_Speech_Function:
 /*
-tempv1 = first half
-tempv2 = second half
-temp_integer_1 = amount
-temp_integer_2 = old value
-temp_integer_3 = bit index
+tempv1 = iDance_SpeechCounter (first half)
+tempv2 = iDance_SpeechCounter (second half)
+tempv3 = iAnimCount
+tempv4 = iAnimCount_P
+temp_integer_1 = old value
+temp_integer_2 = amount
 */
-temp_integer_1 = 0
-temp_integer_2 = iDance_SpeechCounter
+Random_Speech_Function:
+temp_integer_1 = iDance_SpeechCounter
+temp_integer_2 = 0
 iTemp = 0
 WHILE iTemp < 32
 	IF IS_BIT_SET tempv1 iTemp
-		temp_integer_1++
+		temp_integer_2++
 	ENDIF
 	IF iTemp < 24 // 56 - 32
 		IF IS_BIT_SET tempv2 iTemp
-			temp_integer_1++
+			temp_integer_2++
 		ENDIF
 	ENDIF
 	iTemp++
 ENDWHILE
 
-IF temp_integer_1 >= 56
+IF temp_integer_2 >= 56
 	tempv1 = 0
 	tempv2 = 0
-	temp_integer_3 = iDance_SpeechCounter
-	IF temp_integer_3 < 32
-		SET_BIT tempv1 temp_integer_3
+	temp_integer_2 = iDance_SpeechCounter
+	IF temp_integer_2 < 32
+		SET_BIT tempv1 temp_integer_2
 	ELSE
-		temp_integer_3 -= 32
-		SET_BIT tempv2 temp_integer_3
+		temp_integer_2 -= 32
+		SET_BIT tempv2 temp_integer_2
 	ENDIF
 ENDIF
 
 iTemp = FALSE
 WHILE iTemp = FALSE
 	GENERATE_RANDOM_INT_IN_RANGE 0 56 iDance_SpeechCounter
-	IF NOT temp_integer_2 = iDance_SpeechCounter
-		temp_integer_3 = iDance_SpeechCounter
-		IF temp_integer_3 < 32
-			IF IS_BIT_SET tempv1 temp_integer_3
-				SET_BIT tempv1 temp_integer_3
+	IF NOT temp_integer_1 = iDance_SpeechCounter
+		temp_integer_2 = iDance_SpeechCounter
+		IF temp_integer_2 < 32
+			IF NOT IS_BIT_SET tempv1 temp_integer_2
+				SET_BIT tempv1 temp_integer_2
 				iTemp = TRUE
 			ENDIF
 		ELSE
-			temp_integer_3 -= 32
-			IF IS_BIT_SET tempv2 temp_integer_3
-				SET_BIT tempv2 temp_integer_3
+			temp_integer_2 -= 32
+			IF NOT IS_BIT_SET tempv2 temp_integer_2
+				SET_BIT tempv2 temp_integer_2
 				iTemp = TRUE
 			ENDIF
 		ENDIF
@@ -2318,17 +2319,17 @@ iDance_SpeechCounter++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim:
-temp_integer_1 = 0
-temp_integer_2 = iAnimCount
+temp_integer_1 = iAnimCount
+temp_integer_2 = 0
 iTemp = 0
 WHILE iTemp < 16
 	IF IS_BIT_SET tempv3 iTemp
-		temp_integer_1++
+		temp_integer_2++
 	ENDIF
 	iTemp++
 ENDWHILE
 
-IF temp_integer_1 >= 16
+IF temp_integer_2 >= 16
 	tempv3 = 0
 	SET_BIT tempv3 iAnimCount
 ENDIF
@@ -2336,8 +2337,8 @@ ENDIF
 iTemp = FALSE
 WHILE iTemp = FALSE
 	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount
-	IF NOT temp_integer_2 = iAnimCount
-		IF IS_BIT_SET tempv3 iAnimCount
+	IF NOT temp_integer_1 = iAnimCount
+		IF NOT IS_BIT_SET tempv3 iAnimCount
 			SET_BIT tempv3 iAnimCount
 			iTemp = TRUE
 		ENDIF
@@ -2347,17 +2348,17 @@ iAnimCount++ // temp needed for the switch-case
 RETURN
 
 Random_Dance_Anim_P:
-temp_integer_1 = 0
-temp_integer_2 = iAnimCount_P
+temp_integer_1 = iAnimCount_P
+temp_integer_2 = 0
 iTemp = 0
 WHILE iTemp < 16
 	IF IS_BIT_SET tempv4 iTemp
-		temp_integer_1++
+		temp_integer_2++
 	ENDIF
 	iTemp++
 ENDWHILE
 
-IF temp_integer_1 >= 16
+IF temp_integer_2 >= 16
 	tempv4 = 0
 	SET_BIT tempv4 iAnimCount_P
 ENDIF
@@ -2365,8 +2366,8 @@ ENDIF
 iTemp = FALSE
 WHILE iTemp = FALSE
 	GENERATE_RANDOM_INT_IN_RANGE 0 16 iAnimCount_P
-	IF NOT temp_integer_2 = iAnimCount_P
-		IF IS_BIT_SET tempv4 iAnimCount_P
+	IF NOT temp_integer_1 = iAnimCount_P
+		IF NOT IS_BIT_SET tempv4 iAnimCount_P
 			SET_BIT tempv4 iAnimCount_P
 			iTemp = TRUE
 		ENDIF
