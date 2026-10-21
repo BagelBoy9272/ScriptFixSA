@@ -227,9 +227,7 @@ RETURN
 ********************************************/
 Dance_State1:  
 
-	SWITCH iSubState
-	
-	CASE STATE_DANCE_TRACK_AND_GET_BEATS
+	IF iSubState = STATE_DANCE_TRACK_AND_GET_BEATS
 
 		//--- Manage the dancing for the current frame
 		GOSUB Dance_Get_TimeStep
@@ -240,7 +238,7 @@ Dance_State1:
 	
 		// Must PAUSE
 		IF iState = 3
-			BREAK
+			RETURN
 		ENDIF
 	
 		GOSUB Dance_GetTimingOfCurrentBeat	// Returns iStoredBeat: the timing zones 
@@ -249,7 +247,8 @@ Dance_State1:
 		GOSUB Dance_Update_Overall_Report	// Updates the big prints at the top of the screen
 		GOSUB Dance_PlayStateFeedbackSpeech // Handles the spoken feedback for the current overall status
 
-		IF iStoredBeat = DANCE_BEAT_ALRIGHT
+		SWITCH iStoredBeat
+		CASE DANCE_BEAT_ALRIGHT
 
 			
 			// --- Score it			
@@ -272,12 +271,11 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayGoodAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
 
 
-		IF iStoredBeat = DANCE_BEAT_PERFECT
+		CASE DANCE_BEAT_PERFECT
 
 			// --- Score it			
 			IF iDanceScore < DANCE_SCORE_TOP_LIMIT
@@ -299,11 +297,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayGoodAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
 
-		IF iStoredBeat = DANCE_BEAT_GOOD
+		CASE DANCE_BEAT_GOOD
 			
 			// --- Score it
 			IF iDanceScore < DANCE_SCORE_TOP_LIMIT
@@ -325,11 +322,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayGoodAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
 			
-		IF iStoredBeat = DANCE_BEAT_PAST
+		CASE DANCE_BEAT_PAST
 
 			// --- Score shit here
 			IF iDanceScore > DANCE_SCORE_BAD
@@ -346,11 +342,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF 
+		BREAK 
 
-		IF iStoredBeat = DANCE_BEAT_FUTURE
+		CASE DANCE_BEAT_FUTURE
 
 			// --- Score shit here				
 			IF iDanceScore > DANCE_SCORE_BAD
@@ -367,11 +362,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF 				  
+		BREAK 				  
 
-		IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
+		CASE DANCE_BEAT_WRONG_BUTTON
 
 			// --- Score shit here				
 			IF iDanceScore > DANCE_SCORE_VERY_BAD
@@ -389,11 +383,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF 		
+		BREAK 		
 		
-		IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
+		CASE DANCE_BEAT_MISTIMED_BUTTON
 			
 			// --- Score shit here				
 			IF iDanceScore > DANCE_SCORE_VERY_BAD
@@ -411,13 +404,11 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
+		ENDSWITCH
 
-	BREAK
-
-	ENDSWITCH
+	ENDIF
 
 RETURN
 /********************************************
@@ -818,20 +809,20 @@ Dance_GetTimingOfCurrentBeat:
 		ELSE
 
 			//--- Verified beat - mark it as already scored
-			IF iStoredBeat = DANCE_BEAT_PERFECT
-			OR iStoredBeat = DANCE_BEAT_GOOD
-			OR iStoredBeat = DANCE_BEAT_ALRIGHT
+			SWITCH iStoredBeat = DANCE_BEAT_PERFECT
+			CASE DANCE_BEAT_PERFECT
+			CASE DANCE_BEAT_GOOD
+			CASE DANCE_BEAT_ALRIGHT
 				iStoredBeat = DANCE_BEAT_GOOD_SCORED // For animation chaining purposes only
-				RETURN
-			ENDIF
+			BREAK
 
-			IF iStoredBeat = DANCE_BEAT_PAST
-			OR iStoredBeat = DANCE_BEAT_FUTURE
-			OR iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-			OR iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
+			CASE DANCE_BEAT_PAST
+			CASE DANCE_BEAT_FUTURE
+			CASE DANCE_BEAT_WRONG_BUTTON
+			CASE DANCE_BEAT_MISTIMED_BUTTON
 				iStoredBeat = DANCE_BEAT_BAD_SCORED // For animation chaining purposes only
-				RETURN
-			ENDIF
+			BREAK
+			ENDSWITCH
 
 		ENDIF
 	ENDIF
@@ -1033,18 +1024,19 @@ Dance_CheckAnimLinks:
 	//--- Check if the animation requires to chain a beat 
 	IF iAnimStatus = ANIM_CONCANTENATE_NOW
 	   	//--- Check the previous stored beat and follow up in a chain
-		IF iStoredBeat = DANCE_BEAT_PERFECT
-		OR iStoredBeat = DANCE_BEAT_GOOD
-		OR iStoredBeat = DANCE_BEAT_ALRIGHT
-		OR iStoredBeat = DANCE_BEAT_GOOD_SCORED
+		SWITCH iStoredBeat
+		CASE DANCE_BEAT_PERFECT
+		CASE DANCE_BEAT_GOOD
+		CASE DANCE_BEAT_ALRIGHT
+		CASE DANCE_BEAT_GOOD_SCORED
 			GOSUB Dance_PlayGoodAnim
 			iAnimStatus = ANIM_IS_PLAYING //???
-			RETURN
-		ELSE			 			
+		BREAK
+		DEFAULT			 			
 			GOSUB Dance_PlayMissAnim
 			iAnimStatus = ANIM_IS_PLAYING //???
-			RETURN
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 	ENDIF
 
@@ -1238,51 +1230,31 @@ Dance_InstanceRandomPartner:
 
 	SWITCH iTemp
 		CASE 1
-			WHILE NOT HAS_MODEL_LOADED BFYRI
-				REQUEST_MODEL BFYRI						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE BFYRI fX fY fZ iPartner
-			RETURN
+			iTemp = BFYRI
 		BREAK
 
 		CASE 2
-			WHILE NOT HAS_MODEL_LOADED OFYST
-				REQUEST_MODEL OFYST						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE OFYST fX fY fZ iPartner
-			RETURN
+			iTemp = OFYST
 		BREAK
 
 		CASE 3
-			WHILE NOT HAS_MODEL_LOADED WFYST
-				REQUEST_MODEL WFYST						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE WFYST fX fY fZ iPartner
-			RETURN
+			iTemp = WFYST
 		BREAK
 
 		CASE 4
-			WHILE NOT HAS_MODEL_LOADED HFYRI
-				REQUEST_MODEL HFYRI						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE HFYRI fX fY fZ iPartner
-			RETURN
+			iTemp = HFYRI
 		BREAK
 
 		CASE 5
-			WHILE NOT HAS_MODEL_LOADED WFYRI
-				REQUEST_MODEL WFYRI						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE WFYRI fX fY fZ iPartner
-			RETURN
+			iTemp = WFYRI
 		BREAK
 
 	ENDSWITCH
+			WHILE NOT HAS_MODEL_LOADED iTemp
+				REQUEST_MODEL iTemp
+				WAIT 0
+			ENDWHILE
+			CREATE_CHAR PEDTYPE_CIVFEMALE iTemp fX fY fZ iPartner
 RETURN
 /*******************************************
 		CHECK TRACK STATUS
