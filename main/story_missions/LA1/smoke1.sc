@@ -4388,7 +4388,7 @@ IF tw7_play_which_slot = 2
 			// FIXEDGROVE: START
 			IF NOT IS_CHAR_DEAD tw7_speaker[tw7_speech_control_flag]
 				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH tw7_speaker[tw7_speech_control_flag] TRUE
-				START_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag]r 10000
+				START_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag] 10000
 			ENDIF
 			// FIXEDGROVE: END
 			PRINT_NOW ( $tw7_print_label[tw7_speech_control_flag] ) 4500 1 
