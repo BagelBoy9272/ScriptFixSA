@@ -1489,7 +1489,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechHigh:
 
-GOSUB Random_Function // FIXEDGROVE
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -1669,7 +1669,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechLow:
 
-GOSUB Random_Function // FIXEDGROVE
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -1849,7 +1849,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechMed:
 
-GOSUB Random_Function // FIXEDGROVE
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -2029,7 +2029,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechNot:
 
-GOSUB Random_Function // FIXEDGROVE
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -2208,10 +2208,10 @@ RETURN
 			RANDOM FUNCTIONs
 ********************************************/
 // FIXEDGROVE: START
-Random_Function:
+Dance_RandomSpeechFunction:
 d_amount = 0
 i = 0
-WHILE i < 56
+WHILE i < 56 // makes up the total of set bits
 	IF i < 32
 		IF IS_BIT_SET d_speechCounter_BitsLow i
 			d_amount++
@@ -2225,6 +2225,8 @@ WHILE i < 56
 	i++
 ENDWHILE
 
+// if they are all set, clear them, then set the bit that was set previously
+// so it won't be set again
 IF d_amount >= 56
 	iTemp = iDance_SpeechCounter
 	d_speechCounter_BitsLow = 0
@@ -2239,27 +2241,28 @@ ENDIF
 
 GENERATE_RANDOM_INT_IN_RANGE 0 56 iTemp
 
-Random_Function_In:
+Dance_RandomSpeechFunction_In:
+	// find a spot
 	IF iTemp < 32
 		IF NOT IS_BIT_SET d_speechCounter_BitsLow iTemp
 			SET_BIT d_speechCounter_BitsLow iTemp
-			GOTO Random_Function_Out
+			GOTO Dance_RandomSpeechFunction_Out
 		ENDIF
 	ELSE
 		i = iTemp - 32
 		IF NOT IS_BIT_SET d_speechCounter_BitsHigh i
 			SET_BIT d_speechCounter_BitsHigh i
-			GOTO Random_Function_Out
+			GOTO Dance_RandomSpeechFunction_Out
 		ENDIF
 	ENDIF
 	iTemp++
 	IF iTemp >= 56
 		iTemp = 0
 	ENDIF
-GOTO Random_Function_In
+GOTO Dance_RandomSpeechFunction_In
 
-Random_Function_Out:
-iTemp++ // temp needed for the switch-case
+Dance_RandomSpeechFunction_Out:
+iTemp++ // temporary, currently the switch-case starts from 1
 iDance_SpeechCounter = iTemp
 RETURN
 // FIXEDGROVE: END
