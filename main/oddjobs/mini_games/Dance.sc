@@ -63,12 +63,11 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	iLastScoredBeatNumber = -1
 	iLastPrint = -1
 	iAnimCount = -1
-	iAnimCount_P = -1 // FIXEDGROVE: was not set
 	iTemp = 0
 	iDanceScore = 0
 	iDance_SpeechState = DANCE_SPEECH_IDLE
 	iDance_SpeechRequest = -1
-	iDance_SpeechCounter = -1 // FIXEDGROVE: was 1
+	// iDance_SpeechCounter = 1 // FIXEDGROVE: commented out, not needed anymore
 	iStoredBeat = DANCE_BEAT_NONE
 
 	TIMERA = DANCE_TIME_TO_TRIGGER_SPEECH
@@ -607,6 +606,8 @@ IF iButtonDown = DANCE_BUTTON_NONE
 		BREAK
 		ENDSWITCH
 
+ELSE
+
 		IF IS_BUTTON_PRESSED PAD1 TRIANGLE
 			iCurrentButton = DANCE_BUTTON_PC_QUIT
 			iButtonDown = DANCE_BUTTON_PC_QUIT
@@ -617,8 +618,6 @@ IF iButtonDown = DANCE_BUTTON_NONE
 			iCurrentButton = DANCE_BUTTON_PC_CONFIRM
 			iButtonDown = DANCE_BUTTON_PC_CONFIRM
 		ENDIF
-
-ELSE
 
 SWITCH iButtonDown
 	
@@ -1088,14 +1087,10 @@ RETURN
 ********************************************/
 Dance_PlayPartnerAnim:
 
-IF iAnimCount_P < 1
-OR iAnimCount_P > 16
-	iAnimCount_P = 1
-ENDIF
-
  SWITCH iAnimCount_P
-	CASE 1
+	DEFAULT
 		$txtCURR_DANCE_MOVE_P = DANCE_G1 
+		iAnimCount_P = 1
 	BREAK
 	CASE 2
 		$txtCURR_DANCE_MOVE_P = DANCE_G2 
