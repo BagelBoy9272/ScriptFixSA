@@ -57,14 +57,6 @@ GF_Sex:
 				14  // POWER_BAR_TOP_REACHED
 				15  // Change position in progress	// FIXEDGROVE: added bit flag for changing position
 	*/
-
-	//--- Parameter passing Fudge // FIXEDGROVE: replace impossible check with a GOTO
-	/* // FIXEDGROVE: START - commented out, this shouldn't be a problem anymore
-	GOTO GF_Sex_fool_compiler
-	   CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iGF_ped
-	GF_Sex_fool_compiler:
-	*/ // FIXEDGROVE: END
-	
 	
 	//--- Streaming requests 
 	// FIXEDGROVE: START - refactored a bit, only load the special model when needed
