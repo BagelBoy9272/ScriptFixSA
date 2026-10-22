@@ -42,9 +42,8 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 
 	//--- PC ONLY VARS
-	VAR_INT d_sc_1 d_sc_2 d_camCount d_amount // FIXEDGROVE: repurposed
-	VAR_INT d_player_stick_position
-	VAR_INT d_unused1 d_unused2 d_unused3 // FIXEDGROVE: now unused
+	VAR_INT d_speechCounter_BitsLow d_speechCounter_BitsHigh d_camCount d_amount // FIXEDGROVE: repurposed
+	VAR_INT d_unused1 d_unused2 d_unused3 d_unused4 // FIXEDGROVE: now unused
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -75,8 +74,8 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	TIMERA = DANCE_TIME_TO_TRIGGER_SPEECH
 
 	// FIXEDGROVE: START - initialize some extra variables
-	d_sc_1 = 0
-	d_sc_2 = 0
+	d_speechCounter_BitsLow = 0
+	d_speechCounter_BitsHigh = 0
 	d_camCount = -1
 	// FIXEDGROVE: END
 
@@ -581,7 +580,7 @@ GOSUB Dance_get_stick_position
 
 IF iButtonDown = DANCE_BUTTON_NONE
 		
-		SWITCH d_player_stick_position
+		SWITCH an
 		CASE DANCE_STKRGHT
 			iCurrentButton = DANCE_BUTTON_CIRCLE
 			iButtonDown = DANCE_BUTTON_CIRCLE			
@@ -629,7 +628,7 @@ SWITCH iButtonDown
 	CASE DANCE_BUTTON_SQUARE
 	CASE DANCE_BUTTON_CROSS
 		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0
+		IF an = 0
 			iButtonDown = DANCE_BUTTON_NONE
 		ENDIF
 	BREAK
@@ -699,7 +698,7 @@ Dance_GetTimingOfCurrentBeat:
 			//--- Unverified Beat
 			IF iCurrentButton = DANCE_BUTTON_NONE
 
-				//WRITE_DEBUG_WITH_INT d_player_stick_position d_player_stick_position
+				//WRITE_DEBUG_WITH_INT an an
 
 				//--- No button press - check if the beat is not past
 				IF iTimeToClosestBeat < DANCE_BOUNDS_ALRIGHT_MIN
@@ -2214,12 +2213,12 @@ d_amount = 0
 i = 0
 WHILE i < 56
 	IF i < 32
-		IF IS_BIT_SET d_sc_1 i
+		IF IS_BIT_SET d_speechCounter_BitsLow i
 			d_amount++
 		ENDIF
 	ELSE
 		iTemp = i - 32
-		IF IS_BIT_SET d_sc_2 iTemp
+		IF IS_BIT_SET d_speechCounter_BitsHigh iTemp
 			d_amount++
 		ENDIF
 	ENDIF
@@ -2228,13 +2227,13 @@ ENDWHILE
 
 IF d_amount >= 56
 	iTemp = iDance_SpeechCounter
-	d_sc_1 = 0
-	d_sc_2 = 0
+	d_speechCounter_BitsLow = 0
+	d_speechCounter_BitsHigh = 0
 	IF d_amount < 32
-		SET_BIT d_sc_1 iTemp
+		SET_BIT d_speechCounter_BitsLow iTemp
 	ELSE
 		iTemp = d_amount - 32
-		SET_BIT d_sc_2 iTemp
+		SET_BIT d_speechCounter_BitsHigh iTemp
 	ENDIF
 ENDIF
 
@@ -2242,14 +2241,14 @@ GENERATE_RANDOM_INT_IN_RANGE 0 56 iTemp
 
 Random_Function_In:
 	IF iTemp < 32
-		IF NOT IS_BIT_SET d_sc_1 iTemp
-			SET_BIT d_sc_1 iTemp
+		IF NOT IS_BIT_SET d_speechCounter_BitsLow iTemp
+			SET_BIT d_speechCounter_BitsLow iTemp
 			GOTO Random_Function_Out
 		ENDIF
 	ELSE
 		i = iTemp - 32
-		IF NOT IS_BIT_SET d_sc_2 i
-			SET_BIT d_sc_2 i
+		IF NOT IS_BIT_SET d_speechCounter_BitsHigh i
+			SET_BIT d_speechCounter_BitsHigh i
 			GOTO Random_Function_Out
 		ENDIF
 	ENDIF
@@ -2310,8 +2309,8 @@ Dance_CleanUp:
 	USE_TEXT_COMMANDS FALSE
 
 	// FIXEDGROVE: START - reset the variables
-	d_sc_1 = 0
-	d_sc_2 = 0
+	d_speechCounter_BitsLow = 0
+	d_speechCounter_BitsHigh = 0
 	d_amount = 0
 	d_camCount = 0
 	i = 0
@@ -2348,7 +2347,7 @@ Dance_get_stick_position:
 
 	GET_DISTANCE_BETWEEN_COORDS_2D 0.0 0.0 x_temp y_temp z_temp
 	
-	d_player_stick_position = 0
+	an = 0
 
 	IF z_temp > 64.0
 
@@ -2356,31 +2355,31 @@ Dance_get_stick_position:
 		
 		// must be up
 		IF z_temp < 15.0 
-			d_player_stick_position = DANCE_STKUP // up
+			an = DANCE_STKUP // up
 		ELSE
 			IF z_temp < 75.0 
 				IF LStickX > 0
-					d_player_stick_position = DANCE_STKUR // right and up
+					an = DANCE_STKUR // right and up
 				ELSE
-					d_player_stick_position = DANCE_STKUL // left and up
+					an = DANCE_STKUL // left and up
 				ENDIF 
 			ELSE
 				IF z_temp < 105.0 
 					IF LStickX > 0
-						d_player_stick_position = DANCE_STKRGHT // right 
+						an = DANCE_STKRGHT // right 
 					ELSE
-						d_player_stick_position = DANCE_STKLEFT // left 
+						an = DANCE_STKLEFT // left 
 					ENDIF
 				ELSE
 					IF z_temp < 165.0 
 						IF LStickX > 0
-							d_player_stick_position = DANCE_STKDR // right down 
+							an = DANCE_STKDR // right down 
 						ELSE
-							d_player_stick_position = DANCE_STKDL // left down
+							an = DANCE_STKDL // left down
 						ENDIF 	
 					ELSE
 						// must be down	
-						d_player_stick_position = DANCE_STKDW
+						an = DANCE_STKDW
 					ENDIF
 				ENDIF
 			ENDIF
