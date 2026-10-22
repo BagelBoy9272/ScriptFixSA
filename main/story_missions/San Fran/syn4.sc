@@ -654,80 +654,33 @@ WHILE NOT IS_CHAR_DEAD scplayer
 					//SKIP_CUTSCENE_START
 
 					SWITCH syn4_rnd
-
 						CASE 0
-
-							CLEAR_MISSION_AUDIO 1
-
-						 	LOAD_MISSION_AUDIO 1 SOUND_SYN4_BA // Sorry, man, private function.
-
-							WHILE NOT HAS_MISSION_AUDIO_LOADED 1	 
-								WAIT 0
-							ENDWHILE
-
-							PLAY_MISSION_AUDIO 1
-
-							PRINT_NOW ( SYN4_BA ) 4000 1 // Sorry, man, private function.
-
-							TIMERB = 0
-							WHILE TIMERB < 4000
-								WAIT 0
-								IF IS_SKIP_CUTSCENE_BUTTON_PRESSED
-									GOTO s4_skip_the_cut
-								ENDIF
-							ENDWHILE
-
+							audio_sound_file = SOUND_SYN4_BA // Sorry, man, private function.
+							$audio_string = &SYN4_BA // Sorry, man, private function.
 						BREAK
-
 						CASE 1
-
-							CLEAR_MISSION_AUDIO 1
-
-						 	LOAD_MISSION_AUDIO 1 SOUND_SYN4_BB // Jizzy doesn’t want to be disturbed.
-
-							WHILE NOT HAS_MISSION_AUDIO_LOADED 1	 
-								WAIT 0
-							ENDWHILE
-
-							PLAY_MISSION_AUDIO 1
-
-							PRINT_NOW ( SYN4_BB ) 4000 1 // Jizzy doesn’t want to be disturbed.
-
-							TIMERB = 0
-							WHILE TIMERB < 4000
-								WAIT 0
-								IF IS_SKIP_CUTSCENE_BUTTON_PRESSED
-									GOTO s4_skip_the_cut
-								ENDIF
-							ENDWHILE
-						
+							audio_sound_file = SOUND_SYN4_BB // Jizzy doesn’t want to be disturbed.
+							$audio_string = &SYN4_BB // Jizzy doesn’t want to be disturbed.
 						BREAK
-
 						CASE 2
-
-							CLEAR_MISSION_AUDIO 1
-
-						 	LOAD_MISSION_AUDIO 1 SOUND_SYN4_BC // You ain’t getting in!
-
-							WHILE NOT HAS_MISSION_AUDIO_LOADED 1	 
-								WAIT 0
-							ENDWHILE
-
-							PLAY_MISSION_AUDIO 1
-
-							PRINT_NOW ( SYN4_BC ) 4000 1 // You ain’t getting in!
-
-							TIMERB = 0
-							WHILE TIMERB < 4000
-								WAIT 0
-								IF IS_SKIP_CUTSCENE_BUTTON_PRESSED
-									GOTO s4_skip_the_cut
-								ENDIF
-							ENDWHILE
-
+							audio_sound_file = SOUND_SYN4_BC // You ain’t getting in!
+							$audio_string = &SYN4_BC // You ain’t getting in!
 						BREAK
-
 					ENDSWITCH
+					CLEAR_MISSION_AUDIO 1
+					LOAD_MISSION_AUDIO 1 audio_sound_file
+					WHILE NOT HAS_MISSION_AUDIO_LOADED 1	 
+						WAIT 0
+					ENDWHILE
+					PLAY_MISSION_AUDIO 1
+					PRINT_NOW ( $audio_string ) 4000 1
+					TIMERB = 0
+					WHILE TIMERB < 4000
+						WAIT 0
+						IF IS_SKIP_CUTSCENE_BUTTON_PRESSED
+							GOTO s4_skip_the_cut
+						ENDIF
+					ENDWHILE
 
 					TIMERB = 0
 					WHILE TIMERB < 1000
@@ -2187,87 +2140,79 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 							syn4_rnd_txt ++
 
-							IF syn4_rnd_txt = 1
+							SWITCH syn4_rnd_txt
+							CASE 1
 
 								$s4_print = &SYN4_AA	// Hey, I thought we was friends!
 								s4_audio = SOUND_SYN4_AA
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 2
+							BREAK
+							CASE 2
 
 								$s4_print = &SYN4_AB	// You’re blowing your chance to be a playa!
 								s4_audio = SOUND_SYN4_AB
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 3
+							BREAK
+							CASE 3
 
 								$s4_print = &SYN4_AC	// We can talk about this, homie!
 								s4_audio = SOUND_SYN4_AC
-								GOSUB s4_load_sample
 
-							ENDIF
+							BREAK
 							
-							IF syn4_rnd_txt = 4
+							CASE 4
 
 								$s4_print = &SYN4_AD	// You're wrecking my ride!
 								s4_audio = SOUND_SYN4_AD
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 5
+							BREAK
+							CASE 5
 
 								$s4_print = &SYN4_AE	// CJ, brother, you have to reconsider your position!
 								s4_audio = SOUND_SYN4_AE
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 6
+							BREAK
+							CASE 6
 
 								$s4_print = &SYN4_AF	// I can fix anything for you in this town, anything!
 								s4_audio = SOUND_SYN4_AF
-								GOSUB s4_load_sample
 
-							ENDIF
+							BREAK
 							
-							IF syn4_rnd_txt = 7
+							CASE 7
 
 								$s4_print = &SYN4_AG	// CJ, you’re a fool, A FOOL!
 								s4_audio = SOUND_SYN4_AG
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 8
+							BREAK
+							CASE 8
 
 								$s4_print = &SYN4_AH	// I won’t forget this, CJ, you hear me?
 								s4_audio = SOUND_SYN4_AH
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 9
+							BREAK
+							CASE 9
 
 								$s4_print = &SYN4_AJ	// You realise how much this paint job cost?
 								s4_audio = SOUND_SYN4_AJ
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 10
+							BREAK
+							CASE 10
 
 								$s4_print = &SYN4_AK	// Back off, fool!
 								s4_audio = SOUND_SYN4_AK
-								GOSUB s4_load_sample
 
-							ENDIF
-							IF syn4_rnd_txt = 11
+							BREAK
+							CASE 11
 
 								$s4_print = &SYN4_AL	// I got money, have it!
 								s4_audio = SOUND_SYN4_AL
-								GOSUB s4_load_sample
 
 								syn4_rnd_txt = 0
 
-							ENDIF
+							BREAK
+							ENDSWITCH
+								GOSUB s4_load_sample
 
 							TIMERA = 0
 
@@ -2415,7 +2360,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		ENDIF
 
 		IF s4_playing = 2
-		AND s4_txt_display = 0
+		SWITCH s4_txt_display
+		CASE 0
 
 			IF NOT IS_CHAR_DEAD scplayer
 
@@ -2425,14 +2371,12 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$s4_print = &MCES11A	// Yo Cesar!
 			s4_audio = SOUND_MCES11A
-			GOSUB s4_load_sample
 
 			s4_txt_display = 1
 
-		ENDIF
+		BREAK
 
-		IF s4_playing = 2
-		AND s4_txt_display = 1
+		CASE 1
 													
 			IF NOT IS_CHAR_DEAD scplayer
 
@@ -2442,14 +2386,12 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$s4_print = &MCES11B	// Hey, dude, whassup?
 			s4_audio = SOUND_MCES11B
-			GOSUB s4_load_sample
 
 			s4_txt_display = 2
 
-		ENDIF
+		BREAK
 
-		IF s4_playing = 2
-		AND s4_txt_display = 2
+		CASE 2
 
 			IF NOT IS_CHAR_DEAD scplayer
 
@@ -2459,14 +2401,12 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$s4_print = &MCES11C	// Listen; I need you to meet me at Pier 69.
 			s4_audio = SOUND_MCES11C
-			GOSUB s4_load_sample
 
 			s4_txt_display = 3
 
-		ENDIF
+		BREAK
 
-		IF s4_playing = 2
-		AND s4_txt_display = 3
+		CASE 3
 											
 			IF NOT IS_CHAR_DEAD scplayer
 
@@ -2476,26 +2416,22 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$s4_print = &MCES11D	// We're going to take down the Loco Syndicate.
 			s4_audio = SOUND_MCES11D
-			GOSUB s4_load_sample
 
 			s4_txt_display = 4
 
-		ENDIF
+		BREAK
 
-		IF s4_playing = 2
-		AND s4_txt_display = 4
+		CASE 4
 
 			$s4_print = &MCES11E	// Ok, holmes. You need some help there?
 			s4_audio = SOUND_MCES11E
-			GOSUB s4_load_sample
 
 			s4_txt_display = 5
 
-		ENDIF
+		BREAK
 
 
-		IF s4_playing = 2
-		AND s4_txt_display = 5
+		CASE 5
 
 			IF NOT IS_CHAR_DEAD scplayer
 
@@ -2505,14 +2441,12 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 			$s4_print = &MCES11F	// No, dude, I got it covered!
 			s4_audio = SOUND_MCES11F
-			GOSUB s4_load_sample
 
 			s4_txt_display = 6
 
-		ENDIF
+		BREAK
 		
-		IF s4_playing = 2
-		AND s4_txt_display = 6
+		CASE 6
 												
 			IF NOT IS_CHAR_DEAD scplayer
 
@@ -2529,6 +2463,14 @@ WHILE NOT IS_CHAR_DEAD scplayer
 			GOSUB syn4_restore_camera
 			 
 			GOTO mission_synd4_passed
+
+		BREAK
+		ENDSWITCH
+
+		IF s4_txt_display > 0
+		AND s4_txt_display < 7
+			GOSUB s4_load_sample
+		ENDIF
 
 		ENDIF
 

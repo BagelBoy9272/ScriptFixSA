@@ -2143,21 +2143,24 @@ RETURN
 get_back_in_the_car:
 	
 	CLEAR_MISSION_AUDIO 2
-	IF get_in_counter_swee1 = 0
-		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BM	//Get in, nigga!
-	ENDIF
+	SWITCH get_in_counter_swee1
+	CASE 0
+		audio_sound_file = SOUND_SWE1_BM	//Get in, nigga!
+	BREAK
 
-	IF get_in_counter_swee1 = 1
-		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BS	//CJ, for once, don't be a punk!
-	ENDIF
+	CASE 1
+		audio_sound_file = SOUND_SWEX_BS	//CJ, for once, don't be a punk!
+	BREAK
 
-	IF get_in_counter_swee1 = 2
-		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BP	//Don't be a buster, CJ!
-	ENDIF
+	CASE 2
+		audio_sound_file = SOUND_SWEX_BP	//Don't be a buster, CJ!
+	BREAK
 
-	IF get_in_counter_swee1 = 3			
-		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BG // CJ, GET IN!
-	ENDIF
+	CASE 3			
+		audio_sound_file = SOUND_SWE1_BG // CJ, GET IN!
+	BREAK
+	ENDSWITCH
+		LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -2187,18 +2190,21 @@ get_back_in_the_car:
 
 	PLAY_MISSION_AUDIO 2 
 	  	
-	IF get_in_counter_swee1 = 0
-		PRINT_NOW ( SWE1_BM ) 3000 1 //Get in, nigga!	
-	ENDIF
-	IF get_in_counter_swee1 = 1
-		PRINT_NOW ( SWEX_BS ) 3000 1 //	CJ, for once, don't be a punk!
-	ENDIF
-	IF get_in_counter_swee1 = 2
-		PRINT_NOW ( SWEX_BP ) 3000 1 //Don't be a buster, CJ!
-	ENDIF
-	IF get_in_counter_swee1 = 3
-		PRINT_NOW ( SWE1_BG ) 3000 1 // CJ, GET IN!
-	ENDIF
+	SWITCH get_in_counter_swee1
+	CASE 0
+		$audio_string = &SWE1_BM //Get in, nigga!	
+	BREAK
+	CASE 1
+		$audio_string = &SWEX_BS //	CJ, for once, don't be a punk!
+	BREAK
+	CASE 2
+		$audio_string = &SWEX_BP //Don't be a buster, CJ!
+	BREAK
+	CASE 3
+		$audio_string = &SWE1_BG // CJ, GET IN!
+	BREAK
+	ENDSWITCH
+		PRINT_NOW ( $audio_string ) 3000 1
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0
@@ -2284,19 +2290,22 @@ start_talking_sweet1:
 	ENDIF
 	*/  
 
-	IF sweet1_audio_chat[sweet1_index] = SOUND_SWE1_AB
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_AE
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_BO
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_BQ
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_BX
+	SWITCH sweet1_audio_chat[sweet1_index] 
+	CASE SOUND_SWE1_AB
+	CASE SOUND_SWE1_AE
+	CASE SOUND_SWE1_BO
+	CASE SOUND_SWE1_BQ
+	CASE SOUND_SWE1_BX
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
 		START_CHAR_FACIAL_TALK scplayer 2000
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	sweet
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet TRUE
 			START_CHAR_FACIAL_TALK sweet 2000
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 
 RETURN
@@ -2314,19 +2323,22 @@ stop_talking_sweet1:
 	ENDIF
 	*/
 
-	IF sweet1_audio_chat[sweet1_index] = SOUND_SWE1_AB
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_AE
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_BO
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_BQ
-	OR sweet1_audio_chat[sweet1_index] = SOUND_SWE1_BX
+	SWITCH sweet1_audio_chat[sweet1_index]
+	CASE SOUND_SWE1_AB
+	CASE SOUND_SWE1_AE
+	CASE SOUND_SWE1_BO
+	CASE SOUND_SWE1_BQ
+	CASE SOUND_SWE1_BX
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 		STOP_CHAR_FACIAL_TALK scplayer
-	ELSE
+	BREAK
+	DEFAULT
 		IF NOT IS_CHAR_DEAD	sweet
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
 			STOP_CHAR_FACIAL_TALK sweet
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 

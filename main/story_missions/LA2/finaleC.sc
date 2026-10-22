@@ -771,26 +771,24 @@ IF NOT IS_CAR_DEAD firetruck_fc
 						GOSUB process_audio_fc
 
 						//play mission audio
-						IF progressaudio_fcflag = 0
-							IF handlingudio_fcflag = 0
+						IF handlingudio_fcflag = 0
+							SWITCH progressaudio_fcflag
+							CASE 0
 								audio_label_fc = SOUND_ROT4_HA	//Tenpenny, you motherfucking piece of shit!
 								$input_text_fc = ROT4_HA	//Tenpenny, you motherfucking piece of shit!
 								GOSUB load_audio_fc
-							ENDIF
-						ENDIF
-						IF progressaudio_fcflag = 1
-							IF handlingudio_fcflag = 0
+							BREAK
+							CASE 1
 								audio_label_fc = SOUND_ROT4_HB	//I ain’t letting you get away with all you’ve done!
 								$input_text_fc = ROT4_HB	//I ain’t letting you get away with all you’ve done!
 								GOSUB load_audio_fc
-							ENDIF
-						ENDIF
-						IF progressaudio_fcflag = 2
-							IF handlingudio_fcflag = 0
+							BREAK
+							CASE 2
 								audio_label_fc = SOUND_ROT4_DB	//Sweet, no!
 								$input_text_fc = ROT4_DB	//Sweet, no!
 								GOSUB load_audio_fc
-							ENDIF
+							BREAK
+							ENDSWITCH
 						ENDIF
 
 					ENDIF
@@ -1651,132 +1649,118 @@ IF finaleCchase_fcflag = 1
 						GOSUB process_audio_fc
 
 						//play mission audio
-						IF progressaudio_fcflag = 0
-							IF handlingudio_fcflag = 0
+						IF handlingudio_fcflag = 0
+
+							SWITCH stagechase_fcflag
+							CASE 1
+								IF progressaudio_fcflag < 1
+									progressaudio_fcflag = 1
+								ENDIF
+							BREAK
+							CASE 2
+								IF progressaudio_fcflag < 4
+									progressaudio_fcflag = 4
+								ENDIF
+							BREAK
+							CASE 3
+								IF progressaudio_fcflag < 6
+									progressaudio_fcflag = 6
+								ENDIF
+							BREAK
+							CASE 4
+								IF progressaudio_fcflag < 8
+									progressaudio_fcflag = 8
+								ENDIF
+							BREAK
+							ENDSWITCH
+
+							SWITCH progressaudio_fcflag
+							CASE 0
 								IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 15.0 15.0 FALSE
 									audio_label_fc = SOUND_ROT4_EA	///Hang on Sweet!
 									$input_text_fc = ROT4_EA	///Hang on Sweet!
 									GOSUB load_audio_fc
 								ENDIF
-							ENDIF
-						ENDIF
-						IF stagechase_fcflag = 1
-							IF handlingudio_fcflag = 0
-								IF progressaudio_fcflag < 1
-									progressaudio_fcflag = 1
-								ENDIF
-								IF progressaudio_fcflag = 1
+							BREAK
+							CASE 1
+								IF stagechase_fcflag = 1
 									IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 										audio_label_fc = SOUND_ROT4_HC //I’m gonna piss on your corpse, Tenpenny!
 										$input_text_fc = ROT4_HC //I’m gonna piss on your corpse, Tenpenny!
 										GOSUB load_audio_fc
 									ENDIF
 								ENDIF
-							ENDIF
-						ENDIF
-						IF progressaudio_fcflag = 2
-							IF handlingudio_fcflag = 0
+							BREAK
+							CASE 2
 								IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 									audio_label_fc = SOUND_ROT4_FA	//I ain't loosin' this fool!
 									$input_text_fc = ROT4_FA	//I ain't loosin' this fool!									
 									GOSUB load_audio_fc
 								ENDIF
-							ENDIF
-						ENDIF
-
-
-						IF progressaudio_fcflag = 3
-							IF handlingudio_fcflag = 0
+							BREAK
+							CASE 3
 								IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 									audio_label_fc = SOUND_ROT4_MB //Oh shiiiiit!
 									$input_text_fc = ROT4_MB //Oh shiiiiit!									
 									GOSUB load_audio_fc
 								ENDIF
-							ENDIF
-						ENDIF
-
-
-						IF handlingudio_fcflag = 0
-							IF stagechase_fcflag = 2
-								IF progressaudio_fcflag < 4
-									progressaudio_fcflag = 4
-								ENDIF
-								IF progressaudio_fcflag = 4
+							BREAK
+							CASE 4
+								IF stagechase_fcflag = 2
 									IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 										audio_label_fc = SOUND_ROT4_KJ //CJ, do something!
 										$input_text_fc = ROT4_KJ //CJ, do something!
 										GOSUB load_audio_fc
 									ENDIF
 								ENDIF
-							ENDIF
-						ENDIF
-
-						IF progressaudio_fcflag = 5
-							IF handlingudio_fcflag = 0
+							BREAK
+							CASE 5
 								IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 									audio_label_fc = SOUND_ROT4_EB //Just keep hanging on, bro!
 									$input_text_fc = ROT4_EB //Just keep hanging on, bro!
 									GOSUB load_audio_fc
 								ENDIF
-							ENDIF
-						ENDIF
-
-						IF handlingudio_fcflag = 0
-							IF stagechase_fcflag = 3
-								IF progressaudio_fcflag < 6
-									progressaudio_fcflag = 6
-								ENDIF
-								IF progressaudio_fcflag = 6
+							BREAK
+							CASE 6
+								IF stagechase_fcflag = 3
 									IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 										audio_label_fc = SOUND_ROT4_GB //Oh man, that was  a close call!
 										$input_text_fc = ROT4_GB //Oh man, that was  a close call!
 										GOSUB load_audio_fc
 									ENDIF
 								ENDIF
-							 ENDIF
-						ENDIF
-
-						IF handlingudio_fcflag = 0
-							IF progressaudio_fcflag = 7
+							BREAK
+							CASE 7
 								IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 									audio_label_fc = SOUND_ROT4_FB //I ain’t letting this bastard go!
 									$input_text_fc = ROT4_FB //I ain’t letting this bastard go!
 									GOSUB load_audio_fc
 								ENDIF
-							ENDIF
-						ENDIF
-
-						IF handlingudio_fcflag = 0
-							IF stagechase_fcflag = 4
-								IF progressaudio_fcflag < 8
-									progressaudio_fcflag = 8
-								ENDIF
-								IF progressaudio_fcflag = 8
+							BREAK
+							CASE 8
+								IF stagechase_fcflag = 4
 									IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 										audio_label_fc = SOUND_ROT4_KB	//Let go, you dumb bastard!
 										$input_text_fc = ROT4_KB	//Let go, you dumb bastard!
 										GOSUB load_audio_fc
 									ENDIF
 								ENDIF
-							 ENDIF
-						ENDIF
-						IF handlingudio_fcflag = 0
-							IF progressaudio_fcflag = 9
+							BREAK
+							CASE 9
 								IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 									audio_label_fc = SOUND_ROT4_KD	//Fuck you, pig!								
 									$input_text_fc = ROT4_KD //Fuck you, pig!
 									GOSUB load_audio_fc
 								ENDIF
-							ENDIF
-						ENDIF
-						IF handlingudio_fcflag = 0
-							IF progressaudio_fcflag = 10
+							BREAK
+							CASE 10
 								IF LOCATE_CHAR_ANY_MEANS_CHAR_2D scplayer sweet 30.0 30.0 FALSE
 									audio_label_fc = SOUND_ROT4_KE //Argh! My fingers!
 									$input_text_fc = ROT4_KE //Argh! My fingers!
 									GOSUB load_audio_fc
 								ENDIF
-							ENDIF
+							BREAK
+							ENDSWITCH
 						ENDIF
 
 					ENDIF
@@ -3687,118 +3671,113 @@ IF finalerails_fcflag = 1
 
 			//imran
 			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 0
+				SWITCH progressaudio_fcflag
+				CASE 0
 					audio_label_fc = SOUND_ROT4_MD //Motherfucker!
 					$input_text_fc = ROT4_MD //Motherfucker!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 1
+				BREAK
+				CASE 1
 					audio_label_fc = SOUND_ROT4_NL //Take that pig bastard down!
 					$input_text_fc = ROT4_NL //Take that pig bastard down!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF actiontext_fcflag = 1
-				IF handlingudio_fcflag = 0
-					IF progressaudio_fcflag = 2
+				BREAK
+				CASE 2
+					IF actiontext_fcflag = 1
 						audio_label_fc = SOUND_ROT4_QA //Those firetrucks are indestructible!
 						$input_text_fc = ROT4_QA //Those firetrucks are indestructible!
-						GOSUB load_audio_fc
 					ENDIF
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 3
+				BREAK
+				CASE 3
 					audio_label_fc = SOUND_ROT4_QB	//We ain’t gonna dent it!
 					$input_text_fc = ROT4_QB	//We ain’t gonna dent it!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 4
+				BREAK
+				CASE 4
 					audio_label_fc = SOUND_ROT4_TF	//Watch our six!
 					$input_text_fc = ROT4_TF	//Watch our six!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 5
+				BREAK
+				CASE 5
 					audio_label_fc = SOUND_ROT4_NR //Cops on our tail!
 					$input_text_fc = ROT4_NR //Cops on our tail!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF actiontext_fcflag = 2
-				IF handlingudio_fcflag = 0
-					IF progressaudio_fcflag = 6
+				BREAK
+				CASE 6
+					IF actiontext_fcflag = 2
 						audio_label_fc = SOUND_ROT4_NE	//Vagos rioters coming up!
 						$input_text_fc = ROT4_NE	//Vagos rioters coming up!
-						GOSUB load_audio_fc
 					ENDIF
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 7
+				BREAK
+				CASE 7
 					audio_label_fc = SOUND_ROT4_TK	//This city’s gone nuts!
 					$input_text_fc = ROT4_TK	//This city’s gone nuts!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-
-			IF actiontext_fcflag = 3
-				IF handlingudio_fcflag = 0
-					IF progressaudio_fcflag = 8
+				BREAK
+				CASE 8
+					IF actiontext_fcflag = 3
 						audio_label_fc = SOUND_ROT4_TM //I’ll keep up with Tenpenny, don’t you worry!!
 						$input_text_fc = ROT4_TM //I’ll keep up with Tenpenny, don’t you worry!
-						GOSUB load_audio_fc
 					ENDIF
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 9
+				BREAK
+				CASE 9
 					audio_label_fc = SOUND_ROT4_TG //Concentrate on keepin g all these other lunatics off our case, CJ.
 					$input_text_fc = ROT4_TG //Concentrate on keepin g all these other lunatics off our case, CJ.
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF actiontext_fcflag = 5
-				IF handlingudio_fcflag = 0
-					IF progressaudio_fcflag = 10
+				BREAK
+				CASE 10
+					IF actiontext_fcflag = 5
 						audio_label_fc = SOUND_ROT4_NA	//Rioters on the bridge up ahead!
 						$input_text_fc = ROT4_NA	//Rioters on the bridge up ahead!
-						GOSUB load_audio_fc
 					ENDIF
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 11
+				BREAK
+				CASE 11
 					audio_label_fc = SOUND_ROT4_NB	//They’re dropping shit from that bridge!
 					$input_text_fc = ROT4_NB	//They’re dropping shit from that bridge!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 12
+				BREAK
+				CASE 12
 					audio_label_fc = SOUND_ROT4_TC	//Look out, CJ!
 					$input_text_fc = ROT4_TC	//Look out, CJ!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 13
+				BREAK
+				CASE 13
 					audio_label_fc = SOUND_ROT4_TF //Watch our six!
 					$input_text_fc = ROT4_TF //Watch our six!
-					GOSUB load_audio_fc
-				ENDIF
-			ENDIF
-			IF handlingudio_fcflag = 0
-				IF progressaudio_fcflag = 14
+				BREAK
+				CASE 14
 					audio_label_fc = SOUND_ROT4_TA	//Some rioters after us on bikes!
 					$input_text_fc = ROT4_TA	//Some rioters after us on bikes!
+				BREAK
+				ENDSWITCH
+
+				SWITCH progressaudio_fcflag
+				CASE 0
+				CASE 1
+				CASE 3
+				CASE 4
+				CASE 5
+				CASE 7
+				CASE 9
+				CASE 11
+				CASE 12
+				CASE 13
+				CASE 14
 					GOSUB load_audio_fc
-				ENDIF
+				BREAK
+
+				CASE 2
+					IF actiontext_fcflag = 1
+						GOSUB load_audio_fc
+					ENDIF
+				BREAK
+				CASE 6
+					IF actiontext_fcflag = 2
+						GOSUB load_audio_fc
+					ENDIF
+				BREAK
+				CASE 8
+					IF actiontext_fcflag = 3
+						GOSUB load_audio_fc
+					ENDIF
+				BREAK
+				CASE 10
+					IF actiontext_fcflag = 5
+						GOSUB load_audio_fc
+					ENDIF
+				BREAK
+				ENDSWITCH
 			ENDIF
 							
 		ENDIF
@@ -4458,105 +4437,102 @@ IF finalerails_fcflag = 2
 
 					//imran
 					IF handlingudio_fcflag = 0
-						IF progressaudio_fcflag = 0
+						SWITCH progressaudio_fcflag
+						CASE 0
 							audio_label_fc = SOUND_ROT4_TC //Look out, CJ!
 							$input_text_fc = ROT4_TC //Look out, CJ!
-							GOSUB load_audio_fc
-						ENDIF
-					ENDIF
-					IF handlingudio_fcflag = 0
-						IF progressaudio_fcflag = 1
+						BREAK
+						CASE 1
 							audio_label_fc = SOUND_ROT4_TB	//Crazy bikers on a rampage!
 							$input_text_fc = ROT4_TB	//Crazy bikers on a rampage!
-							GOSUB load_audio_fc
-						ENDIF
-					ENDIF
-					IF handlingudio_fcflag = 0
-						IF progressaudio_fcflag = 2
+						BREAK
+						CASE 2
 							audio_label_fc = SOUND_ROT4_TH	//I’m on Tenpenny, he ain’t getting away!
 							$input_text_fc = ROT4_TH	//I’m on Tenpenny, he ain’t getting away!
-							GOSUB load_audio_fc
-						ENDIF
-					ENDIF
-
-					IF actiontext_fcflag = 1
-						IF handlingudio_fcflag = 0
-							IF progressaudio_fcflag = 3
+						BREAK
+						CASE 3
+							IF actiontext_fcflag = 1
 								audio_label_fc = SOUND_ROT4_NR //Cops on our tail!
 								$input_text_fc = ROT4_NR //Cops on our tail!
-								GOSUB load_audio_fc
 							ENDIF
-						ENDIF
-					ENDIF
-
-					IF actiontext_fcflag = 2
-						IF handlingudio_fcflag = 0
-							IF progressaudio_fcflag = 4
+						BREAK
+						CASE 4
+							IF actiontext_fcflag = 2
 								audio_label_fc = SOUND_ROT4_NS	//Cops up ahead!
 								$input_text_fc = ROT4_NS	//Cops up ahead!
-								GOSUB load_audio_fc
 							ENDIF
-						ENDIF
-					ENDIF
-					IF handlingudio_fcflag = 0
-						IF progressaudio_fcflag = 5
+						BREAK
+						CASE 5
 							audio_label_fc = SOUND_ROT4_TJ //Where did all these assholes come from?
 							$input_text_fc = ROT4_TJ //Where did all these assholes come from?
-							GOSUB load_audio_fc
-						ENDIF
-					ENDIF
-
-					IF actiontext_fcflag = 3
-						IF handlingudio_fcflag = 0
-							IF progressaudio_fcflag = 6
+						BREAK
+						CASE 6
+							IF actiontext_fcflag = 3
 								audio_label_fc = SOUND_ROT4_SB //Down in flames! DOWN IN FLAMES!
 								$input_text_fc = ROT4_SB //Down in flames! DOWN IN FLAMES!
-								GOSUB load_audio_fc
 							ENDIF
-						ENDIF
-					ENDIF
-					IF handlingudio_fcflag = 0
-						IF progressaudio_fcflag = 7
+						BREAK
+						CASE 7
 							audio_label_fc = SOUND_ROT4_PC //That’s my dog!
 							$input_text_fc = ROT4_PC //That’s my dog!
-							GOSUB load_audio_fc
-						ENDIF
-					ENDIF
-
-					IF actiontext_fcflag = 4
-						IF handlingudio_fcflag = 0
-							IF progressaudio_fcflag = 8
+						BREAK
+						CASE 8
+							IF actiontext_fcflag = 4
 								audio_label_fc = SOUND_ROT4_OA	//It’s over, Tenpenny, OVER!
 								$input_text_fc = ROT4_OA	//It’s over, Tenpenny, OVER!
-								GOSUB load_audio_fc
 							ENDIF
-						ENDIF
-					ENDIF
-					IF handlingudio_fcflag = 0
-						IF progressaudio_fcflag = 9
+						BREAK
+						CASE 9
 							audio_label_fc = SOUND_ROT4_OD //I’m gonna stop you, motherfucker!
 							$input_text_fc = ROT4_OD //I’m gonna stop you, motherfucker!
-							GOSUB load_audio_fc
-						ENDIF
-					ENDIF
-
-					IF actiontext_fcflag = 4
-						IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2431.32 -1528.48 20.0 20.0 FALSE
-							IF handlingudio_fcflag = 0
-								IF progressaudio_fcflag = 10
+						BREAK
+						CASE 10
+							IF actiontext_fcflag = 4
+								IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2431.32 -1528.48 20.0 20.0 FALSE
 									audio_label_fc = SOUND_ROT4_RA	//He’s losing control!
 									$input_text_fc = ROT4_RA	//He’s losing control!
 									GOSUB load_audio_fc
 								ENDIF
 							ENDIF
-						ENDIF
-					ENDIF
-					IF handlingudio_fcflag = 0
-						IF progressaudio_fcflag = 11
+						BREAK
+						CASE 11
 							audio_label_fc = SOUND_ROT4_RD	//We’ve got the motherfucker!
 							$input_text_fc = ROT4_RD	//We’ve got the motherfucker!
+						BREAK
+						ENDSWITCH
+
+						SWITCH progressaudio_fcflag
+						CASE 0
+						CASE 1
+						CASE 2
+						CASE 5
+						CASE 7
+						CASE 9
+						CASE 11
 							GOSUB load_audio_fc
-						ENDIF
+						BREAK
+
+						CASE 3
+							IF actiontext_fcflag = 1
+								GOSUB load_audio_fc
+							ENDIF
+						BREAK
+						CASE 4
+							IF actiontext_fcflag = 2
+								GOSUB load_audio_fc
+							ENDIF
+						BREAK
+						CASE 6
+							IF actiontext_fcflag = 3
+								GOSUB load_audio_fc
+							ENDIF
+						BREAK
+						CASE 8
+							IF actiontext_fcflag = 4
+								GOSUB load_audio_fc
+							ENDIF
+						BREAK
+						ENDSWITCH
 					ENDIF
 
 				ENDIF

@@ -1529,8 +1529,9 @@ WHILE NOT IS_CHAR_DEAD scplayer
 
 	GOSUB kill_guys_if_in_radius
 
+	SWITCH c2_plunger_txt
+	CASE 0
 	IF c2_time_left <= 22000
-	AND c2_plunger_txt = 0
 
 		IF c2_inside_quarry = 1
 		//	c2_audio_3 = SOUND_DETONATION_SIREN
@@ -1540,9 +1541,10 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		c2_plunger_txt = 1
 
 	ENDIF
+	BREAK
 
+	CASE 1
 	IF c2_time_left <= 20000
-	AND c2_plunger_txt = 1
 
 		IF c2_inside_quarry = 1
 			$c2_print = &CAS2_BA	// ALL PERSONEL CLEAR!
@@ -1553,9 +1555,10 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		c2_plunger_txt = 2
 
 	ENDIF
+	BREAK
 
+	CASE 2
 	IF c2_time_left <= 6000
-	AND c2_plunger_txt = 2
 
 		IF c2_inside_quarry = 1
 			$c2_print = &CAS2_BB	// FIVE SECONDS TO DETONATION!
@@ -1566,8 +1569,9 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		c2_plunger_txt = 3
 
 	ENDIF
+	BREAK
+ 	CASE 3
 	IF c2_time_left <= 3800
- 	AND c2_plunger_txt = 3
 
 		IF c2_inside_quarry = 1
 			$c2_print = &CAS2_BC	// THREE...!
@@ -1578,9 +1582,10 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		c2_plunger_txt = 4
 
 	ENDIF
+	BREAK
 
+	CASE 4
 	IF c2_time_left <= 2800
-	AND c2_plunger_txt = 4
 
 		IF c2_inside_quarry = 1
 	 		$c2_print = &CAS2_BD	// TWO...!
@@ -1591,6 +1596,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 		c2_plunger_txt = 5
 
 	ENDIF
+	BREAK
+	ENDSWITCH
 
 	IF IS_CAR_DEAD c2_dumper
 	AND c2_dumper_is_safe = 0
