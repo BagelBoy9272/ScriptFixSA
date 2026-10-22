@@ -362,8 +362,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed the player's haircut being temporarily reset for no apparent reason
 - Mafia will be unfriendly to the Grove and the Triads after this mission
 
-**Vertical Bird:**
-- Increased upper limit in random number generator, bringing back an unused route for a forklift
+**Freefall:**
+- Fixed flawed delta-time scaling introduced in the PC port for plane physics, restores console parity
+- Fixed controller specific cover controls help box version being shown even on KBM
 
 **Saint Mark's Bistro:**
 - Added facial talk anim to voicelines
@@ -380,6 +381,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 
 **Madd Dogg:**
 - Increased upper bound in a random number generator, bringing back an unused line for the truck owner
+
+**Vertical Bird:**
+- Increased upper limit in random number generator, bringing back an unused route for a forklift
 
 **Home Coming:**
 - Added facial talk anim to voicelines
