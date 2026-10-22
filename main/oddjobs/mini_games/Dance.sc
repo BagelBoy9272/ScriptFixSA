@@ -776,12 +776,10 @@ RETURN
 ********************************************/
 Dance_PlayGoodAnim:
 
-// FIXEDGROVE - START
-d_randomType = 2
-GOSUB Random_Function
-iAnimCount = iTemp
-d_camCount++
-// FIXEDGROVE - END
+IF iAnimCount < 1
+OR iAnimCount > 16
+	iAnimCount = 1
+ENDIF
 
  SWITCH iAnimCount
 	CASE 1
@@ -836,18 +834,19 @@ ENDSWITCH
 
 	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $txtCURR_DANCE_MOVE $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0 
  	
+iAnimCount++
+d_camCount++
+
 RETURN
 /********************************************
 			PLAY MISS ANIMATION
 ********************************************/
 Dance_PlayMissAnim:
 
-// FIXEDGROVE - START
-d_randomType = 2
-GOSUB Random_Function
-iAnimCount = iTemp
-d_camCount++
-// FIXEDGROVE - END
+IF iAnimCount < 1
+OR iAnimCount > 16
+	iAnimCount = 1
+ENDIF
 
  SWITCH iAnimCount
 	CASE 1
@@ -902,6 +901,9 @@ ENDSWITCH
 
 	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $txtCURR_DANCE_MOVE $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0
  	
+iAnimCount++
+d_camCount++
+
 RETURN
 /********************************************
 		GET ANIM LINK STATUS
@@ -1104,11 +1106,10 @@ RETURN
 ********************************************/
 Dance_PlayPartnerAnim:
 
-// FIXEDGROVE - START
-d_randomType = 3
-GOSUB Random_Function
-iAnimCount_P = iTemp
-// FIXEDGROVE - END
+IF iAnimCount_P < 1
+OR iAnimCount_P > 16
+	iAnimCount_P = 1
+ENDIF
 
  SWITCH iAnimCount_P
 	CASE 1
@@ -1164,6 +1165,8 @@ ENDSWITCH
 	 IF NOT IS_CHAR_DEAD iPartner
 		TASK_PLAY_ANIM_NON_INTERRUPTABLE iPartner $txtCURR_DANCE_MOVE_P $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0 
 	ENDIF  
+
+iAnimCount_P++
 
 RETURN
 /*******************************************
@@ -1236,7 +1239,7 @@ Dance_Print_Input_Feedback:
 
 	ENDSWITCH
  
-++iLastPrint
+iLastPrint++
 
 RETURN
 
@@ -1489,11 +1492,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechHigh:
 
-// FIXEDGROVE - START
-d_randomType = 1
-GOSUB Random_Function
-iDance_SpeechCounter = iTemp
-// FIXEDGROVE - END
+GOSUB Random_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -1673,11 +1672,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechLow:
 
-// FIXEDGROVE - START
-d_randomType = 1
-GOSUB Random_Function
-iDance_SpeechCounter = iTemp
-// FIXEDGROVE - END
+GOSUB Random_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -1857,11 +1852,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechMed:
 
-// FIXEDGROVE - START
-d_randomType = 1
-GOSUB Random_Function
-iDance_SpeechCounter = iTemp
-// FIXEDGROVE - END
+GOSUB Random_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -2041,11 +2032,7 @@ RETURN
 ********************************************/
 Dance_RetrieveSpeechNot:
 
-// FIXEDGROVE - START
-d_randomType = 1
-GOSUB Random_Function
-iDance_SpeechCounter = iTemp
-// FIXEDGROVE - END
+GOSUB Random_Function // FIXEDGROVE
 
 SWITCH iDance_SpeechCounter
 
@@ -2225,18 +2212,10 @@ RETURN
 ********************************************/
 // FIXEDGROVE: START
 Random_Function:
-IF d_randomType = 1
-	d_randomTotal = 56
-	tempv1 = d_sc_1
-	tempv2 = d_sc_2
-ELSE
-	d_randomTotal = 16
-	IF d_randomType = 2
-		tempv1 = d_ac_b
-	ELSE
-		tempv1 = d_ac_p
-	ENDIF
-ENDIF
+d_randomTotal = 56
+tempv1 = d_sc_1
+tempv2 = d_sc_2
+
 d_amount = 0
 i = 0
 WHILE i < d_randomTotal
@@ -2254,15 +2233,7 @@ WHILE i < d_randomTotal
 ENDWHILE
 
 IF d_amount >= d_randomTotal
-	IF d_randomType = 1
-		d_amount = iDance_SpeechCounter
-	ELSE
-		IF d_randomType = 2
-			d_amount = iAnimCount
-		ELSE
-			d_amount = iAnimCount_P
-		ENDIF
-	ENDIF
+	d_amount = iDance_SpeechCounter
 	tempv1 = 0
 	tempv2 = 0
 	IF d_amount < 32
@@ -2296,20 +2267,12 @@ Random_Function_In:
 GOTO Random_Function_In
 
 Random_Function_Out:
-IF d_randomType = 1
-	d_sc_1 = tempv1
-	d_sc_2 = tempv2
-ELSE
-	d_randomTotal = 16
-	IF d_randomType = 2
-		d_ac_b = tempv1
-	ELSE
-		d_ac_p = tempv1
-	ENDIF
-ENDIF
+d_sc_1 = tempv1
+d_sc_2 = tempv2
 tempv1 = 0 // reset in any case
 tempv2 = 0 // reset in any case
 iTemp++ // temp needed for the switch-case
+iDance_SpeechCounter = iTemp
 RETURN
 // FIXEDGROVE: END
 /*******************************************
