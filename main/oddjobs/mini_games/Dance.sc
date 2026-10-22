@@ -42,8 +42,8 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 
 	//--- PC ONLY VARS
-	VAR_INT d_speechCounter_BitsLow d_speechCounter_BitsHigh d_camCount d_amount // FIXEDGROVE: repurposed
-	VAR_INT d_unused1 d_unused2 d_unused3 d_unused4 // FIXEDGROVE: now unused
+	VAR_INT d_speechCounter_BitsLow d_speechCounter_BitsHigh d_amount // FIXEDGROVE: repurposed
+	VAR_INT d_unused1 d_unused2 d_unused3 d_unused4 d_unused5 // FIXEDGROVE: now unused
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -76,7 +76,6 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	// FIXEDGROVE: START - initialize some extra variables
 	d_speechCounter_BitsLow = 0
 	d_speechCounter_BitsHigh = 0
-	d_camCount = -1
 	// FIXEDGROVE: END
 
 	//---MAIN LOOP---
@@ -184,7 +183,7 @@ Dance_State0:
 			SET_CHAR_HEADING scplayer fParH
 			GOSUB Dance_PartnerCreate			 
 			GOSUB Dance_CameraViewChange
-			d_camCount = 0 // reset this here (has been used in Dance_CameraViewChange to initialise it)
+			iAnimCount = 0 // reset this here (has been used in Dance_CameraViewChange to initialise it)
 
 			PRELOAD_BEAT_TRACK iSoundTrack 			
 			++iSubState
@@ -773,14 +772,10 @@ RETURN
 ********************************************/
 Dance_PlayGoodAnim:
 
-IF iAnimCount < 1
-OR iAnimCount > 16
-	iAnimCount = 1
-ENDIF
-
  SWITCH iAnimCount
-	CASE 1
+	DEFAULT
 		$txtCURR_DANCE_MOVE = DANCE_G1 
+		iAnimCount = 1
 	BREAK
 	CASE 2
 		$txtCURR_DANCE_MOVE = DANCE_G2 
@@ -830,9 +825,8 @@ ENDIF
 ENDSWITCH
 
 	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $txtCURR_DANCE_MOVE $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0 
- 	
+
 iAnimCount++
-d_camCount++
 
 RETURN
 /********************************************
@@ -840,14 +834,10 @@ RETURN
 ********************************************/
 Dance_PlayMissAnim:
 
-IF iAnimCount < 1
-OR iAnimCount > 16
-	iAnimCount = 1
-ENDIF
-
  SWITCH iAnimCount
-	CASE 1
+	DEFAULT
 		$txtCURR_DANCE_MOVE = DANCE_B1 
+		iAnimCount = 1
 	BREAK
 	CASE 2
 		$txtCURR_DANCE_MOVE = DANCE_B2 
@@ -897,9 +887,8 @@ ENDIF
 ENDSWITCH
 
 	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $txtCURR_DANCE_MOVE $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0
- 	
+
 iAnimCount++
-d_camCount++
 
 RETURN
 /********************************************
@@ -989,7 +978,7 @@ RETURN
 ********************************************/
 Dance_CameraViewChange:
 
-	SWITCH d_camCount
+	SWITCH iAnimCount
 
 		CASE -1
 			IF iPartner = DANCE_MISSION_NO_PARTNER
@@ -1054,10 +1043,6 @@ Dance_CameraViewChange:
 			ENDIF
 		BREAK
 	ENDSWITCH	
-
-	IF d_camCount > 16
-		d_camCount = 0
-	ENDIF
 
 RETURN
 
@@ -2314,9 +2299,6 @@ Dance_CleanUp:
 	// FIXEDGROVE: START - reset the variables
 	d_speechCounter_BitsLow = 0
 	d_speechCounter_BitsHigh = 0
-	d_amount = 0
-	d_camCount = 0
-	i = 0
 	// FIXEDGROVE: END
 
 	//--- Update the dance score stat
