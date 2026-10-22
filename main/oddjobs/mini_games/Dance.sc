@@ -53,9 +53,9 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	FORCE_BIG_MESSAGE_AND_COUNTER TRUE
 
 	//--- Parameter passing Fudge
-	IF iTemp > 0
+	GOTO Dance_SkipThisPart
 	   CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iPartner
-	ENDIF
+	Dance_SkipThisPart:
 
 	//--- Init the vars
 	iCurrentButton = DANCE_BUTTON_NONE
@@ -499,58 +499,46 @@ Dance_State3:
 			GOSUB Dance_GetPadStatus
 			IF IS_JAPANESE_VERSION
 				IF iCurrentButton = DANCE_BUTTON_CIRCLE
-					//--- Quit out
-					iDanceScore = 0
-					iState = 2
-					iSubState = 0				
-					BREAK
+					GOSUB Dance_PausedConfirm
 				ENDIF	  	
 				IF iCurrentButton = DANCE_BUTTON_CROSS
-					IF iState > 0 // We are past the INIT stage of the mini-game
-						//--- Restart dance
-						PAUSE_CURRENT_BEAT_TRACK FALSE
-						IF IS_CHAR_PLAYING_ANIM scplayer $txtCURR_DANCE_MOVE
-							SET_CHAR_ANIM_PLAYING_FLAG scplayer $txtCURR_DANCE_MOVE TRUE
-						ENDIF		  
-						IF NOT IS_CHAR_DEAD iPartner
-							IF IS_CHAR_PLAYING_ANIM iPartner $txtCURR_DANCE_MOVE_P
-								SET_CHAR_ANIM_PLAYING_FLAG iPartner $txtCURR_DANCE_MOVE_P TRUE
-							ENDIF
-						ENDIF
-						iState = 1
-						iSubState = STATE_DANCE_TRACK_AND_GET_BEATS	
-						BREAK
-					ENDIF
+					GOSUB Dance_PausedQuit
 				ENDIF	  	
 			ELSE
 				IF iCurrentButton = DANCE_BUTTON_PC_CONFIRM
-					//--- Quit out
-					iDanceScore = 0
-					iState = 2
-					iSubState = 0				
-					BREAK
+					GOSUB Dance_PausedConfirm
 				ENDIF	  	
 				IF iCurrentButton = DANCE_BUTTON_PC_QUIT
-					IF iState > 0 // We are past the INIT stage of the mini-game
-						//--- Restart dance
-						PAUSE_CURRENT_BEAT_TRACK FALSE
-						IF IS_CHAR_PLAYING_ANIM scplayer $txtCURR_DANCE_MOVE
-							SET_CHAR_ANIM_PLAYING_FLAG scplayer $txtCURR_DANCE_MOVE TRUE
-						ENDIF		  
-						IF NOT IS_CHAR_DEAD iPartner
-							IF IS_CHAR_PLAYING_ANIM iPartner $txtCURR_DANCE_MOVE_P
-								SET_CHAR_ANIM_PLAYING_FLAG iPartner $txtCURR_DANCE_MOVE_P TRUE
-							ENDIF
-						ENDIF
-						iState = 1
-						iSubState = STATE_DANCE_TRACK_AND_GET_BEATS	
-						BREAK
-					ENDIF
+					GOSUB Dance_PausedQuit
 				ENDIF	  	
 			ENDIF
 		BREAK
 
 	ENDSWITCH
+RETURN
+
+Dance_PausedConfirm:
+	//--- Quit out
+	iDanceScore = 0
+	iState = 2
+	iSubState = 0				
+RETURN
+
+Dance_PausedQuit:
+	IF iState > 0 // We are past the INIT stage of the mini-game
+		//--- Restart dance
+		PAUSE_CURRENT_BEAT_TRACK FALSE
+		IF IS_CHAR_PLAYING_ANIM scplayer $txtCURR_DANCE_MOVE
+			SET_CHAR_ANIM_PLAYING_FLAG scplayer $txtCURR_DANCE_MOVE TRUE
+		ENDIF		  
+		IF NOT IS_CHAR_DEAD iPartner
+			IF IS_CHAR_PLAYING_ANIM iPartner $txtCURR_DANCE_MOVE_P
+				SET_CHAR_ANIM_PLAYING_FLAG iPartner $txtCURR_DANCE_MOVE_P TRUE
+			ENDIF
+		ENDIF
+		iState = 1
+		iSubState = STATE_DANCE_TRACK_AND_GET_BEATS	
+	ENDIF
 RETURN
 /*******************************************
 		LOAD ANIMATIONS FROM STREAM
@@ -591,85 +579,60 @@ Dance_GetPadStatus:
 //--- PC ONLY
 GOSUB Dance_get_stick_position
 	
-SWITCH iButtonDown
 	//WRITE_DEBUG_WITH_INT iButtonDown iButtonDown
 
-	CASE DANCE_BUTTON_NONE 
+IF iButtonDown = DANCE_BUTTON_NONE
 		
-		IF an = DANCE_STKRGHT
+		SWITCH an
+		CASE DANCE_STKRGHT
 			iCurrentButton = DANCE_BUTTON_CIRCLE
 			iButtonDown = DANCE_BUTTON_CIRCLE			
-			BREAK
-		ENDIF
+		BREAK
 
-		IF an = DANCE_STKUP
+		CASE DANCE_STKUP
 			iCurrentButton = DANCE_BUTTON_TRIANGLE
 			iButtonDown = DANCE_BUTTON_TRIANGLE
 			IF NOT IS_JAPANESE_VERSION
 				TIMERB = 0
 			ENDIF
-			BREAK
-		ENDIF
+		BREAK
 
-		IF an = DANCE_STKLEFT
+		CASE DANCE_STKLEFT
 			iCurrentButton = DANCE_BUTTON_SQUARE
 			iButtonDown = DANCE_BUTTON_SQUARE
-			BREAK
-		ENDIF
+		BREAK
 
-		IF an = DANCE_STKDW
+		CASE DANCE_STKDW
 			iCurrentButton = DANCE_BUTTON_CROSS
 			iButtonDown = DANCE_BUTTON_CROSS
 			IF IS_JAPANESE_VERSION
 				TIMERB = 0
 			ENDIF
-			BREAK
-		ENDIF
+		BREAK
+		ENDSWITCH
 
 		IF IS_BUTTON_PRESSED PAD1 TRIANGLE
 			iCurrentButton = DANCE_BUTTON_PC_QUIT
 			iButtonDown = DANCE_BUTTON_PC_QUIT
 			TIMERB = 0
-			BREAK
 		ENDIF
 
 		IF IS_BUTTON_PRESSED PAD1 CROSS
 			iCurrentButton = DANCE_BUTTON_PC_CONFIRM
 			iButtonDown = DANCE_BUTTON_PC_CONFIRM
-			BREAK
 		ENDIF
 
-	BREAK
+ELSE
+
+SWITCH iButtonDown
 	
 	CASE DANCE_BUTTON_CIRCLE
-		iCurrentButton = DANCE_BUTTON_NONE
-		IF an = 0 
-			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
-		ENDIF
-	BREAK
-
 	CASE DANCE_BUTTON_TRIANGLE
-		iCurrentButton = DANCE_BUTTON_NONE
-		IF an = 0
-			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
-		ENDIF
-	BREAK
-
 	CASE DANCE_BUTTON_SQUARE
-		iCurrentButton = DANCE_BUTTON_NONE
-		IF an = 0
-			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
-		ENDIF
-	BREAK
-
 	CASE DANCE_BUTTON_CROSS
 		iCurrentButton = DANCE_BUTTON_NONE
 		IF an = 0
 			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
 		ENDIF
 	BREAK
 	
@@ -677,33 +640,10 @@ SWITCH iButtonDown
 		iCurrentButton = DANCE_BUTTON_NONE
 		IF NOT IS_BUTTON_PRESSED PAD1 TRIANGLE
 			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
 		ELSE
 			IF NOT IS_JAPANESE_VERSION
 				//--- Check if player is holding down TRIANGLE to QUIT
-				IF iPartner = DANCE_MISSION_NO_PARTNER
-					//--- Do all these fiddly 'on a mission' checks
-					IF NOT iStoredBeat = DANCE_BEAT_NONE
-						IF NOT iState = 3 // Not paused yet
-						AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-							//--- Button has been held down				
-							CLEAR_HELP
-							iState = 3
-							iSubState = 0				
-							RETURN  
-						ENDIF
-					ENDIF  
-				ELSE
-					//--- Not on a mission, just the simple state checks 
-					IF NOT iState = 3 // Not paused yet
-					AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-						//--- Button has been held down				
-						CLEAR_HELP
-						iState = 3
-						iSubState = 0				
-						RETURN  
-					ENDIF
-				ENDIF
+				GOSUB Dance_HoldToQuit
 			ENDIF
 		ENDIF
 	BREAK
@@ -712,39 +652,39 @@ SWITCH iButtonDown
 		iCurrentButton = DANCE_BUTTON_NONE
 		IF NOT IS_BUTTON_PRESSED PAD1 CROSS
 			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
 		ELSE
 			IF IS_JAPANESE_VERSION
 				//--- Check if player is holding down CROSS to QUIT
-				IF iPartner = DANCE_MISSION_NO_PARTNER
-					//--- Do all these fiddly 'on a mission' checks
-					IF NOT iStoredBeat = DANCE_BEAT_NONE
-						IF NOT iState = 3 // Not paused yet
-						AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-							//--- Button has been held down				
-							CLEAR_HELP
-							iState = 3
-							iSubState = 0				
-							RETURN  
-						ENDIF
-					ENDIF  
-				ELSE
-					//--- Not on a mission, just the simple state checks 
-					IF NOT iState = 3 // Not paused yet
-					AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-						//--- Button has been held down				
-						CLEAR_HELP
-						iState = 3
-						iSubState = 0				
-						RETURN  
-					ENDIF
-				ENDIF
+				GOSUB Dance_HoldToQuit
 			ENDIF
 		ENDIF
 	BREAK
 
 ENDSWITCH
+ENDIF
 
+RETURN
+
+Dance_HoldToQuit:
+	IF iPartner = DANCE_MISSION_NO_PARTNER
+		//--- Do all these fiddly 'on a mission' checks
+		IF NOT iStoredBeat = DANCE_BEAT_NONE
+			GOSUB Dance_PressToQuit
+		ENDIF  
+	ELSE
+		//--- Not on a mission, just the simple state checks 
+		GOSUB Dance_PressToQuit
+	ENDIF
+RETURN
+
+Dance_PressToQuit:
+	IF NOT iState = 3 // Not paused yet
+	AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
+		//--- Button has been held down				
+		CLEAR_HELP
+		iState = 3
+		iSubState = 0				
+	ENDIF
 RETURN
 /********************************************
 		GET TIMING OF CURRENT BEAT
@@ -767,7 +707,6 @@ Dance_GetTimingOfCurrentBeat:
 				IF iTimeToClosestBeat < DANCE_BOUNDS_ALRIGHT_MIN
 					iStoredBeat = DANCE_BEAT_PAST
 					iLastScoredBeatNumber = iClosestBeatNumber
-					RETURN
 				ENDIF
 
 			ELSE
@@ -785,25 +724,17 @@ Dance_GetTimingOfCurrentBeat:
 					AND iTimeToClosestBeat >= DANCE_BOUNDS_PERFECT_MIN
 						iStoredBeat = DANCE_BEAT_PERFECT
 						BD_RenderHit = BD_HIT_PERFECT // override the default hit with this one
-						iLastScoredBeatNumber = iClosestBeatNumber
-						RETURN
 					ELSE
 						IF iTimeToClosestBeat <= DANCE_BOUNDS_GOOD_MAX  
 						AND iTimeToClosestBeat >= DANCE_BOUNDS_GOOD_MIN
 							iStoredBeat = DANCE_BEAT_GOOD
 							BD_RenderHit = BD_HIT_GOOD // override the default hit with this one
-							iLastScoredBeatNumber = iClosestBeatNumber
-							RETURN
 						ELSE
 							IF iTimeToClosestBeat <= DANCE_BOUNDS_ALRIGHT_MAX
 							AND iTimeToClosestBeat >= DANCE_BOUNDS_ALRIGHT_MIN
 								iStoredBeat = DANCE_BEAT_ALRIGHT
-								iLastScoredBeatNumber = iClosestBeatNumber
-								RETURN
 							ELSE
 								iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-								iLastScoredBeatNumber = iClosestBeatNumber
-								RETURN
 							ENDIF
 						ENDIF
 					ENDIF
@@ -811,15 +742,14 @@ Dance_GetTimingOfCurrentBeat:
 				ELSE
 
 					iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-					iLastScoredBeatNumber = iClosestBeatNumber
-					RETURN	
 									
 				ENDIF
+				iLastScoredBeatNumber = iClosestBeatNumber
 			ENDIF
 		ELSE
 
 			//--- Verified beat - mark it as already scored
-			SWITCH iStoredBeat = DANCE_BEAT_PERFECT
+			SWITCH iStoredBeat
 			CASE DANCE_BEAT_PERFECT
 			CASE DANCE_BEAT_GOOD
 			CASE DANCE_BEAT_ALRIGHT
@@ -986,15 +916,12 @@ Dance_GetAnimLinkStatus:
 		IF fTemp >= 1.0		
 			//--- Anim finished
 			iAnimStatus = ANIM_CONCANTENATE_NOW						
-			RETURN
 		ELSE
 			iAnimStatus = ANIM_IS_PLAYING
-			RETURN
 		ENDIF
 	ELSE
 		//--- All good
 		iAnimStatus = ANIM_NOT_PLAYING		
-		RETURN
 	ENDIF
 RETURN
 /********************************************
@@ -1011,7 +938,6 @@ Dance_PartnerLinkAndPlayAnim:
 			IF fTemp >= 1.0		
 				//--- Anim finished
 				GOSUB Dance_PlayPartnerAnim
-				RETURN
 			ENDIF
 		ELSE
 			//--- Intercept FIRST SYNCH beat
@@ -1020,7 +946,6 @@ Dance_PartnerLinkAndPlayAnim:
 				IF iTimeToClosestBeat <= 25
 					//--- Anim must start now
 					GOSUB Dance_PlayPartnerAnim			
-					RETURN
 				ENDIF
 			ENDIF		
 		ENDIF
@@ -1050,13 +975,12 @@ Dance_CheckAnimLinks:
 		CASE DANCE_BEAT_ALRIGHT
 		CASE DANCE_BEAT_GOOD_SCORED
 			GOSUB Dance_PlayGoodAnim
-			iAnimStatus = ANIM_IS_PLAYING //???
 		BREAK
 		DEFAULT			 			
 			GOSUB Dance_PlayMissAnim
-			iAnimStatus = ANIM_IS_PLAYING //???
 		BREAK
 		ENDSWITCH
+			iAnimStatus = ANIM_IS_PLAYING //???
 
 	ENDIF
 
@@ -1065,10 +989,6 @@ RETURN
 			CAMERA VIEW CHANGE
 ********************************************/
 Dance_CameraViewChange:
-
-IF d_camCount > 16
-	d_camCount = 0
-ENDIF
 
 	SWITCH d_camCount
 
@@ -1080,10 +1000,7 @@ ENDIF
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -2.3176 0.9635 0.5141 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -1.3381 0.8235 0.6587 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0				
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 
@@ -1097,10 +1014,7 @@ ENDIF
 				//GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 1.5521 0.7218 0.6618 fparX fparY fparZ			
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 3.5814 0.8987 0.6651 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 2.6071 0.853 0.8857 fparX fparY fparZ
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 
@@ -1113,10 +1027,7 @@ ENDIF
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.3843 2.9502 1.8476 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.461 2.0089 1.5188 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF			
 		BREAK
 
@@ -1128,10 +1039,7 @@ ENDIF
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -2.2621 0.1226 0.6863 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -1.2706 0.1649 0.8096 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 
@@ -1143,13 +1051,22 @@ ENDIF
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -1.6647 1.7322 2.3217 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -0.8677 1.3108 1.889 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 	ENDSWITCH	
+
+	IF d_camCount > 16
+		d_camCount = 0
+	ENDIF
+
+RETURN
+
+Dance_CameraSetup:
+	fZ -= 1.0
+	fparZ -= 1.0
+	SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
+	POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
 RETURN
 /*******************************************
 		PARTNER CREATE
@@ -1175,9 +1092,9 @@ Dance_PartnerCreate:
 
 		IF NOT IS_CHAR_DEAD iPartner
 		AND NOT IS_CHAR_DEAD scplayer
-			GET_CHAR_HEADING scplayer fTemp[0]
-			fTemp[0] += 180.0
-			SET_CHAR_HEADING iPartner fTemp[0]		
+			GET_CHAR_HEADING scplayer fTemp
+			fTemp += 180.0
+			SET_CHAR_HEADING iPartner fTemp	
 		ENDIF
 	ENDIF
 
@@ -1305,82 +1222,100 @@ Dance_Print_Input_Feedback:
   
  SWITCH iLastPrint
 		DEFAULT
-			IF iStoredBeat = DANCE_BEAT_PERFECT				
-				PRINT_BIG DNC_005 1000 5 // Great timing!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_GOOD
-				PRINT_BIG DNC_006 1000 5 // Well done!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_ALRIGHT
-				PRINT_BIG DNC_007 1000 5  // Alright
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_PAST
-				PRINT_BIG DNC_008 1000 5 // Too late!	 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_FUTURE
-				PRINT_BIG DNC_009 1000 5 // Too early!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-				PRINT_BIG DNC_010 1000 5 // Wrong!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-				PRINT_BIG DNC_011 1000 5 // Poor timing!
-			ENDIF
+			GOSUB Dance_PrintInput1
 			iLastPrint = 2
 		BREAK
 
 		CASE 2
-			IF iStoredBeat = DANCE_BEAT_PERFECT
-				PRINT_BIG DNC_012 1000 5 //Synchronized! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_GOOD
-				PRINT_BIG DNC_013 1000 5 //That's it! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_ALRIGHT
-				PRINT_BIG DNC_014 1000 5  //Not bad! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_PAST
-				PRINT_BIG DNC_015 1000 5 //You missed it! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_FUTURE
-				PRINT_BIG DNC_016 1000 5 //You're fast! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-				PRINT_BIG DNC_017 1000 5 //Not that one! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-				PRINT_BIG DNC_018 1000 5 //Try again! 
-			ENDIF
-			++iLastPrint
+			GOSUB Dance_PrintInput2
 		BREAK
 
 		CASE 3
-			IF iStoredBeat = DANCE_BEAT_PERFECT
-				PRINT_BIG DNC_019 1000 5 //The master! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_GOOD
-				PRINT_BIG DNC_020 1000 5 //You got it!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_ALRIGHT
-				PRINT_BIG DNC_021 1000 5  //Can do better!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_PAST
-				PRINT_BIG DNC_022 1000 5 //You're late!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_FUTURE
-				PRINT_BIG DNC_023 1000 5 //Slow down!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-				PRINT_BIG DNC_024 1000 5 //Random!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-				PRINT_BIG DNC_025 1000 5 //Not on time!
-			ENDIF
-			++iLastPrint
+			GOSUB Dance_PrintInput3
 		BREAK
 
 	ENDSWITCH
  
+++iLastPrint
+
+RETURN
+
+Dance_PrintInput1:
+	SWITCH iStoredBeat
+	CASE DANCE_BEAT_PERFECT
+		PRINT_BIG DNC_005 1000 5 // Great timing!
+	BREAK
+	CASE DANCE_BEAT_GOOD
+		PRINT_BIG DNC_006 1000 5 // Well done!
+	BREAK
+	CASE DANCE_BEAT_ALRIGHT
+		PRINT_BIG DNC_007 1000 5  // Alright
+	BREAK
+	CASE DANCE_BEAT_PAST
+		PRINT_BIG DNC_008 1000 5 // Too late!	 
+	BREAK
+	CASE DANCE_BEAT_FUTURE
+		PRINT_BIG DNC_009 1000 5 // Too early!
+	BREAK
+	CASE DANCE_BEAT_WRONG_BUTTON
+		PRINT_BIG DNC_010 1000 5 // Wrong!
+	BREAK
+	CASE DANCE_BEAT_MISTIMED_BUTTON
+		PRINT_BIG DNC_011 1000 5 // Poor timing!
+	BREAK
+	ENDSWITCH
+RETURN
+
+Dance_PrintInput2:
+	SWITCH iStoredBeat
+	CASE DANCE_BEAT_PERFECT
+		PRINT_BIG DNC_012 1000 5 //Synchronized! 
+	BREAK
+	CASE DANCE_BEAT_GOOD
+		PRINT_BIG DNC_013 1000 5 //That's it! 
+	BREAK
+	CASE DANCE_BEAT_ALRIGHT
+		PRINT_BIG DNC_014 1000 5  //Not bad! 
+	BREAK
+	CASE DANCE_BEAT_PAST
+		PRINT_BIG DNC_015 1000 5 //You missed it! 
+	BREAK
+	CASE DANCE_BEAT_FUTURE
+		PRINT_BIG DNC_016 1000 5 //You're fast! 
+	BREAK
+	CASE DANCE_BEAT_WRONG_BUTTON
+		PRINT_BIG DNC_017 1000 5 //Not that one! 
+	BREAK
+	CASE DANCE_BEAT_MISTIMED_BUTTON
+		PRINT_BIG DNC_018 1000 5 //Try again! 
+	BREAK
+	ENDSWITCH
+RETURN
+
+Dance_PrintInput3:
+	SWITCH iStoredBeat
+	CASE DANCE_BEAT_PERFECT
+		PRINT_BIG DNC_019 1000 5 //The master! 
+	BREAK
+	CASE DANCE_BEAT_GOOD
+		PRINT_BIG DNC_020 1000 5 //You got it!
+	BREAK
+	CASE DANCE_BEAT_ALRIGHT
+		PRINT_BIG DNC_021 1000 5  //Can do better!
+	BREAK
+	CASE DANCE_BEAT_PAST
+		PRINT_BIG DNC_022 1000 5 //You're late!
+	BREAK
+	CASE DANCE_BEAT_FUTURE
+		PRINT_BIG DNC_023 1000 5 //Slow down!
+	BREAK
+	CASE DANCE_BEAT_WRONG_BUTTON
+		PRINT_BIG DNC_024 1000 5 //Random!
+	BREAK
+	CASE DANCE_BEAT_MISTIMED_BUTTON
+		PRINT_BIG DNC_025 1000 5 //Not on time!
+	BREAK
+	ENDSWITCH
 RETURN
 /********************************************
 			UPDATE OVERALL REPORT
@@ -1483,30 +1418,28 @@ RETURN
 ********************************************/
 Dance_PlayStateFeedbackSpeech:
 
-SWITCH iDance_SpeechState
-
-	CASE DANCE_SPEECH_IDLE
-		IF iDance_SpeechRequest = DANCE_SPEECH_HIGH
+IF iDance_SpeechState = DANCE_SPEECH_IDLE
+		SWITCH iDance_SpeechRequest
+		CASE DANCE_SPEECH_HIGH
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_HIGH 
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-		IF iDance_SpeechRequest = DANCE_SPEECH_LOW
+		BREAK  
+		CASE DANCE_SPEECH_LOW
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_LOW 
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-		IF iDance_SpeechRequest = DANCE_SPEECH_MED
+		BREAK  
+		CASE DANCE_SPEECH_MED
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_MED
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-		IF iDance_SpeechRequest = DANCE_SPEECH_NOT
+		BREAK  
+		CASE DANCE_SPEECH_NOT
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_NOT
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-	BREAK 
+		BREAK  
+		ENDSWITCH
+ELSE
+
+SWITCH iDance_SpeechState
 
 	CASE DANCE_SPEECH_REQUEST_HIGH
 		IF HAS_MISSION_AUDIO_FINISHED 4
@@ -1549,6 +1482,7 @@ SWITCH iDance_SpeechState
 	BREAK
 
 ENDSWITCH
+ENDIF
 RETURN
 /*******************************************
 			RETRIEVE SPEECH HIGH
@@ -2422,6 +2356,19 @@ Dance_CleanUp:
 	//--- Reset the text commands
 	FORCE_BIG_MESSAGE_AND_COUNTER FALSE
 	USE_TEXT_COMMANDS FALSE
+
+	// FIXEDGROVE: START - reset the variables
+	tempv1 = 0
+	tempv2 = 0
+	d_sc_1 = 0
+	d_sc_2 = 0
+	d_ac_b = 0
+	d_ac_p = 0
+	d_amount = 0
+	d_camCount = 0
+	d_randomType = 0
+	d_randomTotal = 0
+	// FIXEDGROVE: END
 
 	//--- Update the dance score stat
 	IF iDanceScore >= 0
