@@ -760,28 +760,30 @@ drawing_ticket_machine://///////////////////////////////////////////////////////
 	SET_TEXT_COLOUR 255 255 255 255
 
 	IF NOT IS_JAPANESE_VERSION
-		IF current_Language = LANGUAGE_ENGLISH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
 			DISPLAY_TEXT 269.0 65.0 PLA_1
-		ENDIF
+		BREAK
 
-		IF current_Language = LANGUAGE_FRENCH
+		CASE LANGUAGE_FRENCH
 			SET_TEXT_SCALE 0.9 3.4
 			DISPLAY_TEXT 327.0 65.0 PLA_1
-		ENDIF
+		BREAK
 
-		IF current_Language = LANGUAGE_GERMAN
+		CASE LANGUAGE_GERMAN
 			DISPLAY_TEXT 269.0 65.0 PLA_1
-		ENDIF
+		BREAK
 
-		IF current_Language = LANGUAGE_ITALIAN
+		CASE LANGUAGE_ITALIAN
 			SET_TEXT_SCALE 0.91 3.43
 			DISPLAY_TEXT 322.0 65.0 PLA_1
-		ENDIF
+		BREAK
 
-		IF current_Language = LANGUAGE_SPANISH
+		CASE LANGUAGE_SPANISH
 			SET_TEXT_SCALE 0.9 3.4
 			DISPLAY_TEXT 322.0 65.0 PLA_1
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ELSE
 		DISPLAY_TEXT 322.0 65.0 PLA_1
 	ENDIF
@@ -839,49 +841,37 @@ drawing_ticket_machine://///////////////////////////////////////////////////////
 			SET_TEXT_SCALE 0.62 1.54		 
 			SET_TEXT_COLOUR 255 255 255 255
 
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
 				DISPLAY_TEXT 92.0 372.0 PLA_22 //~<~~>~
-			ENDIF
+			BREAK
 
-			IF current_Language = LANGUAGE_FRENCH
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				DISPLAY_TEXT 52.0 372.0 PLA_22 //~<~~>~
-			ENDIF
-
-			IF current_Language = LANGUAGE_GERMAN
-				DISPLAY_TEXT 52.0 372.0 PLA_22 //~<~~>~
-			ENDIF
-
-			IF current_Language = LANGUAGE_ITALIAN
-				DISPLAY_TEXT 52.0 372.0 PLA_22 //~<~~>~
-			ENDIF
-
-			IF current_Language = LANGUAGE_SPANISH
-				DISPLAY_TEXT 52.0 372.0 PLA_22 //~<~~>~
-			ENDIF
+			BREAK
+			ENDSWITCH
 			
 			GOSUB planes_front_end_text			 
 			SET_TEXT_COLOUR 255 255 255 255
 			
 
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
 				DISPLAY_TEXT 124.0 368.0 PLA_19 //SELECT
-			ENDIF
+			BREAK
 
-			IF current_Language = LANGUAGE_FRENCH
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				DISPLAY_TEXT 84.0 368.0 PLA_19 //SELECT
-			ENDIF
-
-			IF current_Language = LANGUAGE_GERMAN
-				DISPLAY_TEXT 84.0 368.0 PLA_19 //SELECT
-			ENDIF
-
-			IF current_Language = LANGUAGE_ITALIAN
-				DISPLAY_TEXT 84.0 368.0 PLA_19 //SELECT
-			ENDIF
-
-			IF current_Language = LANGUAGE_SPANISH
-				DISPLAY_TEXT 84.0 368.0 PLA_19 //SELECT
-			ENDIF
+			BREAK
+			ENDSWITCH
 			
 
 			GOSUB planes_front_end_text			 
@@ -890,50 +880,44 @@ drawing_ticket_machine://///////////////////////////////////////////////////////
 			IF IS_JAPANESE_VERSION
 				DISPLAY_TEXT 260.0 370.0 SCHO
 			ELSE
-				IF current_Language = LANGUAGE_ENGLISH
+				// FIXEDGROVE: changed IF to SWITCH
+				SWITCH current_Language
+				CASE LANGUAGE_ENGLISH
 					DISPLAY_TEXT 252.0 368.0 PLA_24
-				ENDIF
+				BREAK
 
-				IF current_Language = LANGUAGE_FRENCH
-					DISPLAY_TEXT 294.0 354.0 PLA_24
-				ENDIF
-
-				IF current_Language = LANGUAGE_GERMAN
-					DISPLAY_TEXT 294.0 354.0 PLA_24
-				ENDIF
-
-				IF current_Language = LANGUAGE_ITALIAN
+				CASE LANGUAGE_ITALIAN
 					DISPLAY_TEXT 255.0 354.0 PLA_24
-				ENDIF
+				BREAK
 
-				IF current_Language = LANGUAGE_SPANISH
+				CASE LANGUAGE_FRENCH
+				CASE LANGUAGE_GERMAN
+				CASE LANGUAGE_SPANISH
 					DISPLAY_TEXT 294.0 354.0 PLA_24
-				ENDIF
+				BREAK
+				ENDSWITCH
 			ENDIF
 			
 
 			GOSUB planes_front_end_text			 
 			SET_TEXT_COLOUR 255 255 255 255
 
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
 				DISPLAY_TEXT 337.0 368.0 PLA_20
-			ENDIF
+			BREAK
 
-			IF current_Language = LANGUAGE_FRENCH
-				DISPLAY_TEXT 294.0 373.0 PLA_20
-			ENDIF
-
-			IF current_Language = LANGUAGE_GERMAN
-				DISPLAY_TEXT 294.0 373.0 PLA_20
-			ENDIF
-
-			IF current_Language = LANGUAGE_ITALIAN
+			CASE LANGUAGE_ITALIAN
 				DISPLAY_TEXT 255.0 373.0 PLA_20
-			ENDIF
+			BREAK
 
-			IF current_Language = LANGUAGE_SPANISH
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+			CASE LANGUAGE_SPANISH
 				DISPLAY_TEXT 294.0 373.0 PLA_20
-			ENDIF
+			BREAK
+			ENDSWITCH
 
 			GOSUB planes_front_end_text			 
 			SET_TEXT_COLOUR 255 255 255 255
@@ -941,49 +925,37 @@ drawing_ticket_machine://///////////////////////////////////////////////////////
 			IF IS_JAPANESE_VERSION
 				DISPLAY_TEXT 362.0 370.0 SCHX
 			ELSE
-				IF current_Language = LANGUAGE_ENGLISH
+				// FIXEDGROVE: changed IF to SWITCH
+				SWITCH current_Language
+				CASE LANGUAGE_ENGLISH
 					DISPLAY_TEXT 423.0 368.0 PLA_23
-				ENDIF
+				BREAK
 
-				IF current_Language = LANGUAGE_FRENCH
+				CASE LANGUAGE_FRENCH
+				CASE LANGUAGE_GERMAN
+				CASE LANGUAGE_ITALIAN
+				CASE LANGUAGE_SPANISH
 					DISPLAY_TEXT 457.0 354.0 PLA_23
-				ENDIF
-
-				IF current_Language = LANGUAGE_GERMAN
-					DISPLAY_TEXT 457.0 354.0 PLA_23
-				ENDIF
-
-				IF current_Language = LANGUAGE_ITALIAN
-					DISPLAY_TEXT 457.0 354.0 PLA_23
-				ENDIF
-
-				IF current_Language = LANGUAGE_SPANISH
-					DISPLAY_TEXT 457.0 354.0 PLA_23
-				ENDIF
+				BREAK
+				ENDSWITCH
 			ENDIF
 
 			GOSUB planes_front_end_text			 
 			SET_TEXT_COLOUR 255 255 255 255
 
-			IF current_Language = LANGUAGE_ENGLISH
+			// FIXEDGROVE: changed IF to SWITCH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
 				DISPLAY_TEXT 507.0 368.0 PLA_21
-			ENDIF
+			BREAK
 
-			IF current_Language = LANGUAGE_FRENCH
+			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_GERMAN
+			CASE LANGUAGE_ITALIAN
+			CASE LANGUAGE_SPANISH
 				DISPLAY_TEXT 457.0 373.0 PLA_21
-			ENDIF
-
-			IF current_Language = LANGUAGE_GERMAN
-				DISPLAY_TEXT 457.0 373.0 PLA_21
-			ENDIF
-
-			IF current_Language = LANGUAGE_ITALIAN
-				DISPLAY_TEXT 457.0 373.0 PLA_21
-			ENDIF
-
-			IF current_Language = LANGUAGE_SPANISH
-				DISPLAY_TEXT 457.0 373.0 PLA_21
-			ENDIF
+			BREAK
+			ENDSWITCH
 
 		ELSE
 			//san fierro and los santos open

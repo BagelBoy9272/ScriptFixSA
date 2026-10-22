@@ -2384,33 +2384,30 @@ bs_draw_tv_screen://////////////////////////////////////////////////////////////
 	SET_TEXT_COLOUR 248 211 7 255
 	IF current_Language = LANGUAGE_FRENCH
 		SET_TEXT_SCALE 0.32 1.25 
-		DISPLAY_TEXT 70.0 360.0 BS_X_4
 	ELSE
 		SET_TEXT_SCALE 0.52 1.45
-		DISPLAY_TEXT 70.0 360.0 BS_X_4
 	ENDIF
+	DISPLAY_TEXT 70.0 360.0 BS_X_4
 
 	IF NOT bs_control_flag = 1
 		GOSUB bs_small_onscreen_text 
 		SET_TEXT_COLOUR 248 211 7 255
 		IF current_Language = LANGUAGE_FRENCH
 			SET_TEXT_SCALE 0.32 1.25 
-			DISPLAY_TEXT 70.0 340.0 BS_X_5
 		ELSE
 			SET_TEXT_SCALE 0.52 1.45
-			DISPLAY_TEXT 70.0 340.0 BS_X_5
 		ENDIF
+		DISPLAY_TEXT 70.0 340.0 BS_X_5
 
 		IF NOT bs_open_tests = 1
 			GOSUB bs_small_onscreen_text 
 			SET_TEXT_COLOUR 248 211 7 255
 			IF current_Language = LANGUAGE_FRENCH
 				SET_TEXT_SCALE 0.32 1.25 
-				DISPLAY_TEXT 437.0 340.0 BS_X_3
 			ELSE
 				SET_TEXT_SCALE 0.52 1.45
-				DISPLAY_TEXT 437.0 340.0 BS_X_3
 			ENDIF
+			DISPLAY_TEXT 437.0 340.0 BS_X_3
 		ENDIF
 
 		IF bs_open_tests = 1 
@@ -2418,22 +2415,20 @@ bs_draw_tv_screen://////////////////////////////////////////////////////////////
 			SET_TEXT_COLOUR 173 173 173 125
 			IF current_Language = LANGUAGE_FRENCH
 				SET_TEXT_SCALE 0.32 1.25 
-				DISPLAY_TEXT 437.0 340.0 BS_X_3
 			ELSE
 				SET_TEXT_SCALE 0.52 1.45
-				DISPLAY_TEXT 437.0 340.0 BS_X_3
 			ENDIF
+			DISPLAY_TEXT 437.0 340.0 BS_X_3
 		ENDIF
 	ELSE
 		GOSUB bs_small_onscreen_text 
 		SET_TEXT_COLOUR 248 211 7 255
 		IF current_Language = LANGUAGE_FRENCH
 			SET_TEXT_SCALE 0.32 1.25 
-			DISPLAY_TEXT 437.0 340.0 BS_X_3
 		ELSE
 			SET_TEXT_SCALE 0.52 1.45
-			DISPLAY_TEXT 437.0 340.0 BS_X_3
 		ENDIF
+		DISPLAY_TEXT 437.0 340.0 BS_X_3
 	ENDIF
 
 	GOSUB bs_small_onscreen_text 

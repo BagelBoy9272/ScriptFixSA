@@ -4259,12 +4259,6 @@ display_overall_boat_score_text:
 	ENDIF
 	
 
-	//PERFECT HEADING
-	GOSUB boat_small_backend_text
-	
-	//PERFECT POSITION
-	GOSUB boat_small_backend_text
-	
 	IF total_boat_damage > 0 
 
 		CLEAR_PRINTS
@@ -4314,14 +4308,8 @@ display_overall_boat_score_text:
 		//Overall Score
 		GOSUB boat_small_backend_text
 
-		IF boat_print_top_scores_flag = 1
-		OR boat_print_top_scores_flag = 2
 			GET_HUD_COLOUR HUD_COLOUR_LIGHTBLUE b1_r b1_g b1_b b1_alpha2   
 			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-		ELSE
-			GET_HUD_COLOUR HUD_COLOUR_LIGHTBLUE b1_r b1_g b1_b b1_alpha2   
-			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-		ENDIF
 
 		doverall_boat_score	= 0.0
 		doverall_boat_score =# overall_boat_score
@@ -4341,18 +4329,17 @@ display_overall_boat_score_text:
 
 			IF boat_bestjumpdist > 0.0
 				GOSUB boat_getlanguage
-				IF boat_language = 4
+				SWITCH boat_language
+				CASE 4
 					DISPLAY_TEXT_WITH_FLOAT 145.0 315.0 boat_11 boat_bestjumpdist 2
-				ELSE
-					IF boat_language = 3
+				BREAK
+					CASE 3
 						DISPLAY_TEXT_WITH_FLOAT 175.0 315.0 boat_11 boat_bestjumpdist 2
-					ENDIF
-					IF NOT boat_language = 3
-						IF NOT boat_language = 4
+					BREAK
+						DEFAULT
 							DISPLAY_TEXT_WITH_FLOAT 180.0 315.0 boat_11 boat_bestjumpdist 2
-						ENDIF
-					ENDIF
-				ENDIF
+						BREAK
+				ENDSWITCH
 			ELSE
 				GOSUB boat_getlanguage
 				IF boat_language = 4
@@ -4387,10 +4374,6 @@ display_overall_boat_score_text:
 		//Damage penalty
 		GOSUB boat_small_backend_text
 
-		GET_HUD_COLOUR HUD_COLOUR_RED b1_r b1_g b1_b b1_alpha2   
-		SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-
-
 	   //	SET_TEXT_COLOUR 255 255 255 255	// white
 	   	dtime_penalty = 0.0
 		dtime_penalty =# time_penalty
@@ -4398,11 +4381,10 @@ display_overall_boat_score_text:
 
 		IF dtime_penalty > 0.0
 			GET_HUD_COLOUR HUD_COLOUR_RED b1_r b1_g b1_b b1_alpha2   
-			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
 		ELSE
 			GET_HUD_COLOUR HUD_COLOUR_GREY b1_r b1_g b1_b b1_alpha2   
-			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
 		ENDIF
+			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
 
 		IF NOT boat_mission_selection = 4
 			GOSUB boat_getlanguage
@@ -4415,12 +4397,7 @@ display_overall_boat_score_text:
 		
 		//Overall Score
 		GOSUB boat_small_backend_text
-		IF boat_print_top_scores_flag = 1 ///new high score 
-		OR boat_print_top_scores_flag = 2 
-			SET_TEXT_COLOUR 255 255 255 255	 //hud white
-		ELSE
 			SET_TEXT_COLOUR 255 255 255 255	
-		ENDIF
 
 		doverall_boat_score	= 0.0
 		doverall_boat_score =# overall_boat_score
@@ -4433,9 +4410,7 @@ display_overall_boat_score_text:
 			ELSE
 				DISPLAY_TEXT_WITH_FLOAT 390.0 315.0 boat_77 doverall_boat_score 2//
 			ENDIF
-		ENDIF
-
-		IF boat_mission_selection = 4
+		ELSE
 			IF boat_bestjumpdist > 0.0
 				GOSUB boat_getlanguage
 				IF boat_language = 4
@@ -4443,7 +4418,6 @@ display_overall_boat_score_text:
 				ELSE
 					DISPLAY_TEXT_WITH_FLOAT 390.0 315.0 BOAT_80 boat_bestjumpdist 2//
 				ENDIF
-			ELSE
 			ENDIF
 		ENDIF
 
@@ -4488,10 +4462,7 @@ display_overall_boat_score_text:
 	
 			SET_TEXT_COLOUR 255 255 255 255
 			DISPLAY_TEXT 323.0 110.0 boat_46  //NEW HIGH SCORE!
-		ENDIF
-		
-		IF boat_print_top_scores_flag = 1
-		OR boat_print_top_scores_flag = 2 
+
 			IF boat_which_medal_displayed > 0 
 
 				//MEDAL
@@ -4553,10 +4524,7 @@ display_overall_boat_score_text:
 			GOSUB boat_small_backend_text
 			SET_TEXT_COLOUR 107 148 49 255
 			DISPLAY_TEXT 260.0 65.0 BOAT_46 
-		ENDIF
 
-		IF boat_print_top_scores_flag = 1
-		OR boat_print_top_scores_flag = 2 
 			IF boat_which_medal_displayed > 0
 				SET_SPRITES_DRAW_BEFORE_FADE TRUE 
 				DRAW_SPRITE 4 68.0 145.0 -60.0 60.0 180 180 180 255 
@@ -4716,77 +4684,25 @@ boat_drawing_tv_screen://///////////////////////////////////////////////////////
 	GET_HUD_COLOUR HUD_COLOUR_YELLOW b1_r b1_g b1_b b1_alpha2   
 	SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
 
-	GOSUB boat_getlanguage
-
-	IF boat_language = 1
 		SET_TEXT_SCALE 0.32 1.25 
 		DISPLAY_TEXT 70.0 360.0 BOAT_53 
-	ELSE
-		SET_TEXT_SCALE 0.32 1.25 
-		DISPLAY_TEXT 70.0 360.0 BOAT_53 
-	ENDIF
 
 	IF NOT boat_control_flag = 1
 		GOSUB boat_small_onscreen_text
-	
 		GET_HUD_COLOUR HUD_COLOUR_YELLOW b1_r b1_g b1_b b1_alpha2   
-		SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-		GOSUB boat_getlanguage
-
-		IF boat_language = 1
 			SET_TEXT_SCALE 0.32 1.25 
 			DISPLAY_TEXT 70.0 340.0 BOAT_54 
-		ELSE
-			SET_TEXT_SCALE 0.32 1.25 
-			DISPLAY_TEXT 70.0 340.0 BOAT_54 
-		ENDIF
-
-		IF NOT boat_which_missions_are_open_flag = 1
-			GOSUB boat_small_onscreen_text
-
-			GET_HUD_COLOUR HUD_COLOUR_YELLOW b1_r b1_g b1_b b1_alpha2   
-			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-			GOSUB boat_getlanguage
-
-			IF boat_language = 1
-				SET_TEXT_SCALE 0.32 1.25 
-				DISPLAY_TEXT 437.0 340.0 BOAT_52 
-			ELSE
-				SET_TEXT_SCALE 0.32 1.25 
-				DISPLAY_TEXT 437.0 340.0 BOAT_52 
-			ENDIF
-		ENDIF
-
 		IF boat_which_missions_are_open_flag = 1
-			GOSUB boat_small_onscreen_text
-
 			GET_HUD_COLOUR HUD_COLOUR_GREY b1_r b1_g b1_b b1_alpha2   
-			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-			GOSUB boat_getlanguage
-
-			IF boat_language = 1
-				SET_TEXT_SCALE 0.32 1.25 
-				DISPLAY_TEXT 437.0 340.0 BOAT_52 
-			ELSE
-				SET_TEXT_SCALE 0.32 1.25 
-				DISPLAY_TEXT 437.0 340.0 BOAT_52 
-			ENDIF
 		ENDIF
 	ELSE
-		GOSUB boat_small_onscreen_text
-
 		GET_HUD_COLOUR HUD_COLOUR_YELLOW b1_r b1_g b1_b b1_alpha2   
-		SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-		GOSUB boat_getlanguage
-
-		IF boat_language = 1
-			SET_TEXT_SCALE 0.32 1.25 
-			DISPLAY_TEXT 437.0 340.0 BOAT_52 
-		ELSE
-			SET_TEXT_SCALE 0.32 1.25 
-			DISPLAY_TEXT 437.0 340.0 BOAT_52 
-		ENDIF
 	ENDIF
+
+		GOSUB boat_small_onscreen_text
+		SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
+			SET_TEXT_SCALE 0.32 1.25 
+			DISPLAY_TEXT 437.0 340.0 BOAT_52 
 
 	GOSUB boat_small_onscreen_text
 
@@ -4800,40 +4716,18 @@ boat_drawing_tv_screen://///////////////////////////////////////////////////////
 
 	IF NOT boat_control_flag = 1
 		GOSUB boat_small_onscreen_text
-
 		GET_HUD_COLOUR HUD_COLOUR_WHITE b1_r b1_g b1_b b1_alpha2   
 		SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
 		SET_TEXT_SCALE 0.32 1.25 
 		DISPLAY_TEXT 150.0 340.0 SCH_PRS
-
-		IF NOT boat_which_missions_are_open_flag = 1
+	ENDIF
 			GOSUB boat_small_onscreen_text
-
 			GET_HUD_COLOUR HUD_COLOUR_WHITE b1_r b1_g b1_b b1_alpha2   
 			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-			SET_TEXT_SCALE 1.45 2.0
-			SET_TEXT_SCALE 0.32 1.25 
-			DISPLAY_TEXT 537.4 340.0 BOAT_72
-		ENDIF
-
-		IF boat_which_missions_are_open_flag = 1
-			GOSUB boat_small_onscreen_text
-
-			GET_HUD_COLOUR HUD_COLOUR_WHITE b1_r b1_g b1_b b1_alpha2   
-			SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
-			SET_TEXT_SCALE 1.45 2.0
-			SET_TEXT_SCALE 0.32 1.25 
-			DISPLAY_TEXT 537.4 340.0 BOAT_72
-		ENDIF
-	ELSE
-		GOSUB boat_small_onscreen_text
-
-		GET_HUD_COLOUR HUD_COLOUR_WHITE b1_r b1_g b1_b b1_alpha2   
-		SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
 		SET_TEXT_SCALE 1.45 2.0
 		SET_TEXT_SCALE 0.32 1.25 
 		DISPLAY_TEXT 537.4 340.0 BOAT_72
-	ENDIF
+
 	SET_TEXT_SCALE 0.52 1.45 
 				
 
@@ -4878,13 +4772,11 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 
 			SWITCH boat_language
 			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT_WITH_FLOAT 217.0 75.0 boat_58 dboat_which_score_displayed 2
 				BREAK
 			CASE LANGUAGE_FRENCH
 				DISPLAY_TEXT_WITH_FLOAT 200.0 75.0 boat_58 dboat_which_score_displayed 2
-				BREAK
-			CASE LANGUAGE_GERMAN
-				DISPLAY_TEXT_WITH_FLOAT 217.0 75.0 boat_58 dboat_which_score_displayed 2
 				BREAK
 			CASE LANGUAGE_ITALIAN
 				DISPLAY_TEXT_WITH_FLOAT 187.0 75.0 boat_58 dboat_which_score_displayed 2
@@ -4911,8 +4803,6 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 				DISPLAY_TEXT_WITH_FLOAT 137.0 75.0 boat_62 dboat_accelerate_qualify 1
 				BREAK
 			CASE LANGUAGE_FRENCH
-				DISPLAY_TEXT_WITH_FLOAT 77.0 75.0 boat_62 dboat_accelerate_qualify 1
-				BREAK
 			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT_WITH_FLOAT 77.0 75.0 boat_62 dboat_accelerate_qualify 1
 				BREAK
@@ -4969,13 +4859,11 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 
 			SWITCH boat_language
 			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT_WITH_FLOAT 217.0 75.0 boat_58 dboat_which_score_displayed 2
 				BREAK
 			CASE LANGUAGE_FRENCH
 				DISPLAY_TEXT_WITH_FLOAT 200.0 75.0 boat_58 dboat_which_score_displayed 2
-				BREAK
-			CASE LANGUAGE_GERMAN
-				DISPLAY_TEXT_WITH_FLOAT 217.0 75.0 boat_58 dboat_which_score_displayed 2
 				BREAK
 			CASE LANGUAGE_ITALIAN
 				DISPLAY_TEXT_WITH_FLOAT 187.0 75.0 boat_58 dboat_which_score_displayed 2
@@ -5004,8 +4892,6 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 				DISPLAY_TEXT_WITH_FLOAT 137.0 75.0 boat_62 dboat_simplecircuit_qualify 1
 				BREAK
 			CASE LANGUAGE_FRENCH
-				DISPLAY_TEXT_WITH_FLOAT 77.0 75.0 boat_62 dboat_simplecircuit_qualify 1
-				BREAK
 			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT_WITH_FLOAT 77.0 75.0 boat_62 dboat_simplecircuit_qualify 1
 				BREAK
@@ -5158,8 +5044,6 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 				DISPLAY_TEXT_WITH_NUMBER 185.0 75.0 boat_60 boat_skijump_best_score
 				BREAK
 			CASE LANGUAGE_FRENCH
-				DISPLAY_TEXT_WITH_NUMBER 167.0 75.0 boat_60 boat_skijump_best_score
-				BREAK
 			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT_WITH_NUMBER 167.0 75.0 boat_60 boat_skijump_best_score
 				BREAK
@@ -5187,6 +5071,7 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 				DISPLAY_TEXT_WITH_NUMBER 153.0 75.0 boat_61 boat_skijump_qualify
 				BREAK
 			CASE LANGUAGE_FRENCH
+			CASE LANGUAGE_SPANISH
 				DISPLAY_TEXT_WITH_NUMBER 103.0 75.0 boat_61 boat_skijump_qualify
 				BREAK
 			CASE LANGUAGE_GERMAN
@@ -5194,9 +5079,6 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 				BREAK
 			CASE LANGUAGE_ITALIAN
 				DISPLAY_TEXT_WITH_NUMBER 123.0 75.0 boat_61 boat_skijump_qualify
-				BREAK
-			CASE LANGUAGE_SPANISH
-				DISPLAY_TEXT_WITH_NUMBER 103.0 75.0 boat_61 boat_skijump_qualify
 				BREAK
 			CASE 5
 				DISPLAY_TEXT_WITH_NUMBER 177.0 75.0 boat_61 boat_skijump_qualify
@@ -5247,13 +5129,11 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 			GOSUB boat_getlanguage
 			SWITCH boat_language
 			CASE LANGUAGE_ENGLISH
+			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT_WITH_FLOAT 217.0 75.0 boat_58 dboat_which_score_displayed 2
 				BREAK
 			CASE LANGUAGE_FRENCH
 				DISPLAY_TEXT_WITH_FLOAT 200.0 75.0 boat_58 dboat_which_score_displayed 2
-				BREAK
-			CASE LANGUAGE_GERMAN
-				DISPLAY_TEXT_WITH_FLOAT 217.0 75.0 boat_58 dboat_which_score_displayed 2
 				BREAK
 			CASE LANGUAGE_ITALIAN
 				DISPLAY_TEXT_WITH_FLOAT 187.0 75.0 boat_58 dboat_which_score_displayed 2
@@ -5357,16 +5237,12 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 			DISPLAY_TEXT 266.0 375.0 BOAT_64
 			BREAK
 		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			DISPLAY_TEXT 216.0 375.0 BOAT_64
 			BREAK
 		CASE LANGUAGE_GERMAN
 			DISPLAY_TEXT 233.0 375.0 BOAT_64
-			BREAK
-		CASE LANGUAGE_ITALIAN
-			DISPLAY_TEXT 216.0 375.0 BOAT_64
-			BREAK
-		CASE LANGUAGE_SPANISH
-			DISPLAY_TEXT 216.0 375.0 BOAT_64
 			BREAK
 		CASE 5
 			DISPLAY_TEXT 292.0 375.0 BOAT_64
@@ -5383,17 +5259,9 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 
 		SWITCH boat_language
 		CASE LANGUAGE_ENGLISH
-			DISPLAY_TEXT 280.0 375.0 BOAT_57
-			BREAK
 		CASE LANGUAGE_FRENCH
-			DISPLAY_TEXT 280.0 375.0 BOAT_57
-			BREAK
 		CASE LANGUAGE_GERMAN
-			DISPLAY_TEXT 280.0 375.0 BOAT_57
-			BREAK
 		CASE LANGUAGE_ITALIAN
-			DISPLAY_TEXT 280.0 375.0 BOAT_57
-			BREAK
 		CASE LANGUAGE_SPANISH
 			DISPLAY_TEXT 280.0 375.0 BOAT_57
 			BREAK
@@ -5412,20 +5280,16 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 
 		SWITCH boat_language
 		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_GERMAN
 			DISPLAY_TEXT 283.0 375.0 BOAT_56
 			BREAK
 		CASE LANGUAGE_FRENCH
 			DISPLAY_TEXT 278.0 375.0 BOAT_56
 			BREAK
-		CASE LANGUAGE_GERMAN
-			DISPLAY_TEXT 283.0 375.0 BOAT_56
-			BREAK
 		CASE LANGUAGE_ITALIAN
 			DISPLAY_TEXT 273.0 375.0 BOAT_56
 			BREAK
 		CASE LANGUAGE_SPANISH
-			DISPLAY_TEXT 286.0 375.0 BOAT_56
-			BREAK
 		CASE 5
 			DISPLAY_TEXT 286.0 375.0 BOAT_56
 			BREAK
@@ -5450,8 +5314,6 @@ boat_drawing_medal://///////////////////////////////////////////////////////////
 			DISPLAY_TEXT 294.0 375.0 BOAT_55
 			BREAK
 		CASE LANGUAGE_ITALIAN
-			DISPLAY_TEXT 300.0 375.0 BOAT_55
-			BREAK
 		CASE LANGUAGE_SPANISH
 			DISPLAY_TEXT 300.0 375.0 BOAT_55
 			BREAK

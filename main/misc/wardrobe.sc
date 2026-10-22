@@ -1459,25 +1459,18 @@ draw_second_menu_wardrobe:
 
 		// Create and populate the second menu.
 
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT second_menu_wardrobe
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT second_menu_wardrobe
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT second_menu_wardrobe
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT second_menu_wardrobe
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT second_menu_wardrobe
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT second_menu_wardrobe
+		BREAK
+		ENDSWITCH
 
 		SET_ACTIVE_MENU_ITEM second_menu_wardrobe second_menu_item_picked_wardrobe // FIXEDGROVE: restore selection
 		
@@ -1555,25 +1548,18 @@ draw_third_menu_wardrobe:
 		
 		// Create and populate the third menu.
 
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT third_menu_wardrobe
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT third_menu_wardrobe
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT third_menu_wardrobe
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT third_menu_wardrobe
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT third_menu_wardrobe
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT third_menu_wardrobe
+		BREAK
+		ENDSWITCH
 		
 		SET_ACTIVE_MENU_ITEM third_menu_wardrobe third_menu_item_picked_wardrobe // FIXEDGROVE: restore selection
 
@@ -1613,25 +1599,18 @@ IF main_menu_drawn_wardrobe = 0
 	row_number_wardrobe = 0
 	
 
-	IF current_Language = LANGUAGE_ENGLISH
+	// FIXEDGROVE: changed IF to SWITCH
+	SWITCH current_Language
+	CASE LANGUAGE_ENGLISH
+	CASE LANGUAGE_ITALIAN
+	CASE LANGUAGE_SPANISH
 		CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_wardrobe
-	ELSE
-		IF current_Language = LANGUAGE_FRENCH
-			CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_wardrobe
-		ELSE
-			IF current_Language = LANGUAGE_GERMAN
-				CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_wardrobe
-			ELSE
-				IF current_Language = LANGUAGE_ITALIAN
-					CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_wardrobe
-				ELSE
-					IF current_Language = LANGUAGE_SPANISH
-						CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_wardrobe
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
-	ENDIF
+	BREAK
+	CASE LANGUAGE_FRENCH
+	CASE LANGUAGE_GERMAN
+		CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_wardrobe
+	BREAK
+	ENDSWITCH
 
 	SET_MENU_COLUMN_ORIENTATION main_menu_wardrobe 0 FO_LEFT
 
@@ -1852,25 +1831,18 @@ draw_remove_menu_wardrobe:
 
 	IF flag_remove_menu_drawn_wardrobe = 0
 	
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT remove_menu_wardrobe
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT remove_menu_wardrobe
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT remove_menu_wardrobe
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT remove_menu_wardrobe
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU CLOTCHO 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT remove_menu_wardrobe
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU CLOTCHO 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT remove_menu_wardrobe
+		BREAK
+		ENDSWITCH
 
 		SET_MENU_COLUMN_ORIENTATION remove_menu_wardrobe 0 FO_LEFT
 

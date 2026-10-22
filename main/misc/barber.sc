@@ -1218,25 +1218,9 @@ RETURN
 display_text_barber:
 	IF cost_menu_drawn_shops = 0
 		PRINT_HELP_FOREVER BARB_H2
-		IF current_Language = LANGUAGE_ENGLISH
-			CREATE_MENU HAIRCHO 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU HAIRCHO 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU HAIRCHO 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU HAIRCHO 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU HAIRCHO 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+
+		// FIXEDGROVE: removed pointless language checks that all had the same values
+		CREATE_MENU HAIRCHO 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
 
 		SET_MENU_COLUMN_ORIENTATION cost_menu_shops 0 FO_LEFT 
 		SET_MENU_COLUMN cost_menu_shops 0 HAIRSTY $hairstyle_name DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY
@@ -1305,25 +1289,19 @@ draw_main_menu_barbers:
 	    // Create and populate the menu (once at startup).
 
 		PRINT_HELP_FOREVER BARB_H1
-		IF current_Language = LANGUAGE_ENGLISH
+
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_ITALIAN
 			CREATE_MENU HAIRCHO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT main_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU HAIRCHO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT main_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU HAIRCHO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT main_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU HAIRCHO 29.0 145.0 93.0 2 TRUE TRUE FO_LEFT main_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU HAIRCHO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT main_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_GERMAN
+		CASE LANGUAGE_SPANISH
+			CREATE_MENU HAIRCHO 29.0 165.0 93.0 2 TRUE TRUE FO_LEFT main_menu_shops
+		BREAK
+		ENDSWITCH
 
 		SET_MENU_COLUMN_ORIENTATION main_menu_shops 0 FO_LEFT 
 		SET_MENU_COLUMN main_menu_shops 0 HAIRSTY $item_text_label[0] $item_text_label[1] $item_text_label[2] $item_text_label[3] $item_text_label[4] $item_text_label[5] $item_text_label[6] $item_text_label[7] $item_text_label[8] $item_text_label[9] $item_text_label[10] $item_text_label[11] 
