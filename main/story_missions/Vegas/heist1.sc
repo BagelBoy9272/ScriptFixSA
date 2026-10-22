@@ -252,7 +252,7 @@ LVAR_INT light_oldhours light_oldmins
 LVAR_INT he1_wantedfix
 
 
-LVAR_INT he1_char_name // FIXEDGROVE
+LVAR_INT he1_char_name he1_Tempint2 // FIXEDGROVE
 
 
 
@@ -816,7 +816,7 @@ CHANGE_BLIP_SCALE he1_touristB[4] 1
 
 ENDIF
 
-he1_tempint = 0
+//he1_tempint = 0
 //WHILE he1_tempint < 5
   //	CHANGE_BLIP_SCALE he1_touristB[he1_tempint] 2
   //	he1_tempint ++
@@ -1972,13 +1972,13 @@ IF he1_progress = 5
 			TASK_SCRATCH_HEAD he1_bystander[2]
 			TASK_SCRATCH_HEAD he1_bystander[3]
 
-			temp_integer_1 = 0
-			temp_integer_2 = 1
-			WHILE temp_integer_1 < 5
-			IF NOT IS_CHAR_DEAD he1_pop[temp_integer_1]
-			AND NOT IS_CHAR_DEAD he1_pop[temp_integer_2]
-				CLEAR_CHAR_TASKS he1_pop[temp_integer_1]
-				CLEAR_CHAR_TASKS he1_pop[temp_integer_2]
+			he1_tempint = 0
+			he1_tempint2 = 1
+			WHILE he1_tempint < 5
+			IF NOT IS_CHAR_DEAD he1_pop[he1_tempint]
+			AND NOT IS_CHAR_DEAD he1_pop[he1_tempint2]
+				CLEAR_CHAR_TASKS he1_pop[he1_tempint]
+				CLEAR_CHAR_TASKS he1_pop[he1_tempint2]
 			   //	TASK_LOOK_ABOUT he1_pop[0] -1
 			   //	TASK_LOOK_ABOUT he1_pop[1] -1
 				//TASK_WANDER_COP he1_pop[2]
@@ -1989,29 +1989,29 @@ IF he1_progress = 5
 				//TASK_WANDER_CRIMINAL he1_pop[5]
 			   //	TASK_LOOK_ABOUT he1_pop[4] -1
 			   //	TASK_LOOK_ABOUT he1_pop[5] -1
-				TASK_CHAT_WITH_CHAR he1_pop[temp_integer_1] he1_pop[temp_integer_2]  true true //ped0 will lead the chatting
-				TASK_CHAT_WITH_CHAR he1_pop[temp_integer_2] he1_pop[temp_integer_1] false true //ped1 will follow ped0 at chatting
+				TASK_CHAT_WITH_CHAR he1_pop[he1_tempint] he1_pop[he1_tempint2]  true true //ped0 will lead the chatting
+				TASK_CHAT_WITH_CHAR he1_pop[he1_tempint2] he1_pop[he1_tempint] false true //ped1 will follow ped0 at chatting
 			ENDIF
-			temp_integer_1++
-			temp_integer_2++
+			he1_tempint++
+			he1_tempint2++
 			ENDWHILE
 
-			temp_integer_1 = 0
-			temp_integer_2 = 1
-			WHILE temp_integer_1 < 3
-			IF NOT IS_CHAR_DEAD he1_bystander[temp_integer_1]
-			AND NOT IS_CHAR_DEAD he1_bystander[temp_integer_2]
-				CLEAR_CHAR_TASKS he1_bystander[temp_integer_1]
-				CLEAR_CHAR_TASKS he1_bystander[temp_integer_2]
+			he1_tempint = 0
+			he1_tempint2 = 1
+			WHILE he1_tempint < 3
+			IF NOT IS_CHAR_DEAD he1_bystander[he1_tempint]
+			AND NOT IS_CHAR_DEAD he1_bystander[he1_tempint2]
+				CLEAR_CHAR_TASKS he1_bystander[he1_tempint]
+				CLEAR_CHAR_TASKS he1_bystander[he1_tempint2]
 				//TASK_LOOK_ABOUT he1_bystander[0] -1
 				//TASK_LOOK_ABOUT he1_bystander[1] -1
 				//TASK_LOOK_ABOUT he1_bystander[2] -1
 				//TASK_LOOK_ABOUT he1_bystander[3] -1
-				TASK_CHAT_WITH_CHAR he1_bystander[temp_integer_1] he1_bystander[temp_integer_2]  true true //ped0 will lead the chatting
-				TASK_CHAT_WITH_CHAR he1_bystander[temp_integer_2] he1_bystander[temp_integer_1] false true //ped1 will follow ped0 at chatting
+				TASK_CHAT_WITH_CHAR he1_bystander[he1_tempint] he1_bystander[he1_tempint2]  true true //ped0 will lead the chatting
+				TASK_CHAT_WITH_CHAR he1_bystander[he1_tempint2] he1_bystander[he1_tempint] false true //ped1 will follow ped0 at chatting
 			ENDIF
-			temp_integer_1++
-			temp_integer_2++
+			he1_tempint++
+			he1_tempint2++
 			ENDWHILE
 
 
@@ -3470,18 +3470,18 @@ IF he1_progress > 9
 	IF he1_progress < 45
 
 			
-			temp_integer_1 = 0
-			temp_integer_2 = 1
-			WHILE temp_integer_1 < 7
-			IF NOT IS_CHAR_DEAD he1_pop[temp_integer_1]
-			AND NOT IS_CHAR_DEAD he1_pop[temp_integer_2]
-				GET_SCRIPT_TASK_STATUS he1_pop[temp_integer_1] TASK_CHAT_WITH_CHAR task_state
+			he1_tempint = 0
+			he1_tempint2 = 1
+			WHILE he1_tempint < 7
+			IF NOT IS_CHAR_DEAD he1_pop[he1_tempint]
+			AND NOT IS_CHAR_DEAD he1_pop[he1_tempint2]
+				GET_SCRIPT_TASK_STATUS he1_pop[he1_tempint] TASK_CHAT_WITH_CHAR task_state
 				IF task_state = FINISHED_TASK
-				GET_SCRIPT_TASK_STATUS he1_pop[temp_integer_2] TASK_CHAT_WITH_CHAR task_state
+				GET_SCRIPT_TASK_STATUS he1_pop[he1_tempint2] TASK_CHAT_WITH_CHAR task_state
 				IF task_state = FINISHED_TASK
 
-					CLEAR_CHAR_TASKS he1_pop[temp_integer_1]
-					CLEAR_CHAR_TASKS he1_pop[temp_integer_2]
+					CLEAR_CHAR_TASKS he1_pop[he1_tempint]
+					CLEAR_CHAR_TASKS he1_pop[he1_tempint2]
 				   //	TASK_LOOK_ABOUT he1_pop[0] -1
 				   //	TASK_LOOK_ABOUT he1_pop[1] -1
 				//TASK_WANDER_COP he1_pop[2]
@@ -3496,13 +3496,13 @@ IF he1_progress > 9
 				   //	TASK_LOOK_ABOUT he1_pop[7] -1
 				//TASK_WANDER_CRIMINAL he1_pop[6]
 				//TASK_WANDER_CRIMINAL he1_pop[7]
-				   	TASK_CHAT_WITH_CHAR he1_pop[temp_integer_1] he1_pop[temp_integer_2]  true true //ped0 will lead the chatting
-				   	TASK_CHAT_WITH_CHAR he1_pop[temp_integer_2] he1_pop[temp_integer_1] false true //ped1 will follow ped0 at chatting
+				   	TASK_CHAT_WITH_CHAR he1_pop[he1_tempint] he1_pop[he1_tempint2]  true true //ped0 will lead the chatting
+				   	TASK_CHAT_WITH_CHAR he1_pop[he1_tempint2] he1_pop[he1_tempint] false true //ped1 will follow ped0 at chatting
 				ENDIF
 				ENDIF
 			ENDIF
-			temp_integer_1++
-			temp_integer_2++
+			he1_tempint++
+			he1_tempint2++
 			ENDWHILE
 
 	
@@ -3519,13 +3519,13 @@ ENDIF
 
 IF he1_progress = 45
 
-		temp_integer_1 = 2
-		WHILE temp_integer_1 < 9
-			IF NOT IS_CHAR_DEAD he1_pop[temp_integer_1]
-				CLEAR_CHAR_TASKS he1_pop[temp_integer_1]
-				TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[temp_integer_1] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
+		he1_tempint = 2
+		WHILE he1_tempint < 9
+			IF NOT IS_CHAR_DEAD he1_pop[he1_tempint]
+				CLEAR_CHAR_TASKS he1_pop[he1_tempint]
+				TASK_FOLLOW_PATH_NODES_TO_COORD  he1_pop[he1_tempint] 370.8770 171.6468 1007.3971 PEDMOVE_WALK -2
 			ENDIF
-		temp_integer_1++
+		he1_tempint++
 		ENDWHILE
 
 
