@@ -1025,18 +1025,20 @@ button_text_offset = 2.5
 			vp_end_of_input_3:
 			// exit	-------------------------------------------------
 			IF m_goals = 99
-				IF no_of_coins = 6
+				SWITCH no_of_coins
+				CASE 6
 					no_of_coins = 4
-				ENDIF
-				IF no_of_coins = 7
+				BREAK
+				CASE 7
 					no_of_coins = 3
-				ENDIF
-				IF no_of_coins = 8
+				BREAK
+				CASE 8
 					no_of_coins = 2
-				ENDIF
-				IF no_of_coins = 9
+				BREAK
+				CASE 9
 					no_of_coins = 1
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 				temp_int = no_of_coins * machine_value
 				INCREMENT_INT_STAT_NO_MESSAGE MONEY_SPENT_GAMBLING temp_int
@@ -3262,256 +3264,185 @@ vidpok_draw_hud:
 		x = card_x[vphud_int]
 		y = card_y[vphud_int]
 		y += vp_hold_button_offset
-		// blank
-		IF hold_value[vphud_int] = 0
 			vp_border_width = vp_hold_width	+ vp_border_thickness
 			vp_border_height = vp_hold_height + vp_border_thickness
+		// blank
+		SWITCH hold_value[vphud_int]
+		CASE 0
 			DRAW_RECT x y vp_border_width vp_border_height 0 0 0 128
 			DRAW_RECT x y vp_hold_width vp_hold_height 128 128 128 255
 			GOSUB vp_txt_5
 			SET_TEXT_COLOUR 128 128 128 255
 			SET_TEXT_EDGE text_edge[5] 0 0 0 128
-			temp_float = vp_hold_height / button_text_offset
-			y -= temp_float 
-			DISPLAY_TEXT x y VP19
-		ENDIF
+		BREAK
 
-		IF hold_value[vphud_int] = 1
+		CASE 1
 			
-			vp_border_width = vp_hold_width	+ vp_border_thickness
-			vp_border_height = vp_hold_height + vp_border_thickness
-
 			DRAW_RECT x y vp_border_width vp_border_height 255 vp_selected_colour 0 128
 			DRAW_RECT x y vp_hold_width vp_hold_height 128 128 128 255
 						
 			GOSUB vp_txt_5
 			SET_TEXT_COLOUR 128 128 128 255
 			SET_TEXT_EDGE text_edge[5] 0 0 0 128
-			temp_float = vp_hold_height / button_text_offset
-			y -= temp_float
-			
-			DISPLAY_TEXT x y VP19
-		ENDIF
+		BREAK
 		
 		// green 
-		IF hold_value[vphud_int] = 2
-			vp_border_width = vp_hold_width	+ vp_border_thickness
-			vp_border_height = vp_hold_height + vp_border_thickness
+		CASE 2
 			
 			DRAW_RECT x y vp_border_width vp_border_height 0 0 0 255
 			DRAW_RECT x y vp_hold_width vp_hold_height 0 128 0 255
 			
 			GOSUB vp_txt_5
 			SET_TEXT_COLOUR 0 255 0 255
-			temp_float = vp_hold_height / button_text_offset
-			y -= temp_float
-			DISPLAY_TEXT x y VP19
-		ENDIF
+		BREAK
 
-		IF hold_value[vphud_int] = 3
-			vp_border_width = vp_hold_width	+ vp_border_thickness
-			vp_border_height = vp_hold_height + vp_border_thickness
+		CASE 3
 
 			DRAW_RECT x y vp_border_width vp_border_height 255 vp_selected_colour 0 255
 			DRAW_RECT x y vp_hold_width vp_hold_height 0 128 0 255
 			
 			GOSUB vp_txt_5
 			SET_TEXT_COLOUR text_colour_r[5] vp_selected_colour text_colour_b[5] 255
-			temp_float = vp_hold_height / button_text_offset
-			y -= temp_float
-			
-			DISPLAY_TEXT x y VP19
-		ENDIF
+		BREAK
 		
 		// red
-		IF hold_value[vphud_int] = 4
-			vp_border_width = vp_hold_width	+ vp_border_thickness
-			vp_border_height = vp_hold_height + vp_border_thickness
+		CASE 4
 			DRAW_RECT x y vp_border_width vp_border_height 0 0 0 255
 			DRAW_RECT x y vp_hold_width vp_hold_height TEXT_COLOUR_R[1] TEXT_COLOUR_G[1] TEXT_COLOUR_B[1] 255
 			GOSUB vp_txt_5
 			SET_TEXT_COLOUR 255 0 0 255
-			temp_float = vp_hold_height / button_text_offset
-			y -= temp_float
-			DISPLAY_TEXT x y VP19
-		ENDIF
+		BREAK
 		
-		IF hold_value[vphud_int] = 5
-			vp_border_width = vp_hold_width	+ vp_border_thickness
-			vp_border_height = vp_hold_height + vp_border_thickness
+		CASE 5
 
 			DRAW_RECT x y vp_border_width vp_border_height 255 vp_selected_colour 0 255
 			DRAW_RECT x y vp_hold_width vp_hold_height text_colour_r[1] text_colour_g[1] text_colour_b[1] 255
 			
 			GOSUB vp_txt_5
 			SET_TEXT_COLOUR text_colour_r[5] vp_selected_colour text_colour_b[5] 255
+		BREAK
+		ENDSWITCH
 			temp_float = vp_hold_height / button_text_offset
-			y -= temp_float
+			y -= temp_float 
 			DISPLAY_TEXT x y VP19
-		ENDIF
 			
 	vphud_int++
 	ENDWHILE
 
-	IF bet_one_value = 0 
 		vp_border_width = VP_BET_ONE_WIDTH + VP_BORDER_THICKNESS
 		vp_border_height = VP_BET_ONE_HEIGHT + VP_BORDER_THICKNESS
+
+	SWITCH bet_one_value
+	CASE 0 
 		DRAW_RECT bet_one_x bet_one_y vp_border_width vp_border_height 0 0 0 128 
 		DRAW_RECT bet_one_x bet_one_y VP_BET_ONE_WIDTH VP_BET_ONE_HEIGHT 128 128 128 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 128 128 128 255 
 		SET_TEXT_EDGE text_edge[5] 0 0 0 128
-		temp_float = VP_BET_ONE_HEIGHT / button_text_offset 
-		y = bet_one_y - temp_float
-		DISPLAY_TEXT bet_one_x y VP20
-	ENDIF
+	BREAK
 
-	IF bet_one_value = 1 
-		vp_border_width = VP_BET_ONE_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_BET_ONE_HEIGHT + VP_BORDER_THICKNESS
+	CASE 1 
 		DRAW_RECT bet_one_x bet_one_y vp_border_width vp_border_height 255 vp_selected_colour 0 128 
 		DRAW_RECT bet_one_x bet_one_y VP_BET_ONE_WIDTH VP_BET_ONE_HEIGHT 128 128 128 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 128 128 128 255 
 		SET_TEXT_EDGE text_edge[5] 0 0 0 128
-		temp_float = VP_BET_ONE_HEIGHT / button_text_offset 
-		y = bet_one_y - temp_float
-		DISPLAY_TEXT bet_one_x y VP20
-	ENDIF
+	BREAK
 
-	IF bet_one_value = 2 
-		vp_border_width = VP_BET_ONE_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_BET_ONE_HEIGHT + VP_BORDER_THICKNESS
+	CASE 2 
 		DRAW_RECT bet_one_x bet_one_y vp_border_width vp_border_height 0 0 0 255 
 		DRAW_RECT bet_one_x bet_one_y VP_BET_ONE_WIDTH VP_BET_ONE_HEIGHT 0 128 0 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 0 255 0 255 
-		temp_float = VP_BET_ONE_HEIGHT / button_text_offset 
-		y = bet_one_y - temp_float
-		DISPLAY_TEXT bet_one_x y VP20
-	ENDIF
+	BREAK
 
-	IF bet_one_value = 3 
-		vp_border_width = VP_BET_ONE_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_BET_ONE_HEIGHT + VP_BORDER_THICKNESS
+	CASE 3 
 		DRAW_RECT bet_one_x bet_one_y vp_border_width vp_border_height 255 vp_selected_colour 0 255 
 		DRAW_RECT bet_one_x bet_one_y VP_BET_ONE_WIDTH VP_BET_ONE_HEIGHT 0 128 0 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR text_colour_r[5] vp_selected_colour text_colour_b[5] 255 
-		temp_float = VP_BET_ONE_HEIGHT / button_text_offset 
-		y = bet_one_y - temp_float
-		DISPLAY_TEXT bet_one_x y VP20
-	ENDIF
+	BREAK
 
-	IF bet_one_value = 4
-		vp_border_width = VP_BET_ONE_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_BET_ONE_HEIGHT + VP_BORDER_THICKNESS
+	CASE 4
 		DRAW_RECT bet_one_x bet_one_y vp_border_width vp_border_height 0 0 0 255 
 		DRAW_RECT bet_one_x bet_one_y VP_BET_ONE_WIDTH VP_BET_ONE_HEIGHT text_colour_r[1] text_colour_g[1] text_colour_b[1] 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 255 0 0 255 
-		temp_float = VP_BET_ONE_HEIGHT / button_text_offset 
-		y = bet_one_y - temp_float
-		DISPLAY_TEXT bet_one_x y VP20
-	ENDIF
+	BREAK
 
-	IF bet_one_value = 5 
-		vp_border_width = VP_BET_ONE_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_BET_ONE_HEIGHT + VP_BORDER_THICKNESS
+	CASE 5 
 		DRAW_RECT bet_one_x bet_one_y vp_border_width vp_border_height 255 vp_selected_colour 0 255 
 		DRAW_RECT bet_one_x bet_one_y VP_BET_ONE_WIDTH VP_BET_ONE_HEIGHT text_colour_r[1] text_colour_g[1] text_colour_b[1] 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR text_colour_r[5] vp_selected_colour text_colour_b[5] 255  
+	BREAK
+	ENDSWITCH
 		temp_float = VP_BET_ONE_HEIGHT / button_text_offset 
 		y = bet_one_y - temp_float
 		DISPLAY_TEXT bet_one_x y VP20
-	ENDIF
 
-	IF deal_value = 0 
 		vp_border_width = VP_DEAL_WIDTH + VP_BORDER_THICKNESS
 		vp_border_height = VP_DEAL_HEIGHT + VP_BORDER_THICKNESS
+	SWITCH deal_value
+	CASE 0 
 		DRAW_RECT deal_x deal_y vp_border_width vp_border_height 0 0 0 128 
 		DRAW_RECT deal_x deal_y VP_DEAL_WIDTH VP_DEAL_HEIGHT 128 128 128 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 128 128 128 255 
 		SET_TEXT_EDGE text_edge[5] 0 0 0 128
-		temp_float = VP_DEAL_HEIGHT / button_text_offset 
-		y = deal_y - temp_float
-		DISPLAY_TEXT deal_x y VP21
-	ENDIF
+	BREAK
 
-	IF deal_value = 1 
-		vp_border_width = VP_DEAL_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_DEAL_HEIGHT + VP_BORDER_THICKNESS
+	CASE 1 
 		DRAW_RECT deal_x deal_y vp_border_width vp_border_height 255 vp_selected_colour 0 128 
 		DRAW_RECT deal_x deal_y VP_DEAL_WIDTH VP_DEAL_HEIGHT 128 128 128 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 128 128 128 255 
 		SET_TEXT_EDGE text_edge[5] 0 0 0 128
-		temp_float = VP_DEAL_HEIGHT / button_text_offset 
-		y = deal_y - temp_float
-		DISPLAY_TEXT deal_x y VP21
-	ENDIF
+	BREAK
 
-	IF deal_value = 2 
-		vp_border_width = VP_DEAL_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_DEAL_HEIGHT + VP_BORDER_THICKNESS
+	CASE 2 
 		DRAW_RECT deal_x deal_y vp_border_width vp_border_height 0 0 0 255 
 		DRAW_RECT deal_x deal_y VP_DEAL_WIDTH VP_DEAL_HEIGHT 0 128 0 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 0 255 0 255 
-		temp_float = VP_DEAL_HEIGHT / button_text_offset 
-		y = deal_y - temp_float
-		DISPLAY_TEXT deal_x y VP21
-	ENDIF
+	BREAK
 
-	IF deal_value = 3 
-		vp_border_width = VP_DEAL_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_DEAL_HEIGHT + VP_BORDER_THICKNESS
+	CASE 3 
 		DRAW_RECT deal_x deal_y vp_border_width vp_border_height 255 vp_selected_colour 0 255 
 		DRAW_RECT deal_x deal_y VP_DEAL_WIDTH VP_DEAL_HEIGHT 0 128 0 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR text_colour_r[5] vp_selected_colour text_colour_b[5] 255 
-		temp_float = VP_DEAL_HEIGHT / button_text_offset 
-		y = deal_y - temp_float
-		DISPLAY_TEXT deal_x y VP21
-	ENDIF
+	BREAK
 
-	IF deal_value = 4
-		vp_border_width = VP_DEAL_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_DEAL_HEIGHT + VP_BORDER_THICKNESS
+	CASE 4
 		DRAW_RECT deal_x deal_y vp_border_width vp_border_height 0 0 0 255 
 		DRAW_RECT deal_x deal_y VP_DEAL_WIDTH VP_DEAL_HEIGHT text_colour_r[1] text_colour_g[1] text_colour_b[1] 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR 255 0 0 255 
-		temp_float = VP_DEAL_HEIGHT / button_text_offset 
-		y = deal_y - temp_float
-		DISPLAY_TEXT deal_x y VP21
-	ENDIF
+	BREAK
 
-	IF deal_value = 5 
-		vp_border_width = VP_DEAL_WIDTH + VP_BORDER_THICKNESS
-		vp_border_height = VP_DEAL_HEIGHT + VP_BORDER_THICKNESS
+	CASE 5 
 		DRAW_RECT deal_x deal_y vp_border_width vp_border_height 255 vp_selected_colour 0 255 
 		DRAW_RECT deal_x deal_y VP_DEAL_WIDTH VP_DEAL_HEIGHT text_colour_r[1] text_colour_g[1] text_colour_b[1] 255 
 
 		GOSUB vp_txt_5 
 		SET_TEXT_COLOUR text_colour_r[5] vp_selected_colour text_colour_b[5] 255 
+	BREAK
+	ENDSWITCH
 		temp_float = VP_DEAL_HEIGHT / button_text_offset 
 		y = deal_y - temp_float
 		DISPLAY_TEXT deal_x y VP21
-	ENDIF
 	
 RETURN
 
