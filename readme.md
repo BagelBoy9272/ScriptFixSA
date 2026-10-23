@@ -99,6 +99,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed overlapping Emmet icons
 - Changed Grove's models to be random
 
+**High Stakes, Low-Rider:**
+- Fixed black screen if you managed to destroy Cesar's car before the race
+
 **Home Invasion:**
 - Fixed Ryder vanishing in the ending cutscene
 - Made player look at Ryder during 'CJ, you gotta get it into your head...' line to make it look more natural
