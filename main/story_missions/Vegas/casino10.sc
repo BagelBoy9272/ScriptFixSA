@@ -932,32 +932,40 @@ PRINT_NOW (CM10_1) 10000 1 //"Get to the Vegas airport, we have a chartered jet 
 ADD_BLIP_FOR_COORD 1707.828 1606.639 9.055 airport_blip2_casino10
 CLEAR_AREA 1707.828 1606.639 9.055 2.0 FALSE 
 
+TIMERA = 0 // FIXEDGROVE
+
 // waiting for the player to get to the airport
 WHILE NOT LOCATE_CHAR_ANY_MEANS_3D scplayer 1707.828 1606.639 9.055 4.0 4.0 3.0 FALSE
 
 	WAIT 0
 
 	// FIXEDGROVE: START - added trip skip
-	SWITCH trip_skip_flag_casino10
-	CASE 1
-		IF IS_CHAR_IN_ANY_CAR scplayer
-			STORE_CAR_CHAR_IS_IN_NO_SAVE scplayer trip_skip_vehicle_casino10
-			PRINT_HELP_FOREVER SKIP_1
-			trip_skip_flag_casino10 = 2
-		ENDIF
-	BREAK
-	CASE 2
-		IF IS_CHAR_SITTING_IN_CAR trip_skip_vehicle_casino10
-			IF IS_BUTTON_PRESSED DPADRIGHT
-				CLEAR_THIS_HELP SKIP_1
-				GOTO trip_skip_destination
+	IF TIMERA < 8000
+		SWITCH trip_skip_flag_casino10
+		CASE 1
+			IF IS_CHAR_IN_ANY_CAR scplayer
+				STORE_CAR_CHAR_IS_IN_NO_SAVE scplayer trip_skip_vehicle_casino10
+				PRINT_HELP_FOREVER SKIP_1
+				trip_skip_flag_casino10 = 2
 			ENDIF
-		ELSE
+		BREAK
+		CASE 2
+			IF IS_CHAR_SITTING_IN_CAR trip_skip_vehicle_casino10
+				IF IS_BUTTON_PRESSED DPADRIGHT
+					CLEAR_THIS_HELP SKIP_1
+					GOTO trip_skip_destination
+				ENDIF
+			ELSE
+				CLEAR_THIS_HELP SKIP_1
+				trip_skip_flag_casino10 = 1
+			ENDIF
+		BREAK
+		ENDSWITCH
+	ELSE
+		IF IS_HELP_MESSAGE_BEING_DISPLAYED SKIP_1
 			CLEAR_THIS_HELP SKIP_1
-			trip_skip_flag_casino10 = 1
 		ENDIF
-	BREAK
-	ENDSWITCH
+	ENDIF
 	// FIXEDGROVE: END
 
 	IF IS_PS2_KEYBOARD_KEY_PRESSED PS2_KEY_S
@@ -967,6 +975,7 @@ WHILE NOT LOCATE_CHAR_ANY_MEANS_3D scplayer 1707.828 1606.639 9.055 4.0 4.0 3.0 
 ENDWHILE
 
 CLEAR_SKIP // FIXEDGROVE
+CLEAR_THIS_HELP SKIP_1 // FIXEDGROVE
 
 REMOVE_BLIP airport_blip2_casino10
  		 
