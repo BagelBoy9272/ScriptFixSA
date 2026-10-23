@@ -42,8 +42,8 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 
 	//--- PC ONLY VARS
-	VAR_INT d_speechCounter_BitsLow d_speechCounter_BitsHigh d_amount // FIXEDGROVE: repurposed
-	VAR_INT d_unused1 d_unused2 d_unused3 d_unused4 d_unused5 // FIXEDGROVE: now unused
+	VAR_INT d_speechCounter_BitsLow d_speechCounter_BitsHigh // FIXEDGROVE: repurposed
+	VAR_INT d_unused1 d_unused2 d_unused3 d_unused4 d_unused5 d_unused6 // FIXEDGROVE: now unused
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -696,7 +696,7 @@ Dance_GetTimingOfCurrentBeat:
 			//--- Unverified Beat
 			IF iCurrentButton = DANCE_BUTTON_NONE
 
-				//WRITE_DEBUG_WITH_INT an an
+				//WRITE_DEBUG_WITH_INT d_player_stick_position an
 
 				//--- No button press - check if the beat is not past
 				IF iTimeToClosestBeat < DANCE_BOUNDS_ALRIGHT_MIN
@@ -2189,17 +2189,17 @@ RETURN
 ********************************************/
 // FIXEDGROVE: START
 Dance_RandomSpeechFunction:
-d_amount = 0
+temp_integer_1 = 0
 i = 0
 WHILE i < 56 // makes up the total of set bits
 	IF i < 32
 		IF IS_BIT_SET d_speechCounter_BitsLow i
-			d_amount++
+			temp_integer_1++
 		ENDIF
 	ELSE
 		iTemp = i - 32
 		IF IS_BIT_SET d_speechCounter_BitsHigh iTemp
-			d_amount++
+			temp_integer_1++
 		ENDIF
 	ENDIF
 	i++
@@ -2207,14 +2207,13 @@ ENDWHILE
 
 // if they are all set, clear them, then set the bit that was set previously
 // so it won't be set again
-IF d_amount >= 56
-	iTemp = iDance_SpeechCounter
+IF temp_integer_1 >= 56
 	d_speechCounter_BitsLow = 0
 	d_speechCounter_BitsHigh = 0
-	IF d_amount < 32
-		SET_BIT d_speechCounter_BitsLow iTemp
+	IF temp_integer_1 < 32
+		SET_BIT d_speechCounter_BitsLow iDance_SpeechCounter
 	ELSE
-		iTemp = d_amount - 32
+		iTemp = temp_integer_1 - 32
 		SET_BIT d_speechCounter_BitsHigh iTemp
 	ENDIF
 ENDIF
