@@ -4690,6 +4690,7 @@ boat_drawing_tv_screen://///////////////////////////////////////////////////////
 	IF NOT boat_control_flag = 1
 		GOSUB boat_small_onscreen_text
 		GET_HUD_COLOUR HUD_COLOUR_YELLOW b1_r b1_g b1_b b1_alpha2   
+		SET_TEXT_COLOUR b1_r b1_g b1_b b1_alpha2
 			SET_TEXT_SCALE 0.32 1.25 
 			DISPLAY_TEXT 70.0 340.0 BOAT_54 
 		IF boat_which_missions_are_open_flag = 1
