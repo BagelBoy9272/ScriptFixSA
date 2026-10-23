@@ -42,8 +42,8 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 
 
 	//--- PC ONLY VARS
-	VAR_INT d_lstickx d_lsticky d_rstickx d_rsticky d_player_stick_position
-	VAR_FLOAT d_temp_float d_vec_x d_vec_y
+	VAR_INT d_speechCounter_BitsLow d_speechCounter_BitsHigh // FIXEDGROVE: repurposed
+	VAR_INT d_unused1 d_unused2 d_unused3 d_unused4 d_unused5 d_unused6 // FIXEDGROVE: now unused
 
 	SET_BIT iDanceReport DANCE_MINIGAME_RUNNING
 	SET_MINIGAME_IN_PROGRESS TRUE 
@@ -53,9 +53,9 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	FORCE_BIG_MESSAGE_AND_COUNTER TRUE
 
 	//--- Parameter passing Fudge
-	IF iTemp > 0
+	GOTO Dance_SkipThisPart
 	   CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iPartner
-	ENDIF
+	Dance_SkipThisPart:
 
 	//--- Init the vars
 	iCurrentButton = DANCE_BUTTON_NONE
@@ -67,10 +67,15 @@ CONST_INT DANCE_BUTTON_PC_CONFIRM		100
 	iDanceScore = 0
 	iDance_SpeechState = DANCE_SPEECH_IDLE
 	iDance_SpeechRequest = -1
-	iDance_SpeechCounter = 1
+	// iDance_SpeechCounter = 1 // FIXEDGROVE: commented out, not needed anymore
 	iStoredBeat = DANCE_BEAT_NONE
 
 	TIMERA = DANCE_TIME_TO_TRIGGER_SPEECH
+
+	// FIXEDGROVE: START - initialize some extra variables
+	d_speechCounter_BitsLow = 0
+	d_speechCounter_BitsHigh = 0
+	// FIXEDGROVE: END
 
 	//---MAIN LOOP---
 
@@ -227,9 +232,7 @@ RETURN
 ********************************************/
 Dance_State1:  
 
-	SWITCH iSubState
-	
-	CASE STATE_DANCE_TRACK_AND_GET_BEATS
+	IF iSubState = STATE_DANCE_TRACK_AND_GET_BEATS
 
 		//--- Manage the dancing for the current frame
 		GOSUB Dance_Get_TimeStep
@@ -240,7 +243,7 @@ Dance_State1:
 	
 		// Must PAUSE
 		IF iState = 3
-			BREAK
+			RETURN
 		ENDIF
 	
 		GOSUB Dance_GetTimingOfCurrentBeat	// Returns iStoredBeat: the timing zones 
@@ -249,7 +252,8 @@ Dance_State1:
 		GOSUB Dance_Update_Overall_Report	// Updates the big prints at the top of the screen
 		GOSUB Dance_PlayStateFeedbackSpeech // Handles the spoken feedback for the current overall status
 
-		IF iStoredBeat = DANCE_BEAT_ALRIGHT
+		SWITCH iStoredBeat
+		CASE DANCE_BEAT_ALRIGHT
 
 			
 			// --- Score it			
@@ -272,12 +276,11 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayGoodAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
 
 
-		IF iStoredBeat = DANCE_BEAT_PERFECT
+		CASE DANCE_BEAT_PERFECT
 
 			// --- Score it			
 			IF iDanceScore < DANCE_SCORE_TOP_LIMIT
@@ -299,11 +302,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayGoodAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
 
-		IF iStoredBeat = DANCE_BEAT_GOOD
+		CASE DANCE_BEAT_GOOD
 			
 			// --- Score it
 			IF iDanceScore < DANCE_SCORE_TOP_LIMIT
@@ -325,11 +327,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayGoodAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
 			
-		IF iStoredBeat = DANCE_BEAT_PAST
+		CASE DANCE_BEAT_PAST
 
 			// --- Score shit here
 			IF iDanceScore > DANCE_SCORE_BAD
@@ -346,11 +347,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF 
+		BREAK 
 
-		IF iStoredBeat = DANCE_BEAT_FUTURE
+		CASE DANCE_BEAT_FUTURE
 
 			// --- Score shit here				
 			IF iDanceScore > DANCE_SCORE_BAD
@@ -367,11 +367,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF 				  
+		BREAK 				  
 
-		IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
+		CASE DANCE_BEAT_WRONG_BUTTON
 
 			// --- Score shit here				
 			IF iDanceScore > DANCE_SCORE_VERY_BAD
@@ -389,11 +388,10 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF 		
+		BREAK 		
 		
-		IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
+		CASE DANCE_BEAT_MISTIMED_BUTTON
 			
 			// --- Score shit here				
 			IF iDanceScore > DANCE_SCORE_VERY_BAD
@@ -411,13 +409,11 @@ Dance_State1:
 			IF NOT iAnimStatus = ANIM_IS_PLAYING
 				GOSUB Dance_PlayMissAnim
 			ENDIF
-			BREAK
 
-		ENDIF
+		BREAK
+		ENDSWITCH
 
-	BREAK
-
-	ENDSWITCH
+	ENDIF
 
 RETURN
 /********************************************
@@ -498,58 +494,46 @@ Dance_State3:
 			GOSUB Dance_GetPadStatus
 			IF IS_JAPANESE_VERSION
 				IF iCurrentButton = DANCE_BUTTON_CIRCLE
-					//--- Quit out
-					iDanceScore = 0
-					iState = 2
-					iSubState = 0				
-					BREAK
+					GOSUB Dance_PausedConfirm
 				ENDIF	  	
 				IF iCurrentButton = DANCE_BUTTON_CROSS
-					IF iState > 0 // We are past the INIT stage of the mini-game
-						//--- Restart dance
-						PAUSE_CURRENT_BEAT_TRACK FALSE
-						IF IS_CHAR_PLAYING_ANIM scplayer $txtCURR_DANCE_MOVE
-							SET_CHAR_ANIM_PLAYING_FLAG scplayer $txtCURR_DANCE_MOVE TRUE
-						ENDIF		  
-						IF NOT IS_CHAR_DEAD iPartner
-							IF IS_CHAR_PLAYING_ANIM iPartner $txtCURR_DANCE_MOVE_P
-								SET_CHAR_ANIM_PLAYING_FLAG iPartner $txtCURR_DANCE_MOVE_P TRUE
-							ENDIF
-						ENDIF
-						iState = 1
-						iSubState = STATE_DANCE_TRACK_AND_GET_BEATS	
-						BREAK
-					ENDIF
+					GOSUB Dance_PausedQuit
 				ENDIF	  	
 			ELSE
 				IF iCurrentButton = DANCE_BUTTON_PC_CONFIRM
-					//--- Quit out
-					iDanceScore = 0
-					iState = 2
-					iSubState = 0				
-					BREAK
+					GOSUB Dance_PausedConfirm
 				ENDIF	  	
 				IF iCurrentButton = DANCE_BUTTON_PC_QUIT
-					IF iState > 0 // We are past the INIT stage of the mini-game
-						//--- Restart dance
-						PAUSE_CURRENT_BEAT_TRACK FALSE
-						IF IS_CHAR_PLAYING_ANIM scplayer $txtCURR_DANCE_MOVE
-							SET_CHAR_ANIM_PLAYING_FLAG scplayer $txtCURR_DANCE_MOVE TRUE
-						ENDIF		  
-						IF NOT IS_CHAR_DEAD iPartner
-							IF IS_CHAR_PLAYING_ANIM iPartner $txtCURR_DANCE_MOVE_P
-								SET_CHAR_ANIM_PLAYING_FLAG iPartner $txtCURR_DANCE_MOVE_P TRUE
-							ENDIF
-						ENDIF
-						iState = 1
-						iSubState = STATE_DANCE_TRACK_AND_GET_BEATS	
-						BREAK
-					ENDIF
+					GOSUB Dance_PausedQuit
 				ENDIF	  	
 			ENDIF
 		BREAK
 
 	ENDSWITCH
+RETURN
+
+Dance_PausedConfirm:
+	//--- Quit out
+	iDanceScore = 0
+	iState = 2
+	iSubState = 0				
+RETURN
+
+Dance_PausedQuit:
+	IF iState > 0 // We are past the INIT stage of the mini-game
+		//--- Restart dance
+		PAUSE_CURRENT_BEAT_TRACK FALSE
+		IF IS_CHAR_PLAYING_ANIM scplayer $txtCURR_DANCE_MOVE
+			SET_CHAR_ANIM_PLAYING_FLAG scplayer $txtCURR_DANCE_MOVE TRUE
+		ENDIF		  
+		IF NOT IS_CHAR_DEAD iPartner
+			IF IS_CHAR_PLAYING_ANIM iPartner $txtCURR_DANCE_MOVE_P
+				SET_CHAR_ANIM_PLAYING_FLAG iPartner $txtCURR_DANCE_MOVE_P TRUE
+			ENDIF
+		ENDIF
+		iState = 1
+		iSubState = STATE_DANCE_TRACK_AND_GET_BEATS	
+	ENDIF
 RETURN
 /*******************************************
 		LOAD ANIMATIONS FROM STREAM
@@ -590,85 +574,60 @@ Dance_GetPadStatus:
 //--- PC ONLY
 GOSUB Dance_get_stick_position
 	
-SWITCH iButtonDown
 	//WRITE_DEBUG_WITH_INT iButtonDown iButtonDown
 
-	CASE DANCE_BUTTON_NONE 
+IF iButtonDown = DANCE_BUTTON_NONE
 		
-		IF d_player_stick_position = DANCE_STKRGHT
+		SWITCH an
+		CASE DANCE_STKRGHT
 			iCurrentButton = DANCE_BUTTON_CIRCLE
 			iButtonDown = DANCE_BUTTON_CIRCLE			
-			BREAK
-		ENDIF
+		BREAK
 
-		IF d_player_stick_position = DANCE_STKUP
+		CASE DANCE_STKUP
 			iCurrentButton = DANCE_BUTTON_TRIANGLE
 			iButtonDown = DANCE_BUTTON_TRIANGLE
 			IF NOT IS_JAPANESE_VERSION
 				TIMERB = 0
 			ENDIF
-			BREAK
-		ENDIF
+		BREAK
 
-		IF d_player_stick_position = DANCE_STKLEFT
+		CASE DANCE_STKLEFT
 			iCurrentButton = DANCE_BUTTON_SQUARE
 			iButtonDown = DANCE_BUTTON_SQUARE
-			BREAK
-		ENDIF
+		BREAK
 
-		IF d_player_stick_position = DANCE_STKDW
+		CASE DANCE_STKDW
 			iCurrentButton = DANCE_BUTTON_CROSS
 			iButtonDown = DANCE_BUTTON_CROSS
 			IF IS_JAPANESE_VERSION
 				TIMERB = 0
 			ENDIF
-			BREAK
-		ENDIF
+		BREAK
+		ENDSWITCH
+
+ELSE
 
 		IF IS_BUTTON_PRESSED PAD1 TRIANGLE
 			iCurrentButton = DANCE_BUTTON_PC_QUIT
 			iButtonDown = DANCE_BUTTON_PC_QUIT
 			TIMERB = 0
-			BREAK
 		ENDIF
 
 		IF IS_BUTTON_PRESSED PAD1 CROSS
 			iCurrentButton = DANCE_BUTTON_PC_CONFIRM
 			iButtonDown = DANCE_BUTTON_PC_CONFIRM
-			BREAK
 		ENDIF
 
-	BREAK
+SWITCH iButtonDown
 	
 	CASE DANCE_BUTTON_CIRCLE
-		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0 
-			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
-		ENDIF
-	BREAK
-
 	CASE DANCE_BUTTON_TRIANGLE
-		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0
-			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
-		ENDIF
-	BREAK
-
 	CASE DANCE_BUTTON_SQUARE
-		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0
-			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
-		ENDIF
-	BREAK
-
 	CASE DANCE_BUTTON_CROSS
 		iCurrentButton = DANCE_BUTTON_NONE
-		IF d_player_stick_position = 0
+		IF an = 0
 			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
 		ENDIF
 	BREAK
 	
@@ -676,33 +635,10 @@ SWITCH iButtonDown
 		iCurrentButton = DANCE_BUTTON_NONE
 		IF NOT IS_BUTTON_PRESSED PAD1 TRIANGLE
 			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
 		ELSE
 			IF NOT IS_JAPANESE_VERSION
 				//--- Check if player is holding down TRIANGLE to QUIT
-				IF iPartner = DANCE_MISSION_NO_PARTNER
-					//--- Do all these fiddly 'on a mission' checks
-					IF NOT iStoredBeat = DANCE_BEAT_NONE
-						IF NOT iState = 3 // Not paused yet
-						AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-							//--- Button has been held down				
-							CLEAR_HELP
-							iState = 3
-							iSubState = 0				
-							RETURN  
-						ENDIF
-					ENDIF  
-				ELSE
-					//--- Not on a mission, just the simple state checks 
-					IF NOT iState = 3 // Not paused yet
-					AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-						//--- Button has been held down				
-						CLEAR_HELP
-						iState = 3
-						iSubState = 0				
-						RETURN  
-					ENDIF
-				ENDIF
+				GOSUB Dance_HoldToQuit
 			ENDIF
 		ENDIF
 	BREAK
@@ -711,39 +647,39 @@ SWITCH iButtonDown
 		iCurrentButton = DANCE_BUTTON_NONE
 		IF NOT IS_BUTTON_PRESSED PAD1 CROSS
 			iButtonDown = DANCE_BUTTON_NONE
-			BREAK
 		ELSE
 			IF IS_JAPANESE_VERSION
 				//--- Check if player is holding down CROSS to QUIT
-				IF iPartner = DANCE_MISSION_NO_PARTNER
-					//--- Do all these fiddly 'on a mission' checks
-					IF NOT iStoredBeat = DANCE_BEAT_NONE
-						IF NOT iState = 3 // Not paused yet
-						AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-							//--- Button has been held down				
-							CLEAR_HELP
-							iState = 3
-							iSubState = 0				
-							RETURN  
-						ENDIF
-					ENDIF  
-				ELSE
-					//--- Not on a mission, just the simple state checks 
-					IF NOT iState = 3 // Not paused yet
-					AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
-						//--- Button has been held down				
-						CLEAR_HELP
-						iState = 3
-						iSubState = 0				
-						RETURN  
-					ENDIF
-				ENDIF
+				GOSUB Dance_HoldToQuit
 			ENDIF
 		ENDIF
 	BREAK
 
 ENDSWITCH
+ENDIF
 
+RETURN
+
+Dance_HoldToQuit:
+	IF iPartner = DANCE_MISSION_NO_PARTNER
+		//--- Do all these fiddly 'on a mission' checks
+		IF NOT iStoredBeat = DANCE_BEAT_NONE
+			GOSUB Dance_PressToQuit
+		ENDIF  
+	ELSE
+		//--- Not on a mission, just the simple state checks 
+		GOSUB Dance_PressToQuit
+	ENDIF
+RETURN
+
+Dance_PressToQuit:
+	IF NOT iState = 3 // Not paused yet
+	AND TIMERB >= DANCE_TIME_TO_HOLD_QUIT
+		//--- Button has been held down				
+		CLEAR_HELP
+		iState = 3
+		iSubState = 0				
+	ENDIF
 RETURN
 /********************************************
 		GET TIMING OF CURRENT BEAT
@@ -760,13 +696,12 @@ Dance_GetTimingOfCurrentBeat:
 			//--- Unverified Beat
 			IF iCurrentButton = DANCE_BUTTON_NONE
 
-				//WRITE_DEBUG_WITH_INT d_player_stick_position d_player_stick_position
+				//WRITE_DEBUG_WITH_INT d_player_stick_position an
 
 				//--- No button press - check if the beat is not past
 				IF iTimeToClosestBeat < DANCE_BOUNDS_ALRIGHT_MIN
 					iStoredBeat = DANCE_BEAT_PAST
 					iLastScoredBeatNumber = iClosestBeatNumber
-					RETURN
 				ENDIF
 
 			ELSE
@@ -784,25 +719,17 @@ Dance_GetTimingOfCurrentBeat:
 					AND iTimeToClosestBeat >= DANCE_BOUNDS_PERFECT_MIN
 						iStoredBeat = DANCE_BEAT_PERFECT
 						BD_RenderHit = BD_HIT_PERFECT // override the default hit with this one
-						iLastScoredBeatNumber = iClosestBeatNumber
-						RETURN
 					ELSE
 						IF iTimeToClosestBeat <= DANCE_BOUNDS_GOOD_MAX  
 						AND iTimeToClosestBeat >= DANCE_BOUNDS_GOOD_MIN
 							iStoredBeat = DANCE_BEAT_GOOD
 							BD_RenderHit = BD_HIT_GOOD // override the default hit with this one
-							iLastScoredBeatNumber = iClosestBeatNumber
-							RETURN
 						ELSE
 							IF iTimeToClosestBeat <= DANCE_BOUNDS_ALRIGHT_MAX
 							AND iTimeToClosestBeat >= DANCE_BOUNDS_ALRIGHT_MIN
 								iStoredBeat = DANCE_BEAT_ALRIGHT
-								iLastScoredBeatNumber = iClosestBeatNumber
-								RETURN
 							ELSE
 								iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-								iLastScoredBeatNumber = iClosestBeatNumber
-								RETURN
 							ENDIF
 						ENDIF
 					ENDIF
@@ -810,28 +737,27 @@ Dance_GetTimingOfCurrentBeat:
 				ELSE
 
 					iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-					iLastScoredBeatNumber = iClosestBeatNumber
-					RETURN	
 									
 				ENDIF
+				iLastScoredBeatNumber = iClosestBeatNumber
 			ENDIF
 		ELSE
 
 			//--- Verified beat - mark it as already scored
-			IF iStoredBeat = DANCE_BEAT_PERFECT
-			OR iStoredBeat = DANCE_BEAT_GOOD
-			OR iStoredBeat = DANCE_BEAT_ALRIGHT
+			SWITCH iStoredBeat
+			CASE DANCE_BEAT_PERFECT
+			CASE DANCE_BEAT_GOOD
+			CASE DANCE_BEAT_ALRIGHT
 				iStoredBeat = DANCE_BEAT_GOOD_SCORED // For animation chaining purposes only
-				RETURN
-			ENDIF
+			BREAK
 
-			IF iStoredBeat = DANCE_BEAT_PAST
-			OR iStoredBeat = DANCE_BEAT_FUTURE
-			OR iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-			OR iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
+			CASE DANCE_BEAT_PAST
+			CASE DANCE_BEAT_FUTURE
+			CASE DANCE_BEAT_WRONG_BUTTON
+			CASE DANCE_BEAT_MISTIMED_BUTTON
 				iStoredBeat = DANCE_BEAT_BAD_SCORED // For animation chaining purposes only
-				RETURN
-			ENDIF
+			BREAK
+			ENDSWITCH
 
 		ENDIF
 	ENDIF
@@ -848,72 +774,59 @@ Dance_PlayGoodAnim:
  SWITCH iAnimCount
 	DEFAULT
 		$txtCURR_DANCE_MOVE = DANCE_G1 
-		iAnimCount = 2
+		iAnimCount = 1
 	BREAK
 	CASE 2
 		$txtCURR_DANCE_MOVE = DANCE_G2 
-		++iAnimCount
 	BREAK
 	CASE 3
 		$txtCURR_DANCE_MOVE = DANCE_G3 
-		++iAnimCount
 	BREAK
 	CASE 4
 		$txtCURR_DANCE_MOVE = DANCE_G4 
-		++iAnimCount
 	BREAK
 	CASE 5
 		$txtCURR_DANCE_MOVE = DANCE_G5 
-		++iAnimCount
 	BREAK
 	CASE 6
 		$txtCURR_DANCE_MOVE = DANCE_G6 
-		++iAnimCount
 	BREAK
 	CASE 7
 		$txtCURR_DANCE_MOVE = DANCE_G7 
-		++iAnimCount
 	BREAK
 	CASE 8
 		$txtCURR_DANCE_MOVE = DANCE_G8 
-		++iAnimCount
 	BREAK
 	CASE 9
 		$txtCURR_DANCE_MOVE = DANCE_G9 
-		++iAnimCount
 	BREAK
 	CASE 10
 		$txtCURR_DANCE_MOVE = DANCE_G10 
-		++iAnimCount
 	BREAK
 	CASE 11
 		$txtCURR_DANCE_MOVE = DANCE_G11 
-		++iAnimCount
 	BREAK
 	CASE 12
 		$txtCURR_DANCE_MOVE = DANCE_G12 
-		++iAnimCount
 	BREAK
 	CASE 13
 		$txtCURR_DANCE_MOVE = DANCE_G13 
-		++iAnimCount
 	BREAK
 	CASE 14
 		$txtCURR_DANCE_MOVE = DANCE_G14 
-		++iAnimCount
 	BREAK
 	CASE 15
 		$txtCURR_DANCE_MOVE = DANCE_G15 
-		++iAnimCount
 	BREAK
 	CASE 16
 		$txtCURR_DANCE_MOVE = DANCE_G16 
-		++iAnimCount
 	BREAK
 ENDSWITCH
 
 	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $txtCURR_DANCE_MOVE $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0 
- 	
+
+iAnimCount++
+
 RETURN
 /********************************************
 			PLAY MISS ANIMATION
@@ -923,72 +836,59 @@ Dance_PlayMissAnim:
  SWITCH iAnimCount
 	DEFAULT
 		$txtCURR_DANCE_MOVE = DANCE_B1 
-		iAnimCount = 2
+		iAnimCount = 1
 	BREAK
 	CASE 2
 		$txtCURR_DANCE_MOVE = DANCE_B2 
-		++iAnimCount
 	BREAK
 	CASE 3
 		$txtCURR_DANCE_MOVE = DANCE_B3 
-		++iAnimCount
 	BREAK
 	CASE 4
 		$txtCURR_DANCE_MOVE = DANCE_B4 
-		++iAnimCount
 	BREAK
 	CASE 5
 		$txtCURR_DANCE_MOVE = DANCE_B5 
-		++iAnimCount
 	BREAK
 	CASE 6
 		$txtCURR_DANCE_MOVE = DANCE_B6 
-		++iAnimCount
 	BREAK
 	CASE 7
 		$txtCURR_DANCE_MOVE = DANCE_B7 
-		++iAnimCount
 	BREAK
 	CASE 8
 		$txtCURR_DANCE_MOVE = DANCE_B8 
-		++iAnimCount
 	BREAK
 	CASE 9
 		$txtCURR_DANCE_MOVE = DANCE_B9 
-		++iAnimCount
 	BREAK
 	CASE 10
 		$txtCURR_DANCE_MOVE = DANCE_B10 
-		++iAnimCount
 	BREAK
 	CASE 11
 		$txtCURR_DANCE_MOVE = DANCE_B11 
-		++iAnimCount
 	BREAK
 	CASE 12
 		$txtCURR_DANCE_MOVE = DANCE_B12 
-		++iAnimCount
 	BREAK
 	CASE 13
 		$txtCURR_DANCE_MOVE = DANCE_B13 
-		++iAnimCount
 	BREAK
 	CASE 14
 		$txtCURR_DANCE_MOVE = DANCE_B14 
-		++iAnimCount
 	BREAK
 	CASE 15
 		$txtCURR_DANCE_MOVE = DANCE_B15 
-		++iAnimCount
 	BREAK
 	CASE 16
 		$txtCURR_DANCE_MOVE = DANCE_B16 
-		++iAnimCount
 	BREAK
 ENDSWITCH
 
 	TASK_PLAY_ANIM_NON_INTERRUPTABLE scplayer $txtCURR_DANCE_MOVE $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0
- 	
+
+iAnimCount++
+
 RETURN
 /********************************************
 		GET ANIM LINK STATUS
@@ -1003,15 +903,12 @@ Dance_GetAnimLinkStatus:
 		IF fTemp >= 1.0		
 			//--- Anim finished
 			iAnimStatus = ANIM_CONCANTENATE_NOW						
-			RETURN
 		ELSE
 			iAnimStatus = ANIM_IS_PLAYING
-			RETURN
 		ENDIF
 	ELSE
 		//--- All good
 		iAnimStatus = ANIM_NOT_PLAYING		
-		RETURN
 	ENDIF
 RETURN
 /********************************************
@@ -1028,7 +925,6 @@ Dance_PartnerLinkAndPlayAnim:
 			IF fTemp >= 1.0		
 				//--- Anim finished
 				GOSUB Dance_PlayPartnerAnim
-				RETURN
 			ENDIF
 		ELSE
 			//--- Intercept FIRST SYNCH beat
@@ -1037,7 +933,6 @@ Dance_PartnerLinkAndPlayAnim:
 				IF iTimeToClosestBeat <= 25
 					//--- Anim must start now
 					GOSUB Dance_PlayPartnerAnim			
-					RETURN
 				ENDIF
 			ENDIF		
 		ENDIF
@@ -1061,18 +956,18 @@ Dance_CheckAnimLinks:
 	//--- Check if the animation requires to chain a beat 
 	IF iAnimStatus = ANIM_CONCANTENATE_NOW
 	   	//--- Check the previous stored beat and follow up in a chain
-		IF iStoredBeat = DANCE_BEAT_PERFECT
-		OR iStoredBeat = DANCE_BEAT_GOOD
-		OR iStoredBeat = DANCE_BEAT_ALRIGHT
-		OR iStoredBeat = DANCE_BEAT_GOOD_SCORED
+		SWITCH iStoredBeat
+		CASE DANCE_BEAT_PERFECT
+		CASE DANCE_BEAT_GOOD
+		CASE DANCE_BEAT_ALRIGHT
+		CASE DANCE_BEAT_GOOD_SCORED
 			GOSUB Dance_PlayGoodAnim
-			iAnimStatus = ANIM_IS_PLAYING //???
-			RETURN
-		ELSE			 			
+		BREAK
+		DEFAULT			 			
 			GOSUB Dance_PlayMissAnim
+		BREAK
+		ENDSWITCH
 			iAnimStatus = ANIM_IS_PLAYING //???
-			RETURN
-		ENDIF
 
 	ENDIF
 
@@ -1092,10 +987,7 @@ Dance_CameraViewChange:
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -2.3176 0.9635 0.5141 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -1.3381 0.8235 0.6587 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0				
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 
@@ -1109,10 +1001,7 @@ Dance_CameraViewChange:
 				//GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 1.5521 0.7218 0.6618 fparX fparY fparZ			
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 3.5814 0.8987 0.6651 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 2.6071 0.853 0.8857 fparX fparY fparZ
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 
@@ -1125,10 +1014,7 @@ Dance_CameraViewChange:
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.3843 2.9502 1.8476 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.461 2.0089 1.5188 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF			
 		BREAK
 
@@ -1140,10 +1026,7 @@ Dance_CameraViewChange:
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -2.2621 0.1226 0.6863 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -1.2706 0.1649 0.8096 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 
@@ -1155,13 +1038,18 @@ Dance_CameraViewChange:
 			ELSE
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -1.6647 1.7322 2.3217 fX fY fZ
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer -0.8677 1.3108 1.889 fparX fparY fparZ			
-				fZ -= 1.0
-				fparZ -= 1.0
-				SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
-				POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
+				GOSUB Dance_CameraSetup
 			ENDIF
 		BREAK
 	ENDSWITCH	
+
+RETURN
+
+Dance_CameraSetup:
+	fZ -= 1.0
+	fparZ -= 1.0
+	SET_FIXED_CAMERA_POSITION fX fY fZ 0.0 0.0 0.0
+	POINT_CAMERA_AT_POINT fparX fparY fparZ JUMP_CUT
 RETURN
 /*******************************************
 		PARTNER CREATE
@@ -1187,9 +1075,9 @@ Dance_PartnerCreate:
 
 		IF NOT IS_CHAR_DEAD iPartner
 		AND NOT IS_CHAR_DEAD scplayer
-			GET_CHAR_HEADING scplayer fTemp[0]
-			fTemp[0] += 180.0
-			SET_CHAR_HEADING iPartner fTemp[0]		
+			GET_CHAR_HEADING scplayer fTemp
+			fTemp += 180.0
+			SET_CHAR_HEADING iPartner fTemp	
 		ENDIF
 	ENDIF
 
@@ -1202,73 +1090,60 @@ Dance_PlayPartnerAnim:
  SWITCH iAnimCount_P
 	DEFAULT
 		$txtCURR_DANCE_MOVE_P = DANCE_G1 
-		iAnimCount_P = 2
+		iAnimCount_P = 1
 	BREAK
 	CASE 2
 		$txtCURR_DANCE_MOVE_P = DANCE_G2 
-		++iAnimCount_P
 	BREAK
 	CASE 3
 		$txtCURR_DANCE_MOVE_P = DANCE_G3 
-		++iAnimCount_P
 	BREAK
 	CASE 4
 		$txtCURR_DANCE_MOVE_P = DANCE_G4 
-		++iAnimCount_P
 	BREAK
 	CASE 5
 		$txtCURR_DANCE_MOVE_P = DANCE_G5 
-		++iAnimCount_P
 	BREAK
 	CASE 6
 		$txtCURR_DANCE_MOVE_P = DANCE_G6 
-		++iAnimCount_P
 	BREAK
 	CASE 7
 		$txtCURR_DANCE_MOVE_P = DANCE_G7 
-		++iAnimCount_P
 	BREAK
 	CASE 8
 		$txtCURR_DANCE_MOVE_P = DANCE_G8 
-		++iAnimCount_P
 	BREAK
 	CASE 9
 		$txtCURR_DANCE_MOVE_P = DANCE_G9 
-		++iAnimCount_P
 	BREAK
 	CASE 10
 		$txtCURR_DANCE_MOVE_P = DANCE_G10 
-		++iAnimCount_P
 	BREAK
 	CASE 11
 		$txtCURR_DANCE_MOVE_P = DANCE_G11 
-		++iAnimCount_P
 	BREAK
 	CASE 12
 		$txtCURR_DANCE_MOVE_P = DANCE_G12 
-		++iAnimCount_P
 	BREAK
 	CASE 13
 		$txtCURR_DANCE_MOVE_P = DANCE_G13
-		++iAnimCount_P
 	BREAK
 	CASE 14
 		$txtCURR_DANCE_MOVE_P = DANCE_G14
-		++iAnimCount_P
 	BREAK
 	CASE 15
 		$txtCURR_DANCE_MOVE_P = DANCE_G15
-		++iAnimCount_P
 	BREAK
 	CASE 16
 		$txtCURR_DANCE_MOVE_P = DANCE_G16 
-		++iAnimCount_P
 	BREAK
 ENDSWITCH
 
 	 IF NOT IS_CHAR_DEAD iPartner
 		TASK_PLAY_ANIM_NON_INTERRUPTABLE iPartner $txtCURR_DANCE_MOVE_P $txtCURR_DANCE_BLOCK 4.0 FALSE FALSE FALSE FALSE 0 
 	ENDIF  
+
+iAnimCount_P++
 
 RETURN
 /*******************************************
@@ -1280,51 +1155,31 @@ Dance_InstanceRandomPartner:
 
 	SWITCH iTemp
 		CASE 1
-			WHILE NOT HAS_MODEL_LOADED BFYRI
-				REQUEST_MODEL BFYRI						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE BFYRI fX fY fZ iPartner
-			RETURN
+			iTemp = BFYRI
 		BREAK
 
 		CASE 2
-			WHILE NOT HAS_MODEL_LOADED OFYST
-				REQUEST_MODEL OFYST						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE OFYST fX fY fZ iPartner
-			RETURN
+			iTemp = OFYST
 		BREAK
 
 		CASE 3
-			WHILE NOT HAS_MODEL_LOADED WFYST
-				REQUEST_MODEL WFYST						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE WFYST fX fY fZ iPartner
-			RETURN
+			iTemp = WFYST
 		BREAK
 
 		CASE 4
-			WHILE NOT HAS_MODEL_LOADED HFYRI
-				REQUEST_MODEL HFYRI						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE HFYRI fX fY fZ iPartner
-			RETURN
+			iTemp = HFYRI
 		BREAK
 
 		CASE 5
-			WHILE NOT HAS_MODEL_LOADED WFYRI
-				REQUEST_MODEL WFYRI						  
-				WAIT 0
-			ENDWHILE
-			CREATE_CHAR PEDTYPE_CIVFEMALE WFYRI fX fY fZ iPartner
-			RETURN
+			iTemp = WFYRI
 		BREAK
 
 	ENDSWITCH
+			WHILE NOT HAS_MODEL_LOADED iTemp
+				REQUEST_MODEL iTemp
+				WAIT 0
+			ENDWHILE
+			CREATE_CHAR PEDTYPE_CIVFEMALE iTemp fX fY fZ iPartner
 RETURN
 /*******************************************
 		CHECK TRACK STATUS
@@ -1347,82 +1202,100 @@ Dance_Print_Input_Feedback:
   
  SWITCH iLastPrint
 		DEFAULT
-			IF iStoredBeat = DANCE_BEAT_PERFECT				
-				PRINT_BIG DNC_005 1000 5 // Great timing!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_GOOD
-				PRINT_BIG DNC_006 1000 5 // Well done!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_ALRIGHT
-				PRINT_BIG DNC_007 1000 5  // Alright
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_PAST
-				PRINT_BIG DNC_008 1000 5 // Too late!	 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_FUTURE
-				PRINT_BIG DNC_009 1000 5 // Too early!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-				PRINT_BIG DNC_010 1000 5 // Wrong!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-				PRINT_BIG DNC_011 1000 5 // Poor timing!
-			ENDIF
+			GOSUB Dance_PrintInput1
 			iLastPrint = 2
 		BREAK
 
 		CASE 2
-			IF iStoredBeat = DANCE_BEAT_PERFECT
-				PRINT_BIG DNC_012 1000 5 //Synchronized! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_GOOD
-				PRINT_BIG DNC_013 1000 5 //That's it! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_ALRIGHT
-				PRINT_BIG DNC_014 1000 5  //Not bad! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_PAST
-				PRINT_BIG DNC_015 1000 5 //You missed it! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_FUTURE
-				PRINT_BIG DNC_016 1000 5 //You're fast! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-				PRINT_BIG DNC_017 1000 5 //Not that one! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-				PRINT_BIG DNC_018 1000 5 //Try again! 
-			ENDIF
-			++iLastPrint
+			GOSUB Dance_PrintInput2
 		BREAK
 
 		CASE 3
-			IF iStoredBeat = DANCE_BEAT_PERFECT
-				PRINT_BIG DNC_019 1000 5 //The master! 
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_GOOD
-				PRINT_BIG DNC_020 1000 5 //You got it!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_ALRIGHT
-				PRINT_BIG DNC_021 1000 5  //Can do better!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_PAST
-				PRINT_BIG DNC_022 1000 5 //You're late!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_FUTURE
-				PRINT_BIG DNC_023 1000 5 //Slow down!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_WRONG_BUTTON
-				PRINT_BIG DNC_024 1000 5 //Random!
-			ENDIF
-			IF iStoredBeat = DANCE_BEAT_MISTIMED_BUTTON
-				PRINT_BIG DNC_025 1000 5 //Not on time!
-			ENDIF
-			++iLastPrint
+			GOSUB Dance_PrintInput3
 		BREAK
 
 	ENDSWITCH
  
+iLastPrint++
+
+RETURN
+
+Dance_PrintInput1:
+	SWITCH iStoredBeat
+	CASE DANCE_BEAT_PERFECT
+		PRINT_BIG DNC_005 1000 5 // Great timing!
+	BREAK
+	CASE DANCE_BEAT_GOOD
+		PRINT_BIG DNC_006 1000 5 // Well done!
+	BREAK
+	CASE DANCE_BEAT_ALRIGHT
+		PRINT_BIG DNC_007 1000 5  // Alright
+	BREAK
+	CASE DANCE_BEAT_PAST
+		PRINT_BIG DNC_008 1000 5 // Too late!	 
+	BREAK
+	CASE DANCE_BEAT_FUTURE
+		PRINT_BIG DNC_009 1000 5 // Too early!
+	BREAK
+	CASE DANCE_BEAT_WRONG_BUTTON
+		PRINT_BIG DNC_010 1000 5 // Wrong!
+	BREAK
+	CASE DANCE_BEAT_MISTIMED_BUTTON
+		PRINT_BIG DNC_011 1000 5 // Poor timing!
+	BREAK
+	ENDSWITCH
+RETURN
+
+Dance_PrintInput2:
+	SWITCH iStoredBeat
+	CASE DANCE_BEAT_PERFECT
+		PRINT_BIG DNC_012 1000 5 //Synchronized! 
+	BREAK
+	CASE DANCE_BEAT_GOOD
+		PRINT_BIG DNC_013 1000 5 //That's it! 
+	BREAK
+	CASE DANCE_BEAT_ALRIGHT
+		PRINT_BIG DNC_014 1000 5  //Not bad! 
+	BREAK
+	CASE DANCE_BEAT_PAST
+		PRINT_BIG DNC_015 1000 5 //You missed it! 
+	BREAK
+	CASE DANCE_BEAT_FUTURE
+		PRINT_BIG DNC_016 1000 5 //You're fast! 
+	BREAK
+	CASE DANCE_BEAT_WRONG_BUTTON
+		PRINT_BIG DNC_017 1000 5 //Not that one! 
+	BREAK
+	CASE DANCE_BEAT_MISTIMED_BUTTON
+		PRINT_BIG DNC_018 1000 5 //Try again! 
+	BREAK
+	ENDSWITCH
+RETURN
+
+Dance_PrintInput3:
+	SWITCH iStoredBeat
+	CASE DANCE_BEAT_PERFECT
+		PRINT_BIG DNC_019 1000 5 //The master! 
+	BREAK
+	CASE DANCE_BEAT_GOOD
+		PRINT_BIG DNC_020 1000 5 //You got it!
+	BREAK
+	CASE DANCE_BEAT_ALRIGHT
+		PRINT_BIG DNC_021 1000 5  //Can do better!
+	BREAK
+	CASE DANCE_BEAT_PAST
+		PRINT_BIG DNC_022 1000 5 //You're late!
+	BREAK
+	CASE DANCE_BEAT_FUTURE
+		PRINT_BIG DNC_023 1000 5 //Slow down!
+	BREAK
+	CASE DANCE_BEAT_WRONG_BUTTON
+		PRINT_BIG DNC_024 1000 5 //Random!
+	BREAK
+	CASE DANCE_BEAT_MISTIMED_BUTTON
+		PRINT_BIG DNC_025 1000 5 //Not on time!
+	BREAK
+	ENDSWITCH
 RETURN
 /********************************************
 			UPDATE OVERALL REPORT
@@ -1525,30 +1398,28 @@ RETURN
 ********************************************/
 Dance_PlayStateFeedbackSpeech:
 
-SWITCH iDance_SpeechState
-
-	CASE DANCE_SPEECH_IDLE
-		IF iDance_SpeechRequest = DANCE_SPEECH_HIGH
+IF iDance_SpeechState = DANCE_SPEECH_IDLE
+		SWITCH iDance_SpeechRequest
+		CASE DANCE_SPEECH_HIGH
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_HIGH 
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-		IF iDance_SpeechRequest = DANCE_SPEECH_LOW
+		BREAK  
+		CASE DANCE_SPEECH_LOW
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_LOW 
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-		IF iDance_SpeechRequest = DANCE_SPEECH_MED
+		BREAK  
+		CASE DANCE_SPEECH_MED
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_MED
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-		IF iDance_SpeechRequest = DANCE_SPEECH_NOT
+		BREAK  
+		CASE DANCE_SPEECH_NOT
 			iDance_SpeechState = DANCE_SPEECH_REQUEST_NOT
 			iDance_SpeechRequest = -1
-			BREAK
-		ENDIF  
-	BREAK 
+		BREAK  
+		ENDSWITCH
+ELSE
+
+SWITCH iDance_SpeechState
 
 	CASE DANCE_SPEECH_REQUEST_HIGH
 		IF HAS_MISSION_AUDIO_FINISHED 4
@@ -1591,955 +1462,789 @@ SWITCH iDance_SpeechState
 	BREAK
 
 ENDSWITCH
+ENDIF
 RETURN
 /*******************************************
 			RETRIEVE SPEECH HIGH
 ********************************************/
 Dance_RetrieveSpeechHigh:
 
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
+
 SWITCH iDance_SpeechCounter
 
-	DEFAULT
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_56
-		iDance_SpeechCounter = 1
-	BREAK
 	CASE 1
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_01
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_01
 	BREAK 
 	CASE 2
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_02
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_02
 	BREAK 
 	CASE 3
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_03 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_03 
 	BREAK
 	CASE 4
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_04 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_04 
 	BREAK 
 	CASE 5
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_05
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_05
 	BREAK 
 	CASE 6
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_06
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_06
 	BREAK 
 	CASE 7
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_07
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_07
 	BREAK 
 	CASE 8
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_08
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_08
 	BREAK 
 	CASE 9
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_09
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_09
 	BREAK 
 	CASE 10
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_10
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_10
 	BREAK 
 	CASE 11 
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_11
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_11
 	BREAK 
 	CASE 12
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_12
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_12
 	BREAK 
 	CASE 13
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_13 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_13 
 	BREAK
 	CASE 14
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_14 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_14 
 	BREAK 
 	CASE 15
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_15
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_15
 	BREAK 
 	CASE 16
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_16
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_16
 	BREAK 
 	CASE 17
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_17
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_17
 	BREAK 
 	CASE 18
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_18
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_18
 	BREAK 
 	CASE 19
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_19
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_19
 	BREAK 
 	CASE 20
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_20
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_20
 	BREAK 
 	CASE 21
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_21
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_21
 	BREAK 
 	CASE 22
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_22
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_22
 	BREAK 
 	CASE 23
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_23 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_23 
 	BREAK
 	CASE 24
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_24 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_24 
 	BREAK 
 	CASE 25
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_25
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_25
 	BREAK 
 	CASE 26
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_26
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_26
 	BREAK 
 	CASE 27
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_27
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_27
 	BREAK 
 	CASE 28
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_28
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_28
 	BREAK 
 	CASE 29
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_29
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_29
 	BREAK 
 	CASE 30
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_30
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_30
 	BREAK 
 	CASE 31
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_31
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_31
 	BREAK 
 	CASE 32
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_32
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_HIGH_32
 	BREAK 
 	CASE 33
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_33 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_33 
 	BREAK
 	CASE 34
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_34 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_34 
 	BREAK 
 	CASE 35
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_35
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_35
 	BREAK 
 	CASE 36
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_36
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_36
 	BREAK 
 	CASE 37
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_37
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_37
 	BREAK 
 	CASE 38
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_38
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_38
 	BREAK 
 	CASE 39
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_39
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_39
 	BREAK 
 	CASE 40
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_40
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_40
 	BREAK 
 	CASE 41
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_41
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_41
 	BREAK 
 	CASE 42
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_42
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_HIGH_42
 	BREAK 
 	CASE 43
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_43 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_43 
 	BREAK
 	CASE 44
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_44 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_HIGH_44 
 	BREAK 
 	CASE 45
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_45
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_45
 	BREAK 
 	CASE 46
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_46
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_46
 	BREAK 
 	CASE 47
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_47
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_47
 	BREAK 
 	CASE 48
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_48
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_48
 	BREAK 
 	CASE 49
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_49
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_49
 	BREAK 
 	CASE 50
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_50
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_50
 	BREAK 
 	CASE 51
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_51
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_HIGH_51
 	BREAK 
 	CASE 52
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_52
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_HIGH_52
 	BREAK 
 	CASE 53
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_53 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_53 
 	BREAK
 	CASE 54
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_54 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_HIGH_54 
 	BREAK 
 	CASE 55
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_55
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_HIGH_55
 	BREAK 
 	CASE 56
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_HIGH_56
-		iDance_SpeechCounter = 1
+		iTemp = SOUND_DANCE_HIGH_56
 	BREAK
 ENDSWITCH
+		LOAD_MISSION_AUDIO 4 iTemp
 RETURN
 /*******************************************
 			RETRIEVE SPEECH LOW
 ********************************************/
 Dance_RetrieveSpeechLow:
 
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
+
 SWITCH iDance_SpeechCounter
 
-	DEFAULT
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_56
-		iDance_SpeechCounter = 1
-	BREAK
 	CASE 1
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_01
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_01
 	BREAK 
 	CASE 2
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_02
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_02
 	BREAK 
 	CASE 3
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_03 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_03 
 	BREAK
 	CASE 4
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_04 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_04 
 	BREAK 
 	CASE 5
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_05
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_05
 	BREAK 
 	CASE 6
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_06
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_06
 	BREAK 
 	CASE 7
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_07
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_07
 	BREAK 
 	CASE 8
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_08
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_08
 	BREAK 
 	CASE 9
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_09
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_09
 	BREAK 
 	CASE 10
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_10
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_10
 	BREAK 
 	CASE 11 
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_11
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_11
 	BREAK 
 	CASE 12
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_12
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_12
 	BREAK 
 	CASE 13
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_13 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_13 
 	BREAK
 	CASE 14
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_14 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_14 
 	BREAK 
 	CASE 15
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_15
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_15
 	BREAK 
 	CASE 16
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_16
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_16
 	BREAK 
 	CASE 17
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_17
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_17
 	BREAK 
 	CASE 18
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_18
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_18
 	BREAK 
 	CASE 19
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_19
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_19
 	BREAK 
 	CASE 20
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_20
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_20
 	BREAK 
 	CASE 21
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_21
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_21
 	BREAK 
 	CASE 22
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_22
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_22
 	BREAK 
 	CASE 23
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_23 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_23 
 	BREAK
 	CASE 24
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_24 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_24 
 	BREAK 
 	CASE 25
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_25
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_25
 	BREAK 
 	CASE 26
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_26
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_26
 	BREAK 
 	CASE 27
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_27
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_27
 	BREAK 
 	CASE 28
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_28
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_28
 	BREAK 
 	CASE 29
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_29
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_29
 	BREAK 
 	CASE 30
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_30
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_30
 	BREAK 
 	CASE 31
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_31
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_31
 	BREAK 
 	CASE 32
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_32
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_LOW_32
 	BREAK 
 	CASE 33
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_33 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_33 
 	BREAK
 	CASE 34
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_34 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_34 
 	BREAK 
 	CASE 35
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_35
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_35
 	BREAK 
 	CASE 36
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_36
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_36
 	BREAK 
 	CASE 37
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_37
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_37
 	BREAK 
 	CASE 38
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_38
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_38
 	BREAK 
 	CASE 39
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_39
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_39
 	BREAK 
 	CASE 40
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_40
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_40
 	BREAK 
 	CASE 41
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_41
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_41
 	BREAK 
 	CASE 42
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_42
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_LOW_42
 	BREAK 
 	CASE 43
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_43 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_43 
 	BREAK
 	CASE 44
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_44 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_LOW_44 
 	BREAK 
 	CASE 45
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_45
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_45
 	BREAK 
 	CASE 46
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_46
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_46
 	BREAK 
 	CASE 47
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_47
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_47
 	BREAK 
 	CASE 48
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_48
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_48
 	BREAK 
 	CASE 49
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_49
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_49
 	BREAK 
 	CASE 50
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_50
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_50
 	BREAK 
 	CASE 51
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_51
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_LOW_51
 	BREAK 
 	CASE 52
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_52
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_LOW_52
 	BREAK 
 	CASE 53
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_53 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_53 
 	BREAK
 	CASE 54
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_54 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_LOW_54 
 	BREAK 
 	CASE 55
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_55
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_LOW_55
 	BREAK 
 	CASE 56
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_LOW_56
-		iDance_SpeechCounter = 1
+		iTemp = SOUND_DANCE_LOW_56
 	BREAK
 ENDSWITCH
+		LOAD_MISSION_AUDIO 4 iTemp
 RETURN
 /*******************************************
 			RETRIEVE SPEECH MED
 ********************************************/
 Dance_RetrieveSpeechMed:
 
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
+
 SWITCH iDance_SpeechCounter
 
-	DEFAULT
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_56
-		iDance_SpeechCounter = 1
-	BREAK
 	CASE 1
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_01
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_01
 	BREAK 
 	CASE 2
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_02
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_02
 	BREAK 
 	CASE 3
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_03 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_03 
 	BREAK
 	CASE 4
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_04 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_04 
 	BREAK 
 	CASE 5
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_05
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_05
 	BREAK 
 	CASE 6
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_06
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_06
 	BREAK 
 	CASE 7
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_07
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_07
 	BREAK 
 	CASE 8
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_08
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_08
 	BREAK 
 	CASE 9
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_09
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_09
 	BREAK 
 	CASE 10
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_10
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_10
 	BREAK 
 	CASE 11 
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_11
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_11
 	BREAK 
 	CASE 12
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_12
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_12
 	BREAK 
 	CASE 13
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_13 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_13 
 	BREAK
 	CASE 14
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_14 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_14 
 	BREAK 
 	CASE 15
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_15
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_15
 	BREAK 
 	CASE 16
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_16
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_16
 	BREAK 
 	CASE 17
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_17
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_17
 	BREAK 
 	CASE 18
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_18
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_18
 	BREAK 
 	CASE 19
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_19
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_19
 	BREAK 
 	CASE 20
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_20
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_20
 	BREAK 
 	CASE 21
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_21
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_21
 	BREAK 
 	CASE 22
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_22
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_22
 	BREAK 
 	CASE 23
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_23 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_23 
 	BREAK
 	CASE 24
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_24 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_24 
 	BREAK 
 	CASE 25
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_25
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_25
 	BREAK 
 	CASE 26
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_26
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_26
 	BREAK 
 	CASE 27
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_27
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_27
 	BREAK 
 	CASE 28
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_28
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_28
 	BREAK 
 	CASE 29
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_29
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_29
 	BREAK 
 	CASE 30
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_30
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_30
 	BREAK 
 	CASE 31
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_31
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_31
 	BREAK 
 	CASE 32
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_32
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_MED_32
 	BREAK 
 	CASE 33
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_33 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_33 
 	BREAK
 	CASE 34
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_34 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_34 
 	BREAK 
 	CASE 35
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_35
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_35
 	BREAK 
 	CASE 36
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_36
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_36
 	BREAK 
 	CASE 37
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_37
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_37
 	BREAK 
 	CASE 38
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_38
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_38
 	BREAK 
 	CASE 39
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_39
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_39
 	BREAK 
 	CASE 40
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_40
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_40
 	BREAK 
 	CASE 41
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_41
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_41
 	BREAK 
 	CASE 42
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_42
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_MED_42
 	BREAK 
 	CASE 43
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_43 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_43 
 	BREAK
 	CASE 44
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_44 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_MED_44 
 	BREAK 
 	CASE 45
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_45
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_45
 	BREAK 
 	CASE 46
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_46
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_46
 	BREAK 
 	CASE 47
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_47
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_47
 	BREAK 
 	CASE 48
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_48
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_48
 	BREAK 
 	CASE 49
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_49
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_49
 	BREAK 
 	CASE 50
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_50
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_50
 	BREAK 
 	CASE 51
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_51
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_MED_51
 	BREAK 
 	CASE 52
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_52
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_MED_52
 	BREAK 
 	CASE 53
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_53 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_53 
 	BREAK
 	CASE 54
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_54 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_MED_54 
 	BREAK 
 	CASE 55
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_55
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_MED_55
 	BREAK 
 	CASE 56
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_MED_56
-		iDance_SpeechCounter = 1
+		iTemp = SOUND_DANCE_MED_56
 	BREAK
 ENDSWITCH
+		LOAD_MISSION_AUDIO 4 iTemp
 RETURN
 /*******************************************
 			RETRIEVE SPEECH NOT
 ********************************************/
 Dance_RetrieveSpeechNot:
 
+GOSUB Dance_RandomSpeechFunction // FIXEDGROVE
+
 SWITCH iDance_SpeechCounter
 
-	DEFAULT
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_56
-		iDance_SpeechCounter = 1
-	BREAK
 	CASE 1
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_01
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_01
 	BREAK 
 	CASE 2
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_02
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_02
 	BREAK 
 	CASE 3
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_03 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_03 
 	BREAK
 	CASE 4
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_04 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_04 
 	BREAK 
 	CASE 5
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_05
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_05
 	BREAK 
 	CASE 6
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_06
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_06
 	BREAK 
 	CASE 7
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_07
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_07
 	BREAK 
 	CASE 8
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_08
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_08
 	BREAK 
 	CASE 9
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_09
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_09
 	BREAK 
 	CASE 10
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_10
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_10
 	BREAK 
 	CASE 11 
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_11
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_11
 	BREAK 
 	CASE 12
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_12
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_12
 	BREAK 
 	CASE 13
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_13 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_13 
 	BREAK
 	CASE 14
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_14 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_14 
 	BREAK 
 	CASE 15
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_15
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_15
 	BREAK 
 	CASE 16
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_16
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_16
 	BREAK 
 	CASE 17
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_17
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_17
 	BREAK 
 	CASE 18
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_18
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_18
 	BREAK 
 	CASE 19
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_19
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_19
 	BREAK 
 	CASE 20
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_20
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_20
 	BREAK 
 	CASE 21
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_21
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_21
 	BREAK 
 	CASE 22
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_22
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_22
 	BREAK 
 	CASE 23
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_23 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_23 
 	BREAK
 	CASE 24
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_24 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_24 
 	BREAK 
 	CASE 25
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_25
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_25
 	BREAK 
 	CASE 26
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_26
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_26
 	BREAK 
 	CASE 27
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_27
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_27
 	BREAK 
 	CASE 28
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_28
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_28
 	BREAK 
 	CASE 29
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_29
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_29
 	BREAK 
 	CASE 30
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_30
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_30
 	BREAK 
 	CASE 31
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_31
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_31
 	BREAK 
 	CASE 32
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_32
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_NOT_32
 	BREAK 
 	CASE 33
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_33 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_33 
 	BREAK
 	CASE 34
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_34 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_34 
 	BREAK 
 	CASE 35
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_35
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_35
 	BREAK 
 	CASE 36
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_36
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_36
 	BREAK 
 	CASE 37
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_37
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_37
 	BREAK 
 	CASE 38
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_38
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_38
 	BREAK 
 	CASE 39
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_39
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_39
 	BREAK 
 	CASE 40
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_40
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_40
 	BREAK 
 	CASE 41
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_41
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_41
 	BREAK 
 	CASE 42
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_42
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_NOT_42
 	BREAK 
 	CASE 43
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_43 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_43 
 	BREAK
 	CASE 44
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_44 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_NOT_44 
 	BREAK 
 	CASE 45
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_45
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_45
 	BREAK 
 	CASE 46
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_46
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_46
 	BREAK 
 	CASE 47
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_47
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_47
 	BREAK 
 	CASE 48
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_48
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_48
 	BREAK 
 	CASE 49
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_49
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_49
 	BREAK 
 	CASE 50
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_50
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_50
 	BREAK 
 	CASE 51
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_51
-		++iDance_SpeechCounter 
+		iTemp = SOUND_DANCE_NOT_51
 	BREAK 
 	CASE 52
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_52
-		++iDance_SpeechCounter 				   
+		iTemp = SOUND_DANCE_NOT_52
 	BREAK 
 	CASE 53
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_53 
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_53 
 	BREAK
 	CASE 54
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_54 
-		++iDance_SpeechCounter				   
+		iTemp = SOUND_DANCE_NOT_54 
 	BREAK 
 	CASE 55
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_55
-		++iDance_SpeechCounter
+		iTemp = SOUND_DANCE_NOT_55
 	BREAK 
 	CASE 56
-		LOAD_MISSION_AUDIO 4 SOUND_DANCE_NOT_56
-		iDance_SpeechCounter = 1
+		iTemp = SOUND_DANCE_NOT_56
 	BREAK
 ENDSWITCH
+		LOAD_MISSION_AUDIO 4 iTemp
 RETURN
+/*******************************************
+			RANDOM FUNCTIONs
+********************************************/
+// FIXEDGROVE: START
+Dance_RandomSpeechFunction:
+temp_integer_1 = 0
+i = 0
+WHILE i < 56 // makes up the total of set bits
+	IF i < 32
+		IF IS_BIT_SET d_speechCounter_BitsLow i
+			temp_integer_1++
+		ENDIF
+	ELSE
+		iTemp = i - 32
+		IF IS_BIT_SET d_speechCounter_BitsHigh iTemp
+			temp_integer_1++
+		ENDIF
+	ENDIF
+	i++
+ENDWHILE
+
+// if they are all set, clear them, then set the bit that was set previously
+// so it won't be set again
+IF temp_integer_1 >= 56
+	d_speechCounter_BitsLow = 0
+	d_speechCounter_BitsHigh = 0
+	IF temp_integer_1 < 32
+		SET_BIT d_speechCounter_BitsLow iDance_SpeechCounter
+	ELSE
+		iTemp = temp_integer_1 - 32
+		SET_BIT d_speechCounter_BitsHigh iTemp
+	ENDIF
+ENDIF
+
+GENERATE_RANDOM_INT_IN_RANGE 0 56 iTemp
+
+Dance_RandomSpeechFunction_In:
+	// find a spot
+	IF iTemp < 32
+		IF NOT IS_BIT_SET d_speechCounter_BitsLow iTemp
+			SET_BIT d_speechCounter_BitsLow iTemp
+			GOTO Dance_RandomSpeechFunction_Out
+		ENDIF
+	ELSE
+		i = iTemp - 32
+		IF NOT IS_BIT_SET d_speechCounter_BitsHigh i
+			SET_BIT d_speechCounter_BitsHigh i
+			GOTO Dance_RandomSpeechFunction_Out
+		ENDIF
+	ENDIF
+	iTemp++
+	IF iTemp >= 56
+		iTemp = 0
+	ENDIF
+GOTO Dance_RandomSpeechFunction_In
+
+Dance_RandomSpeechFunction_Out:
+iTemp++ // temporary, currently the switch-case starts from 1
+iDance_SpeechCounter = iTemp
+RETURN
+// FIXEDGROVE: END
 /*******************************************
 				CLEAN UP 
 ********************************************/
@@ -2585,6 +2290,11 @@ Dance_CleanUp:
 	FORCE_BIG_MESSAGE_AND_COUNTER FALSE
 	USE_TEXT_COMMANDS FALSE
 
+	// FIXEDGROVE: START - reset the variables
+	d_speechCounter_BitsLow = 0
+	d_speechCounter_BitsHigh = 0
+	// FIXEDGROVE: END
+
 	//--- Update the dance score stat
 	IF iDanceScore >= 0
 		SET_INT_STAT LATEST_DANCE_SCORE iDanceScore
@@ -2605,49 +2315,50 @@ RETURN
 ********************************************/
 Dance_get_stick_position:
 
-	GET_POSITION_OF_ANALOGUE_STICKS PAD1 d_lstickx d_lsticky d_rstickx d_rsticky
+// FIXEDGROVE: replaced variables with other ones
+	GET_POSITION_OF_ANALOGUE_STICKS PAD1 LStickX LStickY RStickX RStickY
 
-	d_temp_float =# d_lstickx
-	d_vec_x = d_temp_float
+	z_temp =# LStickX
+	x_temp = z_temp
 
-	d_temp_float =# d_lsticky
-	d_vec_y = d_temp_float
+	z_temp =# LStickY
+	y_temp = z_temp
 
-	GET_DISTANCE_BETWEEN_COORDS_2D 0.0 0.0 d_vec_x d_vec_y d_temp_float
+	GET_DISTANCE_BETWEEN_COORDS_2D 0.0 0.0 x_temp y_temp z_temp
 	
-	d_player_stick_position = 0
+	an = 0
 
-	IF d_temp_float > 64.0
+	IF z_temp > 64.0
 
-		GET_ANGLE_BETWEEN_2D_VECTORS d_vec_x d_vec_y 0.0 -1.0 d_temp_float
+		GET_ANGLE_BETWEEN_2D_VECTORS x_temp y_temp 0.0 -1.0 z_temp
 		
 		// must be up
-		IF d_temp_float < 15.0 
-			d_player_stick_position = DANCE_STKUP // up
+		IF z_temp < 15.0 
+			an = DANCE_STKUP // up
 		ELSE
-			IF d_temp_float < 75.0 
-				IF d_lstickx > 0
-					d_player_stick_position = DANCE_STKUR // right and up
+			IF z_temp < 75.0 
+				IF LStickX > 0
+					an = DANCE_STKUR // right and up
 				ELSE
-					d_player_stick_position = DANCE_STKUL // left and up
+					an = DANCE_STKUL // left and up
 				ENDIF 
 			ELSE
-				IF d_temp_float < 105.0 
-					IF d_lstickx > 0
-						d_player_stick_position = DANCE_STKRGHT // right 
+				IF z_temp < 105.0 
+					IF LStickX > 0
+						an = DANCE_STKRGHT // right 
 					ELSE
-						d_player_stick_position = DANCE_STKLEFT // left 
+						an = DANCE_STKLEFT // left 
 					ENDIF
 				ELSE
-					IF d_temp_float < 165.0 
-						IF d_lstickx > 0
-							d_player_stick_position = DANCE_STKDR // right down 
+					IF z_temp < 165.0 
+						IF LStickX > 0
+							an = DANCE_STKDR // right down 
 						ELSE
-							d_player_stick_position = DANCE_STKDL // left down
+							an = DANCE_STKDL // left down
 						ENDIF 	
 					ELSE
 						// must be down	
-						d_player_stick_position = DANCE_STKDW
+						an = DANCE_STKDW
 					ENDIF
 				ENDIF
 			ENDIF
