@@ -494,6 +494,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed a free healthcare exploit in Bloodring
 - Fixed flag ped and an spectator spawning below the ground on most races
 - Fixed possible softlock if the player answered a loanshark phone call while 'Are You Going To San Fierro?' wasn't unlocked
+- Fixed duplicated sphere marker after completing pilot school
 - Fixed script not checking if player answered Rosenberg's phone call before enabling 'Vertical Bird'
 - Fixed player not being set in their original coordinates correctly after Sweet's gym call
 - Fixed 'Valet' triggering two mission passed tunes
