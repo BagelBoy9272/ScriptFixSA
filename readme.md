@@ -343,6 +343,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed right handbrake turns not counting 
 - Restored audio for the ending cutscene
 
+**Explosive Situation:**
+- Restored detonation alarm from consoles
+
 **You've Had Your Chips:**
 - Moved parked car at beginning of the mission to a parking spot
 - Fixed an issue where you could skip the creation of an enemy if you never destroyed exactly 3 machines
