@@ -1335,6 +1335,23 @@ bj_m_stage_1:
 
 						cross_is_pressed = 1
 
+						// FIXEDGROVE: START - play 'no more bets' voicelines
+						IF NOT IS_CHAR_DEAD croupier
+						    GENERATE_RANDOM_INT_IN_RANGE 0 3 temp_int
+						    SWITCH temp_int
+						        CASE 0
+						            SET_CHAR_SAY_SCRIPT croupier SOUND_J_NMB_1 TRUE TRUE FALSE
+						        BREAK
+						        CASE 1
+						            SET_CHAR_SAY_SCRIPT croupier SOUND_J_NMB_2 TRUE TRUE FALSE
+						        BREAK
+						        CASE 2
+						            SET_CHAR_SAY_SCRIPT croupier SOUND_J_NMB_3 TRUE TRUE FALSE
+						        BREAK
+						    ENDSWITCH
+						ENDIF
+						// FIXEDGROVE: END
+
 						m_goals = 99
 					ENDIF
 				ELSE
@@ -2548,6 +2565,8 @@ bj_m_stage_6:
 					TASK_LOOK_AT_CHAR temp_ped scplayer 2000
 				ENDIF
 				// FIXEDGROVE: END
+
+				SET_PLAYER_MOOD PLAYER1 MOOD_WR 180000 // FIXEDGROVE: change mood to wisecracking for 3 minutes
 
 				REGISTER_INT_STAT BIGGEST_GAMBLING_WIN temp_int
 

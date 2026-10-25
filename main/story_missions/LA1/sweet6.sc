@@ -2321,6 +2321,8 @@ sweet6_m_stage_4:
 
 			SWITCH_WIDESCREEN OFF
 
+			DISPLAY_RADAR FALSE // FIXEDGROVE
+
 			SET_FIXED_CAMERA_POSITION 1793.4847 -1907.3541 13.4436 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT 1793.1289 -1908.2886 13.4481 JUMP_CUT 
 
@@ -2922,7 +2924,7 @@ sweet6_m_stage_5:
 			SWITCH_WIDESCREEN OFF
 			SET_FIXED_CAMERA_POSITION 1788.5157 -1910.3184 14.8901 0.0 0.0 0.0
 			POINT_CAMERA_AT_POINT 1789.3551 -1909.8429 14.6269 JUMP_CUT
-			DISPLAY_RADAR FALSE
+			//DISPLAY_RADAR FALSE // FIXEDGROVE: moved to wager menu init
 			IF NOT IS_CAR_DEAD pickup_car
 				LOCK_CAR_DOORS pickup_car CARLOCK_LOCKED_PLAYER_INSIDE
 				APPLY_BRAKES_TO_PLAYERS_CAR player1 ON
@@ -4559,7 +4561,6 @@ mission_cleanup_SWEET6:
 
 	CLEAR_ONSCREEN_COUNTER lowrider_pscore
 	CLEAR_ONSCREEN_COUNTER lowrider_oscore
-	DISPLAY_RADAR TRUE
 
 	// FIXEDGROVE: START - comment out since it cleared the mission passed tune
 	/*
@@ -4569,8 +4570,6 @@ mission_cleanup_SWEET6:
 	ENDIF
 	*/
 	// FIXEDGROVE: END
-		
-	DONT_SUPPRESS_CAR_MODEL SAVANNA
 
 	// terminate beat display script (if it's running)
 	bd_terminate_script = 1
@@ -4578,10 +4577,6 @@ mission_cleanup_SWEET6:
 	// remove decision makers
 	REMOVE_DECISION_MAKER empty_dm
 	REMOVE_DECISION_MAKER tough_dm
-
-	// === RESTORE ENVIRONMENT SETTINGS ===
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
 
 	GET_GAME_TIMER timer_mobile_start
 	

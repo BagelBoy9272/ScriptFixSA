@@ -525,7 +525,7 @@ DECLARE_MISSION_FLAG flag_player_on_mission
 
 VAR_INT mod_garage1
 VAR_INT flag_player_on_mission spray_help
-VAR_INT flag_player_on_oddjob
+VAR_INT unused_1 // FIXEDGROVE: was flag_player_on_oddjob, is only setted and never read
 VAR_INT total_saved_peds
 VAR_INT weapon_shop1_blip 
 VAR_INT mod_garage_blip 

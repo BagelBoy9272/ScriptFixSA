@@ -2458,7 +2458,6 @@ mission_cleanup_ca1:
 		UNLOAD_SPECIAL_CHARACTER 1
 		REMOVE_ANIMATION CAR
 		REMOVE_DECISION_MAKER ca1_punk_decision_idx
-		SET_FIRST_PERSON_IN_CAR_CAMERA_MODE TRUE
 // ----	Clear Script Stuff
 		CLEAR_ONSCREEN_COUNTER ca1_spooked
 		IF flag_cas1_passed_1stime = 0

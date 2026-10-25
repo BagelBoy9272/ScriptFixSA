@@ -3240,14 +3240,12 @@ SWITCH_ROADS_BACK_TO_ORIGINAL 2333.9 -1392.1 10.0 2220.2 -1377.1 100.0
 SWITCH_ROADS_BACK_TO_ORIGINAL 2334.6 -1493.6 10.0 2219.8 -1475.2 100.0
 SWITCH_ENTRY_EXIT LAHS1A TRUE
 
-SWITCH_RANDOM_TRAINS ON
 REMOVE_CHAR_ELEGANTLY big_smoke 
 REMOVE_CHAR_ELEGANTLY sweet
 REMOVE_CHAR_ELEGANTLY mc_strap
 UNLOAD_SPECIAL_CHARACTER 1																		   
 UNLOAD_SPECIAL_CHARACTER 2																		   
 UNLOAD_SPECIAL_CHARACTER 3
-ENABLE_AMBIENT_CRIME TRUE
 CLEAR_SEQUENCE_TASK tw7_group_seq
 GET_GAME_TIMER timer_mobile_start		 
 flag_player_on_mission = 0																		   
@@ -4390,7 +4388,7 @@ IF tw7_play_which_slot = 2
 			// FIXEDGROVE: START
 			IF NOT IS_CHAR_DEAD tw7_speaker[tw7_speech_control_flag]
 				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH tw7_speaker[tw7_speech_control_flag] TRUE
-				START_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag]r 10000
+				START_CHAR_FACIAL_TALK tw7_speaker[tw7_speech_control_flag] 10000
 			ENDIF
 			// FIXEDGROVE: END
 			PRINT_NOW ( $tw7_print_label[tw7_speech_control_flag] ) 4500 1 

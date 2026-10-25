@@ -776,9 +776,10 @@ UNLOAD_SPECIAL_CHARACTER 2
 		flag_player_on_mission = 0
 		GET_GAME_TIMER timer_mobile_start
 		MISSION_HAS_FINISHED
-		IF NOT cs1_stage = 666
-			DO_FADE 0 FADE_OUT
-		ENDIF
+		// FIXEDGROVE: commented out, leaves game on a black screen if you managed to destroy Cesar's car
+		//IF NOT cs1_stage = 666
+		//	DO_FADE 0 FADE_OUT
+		//ENDIF
 		
 RETURN
 // ------------------------------------------------------------------------------------------------

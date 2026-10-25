@@ -1104,7 +1104,6 @@ mission_cleanup_steal1:
 	REMOVE_BLIP st1_girl_car_blip
 	REMOVE_BLIP st1_hub_blip
 	REMOVE_BLIP st1_girl_car_blip
-	RELEASE_WEATHER
 
 // ---- Models
 	DELETE_CHAR	st1_girl

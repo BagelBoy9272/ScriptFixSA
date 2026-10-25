@@ -445,26 +445,6 @@ mission_start_zero1:
 	ENDWHILE   
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	 
-
-
-
 //////////////////////////
 // Initialise
 //////////////////////////
@@ -3198,47 +3178,26 @@ RETURN
 
 mission_cleanup_zero1:
 
-	IF NOT HAS_DEATHARREST_BEEN_EXECUTED
+	//IF NOT HAS_DEATHARREST_BEEN_EXECUTED // FIXEDGROVE: comment, relevant if you have the keep weapons bonus
 		// FIXEDGROVE: START - load weapon model before giving it back to the player (SilentPatch)
 		REQUEST_MODEL model_for_weapon_zero1
 		LOAD_ALL_MODELS_NOW
 		GIVE_WEAPON_TO_CHAR scplayer weapontype_zero1 ammo_zero1 // causes crash
 		MARK_MODEL_AS_NO_LONGER_NEEDED model_for_weapon_zero1
 		// FIXEDGROVE: END
-	ENDIF 
-
+	//ENDIF 
 
   	DETACH_CHAR_FROM_CAR scplayer
-	RELEASE_WEATHER
 
 	SET_FADING_COLOUR 0 0 0
 
-
-
-
-
-	
-	
 	REMOVE_ALL_SCRIPT_FIRES
-
-	 
-	
-
-
 	
 	flag_player_on_mission = 0
 	SET_POLICE_IGNORE_PLAYER player1 OFF
-	SET_WANTED_MULTIPLIER 1.0
 	REMOVE_RC_BUGGY
 
    //	SWITCH_ROADS_ON -2471.72 -89.28 26.25 -2037.99 386.94 98.0	
-
-
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	//SET_PED_DENSITY_MULTIPLIER 1.0
-
-
-	
 	
 	MARK_MODEL_AS_NO_LONGER_NEEDED rcbaron 
 	MARK_MODEL_AS_NO_LONGER_NEEDED rcraider
@@ -3247,15 +3206,11 @@ mission_cleanup_zero1:
 	MARK_MODEL_AS_NO_LONGER_NEEDED rcbomb
 	MARK_MODEL_AS_NO_LONGER_NEEDED wongs_erection2
 
-
-
 	MARK_MODEL_AS_NO_LONGER_NEEDED minigun_base
 	MARK_MODEL_AS_NO_LONGER_NEEDED fire_ex
   //	MARK_MODEL_AS_NO_LONGER_NEEDED skimmer
    	
 	UNLOAD_SPECIAL_CHARACTER 1
-
-
 
 	CLEAR_ONSCREEN_COUNTER transmitter_overallhealth 
 	CLEAR_ONSCREEN_TIMER mission_countdown_zero1
@@ -3277,15 +3232,6 @@ mission_cleanup_zero1:
 	DELETE_CAR rc_enemy_helis_zero1[9]
 
 	CLEAR_SMALL_PRINTS
-
-
-
-
-
-
-	CAMERA_RESET_NEW_SCRIPTABLES
-	DISABLE_ALL_ENTRY_EXITS FALSE
-
 
 	DELETE_OBJECT object_transmitter[0]
 	DELETE_OBJECT object_transmitter[1]
@@ -3320,10 +3266,6 @@ mission_cleanup_zero1:
 	DELETE_OBJECT falling_bomb_1_zero1[8]
 	DELETE_OBJECT falling_bomb_1_zero1[9]
 
-
-
-
-
 	REMOVE_BLIP blip_zero1_rc_enemy_helis_zero1[0]
 	REMOVE_BLIP blip_zero1_rc_enemy_helis_zero1[1]
 	REMOVE_BLIP blip_zero1_rc_enemy_helis_zero1[2]
@@ -3335,28 +3277,13 @@ mission_cleanup_zero1:
 	REMOVE_BLIP blip_zero1_rc_enemy_helis_zero1[8]
 	REMOVE_BLIP blip_zero1_rc_enemy_helis_zero1[9]
 
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[0]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[1]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[2]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[3]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[4]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[5]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[6]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[7]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[8]
-	REMOVE_STUCK_CAR_CHECK rc_enemy_helis_zero1[9]
-
-
 	GET_GAME_TIMER timer_mobile_start
-
 
 	REMOVE_CHAR_ELEGANTLY char_zero_zero1  
 	MARK_OBJECT_AS_NO_LONGER_NEEDED object_turret_zero1
 
 	REMOVE_ANIMATION casino
 	REMOVE_ANIMATION ON_LOOKERS
-
-
 
 	MISSION_HAS_FINISHED
 

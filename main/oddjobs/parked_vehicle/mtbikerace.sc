@@ -2248,9 +2248,6 @@ RETURN
 mission_cleanup_mtbikerace:
 	flag_player_on_mission = 0 
 
-
-
-
 	IF NOT IS_CAR_DEAD racers_mtbike[0]
 		IF IS_RECORDING_GOING_ON_FOR_CAR racers_mtbike[0]
 			STOP_PLAYBACK_RECORDED_CAR racers_mtbike[0]
@@ -2264,7 +2261,7 @@ mission_cleanup_mtbikerace:
 	ENDIF
 
 
- /* 	IF NOT IS_CAR_DEAD racers_mtbike[0]
+ /* IF NOT IS_CAR_DEAD racers_mtbike[0]
 		IF NOT IS_CHAR_DEAD mtbikeracer[0]
 			IF IS_CHAR_IN_CAR mtbikeracer[0] racers_mtbike[0]
 
@@ -2329,14 +2326,7 @@ mission_cleanup_mtbikerace:
 			ENDIF
 		ENDIF
 	ENDIF			   
-
-
-
-
 	*/
-
-
-
 
 	REMOVE_CAR_RECORDING 829
 	REMOVE_CAR_RECORDING 830
@@ -2345,35 +2335,17 @@ mission_cleanup_mtbikerace:
 	REMOVE_CAR_RECORDING 833
 	REMOVE_CAR_RECORDING 834
 
-
-
-
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_mtbikerace[0]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_mtbikerace[1]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_mtbikerace[2]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_mtbikerace[3]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_mtbikerace[4]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_mtbikerace[5]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racers_car_model_mtbikerace[0]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racers_car_model_mtbikerace[1]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racers_car_model_mtbikerace[2]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racers_car_model_mtbikerace[3]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racers_car_model_mtbikerace[4]
-	MARK_MODEL_AS_NO_LONGER_NEEDED racers_car_model_mtbikerace[5]
-
+	REPEAT 6 a
+		MARK_MODEL_AS_NO_LONGER_NEEDED racer_model_mtbikerace[a]
+		MARK_MODEL_AS_NO_LONGER_NEEDED racers_car_model_mtbikerace[a]
+	ENDREPEAT
 
 	MARK_CHAR_AS_NO_LONGER_NEEDED flag_girl_mtbikerace
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[0]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[1]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[2]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[3]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[4]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[5]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[6]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[7]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[8]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[9]
-	MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[10]
+
+	REPEAT 11 a
+		MARK_CHAR_AS_NO_LONGER_NEEDED spectator_mtbikerace[a]
+	ENDREPEAT
+
 	/*
     a = 0
 	WHILE total_racers_mtbikerace > a
@@ -2382,13 +2354,8 @@ mission_cleanup_mtbikerace:
 		MARK_CHAR_AS_NO_LONGER_NEEDED mtbikeracer[a]
 		a++
 	ENDWHILE
+	*/
 
-		*/
-
-
-
-
-	DISPLAY_CAR_NAMES TRUE
 	//CLEAR_ONSCREEN_TIMER mtbike_timer
 
 	REMOVE_BLIP	first_blip_mtbikerace
@@ -2403,14 +2370,6 @@ mission_cleanup_mtbikerace:
 
    //	SWITCH_ROADS_ON -2999.5276 -2629.4624 0.8299 -1612.5211 -979.4300  480.2183 
 	GET_GAME_TIMER timer_mobile_start
-
-	//DISABLE_ALL_ENTRY_EXITS FALSE
-
-
-	//SET_CAR_DENSITY_MULTIPLIER 1.0
-	//SET_PED_DENSITY_MULTIPLIER 1.0 
-
-	SET_MESSAGE_FORMATTING FALSE 380 464
 
 	USE_TEXT_COMMANDS FALSE
 	MISSION_HAS_FINISHED

@@ -1533,8 +1533,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 	AND c2_plunger_txt = 0
 
 		IF c2_inside_quarry = 1
-		//	c2_audio_3 = SOUND_DETONATION_SIREN
-		//	GOSUB c2_load_sample_3
+			c2_audio_3 = SOUND_DETONATION_SIREN // FIXEDGROVE: uncomment
+			GOSUB c2_load_sample_3 // FIXEDGROVE: uncomment
 		ENDIF
 
 		c2_plunger_txt = 1
@@ -3023,8 +3023,6 @@ mission_casino2_passed:
 
 	CLEAR_WANTED_LEVEL player1
 
-	RELEASE_WEATHER
-
 	FORCE_WEATHER WEATHER_SUNNY_LA
 
 	REMOVE_BLIP quarry_contact_blip
@@ -3125,10 +3123,7 @@ mission_cleanup_casino2:
 	GET_GAME_TIMER timer_mobile_start //Used to reset the mobile phone timer so it doesn't ring immediately after the mission
 
 	CLEAR_WANTED_LEVEL player1
-
-	DONT_SUPPRESS_CAR_MODEL dumper
 	
-	RELEASE_WEATHER
 	MISSION_HAS_FINISHED
 
 	flag_player_on_mission = 0

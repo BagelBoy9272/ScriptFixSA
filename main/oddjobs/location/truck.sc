@@ -52,7 +52,7 @@ IF done_truck_progress = FALSE
 ENDIF
 
 flag_player_on_mission	= TRUE
-flag_player_on_oddjob	= TRUE
+//flag_player_on_oddjob	= TRUE // FIXEDGROVE: comment, not read
 
 
 
@@ -3563,11 +3563,6 @@ mission_cleanup_Truck:
 	MARK_MODEL_AS_NO_LONGER_NEEDED ARTICT3
 
 
-	// === RESTORE ENVIRONMENT SETTINGS ===
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-
-
 	// Camera
 
 
@@ -3592,7 +3587,7 @@ mission_cleanup_Truck:
     ENDIF
 	// FIXEDGROVE: END
 
-	flag_player_on_oddjob	= FALSE
+	//flag_player_on_oddjob	= FALSE // FIXEDGROVE: comment, not read
 	flag_player_on_mission	= FALSE
 	MISSION_HAS_FINISHED
 

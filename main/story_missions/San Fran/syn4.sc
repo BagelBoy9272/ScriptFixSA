@@ -2661,10 +2661,6 @@ mission_cleanup_synd4:
 
 	SWITCH_ENTRY_EXIT PDOMES2 FALSE
 
-	SET_WANTED_MULTIPLIER 1.0
-
-	UNMARK_ALL_ROAD_NODES_AS_DONT_WANDER
-
 	IF DOES_BLIP_EXIST s4_blip_for_the_phone
 		REMOVE_BLIP s4_blip_for_the_phone
 	ENDIF
@@ -2729,8 +2725,6 @@ mission_cleanup_synd4:
 	UNLOAD_SPECIAL_CHARACTER 1
 
 	flag_player_on_mission = 0
-
-	RELEASE_WEATHER
 
 	MISSION_HAS_FINISHED
 

@@ -3288,6 +3288,8 @@ pl_stage_11:
 					IF NOT IS_CHAR_DEAD	opp 
 						SET_CHAR_MONEY opp 0
 					ENDIF
+					SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_GAMB_CASINO_WIN temp_integer_4 // FIXEDGROVE: reuse casino context for winning 
+					SET_PLAYER_MOOD PLAYER1 MOOD_WR 180000 // FIXEDGROVE: change mood to wisecracking for 3 minutes
 					// FIXEDGROVE: START - increment wins stat and eight balls stat if player potted it
 					INCREMENT_INT_STAT WINS_IN_POOL 1 
 					IF ball_potted[8] = 1

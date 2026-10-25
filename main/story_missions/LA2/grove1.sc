@@ -53,17 +53,19 @@ LVAR_INT bdup_guard3_grove1 bdup_guard3_blip_grove1 bdup_guard3_dead_grove1
 
 LVAR_INT bdup_guard4_grove1 bdup_guard4_blip_grove1 bdup_guard4_dead_grove1
 
-LVAR_INT bdup_guard5_grove1 bdup_guard5_blip_grove1 bdup_guard5_dead_grove1 guard5_seq_grove1
+LVAR_INT bdup_guard5_grove1 bdup_guard5_blip_grove1 bdup_guard5_dead_grove1
 
-LVAR_INT bdup_guard6_grove1 bdup_guard6_blip_grove1 bdup_guard6_dead_grove1 guard6_seq_grove1 
+LVAR_INT bdup_guard6_grove1 bdup_guard6_blip_grove1 bdup_guard6_dead_grove1
 
-LVAR_INT bdup_guard7_grove1 bdup_guard7_blip_grove1 bdup_guard7_dead_grove1 guard7_seq_grove1
+LVAR_INT bdup_guard7_grove1 bdup_guard7_blip_grove1 bdup_guard7_dead_grove1
 
-LVAR_INT bdup_guard8_grove1 bdup_guard8_blip_grove1 bdup_guard8_dead_grove1 guard8_seq_grove1
+LVAR_INT bdup_guard8_grove1 bdup_guard8_blip_grove1 bdup_guard8_dead_grove1
 
 LVAR_INT flag_kill_player_grove1 // used for when the player is playing the dbup house part
 
 LVAR_INT dbup_guys_got_ai_grove1 // used to set dbup and his crew to kill player
+
+LVAR_INT seq_grove1
 
 // big bear
 LVAR_INT big_bear_grove1
@@ -78,7 +80,7 @@ LVAR_INT cut_watched_grove1
 LVAR_INT car2_grove1 bdup_car_grove1 
 
 // gang zone stuff
-LVAR_INT gang_strenth1_grove1 gang_strenth2_grove1 gang_strenth3_grove1 gang_strenth4_grove1 flag_player_in_area_grove1
+LVAR_INT gang_strenth1_grove1 flag_player_in_area_grove1
 
 LVAR_INT flag_player_taken_terr_grove1
  
@@ -98,6 +100,8 @@ LVAR_INT grove1_index grove1_audio_is_playing grove1_cutscene_flag grove1_chat_s
 
 VAR_TEXT_LABEL $grove1_chat[17]
 
+LVAR_INT grove1_speaker[17] // FIXEDGROVE
+
 LVAR_INT flag_start_audio1_grove1 flag_start_audio2_grove1 flag_start_audio3_grove1
 
 LVAR_INT flag_print_on_grove1 // used to remove a print after the audio for no space or a plane is done
@@ -115,92 +119,6 @@ LVAR_INT guard1_attacking_coord_grove1 guard1_attacking_player_grove1 guard2_att
 LVAR_INT guard3_attacking_coord_grove1 guard3_attacking_player_grove1 guard4_attacking_coord_grove1 guard4_attacking_player_grove1
 LVAR_INT guard5_attacking_coord_grove1 guard5_attacking_player_grove1 guard6_attacking_coord_grove1 guard6_attacking_player_grove1
 LVAR_INT guard7_attacking_coord_grove1 guard7_attacking_player_grove1 guard8_attacking_coord_grove1 guard8_attacking_player_grove1
-
-// ************************************* SETS UP THE AUDIO FOR THE MISSIO *************************
-
-grove1_chat_switch:
-
-SWITCH grove1_chat_switch		   
-
-	CONST_INT GROVE1_CHAT1 0
-	CONST_INT GROVE1_CHAT2 1
-	CONST_INT GROVE1_CHAT3 2
-	CONST_INT GROVE1_CHAT4 3
-			
-	CASE GROVE1_CHAT1
-
-		$grove1_chat[0] = &GRO1_FA	//What were you thinking back there, bro?
-		$grove1_chat[1] = &GRO1_FB	//I’m tired, man, real tired.
-		$grove1_chat[2] = &GRO1_FC	//Tired of putting the work in and still shit don’t get better.
-		$grove1_chat[3] = &GRO1_FD	//Tired of seeing my family fall apart.
-		$grove1_chat[4] = &GRO1_FE	//Sweet, man, you got more heart than that.
-		$grove1_chat[5] = &GRO1_FF	//Sure things are screwed up now, but we fittin’ to turn a corner, man.
-		$grove1_chat[6] = &GRO1_FG	//The day is comin’ when the Johnson family will be at the top. 
-		$grove1_chat[7] = &GRO1_FH	//And it’s coming real soon.
-		$grove1_chat[8] = &GRO1_FJ	//I hear you, CJ, you’re there for us, I know that.
-				
-		grove1_audio_chat[0] = SOUND_GRO1_FA  //What were you thinking back there, bro?
-		grove1_audio_chat[1] = SOUND_GRO1_FB  //I’m tired, man, real tired.
-		grove1_audio_chat[2] = SOUND_GRO1_FC  //Tired of putting the work in and still shit don’t get better.
-		grove1_audio_chat[3] = SOUND_GRO1_FD  //Tired of seeing my family fall apart.
-		grove1_audio_chat[4] = SOUND_GRO1_FE  //Sweet, man, you got more heart than that.
-		grove1_audio_chat[5] = SOUND_GRO1_FF  //Sure things are screwed up now, but we fittin’ to turn a corner, man.
-		grove1_audio_chat[6] = SOUND_GRO1_FG  //The day is comin’ when the Johnson family will be at the top. 
-		grove1_audio_chat[7] = SOUND_GRO1_FH  //And it’s coming real soon.
-		grove1_audio_chat[8] = SOUND_GRO1_FJ  //I hear you, CJ, you’re there for us, I know that.
-		
-		cell_index_end = 8
-	BREAK
-
-
-	CASE GROVE1_CHAT2
-
-		$grove1_chat[0] = &GRO1_JA	//Oh man, Glen Park!
-		$grove1_chat[1] = &GRO1_JB	//Heart of Kilo Trays country, dude.
-		$grove1_chat[2] = &GRO1_JC	//Fuck it, I’m down, and that fool had it coming too long.
-		$grove1_chat[3] = &GRO1_JD	//We’ll take the whole neighbourhood apart!
-		$grove1_chat[4] = &GRO1_JE	//Word. Let’s roll.
-		 
-		grove1_audio_chat[0] = SOUND_GRO1_JA	//Oh man, Glen Park!
-		grove1_audio_chat[1] = SOUND_GRO1_JB	//Heart of Kilo Trays country, dude.
-		grove1_audio_chat[2] = SOUND_GRO1_JC	//Fuck it, I’m down, and that fool had it coming too long.
-		grove1_audio_chat[3] = SOUND_GRO1_JD	//We’ll take the whole neighbourhood apart!
-		grove1_audio_chat[4] = SOUND_GRO1_JE	//Word. Let’s roll.
-
-		cell_index_end = 4
-	BREAK
-
-	CASE GROVE1_CHAT3
-
-		$grove1_chat[0] = &GRO1_LA	//That’s the neighbourhood sewn up!
-		$grove1_chat[1] = &GRO1_LB	//No sign of B Dup though, dog.
-		$grove1_chat[2] = &GRO1_LC	//Yo, check that place over there.
-		$grove1_chat[3] = &GRO1_LD	//That’s it, I know it!
-		
-		grove1_audio_chat[0] = SOUND_GRO1_LA	//That’s the neighbourhood sewn up!
-		grove1_audio_chat[1] = SOUND_GRO1_LB	//No sign of B Dup though, dog.
-		grove1_audio_chat[2] = SOUND_GRO1_LC	//Yo, check that place over there.
-		grove1_audio_chat[3] = SOUND_GRO1_LD	//That’s it, I know it!
-		
-		cell_index_end = 3
-
-	BREAK
-
-	CASE GROVE1_CHAT4
-
-		$grove1_chat[0] = &GRO1_KA  //Hit those Ballas hard!
-		$grove1_chat[1] = &GRO1_KB  //Johnson boys rollin’ through!
-		
-		grove1_audio_chat[0] = SOUND_GRO1_KA  //Hit those Ballas hard!
-		grove1_audio_chat[1] = SOUND_GRO1_KB  //Johnson boys rollin’ through!
-	
-		cell_index_end = 1
-		
-	BREAK
-
-ENDSWITCH
-
-RETURN
 				   
 // **************************************** Mission Start **********************************
 
@@ -210,12 +128,6 @@ flag_player_on_mission = 1
 
 // gang zone stuff
 gang_strenth1_grove1 = 50
-
-gang_strenth2_grove1 = 50
-
-gang_strenth3_grove1 = 50
-
-gang_strenth4_grove1 = 50
 
 flag_player_in_area_grove1 = 0
 
@@ -352,25 +264,10 @@ SET_SCRIPT_LIMIT_TO_GANG_SIZE 5
 GOTO fool_compiler_stuff 
 	ADD_BLIP_FOR_COORD 0.0 0.0 0.0 sweet_blip_grove1
 
-	OPEN_SEQUENCE_TASK guard5_seq_grove1 
+	OPEN_SEQUENCE_TASK seq_grove1
 		TASK_STAY_IN_SAME_PLACE -1 TRUE
 		TASK_KILL_CHAR_ON_FOOT -1 TRUE
-	CLOSE_SEQUENCE_TASK guard5_seq_grove1
-
-	OPEN_SEQUENCE_TASK guard6_seq_grove1 
-		TASK_STAY_IN_SAME_PLACE -1 TRUE
-		TASK_KILL_CHAR_ON_FOOT -1 TRUE
-	CLOSE_SEQUENCE_TASK guard6_seq_grove1
-
-	OPEN_SEQUENCE_TASK guard7_seq_grove1 
-		TASK_STAY_IN_SAME_PLACE -1 TRUE
-		TASK_KILL_CHAR_ON_FOOT -1 TRUE
-	CLOSE_SEQUENCE_TASK guard7_seq_grove1
-
-	OPEN_SEQUENCE_TASK guard8_seq_grove1 
-		TASK_STAY_IN_SAME_PLACE -1 TRUE
-		TASK_KILL_CHAR_ON_FOOT -1 TRUE
-	CLOSE_SEQUENCE_TASK guard8_seq_grove1 
+	CLOSE_SEQUENCE_TASK seq_grove1
 
 fool_compiler_stuff:
 
@@ -416,15 +313,31 @@ GIVE_WEAPON_TO_CHAR sweet_grove1 WEAPONTYPE_AK47 30000 // set to infinate ammo
 SET_CHAR_NEVER_TARGETTED sweet_grove1 TRUE
 SET_CHAR_SUFFERS_CRITICAL_HITS sweet_grove1 FALSE
 SET_GROUP_FOLLOW_STATUS Players_Group TRUE
+SET_GROUP_SEPARATION_RANGE Players_Group 60.0
+MAKE_ROOM_IN_PLAYER_GANG_FOR_MISSION_PEDS 1 // FIXEDGROVE
 SET_GROUP_MEMBER Players_Group sweet_grove1
 SET_CHAR_ACCURACY sweet_grove1 90
+SET_CHAR_SIGNAL_AFTER_KILL sweet_grove1 FALSE // FIXEDGROVE
 SET_CHAR_HEALTH sweet_grove1 1000
 SET_CHAR_MAX_HEALTH sweet_grove1 1000
+SET_SENSE_RANGE sweet_grove1 120.0 // FIXEDGROVE
 SET_CHAR_RELATIONSHIP sweet_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION2
 
 SET_CHAR_PROOFS sweet_grove1 TRUE TRUE TRUE TRUE TRUE
 
 SET_PLAYER_GROUP_TO_FOLLOW_ALWAYS player1 TRUE 
+
+// FIXEDGROVE: START - setup relationships
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_GANG_GROVE PEDTYPE_MISSION1
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_MISSION1   PEDTYPE_GANG_GROVE
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_MISSION1   PEDTYPE_PLAYER1
+
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_HATE    PEDTYPE_MISSION2  PEDTYPE_MISSION1
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_HATE    PEDTYPE_MISSION2  PEDTYPE_PLAYER1
+
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_GANG_FLAT PEDTYPE_MISSION2
+SET_RELATIONSHIP ACQUAINTANCE_TYPE_PED_RESPECT PEDTYPE_MISSION2  PEDTYPE_GANG_FLAT
+// FIXEDGROVE: END
 
 SWITCH_WIDESCREEN OFF
 
@@ -1119,6 +1032,7 @@ GOSUB grove1_chat_switch
 
 IF NOT IS_CHAR_DEAD sweet_grove1
 	GET_CHAR_HEALTH sweet_grove1 sweets_health_grove1
+	SET_CHAR_RELATIONSHIP sweet_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_GANG_FLAT // FIXEDGROVE
 ELSE
 	CLEAR_MISSION_AUDIO 1
 	CLEAR_PRINTS
@@ -1560,8 +1474,6 @@ TASK_PLAY_ANIM bdup_guard1_grove1 WEAPON_CROUCH PED 4.0 TRUE FALSE FALSE FALSE -
 SET_CHAR_STAY_IN_SAME_PLACE bdup_guard1_grove1 TRUE
 TASK_KILL_CHAR_ON_FOOT bdup_guard1_grove1 scplayer 
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard1_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard1_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard1_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 
 CLEAR_AREA 2005.848 -1116.500 26.179 2.0 FALSE 
 CREATE_CHAR PEDTYPE_MISSION2 BALLAS3 2005.848 -1116.500 26.179 bdup_guard2_grove1 //
@@ -1572,8 +1484,6 @@ TASK_PLAY_ANIM bdup_guard2_grove1 WEAPON_CROUCH PED 4.0 TRUE FALSE FALSE FALSE -
 SET_CHAR_STAY_IN_SAME_PLACE bdup_guard2_grove1 TRUE
 TASK_KILL_CHAR_ON_FOOT bdup_guard2_grove1 scplayer
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard2_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard2_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard2_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 
 CLEAR_AREA 2002.672 -1116.134 26.172 2.0 FALSE 
 CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 2002.672 -1116.134 26.172 bdup_guard3_grove1 //
@@ -1584,8 +1494,6 @@ TASK_PLAY_ANIM bdup_guard3_grove1 WEAPON_CROUCH PED 4.0 TRUE FALSE FALSE FALSE -
 SET_CHAR_STAY_IN_SAME_PLACE bdup_guard3_grove1 TRUE
 TASK_KILL_CHAR_ON_FOOT bdup_guard3_grove1 scplayer
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard3_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard3_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard3_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 
 CLEAR_AREA 1988.934 -1120.135 25.813 2.0 FALSE 
 CREATE_CHAR PEDTYPE_MISSION2 BALLAS3 1988.934 -1120.135 25.813 bdup_guard4_grove1 //
@@ -1595,8 +1503,6 @@ SET_CHAR_DECISION_MAKER bdup_guard4_grove1 tough_duck_dm_grove1
 SET_CHAR_STAY_IN_SAME_PLACE bdup_guard4_grove1 TRUE
 TASK_KILL_CHAR_ON_FOOT bdup_guard4_grove1 scplayer
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard4_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard4_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard4_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 TASK_PLAY_ANIM bdup_guard3_grove1 WEAPON_CROUCH PED 4.0 TRUE FALSE FALSE FALSE -1
 
 CLEAR_AREA 1994.062 -1115.618 25.813 2.0 FALSE 
@@ -1606,8 +1512,6 @@ SET_CHAR_HEADING bdup_guard5_grove1 235.0
 SET_CHAR_DECISION_MAKER bdup_guard5_grove1 tough_decisionmaker_grove1
 SET_CHAR_STAY_IN_SAME_PLACE bdup_guard5_grove1 TRUE
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard5_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard5_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard5_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 
 CLEAR_AREA 1997.480 -1114.998 25.813 2.0 FALSE 
 CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 1997.480 -1118.998 25.813 bdup_guard6_grove1
@@ -1616,8 +1520,6 @@ SET_CHAR_HEADING bdup_guard6_grove1 176.0
 SET_CHAR_DECISION_MAKER bdup_guard6_grove1 tough_decisionmaker_grove1
 SET_CHAR_STAY_IN_SAME_PLACE bdup_guard6_grove1 TRUE
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard6_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard6_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard6_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 
 CLEAR_AREA 2008.344 -1113.057 25.584 2.0 FALSE  
 CREATE_CHAR PEDTYPE_MISSION2 BALLAS3 2008.344 -1113.057 25.584 bdup_guard7_grove1
@@ -1626,8 +1528,6 @@ SET_CHAR_HEADING bdup_guard7_grove1 177.195
 SET_CHAR_DECISION_MAKER bdup_guard7_grove1 tough_decisionmaker_grove1
 SET_CHAR_STAY_IN_SAME_PLACE bdup_guard7_grove1 TRUE
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard7_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard7_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard7_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 
 CLEAR_AREA 2014.768 -1111.447 25.235 2.0 FALSE 
 CREATE_CHAR PEDTYPE_MISSION2 BALLAS1 2014.768 -1111.447 25.235 bdup_guard8_grove1
@@ -1635,8 +1535,6 @@ GIVE_WEAPON_TO_CHAR bdup_guard8_grove1 WEAPONTYPE_AK47 30000 // set to infinate 
 SET_CHAR_HEADING bdup_guard8_grove1 164.890
 SET_CHAR_DECISION_MAKER bdup_guard8_grove1 tough_decisionmaker_grove1
 SET_CHAR_IS_TARGET_PRIORITY bdup_guard8_grove1 TRUE
-SET_CHAR_RELATIONSHIP bdup_guard8_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_PLAYER1
-SET_CHAR_RELATIONSHIP bdup_guard8_grove1 ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_MISSION1
 
 SET_FADING_COLOUR  0 0 0
 DO_FADE 2000 FADE_IN
@@ -1682,6 +1580,7 @@ ENDWHILE
 
 IF NOT IS_CHAR_DEAD sweet_grove1
 	GOSUB load_and_play_audio_grove1
+	SET_CHAR_RELATIONSHIP sweet_grove1 ACQUAINTANCE_TYPE_PED_IGNORE PEDTYPE_GANG_FLAT // FIXEDGROVE
 ELSE
 	CLEAR_PRINTS
 	CLEAR_MISSION_AUDIO 1
@@ -1698,7 +1597,7 @@ ENDIF
 
 SKIP_CUTSCENE_START
  
-WHILE NOT grove1_index = 3 
+WHILE grove1_index <= cell_index_end // FIXEDGROVE: originally looped until index was '3', leaving one line unused
 
 	WAIT 0
 
@@ -2852,18 +2751,15 @@ SET_PLAYER_CONTROL player1 OFF
 
 // ************** BIG BEAR CUTSCENE *******************
 
+// FIXEDGROVE: refactored to reduce code bloat
+
 LOAD_SPECIAL_CHARACTER 1 SWEET
 LOAD_SPECIAL_CHARACTER 2 BBTHIN
 REQUEST_ANIMATION GANGS
 
-LOAD_MISSION_AUDIO 1 SOUND_GRO1_BA 
-LOAD_MISSION_AUDIO 2 SOUND_GRO1_BB
-
 WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
 OR NOT HAS_SPECIAL_CHARACTER_LOADED 2
 OR NOT HAS_ANIMATION_LOADED GANGS
-OR NOT HAS_MISSION_AUDIO_LOADED 1
-OR NOT HAS_MISSION_AUDIO_LOADED 2
 
 	WAIT 0
 
@@ -2914,362 +2810,63 @@ SKIP_CUTSCENE_START
 
 IF NOT IS_CHAR_DEAD sweet_grove1
 	TASK_PLAY_ANIM sweet_grove1 hndshkfa GANGS 4.0 FALSE FALSE FALSE FALSE -1
-	PLAY_MISSION_AUDIO 1
-	PRINT_NOW (GRO1_BA) 10000 1 //"I’ll take care of Bear, man.
-	START_CHAR_FACIAL_TALK sweet_grove1 999999
 ELSE
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-	GOTO mission_grove1_failed
+    CLEAR_PRINTS
+    PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
+    GOTO mission_grove1_failed
 ENDIF
 
 TASK_PLAY_ANIM scplayer hndshkfa GANGS 4.0 FALSE FALSE FALSE FALSE -1
 
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
+grove1_index = 0
+grove1_audio_is_playing = 0
+grove1_cutscene_flag = 0
+grove1_chat_switch = GROVE1_CHAT5
+GOSUB grove1_chat_switch
 
-	WAIT 0
+WHILE grove1_index <= cell_index_end
+OR grove1_cutscene_flag < 2
 
-	IF IS_CHAR_DEAD sweet_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-		GOTO mission_grove1_failed
-	ENDIF
+    WAIT 0
 
-	IF IS_CHAR_DEAD big_bear_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
+    IF IS_CHAR_DEAD sweet_grove1
+        CLEAR_PRINTS
+        CLEAR_MISSION_AUDIO 1
+        PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
+        GOTO mission_grove1_failed
+    ENDIF
 
-	IF IS_CAR_DEAD car2_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
+    IF IS_CHAR_DEAD big_bear_grove1
+    OR IS_CAR_DEAD car2_grove1
+        CLEAR_PRINTS
+        CLEAR_MISSION_AUDIO 1
+        PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
+        GOTO mission_grove1_failed
+    ENDIF
+
+    IF grove1_index >= 2
+    AND grove1_cutscene_flag = 0
+        TASK_ACHIEVE_HEADING scplayer 180.0
+        TASK_ENTER_CAR_AS_DRIVER sweet_grove1 car2_grove1 -1
+        grove1_cutscene_flag = 1
+    ENDIF
+
+    IF grove1_index >= 4
+    AND grove1_cutscene_flag = 1
+        IF IS_CHAR_IN_ANY_CAR sweet_grove1
+            SET_CAR_DRIVING_STYLE car2_grove1 2
+            SET_CAR_CRUISE_SPEED car2_grove1 30.0
+            CAR_GOTO_COORDINATES car2_grove1 1946.0 -1132.0 25.0
+            grove1_cutscene_flag = 2
+        ENDIF
+    ENDIF
+
+    GOSUB load_and_play_audio_grove1
 
 ENDWHILE
 
 CLEAR_MISSION_AUDIO 1
-CLEAR_THIS_PRINT (GRO1_BA)
-
-IF NOT IS_CHAR_DEAD sweet_grove1
-	STOP_CHAR_FACIAL_TALK sweet_grove1
-ELSE
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-	GOTO mission_grove1_failed
-ENDIF
-
-LOAD_MISSION_AUDIO 1 SOUND_GRO1_BC
-
-PLAY_MISSION_AUDIO 2
-PRINT_NOW (GRO1_BB) 10000 1 //"Ok. See you in while, Big Bear!
-START_CHAR_FACIAL_TALK scplayer 999999
-
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
-OR NOT HAS_MISSION_AUDIO_LOADED 1
-
-	WAIT 0
-
-	IF IS_CHAR_DEAD sweet_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CHAR_DEAD big_bear_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CAR_DEAD car2_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-	
-ENDWHILE
-
-CLEAR_THIS_PRINT (GRO1_BB)
-CLEAR_MISSION_AUDIO 2
-STOP_CHAR_FACIAL_TALK scplayer
-
-LOAD_MISSION_AUDIO 2 SOUND_GRO1_BD
-
-PLAY_MISSION_AUDIO 1
-PRINT_NOW (GRO1_BC) 10000 1 //"Where we going, Sweet?"
-
-IF NOT IS_CHAR_DEAD big_bear_grove1
-	START_CHAR_FACIAL_TALK big_bear_grove1 999999
-ELSE
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-	GOTO mission_grove1_failed
-ENDIF   
-
-TASK_ACHIEVE_HEADING scplayer 180.0
-
-IF NOT IS_CAR_DEAD car2_grove1
-
-	IF NOT IS_CHAR_DEAD sweet_grove1
-		TASK_ENTER_CAR_AS_DRIVER sweet_grove1 car2_grove1 -1
-	ELSE
-		PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-ELSE
-	PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-	GOTO mission_grove1_failed
-ENDIF
-
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-OR NOT HAS_MISSION_AUDIO_LOADED 2
-
-	WAIT 0
-
-	IF IS_CHAR_DEAD sweet_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CHAR_DEAD big_bear_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ELSE
-
-		IF HAS_MISSION_AUDIO_FINISHED 1
-			STOP_CHAR_FACIAL_TALK big_bear_grove1
-		ENDIF
-		
-	ENDIF
-
-	IF IS_CAR_DEAD car2_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2 
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-ENDWHILE
-
-CLEAR_THIS_PRINT (GRO1_BC)
-CLEAR_MISSION_AUDIO 1
-
-IF IS_CHAR_DEAD big_bear_grove1
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-	GOTO mission_grove1_failed
-ELSE
-	STOP_CHAR_FACIAL_TALK big_bear_grove1
-ENDIF
-
-LOAD_MISSION_AUDIO 1 SOUND_GRO1_BE
-
-PLAY_MISSION_AUDIO 2
-PRINT_NOW (GRO1_BD) 10000 1 //"Someplace we can get the old Bear back, man.
-
-IF NOT IS_CHAR_DEAD sweet_grove1
-	START_CHAR_FACIAL_TALK sweet_grove1 999999
-ELSE
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-	GOTO mission_grove1_failed
-ENDIF
-
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
-OR NOT HAS_MISSION_AUDIO_LOADED 1
-
-	WAIT 0
-
-	IF IS_CHAR_DEAD sweet_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-		GOTO mission_grove1_failed
-	ELSE
-
-		IF HAS_MISSION_AUDIO_FINISHED 2
-			STOP_CHAR_FACIAL_TALK sweet_grove1
-		ENDIF
-		
-	ENDIF
-
-	IF IS_CHAR_DEAD big_bear_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CAR_DEAD car2_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2 
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-ENDWHILE
-
-CLEAR_THIS_PRINT (GRO1_BD)
-CLEAR_MISSION_AUDIO 2
-
-IF IS_CHAR_DEAD sweet_grove1
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-	GOTO mission_grove1_failed
-ELSE
-	STOP_CHAR_FACIAL_TALK sweet_grove1
-ENDIF
-
-PLAY_MISSION_AUDIO 1
-PRINT_NOW (GRO1_BE) 10000 1 //"Aigh’t. I’m down for that...
-
-IF NOT IS_CHAR_DEAD big_bear_grove1
-	START_CHAR_FACIAL_TALK big_bear_grove1 999999
-ELSE
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-	GOTO mission_grove1_failed
-ENDIF
-
-WHILE NOT IS_CHAR_IN_ANY_CAR sweet_grove1
-
-	WAIT 0
-
-	IF HAS_MISSION_AUDIO_FINISHED 1
-		CLEAR_THIS_PRINT (GRO1_BE)
-
-		IF NOT IS_CHAR_DEAD big_bear_grove1
-			STOP_CHAR_FACIAL_TALK big_bear_grove1
-		ELSE
-			CLEAR_PRINTS
-			CLEAR_MISSION_AUDIO 1
-			CLEAR_MISSION_AUDIO 2
-			PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-			GOTO mission_grove1_failed
-		ENDIF
-
-	ENDIF 
-
-	IF IS_CHAR_DEAD sweet_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CHAR_DEAD big_bear_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CAR_DEAD car2_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2 
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-ENDWHILE
-
-IF NOT IS_CAR_DEAD car2_grove1
-	SET_CAR_DRIVING_STYLE car2_grove1 2
-	SET_CAR_CRUISE_SPEED car2_grove1 30.0
-	CAR_GOTO_COORDINATES car2_grove1 1946.0 -1132.0 25.0
-ELSE
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	CLEAR_PRINTS
-	PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-	GOTO mission_grove1_failed
-ENDIF
-
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-
-	WAIT 0
-
-	IF IS_CHAR_DEAD sweet_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_4) 5000 1 //"Sweets dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CHAR_DEAD big_bear_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-	IF IS_CAR_DEAD car2_grove1
-		CLEAR_PRINTS
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2 
-		PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-		GOTO mission_grove1_failed
-	ENDIF
-
-ENDWHILE
-
-CLEAR_THIS_PRINT (GRO1_BE)
-CLEAR_MISSION_AUDIO 1
-CLEAR_MISSION_AUDIO 2
-
-IF NOT IS_CHAR_DEAD big_bear_grove1
-	STOP_CHAR_FACIAL_TALK big_bear_grove1
-ELSE
-	CLEAR_PRINTS
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	PRINT_NOW (GM1_12) 8000 1 //"Big Bear is dead!"
-	GOTO mission_grove1_failed
-ENDIF
+CLEAR_PRINTS
 
 WAIT 2000
 
@@ -3296,7 +2893,6 @@ IF cut_watched_grove1 = 0
 	CLEAR_PRINTS
 
 	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
 
 	SET_FADING_COLOUR 0 0 0
 	DO_FADE 1000 FADE_OUT
@@ -3317,7 +2913,6 @@ IF cut_watched_grove1 = 0
 
 	SWITCH_PED_ROADS_BACK_TO_ORIGINAL 1965.968 -1096.668 20.0 2081.465 -1163.309 30.0
 	
-	SET_CHAR_COORDINATES scplayer 2002.105 -1129.403 24.484
 	SET_CHAR_HEADING scplayer 180.0
 	SET_CAMERA_BEHIND_PLAYER
 	RESTORE_CAMERA_JUMPCUT
@@ -3355,8 +2950,6 @@ SET_ZONE_GANG_STRENGTH GLN1 GANG_GROVE 0
 SET_ZONE_GANG_STRENGTH GLN1 GANG_NMEX stored_nmex_strength_grove1
 SET_ZONE_GANG_STRENGTH GLN1 GANG_SMEX stored_smex_strength_grove1
 
-CAN_TRIGGER_GANG_WAR_WHEN_ON_A_MISSION FALSE
-
 RETURN
 
    
@@ -3386,8 +2979,6 @@ RETURN
 
 mission_cleanup_grove1:
 
-DISABLE_ALL_ENTRY_EXITS FALSE
-
 REMOVE_CHAR_ELEGANTLY sweet_grove1
 
 flag_player_on_mission = 0
@@ -3395,8 +2986,6 @@ flag_player_on_mission = 0
 SWITCH_PED_ROADS_BACK_TO_ORIGINAL 1965.968 -1096.668 20.0 2081.465 -1163.309 30.0
 
 SET_AREA_VISIBLE 0
-
-CLEAR_SPECIFIC_ZONES_TO_TRIGGER_GANG_WAR
 
 GET_GAME_TIMER timer_mobile_start
 
@@ -3434,16 +3023,11 @@ REMOVE_BLIP	bdup_guard7_blip_grove1
 REMOVE_BLIP	bdup_guard8_blip_grove1
 
 // sequences
-CLEAR_SEQUENCE_TASK guard5_seq_grove1
-CLEAR_SEQUENCE_TASK guard6_seq_grove1
-CLEAR_SEQUENCE_TASK guard7_seq_grove1
-CLEAR_SEQUENCE_TASK guard8_seq_grove1
+CLEAR_SEQUENCE_TASK seq_grove1
 
 // Decision Makers
 REMOVE_DECISION_MAKER tough_duck_dm_grove1
 REMOVE_DECISION_MAKER tough_decisionmaker_grove1
-
-CAN_TRIGGER_GANG_WAR_WHEN_ON_A_MISSION FALSE
 
 MISSION_HAS_FINISHED
 RETURN
@@ -3453,65 +3037,202 @@ give_dbup_ai_grove1:
 
 IF NOT IS_CHAR_DEAD bdup_guard5_grove1
 
-	OPEN_SEQUENCE_TASK guard5_seq_grove1
+	OPEN_SEQUENCE_TASK seq_grove1
 		TASK_GO_STRAIGHT_TO_COORD -1 1996.934 -1122.258 25.760 PEDMOVE_RUN -1
 		TASK_TOGGLE_DUCK -1 TRUE 
 		TASK_STAY_IN_SAME_PLACE -1 TRUE
 //		TASK_KILL_CHAR_ON_FOOT -1 scplayer
 
-	CLOSE_SEQUENCE_TASK guard5_seq_grove1
+	CLOSE_SEQUENCE_TASK seq_grove1
 	
 	CLEAR_CHAR_TASKS bdup_guard5_grove1
-	PERFORM_SEQUENCE_TASK bdup_guard5_grove1 guard5_seq_grove1
-	CLEAR_SEQUENCE_TASK guard5_seq_grove1  
+	PERFORM_SEQUENCE_TASK bdup_guard5_grove1 seq_grove1
+	CLEAR_SEQUENCE_TASK seq_grove1
 
 ENDIF
 
 IF NOT IS_CHAR_DEAD bdup_guard6_grove1
 
-	OPEN_SEQUENCE_TASK guard6_seq_grove1
+	OPEN_SEQUENCE_TASK seq_grove1
 		TASK_GO_STRAIGHT_TO_COORD -1 2004.069 -1122.884 25.584 PEDMOVE_RUN -1
 		TASK_TOGGLE_DUCK -1 TRUE
 		TASK_STAY_IN_SAME_PLACE -1 TRUE 
 //		TASK_KILL_CHAR_ON_FOOT -1 scplayer
-	CLOSE_SEQUENCE_TASK guard6_seq_grove1
+	CLOSE_SEQUENCE_TASK seq_grove1
 	
 	CLEAR_CHAR_TASKS bdup_guard6_grove1
-	PERFORM_SEQUENCE_TASK bdup_guard6_grove1 guard6_seq_grove1
-	CLEAR_SEQUENCE_TASK guard6_seq_grove1
+	PERFORM_SEQUENCE_TASK bdup_guard6_grove1 seq_grove1
+	CLEAR_SEQUENCE_TASK seq_grove1
 
 ENDIF
 
 IF NOT IS_CHAR_DEAD bdup_guard7_grove1
 
-	OPEN_SEQUENCE_TASK guard7_seq_grove1
+	OPEN_SEQUENCE_TASK seq_grove1
 		TASK_GO_STRAIGHT_TO_COORD -1 2006.758 -1122.695 25.493 PEDMOVE_RUN -1
 		TASK_TOGGLE_DUCK -1 TRUE
 		TASK_STAY_IN_SAME_PLACE -1 TRUE 
 //		TASK_KILL_CHAR_ON_FOOT -1 scplayer
-	CLOSE_SEQUENCE_TASK guard7_seq_grove1
+	CLOSE_SEQUENCE_TASK seq_grove1
 	
 	CLEAR_CHAR_TASKS bdup_guard7_grove1
-	PERFORM_SEQUENCE_TASK bdup_guard7_grove1 guard7_seq_grove1
-	CLEAR_SEQUENCE_TASK guard7_seq_grove1
+	PERFORM_SEQUENCE_TASK bdup_guard7_grove1 seq_grove1
+	CLEAR_SEQUENCE_TASK seq_grove1
 
 ENDIF
 
 IF NOT IS_CHAR_DEAD bdup_guard8_grove1
 
-	OPEN_SEQUENCE_TASK guard8_seq_grove1
+	OPEN_SEQUENCE_TASK seq_grove1
 		TASK_GO_STRAIGHT_TO_COORD -1 2015.458 -1121.923 25.243 PEDMOVE_RUN -1
 		TASK_TOGGLE_DUCK -1 TRUE
 		TASK_STAY_IN_SAME_PLACE -1 TRUE 
 //		TASK_KILL_CHAR_ON_FOOT -1 scplayer
-	CLOSE_SEQUENCE_TASK guard8_seq_grove1
+	CLOSE_SEQUENCE_TASK seq_grove1
 	
 	CLEAR_CHAR_TASKS bdup_guard8_grove1
-	PERFORM_SEQUENCE_TASK bdup_guard8_grove1 guard8_seq_grove1
-	CLEAR_SEQUENCE_TASK guard8_seq_grove1
+	PERFORM_SEQUENCE_TASK bdup_guard8_grove1 seq_grove1
+	CLEAR_SEQUENCE_TASK seq_grove1
 ENDIF
 
 dbup_guys_got_ai_grove1 = 1
+
+RETURN
+
+// ************************************* SETS UP THE AUDIO FOR THE MISSIO *************************
+
+grove1_chat_switch:
+
+SWITCH grove1_chat_switch		   
+
+	CONST_INT GROVE1_CHAT1 0
+	CONST_INT GROVE1_CHAT2 1
+	CONST_INT GROVE1_CHAT3 2
+	CONST_INT GROVE1_CHAT4 3
+	CONST_INT GROVE1_CHAT5 4 // FIXEDGROVE: added to replace manual audio playing in final cutscene
+
+	// FIXEDGROVE: assigned speakers
+
+	CASE GROVE1_CHAT1
+
+		$grove1_chat[0] = &GRO1_FA	//What were you thinking back there, bro?
+		$grove1_chat[1] = &GRO1_FB	//I’m tired, man, real tired.
+		$grove1_chat[2] = &GRO1_FC	//Tired of putting the work in and still shit don’t get better.
+		$grove1_chat[3] = &GRO1_FD	//Tired of seeing my family fall apart.
+		$grove1_chat[4] = &GRO1_FE	//Sweet, man, you got more heart than that.
+		$grove1_chat[5] = &GRO1_FF	//Sure things are screwed up now, but we fittin’ to turn a corner, man.
+		$grove1_chat[6] = &GRO1_FG	//The day is comin’ when the Johnson family will be at the top. 
+		$grove1_chat[7] = &GRO1_FH	//And it’s coming real soon.
+		$grove1_chat[8] = &GRO1_FJ	//I hear you, CJ, you’re there for us, I know that.
+				
+		grove1_audio_chat[0] = SOUND_GRO1_FA  //What were you thinking back there, bro?
+		grove1_audio_chat[1] = SOUND_GRO1_FB  //I’m tired, man, real tired.
+		grove1_audio_chat[2] = SOUND_GRO1_FC  //Tired of putting the work in and still shit don’t get better.
+		grove1_audio_chat[3] = SOUND_GRO1_FD  //Tired of seeing my family fall apart.
+		grove1_audio_chat[4] = SOUND_GRO1_FE  //Sweet, man, you got more heart than that.
+		grove1_audio_chat[5] = SOUND_GRO1_FF  //Sure things are screwed up now, but we fittin’ to turn a corner, man.
+		grove1_audio_chat[6] = SOUND_GRO1_FG  //The day is comin’ when the Johnson family will be at the top. 
+		grove1_audio_chat[7] = SOUND_GRO1_FH  //And it’s coming real soon.
+		grove1_audio_chat[8] = SOUND_GRO1_FJ  //I hear you, CJ, you’re there for us, I know that.
+		
+		grove1_speaker[0] = scplayer		//What were you thinking back there, bro?
+		grove1_speaker[1] = sweet_grove1	//I’m tired, man, real tired.
+		grove1_speaker[2] = sweet_grove1	//Tired of putting the work in and still shit don’t get better.
+		grove1_speaker[3] = sweet_grove1	//Tired of seeing my family fall apart.
+		grove1_speaker[4] = scplayer		//Sweet, man, you got more heart than that.
+		grove1_speaker[5] = scplayer		//Sure things are screwed up now, but we fittin’ to turn a corner, man.
+		grove1_speaker[6] = scplayer		//The day is comin’ when the Johnson family will be at the top. 
+		grove1_speaker[7] = scplayer		//And it’s coming real soon.
+		grove1_speaker[8] = sweet_grove1	//I hear you, CJ, you’re there for us, I know that.
+
+		cell_index_end = 8
+	BREAK
+
+
+	CASE GROVE1_CHAT2
+
+		$grove1_chat[0] = &GRO1_JA	//Oh man, Glen Park!
+		$grove1_chat[1] = &GRO1_JB	//Heart of Kilo Trays country, dude.
+		$grove1_chat[2] = &GRO1_JC	//Fuck it, I’m down, and that fool had it coming too long.
+		$grove1_chat[3] = &GRO1_JD	//We’ll take the whole neighbourhood apart!
+		$grove1_chat[4] = &GRO1_JE	//Word. Let’s roll.
+		 
+		grove1_audio_chat[0] = SOUND_GRO1_JA	//Oh man, Glen Park!
+		grove1_audio_chat[1] = SOUND_GRO1_JB	//Heart of Kilo Trays country, dude.
+		grove1_audio_chat[2] = SOUND_GRO1_JC	//Fuck it, I’m down, and that fool had it coming too long.
+		grove1_audio_chat[3] = SOUND_GRO1_JD	//We’ll take the whole neighbourhood apart!
+		grove1_audio_chat[4] = SOUND_GRO1_JE	//Word. Let’s roll.
+
+		grove1_speaker[0] = scplayer		//Oh man, Glen Park!
+		grove1_speaker[1] = sweet_grove1	//Heart of Kilo Trays country, dude.
+		grove1_speaker[2] = scplayer		//Fuck it, I’m down, and that fool had it coming too long.
+		grove1_speaker[3] = scplayer		//We’ll take the whole neighbourhood apart!
+		grove1_speaker[4] = sweet_grove1	//Word. Let’s roll.
+
+		cell_index_end = 4
+	BREAK
+
+	CASE GROVE1_CHAT3
+
+		$grove1_chat[0] = &GRO1_LA	//That’s the neighbourhood sewn up!
+		$grove1_chat[1] = &GRO1_LB	//No sign of B Dup though, dog.
+		$grove1_chat[2] = &GRO1_LC	//Yo, check that place over there.
+		$grove1_chat[3] = &GRO1_LD	//That’s it, I know it!
+		
+		grove1_audio_chat[0] = SOUND_GRO1_LA	//That’s the neighbourhood sewn up!
+		grove1_audio_chat[1] = SOUND_GRO1_LB	//No sign of B Dup though, dog.
+		grove1_audio_chat[2] = SOUND_GRO1_LC	//Yo, check that place over there.
+		grove1_audio_chat[3] = SOUND_GRO1_LD	//That’s it, I know it!
+		
+		grove1_speaker[0] = sweet_grove1	//That’s the neighbourhood sewn up!
+		grove1_speaker[1] = scplayer		//No sign of B Dup though, dog.
+		grove1_speaker[2] = sweet_grove1	//Yo, check that place over there.
+		grove1_speaker[3] = scplayer		//That’s it, I know it!
+
+		cell_index_end = 3
+
+	BREAK
+
+	CASE GROVE1_CHAT4
+
+		$grove1_chat[0] = &GRO1_KA  //Hit those Ballas hard!
+		$grove1_chat[1] = &GRO1_KB  //Johnson boys rollin’ through!
+		
+		grove1_audio_chat[0] = SOUND_GRO1_KA  //Hit those Ballas hard!
+		grove1_audio_chat[1] = SOUND_GRO1_KB  //Johnson boys rollin’ through!
+
+		grove1_speaker[0] = sweet_grove1	//Hit those Ballas hard!
+		grove1_speaker[1] = scplayer 		//Johnson boys rollin’ through!
+	
+		cell_index_end = 1
+		
+	BREAK
+
+	CASE GROVE1_CHAT5
+
+		$grove1_chat[0] = &GRO1_BA  //I'll take care of Bear, man.
+		$grove1_chat[1] = &GRO1_BB  //Ok. See you in a while, Big Bear!
+		$grove1_chat[2] = &GRO1_BC  //Where we going, Sweet?
+		$grove1_chat[3] = &GRO1_BD  //Someplace we can get the old Bear back, man.
+		$grove1_chat[4] = &GRO1_BE  //Aigh't. I'm down for that...		
+
+		grove1_audio_chat[0] = SOUND_GRO1_BA  //I'll take care of Bear, man.
+		grove1_audio_chat[1] = SOUND_GRO1_BB  //Ok. See you in a while, Big Bear!
+		grove1_audio_chat[2] = SOUND_GRO1_BC  //Where we going, Sweet?
+		grove1_audio_chat[3] = SOUND_GRO1_BD  //Someplace we can get the old Bear back, man.
+		grove1_audio_chat[4] = SOUND_GRO1_BE  //Aigh't. I'm down for that...				
+
+		grove1_speaker[0] = sweet_grove1	//I'll take care of Bear, man.
+		grove1_speaker[1] = scplayer		//Ok. See you in a while, Big Bear!
+		grove1_speaker[2] = big_bear_grove1	//Where we going, Sweet?
+		grove1_speaker[3] = sweet_grove1	//Someplace we can get the old Bear back, man.
+		grove1_speaker[4] = big_bear_grove1	//Aigh't. I'm down for that...				
+
+		cell_index_end = 4
+
+	BREAK
+
+ENDSWITCH
 
 RETURN
 
@@ -3526,7 +3247,12 @@ load_and_play_audio_grove1:
 
 	IF grove1_audio_is_playing = 2
 		IF HAS_MISSION_AUDIO_FINISHED 1
-			GOSUB stop_mouths_move_grove1
+			// FIXEDGROVE: START
+			IF NOT IS_CHAR_DEAD grove1_speaker[grove1_index]
+				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH grove1_speaker[grove1_index] FALSE
+				STOP_CHAR_FACIAL_TALK grove1_speaker[grove1_index]
+			ENDIF
+			// FIXEDGROVE: END
 			grove1_audio_is_playing = 0
 			grove1_index ++
 			grove1_cutscene_flag = 0
@@ -3544,168 +3270,28 @@ play_grove1_audio:
 	ENDIF
 	IF grove1_audio_is_playing = 1
 		IF HAS_MISSION_AUDIO_LOADED 1
-
 			IF HAS_MISSION_AUDIO_FINISHED 2
-				PRINT_NOW ( $grove1_chat[grove1_index] ) 4000 1 //Dummy message"
-				PLAY_MISSION_AUDIO 1
-				GOSUB make_mouths_move_grove1
-				grove1_audio_is_playing = 2
+				// FIXEDGROVE: only do speech stuff if the char exists
+				IF NOT IS_CHAR_DEAD grove1_speaker[grove1_index]
+					// FIXEDGROVE: wait until the character finishes speaking
+					IF NOT IS_CHAR_TALKING grove1_speaker[grove1_index]
+						// FIXEDGROVE: START
+						SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH grove1_speaker[grove1_index] TRUE
+						START_CHAR_FACIAL_TALK grove1_speaker[grove1_index] 10000
+						// FIXEDGROVE: END
+						PRINT_NOW ( $grove1_chat[grove1_index] ) 4000 1 //Dummy message"
+						PLAY_MISSION_AUDIO 1				
+						grove1_audio_is_playing = 2
+					ENDIF
+				ELSE
+					PRINT_NOW ( $grove1_chat[grove1_index] ) 4000 1 //Dummy message"
+					PLAY_MISSION_AUDIO 1				
+					grove1_audio_is_playing = 2
+				ENDIF
 			ENDIF
-
 		ENDIF
 	ENDIF	
 	
-RETURN
-
-make_mouths_move_grove1:
-
-	IF grove1_chat_switch = GROVE1_CHAT1
-
-		IF grove1_index = 0
-		OR grove1_index = 4
-		OR grove1_index = 5
-		OR grove1_index = 6
-		OR grove1_index = 7
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-			START_CHAR_FACIAL_TALK scplayer 999999
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 TRUE
-				START_CHAR_FACIAL_TALK sweet_grove1 999999
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
-	IF grove1_chat_switch = GROVE1_CHAT2
-
-		IF grove1_index = 0
-		OR grove1_index = 2
-		OR grove1_index = 3
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-			START_CHAR_FACIAL_TALK scplayer 999999
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 TRUE
-				START_CHAR_FACIAL_TALK sweet_grove1 999999
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
-	IF grove1_chat_switch = GROVE1_CHAT3
-
-		IF grove1_index = 1
-		OR grove1_index = 3
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-			START_CHAR_FACIAL_TALK scplayer 999999
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 TRUE
-				START_CHAR_FACIAL_TALK sweet_grove1 999999
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
-	IF grove1_chat_switch = GROVE1_CHAT4
-
-		IF grove1_index = 1
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-			START_CHAR_FACIAL_TALK scplayer 999999
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 TRUE
-				START_CHAR_FACIAL_TALK sweet_grove1 999999
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
-RETURN
-
-stop_mouths_move_grove1:
-
-	IF grove1_chat_switch = GROVE1_CHAT1
-
-		IF grove1_index = 0
-		OR grove1_index = 4
-		OR grove1_index = 5
-		OR grove1_index = 6
-		OR grove1_index = 7
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-			STOP_CHAR_FACIAL_TALK scplayer
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 FALSE
-				STOP_CHAR_FACIAL_TALK sweet_grove1
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
-	IF grove1_chat_switch = GROVE1_CHAT2
-
-		IF grove1_index = 0
-		OR grove1_index = 2
-		OR grove1_index = 3
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-			STOP_CHAR_FACIAL_TALK scplayer
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 FALSE
-				STOP_CHAR_FACIAL_TALK sweet_grove1
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
-	IF grove1_chat_switch = GROVE1_CHAT3
-
-		IF grove1_index = 1
-		OR grove1_index = 3
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-			STOP_CHAR_FACIAL_TALK scplayer
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 FALSE
-				STOP_CHAR_FACIAL_TALK sweet_grove1
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
-
-	IF grove1_chat_switch = GROVE1_CHAT4
-
-		IF grove1_index = 1
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-			STOP_CHAR_FACIAL_TALK scplayer
-		ELSE
-			
-			IF NOT IS_CHAR_DEAD sweet_grove1
-				SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet_grove1 FALSE
-				STOP_CHAR_FACIAL_TALK sweet_grove1
-			ENDIF
-
-		ENDIF
-
-	ENDIF
-
 RETURN
 
 // does the guards death checks for the cutscenes

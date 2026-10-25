@@ -33,6 +33,7 @@ LVAR_INT ReturnStatus shopkeeper_goes_radge ryders_decision ryders_car_moved pla
 LVAR_INT get_in_counter_intro2
 LVAR_FLOAT intr2_vomitX intr2_vomitY intr2_vomitZ  return_animation_food_name
 VAR_TEXT_LABEL $intro2_chat[17]	 
+LVAR_INT iwd_stored_str[6] // FIXEDGROVE: store original strength rather than relying on literals that could change
 
 // **************************************** Mission Start **********************************
 
@@ -206,6 +207,15 @@ get_in_counter_intro2 = 0
 intr2_vomitX = 0.05
 intr2_vomitY = 0.12 //1.000
 intr2_vomitZ = 0.0
+
+	// FIXEDGROVE: START - store original strength for restoring later
+	GET_ZONE_GANG_STRENGTH IWD1 GANG_FLAT iwd_stored_str[0]
+	GET_ZONE_GANG_STRENGTH IWD2 GANG_FLAT iwd_stored_str[1]
+	GET_ZONE_GANG_STRENGTH IWD3a GANG_FLAT iwd_stored_str[2]
+	GET_ZONE_GANG_STRENGTH IWD3b GANG_FLAT iwd_stored_str[3]
+	GET_ZONE_GANG_STRENGTH IWD4 GANG_FLAT iwd_stored_str[4]
+	GET_ZONE_GANG_STRENGTH IWD5 GANG_FLAT iwd_stored_str[5]
+	// FIXEDGROVE: END
 
 	SET_ZONE_GANG_STRENGTH IWD1 GANG_FLAT 5 
 	SET_ZONE_GANG_STRENGTH IWD2 GANG_FLAT 5
@@ -2174,14 +2184,13 @@ mission_cleanup_intro2:
 	UNLOAD_SPECIAL_CHARACTER 1
 	UNLOAD_SPECIAL_CHARACTER 2
 	ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_ZONE_GANG_STRENGTH IWD1 GANG_FLAT 20 
-	SET_ZONE_GANG_STRENGTH IWD2 GANG_FLAT 20
-	SET_ZONE_GANG_STRENGTH IWD3a GANG_FLAT 20
-	SET_ZONE_GANG_STRENGTH IWD3b GANG_FLAT 20
-	SET_ZONE_GANG_STRENGTH IWD4 GANG_FLAT 20
-	SET_ZONE_GANG_STRENGTH IWD5 GANG_FLAT 20
+	// FIXEDGROVE: use stored strength rather than literals
+	SET_ZONE_GANG_STRENGTH IWD1 GANG_FLAT iwd_stored_str[0]
+	SET_ZONE_GANG_STRENGTH IWD2 GANG_FLAT iwd_stored_str[0]
+	SET_ZONE_GANG_STRENGTH IWD3a GANG_FLAT iwd_stored_str[0]
+	SET_ZONE_GANG_STRENGTH IWD3b GANG_FLAT iwd_stored_str[0]
+	SET_ZONE_GANG_STRENGTH IWD4 GANG_FLAT iwd_stored_str[0] // FIXEDGROVE: this was '20' but on initial.sc it's '10', with the '20' version commented out
+	SET_ZONE_GANG_STRENGTH IWD5 GANG_FLAT iwd_stored_str[0]
 	flag_player_on_menace_mission = 0
 	//REMOVE_PRICE_MODIFIER afro haircuts
 	//REMOVE_PRICE_MODIFIER afroblond haircuts

@@ -1975,7 +1975,18 @@ IF TIMERB > 15000
 				TIMERB = 0
 
 			BREAK
+			// FIXEDGROVE: START - restore this unused line, subsequent cases shifted up by one
 			CASE 5
+
+				$f4_print = &FAR4_AF	// Don't just stand there, get that car!
+				f4_audio = SOUND_FAR4_AF
+				GOSUB f4_load_sample
+
+				TIMERB = 0
+
+			BREAK
+			// FIXEDGROVE: END
+			CASE 6
 
 				$f4_print = &FAR4_AG	// Give up the car and we'll spare you!
 				f4_audio = SOUND_FAR4_AG
@@ -1984,7 +1995,7 @@ IF TIMERB > 15000
 				TIMERB = 0
 
 			BREAK
-			CASE 6
+			CASE 7
 
 				$f4_print = &FAR4_AH	// That's our property!
 				f4_audio = SOUND_FAR4_AH
@@ -1993,7 +2004,7 @@ IF TIMERB > 15000
 				TIMERB = 0
 
 			BREAK
-			CASE 7
+			CASE 8
 
 				$f4_print = &FAR4_AJ	// After him, no quarter!
 				f4_audio = SOUND_FAR4_AJ
@@ -2007,7 +2018,7 @@ IF TIMERB > 15000
 
 		f4_rnd ++
 		
-		IF f4_rnd = 8
+		IF f4_rnd = 9 // FIXEDGROVE: was '8'
 
 			f4_rnd = 0
 

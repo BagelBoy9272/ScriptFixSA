@@ -688,7 +688,7 @@ IF startdumbell_flag = 1
          	    reps_dumbell = reps_dumbell + 1
 			ENDIF
 
-			IF current_Language = 0
+			IF current_Language = LANGUAGE_ENGLISH
 
 				SWITCH weight_dumbell
 

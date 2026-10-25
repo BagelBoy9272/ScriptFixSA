@@ -27,6 +27,7 @@ GF_Sex:
     LVAR_INT iSexState iSubStateStatus iSexMachineFlags	 			// State Machine variables
 	LVAR_FLOAT fX[2] fY[2] fZ[2] fTemp[2] fAngle fSin   
 	LVAR_INT iTemp iTemp2 shaggin_position	iCamera_View iGF_ped iCar
+	LVAR_TEXT_LABEL $iGFModel // FIXEDGROVE
 
 	//--- Init the vars			
 	iSexState = 0 
@@ -56,18 +57,22 @@ GF_Sex:
 				14  // POWER_BAR_TOP_REACHED
 				15  // Change position in progress	// FIXEDGROVE: added bit flag for changing position
 	*/
-
-	//--- Parameter passing Fudge // FIXEDGROVE: replace impossible check with a GOTO
-	GOTO GF_Sex_fool_compiler
-	   CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iGF_ped
-	GF_Sex_fool_compiler:
-	
 	
 	//--- Streaming requests 
+	// FIXEDGROVE: START - refactored a bit, only load the special model when needed
 	IF iCensoredVersion = 0  	 
-		GOSUB GF_Sex_StreamGFModel // Uses iGFidx to retrieve the proper sexy version // FIXEDGROVE: was outside this check
+		GOSUB GF_Sex_StreamGFModel // Uses iGFidx to retrieve the proper sexy version
 		GOSUB GF_Sex_StreamAnims
+		CREATE_CHAR PEDTYPE_CIVFEMALE SPECIAL01 0.0 0.0 0.0 iGF_ped
+	ELSE
+		CREATE_CHAR PEDTYPE_CIVFEMALE 0 0.0 0.0 0.0 iGF_ped
 	ENDIF
+
+	// moved these here from the GOSUB
+	SET_CHAR_PROOFS iGF_ped TRUE TRUE TRUE TRUE TRUE
+	SET_CHAR_COLLISION iGF_ped FALSE  				  
+	DONT_REMOVE_CHAR iGF_ped
+	// FIXEDGROVE: END
 	 
 	//---MAIN LOOP---
 GF_Sex_Main_Loop:
@@ -349,6 +354,12 @@ GF_Sex_State2:
 			RESTORE_CAMERA_JUMPCUT
 			SET_PLAYER_CONTROL player1 ON 		
 			SET_EVERYONE_IGNORE_PLAYER player1 FALSE			 						
+
+			// FIXEDGROVE: START - change mood to wisecracking for 6 minutes
+			IF IS_BIT_SET iDateReport SEX_WAS_GOOD
+				SET_PLAYER_MOOD PLAYER1 MOOD_WR 360000
+			ENDIF
+			// FIXEDGROVE: END
 
 			//--- Remove GIMP SUIT if it's on
 			IF IS_PLAYER_WEARING Player1 CLOTHES_TEX_EXTRA1 gimpleg 
@@ -1138,59 +1149,38 @@ GF_Sex_StreamGFModel:
 	SWITCH iGFIdx_par
 		
 		CASE COOCHIE
-			LOAD_SPECIAL_CHARACTER 1 GANGRL2
-			WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
-				WAIT 0
-				LOAD_SPECIAL_CHARACTER 1 GANGRL2
-			ENDWHILE			
+			$iGFModel = GANGRL2
 		BREAK
 
 		CASE MICHELLE
-			LOAD_SPECIAL_CHARACTER 1 MECGRL2
-			WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
-				WAIT 0
-				LOAD_SPECIAL_CHARACTER 1 MECGRL2
-			ENDWHILE			
+			$iGFModel = MECGRL2
 		BREAK
 		
 		CASE KYLIE
-			LOAD_SPECIAL_CHARACTER 1 GUNGRL2
-			WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
-				WAIT 0
-				LOAD_SPECIAL_CHARACTER 1 GUNGRL2
-			ENDWHILE				
+			$iGFModel = GUNGRL2
 		BREAK
 
 		CASE BARBARA
-			LOAD_SPECIAL_CHARACTER 1 COPGRL2
-			WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
-				WAIT 0
-				LOAD_SPECIAL_CHARACTER 1 COPGRL2
-			ENDWHILE						
+			$iGFModel = COPGRL2
 		BREAK
 
 		CASE SUZIE
-			LOAD_SPECIAL_CHARACTER 1 NURGRL2 
-			WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
-				WAIT 0
-				LOAD_SPECIAL_CHARACTER 1 NURGRL2 
-			ENDWHILE		
+			$iGFModel = NURGRL2 
 		BREAK
 
 		CASE MILLIE
-			LOAD_SPECIAL_CHARACTER 1 CROGRL2
-			WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
-				WAIT 0
-				LOAD_SPECIAL_CHARACTER 1 CROGRL2
-			ENDWHILE
+			$iGFModel = CROGRL2
 		BREAK
 
 	ENDSWITCH
-	CREATE_CHAR PEDTYPE_CIVFEMALE SPECIAL01 0.0 0.0 0.0 iGF_ped		
 
-	SET_CHAR_PROOFS iGF_ped TRUE TRUE TRUE TRUE TRUE
-	SET_CHAR_COLLISION iGF_ped FALSE  				  
-	DONT_REMOVE_CHAR iGF_ped
+	// FIXEDGROVE: START - changed logic to select the model from the switch-case and use it here
+	LOAD_SPECIAL_CHARACTER 1 $iGFModel
+	WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 1
+		WAIT 0
+		LOAD_SPECIAL_CHARACTER 1 $iGFModel
+	ENDWHILE
+	// FIXEDGROVE: END
 
 RETURN
 /*******************************************
@@ -2068,12 +2058,13 @@ GF_Sex_Cleanup:
 	ENDIF
 
 	IF IS_PLAYER_PLAYING PLAYER1
-		SET_CHAR_VISIBLE scplayer TRUE
-		SET_CHAR_PROOFS scplayer FALSE FALSE FALSE FALSE FALSE		
 		CLEAR_CHAR_TASKS scplayer
 		SET_PLAYER_CONTROL player1 ON
-		SWITCH_WIDESCREEN OFF
 	ENDIF
+
+	SET_CHAR_VISIBLE scplayer TRUE
+	SET_CHAR_PROOFS scplayer FALSE FALSE FALSE FALSE FALSE	
+	SWITCH_WIDESCREEN OFF
 
 	DISPLAY_RADAR TRUE
 	DISPLAY_HUD TRUE // FIXEDGROVE

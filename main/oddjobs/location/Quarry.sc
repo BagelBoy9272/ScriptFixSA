@@ -53,7 +53,7 @@ IF done_quarry_progress = FALSE
 ENDIF
 
 flag_player_on_mission = TRUE
-flag_player_on_oddjob = TRUE
+//flag_player_on_oddjob = TRUE // FIXEDGROVE: comment, not read
 
 
 // general variables that are in every mission - DON'T DECLARE MISSION SPECIFIC VARIABLES HERE
@@ -4844,11 +4844,6 @@ Quarry_Mission_Cleanup:
 	CLEAR_ONSCREEN_COUNTER g_Quarry_damageKM
 
 
-	// Fires Clearup
-	// -------------
-	CLEAR_ALL_SCRIPT_FIRE_FLAGS
-
-
 	// Help Clearup
 	// ------------
 
@@ -4884,11 +4879,7 @@ Quarry_Mission_Cleanup:
 
 	// === RESTORE ENVIRONMENT SETTINGS ===
 	// ------------------------------------
-	SET_PED_DENSITY_MULTIPLIER	1.0
-	SET_CAR_DENSITY_MULTIPLIER	1.0
-	SET_WANTED_MULTIPLIER		1.0
 	SWITCH_EMERGENCY_SERVICES	ON
-	SWITCH_RANDOM_TRAINS		ON
 
 
 	// Restore switched off road
@@ -4916,7 +4907,7 @@ Quarry_Mission_Cleanup:
 	// Housekeeping
 	// ------------
 	flag_player_on_mission	= FALSE
-	flag_player_on_oddjob	= FALSE
+	//flag_player_on_oddjob	= FALSE  // FIXEDGROVE: comment, not read
 	MISSION_HAS_FINISHED
 
 RETURN

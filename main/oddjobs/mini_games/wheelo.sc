@@ -68,6 +68,7 @@ wof_script: 	////////////////////////////////////////////////////////////////
 	LVAR_INT m_stand
 	LVAR_INT m_stage m_goals
 	LVAR_INT croupier
+	LVAR_INT croupier_model // FIXEDGROVE
 	LVAR_INT temp_ped // FIXEDGROVE
 
 	LVAR_FLOAT temp_float temp_float2
@@ -106,6 +107,15 @@ wof_script: 	////////////////////////////////////////////////////////////////
 
 	GENERATE_RANDOM_INT_IN_RANGE 0 30000 TIMERA
 
+	// FIXEDGROVE: START - assign croupier model
+	GENERATE_RANDOM_INT_IN_RANGE 0 2 temp_int
+	IF temp_int = 0
+		croupier_model = VBFYCRP
+	ELSE
+		croupier_model = VWFYCRP
+	ENDIF
+	// FIXEDGROVE: END
+
 	GOTO wof_fake_create
 		CREATE_OBJECT WHEEL_O_FORTUNE 0.0 0.0 0.0 wheel
 		CREATE_OBJECT WHEEL_O_FORTUNE 0.0 0.0 0.0 m_stand
@@ -138,12 +148,12 @@ wof_script: 	////////////////////////////////////////////////////////////////
 								IF m_stage = 0
 
 									IF m_goals = 0
-										REQUEST_MODEL VBFYCRP
+										REQUEST_MODEL croupier_model // FIXEDGROVE: use var for croupier model
 										REQUEST_ANIMATION CASINO
 										m_goals++
 									ENDIF	
 									IF m_goals = 1
-										IF HAS_MODEL_LOADED	VBFYCRP
+										IF HAS_MODEL_LOADED	croupier_model // FIXEDGROVE: use var for croupier model
 										AND HAS_ANIMATION_LOADED CASINO
 											m_goals++
 										ENDIF
@@ -155,14 +165,14 @@ wof_script: 	////////////////////////////////////////////////////////////////
 											GET_OBJECT_HEADING wheel wheel_heading
 											GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS wheel 0.5 -0.3974 0.0 x y z
 											GET_GROUND_Z_FOR_3D_COORD x y z z
-											CREATE_CHAR PEDTYPE_CIVFEMALE VBFYCRP x y z croupier
+											CREATE_CHAR PEDTYPE_CIVFEMALE croupier_model x y z croupier // FIXEDGROVE: use var for croupier model
 
 											SET_CHAR_DECISION_MAKER croupier iGlobalPedPanicDM
 
 											heading = wheel_heading + 180.0
 											SET_CHAR_HEADING croupier heading
 											FREEZE_CHAR_POSITION croupier TRUE
-											MARK_MODEL_AS_NO_LONGER_NEEDED VBFYCRP
+											MARK_MODEL_AS_NO_LONGER_NEEDED croupier_model // FIXEDGROVE: use var for croupier model
 										ENDIF
 										// objects
 										IF NOT DOES_OBJECT_EXIST m_stand
@@ -202,18 +212,11 @@ wof_script: 	////////////////////////////////////////////////////////////////
 										IF TIMERA > 50000
 											TASK_PLAY_ANIM croupier wof casino 4.0 FALSE FALSE FALSE FALSE -1
 											GENERATE_RANDOM_INT_IN_RANGE 0 3 temp_int
-											SWITCH temp_int
-												CASE 0
-													SET_CHAR_SAY_SCRIPT	croupier SOUND_W_NMB_1 TRUE TRUE FALSE
-												BREAK
-												CASE 1
-													SET_CHAR_SAY_SCRIPT	croupier SOUND_W_NMB_2 TRUE TRUE FALSE
-												BREAK
-												CASE 2
-													SET_CHAR_SAY_SCRIPT	croupier SOUND_W_NMB_3 TRUE TRUE FALSE
-												BREAK
-											ENDSWITCH
-											
+											IF croupier_model = VBFYCRP // FIXEDGROVE: restore black croupier and her voicelines
+												SET_CHAR_SAY_SCRIPT	croupier no_more_bets_b[temp_int] TRUE TRUE FALSE
+											ELSE
+												SET_CHAR_SAY_SCRIPT	croupier no_more_bets_w[temp_int] TRUE TRUE FALSE
+											ENDIF
 											wheel_status = 0
 											TIMERA = 0	
 										ENDIF							
@@ -374,10 +377,10 @@ wof_not_enough_stats:
 
 	temp_int = 0
 	GENERATE_RANDOM_INT_IN_RANGE 0 2 temp_int
-	IF temp_int = 0
-		SET_CHAR_SAY_SCRIPT	croupier SOUND_W_REG_1 TRUE TRUE FALSE
+	IF croupier_model = VBFYCRP  // FIXEDGROVE: restore black croupier and her voicelines
+		SET_CHAR_SAY_SCRIPT	croupier gambling_stat_too_low_b[temp_int] TRUE TRUE FALSE
 	ELSE
-		SET_CHAR_SAY_SCRIPT	croupier SOUND_W_REG_1 TRUE TRUE FALSE
+		SET_CHAR_SAY_SCRIPT	croupier gambling_stat_too_low_w[temp_int] TRUE TRUE FALSE
 	ENDIF
 
 RETURN
@@ -628,14 +631,11 @@ wof_m_stage_1:
 
 		IF NOT IS_CHAR_DEAD croupier
 			GENERATE_RANDOM_INT_IN_RANGE 0 2 temp_int
-			SWITCH temp_int
-				CASE 0
-					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_BET_1 TRUE TRUE FALSE
-				BREAK
-				CASE 1
-					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_BET_2 TRUE TRUE FALSE
-				BREAK
-			ENDSWITCH
+			IF croupier_model = VBFYCRP  // FIXEDGROVE: restore black croupier and her voicelines
+				SET_CHAR_SAY_SCRIPT	croupier place_bets_b[temp_int] TRUE TRUE FALSE
+			ELSE
+				SET_CHAR_SAY_SCRIPT	croupier place_bets_w[temp_int] TRUE TRUE FALSE
+			ENDIF
 		ENDIF
 		
 
@@ -993,17 +993,11 @@ wof_m_stage_2:
 	IF NOT IS_CHAR_DEAD croupier
 		TASK_PLAY_ANIM croupier wof casino 4.0 FALSE FALSE FALSE FALSE -1
 		GENERATE_RANDOM_INT_IN_RANGE 0 3 temp_int
-		SWITCH temp_int
-			CASE 0
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_NMB_1 TRUE TRUE FALSE
-			BREAK
-			CASE 1
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_NMB_2 TRUE TRUE FALSE
-			BREAK
-			CASE 2
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_NMB_3 TRUE TRUE FALSE
-			BREAK
-		ENDSWITCH
+		IF croupier_model = VBFYCRP // FIXEDGROVE: restore black croupier and her voicelines
+			SET_CHAR_SAY_SCRIPT	croupier no_more_bets_b[temp_int] TRUE TRUE FALSE
+		ELSE
+			SET_CHAR_SAY_SCRIPT	croupier no_more_bets_w[temp_int] TRUE TRUE FALSE
+		ENDIF
 
 		wheel_status = 0
 
@@ -1108,6 +1102,8 @@ wof_m_stage_5:
 		
 		IF temp_int > 0
 		
+			SET_PLAYER_MOOD PLAYER1 MOOD_WR 180000 // FIXEDGROVE: change mood to wisecracking for 3 minutes
+
 			// FIXEDGROVE: START - play unused GAMB_CONGRATS context if the player wins
 			GET_CHAR_COORDINATES scplayer x y z
 			GET_RANDOM_CHAR_IN_SPHERE x y z GAMB_PROXIMITY_FOR_CONGRATS TRUE FALSE FALSE temp_ped
@@ -1135,13 +1131,13 @@ wof_m_stage_5:
 							GENERATE_RANDOM_INT_IN_RANGE 0 5 temp_int
 							SWITCH temp_int
 								CASE 0
-									SET_CHAR_SAY_SCRIPT	croupier SOUND_W_PWIN1 TRUE TRUE FALSE
-								BREAK
 								CASE 1
-									SET_CHAR_SAY_SCRIPT	croupier SOUND_W_PWIN2 TRUE TRUE FALSE
-								BREAK
 								CASE 2
-									SET_CHAR_SAY_SCRIPT	croupier SOUND_W_PWIN3 TRUE TRUE FALSE
+									IF croupier_model = VBFYCRP // FIXEDGROVE: restore black croupier and her voicelines
+										SET_CHAR_SAY_SCRIPT	croupier player_wins_b[temp_int] TRUE TRUE FALSE
+									ELSE
+										SET_CHAR_SAY_SCRIPT	croupier player_wins_w[temp_int] TRUE TRUE FALSE
+									ENDIF
 								BREAK
 								CASE 3
 									SET_CHAR_SAY_CONTEXT scplayer CONTEXT_GLOBAL_GAMB_CASINO_WIN	temp_int
@@ -1157,13 +1153,13 @@ wof_m_stage_5:
 						GENERATE_RANDOM_INT_IN_RANGE 0 10 temp_int
 						SWITCH temp_int
 							CASE 0
-								SET_CHAR_SAY_SCRIPT	croupier SOUND_W_PWIN1 TRUE TRUE FALSE
-							BREAK
 							CASE 1
-								SET_CHAR_SAY_SCRIPT	croupier SOUND_W_PWIN2 TRUE TRUE FALSE
-							BREAK
 							CASE 2
-								SET_CHAR_SAY_SCRIPT	croupier SOUND_W_PWIN3 TRUE TRUE FALSE
+								IF croupier_model = VBFYCRP // FIXEDGROVE: restore black croupier and her voicelines
+									SET_CHAR_SAY_SCRIPT	croupier player_wins_b[temp_int] TRUE TRUE FALSE
+								ELSE
+									SET_CHAR_SAY_SCRIPT	croupier player_wins_w[temp_int] TRUE TRUE FALSE
+								ENDIF
 							BREAK
 							DEFAULT
 								GOSUB wof_say_number
@@ -1175,18 +1171,12 @@ wof_m_stage_5:
 			ELSE
 
 				IF NOT IS_CHAR_DEAD croupier
-					GENERATE_RANDOM_INT_IN_RANGE 0 3 temp_int
-					SWITCH temp_int
-						CASE 0
-							SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WINS1 TRUE TRUE FALSE
-						BREAK
-						CASE 1
-							SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WINS2 TRUE TRUE FALSE
-						BREAK
-						CASE 2
-							SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WINS3 TRUE TRUE FALSE
-						BREAK
-					ENDSWITCH
+					GENERATE_RANDOM_INT_IN_RANGE 3 6 temp_int
+					IF croupier_model = VBFYCRP // FIXEDGROVE: restore black croupier and her voicelines
+						SET_CHAR_SAY_SCRIPT	croupier player_wins_b[temp_int] TRUE TRUE FALSE
+					ELSE
+						SET_CHAR_SAY_SCRIPT	croupier player_wins_w[temp_int] TRUE TRUE FALSE
+					ENDIF
 				ENDIF
 									
 				winning_streak = 0
@@ -1237,31 +1227,61 @@ RETURN
 wof_say_number:
 
 	IF NOT IS_CHAR_DEAD croupier
-		SWITCH wheel_position_value
-			CASE 1
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL1 TRUE TRUE FALSE
-			BREAK
-			CASE 2
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL2 TRUE TRUE FALSE
-			BREAK
-			CASE 5
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL3 TRUE TRUE FALSE
-			BREAK
-			CASE 10
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL4 TRUE TRUE FALSE
-			BREAK
-			CASE 20
-				SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL5 TRUE TRUE FALSE
-			BREAK
-			CASE 40
-				GENERATE_RANDOM_INT_IN_RANGE 0 2 temp_int
-				IF temp_int = 0
-					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL6 TRUE TRUE FALSE
-				ELSE
-					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL7 TRUE TRUE FALSE
-				ENDIF
-			BREAK
-		ENDSWITCH
+		// FIXEDGROVE: START - restore black croupier and her voicelines
+		IF croupier_model = VBFYCRP
+			SWITCH wheel_position_value
+				CASE 1
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_B_WEEL1 TRUE TRUE FALSE
+				BREAK
+				CASE 2
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_B_WEEL2 TRUE TRUE FALSE
+				BREAK
+				CASE 5
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_B_WEEL3 TRUE TRUE FALSE
+				BREAK
+				CASE 10
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_B_WEEL4 TRUE TRUE FALSE
+				BREAK
+				CASE 20
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_B_WEEL5 TRUE TRUE FALSE
+				BREAK
+				CASE 40
+					GENERATE_RANDOM_INT_IN_RANGE 0 2 temp_int
+					IF temp_int = 0
+						SET_CHAR_SAY_SCRIPT	croupier SOUND_B_WEEL6 TRUE TRUE FALSE
+					ELSE
+						SET_CHAR_SAY_SCRIPT	croupier SOUND_B_WEEL7 TRUE TRUE FALSE
+					ENDIF
+				BREAK
+			ENDSWITCH			
+		// FIXEDGROVE: END
+		ELSE
+			SWITCH wheel_position_value
+				CASE 1
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL1 TRUE TRUE FALSE
+				BREAK
+				CASE 2
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL2 TRUE TRUE FALSE
+				BREAK
+				CASE 5
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL3 TRUE TRUE FALSE
+				BREAK
+				CASE 10
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL4 TRUE TRUE FALSE
+				BREAK
+				CASE 20
+					SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL5 TRUE TRUE FALSE
+				BREAK
+				CASE 40
+					GENERATE_RANDOM_INT_IN_RANGE 0 2 temp_int
+					IF temp_int = 0
+						SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL6 TRUE TRUE FALSE
+					ELSE
+						SET_CHAR_SAY_SCRIPT	croupier SOUND_W_WEEL7 TRUE TRUE FALSE
+					ENDIF
+				BREAK
+			ENDSWITCH
+		ENDIF
 	ENDIF
 
 RETURN
@@ -1539,12 +1559,11 @@ wof_cleanup:
 
 	IF NOT IS_CHAR_DEAD croupier
 		GENERATE_RANDOM_INT_IN_RANGE 0 2 temp_int
-		IF temp_int = 0
-			SET_CHAR_SAY_SCRIPT	croupier SOUND_W_THX_1 TRUE TRUE FALSE
+		IF croupier_model = VBFYCRP // FIXEDGROVE: restore black croupier and her voicelines
+			SET_CHAR_SAY_SCRIPT croupier player_leaves_b[temp_int] TRUE TRUE FALSE
 		ELSE
-			SET_CHAR_SAY_SCRIPT	croupier SOUND_W_THX_2 TRUE TRUE FALSE
+			SET_CHAR_SAY_SCRIPT	croupier player_leaves_w[temp_int] TRUE TRUE FALSE
 		ENDIF
-
 	ENDIF
 
 

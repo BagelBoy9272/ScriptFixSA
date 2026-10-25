@@ -4650,9 +4650,6 @@ mission_cleanup_STEAL4:
 	//CLEAR_PRINTS
 	CLEAR_HELP
 
-	DISPLAY_HUD TRUE
-	DISPLAY_RADAR TRUE
-
 	steal4_flag = 0
 
 	player_is_in_crane = 0
@@ -4664,7 +4661,6 @@ mission_cleanup_STEAL4:
 	CLEAR_ONSCREEN_COUNTER buddy_health
 
 	IF IS_PLAYER_PLAYING player1	
-		SET_PLAYER_GROUP_TO_FOLLOW_ALWAYS player1 FALSE	
 		IF NOT IS_CHAR_DEAD extra_baddie[0]
 			TASK_KILL_CHAR_ON_FOOT extra_baddie[0] scplayer
 		ENDIF
@@ -4672,8 +4668,6 @@ mission_cleanup_STEAL4:
 			TASK_KILL_CHAR_ON_FOOT extra_baddie[1] scplayer
 		ENDIF
 	ENDIF
-	
-	SET_SCRIPT_LIMIT_TO_GANG_SIZE 99
 
 
 	// peds
@@ -4705,8 +4699,6 @@ mission_cleanup_STEAL4:
 
 	//KILL_FX_SYSTEM particle_fx1
 	//KILL_FX_SYSTEM particle_fx2
-
-	SWITCH_RANDOM_TRAINS ON
 
 	UNLOAD_SPECIAL_CHARACTER 1
 	MARK_MODEL_AS_NO_LONGER_NEEDED CLUB
@@ -4742,10 +4734,6 @@ mission_cleanup_STEAL4:
 
 
 	// === RESTORE ENVIRONMENT SETTINGS ===
-	SET_PED_DENSITY_MULTIPLIER 1.0
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	SET_WANTED_MULTIPLIER 1.0
-
 	//SWITCH_CAR_GENERATOR gen_car11 101
 	
 	GET_GAME_TIMER timer_mobile_start

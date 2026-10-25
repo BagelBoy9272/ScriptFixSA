@@ -2729,7 +2729,7 @@ CONST_INT DANCE_WAIT_TO_START_BEATDISPLAY	10000
 VAR_INT gym_day  
 VAR_INT gym_help // FIXEDGROVE: gym help flag, repurposes unused var
 VAR_INT gym_final_day
-VAR_INT unused_4 // FIXEDGROVE: unused
+VAR_INT unused_5 // FIXEDGROVE: unused
 
 VAR_FLOAT gym_day_fitness
 

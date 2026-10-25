@@ -3651,12 +3651,8 @@ mission_cleanup_cat4:
  //	DO_FADE 0 FADE_IN
 	CLEAR_HELP
 	flag_player_on_mission = 0
-	DISPLAY_RADAR ON
-	DISABLE_ALL_ENTRY_EXITS FALSE
-	 SWITCH_ENTRY_EXIT genOTB TRUE
-	IF IS_PLAYER_PLAYING player1 
-	 	SHUT_PLAYER_UP player1 FALSE
-	ENDIF
+	SWITCH_ENTRY_EXIT genOTB TRUE
+	SHUT_PLAYER_UP player1 FALSE
 	IF NOT IS_CHAR_DEAD catalina 
    		SET_CHAR_PROOFS catalina FALSE FALSE FALSE FALSE FALSE
 	ENDIF
@@ -3711,17 +3707,8 @@ mission_cleanup_cat4:
 	MARK_CAR_AS_NO_LONGER_NEEDED players_car_cat4
 
   // 	CLEAR_MISSION_AUDIO 3
-
-
-
-
-
-
    
    	iSetOTBPanic = 0
-
-
-
 
 	IF NOT IS_CHAR_DEAD catalina
 		CLEAR_CHAR_RELATIONSHIP catalina ACQUAINTANCE_TYPE_PED_HATE PEDTYPE_COP	
@@ -3742,7 +3729,6 @@ mission_cleanup_cat4:
 	REMOVE_BLIP blip_hiding_spot
 	REMOVE_BLIP blip_paint_and_spray_cat4
 
-
 	ADD_SHORT_RANGE_SPRITE_BLIP_FOR_COORD 720.016 -454.625 15.328 RADAR_SPRITE_SPRAY spray_shop4 //Badlands Countryeast
 
    //	CLEAR_ONSCREEN_COUNTER counter_sprunk_detonate_cat4 
@@ -3750,73 +3736,18 @@ mission_cleanup_cat4:
  //	SWITCH_ROADS_BACK_TO_ORIGINAL -5000.5276 -5000.4624 -1000.8299 5000.5276 5000.4624 1000.82993	
    //	SWITCH_PED_ROADS_BACK_TO_ORIGINAL -5000.5276 -5000.4624 -1000.8299 5000.5276 5000.4624 1000.82993
 
-
-	SET_CAR_DENSITY_MULTIPLIER 1.0
-	SET_PED_DENSITY_MULTIPLIER 1.0
-
-
-
-
-
-
-
-
 	REMOVE_DECISION_MAKER dm_cops_cat4
 	REMOVE_DECISION_MAKER dm_catalina_cat4
-
-
 
 	REMOVE_ALL_SCRIPT_FIRES
 	//SWITCH_ROADS_BACK_TO_ORIGINAL 1140.9072 213.5046 1.7728 1585.8451 382.9843 43.8501
 
-
-	MISSION_HAS_FINISHED	
 	SET_EVERYONE_IGNORE_PLAYER Player1 OFF
 
-  //	ENABLE_ENTRY_EXIT_PLAYER_GROUP_WARPING 833.0 9.0 10.0 FALSE   //  inside otb
-  //	ENABLE_ENTRY_EXIT_PLAYER_GROUP_WARPING 1291.0 271.0 10.0 FALSE	   // outside
+	//	ENABLE_ENTRY_EXIT_PLAYER_GROUP_WARPING 833.0 9.0 10.0 FALSE   //  inside otb
+  	//	ENABLE_ENTRY_EXIT_PLAYER_GROUP_WARPING 1291.0 271.0 10.0 FALSE	   // outside
 
-
-
-	SET_GROUP_SEPARATION_RANGE Players_Group 30.0
-
-	// **************************************** Initialising variables  **********************************
-	flag_holdup_cat4 = 1
-	flag_getaway_cat4 = 0
-	flag_mission_passed_cat4 = 0
-	flag_mission_failed_cat4 = 0
-	flag_robbery_cutscene_otb = 0
-	flag_has_safe_been_robbed_cat4 = 0			// resets otb safe
-	flag_cat_shoot_cops = 0
-	flag_otb_robbing_peds_panic = 0
-	flag_police_arrive = 0
-	flag_create_car_cat_enters = 0
-	flag_help_text_spary_cat4 = 0
-
-	flag_display_help_cat4 = 0
-
-	cat_coment_counter = 0
-
-
-	flag_text_otb = 0
-	flag_text_cat_police_killing_cat4 = 0
-
-	flag_has_otb_door_been_open = 0
-
-	player_in_otb_flag_cat4_local_var = 0
-	flag_cutscene1_cat4 = 0
-
-	flag_are_cops_pissed  = 0	
-
-	flag_has_catalina_chocolate_rant_been_done = 0
-
-
-	flag_has_cat_got_the_loot_cat4 = 0
-	counter_robbery_cat4 = 0
-
-
-
-
+	MISSION_HAS_FINISHED		
 
 RETURN
 
