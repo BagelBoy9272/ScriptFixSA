@@ -301,7 +301,7 @@ mission_casino9_MAIN_steal_plane:
 						IF NOT IS_CAR_DEAD shamal_C9 
 
 							//shamal_Y_C9 -= 1.0 // PS2				
-							shamal_Y_C9 -=@ 0.6 // FIXEDGROVE: was 1.0, match console 30 FPS
+							shamal_Y_C9 -=@ 0.6 // FIXEDGROVE: was 0.75, match console 30 FPS
 							SET_CAR_COORDINATES_NO_OFFSET shamal_C9 shamal_X_C9 shamal_Y_C9 shamal_Z_C9
 							
 							corona_Y_C9 = shamal_Y_C9 + 20.0 
@@ -441,12 +441,12 @@ mission_casino9_CUT_hijack_shamal:
 		
 		SHAKE_CAM 20
 
-		dodo_Y_C9 += 1.0 // PS2
-		//dodo_Y_C9 +=@ 0.6 // FIXEDGROVE: was 1.0, match console 30 FPS
+		//dodo_Y_C9 += 1.0 // PS2
+		dodo_Y_C9 +=@ 0.6 // FIXEDGROVE: was 1.0, match console 30 FPS
 		SET_CAR_COORDINATES dodo_C9 dodo_X_C9 dodo_Y_C9 dodo_Z_C9
 
-		shamal_Y_C9 += 1.0 // PS2
-		//shamal_Y_C9 +=@ 0.6 // FIXEDGROVE: was 1.0, match console 30 FPS
+		//shamal_Y_C9 += 1.0 // PS2
+		shamal_Y_C9 +=@ 0.6 // FIXEDGROVE: was 1.0, match console 30 FPS
 		SET_CAR_COORDINATES shamal_C9 shamal_X_C9 shamal_Y_C9 shamal_Z_C9
 
 		SWITCH cutscene_status_C9
