@@ -1066,8 +1066,8 @@ LVAR_FLOAT time_scale_C6
 	// first guy to jump through the fire
 	CREATE_CHAR PEDTYPE_MISSION2 VMAFF1 939.3190 2124.8882 1010.0312 mafia_C6[2] 
 	SET_CHAR_HEADING mafia_C6[2] 195.0
-	SET_CHAR_HEALTH mafia_C6[0] 200	
-	SET_CHAR_MAX_HEALTH mafia_C6[0] 200
+	SET_CHAR_HEALTH mafia_C6[2] 200	// FIXEDGROVE: char was index 0
+	SET_CHAR_MAX_HEALTH mafia_C6[2] 200 // FIXEDGROVE: char was index 0
 
 	ADD_BLIP_FOR_CHAR mafia_C6[2] mafia_blip_C6[2]
 	CHANGE_BLIP_DISPLAY mafia_blip_C6[2] BLIP_ONLY
@@ -1249,7 +1249,7 @@ LVAR_FLOAT time_scale_C6
 	WHILE TIMERA < 100
 		WAIT 0
 	ENDWHILE
-	DO_FADE 0 FADE_IN
+	DO_FADE 500 FADE_IN // FIXEDGROVE: was 0
 
 SKIP_CUTSCENE_START
 
@@ -1434,11 +1434,21 @@ LVAR_FLOAT camera_pos_dis_C6 camera_look_dis_C6
 
 	TIMERA = 0
 
-	WHILE TIMERA < 220
+	//WHILE TIMERA < 220
+	//WHILE NOT LOCATE_CHAR_ANY_MEANS_2D mafia_C6[3] 941.3373 2115.5608 2.0 2.0 TRUE
+	pointer_c6 = 0
+	WHILE pointer_c6 < 5 // FIXEDGROVE
 		
 		WAIT 0
 		
-		dis_thrown_C6 += mol_speed_C6
+		GET_SEQUENCE_PROGRESS mafia_C6[3] pointer_c6 // FIXEDGROVE
+
+		GET_CHAR_COORDINATES mafia_C6[3] x y z
+		USE_TEXT_COMMANDS TRUE
+		DISPLAY_TEXT_WITH_NUMBER 490.0 40.0 NUMBER pointer_c6
+		USE_TEXT_COMMANDS FALSE
+
+		dis_thrown_C6 +=@ mol_speed_C6 // FIXEDGROVE: added @
 		camera_pos_dis_C6 = dis_thrown_C6 + 1.5 
 		camera_look_dis_C6 = dis_thrown_C6 - 1.0
 		
@@ -1461,15 +1471,26 @@ LVAR_FLOAT camera_angle_C6
 	camera_angle_C6 = 61.0
 	GET_ACTIVE_CAMERA_COORDINATES x2_C6 y2_C6 z2_C6 
 
+/*
 	TIMERA = 0
 	WHILE TIMERA < 1000
 		WAIT 0
 	ENDWHILE
+*/
 		
-	TIMERA = 0
-	WHILE TIMERA < 700
+	//TIMERA = 0
+	//WHILE TIMERA < 700
+	//WHILE NOT LOCATE_CHAR_ANY_MEANS_2D mafia_C6[3] 941.9165 2110.4670 2.0 2.0 TRUE
+	WHILE pointer_c6 < 6 // FIXEDGROVE
 
 		WAIT 0
+
+		GET_SEQUENCE_PROGRESS mafia_C6[3] pointer_c6 // FIXEDGROVE
+
+		GET_CHAR_COORDINATES mafia_C6[3] x y z
+		USE_TEXT_COMMANDS TRUE
+		DISPLAY_TEXT_WITH_NUMBER 490.0 40.0 NUMBER pointer_c6
+		USE_TEXT_COMMANDS FALSE
 
 		COS camera_angle_C6 cos_angle_C6
 		SIN camera_angle_C6 sin_angle_C6
@@ -1483,10 +1504,12 @@ LVAR_FLOAT camera_angle_C6
 		camera_angle_C6 -= 0.25
 	ENDWHILE
 
+/*
 	TIMERA = 0
 	WHILE TIMERA < 1000
 		WAIT 0
 	ENDWHILE
+*/
 
 SKIP_CUTSCENE_END
 
