@@ -1484,6 +1484,14 @@ pl_stage_4:
 		 		rstk_x_f /= 128.0
 		 		rstk_y_f /= -128.0
 
+				// FIXEDGROVE: START - normalize input vector so diagonal movement isn't faster
+				GET_DISTANCE_BETWEEN_COORDS_2D 0.0 0.0 rstk_x_f rstk_y_f temp_float
+				IF temp_float > 1.0
+					rstk_x_f /= temp_float
+					rstk_y_f /= temp_float
+				ENDIF
+				// FIXEDGROVE: END
+
 				rstk_x_f *= 0.006 // FIXEDGROVE: was 0.01
 		 		rstk_y_f *= 0.006 // FIXEDGROVE: was 0.01
 				
