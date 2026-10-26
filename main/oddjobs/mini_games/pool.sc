@@ -38,7 +38,7 @@ CONST_FLOAT TEXT_CLAMP_WIDTH_3 115.0
 
 CONST_FLOAT TEXT_CLAMP_WIDTH_1_TWO_LINES 180.0
 			
-						
+
 
 // general variables that are in every mission - DON'T DECLARE MISSION SPECIFIC VARIABLES HERE
 LVAR_INT m_stage
@@ -658,8 +658,8 @@ pl_stage_1:
 		DISPLAY_RADAR FALSE
 		
 		// check the player has enough cash
-		STORE_SCORE player1 bj_players_cash
-		IF bj_players_cash < pool_min_bet
+		STORE_SCORE player1 pl_players_cash
+		IF pl_players_cash < pool_min_bet
 			quit = 1
 			CLEAR_PRINTS
 			SET_CAMERA_BEHIND_PLAYER
@@ -723,7 +723,7 @@ pl_stage_1:
 		pocket_y[5]	= pool_table_min_y
 
 		// set ball radius
-		pool_ball_radius = 0.037
+		pool_ball_radius = 0.038 // FIXEDGROVE: was '0.037'
 		pool_ball_diameter = pool_ball_radius * 2.0
 
 		// delete all balls
@@ -914,7 +914,7 @@ pl_stage_1:
 	    
 
 		GOSUB pool_draw_window_1			
-        STORE_SCORE player1 bj_players_cash
+        STORE_SCORE player1 pl_players_cash
 			
 
 		// ' X '  to increase bet
@@ -944,8 +944,8 @@ pl_stage_1:
 
 
 				// check betting step doesn't go over players cash
-				IF pl_bet_step > bj_players_cash
-					pl_bet_step = bj_players_cash
+				IF pl_bet_step > pl_players_cash
+					pl_bet_step = pl_players_cash
 				ENDIF
 
 				// check betting step won't push us over the maximum bet
@@ -1484,22 +1484,22 @@ pl_stage_4:
 		 		rstk_x_f /= 128.0
 		 		rstk_y_f /= -128.0
 
-				rstk_x_f *= 0.01
-		 		rstk_y_f *= 0.01
+				rstk_x_f *= 0.006 // FIXEDGROVE: was 0.01
+		 		rstk_y_f *= 0.006 // FIXEDGROVE: was 0.01
 				
 				GOSUB pl_update_camera_vector
 				
 				cam_nvec_x *= rstk_y_f
 				cam_nvec_y *= rstk_y_f
 
-		 		x += cam_nvec_x
-		 		y += cam_nvec_y
+				x +=@ cam_nvec_x // FIXEDGROVE: apply delta-time
+		 		y +=@ cam_nvec_y // FIXEDGROVE: apply delta-time
 
 				cam_rvec_x *= rstk_x_f
 				cam_rvec_y *= rstk_x_f
 
-				x += cam_rvec_x
-		 		y += cam_rvec_y
+				x +=@ cam_rvec_x // FIXEDGROVE: apply delta-time
+		 		y +=@ cam_rvec_y // FIXEDGROVE: apply delta-time
 								
 				
 				// check new position is safe
@@ -1787,25 +1787,12 @@ pl_stage_5:
 			// adjust cue balls heading
 			temp_float =# LStickX
 			temp_float /= 128.0
-			temp_float *= 1.0
-			heading += temp_float
+			temp_float *= 0.6 // FIXEDGROVE: was 1.0 
+			heading +=@ temp_float // FIXEDGROVE: apply delta-time
 			mouse_move_x *= -0.4
 			heading += mouse_move_x
 			SET_OBJECT_ROTATION p_ball[0] 0.0 0.0 0.0
 			SET_OBJECT_HEADING p_ball[0] heading
-		ENDIF
-
-		// set aim --------
-		IF IS_BUTTON_PRESSED current_pad LEFTSTICKX
-			GET_OBJECT_HEADING p_ball[0] heading 
-			GET_POSITION_OF_ANALOGUE_STICKS current_pad LStickX LStickY RStickX RStickY
-			// adjust cue balls heading
-			temp_float =# LStickX
-			temp_float /= 128.0 
-			temp_float *= 1.0 
-			heading += temp_float
-			SET_OBJECT_ROTATION p_ball[0] 0.0 0.0 0.0 
-			SET_OBJECT_HEADING p_ball[0] heading 
 		ENDIF
 
 
@@ -2344,9 +2331,10 @@ pool_update_shoot_animations:
 				// interpolate speed back to 1.0
 				temp_float = 1.0 - stance_anim_speed
 				temp_float /= 20.0
-				stance_anim_speed += temp_float	
+				temp_float *= 0.03 // FIXEDGROVE: scale for 30 FPS
+				stance_anim_speed +=@ temp_float // FIXEDGROVE: apply delta-time
 				IF stance_anim_speed < 0.8
-					stance_anim_speed += 0.01	
+					stance_anim_speed +=@ 0.006 // FIXEDGROVE: was 0.01, apply delta-time
 				ENDIF
 				IF stance_anim_speed < 1.2
 				AND stance_anim_speed > 0.8
@@ -2396,7 +2384,8 @@ pool_update_animation_buffer:
 				temp_float = -0.01
 			ENDIF		
 		ENDIF
-		current_anim_time += temp_float
+		temp_float *= 0.6 // FIXEDGROVE: scale for 30 FPS
+		current_anim_time +=@ temp_float // FIXEDGROVE: apply delta-time
 	ELSE
 		current_anim_time = requested_anim_time
 	ENDIF
@@ -2512,10 +2501,39 @@ pool_apply_shot:
 
 	IF current_char_is_human = 1
 		
-		// This is how it used to be computed, where the player pushed the mouse forward quickly.
-		
-		shot_power = requested_anim_time - current_anim_time
-		shot_power /= 0.1
+		IF IS_PC_USING_JOYPAD // FIXEDGROVE: original implementation is only used for joypads now
+
+			shot_power = requested_anim_time - current_anim_time
+			
+			// FIXEDGROVE: START - normalize the delta against a 30 FPS baseline
+			IF time_diff > 0
+				temp_float =# time_diff
+				temp_float *= 0.03
+				shot_power /= temp_float
+			ENDIF
+			// FIXEDGROVE: END
+			
+			shot_power /= 0.1
+
+		ELSE
+			// FIXEDGROVE: START - now use velocity for mouse input instead
+			IF time_diff > 0
+				temp_float =# time_diff
+				shot_power = mouse_move_y / temp_float
+				shot_power *= -1.0 // forward is negative
+			ENDIF
+			// FIXEDGROVE: END
+
+		ENDIF
+
+		// FIXEDGROVE: START: clamp to avoid quirkiness
+		IF shot_power > 4.0
+			shot_power = 4.0
+		ENDIF
+		IF shot_power < 0.3
+			shot_power = 0.3
+		ENDIF
+		// FIXEDGROVE: END
 
 		stance_anim_speed = shot_power * 2.0
 		IF stance_anim_speed < 0.6
@@ -3473,9 +3491,19 @@ pl_global_functions:
 							ELSE
 								
 								GET_OBJECT_VELOCITY p_ball[temp_int] x y z
-							x *= 0.9
-							y *= 0.9
-							z *= 0.9
+								// FIXEDGROVE: original code
+								//x *= 0.9
+								//y *= 0.9
+								//z *= 0.9
+
+								// FIXEDGROVE: apply delta-time
+								temp_float2 = x * 0.06 
+								x -=@ temp_float2
+								temp_float2 = y * 0.06
+								y -=@ temp_float2
+								temp_float2 = z * 0.06
+								z -=@ temp_float2
+							
 								SET_OBJECT_VELOCITY p_ball[temp_int] x y z
 
 								ball_is_stationary[temp_int] = 0
@@ -3507,8 +3535,15 @@ pl_global_functions:
 	ENDIF
 	
 	// decrease pool ball spin
-	cue_ball_spin_x *= 0.98
-	cue_ball_spin_y *= 0.98
+	// FIXEDGROVE: original code
+	//cue_ball_spin_x *= 0.98
+	//cue_ball_spin_y *= 0.98
+	
+	// FIXEDGROVE: apply delta-time
+	temp_float = cue_ball_spin_x * 0.012 
+	cue_ball_spin_x -=@ temp_float
+	temp_float = cue_ball_spin_y * 0.012
+	cue_ball_spin_y -=@ temp_float
 	
 
 	// any potted balls - delete		
@@ -3516,8 +3551,7 @@ pl_global_functions:
 	WHILE temp_int < 16
 		IF DOES_OBJECT_EXIST p_ball[temp_int]
 			GET_OBJECT_COORDINATES p_ball[temp_int]	x y z
-			temp_float2 = pool_ball_radius * 2.0
-			temp_float = ball_tri_z - temp_float2
+			temp_float = ball_tri_z - pool_ball_diameter
 			IF z < temp_float
 				IF ball_potted[temp_int] = 0 
 					
@@ -5000,7 +5034,7 @@ find_best_shot:
 					OR turn_colour = POOL_COLOUR_NONE
 
 						// special case for when no colour is assigned (ie. off the break)
-						IF turn_colour = POOL_COLOUR_SPOTS
+						IF turn_colour = POOL_COLOUR_NONE // FIXEDGROVE: was 'POOL_COLOUR_SPOTS'
 						AND this_ball_colour = POOL_COLOUR_BLACK
 							// do nothing
 						ELSE
@@ -5027,7 +5061,7 @@ find_best_shot:
 										GET_DISTANCE_BETWEEN_COORDS_2D see_x_right see_y_right see_x_left see_y_left  temp_float
 										x /= temp_float
 										y /= temp_float
-										temp_float = pool_ball_radius * 2.0
+										temp_float = pool_ball_diameter
 										temp_float *= 0.8
 										temp_float	*= 2.0
 										GENERATE_RANDOM_FLOAT_IN_RANGE 0.0 temp_float temp_float2
@@ -5763,9 +5797,8 @@ is_ball_pottable_into_pocket:
 	angle_vec2_y = angle_vec1_y / temp_float
 	angle_vec2_x *= -1.0 
 	angle_vec2_y *= -1.0
-	temp_float = pool_ball_radius * 2.0
-	angle_vec2_x *= temp_float	
-	angle_vec2_y *= temp_float
+	angle_vec2_x *= pool_ball_diameter
+	angle_vec2_y *= pool_ball_diameter
 	angle_x1 += angle_vec2_x // changes angle_x1 to the required contact point
 	angle_y1 += angle_vec2_y
 
@@ -5827,8 +5860,7 @@ can_we_see_ball:
 		see_vec_y2 = see_vec_x1 * -1.0
 
 		// 3. get point we want to aim at (right hand side of ball - 80% of ball diameter to make sure we definately hit)
-		temp_float = pool_ball_radius * 2.0
-		temp_float *= 0.80
+		temp_float = pool_ball_diameter * 0.80
 		temp_float2 = see_vec_x2 * temp_float
 		see_x_right = see_x1 + temp_float2
 		temp_float2 = see_vec_y2 * temp_float
@@ -5844,8 +5876,7 @@ can_we_see_ball:
 		ENDIF
 
 		// TEST LEFT SIDE
-		temp_float = pool_ball_radius * 2.0
-		temp_float *= -0.80
+		temp_float = pool_ball_diameter * -0.80
 		temp_float2 = see_vec_x2 * temp_float
 		see_x_left = see_x1 + temp_float2
 		temp_float2 = see_vec_y2 * temp_float
@@ -5982,15 +6013,14 @@ LVAR_FLOAT ball_tri_x ball_tri_y ball_tri_z ball_tri_h
 // workings
 LVAR_FLOAT ball_radius_neg 
 LVAR_FLOAT ball_radius_spacer ball_radius_spacer_neg 
-LVAR_FLOAT ball_diameter	ball_diameter_neg
+LVAR_FLOAT ball_diameter_neg
 LVAR_INT triangle_int
 update_ball_triangle_position:
 
-	ball_diameter = pool_ball_radius * 2.0
 	ball_radius_neg = pool_ball_radius * -1.0
-	ball_diameter_neg = ball_diameter * -1.0
+	ball_diameter_neg = pool_ball_diameter * -1.0
 
-	temp_float = ball_diameter * ball_diameter 
+	temp_float = pool_ball_diameter * pool_ball_diameter 
 	temp_float2 = pool_ball_radius * pool_ball_radius
 	
 	ball_radius_spacer = temp_float - temp_float2
@@ -5999,7 +6029,7 @@ update_ball_triangle_position:
 	
 
 	triangle_int = 1
-	WHILE triangle_int < 15
+	WHILE triangle_int < 16 // FIXEDGROVE: was '15'
 		FREEZE_OBJECT_POSITION p_ball[triangle_int] FALSE
 	triangle_int++
 	ENDWHILE
@@ -6011,46 +6041,46 @@ update_ball_triangle_position:
 	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[1] ball_radius_neg ball_radius_spacer_neg 0.0  x y z
 	SET_OBJECT_COORDINATES p_ball[9] x y z
 	SET_OBJECT_HEADING p_ball[9] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[9] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[9] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[3] x y z 
 	SET_OBJECT_HEADING p_ball[3] ball_tri_h
 	// 3rd row
 	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[9] ball_radius_neg ball_radius_spacer_neg 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[7] x y z 
 	SET_OBJECT_HEADING p_ball[7] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[7] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[7] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[8] x y z
 	SET_OBJECT_HEADING p_ball[8] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[8] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[8] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[10] x y z
 	SET_OBJECT_HEADING p_ball[10] ball_tri_h
 	// 4th row
 	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[7] ball_radius_neg ball_radius_spacer_neg 0.0  x y z
 	SET_OBJECT_COORDINATES p_ball[11] x y z
 	SET_OBJECT_HEADING p_ball[11] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[11] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[11] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[2] x y z
 	SET_OBJECT_HEADING p_ball[2] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[2] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[2] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[15] x y z 
 	SET_OBJECT_HEADING p_ball[15] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[15] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[15] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[5] x y z
 	SET_OBJECT_HEADING p_ball[5] ball_tri_h
 	// 5th row
 	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[11] ball_radius_neg ball_radius_spacer_neg 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[6] x y z 
 	SET_OBJECT_HEADING p_ball[6] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[6] ball_diameter 0.0 0.0  x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[6] pool_ball_diameter 0.0 0.0  x y z
 	SET_OBJECT_COORDINATES p_ball[12] x y z 
 	SET_OBJECT_HEADING p_ball[12] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[12] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[12] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[13] x y z 
 	SET_OBJECT_HEADING p_ball[13] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[13] ball_diameter 0.0 0.0 x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[13] pool_ball_diameter 0.0 0.0 x y z
 	SET_OBJECT_COORDINATES p_ball[4] x y z 
 	SET_OBJECT_HEADING p_ball[4] ball_tri_h
-	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[4] ball_diameter 0.0 0.0  x y z
+	GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS p_ball[4] pool_ball_diameter 0.0 0.0  x y z
 	SET_OBJECT_COORDINATES p_ball[14] x y z 	
 	SET_OBJECT_HEADING p_ball[14] ball_tri_h
 
@@ -6295,10 +6325,11 @@ draw_ball_and_nib:
 		y =# LStickY
 		x /= 128.0
 		y /= 128.0
-		x *= 5.0
-		y *= 5.0
+		x *= 3.0 // FIXEDGROVE: was 5.0
+		y *= 3.0 // FIXEDGROVE: was 5.0
 
-		temp_float = nib_sprite_x + x												   
+		temp_float = nib_sprite_x												   
+		temp_float +=@ x // FIXEDGROVE: apply delta-time
 		temp_float3 = ball_sprite_width / 2.0										   
 		temp_float2 = ball_sprite_x + temp_float3
 		IF temp_float < temp_float2
@@ -6308,7 +6339,8 @@ draw_ball_and_nib:
 			ENDIF 
 		ENDIF
 
-		temp_float = nib_sprite_y + y
+		temp_float = nib_sprite_y
+		temp_float +=@ y // FIXEDGROVE: apply delta-time
 		temp_float3 = ball_sprite_height / 2.0
 		temp_float2 = ball_sprite_y + temp_float3
 		IF temp_float < temp_float2
@@ -6348,13 +6380,11 @@ RETURN
 LVAR_FLOAT safe_x safe_y
 LVAR_INT safe_int 
 LVAR_FLOAT safe_float
-LVAR_FLOAT safe_distance
+//LVAR_FLOAT safe_distance
 LVAR_FLOAT safe_vec_x safe_vec_y
 check_position_is_safe:
 
 	// check distance between safe coords and all the balls
-
-	safe_distance = pool_ball_radius * 2.0
 
 	safe_int = 1
 	WHILE safe_int < 16
@@ -6362,13 +6392,13 @@ check_position_is_safe:
 		IF DOES_OBJECT_EXIST p_ball[safe_int]
 			GET_OBJECT_COORDINATES p_ball[safe_int] x y z 
 			GET_DISTANCE_BETWEEN_COORDS_2D x y safe_x safe_y safe_float
-			IF safe_float < safe_distance
+			IF safe_float < pool_ball_diameter
 				safe_vec_x = safe_x	- x
 				safe_vec_y = safe_y	- y
 				safe_vec_x /= safe_float
 				safe_vec_y /= safe_float
-				safe_vec_x *= safe_distance
-				safe_vec_y *= safe_distance
+				safe_vec_x *= pool_ball_diameter
+				safe_vec_y *= pool_ball_diameter
 				safe_x = x + safe_vec_x
 				safe_y = y + safe_vec_y
 			ENDIF
@@ -7235,8 +7265,15 @@ mission_cleanup_POOL2:
 	
 	IF IS_PLAYER_PLAYING player1
 		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-		SET_CHAR_COLLISION scplayer TRUE
+		OPEN_SEQUENCE_TASK temp_seq
+			TASK_STAND_STILL -1 1
+			TASK_PAUSE -1 1
+		CLOSE_SEQUENCE_TASK temp_seq
+		PERFORM_SEQUENCE_TASK scplayer temp_seq
+		CLEAR_SEQUENCE_TASK temp_seq
 	ENDIF
+
+	SET_CHAR_COLLISION scplayer TRUE // FIXEDGROVE: moved from above check
 
 	// === RESTORE ENVIRONMENT SETTINGS ===
 	SET_PED_DENSITY_MULTIPLIER 1.0
@@ -7247,16 +7284,6 @@ mission_cleanup_POOL2:
 	CLEAR_HELP
 
 	flag_player_on_mission = 0
-	
-	IF IS_PLAYER_PLAYING player1
-		CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-		OPEN_SEQUENCE_TASK temp_seq
-			TASK_STAND_STILL -1 1
-			TASK_PAUSE -1 1
-		CLOSE_SEQUENCE_TASK temp_seq
-		PERFORM_SEQUENCE_TASK scplayer temp_seq
-		CLEAR_SEQUENCE_TASK temp_seq
-	ENDIF
 
 	MISSION_HAS_FINISHED
 RETURN
