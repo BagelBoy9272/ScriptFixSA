@@ -1076,22 +1076,6 @@ LVAR_FLOAT time_scale_C6
 	SET_CURRENT_CHAR_WEAPON mafia_C6[2] weapon_type_C6
 	mafia_status_C6[2] = 0
 
-	OPEN_SEQUENCE_TASK sequence_C6
-		
-		TASK_SET_CHAR_DECISION_MAKER -1 empty_dm_C6
-		TASK_TOGGLE_DUCK -1 FALSE 
-		TASK_STAND_STILL -1 800
-		TASK_STAY_IN_SAME_PLACE -1 FALSE
-		TASK_GO_STRAIGHT_TO_COORD -1 940.5833 2116.1689 1010.0312 PEDMOVE_RUN -1
-		TASK_JUMP -1 TRUE
-		TASK_KILL_CHAR_ON_FOOT -1 rosenberg_C6
-		TASK_SET_CHAR_DECISION_MAKER -1 attack_dm_C6
-
-	CLOSE_SEQUENCE_TASK sequence_C6	
-	
-	PERFORM_SEQUENCE_TASK mafia_C6[2] sequence_C6
-	CLEAR_SEQUENCE_TASK sequence_C6
-
 	// second guy to jump through the fire
 	CREATE_CHAR PEDTYPE_MISSION2 VMAFF2 937.8190 2137.4871 1010.0303 mafia_C6[3] 
 	SET_CHAR_HEADING mafia_C6[3] 188.0
@@ -1118,6 +1102,7 @@ LVAR_FLOAT time_scale_C6
 
 	CLOSE_SEQUENCE_TASK sequence_C6	
 	
+	PERFORM_SEQUENCE_TASK mafia_C6[2] sequence_C6
 	PERFORM_SEQUENCE_TASK mafia_C6[3] sequence_C6
 	CLEAR_SEQUENCE_TASK sequence_C6	
 
@@ -1253,23 +1238,13 @@ LVAR_FLOAT time_scale_C6
 
 SKIP_CUTSCENE_START
 
-/*
-	mol_speed_C6 = 0.5 * time_scale_C6
-	mol_acc_C6 = -0.0002 * time_scale_C6
-	dis_thrown_C6 = 0.8 * time_scale_C6
 
-	mol_speed_Z_C6 = 0.3 * time_scale_C6	
-	mol_acc_Z_C6 = -0.03 * time_scale_C6
-	mol_acc_Z_C6 *= time_scale_C6
-	dis_thrown_Z_C6 = 0.0
-*/
+	mol_speed_C6 = 0.25 * time_scale_C6 // PS2: 0.5
+	mol_acc_C6 = -0.0001 * time_scale_C6 // PS2: -0.0002
+	dis_thrown_C6 = 0.4 * time_scale_C6 // PS2: 0.8
 
-	mol_speed_C6 = 0.25 * time_scale_C6
-	mol_acc_C6 = -0.0001 * time_scale_C6
-	dis_thrown_C6 = 0.4 * time_scale_C6
-
-	mol_speed_Z_C6 = 0.2 * time_scale_C6	
-	mol_acc_Z_C6 = -0.05 * time_scale_C6
+	mol_speed_Z_C6 = 0.2 * time_scale_C6 // PS2: 0.3
+	mol_acc_Z_C6 = -0.05 * time_scale_C6 // PS2: -0.03
 	mol_acc_Z_C6 *= time_scale_C6
 	dis_thrown_Z_C6 = 0.0
 
