@@ -49,7 +49,7 @@ IF flag = 1
 	CREATE_OBJECT_NO_OFFSET CJ_Wheel_1 x y z reel[0]
 ENDIF
 
-// FIXEDGROVE: START - enable the attractor and request anim instantly so the attractor works correctly
+// FIXEDGROVE: START - enable the attractor and request anim instantly so it works correctly
 IF DOES_OBJECT_EXIST slot_machine
 	ENABLE_DISABLED_ATTRACTORS_ON_OBJECT slot_machine TRUE
 	REQUEST_ANIMATION casino
@@ -58,11 +58,18 @@ ENDIF
 
 
 slot_machine_loop:
-	WAIT 0
+	//WAIT 0 // FIXEDGROVE: moved to the end so we request the casino anim again on the first frame
 
 	GET_GAME_TIMER game_timer
 
     IF DOES_OBJECT_EXIST slot_machine
+
+		// FIXEDGROVE: START - request the anim again to avoid peds staring blankly at the attractor
+		IF flag < 1
+			REQUEST_ANIMATION casino
+		ENDIF
+		// FIXEDGROVE: END
+
 		if IS_OBJECT_WITHIN_BRAIN_ACTIVATION_RANGE slot_machine
 			IF IS_PLAYER_PLAYING player1
 			  
@@ -71,7 +78,6 @@ slot_machine_loop:
 				CASE 0
 					LVAR_INT slot_machine_model
 					GET_OBJECT_MODEL slot_machine slot_machine_model
-					REQUEST_ANIMATION casino // FIXEDGROVE: request the anim here too
 					if HAS_MODEL_LOADED slot_machine_model
 					AND HAS_ANIMATION_LOADED casino // FIXEDGROVE
 						GET_OBJECT_HEADING slot_machine	heading
@@ -367,6 +373,8 @@ slot_machine_loop:
 	ELSE
 		goto do_slot_machine_cleanup
 	ENDIF
+
+	WAIT 0 // FIXEDGROVE: moved to the end so we request the casino anim again on the first frame
 
 GOTO slot_machine_loop
 
