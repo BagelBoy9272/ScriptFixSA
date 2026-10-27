@@ -525,6 +525,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed street food not counting towards 'food budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
 - Fixed pool physics and input handling to be independent of framerate
+- Fixed inverted mouse shooting controls in pool
 - Fixed upper bound on a random number generator in the dance minigame, bringing back an unintentionally unused partner model
 - Fixed a memory leak related to crack dealers, which could manifest as their customer not despawning if killed
 - Fixed typo in the license plate of Cesar's car
@@ -555,6 +556,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Moved an armour pickup in Area 69 closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
 - Disabled enter car button while a Grove member is taking a picture of you
+- Now you can use the mouse to position the cue ball in pool
+- Tweaked controller sensitivity when moving the cue stick in pool: top-down view has it increased for faster positioning and close view sits between PS2 and Xbox values for precision
+- Removed extremely small mouse deadzone in pool
 - Improved Forbidden Area switches
 - Added population properties to a lot of previously missing zones
 - Tweaked demographics of a few exising zones, now you can spot the hispanic drug dealer in East Los Santos and Las Colinas, and the biker drug dealer in SF

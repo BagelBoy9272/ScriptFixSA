@@ -1466,14 +1466,18 @@ pl_stage_4:
 
 			GET_OBJECT_COORDINATES p_ball[0] x y z
 
-			temp_int = 0
+			GET_PC_MOUSE_MOVEMENT mouse_move_x mouse_move_y // FIXEDGROVE
+
+			// FIXEDGROVE: START - keep the same controls if camera is inverted
+			IF IS_MOUSE_USING_VERTICAL_INVERSION
+				mouse_move_y *= -1.0
+			ENDIF
+			// FIXEDGROVE: END
 
 			IF IS_BUTTON_PRESSED current_pad LEFTSTICKX
 			OR IS_BUTTON_PRESSED current_pad LEFTSTICKY
-				temp_int = 1
-			ENDIF
-
-			IF temp_int = 1
+			OR NOT mouse_move_x = 0.0 // FIXEDGROVE
+			OR NOT mouse_move_y = 0.0 // FIXEDGROVE
 
 				LVAR_FLOAT rstk_y_f rstk_x_f
 
@@ -1496,6 +1500,27 @@ pl_stage_4:
 		 		rstk_y_f *= 0.006 // FIXEDGROVE: was 0.01
 				
 				GOSUB pl_update_camera_vector
+
+				// FIXEDGROVE: START - mouse placement
+				mouse_move_x *= 0.0024 // sensitivity
+				mouse_move_y *= 0.0024
+
+				temp_float = cam_nvec_x
+            	temp_float *= mouse_move_y
+            	x -= temp_float
+	
+            	temp_float = cam_nvec_y
+            	temp_float *= mouse_move_y
+            	y -= temp_float
+
+            	temp_float = cam_rvec_x
+            	temp_float *= mouse_move_x
+            	x += temp_float
+	
+            	temp_float = cam_rvec_y
+            	temp_float *= mouse_move_x
+            	y += temp_float
+				// FIXEDGROVE: END
 				
 				cam_nvec_x *= rstk_y_f
 				cam_nvec_y *= rstk_y_f
@@ -1787,15 +1812,19 @@ pl_stage_5:
 		// set aim --------
 		GET_PC_MOUSE_MOVEMENT mouse_move_x mouse_move_y
 		IF IS_BUTTON_PRESSED current_pad LEFTSTICKX
-		OR mouse_move_x > 0.01
-		OR mouse_move_x < -0.01
+		OR NOT mouse_move_x = 0.0 // FIXEDGROVE: do precise check instead of '0.01' deadzone
 
 			GET_OBJECT_HEADING p_ball[0] heading
 			GET_POSITION_OF_ANALOGUE_STICKS current_pad LStickX LStickY RStickX RStickY
 			// adjust cue balls heading
 			temp_float =# LStickX
 			temp_float /= 128.0
-			temp_float *= 0.6 // FIXEDGROVE: was 1.0 
+			// FIXEDGROVE: START - increase sensitivity in top-down view
+			IF camera_mode = 0
+				temp_float *= 1.5
+			ENDIF
+			// FIXEDGROVE: END
+			// temp_float *= 2.0 // FIXEDGROVE: original PS2 multiplier, removed in Xbox
 			heading +=@ temp_float // FIXEDGROVE: apply delta-time
 			mouse_move_x *= -0.4
 			heading += mouse_move_x
@@ -2069,6 +2098,12 @@ pl_stage_7:
 
 						GET_PC_MOUSE_MOVEMENT mouse_move_x mouse_move_y
 						
+						// FIXEDGROVE: START - keep the same controls if camera is inverted
+						IF IS_MOUSE_USING_VERTICAL_INVERSION
+							mouse_move_y *= -1.0
+						ENDIF
+						// FIXEDGROVE: END
+
 						mouse_y += mouse_move_y
 						
 						IF mouse_y > 128.0
@@ -2528,7 +2563,7 @@ pool_apply_shot:
 			IF time_diff > 0
 				temp_float =# time_diff
 				shot_power = mouse_move_y / temp_float
-				shot_power *= -1.0 // forward is negative
+				shot_power *= -0.52 // forward is negative
 			ENDIF
 			// FIXEDGROVE: END
 
