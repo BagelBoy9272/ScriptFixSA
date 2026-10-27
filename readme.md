@@ -524,8 +524,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed 'The Big Spread Ranch' private dance not counting towards 'strip club budget' stat
 - Fixed street food not counting towards 'food budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
-- Fixed pool physics and input handling to be independent of framerate
 - Fixed inverted mouse shooting controls in pool
+- Fixed pool physics and input handling to be independent of framerate
+- Fixed dance and lowrider minigame hit flash fading to be independent of framerate
 - Fixed upper bound on a random number generator in the dance minigame, bringing back an unintentionally unused partner model
 - Fixed a memory leak related to crack dealers, which could manifest as their customer not despawning if killed
 - Fixed typo in the license plate of Cesar's car

@@ -25,7 +25,7 @@ CONST_INT SPRITE_CRING				17
 CONST_INT SPRITE_CHIT				18
 
 //--- Rendering Hit FX	
-CONST_INT DB_HIT_DURATION			160 //(in milliseconds)
+CONST_INT DB_HIT_DURATION			333 //(in milliseconds) // FIXEDGROVE: was '160'
 CONST_INT DB_HIT_STEP_MULTI_FAST 	8
 CONST_INT DB_HIT_STEP_MULTI_SLOW 	4
 
@@ -443,17 +443,24 @@ SWITCH iHit_Rendering
 		ELSE
 			SET_SPRITES_DRAW_BEFORE_FADE TRUE
 			DRAW_SPRITE SPRITE_CHIT x y fHitFX_sprite_width fHitFX_sprite_height 128 128 128 iFXCurrentAlpha
+			TIMERB = 0 // FIXEDGROVE: use timer to measure fade duration cleanly
 			++iHit_Rendering
 		ENDIF
 	BREAK
 
 	CASE 3
-		//--- compute alpha
-		iTemp = iFXDesiredAlpha / time_elapsed 
-		iTemp *= DB_HIT_STEP_MULTI_SLOW
-		//--- Fade out
-		iFXCurrentAlpha -= iTemp
-		IF iFXCurrentAlpha <= 0
+		// FIXEDGROVE: fade was 333ms at 30 FPS. Interpolate to untie from FPS
+		IF TIMERB < DB_HIT_DURATION // FIXEDGROVE
+			//--- compute alpha
+//			iTemp = iFXDesiredAlpha / time_elapsed // FIXEDGROVE: original code commented out
+//			iTemp *= DB_HIT_STEP_MULTI_SLOW
+			iTemp = DB_HIT_DURATION - TIMERB
+			iTemp *= iFXDesiredAlpha
+			//--- Fade out
+//			iFXCurrentAlpha -= iTemp
+			iFXCurrentAlpha = iTemp / DB_HIT_DURATION
+		ELSE
+//		IF iFXCurrentAlpha <= 0
 			iFXCurrentAlpha = 0
 			//--- FX finished
 			iHit_Rendering = 0
