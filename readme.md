@@ -154,11 +154,12 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Restored objective text when you get out of the car
 - Tweaked order of widescreen commands so they aren't set during a fadeout, only after one
 
-**Just Bussiness:**
+**Just Business:**
 - Added facial talk anim to voicelines
 - Restored a possibly unintentionally unused line
 - Made difficulty flag global
 - Made 'manual aim' help box only show up if using a controller
+- Scripted Uzi is only given if you don't have already have a weapon in the same slot
 
 **Doberman:**
 - Guy at end would have random voice lines
@@ -191,6 +192,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added facial talk anim to Grove members outside the motel
 - Added back missing subititles for swat lines
 - Added "fake" wanted level after reaching the motel
+- Scripted shotgun is only given if you don't already have a weapon in the same slot
 - Fixed code for healing the player setting his health to 100 even if he had more 
 - Disabled collision for Grove member that falls from the railling, and made him silent 
 - Slightly adjusted dead Grove member position to avoid clipping and make sense contextually 
@@ -209,6 +211,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Opened front passenger seat of Sweet's car in the final cutscene
 - Fixed jarring time shift in the ending cutscene caused by the script setting the time to 7:00 AM 
 - Fixed characters not using their intended animation groups 
+- Fixed "stealing" of player's rifle
 - Tidied up code to accomodate new changes under the size limit
 
 **Green Sabre:**
@@ -371,6 +374,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Freefall:**
 - Fixed flawed delta-time scaling introduced in the PC port for plane physics, restores console parity
 - Fixed controller specific cover controls help box version being shown even on KBM
+- Fixed "stealing" of player's handgun
 
 **Saint Mark's Bistro:**
 - Added facial talk anim to voicelines
@@ -428,6 +432,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **End Of The Line:**
 - Fixed swat member being spawned out of bounds due to a typo
 - Changed Tenpenny's shotgun to a SPAS-12 to match the cutscene
+- Scripted Uzi is only given if you don't already have a weapon in the same slot
 - Disabled mod garages to prevent issues
 
 **GFs:**

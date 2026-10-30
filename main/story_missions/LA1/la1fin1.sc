@@ -43,6 +43,7 @@ LVAR_INT extmotel_DM //decision maker stuff
 LVAR_INT helispotlight_f1
 LVAR_INT swatrope_f1status[4] // FIXEDGROVE: changed individual variables into an array
 LVAR_INT playerweapon_f1
+LVAR_INT playerammo_f1 player_weaponmodel_f1 // FIXEDGROVE
 
 //inside motel
 LVAR_INT motel_interior //for get_visible_area command
@@ -393,84 +394,7 @@ ENDWHILE
 SET_SCRIPT_LIMIT_TO_GANG_SIZE 0
 // ************************************************setting variables**************************************
 
-/* // FIXEDGROVE: START - comment out because they're already set to 0
-//flags for interior section
-moteldeal_f1flag = 0
-missiongo_f1flag = 0
-playerincar_f1flag = 0
-extvan1driver_f1flag = 0
-extvan2driver_f1flag = 0
-breach_f1flag = 0
-swatrope_f1flag[0] = 0
-swatrope_f1flag[1] = 0
-swatrope_f1flag[2] = 0
-swatrope_f1flag[3] = 0
-skipcutscene_f1flag = 0
-extpoliceheli_f1flag = 0
-extpolicevan1_f1flag = 0
-extpolicevan2_f1flag = 0
-insidemotel_f1flag = 0
-motelentrance_f1flag = 0
-firstcorridor_f1flag = 0
-woundedgrove1_f1flag = 0
-grove1_f1flag = 0
-grovecorner_f1flag = 0
-swatcorner_f1flag = 0
-coordshoot_f1flag = 0	//sequence flag
-grove4_f1flag = 0
-	// FIXEDGROVE: while-loop to avoid repeats
-	l1f1_count = 0
-	WHILE l1f1_count < 8
-	swat_f1flag[l1f1_count] = 0
-	l1f1_count++
-	ENDWHILE
-sweet_f1flag = 0
-sweetexit_f1flag = 0
-roofmotel_f1flag = 0
-swatwindosmash_f1flag = 0
-hoochie1_f1flag = 0
-skiphelicutscene_f1flag = 0
-helicrash_f1flag = 0
-talkincar_f1flag = 0
-progressaudio_f1flag = 0
-handlingaudio_f1flag = 0
-hoochie2_f1flag = 0
-missionaudio2_f1flag = 0
-audiosweet_f1flag = 0
-attachaudio_f1flag = 0
-speaker_f1 = 0
 
-//flags for rails chase
-rails_f1flag = 0
-motelchase_f1flag = 0
-copcars_f1flag = 0
-	// FIXEDGROVE: while-loop to avoid repeats
-	l1f1_count = 0
-	WHILE l1f1_count < 8
-	policecar_f1flag[l1f1_count] = 0
-	policecarswap_f1flag[l1f1_count] = 0
-	l1f1_count++
-	ENDWHILE
-sca_f1flag = 0
-policecarblock_f1flag = 0
-bikerjumper4_f1flag = 0
-bikerjumper3_f1flag = 0
-playdeathanim_f1flag = 0
-playdeathanim2_f1flag = 0
-helileave_f1flag = 0
-chasetext_f1flag = 0
-copright_f1flag = 0
-copleft_f1flag = 0
-turncamera_f1flag = 0
-fence_f1flag = 0
-helisetpiece_f1flag = 0
-textrails_f1flag = 0
-actiontext_f1flag = 0
-policecarexplode_f1flag = 0
-breakposter_f1flag = 0
-finalcut_f1flag = 0
-helpshoottext_f1flag = 0
-*/ // FIXEDGROVE: END
 // *******************************************************************************************************
 
 LOAD_CHAR_DECISION_MAKER DM_PED_MISSION_EMPTY motel_DM
@@ -1348,7 +1272,7 @@ IF moteldeal_f1flag = 16
 				POINT_CAMERA_AT_POINT 2222.3159 -1165.8301 25.9562 JUMP_CUT
 				SET_CHAR_COORDINATES scplayer 2226.1436 -1149.9968 24.8496 
 				SET_CHAR_HEADING scplayer 102.7208
-				GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_SHOTGUN 60
+				GOSUB l1f1_give_shotgun // FIXEDGROVE: don't overwrite player's shotgun
 
 				TIMERA = 0
 				moteldeal_f1flag = 17
@@ -1896,7 +1820,7 @@ IF moteldeal_f1flag = 23
 			RESTORE_CAMERA_JUMPCUT
 			SWITCH_WIDESCREEN OFF
 			SET_CAMERA_BEHIND_PLAYER
-			GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_SHOTGUN 60
+			GOSUB l1f1_give_shotgun // FIXEDGROVE: don't overwrite player's shotgun
 			SET_CHAR_HEADING scplayer 192.0
 			SET_PLAYER_CONTROL PLAYER1 ON
 			DO_FADE 1500 FADE_IN
@@ -4914,6 +4838,7 @@ IF rails_f1flag = 12
 		IF LOCATE_CHAR_ANY_MEANS_2D scplayer 2178.9871 -1140.6434 1.3 1.3 FALSE
 		OR TIMERB > 2250 //2500
 			WARP_CHAR_FROM_CAR_TO_COORD scplayer 2178.7998 -1161.1873 10.0
+			GET_CHAR_WEAPON_IN_SLOT scplayer 6 playerweapon_f1 playerammo_f1 player_weaponmodel_f1 // FIXEDGROVE: store player's weapon
 			ATTACH_CHAR_TO_CAR scplayer sweet_car 0.0 -0.5 0.8 FACING_BACK 360.0 WEAPONTYPE_AK47
 			SET_HEADING_FOR_ATTACHED_PLAYER PLAYER1 90.0 180.0 
 			RESTORE_CAMERA
@@ -7783,6 +7708,22 @@ ENDIF
 
 GOTO moteldeal_mainloop
 
+// FIXEDGROVE: START - don't overwrite player's shotgun
+l1f1_give_shotgun:
+	GET_CHAR_WEAPON_IN_SLOT scplayer 4 temp_integer_1 temp_integer_2 temp_integer_3
+	IF temp_integer_1 = WEAPONTYPE_UNARMED
+		GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_SHOTGUN 60
+	ELSE
+		IF temp_integer_2 < 60
+			temp_integer_2 -= 60
+			temp_integer_2 *= -1
+			ADD_AMMO_TO_CHAR scplayer temp_integer_1 temp_integer_2
+		ENDIF
+		SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1
+	ENDIF
+RETURN
+// FIXEDGROVE: END
+
 // FIXEDGROVE: START - replaced duplicate code with functions
 l1f1_outside_heli_setup:
 LOCK_CAR_DOORS extpoliceheli_f1 CARLOCK_LOCKED
@@ -8366,6 +8307,16 @@ DELETE_CAR extpoliceheli_f1
 
 SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE // FIXEDGROVE: changed from SHUT_CHAR_UP
 STOP_CHAR_FACIAL_TALK scplayer // FIXEDGROVE: added for edge cases
+
+// FIXEDGROVE: START - restore player's weapon
+IF NOT playerammo_f1 = 0
+	REQUEST_MODEL player_weaponmodel_f1
+	LOAD_ALL_MODELS_NOW
+	GIVE_WEAPON_TO_CHAR scplayer playerweapon_f1 playerammo_f1
+	SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
+	MARK_MODEL_AS_NO_LONGER_NEEDED playerammo_f1
+ENDIF
+// FIXEDGROVE: END
 
 //detach bad guys
 IF NOT IS_CHAR_DEAD bikerjumper3_f1

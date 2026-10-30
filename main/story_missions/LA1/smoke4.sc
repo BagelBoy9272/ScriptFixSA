@@ -187,6 +187,8 @@ LVAR_INT packercar1_s4
 
 VAR_INT bikehealth_s4
 
+LVAR_INT ammo_s4 // FIXEDGROVE
+
 //blips
 LVAR_INT packer_s4blip
 LVAR_INT car1_s4blip
@@ -1512,7 +1514,20 @@ IF shootout_s4flag = 0
 					CLEAR_PRINTS
 				ENDIF
 
-				GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 120
+				//GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 120 // FIXEDGROVE: commented
+				// FIXEDGROVE: START - don't overwrite player's weapon
+				GET_CHAR_WEAPON_IN_SLOT scplayer 5 temp_integer_1 temp_integer_2 temp_integer_3
+				IF temp_integer_1 = WEAPONTYPE_UNARMED
+					GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 120
+				ELSE
+					IF temp_integer_2 < 120
+						temp_integer_2 -= 120
+						temp_integer_2 *= -1
+						ADD_AMMO_TO_CHAR scplayer temp_integer_1 temp_integer_2
+					ENDIF
+					SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1
+				ENDIF
+				// FIXEDGROVE: END
 				RESTORE_CAMERA_JUMPCUT
 				SET_CAMERA_BEHIND_PLAYER
 				CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
@@ -2534,7 +2549,21 @@ IF getonbikecut_s4flag = 2
 			SET_CAR_PROOFS smokebike_s4 FALSE TRUE TRUE TRUE TRUE
 			SET_INTERPOLATION_PARAMETERS 0.0 3000
 			SET_CAN_BURST_CAR_TYRES smokebike_s4 FALSE
-			GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 99999
+			//GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 99999 // FIXEDGROVE: commented
+			// FIXEDGROVE: START - don't overwrite player's weapon
+			GET_CHAR_WEAPON_IN_SLOT scplayer 5 temp_integer_1 ammo_s4 temp_integer_2
+			IF temp_integer_1 = WEAPONTYPE_UNARMED
+				GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 99999
+			ELSE
+				IF temp_integer_2 < 120
+					temp_integer_2 = ammo_s4
+					temp_integer_2 -= 120
+					temp_integer_2 *= -1
+					ADD_AMMO_TO_CHAR scplayer temp_integer_1 temp_integer_2
+				ENDIF
+				SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1
+			ENDIF
+			// FIXEDGROVE: END
 			SET_CAR_HEALTH smokebike_s4 2000
 			SET_CAN_BURST_CAR_TYRES smokebike_s4 FALSE
 			TIMERA = 0
@@ -2837,7 +2866,8 @@ IF firstchase_s4flag = 0
 		IF TIMERA > 8500
 			IF NOT IS_CAR_DEAD smokebike_s4
 				IF NOT IS_CHAR_DEAD big_smoke
-					GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 99999
+					//GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 99999 // FIXEDGROVE: commented
+					ENSURE_PLAYER_HAS_DRIVE_BY_WEAPON player1 99999 // FIXEDGROVE: don't overwrite player's weapon
 					TASK_DRIVE_BY scplayer -1 -1 0.0 0.0 0.0 300.0 DRIVEBY_AI_ALL_DIRN TRUE 100
 					SET_HEADING_FOR_ATTACHED_PLAYER PLAYER1 95.5 200.0
 					RESTORE_CAMERA_JUMPCUT
@@ -6263,8 +6293,8 @@ IF jumpchase_s4flag = 2
 					CLEAR_MISSION_AUDIO 1
 					LOAD_MISSION_AUDIO 1 SOUND_SMO4_KD	//That was some shit back there.
 					SET_CHAR_CAN_BE_KNOCKED_OFF_BIKE scplayer KNOCKOFFBIKE_DEFAULT
-					REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_MICRO_UZI
-					GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 80
+					//REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_MICRO_UZI // FIXEDGROVE: commented, weapon is not replaced and original ammo is restored in cleanup
+					//GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 80 // FIXEDGROVE: commented
 					IF IS_CHAR_IN_ANY_CAR scplayer
 						TASK_LEAVE_ANY_CAR scplayer
 					ENDIF
@@ -6377,7 +6407,8 @@ IF jumpchase_s4flag = 2
 		//gate check
 		IF grate_s4flag = 1
 			IF HAS_OBJECT_OF_TYPE_BEEN_SMASHED 2631.852 -1482.75 18.109 10.0 storm_drain_cover 
-				IF HAS_OBJECT_BEEN_DAMAGED_BY_WEAPON grate_s4 WEAPONTYPE_MICRO_UZI
+				GET_CURRENT_CHAR_WEAPON scplayer temp_integer_1 // FIXEDGROVE
+				IF HAS_OBJECT_BEEN_DAMAGED_BY_WEAPON grate_s4 temp_integer_1 // FIXEDGROVE: check for player's weapon instead of uzi
 					CLEAR_PRINTS
 					grate_s4flag = 2
 				ELSE
@@ -7068,6 +7099,12 @@ IF NOT IS_CHAR_DEAD big_smoke
 ENDIF
 DETACH_CHAR_FROM_CAR scplayer
 SET_CHAR_PROOFS scplayer FALSE FALSE FALSE FALSE FALSE
+// FIXEDGROVE: START - restore original ammo
+IF NOT ammo_s4 = 0
+	GET_CHAR_WEAPON_IN_SLOT scplayer 5 temp_integer_1 temp_integer_2 temp_integer_2
+	SET_CHAR_AMMO scplayer temp_integer_1 ammo_s4
+ENDIF
+// FIXEDGROVE: END
 SWITCH_EMERGENCY_SERVICES ON
 GET_GAME_TIMER timer_mobile_start
 MISSION_HAS_FINISHED

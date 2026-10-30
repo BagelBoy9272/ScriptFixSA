@@ -55,7 +55,7 @@ LVAR_FLOAT dodo_X_C9 dodo_Y_C9 dodo_Z_C9
 LVAR_FLOAT corona_X_C9 corona_Y_C9 corona_Z_C9
 LVAR_FLOAT cam_pos_X_C9 cam_pos_Y_C9 cam_pos_Z_C9 cam_look_X_C9 cam_look_Y_C9 cam_look_Z_C9
 
-
+LVAR_INT weapontype_C9 ammo_C9 model_for_weapon_C9 // FIXEDGROVE
 
 // **************************************** Mission Start **********************************
 
@@ -863,8 +863,16 @@ mission_casino9_MAIN_inside_shamal_setup:
 	SET_OBJECT_DYNAMIC lean_box_C9 FALSE
 	SET_OBJECT_COLLISION lean_box_C9 FALSE
 	SET_OBJECT_VISIBLE lean_box_C9 FALSE
-		
-	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_BACK 85.0 WEAPONTYPE_PISTOL 
+
+	// FIXEDGROVE: START - store player's weapon
+	GET_CHAR_WEAPON_IN_SLOT scplayer 3 weapontype_C9 ammo_C9 model_for_weapon_C9
+	IF weapontype_C9 = WEAPONTYPE_UNARMED
+		weapontype_C9 = WEAPONTYPE_PISTOL
+		ammo_C9 = 50
+		model_for_weapon_C9 = COLT45
+	ENDIF
+	// FIXEDGROVE: END
+	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_BACK 85.0 weapontype_C9 // FIXEDGROVE: use player's handgun instead of pistol
 	SET_HEADING_FOR_ATTACHED_PLAYER player1 30.0 30.0
 	FREEZE_CHAR_POSITION scplayer TRUE
 	
@@ -1727,12 +1735,6 @@ mission_casino9_MAIN_pilot_entry:
  	CLEAR_PRINTS
 	CLEAR_HELP
 
-	REQUEST_MODEL WMYPLT
-
-	WHILE NOT HAS_MODEL_LOADED WMYPLT
-		WAIT 0
-	ENDWHILE
-
 	TIMERA = 0
 	WHILE TIMERA < 1000
 		WAIT 0
@@ -1743,7 +1745,17 @@ mission_casino9_MAIN_pilot_entry:
 		WAIT 0
 	ENDWHILE
 
+	// FIXEDGROVE: do requests after the fade
+	REQUEST_MODEL WMYPLT
+	REQUEST_MODEL weapontype_C9 // FIXEDGROVE
+
+	WHILE NOT HAS_MODEL_LOADED WMYPLT
+	OR NOT HAS_MODEL_LOADED weapontype_C9 // FIXEDGROVE
+		WAIT 0
+	ENDWHILE
+
 	DETACH_CHAR_FROM_CAR scplayer
+	GIVE_WEAPON_TO_CHAR scplayer weapontype_C9 ammo_C9 // FIXEDGROVE: arm player for the cutscene
 	SET_PLAYER_CONTROL player1 OFF
 	SWITCH_WIDESCREEN ON
 	FREEZE_CHAR_POSITION scplayer FALSE
@@ -1802,7 +1814,15 @@ mission_casino9_MAIN_pilot_entry:
 	
 	TASK_TOGGLE_DUCK scplayer FALSE
 	CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_FORWARD 85.0 WEAPONTYPE_PISTOL 
+	// FIXEDGROVE: START - store player's weapon
+	GET_CHAR_WEAPON_IN_SLOT scplayer 3 weapontype_C9 ammo_C9 model_for_weapon_C9
+	IF weapontype_C9 = WEAPONTYPE_UNARMED
+		weapontype_C9 = WEAPONTYPE_PISTOL
+		ammo_C9 = 50
+		model_for_weapon_C9 = COLT45
+	ENDIF
+	// FIXEDGROVE: END
+	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_FORWARD 85.0 weapontype_C9 // FIXEDGROVE: use player's handgun instead of pistol
 	SET_HEADING_FOR_ATTACHED_PLAYER player1 270.0 270.0
 	FREEZE_CHAR_POSITION scplayer TRUE
 
@@ -1835,10 +1855,6 @@ GOTO mission_casino9_MAIN_pilot_attack
 
 
 mission_casino9_MAIN_fly_back:
-	REQUEST_MODEL SHAMAL
-	WHILE NOT HAS_MODEL_LOADED SHAMAL
-		WAIT 0
-	ENDWHILE
 
 	TIMERA = 0
 	WHILE TIMERA < 1000
@@ -1850,9 +1866,20 @@ mission_casino9_MAIN_fly_back:
 		WAIT 0
 	ENDWHILE
 
+	// FIXEDGROVE: do requests after the fade
+	REQUEST_MODEL SHAMAL
+	REQUEST_MODEL weapontype_C9 // FIXEDGROVE
+
+	WHILE NOT HAS_MODEL_LOADED SHAMAL
+	OR NOT HAS_MODEL_LOADED weapontype_C9 // FIXEDGROVE
+		WAIT 0
+	ENDWHILE
+
 	FREEZE_CHAR_POSITION scplayer FALSE
 
 	DETACH_CHAR_FROM_CAR scplayer
+	GIVE_WEAPON_TO_CHAR scplayer weapontype_C9 ammo_C9 // FIXEDGROVE: give player's weapon back
+	ammo_C9 = 0 // FIXEDGROVE: clear so it isn't restored on cleanup
 	SET_PLAYER_CONTROL player1 OFF
 	SWITCH_WIDESCREEN ON
 	DISPLAY_RADAR TRUE
@@ -1919,6 +1946,9 @@ mission_casino9_MAIN_fly_back:
  	WARP_CHAR_INTO_CAR scplayer shamal_C9
 	SET_CAR_FORWARD_SPEED shamal_C9 45.0
 	SET_PLANE_UNDERCARRIAGE_UP shamal_C9 TRUE
+
+	GET_CHAR_WEAPON_IN_SLOT scplayer 5 temp_integer_1 temp_integer_2 temp_integer_2 // FIXEDGROVE: get player's smg
+	SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1 // FIXEDGROVE: do this to match game's mechanics
 
 	RESTORE_CAMERA_JUMPCUT
 	SET_CAMERA_BEHIND_PLAYER
@@ -2056,6 +2086,17 @@ mission_casino9_CLEANUP:
 		DETACH_CHAR_FROM_CAR scplayer
 		RESTORE_CAMERA_JUMPCUT	
 	ENDIF
+
+	// FIXEDGROVE: START - restore player's weapon
+	IF NOT ammo_C9 = WEAPONTYPE_UNARMED
+		REQUEST_MODEL model_for_weapon_C9
+		LOAD_ALL_MODELS_NOW
+		GET_CURRENT_CHAR_WEAPON scplayer temp_integer_1
+		GIVE_WEAPON_TO_CHAR scplayer weapontype_C9 ammo_C9 
+		SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1 // restore the previous active weapon
+		MARK_MODEL_AS_NO_LONGER_NEEDED model_for_weapon_C9
+	ENDIF
+	// FIXEDGROVE: END
 
 	DISPLAY_ZONE_NAMES TRUE
 	

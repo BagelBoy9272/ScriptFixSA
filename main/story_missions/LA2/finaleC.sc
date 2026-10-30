@@ -1957,7 +1957,7 @@ IF finalerails_fcflag = 0
 										IF IS_CHAR_IN_ANY_CAR scplayer
 											WARP_CHAR_FROM_CAR_TO_COORD scplayer player_x player_y player_z
 										ENDIF
-										GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 99999
+										//GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 99999 // FIXEDGROVE: comment out
 										
 										GET_CHAR_COORDINATES sweet player_x player_y player_z
 										player_z = player_z - 10.0
@@ -1969,6 +1969,9 @@ IF finalerails_fcflag = 0
 										ENDIF
 										WARP_CHAR_INTO_CAR sweet benz_fc
 										WARP_CHAR_INTO_CAR_AS_PASSENGER scplayer benz_fc 0
+
+										GET_CHAR_WEAPON_IN_SLOT scplayer 5 temp_integer_1 stored_ammo_fc temp_integer_1 // FIXEDGROVE: store ammo for later
+										ENSURE_PLAYER_HAS_DRIVE_BY_WEAPON player1 99999 // FIXEDGROVE: don't overwrite the player's weapon
 
 										//cop ladder
 										//DELETE_CHAR copladder_fc
@@ -6387,7 +6390,7 @@ IF finalerails_fcflag = 3
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-			GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 300
+			//GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 300 // FIXEDGROVE: commented
 			DO_FADE 3500 FADE_IN
 
 			WHILE GET_FADING_STATUS
@@ -6397,8 +6400,8 @@ IF finalerails_fcflag = 3
 			CLEAR_WANTED_LEVEL PLAYER1
 			SET_PLAYER_CONTROL PLAYER1 ON
 
-			REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_MICRO_UZI
-			GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 120
+			//REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_MICRO_UZI // FIXEDGROVE: commented
+			//GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_MICRO_UZI 120 // FIXEDGROVE: commented
 		
 			GOTO mission_finaleC_passed
 			
@@ -6588,10 +6591,13 @@ ENDIF
 //char proofs
 SHUT_CHAR_UP scplayer FALSE
 SET_CHAR_PROOFS scplayer FALSE FALSE FALSE FALSE FALSE
+GET_CHAR_WEAPON_IN_SLOT scplayer 5 temp_integer_1 temp_integer_2 temp_integer_2 // FIXEDGROVE
+SET_CHAR_AMMO scplayer temp_integer_1 stored_ammo_fc // FIXEDGROVE: restore original ammo
 SWITCH_EMERGENCY_SERVICES ON
 flag_player_on_mission = 0
 MISSION_HAS_FINISHED
 RETURN
-		
+
+LVAR_INT stored_ammo_fc	// FIXEDGROVE
 
 }
