@@ -249,15 +249,11 @@ RETURN
 		DAMAGE WHILE SEATED
 *******************************************/
 COPSIT_PedState5: 
-	SWITCH iSubStateStatus				
-
-		CASE 0
+	IF iSubStateStatus = 0
 			iPedState = 3
 			iSubStateStatus = 0
 			GOSUB COPSIT_Panic		
-		BREAK 
-
-	ENDSWITCH				
+	ENDIF
 RETURN
 /*******************************************
 			CLEAN UP BRAIN
