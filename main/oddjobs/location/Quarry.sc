@@ -1738,6 +1738,8 @@ Quarry_Rockfall_Clear_Paths:
 						ENDIF
 						flagRockfallRocksPushed[nLoop] = TRUE
 						nRockfallRocks++
+						// FIXEDGROVE: play audio cue for checkpoint completion
+						ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE
 						// INFO: rocks left
 						nTempInt = QUARRY_ROCKFALL_MAX_ROCKS - nRockfallRocks
 						IF NOT nTempInt = 0
@@ -1834,16 +1836,17 @@ Quarry_Sabotage_Move_Bombs:
 
 	// Have all bombs been safely moved?
 	IF m_goals = 1
+		// FIXEDGROVE: commented out code is redundant and can cause crashes in an edge case
 		IF flagAllBombsMoved = TRUE
-			GET_CHAR_COORDINATES scplayer xposTemp yposTemp zposTemp
+//			GET_CHAR_COORDINATES scplayer xposTemp yposTemp zposTemp
 			nTempInt = QUARRY_SABOTAGE_MAX_BOMBS - 1
-			GET_OBJECT_COORDINATES objectBombs[nTempInt] xposTemp2 yposTemp2 zposTemp2
-			GET_DISTANCE_BETWEEN_COORDS_3D xposTemp yposTemp zposTemp xposTemp2 yposTemp2 zposTemp2 fTempDistance
-			IF fTempDistance > QUARRY_SABOTAGE_PLAYER_IN_EXPLOSION_RANGE_m
-
-				ADD_EXPLOSION xposTemp2 yposTemp2 zposTemp2 EXPLOSION_HELI
-				DELETE_OBJECT objectBombs[nTempInt]
-				flagBombExploded[nTempInt] = TRUE
+//			GET_OBJECT_COORDINATES objectBombs[nTempInt] xposTemp2 yposTemp2 zposTemp2
+//			GET_DISTANCE_BETWEEN_COORDS_3D xposTemp yposTemp zposTemp xposTemp2 yposTemp2 zposTemp2 fTempDistance
+//			IF fTempDistance > QUARRY_SABOTAGE_PLAYER_IN_EXPLOSION_RANGE_m
+			IF flagBombExploded[nTempInt] = TRUE
+//				ADD_EXPLOSION xposTemp2 yposTemp2 zposTemp2 EXPLOSION_HELI
+//				DELETE_OBJECT objectBombs[nTempInt]
+//				flagBombExploded[nTempInt] = TRUE
 
 				m_goals = 99
 			ENDIF
@@ -1938,6 +1941,9 @@ Quarry_Sabotage_Move_Bombs:
 			REMOVE_BLIP blipDestination
 			flagBombDisplayed = FALSE
 			flagAlternativeExplosionLocation = FALSE
+
+			// FIXEDGROVE: play audio cue for checkpoint completion
+			ADD_ONE_OFF_SOUND 0.0 0.0 0.0 SOUND_PART_MISSION_COMPLETE			
 
 			// Freeze the object and remove it's collision
 			FREEZE_OBJECT_POSITION objectBombs[nCurrentBomb] TRUE
@@ -2524,6 +2530,7 @@ Quarry_Delivery_Deliver:
 		nTempInt = 0
 		REPEAT QUARRY_DELIVERY_MAX_BOMBS nLoop
 			IF NOT IS_OBJECT_ATTACHED objectBombs[nLoop]
+				SET_OBJECT_COLLISION objectBombs[nLoop] TRUE // FIXEDGROVE: they're disabled when you're in the truck now
 				GET_OBJECT_COORDINATES objectBombs[nLoop] xposTemp yposTemp zposTemp
 				GET_GROUND_Z_FOR_3D_COORD xposTemp yposTemp zposTemp fTempFloat
 				fTempFloat2 = zposTemp - fTempFloat
@@ -2652,6 +2659,14 @@ Quarry_Delivery_Deliver:
 			ADD_BLIP_FOR_COORD xposDestination yposDestination zposDestination blipDestination
 
 			CLEAR_THIS_PRINT QUAR_36
+
+			// FIXEDGROVE: disable collision on bombs when player gets in
+			REPEAT QUARRY_DELIVERY_MAX_BOMBS nLoop
+				IF DOES_OBJECT_EXIST objectBombs[nLoop]
+					SET_OBJECT_COLLISION objectBombs[nLoop] FALSE
+				ENDIF
+			ENDREPEAT
+			// FIXEDGROVE: END
 		ENDIF
 	ELSE
 		// ...player is not in the dumper, so display the dumper blip
@@ -2664,6 +2679,14 @@ Quarry_Delivery_Deliver:
 
 			// Info: Get back in the Dumper
 			PRINT_NOW QUAR_36 5000 1
+
+			// FIXEDGROVE: START - re-enable collision on bombs when player gets out
+			REPEAT QUARRY_DELIVERY_MAX_BOMBS nLoop
+				IF DOES_OBJECT_EXIST objectBombs[nLoop]
+					SET_OBJECT_COLLISION objectBombs[nLoop] TRUE
+				ENDIF
+			ENDREPEAT
+			// FIXEDGROVE: END
 		ENDIF
 	ENDIF
 
@@ -2693,6 +2716,7 @@ Quarry_Delivery_Deliver:
 				IF DOES_OBJECT_EXIST objectBombs[nLoop]
 					IF IS_OBJECT_ATTACHED objectBombs[nLoop]
 						DETACH_OBJECT objectBombs[nLoop] 0.0 0.0 0.0 FALSE
+						SET_OBJECT_COLLISION objectBombs[nLoop] TRUE // FIXEDGROVE: they're disabled when you're in the truck now
 					ENDIF
 				ENDIF
 			ENDREPEAT
@@ -2766,6 +2790,7 @@ Quarry_Delivery_Deliver:
 								timerBombStuck[nLoop] = m_mission_timer + 5000
 								IF IS_OBJECT_ATTACHED objectBombs[nLoop]
 									DETACH_OBJECT objectBombs[nLoop] 0.0 0.0 0.0 FALSE
+									SET_OBJECT_COLLISION objectBombs[nLoop] TRUE // FIXEDGROVE: they're disabled when you're in the truck now
 								ENDIF
 								zposTemp += 1.2
 								SET_OBJECT_COORDINATES objectBombs[nLoop] xposTemp yposTemp zposTemp
@@ -4062,6 +4087,7 @@ Quarry_Initialise_Mission_Burial:
 	// NOTE: Drop it from a height so it doesn't appear standing up
 	CREATE_CAR COPBIKE 560.3003 844.9364 -13.0258 carCopBike
 	SET_CAR_CAN_BE_DAMAGED carCopBike FALSE
+	SET_CAR_PROOFS carCopBike TRUE TRUE TRUE TRUE TRUE // FIXEDGROVE: avoids it being destroyed from a large amount of damage
 
 	// Special conditions
 	SWITCH_EMERGENCY_SERVICES	OFF
@@ -4295,32 +4321,30 @@ Quarry_Initialise_Mission_Delivery:
 	nTempInt = 0
 	CREATE_OBJECT KB_BARREL 815.4841 846.2587 15.0409 objectBombs[nTempInt]
 	ATTACH_OBJECT_TO_CAR objectBombs[nTempInt] carDumper 0.5 -0.7 0.9 90.0 0.0 0.0
-	SET_OBJECT_PROOFS objectBombs[nTempInt] FALSE FALSE FALSE TRUE FALSE
 
 	nTempInt++
 	CREATE_OBJECT KB_BARREL 816.6973 844.8737 15.0460 objectBombs[nTempInt]
 	ATTACH_OBJECT_TO_CAR objectBombs[nTempInt] carDumper -0.5 -0.7 0.9 90.0 0.0 0.0
-	SET_OBJECT_PROOFS objectBombs[nTempInt] FALSE FALSE FALSE TRUE FALSE
 
 	nTempInt++
 	CREATE_OBJECT KB_BARREL 814.2406 845.8572 14.9014 objectBombs[nTempInt]
 	ATTACH_OBJECT_TO_CAR objectBombs[nTempInt] carDumper 0.5 -1.7 0.93 90.0 0.0 0.0
-	SET_OBJECT_PROOFS objectBombs[nTempInt] FALSE FALSE FALSE TRUE FALSE
 
 	nTempInt++
 	CREATE_OBJECT KB_BARREL 815.0480 844.0368 14.8892 objectBombs[nTempInt]
 	ATTACH_OBJECT_TO_CAR objectBombs[nTempInt] carDumper -0.5 -1.7 0.93 90.0 0.0 0.0
-	SET_OBJECT_PROOFS objectBombs[nTempInt] FALSE FALSE FALSE TRUE FALSE
 
 	nTempInt++
 	CREATE_OBJECT KB_BARREL 813.2042 843.0317 14.7114 objectBombs[nTempInt]
 	ATTACH_OBJECT_TO_CAR objectBombs[nTempInt] carDumper 0.5 -2.7 0.96 90.0 0.0 0.0
-	SET_OBJECT_PROOFS objectBombs[nTempInt] FALSE FALSE FALSE TRUE FALSE
 
 	nTempInt++
 	CREATE_OBJECT KB_BARREL 813.2919 845.4581 14.8038 objectBombs[nTempInt]
 	ATTACH_OBJECT_TO_CAR objectBombs[nTempInt] carDumper -0.5 -2.7 0.96 90.0 0.0 0.0
-	SET_OBJECT_PROOFS objectBombs[nTempInt] FALSE FALSE FALSE TRUE FALSE
+	
+	REPEAT QUARRY_DELIVERY_MAX_BOMBS nTempInt
+		SET_OBJECT_PROOFS objectBombs[nTempInt] FALSE FALSE FALSE TRUE FALSE // FIXEDGROVE: use loop for this
+	ENDREPEAT
 
 	// ...helpers
 	nTempInt = 0

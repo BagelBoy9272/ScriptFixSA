@@ -523,6 +523,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed crappy cone deletion code in bike school and driving school deleting random objects (Blackboard glitch)
 - Fixed slot machine not enabling its ped attractor
 - Fixed radar showing while the wager menu was active in the lowrider minigame
+- Fixed a crash in the 2nd quarry mission
+- Fixed the massive stunt bonus bug when you drop the bombs in the 5th quarry mission
+- Fixed ability to destroy the cop bike in the last quarry mission
 - Fixed missing Pizza Stack icon in Montgomery
 - ®️ Fixed missing barber shop icon in El Quebrados
 - Fixed duplicated Binco icon in Juniper Hill, SF
@@ -618,6 +621,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added unused "hit", "stick, "double" and "split" lines for the player while playing blackjack
 - Added unused "GAMB_CONGRATS" lines for random peds nearby when the player wins in a gambling game
 - Added unused "BOXING_CHEER" for boxers outside the ring when fighting the LS and LV gym instructor (based on almost finished OG code)
+- Added the 'checkpoint complete' audio cue to the 1st and 2nd quarry missions
 - Each Trucking and Quarry mission now plays the mission complete tune (previously only the last one did)
 - Each Trucking and Quarry mission now counts towards total progress % (previously only the last one did)
 - Each mountain bike race now counts towards total progress % (previously only the last one did)
