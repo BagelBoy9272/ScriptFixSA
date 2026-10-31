@@ -22,7 +22,7 @@ MISSION_END
 LVAR_INT w5_chopper w5_chopper_pilot w5_goons[17] w5_dinghys[4] w5_smoke w5_rocket_launcher w5_refugees[4] w5_grenades w5_health
 LVAR_INT w5_head_honcho w5_cabin_crew[5] w5_box
 LVAR_INT w5_armour w5_gun 
-LVAR_INT w5_kat_anim w5_kat_lh
+LVAR_INT w5_kat_anim w5_kat_lh w5_kat_rh // FIXEDGROVE: added w5_kat_rh
 LVAR_INT w5_refugee_container
 LVAR_INT w5_refugee_container_LD
 LVAR_INT w5_refugee_container_RD
@@ -2302,6 +2302,7 @@ WAIT 0
 
 				SHUT_ALL_CHARS_UP TRUE
 
+				REQUEST_MODEL Katana // FIXEDGROVE
 				REQUEST_MODEL Katana_Anim
 				REQUEST_MODEL Katana_LHand
 				REQUEST_ANIMATION MISC
@@ -2318,6 +2319,10 @@ WAIT 0
 					CREATE_OBJECT Katana_LHand -2117.0 654.0 59.7 w5_kat_lh
 					TASK_PICK_UP_OBJECT	w5_head_honcho w5_kat_lh 0.0 0.0 0.0 PED_HANDL HOLD_ORIENTATE_BONE_FULL NULL NULL FALSE
 					
+					// FIXEDGROVE: add the missing katana in cutscene
+					CREATE_OBJECT Katana -2117.0 654.0 59.7 w5_kat_rh
+					TASK_PICK_UP_SECOND_OBJECT	w5_head_honcho w5_kat_rh 0.0 0.0 0.0 PED_HANDR HOLD_ORIENTATE_BONE_FULL NULL NULL FALSE
+
 				ENDIF
 				IF NOT IS_CHAR_DEAD w5_cabin_crew[2]
 					SET_CHAR_DECISION_MAKER w5_cabin_crew[2] w5_empty_decisions	
@@ -2381,6 +2386,13 @@ WAIT 0
 				SET_CHAR_HEADING scplayer 315.0  
 
 				IF NOT IS_CHAR_DEAD w5_head_honcho 
+
+					// FIXEDGROVE: START
+					IF DOES_OBJECT_EXIST w5_kat_rh
+						DELETE_OBJECT w5_kat_rh
+					ENDIF
+					// FIXEDGROVE: END
+
 					IF DOES_OBJECT_EXIST w5_kat_lh
 						DELETE_OBJECT w5_kat_lh  
 						GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS w5_head_honcho 0.0 2.0 -1.0 w5_x w5_y w5_z
@@ -2454,6 +2466,7 @@ WAIT 0
 						ENDIF
 				
 						DELETE_OBJECT w5_kat_lh
+						DELETE_OBJECT w5_kat_rh // FIXEDGROVE
 						DELETE_OBJECT w5_kat_anim
 						IF NOT IS_CHAR_DEAD w5_head_honcho 
 							CLEAR_CHAR_TASKS_IMMEDIATELY w5_head_honcho
