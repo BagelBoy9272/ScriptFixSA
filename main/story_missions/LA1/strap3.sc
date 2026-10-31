@@ -3282,14 +3282,15 @@ RETURN//////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 m3_dialogue_setup://///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-IF m3_speech_goals = 1
+SWITCH m3_speech_goals
+CASE 1
 	$m3_print_label[0] = &LOC3_AA // Hey, what the fuck are you playing at?
 
 	m3_audio_label[0] = SOUND_LOC3_AA
 	m3_last_label = 1
-ENDIF
+BREAK
 
-IF m3_speech_goals = 2
+CASE 2
 	$m3_print_label[0] = &LOC3_BA // Hey, man.
 	$m3_print_label[1] = &LOC3_BB // Take me back to Dogg's mansion.
 	$m3_print_label[2] = &LOC3_BC // Not today, asshole.
@@ -3302,18 +3303,18 @@ IF m3_speech_goals = 2
 	m3_audio_label[3] = SOUND_LOC3_BD
 	m3_audio_label[4] = SOUND_LOC3_BE
 	m3_last_label = 5
-ENDIF
+BREAK
 
-IF m3_speech_goals = 3
+CASE 3
 	$m3_print_label[0] = &LOC3_CA // Security team, the Principle is being kidnapped!
 	$m3_print_label[1] = &LOC3_CB // Rescue him at all costs!
 
 	m3_audio_label[0] = SOUND_LOC3_CA
 	m3_audio_label[1] = SOUND_LOC3_CB
 	m3_last_label = 2
-ENDIF
+BREAK
 
-IF m3_speech_goals = 4
+CASE 4
 	$m3_print_label[0] = &LOC3_DA // Who the fuck are you?
 	$m3_print_label[1] = &LOC3_DB // Where's my usual driver?
 	$m3_print_label[2] = &LOC3_DC // Unlock this fucking door!
@@ -3326,9 +3327,9 @@ IF m3_speech_goals = 4
 	m3_audio_label[3] = SOUND_LOC3_DD
 	m3_audio_label[4] = SOUND_LOC3_EA
 	m3_last_label = 5
-ENDIF					
+BREAK					
 
-IF m3_speech_goals = 5
+CASE 5
 	$m3_print_label[0] = &LOC3_EB // What you want, fool, money?
 	$m3_print_label[1] = &LOC3_EC // I got bitches, loads o'fine -bitches take 'em.
 	$m3_print_label[2] = &LOC3_ED // They'll do anything you want!
@@ -3355,16 +3356,16 @@ IF m3_speech_goals = 5
 	//m3_audio_label[10] = SOUND_LOC3_EM
 	//m3_audio_label[11] = SOUND_LOC3_EN
 	m3_last_label = 10
-ENDIF
+BREAK
 
-IF m3_speech_goals = 6
+CASE 6
 	$m3_print_label[0] = &LOC3_EO // Holy FUUUUUUUUUUCK!
 
 	m3_audio_label[0] = SOUND_LOC3_EO
 	m3_last_label = 1
-ENDIF
+BREAK
 
-IF m3_speech_goals = 7
+CASE 7
 	$m3_print_label[0] = &MOBRING // Phone Ringing
 	$m3_print_label[1] = &MLOC04A // Yo, Loc? Whatttup now?
 	$m3_print_label[2] = &MLOC04B // One of Madd Dogg's chaufeurs just left the Burger Shot across town.
@@ -3377,9 +3378,9 @@ IF m3_speech_goals = 7
 	m3_audio_label[3] = SOUND_MLOC04C
 	m3_audio_label[4] = SOUND_MLOC04D
 	m3_last_label = m3_random_last_label
-ENDIF
+BREAK
 
-IF m3_speech_goals = 8
+CASE 8
 	$m3_print_label[0] = &LOC3_FA // Hey, what kept you?
 	$m3_print_label[1] = &LOC3_FB // Come on we need to go and pick up the boss!
 	$m3_print_label[2] = &LOC3_FC // Hold position in the middle of the motorcade until we get to the Awards Show.
@@ -3394,9 +3395,9 @@ IF m3_speech_goals = 8
 	m3_audio_label[3] = SOUND_LOC3_FE
 	m3_audio_label[4] = SOUND_LOC3_FF
 	m3_last_label = m3_random_last_label
-ENDIF
+BREAK
 
-IF m3_speech_goals = 9
+CASE 9
 	$m3_print_label[0] = &LOC3_GA // Hey, watch what you're doing!
 	$m3_print_label[1] = &LOC3_GB // Watch the damn car!
 	$m3_print_label[2] = &LOC3_GC // You unprofessional asshole!
@@ -3407,28 +3408,29 @@ IF m3_speech_goals = 9
 	m3_audio_label[2] = SOUND_LOC3_GC
 	m3_audio_label[3] = SOUND_LOC3_GD
 	m3_last_label = m3_random_last_label
-ENDIF
+BREAK
 
-IF m3_speech_goals = 10
+CASE 10
 	$m3_print_label[0] = &RYD1_BE // Shut up!
 
 	m3_audio_label[0] = SOUND_RYD1_BE
 	m3_last_label = 1
-ENDIF
+BREAK
 
-IF m3_speech_goals = 11
+CASE 11
 	$m3_print_label[0] = &LOC3_JA // Congratulations on your award, you must be thrilled! 
 
 	m3_audio_label[0] = SOUND_LOC3_JA
 	m3_last_label = 1
-ENDIF
+BREAK
 
-IF m3_speech_goals = 12
+CASE 12
 	$m3_print_label[0] = &LOC3_JB // Yeah, yeah, yeah, yeah, I'd like to thank my fans, my momma and my dealer.
 	
 	m3_audio_label[0] = SOUND_LOC3_JB
 	m3_last_label = 1
-ENDIF
+BREAK
+ENDSWITCH
 		  
 m3_slot_load = m3_speech_control_flag
 m3_slot1 = 0
@@ -3441,7 +3443,8 @@ RETURN//////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 m3_overall_dialogue:///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-IF m3_speech_goals = 1 //driver swearing at player
+SWITCH m3_speech_goals
+CASE 1 //driver swearing at player
 	IF m3_speech_control_flag < m3_last_label
 		GOSUB m3_loading_dialogue
 		GOSUB m3_playing_dialogue
@@ -3457,13 +3460,13 @@ IF m3_speech_goals = 1 //driver swearing at player
 	ELSE
 		m3_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
 
-IF m3_speech_goals = 7 //mc strap phoning player
-OR m3_speech_goals = 2 //doc g manager talking to player at awards ceremony
-OR m3_speech_goals = 6 //doc g screaming holy fuck
-OR m3_speech_goals = 11 //Awards ceremony
-OR m3_speech_goals = 12 //Awards ceremony
+CASE 7 //mc strap phoning player
+CASE 2 //doc g manager talking to player at awards ceremony
+CASE 6 //doc g screaming holy fuck
+CASE 11 //Awards ceremony
+CASE 12 //Awards ceremony
 	IF m3_speech_control_flag < m3_last_label
 		GOSUB m3_loading_dialogue
 		GOSUB m3_playing_dialogue
@@ -3471,14 +3474,16 @@ OR m3_speech_goals = 12 //Awards ceremony
 	ELSE
 		m3_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
+ENDSWITCH
 
 IF m3_goals = 5
 	IF m3_control_flag = 0
-		IF m3_speech_goals = 3 //radio message informing guards that the manager has been swiped
-		OR m3_speech_goals = 4 //Doc G's Manager pleading for his life part 1
-		OR m3_speech_goals = 5 //Doc G's Manager pleading for his life part 2
-		OR m3_speech_goals = 10	//player telling manager to stfu
+		SWITCH m3_speech_goals
+		CASE 3 //radio message informing guards that the manager has been swiped
+		CASE 4 //Doc G's Manager pleading for his life part 1
+		CASE 5 //Doc G's Manager pleading for his life part 2
+		CASE 10	//player telling manager to stfu
 			IF m3_speech_control_flag < m3_last_label
 				GOSUB m3_loading_dialogue
 				GOSUB m3_playing_dialogue
@@ -3510,12 +3515,14 @@ IF m3_goals = 5
 			ELSE
 				m3_speech_goals = 0
 			ENDIF
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
 ENDIF	
 
-IF m3_speech_goals = 8 //driver swearing at player
-OR m3_speech_goals = 9
+SWITCH m3_speech_goals
+CASE 8 //driver swearing at player
+CASE 9
 	IF m3_speech_control_flag < m3_last_label
 		GOSUB m3_loading_dialogue
 		GOSUB m3_playing_dialogue
@@ -3547,7 +3554,8 @@ OR m3_speech_goals = 9
 	ELSE
 		m3_speech_goals = 0
 	ENDIF
-ENDIF	
+BREAK	
+ENDSWITCH
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 RETURN/////////////////////////////////////////////////////////////////////////////////////

@@ -480,18 +480,20 @@ IF NOT ca1_counter = 0
 
 	IF ca1_audio_playing = 2
 	 	IF HAS_MISSION_AUDIO_LOADED ca1_audio_slot
-			IF ca1_counter = 61
-			OR ca1_counter = 63
+			SWITCH ca1_counter
+			CASE 61
+			CASE 63
 				IF NOT IS_CHAR_DEAD	ca1_punk
 					START_CHAR_FACIAL_TALK ca1_punk 10000
 				ENDIF
-			ENDIF
-			IF ca1_counter = 62
-			OR ca1_counter = 64
+			BREAK
+			CASE 62
+			CASE 64
 				IF NOT IS_CHAR_DEAD	scplayer
 					START_CHAR_FACIAL_TALK scplayer 10000
 				ENDIF
-			ENDIF
+			BREAK
+			ENDSWITCH
 			PLAY_MISSION_AUDIO ca1_audio_slot
 			PRINT_NOW $ca1_text[ca1_counter] 10000 1
 			ca1_audio_playing = 3
@@ -501,18 +503,20 @@ IF NOT ca1_counter = 0
 	IF ca1_audio_playing = 3
 		IF HAS_MISSION_AUDIO_FINISHED ca1_audio_slot
 			CLEAR_THIS_PRINT $ca1_text[ca1_counter]
-			IF ca1_counter = 61
-			OR ca1_counter = 63
+			SWITCH ca1_counter
+			CASE 61
+			CASE 63
 				IF NOT IS_CHAR_DEAD	ca1_punk
 					STOP_CHAR_FACIAL_TALK ca1_punk
 				ENDIF
-			ENDIF
-			IF ca1_counter = 62
-			OR ca1_counter = 64
+			BREAK
+			CASE 62
+			CASE 64
 				IF NOT IS_CHAR_DEAD	scplayer
 					STOP_CHAR_FACIAL_TALK scplayer
 				ENDIF
-			ENDIF
+			BREAK
+			ENDSWITCH
 			IF ca1_audio_slot = 1
 				ca1_audio_slot = 2
 				ca1_alt_slot = 1
@@ -522,19 +526,21 @@ IF NOT ca1_counter = 0
 			ENDIF
 			ca1_counter = 0
 			ca1_audio_playing = 0
-			IF ca1_cut = 0
+			SWITCH ca1_cut
+			CASE 0
 				ca1_cut = 1
-			ENDIF
-			IF ca1_cut = 4
+			BREAK
+			CASE 4
 				ca1_cut = 5
-			ENDIF
+			BREAK
 
-			IF ca1_cut = 3
+			CASE 3
 				ca1_cut = 4
-			ENDIF
-			IF ca1_cut = 7
+			BREAK
+			CASE 7
 				ca1_cut = 8
-			ENDIF
+			BREAK
+			ENDSWITCH
 		ELSE
 			IF NOT HAS_MISSION_AUDIO_LOADED ca1_alt_slot
 				IF ca1_counter < 66
@@ -773,7 +779,8 @@ IF ca1_stage = -1
 		IF NOT IS_CHAR_DEAD scplayer
 		AND NOT IS_CAR_DEAD ca1_truck
 			IF IS_CHAR_IN_CAR scplayer ca1_truck
-				IF ca1_random_dialogue = 0
+				SWITCH ca1_random_dialogue
+				CASE 0
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 65	
@@ -781,13 +788,9 @@ IF ca1_stage = -1
 						GET_GAME_TIMER ca1_text_timer_start
 
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						GET_GAME_TIMER ca1_text_timer_start								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 1
+					GOSUB ca1_dialogue_timer
+				BREAK
+				CASE 1
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 66	
@@ -795,39 +798,27 @@ IF ca1_stage = -1
 						ca1_stage = 0
 						GET_GAME_TIMER ca1_text_timer_start
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						GET_GAME_TIMER ca1_text_timer_start								
-					ENDIF 
-				ENDIF
-//				IF ca1_random_dialogue = 2
+					GOSUB ca1_dialogue_timer
+				BREAK
+//				CASE 2
 //					IF ca1_audio_playing = 0
 //					AND ca1_counter = 0
 //						ca1_counter = 3 // CARL: Who are you?
 //						ca1_random_dialogue ++
 //						GET_GAME_TIMER ca1_text_timer_start
 //					ENDIF
-//					GET_GAME_TIMER ca1_text_timer_end 
-//					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-//					IF ca1_text_timer_diff > 500
-//						GET_GAME_TIMER ca1_text_timer_start								
-//					ENDIF 
-//				ENDIF
-//				IF ca1_random_dialogue = 3
+//					GOSUB ca1_dialogue_timer
+//				BREAK
+//				CASE 3
 //					IF ca1_audio_playing = 0
 //					AND ca1_counter = 0
 //						ca1_counter = 4	// JOHNNY SINDACCO: Fuck you, man!
 //						ca1_random_dialogue ++
 //						GET_GAME_TIMER ca1_text_timer_start
 //					ENDIF
-//					GET_GAME_TIMER ca1_text_timer_end 
-//					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-//					IF ca1_text_timer_diff > 500
-//						GET_GAME_TIMER ca1_text_timer_start								
-//					ENDIF 
-//				ENDIF
-//				IF ca1_random_dialogue = 4
+//					GOSUB ca1_dialogue_timer
+//				BREAK
+//				CASE 4
 //					IF ca1_audio_playing = 0
 //					AND ca1_counter = 0
 //						ca1_counter = 5	// CARL: Have it your way.
@@ -835,13 +826,10 @@ IF ca1_stage = -1
 //						ca1_stage = 0
 //						GET_GAME_TIMER ca1_text_timer_start
 //					ENDIF
-//					GET_GAME_TIMER ca1_text_timer_end 
-//					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-//					IF ca1_text_timer_diff > 500
-//						GET_GAME_TIMER ca1_text_timer_start
-//														
-//					ENDIF 
-//				ENDIF
+//					GOSUB ca1_dialogue_timer
+//				BREAK
+				ENDSWITCH
+
 			ENDIF
 		ENDIF
 	ELSE
@@ -920,22 +908,21 @@ IF ca1_stage = 2
 	AND NOT IS_CHAR_DEAD ca1_punk
 		DISPLAY_ONSCREEN_COUNTER_WITH_STRING ca1_spooked COUNTER_DISPLAY_BAR ( CAS1_05 )//( CAS1_05 ) // Spook-O-Meter
 		GENERATE_RANDOM_INT_IN_RANGE 0 4 ca1_choice
-		IF ca1_choice = 0
+		SWITCH ca1_choice
+		CASE 0
 			PRINT_HELP ( CAS1_06 )
-			ca1_stage = 3
-		ENDIF
-		IF ca1_choice = 1
+		BREAK
+		CASE 1
 			PRINT_HELP ( CAS1_07 )
-			ca1_stage = 3
-		ENDIF
-		IF ca1_choice = 2
+		BREAK
+		CASE 2
 			PRINT_HELP ( CAS1_08 )
-			ca1_stage = 3
-		ENDIF
-		IF ca1_choice = 3
+		BREAK
+		CASE 3
 			PRINT_HELP ( CAS1_09 )
-			ca1_stage = 3
-		ENDIF
+		BREAK
+		ENDSWITCH
+		ca1_stage = 3
 		GET_GAME_TIMER ca1_h_timer_start
 	ENDIF
 ENDIF 
@@ -968,22 +955,23 @@ IF ca1_stage = 3
 				ca1_h_timer_diff = ca1_h_timer_end - ca1_h_timer_start
 				IF ca1_h_timer_diff > 30000
 					GENERATE_RANDOM_INT_IN_RANGE 0 4 ca1_choice
-					IF ca1_choice = 0
+					SWITCH ca1_choice
+					CASE 0
 						PRINT_HELP ( CAS1_06 )
 						GET_GAME_TIMER ca1_h_timer_start
-					ENDIF
-					IF ca1_choice = 1
+					BREAK
+					CASE 1
 						PRINT_HELP ( CAS1_07 )
-						GET_GAME_TIMER ca1_h_timer_start
-					ENDIF
-					IF ca1_choice = 2
+					BREAK
+					CASE 2
 						PRINT_HELP ( CAS1_08 )
 						GET_GAME_TIMER ca1_h_timer_start
-					ENDIF
-					IF ca1_choice = 3
+					BREAK
+					CASE 3
 						PRINT_HELP ( CAS1_09 )
-						GET_GAME_TIMER ca1_h_timer_start
-					ENDIF
+					BREAK
+					ENDSWITCH
+					GET_GAME_TIMER ca1_h_timer_start
 					ca1_help_counter++
 				ENDIF
 			ENDIF 
@@ -1293,573 +1281,278 @@ IF ca1_stage = 3
 				ENDIF
 			ENDIF
 			IF ca1_dialogue_playing	= 1
-				IF ca1_random_dialogue = 0
+				SWITCH ca1_random_dialogue
+				CASE 0
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 27 // JOHNNY SINDACCO: Oh my god, oh-my-god!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 1
+				BREAK
+				CASE 1
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 28 // JOHNNY SINDACCO: Hey, whatcha doing?
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 2
+				BREAK
+				CASE 2
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 29 // JOHNNY SINDACCO: You think you’re smart – BUT YOU’RE NOT!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 3
+				BREAK
+				CASE 3
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 30 // JOHNNY SINDACCO: This shit don’t scare me, asshole!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 4
+				BREAK
+				CASE 4
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 31 // JOHNNY SINDACCO: Where you going now?!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 5
+				BREAK
+				CASE 5
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 32 // JOHNNY SINDACCO: Somebody, anybody, HELP!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 6
+				BREAK
+				CASE 6
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 33 // JOHNNY SINDACCO: Mind the pedestrians!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 7
+				BREAK
+				CASE 7
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 21 // JOHNNY SINDACCO: Oh man, this IS fasst!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 8
+				BREAK
+				CASE 8
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 22	// JOHNNY SINDACCO: Slow down, for chrissakes!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 9
+				BREAK
+				CASE 9
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 23 // JOHNNY SINDACCO: Too fast, TOO FARGHST!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 10
+				BREAK
+				CASE 10
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 45 // JOHNNY SINDACCO: Holy fuck! My legs are on fire!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 11
+				BREAK
+				CASE 11
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 46 // JOHNNY SINDACCO: Shit, my crotch! MY CROTCH!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 12
+				BREAK
+				CASE 12
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 47 // JOHNNY SINDACCO: Holy Mother, we’re on fire!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 13
+				BREAK
+				CASE 13
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 48 // JOHNNY SINDACCO: FIRE! FIRE!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 14
+				BREAK
+				CASE 14
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 24 // JOHNNY SINDACCO: Holy Fuck!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 15
+				BREAK
+				CASE 15
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 25 // JOHNNY SINDACCO: Mother Mary!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 16
+				BREAK
+				CASE 16
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 26	// JOHNNY SINDACCO: Oh Christ! OH CHRIST!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 17
+				BREAK
+				CASE 17
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 34 // JOHNNY SINDACCO: Jesus Christ that was close!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 18
+				BREAK
+				CASE 18
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 35	// JOHNNY SINDACCO: You trying to fuck us both?
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 19
+				BREAK
+				CASE 19
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 36 // JOHNNY SINDACCO: Mother Mary, that was lucky!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 20
+				BREAK
+				CASE 20
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 37 // JOHNNY SINDACCO: You’re gonnna kill us both!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 21
+				BREAK
+				CASE 21
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 40 // JOHNNY SINDACCO: Oh God, I’m still alive!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 22
+				BREAK
+				CASE 22
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 39 // JOHNNY SINDACCO: Thank god! THANK GOD!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 23
+				BREAK
+				CASE 23
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 40 // JOHNNY SINDACCO: Jesus! JESUS!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 24
+				BREAK
+				CASE 24
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 41 // JOHNNY SINDACCO: Are you TRYING to hit things?!
 
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 25
+				BREAK
+				CASE 25
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 42	// JOHNNY SINDACCO: Oh…jesus….fuck you…
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 26
+				BREAK
+				CASE 26
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 44	// JOHNNY SINDACCO: Aarrgghh!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 27
+				BREAK
+				CASE 27
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 44	// JOHNNY SINDACCO: Mother… is that you..?
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 28
+				BREAK
+				CASE 28
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 6	// JOHNNY SINDACCO: You're messing with the wrong people!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 29
+				BREAK
+				CASE 29
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 7	// JOHNNY SINDACCO: You are so dead, do you hear me? DEAD!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 30
+				BREAK
+				CASE 30
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 8	// JOHNNY SINDACCO: You’ve signed your own death warrant!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 31
+				BREAK
+				CASE 31
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 9	// JOHNNY SINDACCO: You think this is scaring me, huh?
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 32
+				BREAK
+				CASE 32
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 10 // JOHNNY SINDACCO: It takes more than a little drive to get ME blabbing!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				 IF ca1_random_dialogue = 33
+				BREAK
+				CASE 33
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 11 // JOHNNY SINDACCO: L-look, we can come to some arrangement!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 34
+				BREAK
+				CASE 34
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 12 // JOHNNY SINDACCO: Ok, I can see you’re serious – pull over!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 35
+				BREAK
+				CASE 35
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 13 // JOHNNY SINDACCO: Look, pal, this ain’t funny no more!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 36
+				BREAK
+				CASE 36
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 14 // JOHNNY SINDACCO: Hey! Stop this insanity RIGHT NOW!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 37
+				BREAK
+				CASE 37
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 15 // JOHNNY SINDACCO: Oh my god, you’re a maniac!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				 IF ca1_random_dialogue = 38
+				BREAK
+				CASE 38
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 16 // JOHNNY SINDACCO: Aargh! I don’t wanna die, I don’t wana die!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 39
+				BREAK
+				CASE 39
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 17 // JOHNNY SINDACCO: FUCK YOU! FUCK YOU-HOO-hooooo! (descends into sobbing)
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 40
+				BREAK
+				CASE 40
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 18 // JOHNNY SINDACCO: Oh god, my bowels just let go!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 41
+				BREAK
+				CASE 41
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 19 // JOHNNY SINDACCO: Oh Mother Mary, I’ve had enough, oh god...
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-					IF ca1_text_timer_diff > 500
-						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
-				ENDIF
-				IF ca1_random_dialogue = 42
+				BREAK
+				CASE 42
 					IF ca1_audio_playing = 0
 					AND ca1_counter = 0
 						ca1_counter = 20 // JOHNNY SINDACCO: Ok, you’ve made your point – No More!
 					ENDIF
-					GET_GAME_TIMER ca1_text_timer_end 
-					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
+				BREAK
+				ENDSWITCH
+				IF ca1_random_dialogue >= 0
+				AND ca1_random_dialogue < 43
+					GOSUB ca1_dialogue_timer
 					IF ca1_text_timer_diff > 500
 						ca1_random_dialogue_last = ca1_random_dialogue
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 2								
-					ENDIF 
+						ca1_dialogue_playing = 2
+					ENDIF
 				ENDIF
 			ENDIF
 			IF ca1_dialogue_playing = 2
-				GET_GAME_TIMER ca1_text_timer_end 
-				ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-				IF ca1_text_timer_diff > 500
-					ca1_dialogue_playing = 0
-				ENDIF
+				GOSUB ca1_dialogue_timer
 			ENDIF
 			// Play Babbling
 			IF ca1_dialogue_playing = 0	
@@ -1868,48 +1561,21 @@ IF ca1_stage = 3
 				IF ca1_text_timer_diff > 10000
 					IF ca1_spooked >= 0
 					AND ca1_spooked < 34
-						GENERATE_RANDOM_INT_IN_RANGE 28 33 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 32 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 28
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 28
+						temp_integer_2 = 33 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 					IF ca1_spooked > 33
 					AND ca1_spooked < 67
-						GENERATE_RANDOM_INT_IN_RANGE 33 38 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 37 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 33
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 33
+						temp_integer_2 = 38 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 					IF ca1_spooked > 66
 					AND ca1_spooked < 100
-						GENERATE_RANDOM_INT_IN_RANGE 38 43 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 42 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 38
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 38
+						temp_integer_2 = 43 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1918,18 +1584,9 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 7 10 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 9 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 7
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 7
+						temp_integer_2 = 10 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1938,18 +1595,9 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 14 17 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 16 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 14
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 14
+						temp_integer_2 = 17 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1959,18 +1607,9 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 17 25 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 24 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 17
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 17
+						temp_integer_2 = 25 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1979,18 +1618,9 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 10 14 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 13 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 10
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 10
+						temp_integer_2 = 14 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1999,18 +1629,9 @@ IF ca1_stage = 3
 					GET_GAME_TIMER ca1_text_timer_end 
 					ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
 					IF ca1_text_timer_diff > 5000
-						GENERATE_RANDOM_INT_IN_RANGE 25 28 ca1_random_dialogue // FIXEDGROVE: increase upper limit
-						GET_GAME_TIMER ca1_text_timer_start
-						ca1_dialogue_playing = 1
-						IF ca1_random_dialogue = ca1_random_dialogue_last
-							IF ca1_random_dialogue < 27 
-								ca1_random_dialogue ++
-							ELSE
-								IF ca1_random_dialogue > 25
-									ca1_random_dialogue --
-								ENDIF
-							ENDIF
-						ENDIF
+						temp_integer_1 = 25
+						temp_integer_2 = 28 // FIXEDGROVE: increase upper limit
+						GOSUB ca1_pick_random_dialogue
 					ENDIF
 				ENDIF
 			ENDIF			
@@ -2167,80 +1788,59 @@ IF ca1_stage = 4
 	IF NOT IS_CHAR_DEAD scplayer
 	AND NOT IS_CAR_DEAD ca1_truck
 		IF IS_CHAR_IN_CAR scplayer ca1_truck
-			IF ca1_random_dialogue = 0
+			SWITCH ca1_random_dialogue
+			CASE 0
 				IF ca1_audio_playing = 0
 				AND ca1_counter = 0
 					ca1_counter = 49 // JOHNNY SINDACCO:(sobbing) The family will make you pay for this!
 					ca1_random_dialogue ++
 					GET_GAME_TIMER ca1_text_timer_start
 				ENDIF
-				GET_GAME_TIMER ca1_text_timer_end 
-				ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-				IF ca1_text_timer_diff > 500
-					
-					GET_GAME_TIMER ca1_text_timer_start								
-				ENDIF 
-			ENDIF
-			IF ca1_random_dialogue = 1
+			BREAK
+			CASE 1
 				IF ca1_audio_playing = 0
 				AND ca1_counter = 0
 					ca1_counter = 50 // CARL: Which family?
 					ca1_random_dialogue ++
 					GET_GAME_TIMER ca1_text_timer_start
 				ENDIF
-				GET_GAME_TIMER ca1_text_timer_end 
-				ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-				IF ca1_text_timer_diff > 500
-					
-					GET_GAME_TIMER ca1_text_timer_start								
-				ENDIF 
-			ENDIF
-			IF ca1_random_dialogue = 2
+			BREAK
+			CASE 2
 				IF ca1_audio_playing = 0
 				AND ca1_counter = 0
 					ca1_counter = 51 // JOHNNY SINDACCO: The Sindacco family you idiot!
 					ca1_random_dialogue ++
 					GET_GAME_TIMER ca1_text_timer_start
 				ENDIF
-				GET_GAME_TIMER ca1_text_timer_end 
-				ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-				IF ca1_text_timer_diff > 500
-					GET_GAME_TIMER ca1_text_timer_start								
-				ENDIF 
-			ENDIF
-			IF ca1_random_dialogue = 3
+			BREAK
+			CASE 3
 				IF ca1_audio_playing = 0
 				AND ca1_counter = 0
 					ca1_counter = 52 // CARL: That’s all I wanted to hear!
 					ca1_random_dialogue ++
 					GET_GAME_TIMER ca1_text_timer_start
 				ENDIF
-				GET_GAME_TIMER ca1_text_timer_end 
-				ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-				IF ca1_text_timer_diff > 500
-					GET_GAME_TIMER ca1_text_timer_start								
-				ENDIF 
-			ENDIF
-			IF ca1_random_dialogue = 4
+			BREAK
+			CASE 4
 				IF ca1_audio_playing = 0
 				AND ca1_counter = 0
 					ca1_counter = 53 // JOHNNY SINDACCO: What the -? Oh shit...
 					ca1_random_dialogue ++
 					GET_GAME_TIMER ca1_text_timer_start
 				ENDIF
-				GET_GAME_TIMER ca1_text_timer_end 
-				ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
-				IF ca1_text_timer_diff > 500
-					GET_GAME_TIMER ca1_text_timer_start
 					//PRINT ( CAS1_03 ) 7000 1 // Take him back
-				ENDIF 
-			ENDIF
-			IF ca1_random_dialogue = 5
+			BREAK
+			CASE 5
 				IF ca1_audio_playing = 0
 				AND ca1_counter = 0
 					PRINT ( CAS1_03 ) 7000 1 // Take him back
 					ca1_random_dialogue ++
 				ENDIF
+			BREAK
+			ENDSWITCH
+			IF ca1_random_dialogue > 0
+			AND ca1_random_dialogue < 6
+				GOSUB ca1_dialogue_timer
 			ENDIF
 		ENDIF
 		IF IS_CHAR_IN_CAR scplayer ca1_truck
@@ -2286,19 +1886,18 @@ IF ca1_stage = 5
 		ca1_audio_playing = 0
 		CLEAR_PRINTS
 	ENDIF
-	IF ca1_random_dialogue = 0
-		IF ca1_audio_playing = 0
-		AND ca1_counter = 0
+	IF ca1_audio_playing = 0
+	AND ca1_counter = 0
+		SWITCH ca1_random_dialogue
+		CASE 0
 			ca1_counter = 59
 			ca1_random_dialogue++
-		ENDIF
-	ENDIF
-	IF ca1_random_dialogue = 1
-		IF ca1_audio_playing = 0
-		AND ca1_counter = 0
+		BREAK
+		CASE 1
 			ca1_counter = 60
 			ca1_random_dialogue++
-		ENDIF
+		BREAK
+		ENDSWITCH
 	ENDIF
 	// FIXEDGROVE: END
 	IF ca1_cut = 0
@@ -2466,6 +2065,31 @@ mission_cleanup_ca1:
 		flag_player_on_mission = 0
 		GET_GAME_TIMER timer_mobile_start						
 		MISSION_HAS_FINISHED
+RETURN
+// ------------------------------------------------------------------------------------------------
+// gosubs
+ca1_dialogue_timer:
+	GET_GAME_TIMER ca1_text_timer_end 
+	ca1_text_timer_diff = ca1_text_timer_end - ca1_text_timer_start
+	IF ca1_text_timer_diff > 500
+		GET_GAME_TIMER ca1_text_timer_start
+	ENDIF
+RETURN
+
+ca1_pick_random_dialogue:
+GENERATE_RANDOM_INT_IN_RANGE temp_integer_1 temp_integer_2 ca1_random_dialogue
+GET_GAME_TIMER ca1_text_timer_start
+ca1_dialogue_playing = 1
+IF ca1_random_dialogue = ca1_random_dialogue_last
+	temp_integer_2--
+	IF ca1_random_dialogue < temp_integer_2 
+		ca1_random_dialogue ++
+	ELSE
+		IF ca1_random_dialogue > temp_integer_1
+			ca1_random_dialogue --
+		ENDIF
+	ENDIF
+ENDIF
 RETURN
 // ------------------------------------------------------------------------------------------------
 
