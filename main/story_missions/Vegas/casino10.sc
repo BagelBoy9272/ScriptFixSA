@@ -166,6 +166,8 @@ LVAR_INT cutscene_car2_casino10 car2_driver_casino10
 LVAR_INT dummy1_casino10 dummy2_casino10 dummy3_casino10 dummy4_casino10 dummy5_casino10
 LVAR_INT dummy6_casino10 dummy7_casino10 dummy8_casino10 dummy9_casino10 dummy10_casino10
 
+LVAR_INT trip_skip_vehicle_casino10 // FIXEDGROVE
+
 // *************************************** MISSION DIALOGUE ***************************************
 
 casino10_chat_switch:
@@ -175,6 +177,9 @@ SWITCH casino10_chat_switch
 
 	CONST_INT casino10_CHAT1 0
 	CONST_INT casino10_CHAT2 1
+	CONST_INT casino10_CHAT3 2
+	CONST_INT casino10_CHAT4 3
+	CONST_INT casino10_CHAT5 4
 	
 	CASE casino10_CHAT1
 
@@ -211,6 +216,64 @@ SWITCH casino10_chat_switch
 		casino10_speaker[2] = -1
 
 		cell_index_end = 2
+	BREAK
+
+	CASE casino10_CHAT3
+
+		$casino10_chat[0] = &CAS11AA // Ok, you guys get out of Las Venturas fast!
+		$casino10_chat[1] = &CAS11AB // I'll be in touch.
+		$casino10_chat[2] = &CAS11AC //What about your backup, ol’lad, will you be ok without us?
+		$casino10_chat[3] = &CAS11AD //Of course he will, you fucking moron, come on!
+
+		casino10_audio_chat[0] = SOUND_CAS11AA // Ok, you guys get out of Las Venturas fast!
+		casino10_audio_chat[1] = SOUND_CAS11AB // I'll be in touch.
+		casino10_audio_chat[2] = SOUND_CAS11AC //What about your backup, ol’lad, will you be ok without us?
+		casino10_audio_chat[3] = SOUND_CAS11AD //Of course he will, you fucking moron, come on!
+
+		casino10_speaker[0] = scplayer
+		casino10_speaker[1] = scplayer
+		casino10_speaker[2] = -1
+		casino10_speaker[3] = -1
+
+		cell_index_end = 3
+	BREAK
+
+	CASE casino10_CHAT4
+
+		$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
+		$casino10_chat[1] = &CAS11EB	//The Forelli's are finished in this town!
+		$casino10_chat[2] = &CAS11EC	//I'm here to spill pasta sauce!
+		$casino10_chat[3] = &CAS11ED	//Marco Forelli, I'm here for you!
+		$casino10_chat[4] = &CAS11EE	//Marco, I'm coming for you!
+		$casino10_chat[5] = &CAS11EF	//Mafia assholes!
+		$casino10_chat[6] = &CAS11EG	//I'm your worst egg plant nightmare!
+
+		casino10_audio_chat[0] = SOUND_CAS11EA	//Salvatore sends his regards!
+		casino10_audio_chat[1] = SOUND_CAS11EB	//The Forelli's are finished in this town!
+		casino10_audio_chat[2] = SOUND_CAS11EC	//I'm here to spill pasta sauce!
+		casino10_audio_chat[3] = SOUND_CAS11ED	//Marco Forelli, I'm here for you!
+		casino10_audio_chat[4] = SOUND_CAS11EE	//Marco, I'm coming for you!
+		casino10_audio_chat[5] = SOUND_CAS11EF	//Mafia assholes!
+		casino10_audio_chat[6] = SOUND_CAS11EG	//I'm your worst egg plant nightmare!
+
+		cell_index_end = 6
+	BREAK
+
+	CASE casino10_CHAT5
+
+		$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
+		$casino10_chat[1] = &CAS11EB	//The Forelli's are finished in this town!
+		$casino10_chat[2] = &CAS11EC	//I'm here to spill pasta sauce!
+		$casino10_chat[3] = &CAS11EF	//Mafia assholes!
+		$casino10_chat[4] = &CAS11EG	//I'm your worst egg plant nightmare!
+
+		casino10_audio_chat[0] = SOUND_CAS11EA	//Salvatore sends his regards!
+		casino10_audio_chat[1] = SOUND_CAS11EB	//The Forelli's are finished in this town!
+		casino10_audio_chat[2] = SOUND_CAS11EC	//I'm here to spill pasta sauce!
+		casino10_audio_chat[3] = SOUND_CAS11EF	//Mafia assholes!
+		casino10_audio_chat[4] = SOUND_CAS11EG	//I'm your worst egg plant nightmare!
+
+		cell_index_end = 4
 	BREAK
 
 ENDSWITCH
@@ -477,6 +540,8 @@ WHILE NOT HAS_SPECIAL_CHARACTER_LOADED 3
 
 ENDWHILE
 
+CREATE_CAR SENTINEL 2159.3811 1651.7991 10.729 trip_skip_vehicle_casino10 // FIXEDGROVE
+
 // ****** creates the character for the cutscene outside casino where Rosenberg Paul and Macca leg it ******
 
 CLEAR_AREA 2163.589 1682.247 9.860 1.0 TRUE 
@@ -539,266 +604,89 @@ WHILE GET_FADING_STATUS
 
 ENDWHILE
 
+// FIXEDGROVE: START
+casino10_index = 0
+casino10_audio_is_playing = 0
+casino10_cutscene_flag = 0
+casino10_chat_switch = casino10_CHAT3
+GOSUB casino10_chat_switch
+// FIXEDGROVE: END
+
 // cutscene of the player telling Paul, Macca and Rosenberg to go elsewhere and he will meet them later
 SKIP_CUTSCENE_START
 
-IF IS_PLAYER_PLAYING player1
-	PLAY_MISSION_AUDIO 1 
-	PRINT_NOW (CAS11AA) 10000 1 //"Ok, you guys get out of Las Venturas fast!"
-	START_CHAR_FACIAL_TALK scplayer 999999
 	TASK_PLAY_ANIM_NON_INTERRUPTABLE  scplayer IDLE_CHAT PED 4.0 TRUE FALSE FALSE FALSE -1
-ELSE
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	CLEAR_THIS_PRINT (CAS11AA) 
-ENDIF
 
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-
+// FIXEDGROVE: START - refactored this a bit
+WHILE casino10_index = 0 // Ok, you guys get out of Las Venturas fast!
+OR casino10_index = 1 // I'll be in touch.
 	WAIT 0
 
-	IF IS_CHAR_DEAD macca_casino10
-		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-		GOTO mission_casino10_failed
-	ELSE
-		CLEAR_CHAR_TASKS macca_casino10 
+	IF casino10_cutscene_flag = 0
+	AND casino10_audio_is_playing = 2
+		IF NOT IS_CHAR_DEAD macca_casino10
+			CLEAR_CHAR_TASKS macca_casino10 
+		ENDIF
+		START_CHAR_FACIAL_TALK scplayer 999999
+		casino10_cutscene_flag = 1
 	ENDIF
 
-	IF IS_CHAR_DEAD paul_casino10
-		PRINT_NOW (CM10_12) 8000 1 //"Paul is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD rosenberg_casino10
-		PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CAR_DEAD car_casino10
-		PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF NOT IS_PLAYER_PLAYING player1
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		CLEAR_THIS_PRINT (CAS11AA) 
-	ENDIF
-
+	GOSUB load_and_play_audio_casino10
 ENDWHILE
 
-CLEAR_MISSION_AUDIO 1
-CLEAR_THIS_PRINT (CAS11AA)
-STOP_CHAR_FACIAL_TALK scplayer
-
-LOAD_MISSION_AUDIO 1 SOUND_CAS11AC  //What about your backup, ol’lad, will you be ok without us?
-	   
-PLAY_MISSION_AUDIO 2
-PRINT_NOW (CAS11AB) 10000 1 //"I'll be in touch."
-START_CHAR_FACIAL_TALK scplayer 999999
-
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
-OR NOT HAS_MISSION_AUDIO_LOADED 1
-
+casino10_cutscene_flag = 0
+WHILE casino10_index = 2 //What about your backup, ol’lad, will you be ok without us?
 	WAIT 0
 
-	IF IS_CHAR_DEAD macca_casino10
-		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-		GOTO mission_casino10_failed
-	ELSE
-		CLEAR_CHAR_TASKS macca_casino10 
+	IF casino10_cutscene_flag = 0
+	AND casino10_audio_is_playing = 2
+		CLEAR_CHAR_TASKS scplayer
+		STOP_CHAR_FACIAL_TALK scplayer
+		IF NOT IS_CHAR_DEAD macca_casino10 
+			START_CHAR_FACIAL_TALK macca_casino10 999999
+			TASK_PLAY_ANIM_NON_INTERRUPTABLE  macca_casino10 IDLE_CHAT PED 4.0 TRUE FALSE FALSE FALSE -1
+		ENDIF
+		casino10_cutscene_flag = 1
 	ENDIF
 
-	IF IS_CHAR_DEAD paul_casino10
-		PRINT_NOW (CM10_12) 8000 1 //"Paul is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD rosenberg_casino10
-		PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CAR_DEAD car_casino10
-		PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF NOT IS_PLAYER_PLAYING player1
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		CLEAR_THIS_PRINT (CAS11AB) 
-	ENDIF
-
+	GOSUB load_and_play_audio_casino10
 ENDWHILE
 
-CLEAR_CHAR_TASKS scplayer
-
-CLEAR_MISSION_AUDIO 2
-CLEAR_THIS_PRINT (CAS11AB)
-STOP_CHAR_FACIAL_TALK scplayer
-
-LOAD_MISSION_AUDIO 2 SOUND_CAS11AD //Of course he will, you fucking moron, come on!
-
-IF NOT IS_CHAR_DEAD macca_casino10 
-	PLAY_MISSION_AUDIO 1
-	PRINT_NOW (CAS11AC) 10000 1 //"What about your backup, ol’lad, will you be ok without us?"
-	START_CHAR_FACIAL_TALK macca_casino10 999999
-	TASK_PLAY_ANIM_NON_INTERRUPTABLE  macca_casino10 IDLE_CHAT PED 4.0 TRUE FALSE FALSE FALSE -1
-ELSE
-	PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-	GOTO mission_casino10_failed
-ENDIF
-
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 1
-OR NOT HAS_MISSION_AUDIO_LOADED 2
-
+casino10_cutscene_flag = 0
+WHILE casino10_index = 3 //Of course he will, you fucking moron, come on!
 	WAIT 0
 
-	IF IS_CHAR_DEAD macca_casino10
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		CLEAR_THIS_PRINT (CAS11AC)
-		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-		GOTO mission_casino10_failed 
+	IF casino10_cutscene_flag = 0
+	AND casino10_audio_is_playing = 2
+		IF NOT IS_CHAR_DEAD macca_casino10
+			STOP_CHAR_FACIAL_TALK macca_casino10 
+			CLEAR_CHAR_TASKS macca_casino10
+		ENDIF
+		IF NOT IS_CHAR_DEAD rosenberg_casino10
+			TASK_LOOK_AT_CHAR rosenberg_casino10 scplayer -2 
+		ENDIF
+		casino10_cutscene_flag = 1
 	ENDIF
 
-	IF IS_CHAR_DEAD paul_casino10
-		PRINT_NOW (CM10_12) 8000 1 //"Paul is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD rosenberg_casino10
-		PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CAR_DEAD car_casino10
-		PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
+	GOSUB load_and_play_audio_casino10
 ENDWHILE
-
-CLEAR_MISSION_AUDIO 1
-CLEAR_THIS_PRINT (CAS11AC)
-
-IF NOT IS_CHAR_DEAD macca_casino10
-	STOP_CHAR_FACIAL_TALK macca_casino10 
-	CLEAR_CHAR_TASKS macca_casino10
-ELSE
-	PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-	GOTO mission_casino10_failed
-ENDIF
-
-IF NOT IS_CHAR_DEAD rosenberg_casino10
-	TASK_LOOK_AT_CHAR rosenberg_casino10 scplayer -2 
-	PLAY_MISSION_AUDIO 2
-	PRINT_NOW (CAS11AD) 10000 1 //"Of course he will, you fucking moron, come on!"
-	START_CHAR_FACIAL_TALK rosenberg_casino10 999999
-ELSE
-	PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-	CLEAR_MISSION_AUDIO 1
-	CLEAR_MISSION_AUDIO 2
-	CLEAR_THIS_PRINT  (CAS11AD)
-	GOTO mission_casino10_failed
-ENDIF
-
-WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
-
-	WAIT 0
-
-	IF IS_CHAR_DEAD macca_casino10
-		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD paul_casino10
-		PRINT_NOW (CM10_12) 8000 1 //"Paul is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD rosenberg_casino10
-		CLEAR_MISSION_AUDIO 1
-		CLEAR_MISSION_AUDIO 2
-		CLEAR_THIS_PRINT (CAS11AC)
-		PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CAR_DEAD car_casino10
-		PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-ENDWHILE
-
-CLEAR_MISSION_AUDIO 2
-CLEAR_THIS_PRINT (CAS11AD)
+// FIXEDGROVE: END
 
 IF NOT IS_CHAR_DEAD rosenberg_casino10 
 	STOP_CHAR_FACIAL_TALK rosenberg_casino10
 	CLEAR_LOOK_AT rosenberg_casino10
-ELSE
-	PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-	GOTO mission_casino10_failed 
 ENDIF
 
 IF NOT IS_CAR_DEAD car_casino10
-
 	IF NOT IS_CHAR_DEAD macca_casino10
 		TASK_ENTER_CAR_AS_PASSENGER macca_casino10 car_casino10 10000 0
-	ELSE
-		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-		GOTO mission_casino10_failed 
 	ENDIF
-
-	IF IS_CHAR_DEAD macca_casino10
-		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-	
-	IF IS_CHAR_DEAD rosenberg_casino10  
-		PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD paul_casino10
-		PRINT_NOW (CM10_12) 8000 1 //"Paul is dead!"
-		GOTO mission_casino10_failed	
-	ENDIF
-
-ELSE
-	PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
-	GOTO mission_casino10_failed
 ENDIF
 
 WHILE NOT IS_CHAR_IN_CAR macca_casino10 car_casino10
 OR NOT IS_CHAR_IN_CAR paul_casino10 car_casino10
 OR NOT IS_CHAR_IN_CAR rosenberg_casino10 car_casino10
-
 	WAIT 0
-
-	IF IS_CHAR_DEAD macca_casino10
-		PRINT_NOW (CM10_11) 8000 1 //"Macca is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD paul_casino10
-		PRINT_NOW (CM10_12) 8000 1 //"Paul is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CHAR_DEAD rosenberg_casino10
-		PRINT_NOW (CM10_13) 8000 1 //"Rosenberg is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-
-	IF IS_CAR_DEAD car_casino10
-		PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
-		GOTO mission_casino10_failed 
-	ENDIF
-	
 ENDWHILE
 
 IF NOT IS_CAR_DEAD car_casino10
@@ -806,9 +694,6 @@ IF NOT IS_CAR_DEAD car_casino10
 	SET_CAR_DRIVING_STYLE car_casino10 2
 	SET_CAR_CRUISE_SPEED car_casino10 30.0
 	TASK_LOOK_AT_VEHICLE scplayer car_casino10 30000 // FIXEDGROVE
-ELSE
-	PRINT_NOW (CM10_14) 8000 1 //"The car is dead!"
-	GOTO mission_casino10_failed 
 ENDIF
 
 WAIT 2000
@@ -935,11 +820,38 @@ WHILE NOT LOCATE_CHAR_ANY_MEANS_3D scplayer 1707.828 1606.639 9.055 4.0 4.0 3.0 
 
 	WAIT 0
 
+	// FIXEDGROVE: START - added trip skip
+	SWITCH trip_skip_flag_casino10
+	CASE 1
+		IF NOT IS_CAR_DEAD trip_skip_vehicle_casino10
+			IF NOT IS_CHAR_SITTING_IN_CAR scplayer trip_skip_vehicle_casino10
+				SET_UP_SKIP_FOR_VEHICLE_FINISHED_BY_SCRIPT 2163.589 1682.247 9.860 0.0 trip_skip_vehicle_casino10
+			ELSE
+				trip_skip_flag_casino10 = 2
+			ENDIF
+		ENDIF
+	BREAK
+	CASE 2
+		IF NOT IS_CAR_DEAD trip_skip_vehicle_casino10
+			IF IS_CHAR_SITTING_IN_CAR scplayer trip_skip_vehicle_casino10
+				IF IS_SKIP_WAITING_FOR_SCRIPT_TO_FADE_IN
+					GOTO trip_skip_destination
+				ENDIF
+			ELSE
+				trip_skip_flag_casino10 = 1
+			ENDIF
+		ENDIF
+	BREAK
+	ENDSWITCH
+	// FIXEDGROVE: END
+
 	IF IS_PS2_KEYBOARD_KEY_PRESSED PS2_KEY_S
     	GOTO mission_casino10_passed  
 	ENDIF
 
 ENDWHILE
+
+CLEAR_SKIP // FIXEDGROVE
 
 REMOVE_BLIP airport_blip2_casino10
  		 
@@ -1078,6 +990,13 @@ WHILE casino10_index <= cell_index_end
 	ENDIF
 
 ENDWHILE
+// FIXEDGROVE: END
+
+// FIXEDGROVE: START - added trip skip
+trip_skip_destination:
+trip_skip_flag_casino10 = 1
+MARK_CAR_AS_NO_LONGER_NEEDED trip_skip_vehicle_casino10
+CLEAR_SKIP
 // FIXEDGROVE: END
 
 SET_FADING_COLOUR 0 0 0
@@ -3712,98 +3631,28 @@ random_line_casino10:
 
 	IF flag_forelli_dead_casino10 = 0 // Forelli is alive
 
-		GENERATE_RANDOM_INT_IN_RANGE 0 7 casino10_random_line
-
 		WHILE casino10_random_line = casino10_last_line
 			GENERATE_RANDOM_INT_IN_RANGE 0 7 casino10_random_line
 		ENDWHILE
 
-		casino10_last_line = casino10_random_line
-
-		SWITCH casino10_random_line
-
-			CASE 0
-				$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
-				casino10_audio_chat[0] = SOUND_CAS11EA	//Salvatore sends his regards!
-			BREAK
-
-			CASE 1
-				$casino10_chat[0] = &CAS11EB	//The Forelli's are finished in this town!
-				casino10_audio_chat[0] = SOUND_CAS11EB	//The Forelli's are finished in this town!
-			BREAK
-
-			CASE 2
-				$casino10_chat[0] = &CAS11EC	//I'm here to spill pasta sauce!
-				casino10_audio_chat[0] = SOUND_CAS11EC	//I'm here to spill pasta sauce!
-			BREAK
-
-			CASE 3
-				$casino10_chat[0] = &CAS11ED	//Marco Forelli, I'm here for you!
-				casino10_audio_chat[0] = SOUND_CAS11ED	//Marco Forelli, I'm here for you!
-			BREAK
-
-			CASE 4
-				$casino10_chat[0] = &CAS11EE	//Marco, I'm coming for you!
-				casino10_audio_chat[0] = SOUND_CAS11EE	//Marco, I'm coming for you!
-			BREAK
-
-			CASE 5
-				$casino10_chat[0] = &CAS11EF	//Mafia assholes!
-				casino10_audio_chat[0] = SOUND_CAS11EF	//Mafia assholes!
-			BREAK
-
-			CASE 6
-				$casino10_chat[0] = &CAS11EG	//I'm your worst egg plant nightmare!
-				casino10_audio_chat[0] = SOUND_CAS11EG	//I'm your worst egg plant nightmare!
-			BREAK
-
-		ENDSWITCH
+		casino10_chat_switch = casino10_CHAT4
 
 	ELSE // Forelli is dead
-
-		GENERATE_RANDOM_INT_IN_RANGE 0 5 temp_integer_1
 
 		WHILE casino10_random_line = casino10_last_line
 			GENERATE_RANDOM_INT_IN_RANGE 0 5 casino10_random_line
 		ENDWHILE
 
-		casino10_last_line = casino10_random_line
-
-		SWITCH casino10_random_line
-
-			CASE 0
-				$casino10_chat[0] = &CAS11EA	//Salvatore sends his regards!
-				casino10_audio_chat[0] = SOUND_CAS11EA	//Salvatore sends his regards!
-			BREAK
-
-			CASE 1
-				$casino10_chat[0] = &CAS11EB	//The Forelli's are finished in this town!
-				casino10_audio_chat[0] = SOUND_CAS11EB	//The Forelli's are finished in this town!
-			BREAK
-
-			CASE 2
-				$casino10_chat[0] = &CAS11EC	//I'm here to spill pasta sauce!
-				casino10_audio_chat[0] = SOUND_CAS11EC	//I'm here to spill pasta sauce!
-			BREAK
-
-			CASE 3
-				$casino10_chat[0] = &CAS11EF	//Mafia assholes!
-				casino10_audio_chat[0] = SOUND_CAS11EF	//Mafia assholes!
-			BREAK
-
-			CASE 4
-				$casino10_chat[0] = &CAS11EG	//I'm your worst egg plant nightmare!
-				casino10_audio_chat[0] = SOUND_CAS11EG	//I'm your worst egg plant nightmare!
-			BREAK
-
-		ENDSWITCH
+		casino10_chat_switch = casino10_CHAT5
 
 	ENDIF
 
-	casino10_speaker[0] = scplayer
+		casino10_last_line = casino10_random_line
+		GOSUB casino10_chat_switch
 
-	cell_index_end = 0
-	casino10_index = 0
+	casino10_speaker[casino10_random_line] = scplayer
+	cell_index_end = casino10_random_line
+	casino10_index = casino10_random_line
 
 RETURN
 // FIXEDGROVE: END
