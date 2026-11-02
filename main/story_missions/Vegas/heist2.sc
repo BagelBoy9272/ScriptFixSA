@@ -2611,7 +2611,13 @@ IF hei2_dive_scene_played_flag       = 0
 							IF hei2_sfx_playing = 0												
 								STOP_CHAR_FACIAL_TALK scplayer
 					 			START_CHAR_FACIAL_TALK scplayer	 4000
-								hei2_audio_counter = 14// = SOUND_HE2_CB//Shit, the hatch locked behind me!					
+								GENERATE_RANDOM_INT_IN_RANGE 0 2 hei2_temp_int // FIXEDGROVE: random line
+								IF hei2_temp_int = 0
+									hei2_audio_counter = 14// = SOUND_HE2_CA//What the... somebody'e locked the hatch!
+								ELSE
+									// FIXEDGROVE: unused line
+									hei2_audio_counter = 15// = SOUND_HE2_CB//Shit, the hatch locked behind me!		
+								ENDIF
 								hei2_mobile = 2
 								GET_GAME_TIMER hei2_text_timer_start
 								SET_FIXED_CAMERA_POSITION -596.53 2013.11 76.53  0.0 0.0 0.0 // wide shot	

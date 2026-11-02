@@ -362,6 +362,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **The Meat Business:**
 - Added 2 unused line variations for when the player gets locked in the freezer
 
+**Dam and Blast:**
+- Added 1 unused line variation for when the player gets locked on the roof of the dam
+
 **Up, Up And Away!:**
 - Fixed stationary minigun removing the player's heavy weaponry
 - Fixed minigun not being removed if the player dies while using it
