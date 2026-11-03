@@ -182,7 +182,7 @@ LVAR_INT flag_winch_message_heist5 flag_watched_end_cutscene_heist5
 LVAR_INT stored_vehicle_heist5 // used for cutscenes
 
 // FIXEDGROVE: vars for player's weapon
-LVAR_INT weapontype_heist5 ammo_heist5 model_for_weapon_heist5
+LVAR_INT weapontype_heist5 ammo_heist5 model_for_weapon_heist5 stored_weaponslot_heist5
 
 // **************************************** Mission Start **********************************
 
@@ -1190,6 +1190,7 @@ WHILE NOT counter_backup_dead_heist5 = 2
 						REMOVE_BLIP minigun_blip_heist5
 						REMOVE_SPHERE sphere_heist5
 						GET_CHAR_WEAPON_IN_SLOT scplayer 8 weapontype_heist5 ammo_heist5 model_for_weapon_heist5 // FIXEDGROVE: store player's weapon
+						GET_CURRENT_CHAR_WEAPON scplayer stored_weaponslot_heist5 // FIXEDGROVE
 						SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED // FIXEDGROVE: have to do this to correctly store weapon
 						ATTACH_CHAR_TO_OBJECT scplayer minigun_heist5 0.0 0.0 2.0  FACING_LEFT 360.0 WEAPONTYPE_MINIGUN
 						SET_OBJECT_VISIBLE minigun_heist5 FALSE
@@ -3796,6 +3797,7 @@ restore_player_weapon:
 	REQUEST_MODEL model_for_weapon_heist5
 	LOAD_ALL_MODELS_NOW
 	GIVE_WEAPON_TO_CHAR scplayer weapontype_heist5 ammo_heist5
+	SET_CURRENT_CHAR_WEAPON scplayer stored_weaponslot_heist5 // also restore slot
 	MARK_MODEL_AS_NO_LONGER_NEEDED model_for_weapon_heist5
 	RETURN
 // FIXEDGROVE: END

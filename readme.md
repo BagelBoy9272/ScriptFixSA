@@ -154,11 +154,12 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Restored objective text when you get out of the car
 - Tweaked order of widescreen commands so they aren't set during a fadeout, only after one
 
-**Just Bussiness:**
+**Just Business:**
 - Added facial talk anim to voicelines
 - Restored a possibly unintentionally unused line
 - Made difficulty flag global
 - Made 'manual aim' help box only show up if using a controller
+- Scripted Uzi is only given if you don't have already have a weapon in the same slot
 
 **Doberman:**
 - Guy at end would have random voice lines
@@ -191,6 +192,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added facial talk anim to Grove members outside the motel
 - Added back missing subititles for swat lines
 - Added "fake" wanted level after reaching the motel
+- Scripted shotgun is only given if you don't already have a weapon in the same slot
 - Fixed code for healing the player setting his health to 100 even if he had more 
 - Disabled collision for Grove member that falls from the railling, and made him silent 
 - Slightly adjusted dead Grove member position to avoid clipping and make sense contextually 
@@ -209,6 +211,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Opened front passenger seat of Sweet's car in the final cutscene
 - Fixed jarring time shift in the ending cutscene caused by the script setting the time to 7:00 AM 
 - Fixed characters not using their intended animation groups 
+- Fixed "stealing" of player's rifle
 - Tidied up code to accomodate new changes under the size limit
 
 **Green Sabre:**
@@ -359,6 +362,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **The Meat Business:**
 - Added 2 unused line variations for when the player gets locked in the freezer
 
+**Dam and Blast:**
+- Added 1 unused line variation for when the player gets locked on the roof of the dam
+
 **Up, Up And Away!:**
 - Fixed stationary minigun removing the player's heavy weaponry
 - Fixed minigun not being removed if the player dies while using it
@@ -371,6 +377,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **Freefall:**
 - Fixed flawed delta-time scaling introduced in the PC port for plane physics, restores console parity
 - Fixed controller specific cover controls help box version being shown even on KBM
+- Fixed "stealing" of player's handgun
 
 **Saint Mark's Bistro:**
 - Added facial talk anim to voicelines
@@ -428,6 +435,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **End Of The Line:**
 - Fixed swat member being spawned out of bounds due to a typo
 - Changed Tenpenny's shotgun to a SPAS-12 to match the cutscene
+- Scripted Uzi is only given if you don't already have a weapon in the same slot
 - Disabled mod garages to prevent issues
 
 **GFs:**
@@ -518,12 +526,18 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Fixed crappy cone deletion code in bike school and driving school deleting random objects (Blackboard glitch)
 - Fixed slot machine not enabling its ped attractor
 - Fixed radar showing while the wager menu was active in the lowrider minigame
+- Fixed a crash in the 2nd quarry mission
+- Fixed the massive stunt bonus bug when you drop the bombs in the 5th quarry mission
+- Fixed ability to destroy the cop bike in the last quarry mission
 - Fixed missing Pizza Stack icon in Montgomery
 - ®️ Fixed missing barber shop icon in El Quebrados
 - Fixed duplicated Binco icon in Juniper Hill, SF
 - Fixed 'The Big Spread Ranch' private dance not counting towards 'strip club budget' stat
 - Fixed street food not counting towards 'food budget' stat
 - Fixed scripted idle stance in pool not working if the player was fat or muscular
+- Fixed inverted mouse shooting controls in pool
+- Fixed pool physics and input handling to be independent of framerate
+- Fixed dance and lowrider minigame hit flash fading to be independent of framerate
 - Fixed upper bound on a random number generator in the dance minigame, bringing back an unintentionally unused partner model
 - Fixed a memory leak related to crack dealers, which could manifest as their customer not despawning if killed
 - Fixed typo in the license plate of Cesar's car
@@ -554,6 +568,9 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Moved an armour pickup in Area 69 closer to the ground
 - Moved bribe pickup inside a building in Doherty to an alley nearby based on comment and Bradygames guide position
 - Disabled enter car button while a Grove member is taking a picture of you
+- Now you can use the mouse to position the cue ball in pool
+- Tweaked controller sensitivity when moving the cue stick in pool: top-down view has it increased for faster positioning and close view sits between PS2 and Xbox values for precision
+- Removed extremely small mouse deadzone in pool
 - Improved Forbidden Area switches
 - Added population properties to a lot of previously missing zones
 - Tweaked demographics of a few exising zones, now you can spot the hispanic drug dealer in East Los Santos and Las Colinas, and the biker drug dealer in SF
@@ -607,6 +624,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 - Added unused "hit", "stick, "double" and "split" lines for the player while playing blackjack
 - Added unused "GAMB_CONGRATS" lines for random peds nearby when the player wins in a gambling game
 - Added unused "BOXING_CHEER" for boxers outside the ring when fighting the LS and LV gym instructor (based on almost finished OG code)
+- Added the 'checkpoint complete' audio cue to the 1st and 2nd quarry missions
 - Each Trucking and Quarry mission now plays the mission complete tune (previously only the last one did)
 - Each Trucking and Quarry mission now counts towards total progress % (previously only the last one did)
 - Each mountain bike race now counts towards total progress % (previously only the last one did)

@@ -120,6 +120,7 @@ LVAR_INT index_random_coord
 LVAR_INT transmitter1_health_zero1 transmitter2_health_zero1 transmitter3_health_zero1 transmitter4_health_zero1
 
 LVAR_INT weapontype_zero1 ammo_zero1 model_for_weapon_zero1
+LVAR_INT stored_waponslot_zero1 // FIXEDGROVE
 
 
 VAR_INT transmitter_overallhealth
@@ -399,6 +400,7 @@ mission_start_zero1:
    	CREATE_OBJECT minigun_base coord_rc_van_x coord_rc_van_y coord_rc_van_z object_turret_zero1
 	SET_OBJECT_COLLISION object_turret_zero1 FALSE
 	GET_CHAR_WEAPON_IN_SLOT scplayer 8 weapontype_zero1 ammo_zero1 model_for_weapon_zero1
+	GET_CURRENT_CHAR_WEAPON scplayer stored_waponslot_zero1 // FIXEDGROVE
 	SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
 
 
@@ -3182,7 +3184,8 @@ mission_cleanup_zero1:
 		// FIXEDGROVE: START - load weapon model before giving it back to the player (SilentPatch)
 		REQUEST_MODEL model_for_weapon_zero1
 		LOAD_ALL_MODELS_NOW
-		GIVE_WEAPON_TO_CHAR scplayer weapontype_zero1 ammo_zero1 // causes crash
+		GIVE_WEAPON_TO_CHAR scplayer weapontype_zero1 ammo_zero1
+		SET_CURRENT_CHAR_WEAPON scplayer stored_waponslot_zero1 // also restore the slot
 		MARK_MODEL_AS_NO_LONGER_NEEDED model_for_weapon_zero1
 		// FIXEDGROVE: END
 	//ENDIF 
