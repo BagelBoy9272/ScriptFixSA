@@ -217,10 +217,7 @@ bball_loop:
 							ENDIF
 						ENDIF
 					ELSE
-						MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
-						bball_ball = -1 // FIXEDGROVE
-						m_stage = 0
-						bball_active = 0
+						GOSUB exit_stage_mark_bball
 					ENDIF
 				BREAK
 
@@ -267,48 +264,28 @@ bball_loop:
 													ENDIF
 
 												ELSE
-													SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-													CLEAR_HELP
-													m_stage += -1	
+													GOSUB prev_stage_bball
 												ENDIF
 											ELSE
-												SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-												CLEAR_HELP
-												m_stage += -1 
+												GOSUB prev_stage_bball
 											ENDIF 
 										ELSE
-											SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-											CLEAR_HELP
-											m_stage += -1
+											GOSUB prev_stage_bball
 										ENDIF
 									ELSE
-										SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-										CLEAR_HELP
-										m_stage += -1
+										GOSUB prev_stage_bball
 									ENDIF
 								ELSE
-									SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-									CLEAR_HELP
-									m_stage += -1	
+									GOSUB prev_stage_bball
 								ENDIF
 							ELSE
-								SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-								CLEAR_HELP
-								m_stage += -1	
+								GOSUB prev_stage_bball
 							ENDIF
 						ELSE
-							SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-							MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
-							bball_active = 0
-							bball_ball = -1 // FIXEDGROVE
-							m_stage = 0	
+							GOSUB exit_stage_bball
 						ENDIF
 					ELSE	
-						SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
-						MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
-						bball_active = 0
-						bball_ball = -1 // FIXEDGROVE
-						m_stage = 0
+						GOSUB exit_stage_bball
 					ENDIF
 				BREAK
 
@@ -397,14 +374,31 @@ bball_loop:
 			ENDSWITCH
 
 		ELSE
-			bball_active = 0
-			bball_ball = -1 // FIXEDGROVE
+			GOSUB exit_stage_vars_bball
 			GOSUB terminate_bball 
 		ENDIF
 	 
 
 WAIT 0
 GOTO bball_loop	
+
+prev_stage_bball:
+	SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
+	CLEAR_HELP
+	m_stage--
+RETURN
+
+exit_stage_bball:
+	SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
+
+exit_stage_mark_bball:
+	MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
+	m_stage = 0	
+
+exit_stage_vars_bball:
+	bball_active = 0
+	bball_ball = -1 // FIXEDGROVE
+RETURN
 
 terminate_bball:
 
