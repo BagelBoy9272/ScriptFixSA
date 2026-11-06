@@ -73,11 +73,9 @@ GOTO PHOTO_Main_Loop
 			STATE MACHINE
 ********************************************/
 PHOTO_State_Machine:
-	SWITCH iPedState	   	
-   		CASE 1 //---STATE 1: PHOTO STANDING 
+	IF iPedState = 1 //---STATE 1: PHOTO STANDING 
 			GOSUB PHOTO_PedState1
-		BREAK
-	ENDSWITCH
+	ENDIF
 
 RETURN
 /********************************************

@@ -92,12 +92,10 @@ GOTO DANCER_Main_Loop
 			STATE MACHINE
 ********************************************/
 DANCER_State_Machine:
-	SWITCH iPedState	   	
-   		CASE 1 //---STATE 1: 
+	IF iPedState = 1 //---STATE 1: 
 			GOSUB DANCER_CheckForComment
 			GOSUB DANCER_PedState1
-		BREAK
-	ENDSWITCH
+	ENDIF
 
 RETURN
 /********************************************

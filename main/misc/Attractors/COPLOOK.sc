@@ -62,11 +62,9 @@ GOTO COPLOOK_Main_Loop
 			STATE MACHINE
 ********************************************/
 COPLOOK_State_Machine:
-	SWITCH iPedState	   	
-   		CASE 1 //---STATE 1: 
+	IF iPedState = 1 //---STATE 1: 
 			GOSUB COPLOOK_PedState1
-		BREAK
-	ENDSWITCH
+	ENDIF
 
 RETURN
 /********************************************

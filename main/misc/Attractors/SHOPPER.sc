@@ -70,11 +70,9 @@ GOTO SHOPPER_Main_Loop
 			STATE MACHINE
 ********************************************/
 SHOPPER_State_Machine:
-	SWITCH iPedState	   	
-   		CASE 1 //---STATE 1: 
+	IF iPedState = 1 //---STATE 1: 
 			GOSUB SHOPPER_PedState1
-		BREAK
-	ENDSWITCH
+	ENDIF
 
 RETURN
 /********************************************
