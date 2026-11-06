@@ -2236,18 +2236,16 @@ ENDIF
 	CASE 14
 	CASE 16
 	CASE 18
-		IF sw4_blip_timer_diff > sw4_blip_time
-			REMOVE_BLIP	spray_shop1
-			sw4_blip_time += 500
-			sw4_blip_counter++
-		ENDIF
-	BREAK
 	CASE 19
 		IF sw4_blip_timer_diff > sw4_blip_time
 			REMOVE_BLIP	spray_shop1
+		IF sw4_blip_counter = 19
 			ADD_SPRITE_BLIP_FOR_COORD 2067.4 -1831.2 13.5 RADAR_SPRITE_SPRAY spray_shop1
 			REMOVE_BLIP	sw4_spray_marker
 			ADD_BLIP_FOR_COORD 2075.55 -1831.09 12.21 sw4_spray_marker
+		ELSE
+			sw4_blip_time += 500
+		ENDIF
 			sw4_blip_counter++
 		ENDIF
 	BREAK
