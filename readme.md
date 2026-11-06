@@ -297,7 +297,7 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 **The Da Nang Thang:**
 - Added an extra member variant
 - Fixed a cutscene softlock
-- Added missing katana to the snakehead
+- Added missing katana in a cutscene to the snakehead
 - Da Nang Boys will be unfriendly to the Grove after this mission
   
 **Outrider:**
