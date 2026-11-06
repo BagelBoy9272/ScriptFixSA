@@ -2204,99 +2204,101 @@ sy1_player_group_check:
 RETURN
 
 sy1_dialogue_pos:
-	IF sy1_counter = 1 // CJ.
-	OR sy1_counter = 3 // My cousin in Los Santos called me. 
-	OR sy1_counter = 4 // He gave me a tip about a Ballas car going San Fierro way to score yay.
-	OR sy1_counter = 6 // Read your mind, holmes, 
-	OR sy1_counter = 7 // I picked them up at the Mulholland Intersection and I'm tailing them now.
-	OR sy1_counter = 9 // Better make it fast, holmes, these boys aren't hanging around!
+	SWITCH sy1_counter
+	CASE 1 // CJ.
+	CASE 3 // My cousin in Los Santos called me. 
+	CASE 4 // He gave me a tip about a Ballas car going San Fierro way to score yay.
+	CASE 6 // Read your mind, holmes, 
+	CASE 7 // I picked them up at the Mulholland Intersection and I'm tailing them now.
+	CASE 9 // Better make it fast, holmes, these boys aren't hanging around!
 		sy1_audio_char = 0
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 2 // You got it.
-	OR sy1_counter = 5 // Damn, we gotta find out who's supplyin' those cats.
-	OR sy1_counter = 8 // Ok, I'm coming out to meet you.
-	OR sy1_counter = 10 // I've got an idea - I'll be there in a minute.
+	CASE 2 // You got it.
+	CASE 5 // Damn, we gotta find out who's supplyin' those cats.
+	CASE 8 // Ok, I'm coming out to meet you.
+	CASE 10 // I've got an idea - I'll be there in a minute.
 		sy1_audio_char = scplayer
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 11  // Hey, Cesar, I'm coming your way, where are you?
-	OR sy1_counter = 14  // Hang on, I'll be there any minute!
+	CASE 11  // Hey, Cesar, I'm coming your way, where are you?
+	CASE 14  // Hang on, I'll be there any minute!
 		sy1_audio_char = scplayer
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 12  // Sitting by the damn road just South of Blueberry!
-	OR sy1_counter = 13  // They spotted me and shot out my tyres!
+	CASE 12  // Sitting by the damn road just South of Blueberry!
+	CASE 13  // They spotted me and shot out my tyres!
 		sy1_audio_char = 0
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 15  // Where to?
+	CASE 15  // Where to?
 		sy1_audio_char = scplayer
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 16  // They were headed over Angel Pine way. Follow the road and maybe we can pick them up!
+	CASE 16  // They were headed over Angel Pine way. Follow the road and maybe we can pick them up!
 		sy1_audio_char = sy1_cesar
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 17  // There it is, holmes!
-	OR sy1_counter = 19 // Who's that in the back?
-	OR sy1_counter = 22 // This business is bigger than any gang, esse.
-	OR sy1_counter = 23 // Someone's coming out of the diner's back door!
-	OR sy1_counter = 25 // Neither, holmes, he's San Fierro Rifa!
-	OR sy1_counter = 26 // Ryder's getting out of the car!
+	CASE 17  // There it is, holmes!
+	CASE 19 // Who's that in the back?
+	CASE 22 // This business is bigger than any gang, esse.
+	CASE 23 // Someone's coming out of the diner's back door!
+	CASE 25 // Neither, holmes, he's San Fierro Rifa!
+	CASE 26 // Ryder's getting out of the car!
 		sy1_audio_char = sy1_cesar
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 18 // That's our ballas car alright.
-	OR sy1_counter = 20 // Ryder, you sherm-head!
-	OR sy1_counter = 21 // What's he rolling with Ballas for?
-	OR sy1_counter = 24 // Who's this guy, Aztecas? Vagos?
-	OR sy1_counter = 27 // Ryder, you lap dog!
-	OR sy1_counter = 28 // That must be the cash...
+	CASE 18 // That's our ballas car alright.
+	CASE 20 // Ryder, you sherm-head!
+	CASE 21 // What's he rolling with Ballas for?
+	CASE 24 // Who's this guy, Aztecas? Vagos?
+	CASE 27 // Ryder, you lap dog!
+	CASE 28 // That must be the cash...
 		sy1_audio_char = scplayer
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 29 // They're being clever about this, there's no exchange, nothing incriminating.
-	OR sy1_counter = 30 // What now? Was that it?
-	OR sy1_counter = 32 // This guy takes himself real serious!
-	OR sy1_counter = 34 // There's the courier with a fresh load of yay for Ryder and his new friends.
+	CASE 29 // They're being clever about this, there's no exchange, nothing incriminating.
+	CASE 30 // What now? Was that it?
+	CASE 32 // This guy takes himself real serious!
+	CASE 34 // There's the courier with a fresh load of yay for Ryder and his new friends.
 		sy1_audio_char = scplayer
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 31 // Hey, holmes, check the van!
-	OR sy1_counter = 33 // Oh, esse, that's T-Bone Mendez.
-	OR sy1_counter = 35 // Who are all these guys?
+	CASE 31 // Hey, holmes, check the van!
+	CASE 33 // Oh, esse, that's T-Bone Mendez.
+	CASE 35 // Who are all these guys?
 		sy1_audio_char = sy1_cesar
-	ENDIF
+	BREAK
 	
-	IF sy1_counter = 36 // More San Fierro Rifa, by the looks of things.
-	OR sy1_counter = 37 // They sure keep their security tight!
-	OR sy1_counter = 38 // I didn't scope those guys, did you?
-	OR sy1_counter = 39 // No. This is more than just a few thugs pushing product, this is seriously organised!
-	OR sy1_counter = 40 // How many of these clowns are there?
-	OR sy1_counter = 41 // I know a pimp when I see one!
+	CASE 36 // More San Fierro Rifa, by the looks of things.
+	CASE 37 // They sure keep their security tight!
+	CASE 38 // I didn't scope those guys, did you?
+	CASE 39 // No. This is more than just a few thugs pushing product, this is seriously organised!
+	CASE 40 // How many of these clowns are there?
+	CASE 41 // I know a pimp when I see one!
 		sy1_audio_char = 0
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 42 // Who's the gringo?
-	OR sy1_counter = 43 // I don't like the look of that guy.
-	OR sy1_counter = 44 // Uh-oh, I think he's clocked us!
-	OR sy1_counter = 45 // Well we're not exactly inconspicuous up here.
-	OR sy1_counter = 46 // Besides, what's he going to do, huh, throw stones at us?
+	CASE 42 // Who's the gringo?
+	CASE 43 // I don't like the look of that guy.
+	CASE 44 // Uh-oh, I think he's clocked us!
+	CASE 45 // Well we're not exactly inconspicuous up here.
+	CASE 46 // Besides, what's he going to do, huh, throw stones at us?
 		sy1_audio_char = 0
-	ENDIF
+	BREAK
 	 
-	IF sy1_counter = 47 // Oh fuck! OH FUCK!
-	OR sy1_counter = 48 // Get us out of here!
-	OR sy1_counter = 50 // That was some heavy shit!
-	OR sy1_counter = 52 // Coolio, dude. We got what we came for
+	CASE 47 // Oh fuck! OH FUCK!
+	CASE 48 // Get us out of here!
+	CASE 50 // That was some heavy shit!
+	CASE 52 // Coolio, dude. We got what we came for
 		sy1_audio_char = scplayer
-	ENDIF
+	BREAK
 
-	IF sy1_counter = 49 // Pope crap!
-	OR sy1_counter = 51 // We better split up and get outta here. I'll meet you back at the garage!
+	CASE 49 // Pope crap!
+	CASE 51 // We better split up and get outta here. I'll meet you back at the garage!
 		sy1_audio_char = sy1_cesar
-	ENDIF
+	BREAK
+	ENDSWITCH
 RETURN
 
 //sy1_smoke_a_blunt:
