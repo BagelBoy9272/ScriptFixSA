@@ -418,6 +418,8 @@ Extract the downloaded .zip file and put the `ScriptFixSA` folder into your modl
 
 **Cut Throat Bussiness:**
 - Set camera behind the player and fade in after the initial cutscene
+- Added unused 'Let's go hit those life-or-death busters' line for Madd Dogg in the initial car ride
+- Add small pause between 'Let's drop in on OG-Loc' dialogue and the car dialogue
 
 **Beat Down on B-Dup:**
 - Fixed 'That's it, I know it!' line when locating B-Dup's house not playing due to an off-by-one mistake
