@@ -1278,6 +1278,7 @@ IF bc1_stage = 6
 ENDIF
 
 IF bc1_stage > 3
+AND bc1_stage < 8
 	IF bc1_target_photo = 0
 		IF NOT DOES_CHAR_EXIST bc1_target
 			PRINT_NOW ( BCR1_09 ) 5000 1 // He can't be identified!
@@ -1355,7 +1356,6 @@ IF bc1_stage = 7
 			IF bc1_camera_ammo > 0
 				IF bc1_camera_ammo_flag = 2
 					ADD_BLIP_FOR_DEAD_CHAR bc1_target bc1_target_blip
-					REMOVE_BLIP bc1_camera_pickup_blip
 					bc1_camera_ammo_flag = 1
 				ENDIF
 				IF bc1_camera_ammo_flag = 1
@@ -1385,21 +1385,6 @@ IF bc1_stage = 7
 								ENDIF	
 						   	ENDIF
 						ENDIF
-					ENDIF
-				ENDIF
-			ELSE
-				IF IS_CHAR_DEAD bc1_target
-					IF bc1_camera_ammo_flag = 1
-						IF bc1_camera_ammo = 0
-							bc1_camera_ammo_flag = 0
-						ENDIF
-					ENDIF
-					IF bc1_camera_ammo_flag = 0
-						PRINT_NOW ( BCR1_11 ) 5000 1 // You need a camera, go and pick one up.
-						REMOVE_BLIP	bc1_target_blip
-						CREATE_PICKUP_WITH_AMMO CAMERA PICKUP_ONCE 24 -2044.10 -2523.86 31.11 bc1_camera_pickup
-						ADD_BLIP_FOR_PICKUP bc1_camera_pickup bc1_camera_pickup_blip 
-						bc1_camera_ammo_flag = 2
 					ENDIF
 				ENDIF
 			ENDIF
@@ -1440,6 +1425,53 @@ AND bc1_stage < 9
 	ENDIF
 ENDIF
 
+// FIXEDGROVE: moved the camera ammo check here
+IF bc1_stage < 8
+	IF bc1_target_photo = 0
+		GET_AMMO_IN_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA bc1_camera_ammo
+		IF bc1_camera_ammo <= 0
+			IF bc1_camera_ammo_flag = 1
+			OR bc1_camera_ammo_flag = 0
+				IF DOES_BLIP_EXIST bc1_check_blip
+					CHANGE_BLIP_DISPLAY bc1_check_blip NEITHER
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_hut_blip
+					CHANGE_BLIP_DISPLAY bc1_hut_blip NEITHER
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_target_blip
+					CHANGE_BLIP_DISPLAY bc1_target_blip NEITHER
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_drop_blip
+					CHANGE_BLIP_DISPLAY bc1_drop_blip NEITHER
+				ENDIF
+				PRINT_NOW ( BCR1_11 ) 5000 1 // You need a camera, go and pick one up.
+				CREATE_PICKUP_WITH_AMMO CAMERA PICKUP_ONCE 24 -2044.10 -2523.86 31.11 bc1_camera_pickup
+				ADD_BLIP_FOR_PICKUP bc1_camera_pickup bc1_camera_pickup_blip
+				bc1_camera_ammo_flag = 2
+			ENDIF
+		ELSE
+			IF bc1_camera_ammo_flag = 2
+				IF DOES_BLIP_EXIST bc1_check_blip
+					CHANGE_BLIP_DISPLAY bc1_check_blip BOTH
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_hut_blip
+					CHANGE_BLIP_DISPLAY bc1_hut_blip BOTH
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_target_blip
+					CHANGE_BLIP_DISPLAY bc1_target_blip BOTH
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_drop_blip
+					CHANGE_BLIP_DISPLAY bc1_drop_blip BOTH
+				ENDIF
+				IF DOES_PICKUP_EXIST bc1_camera_pickup
+					REMOVE_PICKUP bc1_camera_pickup
+				ENDIF
+				REMOVE_BLIP bc1_camera_pickup_blip
+				bc1_camera_ammo_flag = 1
+			ENDIF
+		ENDIF
+	ENDIF
+ENDIF
 
 GOTO mission_loop_bcrash1
 
