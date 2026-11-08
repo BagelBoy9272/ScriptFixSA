@@ -74,18 +74,25 @@ GOTO bball_fool_compiler // FIXEDGROVE: remove m_stage = -1 check, and move this
 bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 
 // FIXEDGROVE: START - check that the ball actually exists, if so, terminate, else, reset bball_active flag
-IF bball_active = 1
 	IF DOES_OBJECT_EXIST bball_ball
 		IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
 		OR DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_INGAME
+			WHILE IS_OBJECT_ON_SCREEN bball_ball
+				WAIT 0
+			ENDWHILE
+			IF DOES_OBJECT_EXIST bball_ball
+				DELETE_OBJECT bball_ball
+			ENDIF
+			bball_ball = -1
 			TERMINATE_THIS_SCRIPT
 		ELSE
+			bball_ball = -1
 			bball_active = 0
 		ENDIF
 	ELSE
+		bball_ball = -1
 		bball_active = 0
 	ENDIF
-ENDIF
 // FIXEDGROVE: END
 		   
 
@@ -132,11 +139,13 @@ bball_loop:
 		IF NOT bball_unlocked = 0 // make sure basket ball is unlocked
 			IF DOES_OBJECT_EXIST bbhoop
 				IF IS_PLAYER_PLAYING player1 
-				AND flag_player_on_mission = 0
-					// FIXEDGROVE: swapped if else chain with a command
-					GET_OBJECT_MODEL bbhoop this_hoop_model
-					IF HAS_MODEL_LOADED this_hoop_model
-						temp_int = 1
+					IF flag_player_on_mission = 0
+					OR flag_cell_nation = 1
+						// FIXEDGROVE: swapped if else chain with a command
+						GET_OBJECT_MODEL bbhoop this_hoop_model
+						IF HAS_MODEL_LOADED this_hoop_model
+							temp_int = 1
+						ENDIF
 					ENDIF
 				ENDIF	
 			ENDIF
@@ -151,16 +160,31 @@ bball_loop:
 				CASE 0
 					IF bball_active = 0
 						IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE								
+
+							IF NOT bball_ball = -1
+								IF DOES_OBJECT_EXIST bball_ball
+									IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
+										m_ball = bball_ball
+										GOTO bball_ball_create
+									ELSE
+										bball_ball = -1
+									ENDIF
+								ELSE
+									bball_ball = -1
+								ENDIF
+							ENDIF
+
 							IF NOT DOES_OBJECT_EXIST m_ball
-								
 								IF HAS_MODEL_LOADED this_hoop_model
 									GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x y z
-									
 									IF NOT IS_POINT_ON_SCREEN x y z 2.0
 										z += 1.0
 										CLEAR_AREA x y z 0.5 FALSE
 										CREATE_OBJECT_NO_OFFSET BBALL_COL x y z m_ball
 										bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
+
+										bball_ball_create:
+
 										col_loaded_for_ball = 1
 										SET_OBJECT_DYNAMIC m_ball TRUE
 										SET_OBJECT_COLLISION m_ball TRUE
@@ -168,12 +192,11 @@ bball_loop:
 										bball_active = 1
 										m_stage++
 									ENDIF
-							
 								ENDIF
 							ENDIF
 						ENDIF
 					ELSE
-						GOSUB terminate_bball
+						GOSUB small_terminate_bball
 					ENDIF
 				BREAK
 
@@ -215,6 +238,8 @@ bball_loop:
 									ENDIF
 								ENDIF
 							ENDIF
+						ELSE
+							GOSUB small_terminate_bball
 						ENDIF
 					ELSE
 						GOSUB exit_stage_mark_bball
@@ -397,13 +422,14 @@ exit_stage_mark_bball:
 
 exit_stage_vars_bball:
 	bball_active = 0
-	bball_ball = -1 // FIXEDGROVE
 RETURN
 
 terminate_bball:
 
 	GOSUB bball_cleanup_minigame // FIXEDGROVE: added, previously the minigame wasn't being cleaned up
 	
+small_terminate_bball:
+
 	MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
 
 	TERMINATE_THIS_SCRIPT
@@ -779,6 +805,14 @@ RETURN
 // ******************************************************************************************
 bball_cleanup_minigame:
 	
+IF IS_THIS_HELP_MESSAGE_BEING_DISPLAYED BB_01
+OR IS_THIS_HELP_MESSAGE_BEING_DISPLAYED BB_02
+OR IS_THIS_HELP_MESSAGE_BEING_DISPLAYED BB_03
+OR IS_THIS_HELP_MESSAGE_BEING_DISPLAYED BB_07
+OR IS_THIS_HELP_MESSAGE_BEING_DISPLAYED BB_09
+	CLEAR_HELP
+ENDIF
+
 	IF bball_is_active = 1 // FIXEDGROVE: only clean up if the minigame actually initialized
 		// weapon stuff ////////////////////////////
 		// give smg weapon back to char
@@ -825,6 +859,7 @@ bball_cleanup_minigame:
 
 		// FIXEDGROVE: paranoid check, only clear these when not on a mission
 		IF flag_player_on_mission = 0
+		OR flag_cell_nation = 1
 			RESTORE_CAMERA
 			SET_PLAYER_CONTROL player1 ON
 			CLEAR_CHAR_TASKS scplayer
