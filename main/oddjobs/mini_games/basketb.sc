@@ -73,19 +73,51 @@ GOTO bball_fool_compiler // FIXEDGROVE: remove m_stage = -1 check, and move this
 	CREATE_OBJECT WOODENBOX 0.0 0.0 0.0 char_obj
 bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 
-// FIXEDGROVE: START - check that the ball actually exists, if so, terminate, else, reset bball_active flag
-	IF DOES_OBJECT_EXIST bball_ball
-		IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
-		OR DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_INGAME
-			WHILE IS_OBJECT_ON_SCREEN bball_ball
+// FIXEDGROVE: START - refactored this a bit
+	// wait a bit if more than one has started
+	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc temp_int
+	IF temp_int > 1
+		wait_until_the_previous_instance_is_done:
+		GENERATE_RANDOM_INT_IN_RANGE 250 2500 temp_int2
+		WAIT temp_int2
+	ELSE
+		WAIT 500
+	ENDIF
+
+	// keep the script from restarting over and over
+	WHILE flag_player_on_mission = 1
+	AND flag_cell_nation = 0
+		IF DOES_OBJECT_EXIST bbhoop
+			IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
 				WAIT 0
-			ENDWHILE
-			IF DOES_OBJECT_EXIST bball_ball
-				DELETE_OBJECT bball_ball
+			ELSE
+				TERMINATE_THIS_SCRIPT
 			ENDIF
-			bball_ball = -1
-			TERMINATE_THIS_SCRIPT
 		ELSE
+			TERMINATE_THIS_SCRIPT
+		ENDIF
+	ENDWHILE
+
+	// wait if it started previously
+	IF unused_2 = 1
+		GOTO wait_until_the_previous_instance_is_done
+	ENDIF
+
+	// ensure that different courts can have a chance at making a ball
+	GENERATE_RANDOM_INT_IN_RANGE 0 101 temp_int
+	IF temp_int < 50
+		GOTO wait_until_the_previous_instance_is_done
+	ELSE
+		IF unused_2 = 1
+			GOTO wait_until_the_previous_instance_is_done
+		ENDIF
+	ENDIF
+	unused_2 = 1
+
+	// reset the vars if the ball doesn't actually exist
+	IF DOES_OBJECT_EXIST bball_ball
+		IF NOT DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
+		AND NOT DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_INGAME
 			bball_ball = -1
 			bball_active = 0
 		ENDIF
@@ -161,17 +193,20 @@ bball_loop:
 					IF bball_active = 0
 						IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE								
 
-							IF NOT bball_ball = -1
-								IF DOES_OBJECT_EXIST bball_ball
-									IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
-										m_ball = bball_ball
+							IF DOES_OBJECT_EXIST bball_ball
+								IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
+									GET_OBJECT_COORDINATES bball_ball x y z
+									GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x2 y2 z2
+									DELETE_OBJECT bball_ball
+									GET_DISTANCE_BETWEEN_COORDS_3D x y z x2 y2 z2 distance
+									IF distance <= 10.0
 										GOTO bball_ball_create
-									ELSE
-										bball_ball = -1
 									ENDIF
 								ELSE
 									bball_ball = -1
 								ENDIF
+							ELSE
+								bball_ball = -1
 							ENDIF
 
 							IF NOT DOES_OBJECT_EXIST m_ball
@@ -179,12 +214,10 @@ bball_loop:
 									GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x y z
 									IF NOT IS_POINT_ON_SCREEN x y z 2.0
 										z += 1.0
+										bball_ball_create:
 										CLEAR_AREA x y z 0.5 FALSE
 										CREATE_OBJECT_NO_OFFSET BBALL_COL x y z m_ball
 										bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
-
-										bball_ball_create:
-
 										col_loaded_for_ball = 1
 										SET_OBJECT_DYNAMIC m_ball TRUE
 										SET_OBJECT_COLLISION m_ball TRUE
@@ -194,6 +227,8 @@ bball_loop:
 									ENDIF
 								ENDIF
 							ENDIF
+						ELSE
+							GOSUB small_terminate_bball
 						ENDIF
 					ELSE
 						GOSUB small_terminate_bball
@@ -429,6 +464,8 @@ terminate_bball:
 	GOSUB bball_cleanup_minigame // FIXEDGROVE: added, previously the minigame wasn't being cleaned up
 	
 small_terminate_bball:
+
+	unused_2 = 0
 
 	MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
 
