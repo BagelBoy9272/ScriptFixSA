@@ -74,22 +74,31 @@ GOTO bball_fool_compiler // FIXEDGROVE: remove m_stage = -1 check, and move this
 bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 
 // FIXEDGROVE: START - refactored this a bit
-	// wait a bit if more than one has started
-	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc temp_int
-	IF temp_int > 1
-		wait_until_the_previous_instance_is_done:
-		GENERATE_RANDOM_INT_IN_RANGE 250 2500 temp_int2
-		WAIT temp_int2
-	ELSE
-		WAIT 500
+	// skip waiting if the ball is already in the court
+	IF DOES_OBJECT_EXIST bball_ball
+	AND DOES_OBJECT_EXIST bbhoop
+		IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
+			IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
+				GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 2 x2 y2 z2
+				GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
+				IF IS_OBJECT_IN_AREA_2D bball_ball x2 y2 x3 y3 FALSE
+					GOTO skip_waiting
+				ENDIF
+			ENDIF
+		ENDIF
 	ENDIF
+
+	// wait a bit before starting
+	wait_until_the_previous_instance_is_done:
+	GENERATE_RANDOM_INT_IN_RANGE 250 2500 temp_int2
+	WAIT temp_int2
 
 	// keep the script from restarting over and over
 	WHILE flag_player_on_mission = 1
 	AND flag_cell_nation = 0
 		IF DOES_OBJECT_EXIST bbhoop
 			IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
-				WAIT 0
+				WAIT 1000
 			ELSE
 				TERMINATE_THIS_SCRIPT
 			ENDIF
@@ -112,12 +121,10 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 			GOTO wait_until_the_previous_instance_is_done
 		ENDIF
 	ENDIF
-	unused_2 = 1
 
 	// reset the vars if the ball doesn't actually exist
 	IF DOES_OBJECT_EXIST bball_ball
 		IF NOT DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
-		AND NOT DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_INGAME
 			bball_ball = -1
 			bball_active = 0
 		ENDIF
@@ -125,6 +132,9 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 		bball_ball = -1
 		bball_active = 0
 	ENDIF
+
+skip_waiting:
+	unused_2 = 1
 // FIXEDGROVE: END
 		   
 
