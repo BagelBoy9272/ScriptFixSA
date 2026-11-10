@@ -75,37 +75,32 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 
 // FIXEDGROVE: START - refactored this a bit
 	// skip waiting if the ball is already in the court
-	IF DOES_OBJECT_EXIST bball_ball
-	AND DOES_OBJECT_EXIST bbhoop
-		IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
+	IF DOES_OBJECT_EXIST bbhoop
+		IF DOES_OBJECT_EXIST bball_ball
 			IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
-				GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 2 x2 y2 z2
-				GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
-				IF IS_OBJECT_IN_AREA_2D bball_ball x2 y2 x3 y3 FALSE
-					GOTO skip_waiting
+				IF IS_PLAYER_PLAYING player1
+					IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
+						GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 2 x2 y2 z2
+						GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
+						IF IS_OBJECT_IN_AREA_3D bball_ball x2 y2 z2 x3 y3 z3 FALSE
+							GOTO skip_waiting
+						ENDIF
+					ENDIF
 				ENDIF
 			ENDIF
 		ENDIF
+	ELSE
+		TERMINATE_THIS_SCRIPT
 	ENDIF
 
 	// wait a bit before starting
 	wait_until_the_previous_instance_is_done:
-	GENERATE_RANDOM_INT_IN_RANGE 250 2500 temp_int2
-	WAIT temp_int2
+	GENERATE_RANDOM_INT_IN_RANGE 250 2500 temp_int
+	WAIT temp_int
 
 	// keep the script from restarting over and over
-	WHILE flag_player_on_mission = 1
-	AND flag_cell_nation = 0
-		IF DOES_OBJECT_EXIST bbhoop
-			IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
-				WAIT 1000
-			ELSE
-				TERMINATE_THIS_SCRIPT
-			ENDIF
-		ELSE
-			TERMINATE_THIS_SCRIPT
-		ENDIF
-	ENDWHILE
+	temp_int = 1000
+	GOSUB keep_the_script_from_restarting
 
 	// wait if it started previously
 	IF unused_2 = 1
@@ -135,6 +130,35 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 
 skip_waiting:
 	unused_2 = 1
+	temp_int = 100
+	GOSUB keep_the_script_from_restarting
+
+GOTO skip_over_this_for_now
+
+keep_the_script_from_restarting:
+	WHILE bball_unlocked = 0
+		these_do_the_same_thing:
+		WAIT temp_int
+		IF DOES_OBJECT_EXIST bbhoop
+			IF IS_PLAYER_PLAYING player1
+				IF NOT LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
+					TERMINATE_THIS_SCRIPT
+				ENDIF
+			ELSE
+				TERMINATE_THIS_SCRIPT
+			ENDIF
+		ELSE
+			TERMINATE_THIS_SCRIPT
+		ENDIF
+	ENDWHILE
+
+	WHILE flag_player_on_mission = 1
+	AND flag_cell_nation = 0
+		GOTO these_do_the_same_thing
+	ENDWHILE
+RETURN
+
+skip_over_this_for_now:
 // FIXEDGROVE: END
 		   
 
@@ -474,6 +498,8 @@ terminate_bball:
 	GOSUB bball_cleanup_minigame // FIXEDGROVE: added, previously the minigame wasn't being cleaned up
 	
 small_terminate_bball:
+
+	SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
 
 	unused_2 = 0
 
