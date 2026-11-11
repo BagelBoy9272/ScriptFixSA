@@ -55,7 +55,7 @@ LVAR_FLOAT dodo_X_C9 dodo_Y_C9 dodo_Z_C9
 LVAR_FLOAT corona_X_C9 corona_Y_C9 corona_Z_C9
 LVAR_FLOAT cam_pos_X_C9 cam_pos_Y_C9 cam_pos_Z_C9 cam_look_X_C9 cam_look_Y_C9 cam_look_Z_C9
 
-
+LVAR_INT weapontype_C9 ammo_C9 model_for_weapon_C9 // FIXEDGROVE
 
 // **************************************** Mission Start **********************************
 
@@ -299,8 +299,9 @@ mission_casino9_MAIN_steal_plane:
 						
 					CASE 3
 						IF NOT IS_CAR_DEAD shamal_C9 
-														
-							shamal_Y_C9 -=@ 0.75
+
+							//shamal_Y_C9 -= 1.0 // PS2				
+							shamal_Y_C9 -=@ 0.6 // FIXEDGROVE: was 0.75, match console 30 FPS
 							SET_CAR_COORDINATES_NO_OFFSET shamal_C9 shamal_X_C9 shamal_Y_C9 shamal_Z_C9
 							
 							corona_Y_C9 = shamal_Y_C9 + 20.0 
@@ -440,10 +441,12 @@ mission_casino9_CUT_hijack_shamal:
 		
 		SHAKE_CAM 20
 
-		dodo_Y_C9 +=@ 1.0
+		//dodo_Y_C9 += 1.0 // PS2
+		dodo_Y_C9 +=@ 0.6 // FIXEDGROVE: was 1.0, match console 30 FPS
 		SET_CAR_COORDINATES dodo_C9 dodo_X_C9 dodo_Y_C9 dodo_Z_C9
 
-		shamal_Y_C9 +=@ 1.0
+		//shamal_Y_C9 += 1.0 // PS2
+		shamal_Y_C9 +=@ 0.6 // FIXEDGROVE: was 1.0, match console 30 FPS
 		SET_CAR_COORDINATES shamal_C9 shamal_X_C9 shamal_Y_C9 shamal_Z_C9
 
 		SWITCH cutscene_status_C9
@@ -530,7 +533,8 @@ mission_casino9_CUT_hijack_shamal:
 			CASE 3
 				IF TIMERB < 5000
 					IF cam_pos_Y_C9 < -1.4 
-						cam_pos_Y_C9 +=@ 0.1
+						//cam_pos_Y_C9 += 0.1 // PS2
+						cam_pos_Y_C9 +=@ 0.06 // FIXEDGROVE: was 0.1, match console 30 FPS
 						ATTACH_CAMERA_TO_VEHICLE dodo_C9 cam_pos_X_C9 cam_pos_Y_C9 cam_pos_Z_C9 cam_look_X_C9 cam_look_Y_C9 cam_look_Z_C9 2.0 JUMP_CUT
 					ENDIF
 					GOSUB mission_casino9_SUB_animate_door
@@ -540,8 +544,10 @@ mission_casino9_CUT_hijack_shamal:
 
 			CASE 4
 				IF cam_pos_X_C9 > -7.0
-					cam_pos_X_C9 -=@ 0.1
-					cam_pos_Z_C9 -=@ 0.045
+					//cam_pos_X_C9 -= 0.1 // PS2
+					//cam_pos_Z_C9 -= 0.045 // PS2
+					cam_pos_X_C9 -=@ 0.06 // FIXEDGROVE: was 0.1, match console 30 FPS
+					cam_pos_Z_C9 -=@ 0.027 // FIXEDGROVE: was 0.045, match console 30 FPS
 					ATTACH_CAMERA_TO_VEHICLE dodo_C9 cam_pos_X_C9 cam_pos_Y_C9 cam_pos_Z_C9 cam_look_X_C9 cam_look_Y_C9 cam_look_Z_C9 2.0 JUMP_CUT
 				ENDIF
 
@@ -641,11 +647,15 @@ mission_casino9_CUT_hijack_shamal:
 				//IF IS_CHAR_PLAYING_ANIM scplayer Plane_hijack
 				
 					IF NOT IS_CAR_DEAD dodo_C9	
-						dodo_roll_C9 -=@ 3.0
+						//dodo_roll_C9 -= 3.0 // PS2
+						dodo_roll_C9 -=@ 1.8 // FIXEDGROVE: was 3.0, match console 30 FPS
 						
-						dodo_X_C9 -=@ 0.3
-						dodo_Y_C9 +=@ 0.3
-						dodo_Z_C9 -=@ 0.3
+						//dodo_X_C9 -= 0.3 // PS2
+						//dodo_Y_C9 += 0.3 // PS2
+						//dodo_Z_C9 -= 0.3 // PS2
+						dodo_X_C9 -=@ 0.18 // FIXEDGROVE: was 0.3, match console 30 FPS
+						dodo_Y_C9 +=@ 0.18 // FIXEDGROVE: was 0.3, match console 30 FPS
+						dodo_Z_C9 -=@ 0.18 // FIXEDGROVE: was 0.3, match console 30 FPS
 						
 						SET_CAR_COORDINATES dodo_C9 dodo_X_C9 dodo_Y_C9 dodo_Z_C9
 						SET_CAR_ROLL dodo_C9 dodo_roll_C9   
@@ -768,12 +778,17 @@ mission_casino9_SUB_slide_camera_along:
 			IF cam_pos_X_C9 <= -4.0
 				camera_finished_C9 = 1
 				RETURN
-			ELSE  
-				cam_pos_X_C9 +=@ -0.02
-				cam_pos_Y_C9 +=@ 0.02
-				cam_pos_Z_C9 +=@ -0.01
-				cam_look_Y_C9 +=@ 0.23
-				cam_look_Z_C9 +=@ -0.02
+			ELSE 
+				//cam_pos_X_C9 += -0.02		// PS2
+				//cam_pos_Y_C9 += 0.02		// PS2
+				//cam_pos_Z_C9 += -0.01		// PS2
+				//cam_look_Y_C9 += 0.23		// PS2
+				//cam_look_Z_C9 += -0.02	// PS2
+				cam_pos_X_C9 +=@ -0.012 // FIXEDGROVE: was 0.02, match console 30 FPS
+				cam_pos_Y_C9 +=@ 0.012 // FIXEDGROVE: was 0.02, match console 30 FPS
+				cam_pos_Z_C9 +=@ -0.006 // FIXEDGROVE: was 0.01, match console 30 FPS
+				cam_look_Y_C9 +=@ 0.138 // FIXEDGROVE: was 0.23, match console 30 FPS
+				cam_look_Z_C9 +=@ -0.012 // FIXEDGROVE: was 0.02, match console 30 FPS
 			ENDIF
 			ATTACH_CAMERA_TO_VEHICLE shamal_C9 cam_pos_X_C9 cam_pos_Y_C9 cam_pos_Z_C9 cam_look_X_C9 cam_look_Y_C9 cam_look_Z_C9 0.0 JUMP_CUT
 		ENDIF
@@ -848,8 +863,16 @@ mission_casino9_MAIN_inside_shamal_setup:
 	SET_OBJECT_DYNAMIC lean_box_C9 FALSE
 	SET_OBJECT_COLLISION lean_box_C9 FALSE
 	SET_OBJECT_VISIBLE lean_box_C9 FALSE
-		
-	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_BACK 85.0 WEAPONTYPE_PISTOL 
+
+	// FIXEDGROVE: START - store player's weapon
+	GET_CHAR_WEAPON_IN_SLOT scplayer 3 weapontype_C9 ammo_C9 model_for_weapon_C9
+	IF weapontype_C9 = WEAPONTYPE_UNARMED
+		weapontype_C9 = WEAPONTYPE_PISTOL
+		ammo_C9 = 50
+		model_for_weapon_C9 = COLT45
+	ENDIF
+	// FIXEDGROVE: END
+	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_BACK 85.0 weapontype_C9 // FIXEDGROVE: use player's handgun instead of pistol
 	SET_HEADING_FOR_ATTACHED_PLAYER player1 30.0 30.0
 	FREEZE_CHAR_POSITION scplayer TRUE
 	
@@ -1553,88 +1576,71 @@ mission_casino9_SUB_player_controls:
 	ENDIF
 
 
+	LVAR_INT lean_dir_C9 // FIXEDGROVE: use var to avoid duplicate code
+
+	// 0 = Center, 1 = Left, 2 = Right
+    lean_dir_C9 = 0 // FIXEDGROVE: center unless something is pressed
+
+	// FIXEDGROVE: check for input here instead of duplicating code
 
 	// JOYPAD VERSION?
 
-	IF IS_PC_USING_JOYPAD
+    IF IS_PC_USING_JOYPAD
+        // LEAN LEFT
+        IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER2
+        AND NOT IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER2
+            lean_dir_C9 = 1
+        ENDIF
+        
+        // LEAN RIGHT
+        IF IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER2
+        AND NOT IS_BUTTON_PRESSED PAD1 LEFTSHOULDER2
+            lean_dir_C9 = 2
+        ENDIF
+        // IF BOTH BUTTONS ARE PRESSED JUST GO BACK TO THE CENTER
+    ELSE
+        // KEYBOARD AND MOUSE
+       IF IS_BUTTON_PRESSED PAD1 LEFTSTICKX
+            GET_POSITION_OF_ANALOGUE_STICKS PAD1 LStickX LStickY RStickX RStickY
+            IF LStickX < 0
+                lean_dir_C9 = 1
+            ELSE
+                IF LStickX > 0
+                    lean_dir_C9 = 2
+                ENDIF
+                // IF BOTH BUTTONS ARE PRESSED JUST GO BACK TO THE CENTER
+            ENDIF
+        ENDIF
+    ENDIF
 	
-	 	IF NOT IS_BUTTON_PRESSED PAD1 LEFTSHOULDER2
-		AND NOT IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER2
+	IF lean_dir_C9 = 0 // CENTER
 
-			// NONE
-			SLIDE_OBJECT lean_box_C9 1.7 lean_Y_C9 lean_Z_C9 0.09 0.0 0.0 FALSE
-			IF NOT lean_X_C9 = 1.7
-			AND moving_stick_C9 = 0 
-				SET_HEADING_FOR_ATTACHED_PLAYER player1 90.0 9.0
-			ENDIF
-
-		ELSE
-
-			// IF BOTH BUTTONS ARE PRESSED JUST GO BACK TO THE CENTER
-			IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER2
-			AND IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER2
-
-				SLIDE_OBJECT lean_box_C9 1.7 lean_Y_C9 lean_Z_C9 0.09 0.0 0.0 FALSE
-				IF NOT lean_X_C9 = 1.7
-				AND moving_stick_C9 = 0
-					SET_HEADING_FOR_ATTACHED_PLAYER player1 90.0 9.0
-				ENDIF		 				
-
-		 	ELSE
-				// LEAN LEFT
-				IF IS_BUTTON_PRESSED PAD1 LEFTSHOULDER2
-					SLIDE_OBJECT lean_box_C9 2.9 lean_Y_C9 lean_Z_C9 0.09 0.0 0.0 FALSE
-					IF lean_X_C9 < 2.9
-					AND moving_stick_C9 = 0
-						SET_HEADING_FOR_ATTACHED_PLAYER player1 30.0 9.0
-					ENDIF
-		 		ELSE
-					// LEAN RIGHT
-					IF IS_BUTTON_PRESSED PAD1 RIGHTSHOULDER2
-						SLIDE_OBJECT lean_box_C9 0.5 lean_Y_C9 lean_Z_C9 0.09 0.0 0.0 FALSE
-						IF lean_X_C9 > 0.5
-						AND moving_stick_C9 = 0
-							SET_HEADING_FOR_ATTACHED_PLAYER player1 150.0 9.0
-						ENDIF
-		 			ENDIF
-				ENDIF
-			ENDIF
-			  
+		// NONE
+		SLIDE_OBJECT lean_box_C9 1.7 lean_Y_C9 lean_Z_C9 0.18 0.0 0.0 FALSE // FIXEDGROVE: speedX was 0.09
+		IF NOT lean_X_C9 = 1.7
+		AND moving_stick_C9 = 0 
+			SET_HEADING_FOR_ATTACHED_PLAYER player1 90.0 9.0
 		ENDIF
 
 	ELSE
-
-		// KEYBOARD AND MOUSE
-
-	 	IF NOT IS_BUTTON_PRESSED PAD1 LEFTSTICKX
-			SLIDE_OBJECT lean_box_C9 1.7 lean_Y_C9 lean_Z_C9 0.09 0.0 0.0 FALSE
-			IF NOT lean_X_C9 = 1.7
-			AND moving_stick_C9 = 0 
-				SET_HEADING_FOR_ATTACHED_PLAYER player1 90.0 9.0
+		// LEAN LEFT
+		IF lean_dir_C9 = 1
+			SLIDE_OBJECT lean_box_C9 2.9 lean_Y_C9 lean_Z_C9 0.18 0.0 0.0 FALSE // FIXEDGROVE: speedX was 0.09
+			IF lean_X_C9 < 2.9
+			AND moving_stick_C9 = 0
+				SET_HEADING_FOR_ATTACHED_PLAYER player1 30.0 9.0
 			ENDIF
-			
-		ELSE
-		
-			GET_POSITION_OF_ANALOGUE_STICKS PAD1 LStickX LStickY RStickX RStickY
-
-			IF LStickX < 0
-				// LEFT
-				SLIDE_OBJECT lean_box_C9 2.9 lean_Y_C9 lean_Z_C9 0.09 0.0 0.0 FALSE
-				IF lean_X_C9 < 2.9
-				AND moving_stick_C9 = 0
-					SET_HEADING_FOR_ATTACHED_PLAYER player1 30.0 9.0
-				ENDIF			
-			ELSE
-				// RIGHT
-				SLIDE_OBJECT lean_box_C9 0.5 lean_Y_C9 lean_Z_C9 0.09 0.0 0.0 FALSE
+	 	ELSE
+			// LEAN RIGHT
+			IF lean_dir_C9 = 2
+				SLIDE_OBJECT lean_box_C9 0.5 lean_Y_C9 lean_Z_C9 0.18 0.0 0.0 FALSE // FIXEDGROVE: speedX was 0.09
 				IF lean_X_C9 > 0.5
 				AND moving_stick_C9 = 0
 					SET_HEADING_FOR_ATTACHED_PLAYER player1 150.0 9.0
 				ENDIF
-			ENDIF 
-
+	 		ENDIF
 		ENDIF
-		
+		  
 	ENDIF
 	 	
 RETURN
@@ -1656,7 +1662,12 @@ mission_casino9_help_text:
 		CASE 1
 			IF player_hiding_C9 = 0
 				IF help_text_timer_C9 > 20000
-					PRINT_HELP_FOREVER CAS9_H2
+					// FIXEDGROVE: only show joypad specific helpbox if a joypad is being used
+					IF IS_PC_USING_JOYPAD
+						PRINT_HELP_FOREVER CAS9_H2
+					ELSE
+						PRINT_HELP_FOREVER CAS9_H4
+					ENDIF
 					help_text_flag_C9 ++
 					help_text_timer_C9 = 0
 				ENDIF
@@ -1724,12 +1735,6 @@ mission_casino9_MAIN_pilot_entry:
  	CLEAR_PRINTS
 	CLEAR_HELP
 
-	REQUEST_MODEL WMYPLT
-
-	WHILE NOT HAS_MODEL_LOADED WMYPLT
-		WAIT 0
-	ENDWHILE
-
 	TIMERA = 0
 	WHILE TIMERA < 1000
 		WAIT 0
@@ -1740,7 +1745,17 @@ mission_casino9_MAIN_pilot_entry:
 		WAIT 0
 	ENDWHILE
 
+	// FIXEDGROVE: do requests after the fade
+	REQUEST_MODEL WMYPLT
+	REQUEST_MODEL weapontype_C9 // FIXEDGROVE
+
+	WHILE NOT HAS_MODEL_LOADED WMYPLT
+	OR NOT HAS_MODEL_LOADED weapontype_C9 // FIXEDGROVE
+		WAIT 0
+	ENDWHILE
+
 	DETACH_CHAR_FROM_CAR scplayer
+	GIVE_WEAPON_TO_CHAR scplayer weapontype_C9 ammo_C9 // FIXEDGROVE: arm player for the cutscene
 	SET_PLAYER_CONTROL player1 OFF
 	SWITCH_WIDESCREEN ON
 	FREEZE_CHAR_POSITION scplayer FALSE
@@ -1799,7 +1814,15 @@ mission_casino9_MAIN_pilot_entry:
 	
 	TASK_TOGGLE_DUCK scplayer FALSE
 	CLEAR_CHAR_TASKS_IMMEDIATELY scplayer
-	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_FORWARD 85.0 WEAPONTYPE_PISTOL 
+	// FIXEDGROVE: START - store player's weapon
+	GET_CHAR_WEAPON_IN_SLOT scplayer 3 weapontype_C9 ammo_C9 model_for_weapon_C9
+	IF weapontype_C9 = WEAPONTYPE_UNARMED
+		weapontype_C9 = WEAPONTYPE_PISTOL
+		ammo_C9 = 50
+		model_for_weapon_C9 = COLT45
+	ENDIF
+	// FIXEDGROVE: END
+	ATTACH_CHAR_TO_OBJECT scplayer lean_box_C9 0.0 0.0 0.5 FACING_FORWARD 85.0 weapontype_C9 // FIXEDGROVE: use player's handgun instead of pistol
 	SET_HEADING_FOR_ATTACHED_PLAYER player1 270.0 270.0
 	FREEZE_CHAR_POSITION scplayer TRUE
 
@@ -1832,10 +1855,6 @@ GOTO mission_casino9_MAIN_pilot_attack
 
 
 mission_casino9_MAIN_fly_back:
-	REQUEST_MODEL SHAMAL
-	WHILE NOT HAS_MODEL_LOADED SHAMAL
-		WAIT 0
-	ENDWHILE
 
 	TIMERA = 0
 	WHILE TIMERA < 1000
@@ -1847,9 +1866,20 @@ mission_casino9_MAIN_fly_back:
 		WAIT 0
 	ENDWHILE
 
+	// FIXEDGROVE: do requests after the fade
+	REQUEST_MODEL SHAMAL
+	REQUEST_MODEL weapontype_C9 // FIXEDGROVE
+
+	WHILE NOT HAS_MODEL_LOADED SHAMAL
+	OR NOT HAS_MODEL_LOADED weapontype_C9 // FIXEDGROVE
+		WAIT 0
+	ENDWHILE
+
 	FREEZE_CHAR_POSITION scplayer FALSE
 
 	DETACH_CHAR_FROM_CAR scplayer
+	GIVE_WEAPON_TO_CHAR scplayer weapontype_C9 ammo_C9 // FIXEDGROVE: give player's weapon back
+	ammo_C9 = 0 // FIXEDGROVE: clear so it isn't restored on cleanup
 	SET_PLAYER_CONTROL player1 OFF
 	SWITCH_WIDESCREEN ON
 	DISPLAY_RADAR TRUE
@@ -1916,6 +1946,9 @@ mission_casino9_MAIN_fly_back:
  	WARP_CHAR_INTO_CAR scplayer shamal_C9
 	SET_CAR_FORWARD_SPEED shamal_C9 45.0
 	SET_PLANE_UNDERCARRIAGE_UP shamal_C9 TRUE
+
+	GET_CHAR_WEAPON_IN_SLOT scplayer 5 temp_integer_1 temp_integer_2 temp_integer_2 // FIXEDGROVE: get player's smg
+	SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1 // FIXEDGROVE: do this to match game's mechanics
 
 	RESTORE_CAMERA_JUMPCUT
 	SET_CAMERA_BEHIND_PLAYER
@@ -2053,6 +2086,17 @@ mission_casino9_CLEANUP:
 		DETACH_CHAR_FROM_CAR scplayer
 		RESTORE_CAMERA_JUMPCUT	
 	ENDIF
+
+	// FIXEDGROVE: START - restore player's weapon
+	IF NOT ammo_C9 = WEAPONTYPE_UNARMED
+		REQUEST_MODEL model_for_weapon_C9
+		LOAD_ALL_MODELS_NOW
+		GET_CURRENT_CHAR_WEAPON scplayer temp_integer_1
+		GIVE_WEAPON_TO_CHAR scplayer weapontype_C9 ammo_C9 
+		SET_CURRENT_CHAR_WEAPON scplayer temp_integer_1 // restore the previous active weapon
+		MARK_MODEL_AS_NO_LONGER_NEEDED model_for_weapon_C9
+	ENDIF
+	// FIXEDGROVE: END
 
 	DISPLAY_ZONE_NAMES TRUE
 	

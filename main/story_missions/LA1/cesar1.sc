@@ -746,7 +746,7 @@ UNLOAD_SPECIAL_CHARACTER 2
 		flag_player_on_mission = 0
 		GET_GAME_TIMER timer_mobile_start
 		MISSION_HAS_FINISHED
-		IF NOT cs1_stage = 666
+		IF cs1_race_is_go = 1 // FIXEDGROVE: was 'NOT cs1_stage = 666', fixes the screen going black if you managed to destroy Cesar's car
 			DO_FADE 0 FADE_OUT
 		ENDIF
 		

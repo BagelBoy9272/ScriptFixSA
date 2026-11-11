@@ -1534,8 +1534,8 @@ WHILE NOT IS_CHAR_DEAD scplayer
 	IF c2_time_left <= 22000
 
 		IF c2_inside_quarry = 1
-		//	c2_audio_3 = SOUND_DETONATION_SIREN
-		//	GOSUB c2_load_sample_3
+			c2_audio_3 = SOUND_DETONATION_SIREN // FIXEDGROVE: uncomment
+			GOSUB c2_load_sample_3 // FIXEDGROVE: uncomment
 		ENDIF
 
 		c2_plunger_txt = 1

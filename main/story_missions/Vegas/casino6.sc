@@ -1095,8 +1095,8 @@ LVAR_FLOAT time_scale_C6
 	// second guy to jump through the fire
 	CREATE_CHAR PEDTYPE_MISSION2 VMAFF2 937.8190 2137.4871 1010.0303 mafia_C6[3] 
 	SET_CHAR_HEADING mafia_C6[3] 188.0
-	SET_CHAR_HEALTH mafia_C6[0] 200	
-	SET_CHAR_MAX_HEALTH mafia_C6[0] 200
+	SET_CHAR_HEALTH mafia_C6[3] 200	// FIXEDGROVE: char was index 0
+	SET_CHAR_MAX_HEALTH mafia_C6[3] 200 // FIXEDGROVE: char was index 0
 	ADD_BLIP_FOR_CHAR mafia_C6[3] mafia_blip_C6[3]
 	CHANGE_BLIP_DISPLAY mafia_blip_C6[3] BLIP_ONLY
 	SET_BLIP_ENTRY_EXIT mafia_blip_C6[3] 968.3954 2160.9651 1.0
@@ -3438,8 +3438,21 @@ mission_casino6_SUB_freezer_door:
 				ELSE
 					IF player_trapped_C6 = 1
 						// get rosenberg to open door for player
-						load_sample = SOUND_CAS6_FP
-						$load_text = &CAS6_FP
+						GENERATE_RANDOM_INT_IN_RANGE 0 3 rosenberg_random_text_C6  // FIXEDGROVE: random line
+						// FIXEDGROVE: unused line
+						IF rosenberg_random_text_C6 = 0
+							load_sample = SOUND_CAS6_FN
+							$load_text = &CAS6_FN
+						ELSE
+							// FIXEDGROVE: unused line
+							IF rosenberg_random_text_C6 = 1
+								load_sample = SOUND_CAS6_FO
+								$load_text = &CAS6_FO
+							ELSE
+								load_sample = SOUND_CAS6_FP
+								$load_text = &CAS6_FP
+							ENDIF
+						ENDIF
 						START_NEW_SCRIPT audio_load_and_play 1 102 scplayer // Get me out of this freezer, Rosie!							
 						//PRINT_NOW CAS6_15 5000 1 // CJ : rosenberg im trapped in this fucking freezer get me out of here.
 						rosenberg_text_timer_C6 = 0

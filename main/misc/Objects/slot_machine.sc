@@ -49,13 +49,27 @@ IF flag = 1
 	CREATE_OBJECT_NO_OFFSET CJ_Wheel_1 x y z reel[0]
 ENDIF
 
+// FIXEDGROVE: START - enable the attractor and request anim instantly so it works correctly
+IF DOES_OBJECT_EXIST slot_machine
+	ENABLE_DISABLED_ATTRACTORS_ON_OBJECT slot_machine TRUE
+	REQUEST_ANIMATION casino
+ENDIF
+// FIXEDGROVE: END
+
 
 slot_machine_loop:
-	WAIT 0
+	//WAIT 0 // FIXEDGROVE: moved to the end so we request the casino anim again on the first frame
 
 	GET_GAME_TIMER game_timer
 
     IF DOES_OBJECT_EXIST slot_machine
+
+		// FIXEDGROVE: START - request the anim again to avoid peds staring blankly at the attractor
+		IF flag < 1
+			REQUEST_ANIMATION casino
+		ENDIF
+		// FIXEDGROVE: END
+
 		if IS_OBJECT_WITHIN_BRAIN_ACTIVATION_RANGE slot_machine
 			IF IS_PLAYER_PLAYING player1
 			  
@@ -65,6 +79,7 @@ slot_machine_loop:
 					LVAR_INT slot_machine_model
 					GET_OBJECT_MODEL slot_machine slot_machine_model
 					if HAS_MODEL_LOADED slot_machine_model
+					AND HAS_ANIMATION_LOADED casino // FIXEDGROVE
 						GET_OBJECT_HEADING slot_machine	heading
 						
 						IF NOT DOES_OBJECT_EXIST reel[0]
@@ -119,8 +134,8 @@ slot_machine_loop:
 					GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS slot_machine 0.0 -1.0 -0.5 x y z
 					GET_USER_OF_CLOSEST_MAP_ATTRACTOR x y z 1.5 KB_BANDIT_U PEDSLOT ped_using_slot
 					IF ped_using_slot = -1
-						request_animation casino
-						if has_animation_loaded casino
+						//request_animation casino // FIXEDGROVE: commented, done earlier so attractor works correctly
+						//if has_animation_loaded casino // FIXEDGROVE: commented
 							IF LOCATE_CHAR_ON_FOOT_3D scplayer x y z 0.6 0.6 1.0 0
 								lvar_int slot_user
 								GET_RANDOM_CHAR_IN_AREA_OFFSET_NO_SAVE x y z 0.6 0.6 1.0 slot_user
@@ -169,7 +184,7 @@ slot_machine_loop:
 								SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
 								flag = 1
 							ENDIF
-						ENDIF
+						//ENDIF // FIXEDGROVE: commented
 					ELSE
 						if loaded_tex_ld_slot = 1
 							remove_TEXTURE_DICTIONARY
@@ -359,6 +374,8 @@ slot_machine_loop:
 		goto do_slot_machine_cleanup
 	ENDIF
 
+	WAIT 0 // FIXEDGROVE: moved to the end so we request the casino anim again on the first frame
+
 GOTO slot_machine_loop
 
 
@@ -428,9 +445,9 @@ IF flag > 0
 		CLEAR_HELP
 		SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
 	ENDIF
-	IF flag > 2
+	//IF flag > 2 // FIXEDGROVE: commented, anim is requested instantly now so this check is not needed 
 		remove_animation casino
-	ENDIF
+	//ENDIF // FIXEDGROVE: commented
 	DELETE_OBJECT reel[0]
 	DELETE_OBJECT reel[1]
 	DELETE_OBJECT reel[2]

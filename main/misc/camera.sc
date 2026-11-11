@@ -430,8 +430,7 @@ SWITCH iBePhotographedState
 		CLEAR_PRINTS
 		SET_PHOTO_CAMERA_EFFECT	FALSE
 		TAKE_PHOTO TRUE
-		// FIXEDGROVE: START - reduce ammo and play sound effect
-		iTemp2--
+		// FIXEDGROVE: START - play sound effect
 		IF DOES_CHAR_EXIST iGangGuy
 			REPORT_MISSION_AUDIO_EVENT_AT_CHAR iGangGuy SOUND_CAMERA_SHOT
 		ENDIF

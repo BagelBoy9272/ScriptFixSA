@@ -210,35 +210,40 @@ mission_mansion5_START:
 	$audio_text_label_M5[15] = &MAN5_BN
 	audio_sound_label_M5[15]= SOUND_MAN5_BN
 	audio_speaker_M5[15] = md_M5
+	// FIXEDGROVE: START - added line, existing index shifted by 1
+	$audio_text_label_M5[16] = &MAN5_BO
+	audio_sound_label_M5[16]= SOUND_MAN5_BO
+	audio_speaker_M5[16] = md_M5
+	// FIXEDGROVE: END
 
 	// approach interview
-	$audio_text_label_M5[16] = &MAN5_CA
-	audio_sound_label_M5[16]= SOUND_MAN5_CA
-	audio_speaker_M5[16] = scplayer
-	$audio_text_label_M5[17] = &MAN5_CB
-	audio_sound_label_M5[17]= SOUND_MAN5_CB
+	$audio_text_label_M5[17] = &MAN5_CA
+	audio_sound_label_M5[17]= SOUND_MAN5_CA
 	audio_speaker_M5[17] = scplayer
+	$audio_text_label_M5[18] = &MAN5_CB
+	audio_sound_label_M5[18]= SOUND_MAN5_CB
+	audio_speaker_M5[18] = scplayer
 
 	// cutscene 
-	$audio_text_label_M5[18] = &MAN5_DA
-	audio_sound_label_M5[18]= SOUND_MAN5_DA
-	audio_speaker_M5[18] = md_M5
-	$audio_text_label_M5[19] = &MAN5_DB
-	audio_sound_label_M5[19]= SOUND_MAN5_DB
+	$audio_text_label_M5[19] = &MAN5_DA
+	audio_sound_label_M5[19]= SOUND_MAN5_DA
 	audio_speaker_M5[19] = md_M5
-	$audio_text_label_M5[20] = &MAN5_DC
-	audio_sound_label_M5[20]= SOUND_MAN5_DC
+	$audio_text_label_M5[20] = &MAN5_DB
+	audio_sound_label_M5[20]= SOUND_MAN5_DB
 	audio_speaker_M5[20] = md_M5
-	$audio_text_label_M5[21] = &MAN5_DD
-	audio_sound_label_M5[21]= SOUND_MAN5_DD
+	$audio_text_label_M5[21] = &MAN5_DC
+	audio_sound_label_M5[21]= SOUND_MAN5_DC
 	audio_speaker_M5[21] = md_M5
+	$audio_text_label_M5[22] = &MAN5_DD
+	audio_sound_label_M5[22]= SOUND_MAN5_DD
+	audio_speaker_M5[22] = md_M5
 
-	$audio_text_label_M5[22] = &MAN5_EA
-	audio_sound_label_M5[22]= SOUND_MAN5_EA
-	audio_speaker_M5[22] = scplayer
-	$audio_text_label_M5[23] = &MAN5_EB
-	audio_sound_label_M5[23]= SOUND_MAN5_EB
+	$audio_text_label_M5[23] = &MAN5_EA
+	audio_sound_label_M5[23]= SOUND_MAN5_EA
 	audio_speaker_M5[23] = scplayer
+	$audio_text_label_M5[24] = &MAN5_EB
+	audio_sound_label_M5[24]= SOUND_MAN5_EB
+	audio_speaker_M5[24] = scplayer
 
 	SET_PLAYER_CONTROL player1 ON
 	SWITCH_WIDESCREEN OFF
@@ -649,7 +654,7 @@ mission_mansion5_CUT_interview:
 	CLEAR_SKIP
 
 	audio_status_M5 = 6
-	audio_pointer_M5 = 18
+	audio_pointer_M5 = 19 // FIXEDGROVE: was '18', added line shifts indexes by one
 
 	DO_FADE 0 FADE_IN
 
@@ -1340,7 +1345,7 @@ mission_mansion5_MAIN_final_cut:
 	
 	IF NOT IS_CHAR_DEAD md_M5
 		MARK_CHAR_AS_NO_LONGER_NEEDED md_M5
-		MARK_MODEL_AS_NO_LONGER_NEEDED VBMYCR
+		//MARK_MODEL_AS_NO_LONGER_NEEDED VBMYCR // FIXEDGROVE: commented, not used
 	ENDIF
 	
 	IF NOT IS_CAR_DEAD md_kart_M5
@@ -1899,8 +1904,8 @@ RETURN
 // ################ audio dialogue
 
 // ################
-LVAR_INT audio_status_M5 audio_pointer_M5 audio_sound_label_M5[24] audio_speaker_M5[24]
-LVAR_TEXT_LABEL audio_text_label_M5[24]
+LVAR_INT audio_status_M5 audio_pointer_M5 audio_sound_label_M5[25] audio_speaker_M5[25] // FIXEDGROVE: arrays were size '24'
+LVAR_TEXT_LABEL audio_text_label_M5[25] // FIXEDGROVE: was size '24'
 
 LVAR_INT soundlabel_M5
 LVAR_TEXT_LABEL textlabel_M5
@@ -1923,6 +1928,7 @@ mission_mansion5_AUDIO_dialogue:
 				//TIMERA = 0
 			ELSE
 				audio_status_M5 = 2
+				TIMERB = 5000 // FIXEDGROVE: wait a bit before starting the car convo
 				//SLOT_status[preload_slot] = -3
 				BREAK
 			ENDIF
@@ -1938,13 +1944,13 @@ mission_mansion5_AUDIO_dialogue:
 			IF interview_status_M5 = 3
 				IF LOCATE_CHAR_ANY_MEANS_2D scplayer -12.2064 -1117.8765 120.0 120.0 FALSE
 					audio_status_M5 += 2
-					audio_pointer_M5 = 16
+					audio_pointer_M5 = 17 // FIXEDGROVE: was '16', added unused line
 					BREAK
 				ENDIF
  			ENDIF
 			
 			IF md_blip_status_M5 = 1 
-				IF audio_pointer_M5 < 16
+				IF audio_pointer_M5 < 17 // FIXEDGROVE: was '16', added unused line
 					load_sample = audio_sound_label_M5[audio_pointer_M5]
 					$load_text = $audio_text_label_M5[audio_pointer_M5]
 					START_NEW_SCRIPT audio_load_and_play 2 100 audio_speaker_M5[audio_pointer_M5]
@@ -1973,7 +1979,7 @@ mission_mansion5_AUDIO_dialogue:
 					
 		// in car dialogue
 		CASE 4			
-			IF audio_pointer_M5 < 18
+			IF audio_pointer_M5 < 19 // FIXEDGROVE: was '18', added unused line
 				load_sample = audio_sound_label_M5[audio_pointer_M5]
 				$load_text = $audio_text_label_M5[audio_pointer_M5]
 				START_NEW_SCRIPT audio_load_and_play 2 100 audio_speaker_M5[audio_pointer_M5]
@@ -1990,7 +1996,7 @@ mission_mansion5_AUDIO_dialogue:
 
 		// cutscene dialogue
 		CASE 6			
-			IF audio_pointer_M5 < 24
+			IF audio_pointer_M5 < 25 // FIXEDGROVE: was '24', added unused line
 				load_sample = audio_sound_label_M5[audio_pointer_M5]
 				$load_text = $audio_text_label_M5[audio_pointer_M5]
 				START_NEW_SCRIPT audio_load_and_play 2 100 audio_speaker_M5[audio_pointer_M5] 

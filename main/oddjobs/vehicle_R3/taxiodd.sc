@@ -55,7 +55,7 @@ IF done_taxiodd_progress = FALSE
 ENDIF
 
 flag_player_on_mission	= TRUE
-flag_player_on_oddjob	= TRUE
+//flag_player_on_oddjob	= TRUE // FIXEDGROVE: comment, not read
 
 
 
@@ -3624,7 +3624,7 @@ Taxiodd_Mission_Cleanup:
 	// Housekeeping
 	// ------------
 
-	flag_player_on_oddjob			= FALSE
+	//flag_player_on_oddjob			= FALSE // FIXEDGROVE: comment, not read
 	flag_player_on_mission			= FALSE
 	flag_taxiodd_mission_launched	= FALSE
 	MISSION_HAS_FINISHED

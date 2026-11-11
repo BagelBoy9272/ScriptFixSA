@@ -4420,6 +4420,7 @@ IF pilot_test_passed = 1
 	PLAY_MISSION_PASSED_TUNE 1
 	REMOVE_BLIP pilot_contact_blip
 	ADD_SHORT_RANGE_SPRITE_BLIP_FOR_CONTACT_POINT pilotx piloty pilotz pilot_blip_icon pilot_contact_blip
+	CHANGE_BLIP_DISPLAY pilot_contact_blip BLIP_ONLY // FIXEDGROVE: fix duplicated sphere marker
 	REMOVE_BLIP desert2_contact_blip
 	ADD_SPRITE_BLIP_FOR_CONTACT_POINT desert2X desert2Y desert2Z desert2_blip_icon desert2_contact_blip
 	flag_desert_mission_counter++
