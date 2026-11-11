@@ -3657,192 +3657,156 @@ RETURN
 find_how_many_car_colours_mod:
 
 // cars that use one car colour
-	IF car_name_mod = BRAVURA
-	OR car_name_mod = BUFFALO
-	OR car_name_mod = PEREN
-	OR car_name_mod = SENTINEL
-	OR car_name_mod = STRETCH
-	OR car_name_mod = MANANA
-		flag_no_of_car_colours = 1
-	ENDIF
+	SWITCH car_name_mod
+	CASE BRAVURA
+	CASE BUFFALO
+	CASE PEREN
+	CASE SENTINEL
+	CASE STRETCH
+	CASE MANANA
 
-	IF car_name_mod = INFERNUS
-	OR car_name_mod = VOODOO
-	OR car_name_mod = PONY
-	OR car_name_mod = CHEETAH
-	OR car_name_mod = MOONBEAM
-	OR car_name_mod = ESPERANT
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE INFERNUS
+	CASE VOODOO
+	CASE PONY
+	CASE CHEETAH
+	CASE MOONBEAM
+	CASE ESPERANT
 
- 	IF car_name_mod = WASHING
-	OR car_name_mod = PREMIER
-	OR car_name_mod = HOTKNIFE
-	OR car_name_mod = PREVION
-	OR car_name_mod = RUMPO
-		flag_no_of_car_colours = 1
-	ENDIF
+ 	CASE WASHING
+	CASE PREMIER
+	CASE HOTKNIFE
+	CASE PREVION
+	CASE RUMPO
 
-	IF car_name_mod = MONSTER
-	OR car_name_mod = ADMIRAL
-	OR car_name_mod = TURISMO
-	OR car_name_mod = CADDY
-	OR car_name_mod = SOLAIR
-	OR car_name_mod = PCJ600
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE MONSTER
+	CASE ADMIRAL
+	CASE TURISMO
+	CASE CADDY
+	CASE SOLAIR
+	CASE PCJ600
 
-	IF car_name_mod = FAGGIO 
-	OR car_name_mod = FREEWAY
-	OR car_name_mod = SANCHEZ
-	OR car_name_mod = HERMES
-	OR car_name_mod = SABRE
-	OR car_name_mod = ZR350
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE FAGGIO 
+	CASE FREEWAY
+	CASE SANCHEZ
+	CASE HERMES
+	CASE SABRE
+	CASE ZR350
  
- 	IF car_name_mod = WALTON
-	OR car_name_mod = BMX
-	OR car_name_mod = BURRITO
-	OR car_name_mod = MESA
-	OR car_name_mod = SUPERGT
-		flag_no_of_car_colours = 1
-	ENDIF
+ 	CASE WALTON
+	CASE BMX
+	CASE BURRITO
+	CASE MESA
+	CASE SUPERGT
  
-	IF car_name_mod = ELEGANT
-	OR car_name_mod = MTBIKE
-	OR car_name_mod = NEBULA
-	OR car_name_mod = BUCCANEE
-	OR car_name_mod = FCR900
-	OR car_name_mod = FORTUNE
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE ELEGANT
+	CASE MTBIKE
+	CASE NEBULA
+	CASE BUCCANEE
+	CASE FCR900
+	CASE FORTUNE
 
-	IF car_name_mod = CADRONA
-	OR car_name_mod = WILLARD
-	OR car_name_mod = FORKLIFT
-	OR car_name_mod = TRACTOR
-	OR car_name_mod = FELTZER
-	OR car_name_mod = REMINGTN
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE CADRONA
+	CASE WILLARD
+	CASE FORKLIFT
+	CASE TRACTOR
+	CASE FELTZER
+	CASE REMINGTN
 
-	IF car_name_mod = VORTEX
-	OR car_name_mod = VINCENT
-	OR car_name_mod = SADLER
-	OR car_name_mod = HUSTLER
-	OR car_name_mod = INTRUDER
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE VORTEX
+	CASE VINCENT
+	CASE SADLER
+	CASE HUSTLER
+	CASE INTRUDER
 
-	IF car_name_mod = PRIMO
-	OR car_name_mod = SUNRISE
-	OR car_name_mod = MERIT
-	OR car_name_mod = UTILITY
-	OR car_name_mod = WINDSOR
-	OR car_name_mod = MONSTERA
-		flag_no_of_car_colours = 1
-	ENDIF
-		
-	
-	IF car_name_mod = JESTER
-	OR car_name_mod = SULTAN
-	OR car_name_mod = STRATUM
-   	OR car_name_mod = BIKE
-	OR car_name_mod = ELEGY
-	OR car_name_mod = URANUS
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE PRIMO
+	CASE SUNRISE
+	CASE MERIT
+	CASE UTILITY
+	CASE WINDSOR
+	CASE MONSTERA
 
-	IF car_name_mod = FLASH
-	OR car_name_mod = KART
-	OR car_name_mod = MOWER
-	OR car_name_mod = SWEEPER
-	OR car_name_mod = HUNTLEY
-	OR car_name_mod = STAFFORD
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE JESTER
+	CASE SULTAN
+	CASE STRATUM
+   	CASE BIKE
+	CASE ELEGY
+	CASE URANUS
 
-	IF car_name_mod = BF400
-	OR car_name_mod = NEWSVAN
-	OR car_name_mod = EMPEROR
-	OR car_name_mod = WAYFARER
-	OR car_name_mod = CLUB
-	OR car_name_mod = SADLER
-		flag_no_of_car_colours = 1
-	ENDIF
+	CASE FLASH
+	CASE KART
+	CASE MOWER
+	CASE SWEEPER
+	CASE HUNTLEY
+	CASE STAFFORD
 
-	IF car_name_mod = EUROS
-	OR car_name_mod = PICADOR
-	OR car_name_mod = ALPHA
-	OR car_name_mod = TAXI
-	OR car_name_mod = LANDSTAL
-	OR car_name_mod = STALLION
+	CASE BF400
 		flag_no_of_car_colours = 1
-	ENDIF
+	BREAK	
+	ENDSWITCH
 
-	IF car_name_mod = SLAMVAN
-	OR car_name_mod = CLOVER
-	OR car_name_mod = TAMPA
-	OR car_name_mod = CABBIE
+	SWITCH car_name_mod
+	CASE NEWSVAN
+	CASE EMPEROR
+	CASE WAYFARER
+	CASE CLUB
+	CASE SADLER
+	CASE EUROS
+	CASE PICADOR
+	CASE ALPHA
+	CASE TAXI
+	CASE LANDSTAL
+	CASE STALLION
+
+	CASE SLAMVAN
+	CASE CLOVER
+	CASE TAMPA
+	CASE CABBIE
 		flag_no_of_car_colours = 1
-	ENDIF	
+	BREAK	
 												   
 // cars that use two car colours
-	IF car_name_mod = BOBCAT
-	OR car_name_mod = MRWHOOP
-	OR car_name_mod = BFINJECT
-	OR car_name_mod = BANSHEE
-	OR car_name_mod = ROMERO
-	OR car_name_mod = BLADE
-		flag_no_of_car_colours = 2
-	ENDIF
+	CASE BOBCAT
+	CASE MRWHOOP
+	CASE BFINJECT
+	CASE BANSHEE
+	CASE ROMERO
+	CASE BLADE
 
-	IF car_name_mod = GLENDALE
-	OR car_name_mod = OCEANIC
-	OR car_name_mod = QUAD
-	OR car_name_mod = REGINA
-	OR car_name_mod = CAMPER
-	OR car_name_mod = RANCHER
-		flag_no_of_car_colours = 2
-	ENDIF
+	CASE GLENDALE
+	CASE OCEANIC
+	CASE QUAD
+	CASE REGINA
+	CASE CAMPER
+	CASE RANCHER
 	
-  	IF car_name_mod = VIRGO
-	OR car_name_mod = GREENWOO
-	OR car_name_mod = HOTRING
-	OR car_name_mod = SANDKING
-	OR car_name_mod = BLISTAC
-	OR car_name_mod = HOTRINA
-		flag_no_of_car_colours = 2
-	ENDIF
+  	CASE VIRGO
+	CASE GREENWOO
+	CASE HOTRING
+	CASE SANDKING
+	CASE BLISTAC
+	CASE HOTRINA
 
-	IF car_name_mod = HOTRINB
-	OR car_name_mod = BLOODRA
-	OR car_name_mod = MAJESTIC
-	OR car_name_mod = NRG500
-	OR car_name_mod = TOWTRUCK
-	OR car_name_mod = COMET
-		flag_no_of_car_colours = 2
-	ENDIF
+	CASE HOTRINB
+	CASE BLOODRA
+	CASE MAJESTIC
+	CASE NRG500
+	CASE TOWTRUCK
+	CASE COMET
 
-	IF car_name_mod = BULLET
-	OR car_name_mod = MAJESTIC
-	OR car_name_mod = YOSEMITE
-	OR car_name_mod = SAVANNA
-		flag_no_of_car_colours = 2
-	ENDIF
+	CASE BULLET
+	CASE YOSEMITE
+	CASE SAVANNA
 
-	IF car_name_mod = DUNERIDE
-	OR car_name_mod = BROADWAY
-	OR car_name_mod = TORNADO
-	OR car_name_mod = TUG
-	OR car_name_mod = PHOENIX
-		flag_no_of_car_colours = 2
-	ENDIF
+	CASE DUNERIDE
+	CASE BROADWAY
+	CASE TORNADO
+	CASE TUG
+	CASE PHOENIX
 
- 	IF car_name_mod = MONSTERB
+ 	CASE MONSTERB
 		flag_no_of_car_colours = 2
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 RETURN
 

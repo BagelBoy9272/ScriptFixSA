@@ -1100,18 +1100,20 @@ GOTO music1_loop
 			m1_perimeter_car_x += m1_beach_party_x
 			m1_perimeter_car_y += m1_beach_party_y
 
-			IF m1_index = 0
-			OR m1_index = 3
-			OR m1_index = 6
+			SWITCH m1_index
+			CASE 0
+			CASE 3
+			CASE 6
 				CREATE_CAR VOODOO m1_perimeter_car_x m1_perimeter_car_y -100.0 m1_perimeter_cars[m1_index]
-			ELSE
-				IF m1_index = 1
-				OR m1_index = 7
+			BREAK
+				CASE 1
+				CASE 7
 					CREATE_CAR OCEANIC m1_perimeter_car_x m1_perimeter_car_y -100.0 m1_perimeter_cars[m1_index]
-				ELSE
+				BREAK
+				DEFAULT
 					CREATE_CAR ESPERANT m1_perimeter_car_x m1_perimeter_car_y -100.0 m1_perimeter_cars[m1_index]
-				ENDIF
-			ENDIF
+				BREAK
+			ENDSWITCH
 			m1_perimeter_car_heading = 90.0 + m1_perimeter_car_angle
 			SET_CAR_HEADING m1_perimeter_cars[m1_index] m1_perimeter_car_heading
 			//FORCE_CAR_LIGHTS m1_perimeter_cars[m1_index] FORCE_CAR_LIGHTS_ON
@@ -1165,51 +1167,47 @@ GOTO music1_loop
 
 		m1_index = 0
 		WHILE m1_index < m1_num_of_ambient_peds
-			IF m1_index = 0
-			OR m1_index = 4
-			OR m1_index = 7
-			OR m1_index = 11
+			SWITCH m1_index
+			CASE 0
+			CASE 4
+			CASE 7
+			CASE 11
 				CREATE_CHAR PEDTYPE_MISSION1 BMYST m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-			ELSE
-				IF m1_index = 6
-				OR m1_index = 3
-				OR m1_index = 2
+			BREAK
+				CASE 6
+				CASE 3
+				CASE 2
 					CREATE_CHAR PEDTYPE_MISSION1 WMYST m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-				ELSE
-					IF m1_index = 9
-					OR m1_index = 14
-					OR m1_index = 17
-					OR m1_index = 19
+				BREAK
+					CASE 9
+					CASE 14
+					CASE 17
+					CASE 19
 						CREATE_CHAR PEDTYPE_MISSION1 WFYCLOT m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-					ELSE
-						IF m1_index = 12
+					BREAK
+						CASE 12
 							CREATE_CHAR PEDTYPE_MISSION1 WMYRO m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-						ELSE
-							IF m1_index = 16
-							OR m1_index = 10
+						BREAK
+							CASE 16
+							CASE 10
 								CREATE_CHAR PEDTYPE_MISSION1 WFYST m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-							ELSE
-								IF m1_index = 5
-								OR m1_index = 15
+							BREAK
+								CASE 5
+								CASE 15
 									CREATE_CHAR PEDTYPE_MISSION1 WMYCLOT m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-								ELSE
-									IF m1_index = 8
-									OR m1_index = 13
+								BREAK
+									CASE 8
+									CASE 13
 										CREATE_CHAR PEDTYPE_MISSION1 BMYDJ m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-									ELSE
-										IF m1_index = 1
-										OR m1_index = 20
+									BREAK
+										CASE 1
+										CASE 20
 											CREATE_CHAR PEDTYPE_MISSION1 OFYRI m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-										ELSE
+										BREAK
+										DEFAULT
 											CREATE_CHAR PEDTYPE_MISSION1 WFYRI m1_ambient_ped_start_x[m1_index] m1_ambient_ped_start_y[m1_index] -100.0 m1_ambient_peds[m1_index]
-										ENDIF
-									ENDIF
-								ENDIF
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
+										BREAK
+			ENDSWITCH
 			SET_CHAR_HEADING m1_ambient_peds[m1_index] m1_ambient_ped_start_heading[m1_index]
 			GIVE_WEAPON_TO_CHAR m1_ambient_peds[m1_index] WEAPONTYPE_MP5 99999
 			SET_CURRENT_CHAR_WEAPON m1_ambient_peds[m1_index] WEAPONTYPE_UNARMED

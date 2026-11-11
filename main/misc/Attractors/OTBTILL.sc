@@ -66,11 +66,9 @@ GOTO OTBTILL_Main_Loop
 			STATE MACHINE
 ********************************************/
 OTBTILL_State_Machine:
-	SWITCH iPedState	   	
-   		CASE 1 //---STATE 1: 
+	IF iPedState = 1 //---STATE 1: 
 			GOSUB OTBTILL_PedState1
-		BREAK
-	ENDSWITCH
+	ENDIF
 RETURN
 /********************************************
 				ORDER 

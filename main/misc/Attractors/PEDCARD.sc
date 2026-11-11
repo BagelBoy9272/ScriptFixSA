@@ -63,11 +63,9 @@ GOTO PEDCARD_Main_Loop
 			STATE MACHINE
 ********************************************/
 PEDCARD_State_Machine:
-	SWITCH iPedState	   	
-   		CASE 1 //---STATE 1: 
+	IF iPedState = 1 //---STATE 1: 
 			GOSUB PEDCARD_PedState1
-		BREAK
-	ENDSWITCH
+	ENDIF
 
 RETURN
 /********************************************
