@@ -54,12 +54,12 @@ LVAR_INT temp_seq
 VAR_INT bball_frame_count
 
 // camera type
-VAR_INT bball_camera_type
+VAR_INT unused_bball_camera_type // FIXEDGROVE: unused
 
-VAR_INT bball_is_active
+VAR_INT unused_bball_is_active // FIXEDGROVE: unused
 
 VAR_INT bball_stored_weapon
-VAR_INT bball_player_has_brassknuckle
+VAR_INT unused_bball_player_has_brassknuckle // FIXEDGROVE: unused
 
 //LVAR_INT this_script_id
 
@@ -77,7 +77,7 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 	// reset this just in case
 	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc temp_int2
 	IF temp_int2 = 1
-		unused_2 = 0
+		CLEAR_BIT bball_bits bball_single_instance
 	ENDIF
 
 	// skip waiting if the ball is already in the court
@@ -110,7 +110,7 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 	// and ensure that different courts can have a chance at making a ball
 	GENERATE_RANDOM_INT_IN_RANGE 0 101 temp_int2
 	IF temp_int2 < 50
-	OR unused_2 = 1
+	OR IS_BIT_SET bball_bits bball_single_instance
 		GOTO wait_until_the_previous_instance_is_done
 	ENDIF
 
@@ -118,22 +118,22 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 	IF DOES_OBJECT_EXIST bball_ball
 		IF NOT DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
 			bball_ball = -1
-			bball_active = 0
+			CLEAR_BIT bball_bits bball_created
 		ENDIF
 	ELSE
 		bball_ball = -1
-		bball_active = 0
+		CLEAR_BIT bball_bits bball_created
 	ENDIF
 
 skip_waiting:
-	unused_2 = 1
+	SET_BIT bball_bits bball_single_instance
 	GENERATE_RANDOM_INT_IN_RANGE 50 150 temp_int2
 	GOSUB keep_the_script_from_restarting
 
 GOTO bball_out_of_the_loop
 
 keep_the_script_from_restarting:
-	WHILE bball_unlocked = 0
+	WHILE NOT IS_BIT_SET bball_bits bball_unlocked
 		these_do_the_same_thing:
 		WAIT temp_int2
 		GENERATE_RANDOM_INT_IN_RANGE 500 1500 temp_int2
@@ -166,7 +166,7 @@ p_status			= 0
 p_status_old		= 0
 tri_pressed			= 0
 char_is_attached 	= 0
-bball_camera_type 	= 0
+//unused_bball_camera_type 	= 0
 col_loaded_for_ball = 0
 cross_pressed		= 0
 
@@ -200,7 +200,7 @@ bball_loop:
 		// make sure hoop model has loaded
 		temp_int = 0
 
-		IF NOT bball_unlocked = 0 // make sure basket ball is unlocked
+		IF IS_BIT_SET bball_bits bball_unlocked // make sure basket ball is unlocked
 			IF DOES_OBJECT_EXIST bbhoop
 				IF IS_PLAYER_PLAYING player1 
 					IF flag_player_on_mission = 0
@@ -222,7 +222,7 @@ bball_loop:
 
 				// when player gets close create m_ball
 				CASE 0
-					IF bball_active = 0
+					IF NOT IS_BIT_SET bball_bits bball_created
 						IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE								
 
 							IF DOES_OBJECT_EXIST bball_ball
@@ -254,7 +254,7 @@ bball_loop:
 										z3 = 0.0
 										GOSUB bball_create_col_no_velocity
 
-										bball_active = 1
+										SET_BIT bball_bits bball_created
 										m_stage++
 									//ENDIF // FIXEDGROVE: comment out
 								ENDIF
@@ -274,7 +274,7 @@ bball_loop:
 						IF NOT LOCATE_CHAR_ANY_MEANS_OBJECT_3D scplayer bball_ball 100.0 100.0 50.0 FALSE
 							GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x y z
 							z += 1.0
-							SET_OBJECT_COORDINATES m_ball x y z
+							SET_OBJECT_COORDINATES m_ball x y z 
 						ENDIF
 						IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
 							IF LOCATE_CHAR_ON_FOOT_OBJECT_3D scplayer m_ball 1.0 1.0 2.0 FALSE
@@ -284,9 +284,7 @@ bball_loop:
 									GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
  									IF IS_OBJECT_IN_AREA_3D m_ball x2 y2 z2 x3 y3 z3 FALSE
 										IF LOCATE_CHAR_ON_FOOT_OBJECT_3D scplayer m_ball 0.7 0.7 2.0 FALSE
-
 											GOSUB bball_court_offset
-
 											IF NOT IS_AREA_OCCUPIED x2 y2 z2 x3 y3 z3 FALSE TRUE FALSE FALSE FALSE
 												// check the player is safe to use
 												IF NOT IS_PLAYER_USING_JETPACK player1
@@ -330,9 +328,7 @@ bball_loop:
 										GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
 										IF IS_OBJECT_IN_AREA_3D m_ball x2 y2 z2 x3 y3 z3 FALSE
 											IF LOCATE_CHAR_ON_FOOT_OBJECT_3D scplayer m_ball 0.7 0.7 2.0 FALSE
-
 												GOSUB bball_court_offset
-
 												IF NOT IS_AREA_OCCUPIED x2 y2 z2 x3 y3 z3 FALSE TRUE FALSE FALSE FALSE 
 													
 													//WRITE_DEBUG_WITH_INT p_status p_status
@@ -495,7 +491,7 @@ exit_stage_mark_bball:
 	m_stage = 0	
 
 exit_stage_vars_bball:
-	bball_active = 0
+	CLEAR_BIT bball_bits bball_created
 RETURN
 
 terminate_bball:
@@ -506,7 +502,7 @@ small_terminate_bball:
 
 	SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
 
-	unused_2 = 0
+	CLEAR_BIT bball_bits bball_single_instance
 
 	MARK_OBJECT_AS_NO_LONGER_NEEDED m_ball
 
@@ -673,13 +669,13 @@ bball_init_minigame:
 		// remove brassknuckle
 		IF HAS_CHAR_GOT_WEAPON scplayer WEAPONTYPE_BRASSKNUCKLE
 			REMOVE_WEAPON_FROM_CHAR scplayer WEAPONTYPE_BRASSKNUCKLE
-			bball_player_has_brassknuckle = 1
+			SET_BIT bball_bits bball_brass
 			REQUEST_MODEL BRASSKNUCKLE
 			WHILE NOT HAS_MODEL_LOADED BRASSKNUCKLE
 				WAIT 0
 			ENDWHILE
 		ELSE
-			bball_player_has_brassknuckle = 0
+			CLEAR_BIT bball_bits bball_brass
 		ENDIF
 		SET_CURRENT_CHAR_WEAPON scplayer WEAPONTYPE_UNARMED
 		SET_PLAYER_CYCLE_WEAPON_BUTTON player1 FALSE
@@ -732,7 +728,7 @@ bball_init_minigame:
 	bball_help = 0
 
 	p_status = PICKUP_BALL
-	bball_camera_type = 1
+	SET_BIT bball_bits bball_camera_type
 
 
 	// get court z
@@ -767,7 +763,7 @@ bball_init_minigame:
 	SET_PED_DENSITY_MULTIPLIER 0.2
 	SET_CAR_DENSITY_MULTIPLIER 0.2
 
-	bball_is_active = 1
+	SET_BIT bball_bits bball_is_ingame
 
 RETURN
 
@@ -796,7 +792,7 @@ bball_minigame:
 	// help 
 	IF bball_help < 3
 		IF bball_help = 0
-			IF bball_challenge_active = 0
+			IF NOT IS_BIT_SET bball_bits bball_challenge_active
 				PRINT_HELP BB_02  
 			ENDIF
 			bball_help++
@@ -805,7 +801,7 @@ bball_minigame:
 
 		IF bball_help = 1
 		AND TIMERA > 10000
-			IF bball_challenge_active = 0
+			IF NOT IS_BIT_SET bball_bits bball_challenge_active
 				PRINT_HELP BB_07  
 			ENDIF
 			TIMERA = 0
@@ -816,7 +812,7 @@ bball_minigame:
 		AND TIMERA > 5000
 			IF DOES_OBJECT_HAVE_THIS_MODEL	bbhoop BSKBALL_LAX
 			OR DOES_OBJECT_HAVE_THIS_MODEL	bbhoop VGSXREFBBALLNET
-				IF bball_challenge_active = 0
+				IF NOT IS_BIT_SET bball_bits bball_challenge_active
 					PRINT_HELP BB_09 // Press the ~h~R3 ~w~button to start the challenge mode.
 				ENDIF
 			ENDIF
@@ -827,16 +823,16 @@ bball_minigame:
 
 	IF DOES_OBJECT_HAVE_THIS_MODEL	bbhoop BSKBALL_LAX
 	OR DOES_OBJECT_HAVE_THIS_MODEL	bbhoop VGSXREFBBALLNET
-		IF bball_challenge_active = 0
-			IF bball_r3_is_pressed = 0
+		IF NOT IS_BIT_SET bball_bits bball_challenge_active
+			IF NOT IS_BIT_SET bball_bits bball_r3_pressed
 				
 				IF IS_BUTTON_PRESSED PAD1 RIGHTSHOCK
-					bball_r3_is_pressed = 1
+					SET_BIT bball_bits bball_r3_pressed
 					START_NEW_SCRIPT bball_challenge_script bbhoop
 				ENDIF
 			ELSE
 				IF NOT IS_BUTTON_PRESSED PAD1 RIGHTSHOCK
-					bball_r3_is_pressed = 0
+					CLEAR_BIT bball_bits bball_r3_pressed
 				ENDIF		
 			ENDIF
 		ENDIF
@@ -878,14 +874,14 @@ OR IS_THIS_HELP_MESSAGE_BEING_DISPLAYED BB_09
 	CLEAR_HELP
 ENDIF
 
-	IF bball_is_active = 1 // FIXEDGROVE: only clean up if the minigame actually initialized
+	IF IS_BIT_SET bball_bits bball_is_ingame // FIXEDGROVE: only clean up if the minigame actually initialized
 		// weapon stuff ////////////////////////////
 		// give smg weapon back to char
 		
 		// give back brassknuckle
-		IF bball_player_has_brassknuckle = 1
+		IF IS_BIT_SET bball_bits bball_brass
 			GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_BRASSKNUCKLE 1
-			bball_player_has_brassknuckle = 0
+			CLEAR_BIT bball_bits bball_brass
 			MARK_MODEL_AS_NO_LONGER_NEEDED BRASSKNUCKLE
 		ENDIF
 
@@ -930,7 +926,7 @@ ENDIF
 			CLEAR_CHAR_TASKS scplayer
 		ENDIF
 		
-		bball_camera_type = 0
+		CLEAR_BIT bball_bits bball_camera_type
 		REMOVE_ANIMATION BSKTBALL
 		MARK_MODEL_AS_NO_LONGER_NEEDED BBALL_INGAME
 		MARK_MODEL_AS_NO_LONGER_NEEDED BBALL_COL 
@@ -939,9 +935,9 @@ ENDIF
 		CLEAR_HELP
 
 		//m_stage = 0
-		//bball_active = 0
+		//CLEAR_BIT bball_bits bball_created
 
-		bball_is_active = 0
+		CLEAR_BIT bball_bits bball_is_ingame
 
 		SET_PED_DENSITY_MULTIPLIER 1.0
 		SET_CAR_DENSITY_MULTIPLIER 1.0
@@ -2275,7 +2271,7 @@ update_player_control:
 				// get desired heading
 				GET_HEADING_FROM_VECTOR_2D x y p_desired_heading
 				
-				IF bball_camera_type = 1
+				IF IS_BIT_SET bball_bits bball_camera_type
 					x = look_x - camera_x
 					y = look_y - camera_y
 				ELSE

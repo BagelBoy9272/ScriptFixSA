@@ -31,7 +31,7 @@ LVAR_INT missed_flag
 LVAR_INT missed_flag2
 LVAR_INT time_to_add_on
 
-VAR_INT bball_r3_is_pressed
+VAR_INT unused_bball_r3_is_pressed // FIXEDGROVE: unused
 
 m_stage = 0
 m_goals = 0
@@ -49,7 +49,7 @@ new_marker_distance = 4.0
 TIMERA = 0
 TIMERB = 0
 
-bball_challenge_active = 1
+SET_BIT bball_bits bball_challenge_active
 
 // fake create
 IF m_stage = -1
@@ -68,25 +68,25 @@ WAIT 0
 		BREAK
 	ENDSWITCH
 
-	IF bball_active = 0 
-	AND bball_throw_active = 0
+	IF NOT IS_BIT_SET bball_bits bball_created
+	AND NOT IS_BIT_SET bball_bits bball_is_throwing
 		GOSUB bbchal_cleanup
 	ENDIF
 
 	GOSUB bbchal_display_help
 
-	IF bball_is_active = 0
+	IF NOT IS_BIT_SET bball_bits bball_is_ingame
 		GOSUB bbchal_cleanup
 	ENDIF
 
-	IF bball_r3_is_pressed = 0
+	IF NOT IS_BIT_SET bball_bits bball_r3_pressed
 		IF IS_BUTTON_PRESSED PAD1 RIGHTSHOCK
-			bball_r3_is_pressed = 1
+			SET_BIT bball_bits bball_r3_pressed
 			GOSUB bbchal_cleanup
 		ENDIF
 	ELSE
 		IF NOT IS_BUTTON_PRESSED PAD1 RIGHTSHOCK
-			bball_r3_is_pressed = 0
+			CLEAR_BIT bball_bits bball_r3_pressed
 		ENDIF		
 	ENDIF
 
@@ -154,7 +154,7 @@ bbchal_m_stage_0:
 	IF m_goals = 3
 		IF IS_PLAYER_PLAYING player1
 			IF LOCATE_CHAR_ON_FOOT_3D scplayer location_x location_y location_z 1.5 1.5 2.0 TRUE
-				IF bball_throw_active = 1
+				IF IS_BIT_SET bball_bits bball_is_throwing
 					IF DOES_BLIP_EXIST location_blip
 						REMOVE_BLIP location_blip
 					ENDIF		
@@ -214,7 +214,7 @@ bbchal_m_stage_1:
 		IF IS_PLAYER_PLAYING player1
 			LOCATE_CHAR_ON_FOOT_3D scplayer location_x location_y location_z 1.5 1.5 2.0 TRUE
 		ENDIF
-		IF bball_throw_active = 1
+		IF IS_BIT_SET bball_bits bball_is_throwing
 			IF IS_PLAYER_PLAYING player1
 				IF LOCATE_CHAR_ON_FOOT_3D scplayer location_x location_y location_z 1.5 1.5 2.0 TRUE
 					IF DOES_BLIP_EXIST location_blip
@@ -222,14 +222,14 @@ bbchal_m_stage_1:
 					ENDIF
 					//points_scored = 0
 					m_goals = 0
-					bball_throw_active = 0
+					CLEAR_BIT bball_bits bball_is_throwing
 					//WRITE_DEBUG true1
 				ELSE
 					IF missed_flag2 = 0
 						PRINT_NOW BB_16	5000 1 // take the shot from the marker
 						missed_flag2++
 					ENDIF
-					bball_throw_active = 0
+					CLEAR_BIT bball_bits bball_is_throwing
 					//WRITE_DEBUG false1
 				ENDIF
 			ENDIF
@@ -243,7 +243,7 @@ bbchal_m_stage_1:
 //		IF IS_PLAYER_PLAYING player1
 //			LOCATE_CHAR_ON_FOOT_3D scplayer location_x location_y location_z 1.5 1.5 2.0 TRUE
 //		ENDIF
-//		IF bball_throw_active = 1
+//		IF IS_BIT_SET bball_bits bball_is_throwing
 //			IF IS_PLAYER_PLAYING player1	
 //				IF LOCATE_CHAR_ON_FOOT_3D scplayer location_x location_y location_z 1.5 1.5 2.0 TRUE
 //					IF DOES_BLIP_EXIST location_blip
@@ -251,7 +251,7 @@ bbchal_m_stage_1:
 //					ENDIF
 //					m_goals = 0
 //				ELSE
-//					bball_throw_active = 0
+//					CLEAR_BIT bball_bits bball_is_throwing
 //				ENDIF
 //			ENDIF
 //		ENDIF
@@ -441,7 +441,7 @@ ENDIF
 CLEAR_ONSCREEN_COUNTER bball_challenge_score 
 CLEAR_ONSCREEN_COUNTER bball_challenge_high_score
 CLEAR_ONSCREEN_TIMER bball_challenge_timer
-bball_challenge_active = 0
+CLEAR_BIT bball_bits bball_challenge_active
 TERMINATE_THIS_SCRIPT
 RETURN
 

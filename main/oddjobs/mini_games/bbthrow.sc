@@ -40,10 +40,22 @@ LVAR_FLOAT travel_vec_x travel_vec_y
 LVAR_FLOAT vertex_time	 
 LVAR_FLOAT a b c
 
+// FIXEDGROVE: START - move these to main
+CONST_INT bball_unlocked		0
+CONST_INT bball_single_instance	1
+CONST_INT bball_created			2
+CONST_INT bball_is_ingame		3
+CONST_INT bball_camera_type		4
+CONST_INT bball_is_throwing		5
+CONST_INT bball_r3_pressed		6
+CONST_INT bball_challenge_active	7
+CONST_INT bball_brass			8
+// FIXEDGROVE: END
+
 // initialise any required variables
 flag = 0	 
 points_scored = 0
-bball_throw_active = 1
+SET_BIT bball_bits bball_is_throwing
 
 
 //VIEW_INTEGER_VARIABLE points_scored points_scored
@@ -310,7 +322,7 @@ WAIT 0
 
 	// finish projectile script
 	IF flag = 99
-		bball_throw_active = 0
+		CLEAR_BIT bball_bits bball_is_throwing
 		TERMINATE_THIS_SCRIPT
 	ENDIF
 

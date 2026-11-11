@@ -2073,7 +2073,7 @@ mission_sweet1_passed:
 		GIVE_WEAPON_TO_CHAR scplayer WEAPONTYPE_SPRAYCAN 1000
 	ENDIF
 
-	bball_unlocked = 1
+	SET_BIT bball_bits bball_unlocked // FIXEDGROVE: variable name changed
 
 	REMOVE_PICKUP spray_can_pickup
 	CREATE_PICKUP_WITH_AMMO SPRAYCAN PICKUP_ON_STREET_SLOW 1000 2492.5054 -1700.8246 1017.8 spray_can_pickup
