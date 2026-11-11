@@ -1281,26 +1281,9 @@ GOTO shop_ammunation_inner
 print_ammunation_oncreen_text:
 	IF cost_menu_drawn_shops = 0
 		PRINT_HELP_FOREVER (AMMU_H3)  
-		
-		IF current_Language = LANGUAGE_ENGLISH
-			CREATE_MENU AMMUN 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU AMMUN 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU AMMUN 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU AMMUN 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU AMMUN 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+
+		// FIXEDGROVE: removed pointless language checks that all had the same values
+		CREATE_MENU AMMUN 29.0 95.0 93.0 2 FALSE TRUE FO_LEFT cost_menu_shops
 
 		SET_MENU_COLUMN_ORIENTATION cost_menu_shops 0 FO_LEFT 
 		SET_MENU_COLUMN cost_menu_shops 0 WEAPON $weapon_name DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY DUMMY
@@ -1768,25 +1751,18 @@ draw_main_menu_ammu:
 	    
 		PRINT_HELP_FOREVER AMMU_H
 		
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU AMMUN 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU AMMUN 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT main_menu_shops
+		BREAK
+		ENDSWITCH
 
 		SET_ACTIVE_MENU_ITEM main_menu_shops main_menu_selection_ammu // FIXEDGROVE: restore selection
 
@@ -1908,25 +1884,18 @@ draw_second_menu_shops:
 
 		// Create the sub menu.
 
-		IF current_Language = LANGUAGE_ENGLISH
+		// FIXEDGROVE: changed IF to SWITCH
+		SWITCH current_Language
+		CASE LANGUAGE_ENGLISH
+		CASE LANGUAGE_FRENCH
+		CASE LANGUAGE_ITALIAN
+		CASE LANGUAGE_SPANISH
 			CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-		ELSE
-			IF current_Language = LANGUAGE_FRENCH
-				CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-			ELSE
-				IF current_Language = LANGUAGE_GERMAN
-					CREATE_MENU AMMUN 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-				ELSE
-					IF current_Language = LANGUAGE_ITALIAN
-						CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-					ELSE
-						IF current_Language = LANGUAGE_SPANISH
-							CREATE_MENU AMMUN 29.0 145.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
-						ENDIF
-					ENDIF
-				ENDIF
-			ENDIF
-		ENDIF
+		BREAK
+		CASE LANGUAGE_GERMAN
+			CREATE_MENU AMMUN 29.0 165.0 186.0 1 TRUE TRUE FO_LEFT sub_menu_shops
+		BREAK
+		ENDSWITCH
 
 		SET_ACTIVE_MENU_ITEM sub_menu_shops sub_menu_selection_ammu // FIXEDGROVE: restore selection
 

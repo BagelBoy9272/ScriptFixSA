@@ -6912,32 +6912,24 @@ init_pool_screen_coords:
 	ENDSWITCH
 
     // window 4 - bottom corner
-	SWITCH current_Language
-	CASE LANGUAGE_ITALIAN
+	IF current_Language = LANGUAGE_ITALIAN
 		SCREEN_COORD_X[3] = SCREEN_COORD_X[2]	
-		SCREEN_COORD_Y[3] = 394.4953
-		BREAK
-	DEFAULT
+	ELSE
 		SCREEN_COORD_X[3] = 168.1938 	
+	ENDIF
 		SCREEN_COORD_Y[3] = 394.4953 
-		BREAK
-	ENDSWITCH
 
     // text scale 1
     SCREEN_COORD_X[4] = 0.4914 
     SCREEN_COORD_Y[4] = 2.3977 
 
     // wager win - bottom corner
-	SWITCH current_Language
-	CASE LANGUAGE_ITALIAN
+	IF current_Language =  LANGUAGE_ITALIAN
 		SCREEN_COORD_X[5] = 178.0981 
-		SCREEN_COORD_Y[5] = 409.0
-		BREAK
-	DEFAULT
+	ELSE
 		SCREEN_COORD_X[5] = 157.0 
+	ENDIF
 		SCREEN_COORD_Y[5] = 409.0
-		BREAK
-	ENDSWITCH
 
 RETURN
 

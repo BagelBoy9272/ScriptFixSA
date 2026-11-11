@@ -4292,13 +4292,8 @@ f1_drawing_tv_screen:///////////////////////////////////////////////////////////
 	GOSUB small_onscreen_text 
 	GET_HUD_COLOUR HUD_COLOUR_YELLOW f1_r f1_g f1_b f1_alpha2
 	SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
-	IF current_Language = LANGUAGE_FRENCH
 		SET_TEXT_SCALE 0.32 1.25 
 		DISPLAY_TEXT 70.0 360.0 DS1_53
-	ELSE
-		SET_TEXT_SCALE 0.32 1.25 
-		DISPLAY_TEXT 70.0 360.0 DS1_53
-	ENDIF
 
 	//drawing help text
 	IF NOT f1_control_flag = 1 //waiting to select which facing track
@@ -4308,40 +4303,18 @@ f1_drawing_tv_screen:///////////////////////////////////////////////////////////
 
 		SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
 
-		IF current_Language = LANGUAGE_FRENCH
 			SET_TEXT_SCALE 0.32 1.25
 			DISPLAY_TEXT 70.0 340.0 DS1_54 	//START
-		ELSE
-			SET_TEXT_SCALE 0.32 1.25
-			DISPLAY_TEXT 70.0 340.0 DS1_54 	//START
-		ENDIF
 		
-		IF NOT f1_which_missions_are_open_flag = 1
 			GOSUB small_onscreen_text 
+		IF NOT f1_which_missions_are_open_flag = 1
 			GET_HUD_COLOUR HUD_COLOUR_YELLOW f1_r f1_g f1_b f1_alpha2
-			SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
-
-			IF current_Language = LANGUAGE_FRENCH
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ELSE
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ENDIF
-			
 		ELSE
-			GOSUB small_onscreen_text 			
 			GET_HUD_COLOUR HUD_COLOUR_GREY f1_r f1_g f1_b f1_alpha2	//navigate greyed out
-			SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
-		   	
-			IF current_Language = LANGUAGE_FRENCH
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ELSE
-				SET_TEXT_SCALE 0.32 1.25
-				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
-			ENDIF
 		ENDIF
+			SET_TEXT_COLOUR f1_r f1_g f1_b f1_alpha2
+				SET_TEXT_SCALE 0.32 1.25
+				DISPLAY_TEXT 437.0 340.0 DS1_52 	//Navigate
 	ENDIF
 	
 	// New section to draw the joypad buttons separate from the help text
@@ -4440,21 +4413,23 @@ f1_drawing_medal:///////////////////////////////////////////////////////////////
 		IF IS_JAPANESE_VERSION
 			DISPLAY_TEXT 250.0 75.0 DS1_67  //Get over 70% to pass
 		ELSE
-			IF current_Language = LANGUAGE_ENGLISH
+			SWITCH current_Language
+			CASE LANGUAGE_ENGLISH
 				DISPLAY_TEXT 175.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_FRENCH
+			BREAK
+			CASE LANGUAGE_FRENCH
 				DISPLAY_TEXT 83.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_GERMAN
+			BREAK
+			CASE LANGUAGE_GERMAN
 				DISPLAY_TEXT 89.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_ITALIAN
+			BREAK
+			CASE LANGUAGE_ITALIAN
 				DISPLAY_TEXT 147.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
-			IF current_Language = LANGUAGE_SPANISH
+			BREAK
+			CASE LANGUAGE_SPANISH
 				DISPLAY_TEXT 65.0 75.0 DS1_67  //Get over 70% to pass
-			ENDIF
+			BREAK
+			ENDSWITCH
 		ENDIF
 	ENDIF
 
