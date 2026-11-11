@@ -367,11 +367,10 @@ IF startexbike_flag = 1
 		IF current_Language = 4
 		OR current_Language = 2
 			CREATE_MENU GYM1_D 31.0 180.0 178.0 1 TRUE TRUE FO_CENTRE main_menu_bike
-			SET_MENU_COLUMN main_menu_bike 0 GYM1_89 GYM1_61 GYM1_62 GYM1_63 GYM1_64 GYM1_65 GYM1_66 GYM1_67 GYM1_68 GYM1_69 GYM1_70 DUMMY DUMMY
 		ELSE
 			CREATE_MENU GYM1_D 31.0 150.0 178.0 1 TRUE TRUE FO_CENTRE main_menu_bike
-			SET_MENU_COLUMN main_menu_bike 0 GYM1_89 GYM1_61 GYM1_62 GYM1_63 GYM1_64 GYM1_65 GYM1_66 GYM1_67 GYM1_68 GYM1_69 GYM1_70 DUMMY DUMMY
 		ENDIF
+		SET_MENU_COLUMN main_menu_bike 0 GYM1_89 GYM1_61 GYM1_62 GYM1_63 GYM1_64 GYM1_65 GYM1_66 GYM1_67 GYM1_68 GYM1_69 GYM1_70 DUMMY DUMMY
 		SET_ACTIVE_MENU_ITEM main_menu_bike 0
 
 		WHILE NOT IS_CHAR_DEAD scplayer
@@ -640,106 +639,98 @@ IF startexbike_flag = 1
 			//////////////////////
 			
 			
-			IF levelbar_bike = 1
+			SWITCH levelbar_bike
+			CASE 1
 				bike_levelresistance = 6.5 // 6.5
-			ENDIF	
+			BREAK	
 
-			IF levelbar_bike = 2
+			CASE 2
 				bike_levelresistance = 5.9 // 5.9
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_bike = 3
+			CASE 3
 				bike_levelresistance = 5.0 // 5.0
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_bike = 4
+			CASE 4
 				bike_levelresistance = 4.3 // 4.3
-			ENDIF	
+			BREAK	
 
-			IF levelbar_bike = 5
+			CASE 5
 				bike_levelresistance = 3.7 // 3.7
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_bike = 6
+			CASE 6
 				bike_levelresistance = 2.9 // 2.9
-			ENDIF		
+			BREAK		
 
-			IF levelbar_bike = 7
+			CASE 7
 				bike_levelresistance = 2.2 // 2.2
-			ENDIF	
+			BREAK	
 
-			IF levelbar_bike = 8
+			CASE 8
 				bike_levelresistance = 1.5 // 1.5
-			ENDIF	
+			BREAK	
 			
-			IF levelbar_bike = 9
+			CASE 9
 				bike_levelresistance = 1.1 // 1.1
-			ENDIF
+			BREAK
 
-			IF levelbar_bike = 10
+			CASE 10
 				bike_levelresistance = 0.7 // 0.7
-			ENDIF		
+			BREAK		
+			ENDSWITCH
 
 
 			//animation and speed changes
 			IF speed_bike >= 0.0
-				IF speed_bike <= 10.0
+			AND speed_bike <= 10.0
 					animspeed_bike = 0.9
-				ENDIF
 			ENDIF
 
 			IF speed_bike >= 11.0 
-				IF speed_bike <= 20.0
+			AND speed_bike <= 20.0
 					animspeed_bike = 1.0
-				ENDIF
 			ENDIF
 
 			IF speed_bike >= 21.0
-				IF speed_bike <= 30.0
+			AND speed_bike <= 30.0
 					animspeed_bike = 1.1
-				ENDIF
 			ENDIF
 			
 			IF speed_bike >= 31.0
-				IF speed_bike <= 40.0
+			AND speed_bike <= 40.0
 					animspeed_bike = 1.2
-				ENDIF
 			ENDIF			
 
 			IF speed_bike >= 41.0
-				IF speed_bike <= 50.0
+			AND speed_bike <= 50.0
 					animspeed_bike = 1.3
-				ENDIF
 			ENDIF
 
 			IF speed_bike >= 51.0
-				IF speed_bike <= 60.0
+			AND speed_bike <= 60.0
 					animspeed_bike = 1.4
-				ENDIF
 			ENDIF
 
 			IF speed_bike >= 61.0
-				IF speed_bike <= 70.0
+			AND speed_bike <= 70.0
 					animspeed_bike = 1.5
-				ENDIF
 			ENDIF
 			
 			IF speed_bike >= 71.0
-				IF speed_bike <= 80.0
+			AND speed_bike <= 80.0
 					animspeed_bike = 1.6
-				ENDIF
 			ENDIF			
 
 			IF speed_bike >= 81.0
-				IF speed_bike <= 90.0
+			AND speed_bike <= 90.0
 					animspeed_bike = 1.7
-				ENDIF
 			ENDIF
 
 			IF speed_bike >= 91.0
-				IF speed_bike <= 100.0
+			AND speed_bike <= 100.0
 					animspeed_bike = 1.8
-				ENDIF
 			ENDIF
 		
 			IF IS_CHAR_PLAYING_ANIM	scplayer gym_bike_slow

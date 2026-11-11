@@ -369,11 +369,10 @@ IF startdumbell_flag = 1
 		IF current_Language = 4
 		OR current_Language = 2
 			CREATE_MENU GYM1_G 31.0 180.0 184.0 1 TRUE TRUE FO_CENTRE main_menu_bell
-			SET_MENU_COLUMN main_menu_bell 0 GYM1_72 GYM1_26 GYM1_27 GYM1_28 GYM1_29 GYM1_30 GYM1_31 GYM1_32 GYM1_33 GYM1_34 GYM1_35 DUMMY DUMMY
 		ELSE
 			CREATE_MENU GYM1_G 31.0 150.0 184.0 1 TRUE TRUE FO_CENTRE main_menu_bell
-			SET_MENU_COLUMN main_menu_bell 0 GYM1_72 GYM1_26 GYM1_27 GYM1_28 GYM1_29 GYM1_30 GYM1_31 GYM1_32 GYM1_33 GYM1_34 GYM1_35 DUMMY DUMMY
 		ENDIF
+		SET_MENU_COLUMN main_menu_bell 0 GYM1_72 GYM1_26 GYM1_27 GYM1_28 GYM1_29 GYM1_30 GYM1_31 GYM1_32 GYM1_33 GYM1_34 GYM1_35 DUMMY DUMMY
 		SET_ACTIVE_MENU_ITEM main_menu_bell 0
 
 
@@ -417,55 +416,57 @@ IF startdumbell_flag = 1
 	AND NOT IS_CHAR_DEAD scplayer
 
 		//text
-		IF weight_dumbell = 0
+		SWITCH weight_dumbell // FIXEDGROVE: changed from IF to SWITCH
+		CASE 0
 			weightdb = 1.0 // 0.7
 			incmusclestatdb = 5.0
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 1
+		CASE 1
 			weightdb = 2.0 // 1.4
 			incmusclestatdb = 5.2
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 2
+		CASE 2
 			weightdb = 3.0 // 2.1
 			incmusclestatdb = 5.3
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 3
+		CASE 3
 			weightdb = 4.0 // 2.8 
 			incmusclestatdb = 5.5
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 4
+		CASE 4
 			weightdb = 5.0 // 3.5
 			incmusclestatdb = 6.0
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 5
+		CASE 5
 			weightdb = 6.0 // 4.2
 			incmusclestatdb = 6.5
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 6
+		CASE 6
 			weightdb = 7.0 // 4.9			
 			incmusclestatdb = 7.0
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 7
+		CASE 7
 			weightdb = 8.0 // 5.6
 			incmusclestatdb = 7.5
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 8
+		CASE 8
 			weightdb = 9.0 // 6.3
 			incmusclestatdb = 8.0
-		ENDIF
+		BREAK
 
-		IF weight_dumbell = 9
+		CASE 9
 			weightdb = 10.0 // 7.0
 			incmusclestatdb = 8.5
-		ENDIF 
+		BREAK
+		ENDSWITCH
 					 
 		IF NOT IS_CHAR_DEAD scplayer
 			TASK_PLAY_ANIM scplayer gym_free_pickup FREEWEIGHTS 4.0 FALSE FALSE FALSE TRUE -1
@@ -688,6 +689,7 @@ IF startdumbell_flag = 1
          	    reps_dumbell = reps_dumbell + 1
 			ENDIF
 
+			/* // FIXEDGROVE: START - comment out to keep only metric, otherwise stat is incorrect
 			IF current_Language = LANGUAGE_ENGLISH
 
 				SWITCH weight_dumbell
@@ -726,6 +728,7 @@ IF startdumbell_flag = 1
 				ENDSWITCH
 
 			ELSE
+			*/ // FIXEDGROVE: END
 
 				SWITCH weight_dumbell
 
@@ -762,7 +765,7 @@ IF startdumbell_flag = 1
 
 				ENDSWITCH
 
-			ENDIF
+			// ENDIF // FIXEDGROVE
 
 			GET_INT_STAT HEAVIEST_WEIGHT_DUMBELLS temp_dumb_weight
 
@@ -774,221 +777,231 @@ IF startdumbell_flag = 1
 
 			IF temp_muscle_stat_dumb < 1000.0
 				
-				IF weight_dumbell = 1
+				SWITCH weight_dumbell // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatdb = 1.0 
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 2
+				CASE 2
 					incmusclestatdb = 1.2
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 3
+				CASE 3
 					incmusclestatdb = 1.3
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 4
+				CASE 4
 					incmusclestatdb = 1.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 5
+				CASE 5
 					incmusclestatdb = 2.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 6
+				CASE 6
 					incmusclestatdb = 2.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 7
+				CASE 7
 					incmusclestatdb = 3.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 8
+				CASE 8
 					incmusclestatdb = 4.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 9
+				CASE 9
 					incmusclestatdb = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 10
+				CASE 10
 					incmusclestatdb = 6.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat_dumb < 800.0
 				
-				IF weight_dumbell = 1
+				SWITCH weight_dumbell // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatdb = 2.0 
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 2
+				CASE 2
 					incmusclestatdb = 2.2
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 3
+				CASE 3
 					incmusclestatdb = 2.3
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 4
+				CASE 4
 					incmusclestatdb = 2.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 5
+				CASE 5
 					incmusclestatdb = 3.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 6
+				CASE 6
 					incmusclestatdb = 3.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 7
+				CASE 7
 					incmusclestatdb = 4.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 8   
+				CASE 8   
 					incmusclestatdb = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 9
+				CASE 9
 					incmusclestatdb = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 10
+				CASE 10
 					incmusclestatdb = 7.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat_dumb < 600.0
 				
-				IF weight_dumbell = 1
+				SWITCH weight_dumbell // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatdb = 3.0 
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 2
+				CASE 2
 					incmusclestatdb = 3.2
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 3
+				CASE 3
 					incmusclestatdb = 3.3
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 4
+				CASE 4
 					incmusclestatdb = 3.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 5
+				CASE 5
 					incmusclestatdb = 4.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 6
+				CASE 6
 					incmusclestatdb = 4.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 7
+				CASE 7
 					incmusclestatdb = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 8
+				CASE 8
 					incmusclestatdb = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 9
+				CASE 9
 					incmusclestatdb = 7.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 10
+				CASE 10
 					incmusclestatdb = 8.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat_dumb < 400.0
 				
-				IF weight_dumbell = 1
+				SWITCH weight_dumbell // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatdb = 4.0 
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 2
+				CASE 2
 					incmusclestatdb = 4.2
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 3
+				CASE 3
 					incmusclestatdb = 4.3
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 4
+				CASE 4
 					incmusclestatdb = 4.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 5
+				CASE 5
 					incmusclestatdb = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 6
+				CASE 6
 					incmusclestatdb = 5.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 7
+				CASE 7
 					incmusclestatdb = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 8
+				CASE 8
 					incmusclestatdb = 7.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 9
+				CASE 9
 					incmusclestatdb = 8.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 10
+				CASE 10
 					incmusclestatdb = 9.0
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
 			IF temp_muscle_stat_dumb < 200.0
 				
-				IF weight_dumbell = 1
+				SWITCH weight_dumbell // FIXEDGROVE: changed from IF to SWITCH
+				CASE 1
 					incmusclestatdb = 5.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 2
+				CASE 2
 					incmusclestatdb = 5.2
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 3
+				CASE 3
 					incmusclestatdb = 5.3
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 4
+				CASE 4
 					incmusclestatdb = 5.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 5
+				CASE 5
 					incmusclestatdb = 6.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 6
+				CASE 6
 					incmusclestatdb = 6.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 7
+				CASE 7
 					incmusclestatdb = 7.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 8
+				CASE 8
 					incmusclestatdb = 7.5
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 9
+				CASE 9
 					incmusclestatdb = 8.0
-				ENDIF
+				BREAK
 
-				IF weight_dumbell = 10
+				CASE 10
 					incmusclestatdb = 8.5
-				ENDIF
+				BREAK
+				ENDSWITCH
 
 			ENDIF
 
