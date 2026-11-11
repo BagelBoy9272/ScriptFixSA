@@ -2044,90 +2044,68 @@ RYDER	[]	But these was clean pants!
 start_talking_sweet3:
 
 	//PLAYER****************************************************************  
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BL
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_GC
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NH
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OA
+	SWITCH sweet3_audio_chat[sweet3_index]
+	CASE SOUND_SWE2_BA
+	CASE SOUND_SWE2_BL
+	CASE SOUND_SWE2_GC
+	CASE SOUND_SWE2_MD
+	CASE SOUND_SWE2_NH
+	CASE SOUND_SWE2_OA
+	CASE SOUND_SWE2_OD
+	CASE SOUND_SWE2_OF
+	CASE SOUND_SWE2_OJ
+	CASE SOUND_SWE2_PB
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
 		START_CHAR_FACIAL_TALK scplayer 3000
-		RETURN
-	ENDIF
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OF
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OJ
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_PB
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer TRUE
-		START_CHAR_FACIAL_TALK scplayer 3000
-		RETURN
-	ENDIF
+	BREAK
 
 	//SWEET*****************************************************************
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BM
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_CA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_CC
-   	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_HC
-   	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_HD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MH
+	CASE SOUND_SWE2_BM
+	CASE SOUND_SWE2_CA
+	CASE SOUND_SWE2_CC
+   	CASE SOUND_SWE2_HC
+   	CASE SOUND_SWE2_HD
+	CASE SOUND_SWE2_MH
+	CASE SOUND_SWE2_NE
+	CASE SOUND_SWE2_MB
+	CASE SOUND_SWE2_MC
+	CASE SOUND_SWE2_ED	//Well you can suck it up once we’re do
+	CASE SOUND_SWE2_EE	//Now keep you eyes on the Ballas car!	
 		IF NOT IS_CHAR_DEAD	sweet
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet TRUE
 			START_CHAR_FACIAL_TALK sweet 3000
-			RETURN
 		ENDIF   
-	ENDIF
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NE
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MC
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_ED	//Well you can suck it up once we’re do
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_EE	//Now keep you eyes on the Ballas car!	
-		IF NOT IS_CHAR_DEAD	sweet
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet TRUE
-			START_CHAR_FACIAL_TALK sweet 3000
-			RETURN
-		ENDIF   
-	ENDIF
+	BREAK
 
 	//RYDER******************************************************************
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MF
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MG
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NC
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_EC	//My soda! It’s all over the fucking fl
-		IF NOT IS_CHAR_DEAD	ryder
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder TRUE
-			START_CHAR_FACIAL_TALK ryder 3000
-			RETURN
-		ENDIF
-	ENDIF
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_DB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_DD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_EA
-		IF NOT IS_CHAR_DEAD	ryder
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder TRUE
-			START_CHAR_FACIAL_TALK ryder 3000
-			RETURN
-		ENDIF
-	ENDIF
-
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BF
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BG
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BK
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_GA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_HA
+	CASE SOUND_SWE2_MA
+	CASE SOUND_SWE2_MF
+	CASE SOUND_SWE2_MG
+	CASE SOUND_SWE2_NB
+	CASE SOUND_SWE2_NC
+	CASE SOUND_SWE2_EC	//My soda! It’s all over the fucking fl
+	CASE SOUND_SWE2_DB
+	CASE SOUND_SWE2_DD
+	CASE SOUND_SWE2_EA
+	CASE SOUND_SWE2_BB
+	CASE SOUND_SWE2_BF
+	CASE SOUND_SWE2_BG
+	CASE SOUND_SWE2_BK
+	CASE SOUND_SWE2_GA
+	CASE SOUND_SWE2_HA
 		IF NOT IS_CHAR_DEAD	ryder
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder TRUE
 			START_CHAR_FACIAL_TALK ryder 3000
 		ENDIF
-	ELSE  
+	BREAK  
+	DEFAULT
 	//SMOKE*********************************************************************
 		IF NOT IS_CHAR_DEAD	big_smoke
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke TRUE
 			START_CHAR_FACIAL_TALK big_smoke 3000
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 
 RETURN
@@ -2136,90 +2114,68 @@ RETURN
 stop_talking_sweet3:
 
 	//PLAYER**************************************************************  
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BL
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_GC
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NH
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OA
+	SWITCH sweet3_audio_chat[sweet3_index]
+	CASE SOUND_SWE2_BA
+	CASE SOUND_SWE2_BL
+	CASE SOUND_SWE2_GC
+	CASE SOUND_SWE2_MD
+	CASE SOUND_SWE2_NH
+	CASE SOUND_SWE2_OA
+	CASE SOUND_SWE2_OD
+	CASE SOUND_SWE2_OF
+	CASE SOUND_SWE2_OJ
+	CASE SOUND_SWE2_PB
 		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
 		STOP_CHAR_FACIAL_TALK scplayer
-		RETURN
-	ENDIF
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OF
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_OJ
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_PB
-		SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE
-		STOP_CHAR_FACIAL_TALK scplayer
-		RETURN
-	ENDIF
+	BREAK
 
 	//SWEET**************************************************************
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BM
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_CA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_CC
-   	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_HC
-   	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_HD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MH
+	CASE SOUND_SWE2_BM
+	CASE SOUND_SWE2_CA
+	CASE SOUND_SWE2_CC
+   	CASE SOUND_SWE2_HC
+   	CASE SOUND_SWE2_HD
+	CASE SOUND_SWE2_MH
+	CASE SOUND_SWE2_NE
+	CASE SOUND_SWE2_MB
+	CASE SOUND_SWE2_MC
+	CASE SOUND_SWE2_ED	//Well you can suck it up once we’re do
+	CASE SOUND_SWE2_EE	//Now keep you eyes on the Ballas car!
 		IF NOT IS_CHAR_DEAD	sweet
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
 			STOP_CHAR_FACIAL_TALK sweet
-			RETURN
 		ENDIF   
-	ENDIF
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NE
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MC
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_ED	//Well you can suck it up once we’re do
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_EE	//Now keep you eyes on the Ballas car!
-		IF NOT IS_CHAR_DEAD	sweet
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH sweet FALSE
-			STOP_CHAR_FACIAL_TALK sweet
-			RETURN
-		ENDIF   
-	ENDIF
+	BREAK
 
 	//RYDER**************************************************************
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MF
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_MG
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_NC
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_EC	//My soda! It’s all over the fucking fl
-		IF NOT IS_CHAR_DEAD	ryder
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder FALSE
-			STOP_CHAR_FACIAL_TALK ryder
-			RETURN
-		ENDIF
-	ENDIF
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_DB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_DD
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_EA
-		IF NOT IS_CHAR_DEAD	ryder
-			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder FALSE
-			STOP_CHAR_FACIAL_TALK ryder
-			RETURN
-		ENDIF
-	ENDIF
-
-	IF sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BB
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BF
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BG
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_BK
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_GA
-	OR sweet3_audio_chat[sweet3_index] = SOUND_SWE2_HA
+	CASE SOUND_SWE2_MA
+	CASE SOUND_SWE2_MF
+	CASE SOUND_SWE2_MG
+	CASE SOUND_SWE2_NB
+	CASE SOUND_SWE2_NC
+	CASE SOUND_SWE2_EC	//My soda! It’s all over the fucking fl
+	CASE SOUND_SWE2_DB
+	CASE SOUND_SWE2_DD
+	CASE SOUND_SWE2_EA
+	CASE SOUND_SWE2_BB
+	CASE SOUND_SWE2_BF
+	CASE SOUND_SWE2_BG
+	CASE SOUND_SWE2_BK
+	CASE SOUND_SWE2_GA
+	CASE SOUND_SWE2_HA
 		IF NOT IS_CHAR_DEAD	ryder
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH ryder FALSE
 			STOP_CHAR_FACIAL_TALK ryder
 		ENDIF
-	ELSE  
+	BREAK
+	DEFAULT  
 	//SMOKE**************************************************************
 		IF NOT IS_CHAR_DEAD	big_smoke
 			SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH big_smoke FALSE
 			STOP_CHAR_FACIAL_TALK big_smoke
 		ENDIF
-	ENDIF
+	BREAK
+	ENDSWITCH
 
 
 
@@ -2230,25 +2186,28 @@ get_back_in_the_car_sweet3_1:
 	
 
 	CLEAR_MISSION_AUDIO 2
-	IF get_in_counter_sweet3 = 0
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AA //Get in
-	ENDIF
+	SWITCH get_in_counter_sweet3
+	CASE 0
+		audio_sound_file = SOUND_SMOX_AA //Get in
+	BREAK
 
-	IF get_in_counter_sweet3 = 1
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AB //In the ride!
-	ENDIF
+	CASE 1
+		audio_sound_file = SOUND_SMOX_AB //In the ride!
+	BREAK
 
-	IF get_in_counter_sweet3 = 2
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AC //Get in the car!
-	ENDIF
+	CASE 2
+		audio_sound_file = SOUND_SMOX_AC //Get in the car!
+	BREAK
 
-	IF get_in_counter_sweet3 = 3   
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AD //Come on, playa, get in!
-	ENDIF
+	CASE 3   
+		audio_sound_file = SOUND_SMOX_AD //Come on, playa, get in!
+	BREAK
 
-	IF get_in_counter_sweet3 = 4   
-		LOAD_MISSION_AUDIO 2 SOUND_SMOX_AE //Come on, wise man, get in the car!
-	ENDIF
+	CASE 4   
+		audio_sound_file = SOUND_SMOX_AE //Come on, wise man, get in the car!
+	BREAK
+	ENDSWITCH
+		LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -2272,21 +2231,24 @@ get_back_in_the_car_sweet3_1:
 
 	PLAY_MISSION_AUDIO 2 
 	  	
-	IF get_in_counter_sweet3 = 0
-		PRINT_NOW ( SMOX_AA ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet3 = 1
-		PRINT_NOW ( SMOX_AB ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet3 = 2
-		PRINT_NOW ( SMOX_AC ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet3 = 3
-		PRINT_NOW ( SMOX_AD ) 3000 1 
-	ENDIF
-	IF get_in_counter_sweet3 = 4
-		PRINT_NOW ( SMOX_AE ) 3000 1 
-	ENDIF
+	SWITCH get_in_counter_sweet3
+	CASE 0
+		$audio_string = &SMOX_AA
+	BREAK
+	CASE 1
+		$audio_string = &SMOX_AB
+	BREAK
+	CASE 2
+		$audio_string = &SMOX_AC
+	BREAK
+	CASE 3
+		$audio_string = &SMOX_AD
+	BREAK
+	CASE 4
+		$audio_string = &SMOX_AE
+	BREAK
+	ENDSWITCH
+		PRINT_NOW ( $audio_string ) 3000 1 
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0
@@ -2317,27 +2279,30 @@ get_back_in_the_car_sweet3_2:
 
 	CLEAR_MISSION_AUDIO 2
 
-	IF get_in_counter_sweet3 = 0			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AF //C'mon CJ, earn your keep!
-	ENDIF
-	IF get_in_counter_sweet3 = 1
-		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BM //Get in, nigga!
-	ENDIF
-	IF get_in_counter_sweet3 = 2
-		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BP //Don't be a buster, CJ!
-	ENDIF
-	IF get_in_counter_sweet3 = 3
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AC //Get in fool!
-	ENDIF
-	IF get_in_counter_sweet3 = 4
-		LOAD_MISSION_AUDIO 2 SOUND_SWEX_BS //CJ, for once, don't be a punk!
-	ENDIF
-	IF get_in_counter_sweet3 = 5			
-		LOAD_MISSION_AUDIO 2 SOUND_RYDX_AD //All aboard, CJ.
-	ENDIF
-	IF get_in_counter_sweet3 = 6			
-		LOAD_MISSION_AUDIO 2 SOUND_SWE1_BG // CJ, GET IN!
-	ENDIF
+	SWITCH get_in_counter_sweet3
+	CASE 0			
+		audio_sound_file = SOUND_RYDX_AF //C'mon CJ, earn your keep!
+	BREAK
+	CASE 1
+		audio_sound_file = SOUND_SWE1_BM //Get in, nigga!
+	BREAK
+	CASE 2
+		audio_sound_file = SOUND_SWEX_BP //Don't be a buster, CJ!
+	BREAK
+	CASE 3
+		audio_sound_file = SOUND_RYDX_AC //Get in fool!
+	BREAK
+	CASE 4
+		audio_sound_file = SOUND_SWEX_BS //CJ, for once, don't be a punk!
+	BREAK
+	CASE 5			
+		audio_sound_file = SOUND_RYDX_AD //All aboard, CJ.
+	BREAK
+	CASE 6			
+		audio_sound_file = SOUND_SWE1_BG // CJ, GET IN!
+	BREAK
+	ENDSWITCH
+		LOAD_MISSION_AUDIO 2 audio_sound_file
 
 	SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH scplayer FALSE			 
 	STOP_CHAR_FACIAL_TALK scplayer
@@ -2371,27 +2336,30 @@ get_back_in_the_car_sweet3_2:
 
 	PLAY_MISSION_AUDIO 2 
 	  	
-	IF get_in_counter_sweet3 = 0
-		PRINT_NOW ( RYDX_AF ) 3000 1 //C'mon CJ, earn your keep!				 
-	ENDIF
-	IF get_in_counter_sweet3 = 1
-		PRINT_NOW ( SWE1_BM ) 3000 1 //Get in, nigga!							 
-	ENDIF
-	IF get_in_counter_sweet3 = 2
-		PRINT_NOW ( SWEX_BP ) 3000 1 //Don't be a buster, CJ!					 
-	ENDIF
-	IF get_in_counter_sweet3 = 3
-		PRINT_NOW ( RYDX_AC ) 3000 1 //Get in fool!								 
-	ENDIF
-	IF get_in_counter_sweet3 = 4
-		PRINT_NOW ( SWEX_BS ) 3000 1 //CJ, for once, don't be a punk!			 
-	ENDIF
-	IF get_in_counter_sweet3 = 5														
-		PRINT_NOW ( RYDX_AD ) 3000 1 //All aboard, CJ.							 
-	ENDIF
-	IF get_in_counter_sweet3 = 6														
-		PRINT_NOW ( SWE1_BG ) 3000 1 // CJ, GET IN!								 
-	ENDIF
+	SWITCH get_in_counter_sweet3
+	CASE 0
+		$audio_string = &RYDX_AF //C'mon CJ, earn your keep!				 
+	BREAK
+	CASE 1
+		$audio_string = &SWE1_BM //Get in, nigga!							 
+	BREAK
+	CASE 2
+		$audio_string = &SWEX_BP //Don't be a buster, CJ!					 
+	BREAK
+	CASE 3
+		$audio_string = &RYDX_AC //Get in fool!								 
+	BREAK
+	CASE 4
+		$audio_string = &SWEX_BS //CJ, for once, don't be a punk!			 
+	BREAK
+	CASE 5														
+		$audio_string = &RYDX_AD //All aboard, CJ.							 
+	BREAK
+	CASE 6														
+		$audio_string = &SWE1_BG // CJ, GET IN!								 
+	BREAK
+	ENDSWITCH
+		PRINT_NOW ( $audio_string ) 3000 1
 
 	WHILE NOT HAS_MISSION_AUDIO_FINISHED 2
 		WAIT 0
