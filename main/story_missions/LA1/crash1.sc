@@ -1936,6 +1936,8 @@ Crash1_Stage_CollapsingWall:
 		flagCleaningUpSkippedCutscene	= FALSE
 		flagSkipCutscene				= FALSE
 
+		REQUEST_ANIMATION ON_LOOKERS // FIXEDGROVE
+
 		m_goals++
 	ENDIF
 
@@ -2074,6 +2076,8 @@ Crash1_Stage_CollapsingWall:
 				// Move the cutscene camera back to Player and Coochie
 				SET_FIXED_CAMERA_POSITION 2348.4949 -1176.4503 1031.4856 0.0 0.0 0.0
 				POINT_CAMERA_AT_POINT 2347.5381 -1176.7322 1031.5580 JUMP_CUT
+
+				TASK_PLAY_ANIM_NON_INTERRUPTABLE charCoochie lkaround_loop ON_LOOKERS 1.0 FALSE FALSE FALSE FALSE 7000 // FIXEDGROVE
 
 				// Trigger the girl speech
 				GOSUB Crash1_Conversation_Command_Play
@@ -2240,6 +2244,13 @@ Crash1_Stage_GetTheLadyOut:
 		flagSkipCutscene				= 0
 
 		flagKissingCutscenePlaying = 0
+
+		// FIXEDGROVE: START - Remove the animation after it's done
+		IF IS_CHAR_PLAYING_ANIM charCoochie lkaround_loop
+			CLEAR_CHAR_TASKS charCoochie
+		ENDIF
+		REMOVE_ANIMATION ON_LOOKERS
+		// FIXEDGROVE: END
 
 		m_goals++
 	ENDIF
@@ -8375,6 +8386,7 @@ mission_cleanup_Crash1:
 
 	// Animation Clearup
 	REMOVE_ANIMATION BD_FIRE
+	REMOVE_ANIMATION ON_LOOKERS // FIXEDGROVE
 
 
 	// Get rid of the Player's mission specific weapons
