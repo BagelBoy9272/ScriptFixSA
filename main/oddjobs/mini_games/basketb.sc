@@ -244,19 +244,19 @@ bball_loop:
 							IF NOT DOES_OBJECT_EXIST m_ball
 								IF HAS_MODEL_LOADED this_hoop_model
 									GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x y z
-									IF NOT IS_POINT_ON_SCREEN x y z 2.0
+									//IF NOT IS_POINT_ON_SCREEN x y z 2.0 // FIXEDGROVE: comment out
 										z += 1.0
 										bball_ball_create:
 										CLEAR_AREA x y z 0.5 FALSE
-										CREATE_OBJECT_NO_OFFSET BBALL_COL x y z m_ball
-										bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
-										col_loaded_for_ball = 1
-										SET_OBJECT_DYNAMIC m_ball TRUE
-										SET_OBJECT_COLLISION m_ball TRUE
-										SET_OBJECT_VELOCITY m_ball 0.0 0.0 -0.1	
+
+										x3 = 0.0
+										y3 = 0.0
+										z3 = 0.0
+										GOSUB bball_create_col_no_velocity
+
 										bball_active = 1
 										m_stage++
-									ENDIF
+									//ENDIF // FIXEDGROVE: comment out
 								ENDIF
 							ENDIF
 						ELSE
@@ -270,8 +270,13 @@ bball_loop:
 
 				// wait for player to get near m_ball
 				CASE 1
-					IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
-						IF DOES_OBJECT_EXIST m_ball
+					IF DOES_OBJECT_EXIST m_ball
+						IF NOT LOCATE_CHAR_ANY_MEANS_OBJECT_3D scplayer bball_ball 100.0 100.0 50.0 FALSE
+							GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x y z
+							z += 1.0
+							SET_OBJECT_COORDINATES m_ball x y z
+						ENDIF
+						IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
 							IF LOCATE_CHAR_ON_FOOT_OBJECT_3D scplayer m_ball 1.0 1.0 2.0 FALSE
 								// check m_ball is on court
 								IF HAS_MODEL_LOADED this_hoop_model
@@ -279,13 +284,9 @@ bball_loop:
 									GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
  									IF IS_OBJECT_IN_AREA_3D m_ball x2 y2 z2 x3 y3 z3 FALSE
 										IF LOCATE_CHAR_ON_FOOT_OBJECT_3D scplayer m_ball 0.7 0.7 2.0 FALSE
-											GET_OBJECT_COORDINATES m_ball x y z
-											x2 = x - 0.71
-											y2 = y - 0.71
-											z2 = z - 0.71
-											x3 = x + 0.71
-											y3 = y + 0.71
-											z3 = z + 2.0
+
+											GOSUB bball_court_offset
+
 											IF NOT IS_AREA_OCCUPIED x2 y2 z2 x3 y3 z3 FALSE TRUE FALSE FALSE FALSE
 												// check the player is safe to use
 												IF NOT IS_PLAYER_USING_JETPACK player1
@@ -306,17 +307,17 @@ bball_loop:
 								ENDIF
 							ENDIF
 						ELSE
-							GOSUB small_terminate_bball
+							GOSUB exit_stage_mark_bball
 						ENDIF
 					ELSE
-						GOSUB exit_stage_mark_bball
+						GOSUB small_terminate_bball
 					ENDIF
 				BREAK
 
 				// wait	for player to pickup m_ball
 				CASE 2
-					IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
-						IF DOES_OBJECT_EXIST m_ball
+					IF DOES_OBJECT_EXIST m_ball
+						IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
 							// check the player is safe to use
 							IF NOT IS_PLAYER_USING_JETPACK player1
 
@@ -329,13 +330,9 @@ bball_loop:
 										GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
 										IF IS_OBJECT_IN_AREA_3D m_ball x2 y2 z2 x3 y3 z3 FALSE
 											IF LOCATE_CHAR_ON_FOOT_OBJECT_3D scplayer m_ball 0.7 0.7 2.0 FALSE
-												GET_OBJECT_COORDINATES m_ball x y z
-												x2 = x - 0.71
-												y2 = y - 0.71
-												z2 = z - 0.71
-												x3 = x + 0.71
-												y3 = y + 0.71
-												z3 = z + 2.0
+
+												GOSUB bball_court_offset
+
 												IF NOT IS_AREA_OCCUPIED x2 y2 z2 x3 y3 z3 FALSE TRUE FALSE FALSE FALSE 
 													
 													//WRITE_DEBUG_WITH_INT p_status p_status
@@ -474,6 +471,16 @@ bball_loop:
 WAIT 0
 GOTO bball_loop	
 
+bball_court_offset:
+	GET_OBJECT_COORDINATES m_ball x y z
+	x2 = x - 0.71
+	y2 = y - 0.71
+	z2 = z - 0.71
+	x3 = x + 0.71
+	y3 = y + 0.71
+	z3 = z + 2.0
+RETURN
+
 prev_stage_bball:
 	SET_PLAYER_ENTER_CAR_BUTTON player1 TRUE
 	CLEAR_HELP
@@ -530,35 +537,14 @@ bball_update_ball_collision:
 		IF IS_OBJECT_ATTACHED m_ball
 			IF col_loaded_for_ball = 1
 				DETACH_OBJECT m_ball 0.0 0.0 0.0 FALSE
-				GET_OBJECT_COORDINATES m_ball x y z
-				GET_OBJECT_VELOCITY m_ball x2 y2 z2
-				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-				DELETE_OBJECT m_ball
-
-				CREATE_OBJECT_NO_OFFSET BBALL_INGAME x y z m_ball
-				bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
-				ATTACH_OBJECT_TO_CHAR m_ball scplayer 0.0 0.5 -1.0 0.0 0.0 0.0
-				SET_OBJECT_VELOCITY m_ball x2 y2 z2
-				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-				SET_OBJECT_COLLISION m_ball TRUE
-				col_loaded_for_ball = 0
+				GOSUB bball_object_get_before_remove
+				GOSUB bball_create_ingame
 				//WRITE_DEBUG ball_attached
 			ENDIF	
 		ELSE
 			IF col_loaded_for_ball = 0
-
-
-				GET_OBJECT_COORDINATES m_ball x y z
-				GET_OBJECT_VELOCITY m_ball x2 y2 z2
-				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-				DELETE_OBJECT m_ball
-				CREATE_OBJECT_NO_OFFSET BBALL_COL	x y z m_ball
-				bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
-				SET_OBJECT_DYNAMIC m_ball TRUE
-				SET_OBJECT_COLLISION m_ball TRUE
-				SET_OBJECT_VELOCITY m_ball x2 y2 z2
-				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-				col_loaded_for_ball = 1
+				GOSUB bball_object_get_before_remove
+				GOSUB bball_create_col
 				
 				//WRITE_DEBUG ball_detached
 			ENDIF
@@ -575,18 +561,8 @@ bball_update_ball_collision_cleanup:
 		IF IS_OBJECT_ATTACHED m_ball
 			IF col_loaded_for_ball = 1
 				DETACH_OBJECT m_ball 0.0 0.0 0.0 FALSE
-				GET_OBJECT_COORDINATES m_ball x y z
-				GET_OBJECT_VELOCITY m_ball x2 y2 z2
-				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-				DELETE_OBJECT m_ball
-
-				CREATE_OBJECT_NO_OFFSET BBALL_INGAME x y z m_ball
-				bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
-				ATTACH_OBJECT_TO_CHAR m_ball scplayer 0.0 0.5 -1.0 0.0 0.0 0.0
-				SET_OBJECT_VELOCITY m_ball x2 y2 z2
-				GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-				SET_OBJECT_COLLISION m_ball TRUE
-				col_loaded_for_ball = 0
+				GOSUB bball_object_get_before_remove
+				GOSUB bball_create_ingame
 				//WRITE_DEBUG ball_attached
 			ENDIF	
 		ELSE
@@ -596,45 +572,22 @@ bball_update_ball_collision_cleanup:
 				//GET_OBJECT_COORDINATES m_ball x y z
 				GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.0 0.5 0.0 x y z
 
-				x2 = x - 0.1
-				x3 = x + 0.1
-				y2 = y - 0.1
-				y3 = y + 0.1
-				z2 = z - 0.5
-				z3 = z + 1.0 
+				GOSUB bball_object_offsets
 
 				IF NOT IS_AREA_OCCUPIED x2 y2 z2 x3 y3 z3 FALSE TRUE FALSE FALSE FALSE
 					//WRITE_DEBUG quit1
-					GET_OBJECT_VELOCITY m_ball x2 y2 z2
-					GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-					DELETE_OBJECT m_ball
-					CREATE_OBJECT_NO_OFFSET BBALL_COL	x y z m_ball
-					bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
-					SET_OBJECT_DYNAMIC m_ball TRUE
-					SET_OBJECT_COLLISION m_ball TRUE
-					SET_OBJECT_VELOCITY m_ball 0.0 0.0 -0.1
-					GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-					col_loaded_for_ball = 1
+					GOSUB bball_object_no_coords
+					GOSUB bball_create_col_no_velocity
+
 				ELSE
 					GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS scplayer 0.0 -2.0 -0.3 x y z
-					x2 = x - 0.1
-					x3 = x + 0.1
-					y2 = y - 0.1
-					y3 = y + 0.1
-					z2 = z - 0.5
-					z3 = z + 1.0  
+
+					GOSUB bball_object_offsets
+
 					IF NOT IS_AREA_OCCUPIED x2 y2 z2 x3 y3 z3 FALSE TRUE FALSE FALSE FALSE
 						//WRITE_DEBUG quit2
-						GET_OBJECT_VELOCITY m_ball x2 y2 z2
-						GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-						DELETE_OBJECT m_ball
-						CREATE_OBJECT_NO_OFFSET BBALL_COL	x y z m_ball
-						bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variables
-						SET_OBJECT_DYNAMIC m_ball TRUE
-						SET_OBJECT_COLLISION m_ball TRUE
-						SET_OBJECT_VELOCITY m_ball 0.0 0.0 -0.1
-						GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
-						col_loaded_for_ball = 1
+						GOSUB bball_object_no_coords
+						GOSUB bball_create_col_no_velocity
 					ELSE
 						//WRITE_DEBUG quit3
 						DELETE_OBJECT m_ball
@@ -649,7 +602,48 @@ bball_update_ball_collision_cleanup:
 
 RETURN
 
+bball_object_offsets:
+	x2 = x - 0.1
+	y2 = y - 0.1
+	z2 = z - 0.5
+	x3 = x + 0.1
+	y3 = y + 0.1
+	z3 = z + 1.0
+RETURN
 
+bball_object_get_before_remove:
+	GET_OBJECT_COORDINATES m_ball x y z
+
+bball_object_no_coords:
+	GET_OBJECT_VELOCITY m_ball x2 y2 z2
+	GET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3
+	DELETE_OBJECT m_ball
+RETURN
+
+bball_create_ingame:
+	CREATE_OBJECT_NO_OFFSET BBALL_INGAME x y z m_ball
+	bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
+	ATTACH_OBJECT_TO_CHAR m_ball scplayer 0.0 0.5 -1.0 0.0 0.0 0.0
+	col_loaded_for_ball = 0
+	GOSUB bball_object_setup
+RETURN
+
+bball_create_col_no_velocity:
+	x2 = 0.0
+	y2 = 0.0
+	z2 = -0.01
+
+bball_create_col:
+	CREATE_OBJECT_NO_OFFSET BBALL_COL	x y z m_ball
+	bball_ball = m_ball // FIXEDGROVE: copy the handle to check for stale variable
+	SET_OBJECT_DYNAMIC m_ball TRUE
+	col_loaded_for_ball = 1
+
+bball_object_setup:
+	SET_OBJECT_COLLISION m_ball TRUE
+	SET_OBJECT_VELOCITY m_ball x2 y2 z2
+	SET_OBJECT_ROTATION_VELOCITY m_ball x3 y3 z3 // FIXEDGROVE: change GET to SET
+RETURN
 
 
 // ******************************************************************************************
@@ -664,7 +658,7 @@ bball_init_minigame:
 
 	SET_PLAYER_ENTER_CAR_BUTTON player1 FALSE
 
-	VAR_FLOAT bball_court_z
+	VAR_FLOAT bball_court_z // FIXEDGROVE: unused
 
 	IF IS_PLAYER_PLAYING player1
 		
@@ -742,11 +736,11 @@ bball_init_minigame:
 
 
 	// get court z
-	IF IS_PLAYER_PLAYING player1
-		GET_CHAR_COORDINATES scplayer x y z
-		GET_GROUND_Z_FOR_3D_COORD x y z z
-		bball_court_z = z
-	ENDIF
+	//IF IS_PLAYER_PLAYING player1
+	//	GET_CHAR_COORDINATES scplayer x y z
+	//	GET_GROUND_Z_FOR_3D_COORD x y z z
+	//	bball_court_z = z
+	//ENDIF
 
 	// get hoop direction
 	VAR_INT hoop_direction 
@@ -2248,17 +2242,16 @@ update_player_control:
 
 		// do nothing until player has finished picking up m_ball
 		temp_int = 1
-		IF p_status = PICKUP_BALL
-		OR p_status = SHOOT
-		OR p_status = FINISH_SHOT
-		OR p_status = DUNK_START
-		OR p_status = DUNK_FINISH
+		SWITCH p_status
+		CASE PICKUP_BALL
+		CASE SHOOT
+		CASE FINISH_SHOT
+		CASE DUNK_START
+		CASE DUNK_FINISH
+		CASE ROLL_ALONG_BACK
+		CASE SPIN_ON_FINGER
 			temp_int = 0
-		ENDIF
-		IF p_status = ROLL_ALONG_BACK
-		OR p_status = SPIN_ON_FINGER
-			temp_int = 0
-		ENDIF 
+		ENDSWITCH
 
 		//WRITE_DEBUG_WITH_INT temp_int temp_int
 
@@ -2504,17 +2497,16 @@ update_player_control:
 
 	// update heading
 	temp_int = 0
-	IF p_status = WALK_WITH_BALL
-	OR p_status = RUN_WITH_BALL
-	OR p_status = BLOCK_JUMP 
-	OR p_status = SHOOT
-	OR p_status = FINISH_SHOT
+	SWITCH p_status
+	CASE WALK_WITH_BALL
+	CASE RUN_WITH_BALL
+	CASE BLOCK_JUMP 
+	CASE SHOOT
+	CASE FINISH_SHOT
+	CASE DUNK_START
+	CASE DUNK_FINISH
 		temp_int = 1
-	ENDIF
-	IF p_status = DUNK_START
-	OR p_status = DUNK_FINISH
-		temp_int = 1
-	ENDIF
+	ENDSWITCH
 	IF temp_int = 1
 
 		IF NOT IS_CHAR_DEAD scplayer
