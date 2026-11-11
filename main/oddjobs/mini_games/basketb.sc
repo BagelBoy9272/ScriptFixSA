@@ -74,8 +74,9 @@ GOTO bball_fool_compiler // FIXEDGROVE: remove m_stage = -1 check, and move this
 bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 
 // FIXEDGROVE: START - refactored this a bit
-	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc temp_int
-	IF temp_int = 1
+	// reset this just in case
+	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc temp_int2
+	IF temp_int2 = 1
 		unused_2 = 0
 	ENDIF
 
@@ -98,26 +99,19 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 
 	// wait a bit before starting
 	wait_until_the_previous_instance_is_done:
-	GENERATE_RANDOM_INT_IN_RANGE 250 2500 temp_int
-	WAIT temp_int
+	GENERATE_RANDOM_INT_IN_RANGE 250 2500 temp_int2
+	WAIT temp_int2
 
 	// keep the script from restarting over and over
-	temp_int = 1000
+	GENERATE_RANDOM_INT_IN_RANGE 500 1500 temp_int2
 	GOSUB keep_the_script_from_restarting
 
 	// wait if it started previously
-	IF unused_2 = 1
+	// and ensure that different courts can have a chance at making a ball
+	GENERATE_RANDOM_INT_IN_RANGE 0 101 temp_int2
+	IF temp_int2 < 50
+	OR unused_2 = 1
 		GOTO wait_until_the_previous_instance_is_done
-	ENDIF
-
-	// ensure that different courts can have a chance at making a ball
-	GENERATE_RANDOM_INT_IN_RANGE 0 101 temp_int
-	IF temp_int < 50
-		GOTO wait_until_the_previous_instance_is_done
-	ELSE
-		IF unused_2 = 1
-			GOTO wait_until_the_previous_instance_is_done
-		ENDIF
 	ENDIF
 
 	// reset the vars if the ball doesn't actually exist
@@ -133,7 +127,7 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 
 skip_waiting:
 	unused_2 = 1
-	temp_int = 100
+	GENERATE_RANDOM_INT_IN_RANGE 50 150 temp_int2
 	GOSUB keep_the_script_from_restarting
 
 GOTO bball_out_of_the_loop
@@ -141,7 +135,8 @@ GOTO bball_out_of_the_loop
 keep_the_script_from_restarting:
 	WHILE bball_unlocked = 0
 		these_do_the_same_thing:
-		WAIT temp_int
+		WAIT temp_int2
+		GENERATE_RANDOM_INT_IN_RANGE 500 1500 temp_int2
 		IF DOES_OBJECT_EXIST bbhoop
 			IF IS_PLAYER_PLAYING player1
 				IF NOT LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
