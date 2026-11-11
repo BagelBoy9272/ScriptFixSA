@@ -190,7 +190,7 @@ MISSION_END
 	RETURN
 
 // ---- Dirtbike (Not BMX)
-   	bc1_bmx_create:
+//   	bc1_bmx_create:
 //		REQUEST_MODEL SANCHEZ
 //		WHILE NOT HAS_MODEL_LOADED SANCHEZ
 //		WAIT 0
@@ -205,7 +205,7 @@ MISSION_END
 //		SET_LOAD_COLLISION_FOR_CAR_FLAG bc1_bmx FALSE 
 //		SET_CAR_HEADING bc1_bmx bc1_bmx_h
 //		SET_CAR_PROOFS bc1_bmx TRUE TRUE TRUE TRUE TRUE
-   	RETURN
+//   	RETURN
 	bc1_bmx_new_coords:
 		REQUEST_MODEL SANCHEZ
 		WHILE NOT HAS_MODEL_LOADED SANCHEZ
@@ -575,10 +575,7 @@ SET_OBJECT_ROTATION bc1_barrier[2] -1.869 8.724 -44.611
 
 	WAIT 3000
 
-	SET_PLAYER_CONTROL player1 ON
-	SWITCH_WIDESCREEN OFF
-	RESTORE_CAMERA_JUMPCUT
-	SET_CAMERA_BEHIND_PLAYER
+	GOSUB restore_player_camera_control
 
 	PRINT_NOW ( BCR1_03 ) 5000 1 // Kill the witness and take his photograph...
 	ADD_BLIP_FOR_COORD bc1_check_x[0] bc1_check_y[0] bc1_check_z[0] bc1_check_blip
@@ -601,29 +598,27 @@ IF IS_PS2_KEYBOARD_KEY_PRESSED PS2_KEY_1
 	flag_bcr1_skip = 1
 ENDIF
 IF main_visible_area = 0
-	IF bc1_help = 3
-		IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+	IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+	SWITCH bc1_help
+	CASE 3
 			PRINT_HELP ( BCR1_23 ) // You can view your Gallery photos in your GTA San Andreas User Files directory.
 			bc1_help = 4
-		ENDIF
-	ENDIF
-	IF bc1_help = 2
-		IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+	BREAK
+	CASE 2
 			PRINT_HELP ( FEG_HOW )  
 			bc1_help = 3
-		ENDIF
-	ENDIF
-	IF bc1_help = 1
-		IF NOT IS_HELP_MESSAGE_BEING_DISPLAYED
+	BREAK
+	CASE 1
 			PRINT_HELP ( BCR1_21 )  
 			bc1_help = 2
-		ENDIF
-	ENDIF
-	IF bc1_help = 0
+	BREAK
+	CASE 0
 		IF NOT IS_MESSAGE_BEING_DISPLAYED
 			PRINT_HELP BCR1_22	
 			bc1_help = 1
 		ENDIF
+	BREAK
+	ENDSWITCH
 	ENDIF
 ENDIF
 
@@ -732,18 +727,13 @@ IF bc1_stage = 0
 				ENDWHILE
 				PRINT_NOW ( BCR1_04 ) 3000 1 // He's inside. Smoke him out!
 			   	REMOVE_BLIP bc1_hut_blip
-				IF NOT IS_CHAR_DEAD bc1_marshall[1]
-					PERFORM_SEQUENCE_TASK bc1_marshall[1] bc1_patrol[1]
+				i = 1
+				WHILE i < 5
+				IF NOT IS_CHAR_DEAD bc1_marshall[i]
+					PERFORM_SEQUENCE_TASK bc1_marshall[i] bc1_patrol[i]
 				ENDIF
-				IF NOT IS_CHAR_DEAD bc1_marshall[2]
-					PERFORM_SEQUENCE_TASK bc1_marshall[2] bc1_patrol[2]
-				ENDIF
-				IF NOT IS_CHAR_DEAD bc1_marshall[3]
-					PERFORM_SEQUENCE_TASK bc1_marshall[3] bc1_patrol[3]
-				ENDIF
-				IF NOT IS_CHAR_DEAD bc1_marshall[4]
-					PERFORM_SEQUENCE_TASK bc1_marshall[4] bc1_patrol[4]
-				ENDIF
+				i++
+				ENDWHILE
 
 				GET_GAME_TIMER bc1_timer_start
 				bc1_cut = 2
@@ -790,10 +780,7 @@ IF bc1_stage = 0
 				GET_GAME_TIMER bc1_timer_end
 				bc1_timer_diff = bc1_timer_end - bc1_timer_start
 				IF bc1_timer_diff > 500
-					SET_PLAYER_CONTROL player1 ON
-					SWITCH_WIDESCREEN OFF
-					RESTORE_CAMERA_JUMPCUT
-					SET_CAMERA_BEHIND_PLAYER
+					GOSUB restore_player_camera_control
 					IF NOT IS_CHAR_DEAD bc1_target
 					AND NOT IS_CAR_DEAD bc1_marshall_car
 						ADD_BLIP_FOR_CHAR bc1_target bc1_target_blip
@@ -814,18 +801,13 @@ ENDIF
 IF bc1_stage = 1
 	IF IS_CHAR_ON_FOOT scplayer
 		IF IS_CHAR_DEAD bc1_target
-			IF NOT IS_CHAR_DEAD bc1_marshall[1]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[1] scplayer
+			i = 1
+			WHILE i < 5
+			IF NOT IS_CHAR_DEAD bc1_marshall[i]
+				TASK_KILL_CHAR_ON_FOOT bc1_marshall[i] scplayer
 			ENDIF
-			IF NOT IS_CHAR_DEAD bc1_marshall[2]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[2] scplayer
-			ENDIF
-			IF NOT IS_CHAR_DEAD bc1_marshall[3]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[3] scplayer
-			ENDIF
-			IF NOT IS_CHAR_DEAD bc1_marshall[4]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[4] scplayer
-			ENDIF
+			i++
+			ENDWHILE
 			IF NOT IS_CAR_DEAD bc1_marshall_car
 				SET_CAR_PROOFS bc1_marshall_car FALSE FALSE FALSE FALSE FALSE
 				LOCK_CAR_DOORS bc1_marshall_car CARLOCK_UNLOCKED
@@ -838,246 +820,68 @@ IF bc1_stage = 1
 		OR IS_CHAR_DEAD	bc1_marshall[2]
 		OR IS_CHAR_DEAD	bc1_marshall[3]
 		OR IS_CHAR_DEAD	bc1_marshall[4]
-			IF bc1_onfoot_attack[1] = 0
-				IF NOT IS_CHAR_DEAD bc1_marshall[1]
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[1] scplayer
-					bc1_onfoot_attack[1] = 1
+			i = 1
+			WHILE i < 5
+			IF bc1_onfoot_attack[i] = 0
+				IF NOT IS_CHAR_DEAD bc1_marshall[i]
+					TASK_KILL_CHAR_ON_FOOT bc1_marshall[i] scplayer
+					bc1_onfoot_attack[i] = 1
 				ENDIF
 			ENDIF
-			IF bc1_onfoot_attack[2] = 0
-				IF NOT IS_CHAR_DEAD bc1_marshall[2]
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[2] scplayer
-					bc1_onfoot_attack[2] = 1
-				ENDIF
-			ENDIF
-			IF bc1_onfoot_attack[3] = 0
-				IF NOT IS_CHAR_DEAD bc1_marshall[3]
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[3] scplayer
-					bc1_onfoot_attack[3] = 1
-				ENDIF
-			ENDIF
-			IF bc1_onfoot_attack[4] = 0
-				IF NOT IS_CHAR_DEAD bc1_marshall[4]
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[4] scplayer
-					bc1_onfoot_attack[4] = 1
-				ENDIF
-			ENDIF
+			i++
+			ENDWHILE
 		ENDIF
 	ENDIF
 	// locate gosub
 	IF NOT IS_CHAR_DEAD scplayer
-	// marshall 1
-		IF NOT IS_CHAR_DEAD bc1_marshall[1]
-			bc1_cur_marshall = 1
-			GOSUB bc1_marshall_locate
-			bc1_marshall_x[1] =	bc1_cur_marsh_x 
-			bc1_marshall_y[1] = bc1_cur_marsh_y 
-			bc1_marshall_z[1] = bc1_cur_marsh_z
-			IF bc1_car_attack[1] = 0
-		   		IF LOCATE_CHAR_IN_CAR_3D scplayer bc1_marshall_x[1] bc1_marshall_y[1] bc1_marshall_z[1] 30.0 30.0 30.0 FALSE
+	i = 1
+	WHILE i < 5
+		IF NOT IS_CHAR_DEAD bc1_marshall[i]
+			//bc1_cur_marshall = i
+			//GOSUB bc1_marshall_locate
+			GET_CHAR_COORDINATES bc1_marshall[i] bc1_marshall_x[i] bc1_marshall_y[i] bc1_marshall_z[i]
+			//bc1_marshall_x[i] =	bc1_cur_marsh_x 
+			//bc1_marshall_y[i] = bc1_cur_marsh_y 
+			//bc1_marshall_z[i] = bc1_cur_marsh_z
+			IF bc1_car_attack[i] = 0
+		   		IF LOCATE_CHAR_IN_CAR_3D scplayer bc1_marshall_x[i] bc1_marshall_y[i] bc1_marshall_z[i] 30.0 30.0 30.0 FALSE
 					IF NOT IS_CAR_DEAD bc1_player_car
-						TASK_DESTROY_CAR bc1_marshall[1] bc1_player_car
-						bc1_car_attack[1] = 1
-						bc1_onfoot_attack[1] = 0
-						IF bc1_drive_car = 0
-							IF NOT IS_CAR_DEAD bc1_marshall_car
-								IF NOT IS_CHAR_DEAD bc1_target
-									PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-									bc1_drive_car = 1
-								ENDIF
-							ENDIF
-						ENDIF
+						TASK_DESTROY_CAR bc1_marshall[i] bc1_player_car
+						bc1_onfoot_attack[i] = 0
+						bc1_car_attack[i] = 1
+						GOSUB bc1_drive_car_0
 					ENDIF
 				ENDIF
 			ENDIF
-			IF bc1_onfoot_attack[1] = 0
-				IF LOCATE_CHAR_ON_FOOT_3D scplayer bc1_marshall_x[1] bc1_marshall_y[1] bc1_marshall_z[1] 5.0 5.0 5.0 FALSE
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[1] scplayer
-					bc1_onfoot_attack[1] = 1
-					bc1_car_attack[1] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF
-						ENDIF
-					ENDIF
+			IF bc1_onfoot_attack[i] = 0
+				IF LOCATE_CHAR_ON_FOOT_3D scplayer bc1_marshall_x[i] bc1_marshall_y[i] bc1_marshall_z[i] 5.0 5.0 5.0 FALSE
+					GOTO bc1_onfoot_attack_0
 				ENDIF
 				IF IS_CHAR_SHOOTING_IN_AREA scplayer -2774.03 -1572.78 -2837.13 -1468.24 FALSE
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[1] scplayer
-					bc1_onfoot_attack[1] = 1
-					bc1_car_attack[1] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF
-						ENDIF
-					ENDIF
+				bc1_onfoot_attack_0:
+					TASK_KILL_CHAR_ON_FOOT bc1_marshall[i] scplayer
+					bc1_onfoot_attack[i] = 1
+					bc1_car_attack[i] = 0
+					GOSUB bc1_drive_car_0
 				ENDIF
 			ENDIF
 		ENDIF
-	// marshall 2
-		IF NOT IS_CHAR_DEAD bc1_marshall[2]
-			bc1_cur_marshall = 2
-			GOSUB bc1_marshall_locate
-			bc1_marshall_x[2] =	bc1_cur_marsh_x 
-			bc1_marshall_y[2] = bc1_cur_marsh_y 
-			bc1_marshall_z[2] = bc1_cur_marsh_z
-			IF bc1_car_attack[2] = 0
-				IF LOCATE_CHAR_IN_CAR_3D scplayer bc1_marshall_x[2] bc1_marshall_y[2] bc1_marshall_z[2] 30.0 30.0 30.0 FALSE
-					IF NOT IS_CAR_DEAD bc1_player_car
-						TASK_DESTROY_CAR bc1_marshall[2] bc1_player_car
-						bc1_car_attack[2] = 1
-						bc1_onfoot_attack[2] = 0
-						IF bc1_drive_car = 0
-							IF NOT IS_CAR_DEAD bc1_marshall_car
-								IF NOT IS_CHAR_DEAD bc1_target
-									PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-									bc1_drive_car = 1
-								ENDIF
-							ENDIF
-						ENDIF
-					ENDIF
+	i++
+	ENDWHILE
+
+		GOTO bc1_skip_this_part_for_now
+	bc1_drive_car_0:
+		IF bc1_drive_car = 0
+			IF NOT IS_CAR_DEAD bc1_marshall_car
+				IF NOT IS_CHAR_DEAD bc1_target
+					PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
+					bc1_drive_car = 1
 				ENDIF
 			ENDIF
-			IF bc1_onfoot_attack[2] = 0
-				IF LOCATE_CHAR_ON_FOOT_3D scplayer bc1_marshall_x[2] bc1_marshall_y[2] bc1_marshall_z[2] 5.0 5.0 5.0 FALSE
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[2] scplayer
-					bc1_onfoot_attack[2] = 1
-					bc1_car_attack[2] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-				IF IS_CHAR_SHOOTING_IN_AREA scplayer -2774.03 -1572.78 -2837.13 -1468.24 FALSE
-	 				TASK_KILL_CHAR_ON_FOOT bc1_marshall[2] scplayer
-					bc1_onfoot_attack[2] = 1
-					bc1_car_attack[2] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-		   	ENDIF
 		ENDIF
-	// marshall 3
-		IF NOT IS_CHAR_DEAD bc1_marshall[3]
-			bc1_cur_marshall = 3
-			GOSUB bc1_marshall_locate
-			bc1_marshall_x[3] =	bc1_cur_marsh_x 
-			bc1_marshall_y[3] = bc1_cur_marsh_y 
-			bc1_marshall_z[3] = bc1_cur_marsh_z
-			IF bc1_car_attack[3] = 0
-		   		IF LOCATE_CHAR_IN_CAR_3D scplayer bc1_marshall_x[3] bc1_marshall_y[3] bc1_marshall_z[3] 30.0 30.0 30.0 FALSE
-					IF NOT IS_CAR_DEAD bc1_player_car
-						TASK_DESTROY_CAR bc1_marshall[3] bc1_player_car
-						bc1_car_attack[3] = 1
-						bc1_onfoot_attack[3] = 0
-						IF bc1_drive_car = 0
-							IF NOT IS_CAR_DEAD bc1_marshall_car
-								IF NOT IS_CHAR_DEAD bc1_target
-									PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-									bc1_drive_car = 1
-								ENDIF
-							ENDIF
-						ENDIF					
-					ENDIF
-				ENDIF
-			ENDIF
-			IF bc1_onfoot_attack[3] = 0
-				IF LOCATE_CHAR_ON_FOOT_3D scplayer bc1_marshall_x[3] bc1_marshall_y[3] bc1_marshall_z[3] 5.0 5.0 5.0 FALSE
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[3] scplayer
-					bc1_onfoot_attack[3] = 1
-					bc1_car_attack[3] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF
-						ENDIF
-					ENDIF			
-				ENDIF
-				IF IS_CHAR_SHOOTING_IN_AREA scplayer -2774.03 -1572.78 -2837.13 -1468.24 FALSE
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[3] scplayer
-					bc1_onfoot_attack[3] = 1
-					bc1_car_attack[3] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF
-						ENDIF
-					ENDIF				
-				ENDIF
-		   	ENDIF
-		ENDIF
-	// marshall 4
-		IF NOT IS_CHAR_DEAD bc1_marshall[4]
-			bc1_cur_marshall = 4
-			GOSUB bc1_marshall_locate
-			bc1_marshall_x[4] =	bc1_cur_marsh_x 
-			bc1_marshall_y[4] = bc1_cur_marsh_y 
-			bc1_marshall_z[4] = bc1_cur_marsh_z
-			IF bc1_car_attack[4] = 0
-				IF LOCATE_CHAR_IN_CAR_3D scplayer bc1_marshall_x[4] bc1_marshall_y[4] bc1_marshall_z[4] 30.0 30.0 30.0 FALSE
-					IF NOT IS_CAR_DEAD bc1_player_car
-						TASK_DESTROY_CAR bc1_marshall[4] bc1_player_car
-						bc1_car_attack[4] = 1
-						bc1_onfoot_attack[4] = 0
-						IF bc1_drive_car = 0
-							IF NOT IS_CAR_DEAD bc1_marshall_car
-								IF NOT IS_CHAR_DEAD bc1_target
-									PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-									bc1_drive_car = 1
-								ENDIF
-							ENDIF
-						ENDIF					
-					ENDIF
-				ENDIF
-			ENDIF
-			IF bc1_onfoot_attack[4] = 0
-				IF LOCATE_CHAR_ON_FOOT_3D scplayer bc1_marshall_x[4] bc1_marshall_y[4] bc1_marshall_z[4] 5.0 5.0 5.0 FALSE
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[4] scplayer
-					bc1_onfoot_attack[4] = 1
-					bc1_car_attack[4] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF	
-						ENDIF
-					ENDIF			
-				ENDIF
-				IF IS_CHAR_SHOOTING_IN_AREA scplayer -2774.03 -1572.78 -2837.13 -1468.24 FALSE
-					TASK_KILL_CHAR_ON_FOOT bc1_marshall[4] scplayer
-					bc1_onfoot_attack[4] = 1
-					bc1_car_attack[4] = 0
-					IF bc1_drive_car = 0
-						IF NOT IS_CAR_DEAD bc1_marshall_car
-							IF NOT IS_CHAR_DEAD bc1_target
-								PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car
-								bc1_drive_car = 1
-							ENDIF
-						ENDIF
-					ENDIF
-				ENDIF
-		  	ENDIF
-		ENDIF
+	RETURN
+		bc1_skip_this_part_for_now:	
+
 		IF bc1_drive_car = 1
 			IF NOT IS_CAR_DEAD bc1_marshall_car
 				IF NOT IS_CHAR_DEAD bc1_target
@@ -1089,18 +893,13 @@ IF bc1_stage = 1
 			ENDIF
 		ENDIF
 		IF IS_CHAR_DEAD bc1_target
-			IF NOT IS_CHAR_DEAD bc1_marshall[1]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[1] scplayer
+			i = 1
+			WHILE i < 5
+			IF NOT IS_CHAR_DEAD bc1_marshall[i]
+				TASK_KILL_CHAR_ON_FOOT bc1_marshall[i] scplayer
 			ENDIF
-			IF NOT IS_CHAR_DEAD bc1_marshall[2]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[2] scplayer
-			ENDIF
-			IF NOT IS_CHAR_DEAD bc1_marshall[3]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[3] scplayer
-			ENDIF
-			IF NOT IS_CHAR_DEAD bc1_marshall[4]
-				TASK_KILL_CHAR_ON_FOOT bc1_marshall[4] scplayer
-			ENDIF
+			i++
+			ENDWHILE
 			//PRINT_NOW ( BCR1_10 ) 5000 1 // Take the photograph...
 			//bc1_stage = 7
 			IF NOT IS_CAR_DEAD bc1_marshall_car
@@ -1126,12 +925,9 @@ IF bc1_stage = 2
 			IF bc1_drive_car = 0
 				PERFORM_SEQUENCE_TASK bc1_target bc1_run_to_car // if car is hidden prior to getaway, teleport instantly
 				bc1_drive_car = 1
-				bc1_cut = 0					   
-			   	bc1_stage = 3
-			ELSE
-				bc1_cut = 0					   
-			   	bc1_stage = 3
 			ENDIF								  
+				bc1_cut = 0					   
+			   	bc1_stage = 3
 		ELSE
 			PRINT_NOW ( BCR1_10 ) 5000 1 // Take the photograph...
 			bc1_stage = 7
@@ -1149,13 +945,7 @@ IF bc1_stage = 3
 					bc1_cut = 0
 				ENDIF
 				IF IS_PLAYBACK_GOING_ON_FOR_CAR bc1_marshall_car
-					GET_OFFSET_FROM_CAR_IN_WORLD_COORDS bc1_marshall_car 0.0 4.0 0.0 bc1_offset_x bc1_offset_y bc1_offset_z
-					bc1_min_x = bc1_offset_x - 1.5
-					bc1_min_y = bc1_offset_y - 1.5
-					bc1_min_z = bc1_offset_z - 1.5
-					bc1_max_x = bc1_offset_x + 1.5
-					bc1_max_y = bc1_offset_y + 1.5
-					bc1_max_z = bc1_offset_z + 1.5
+					GOSUB bc1_offset_from_car
 					IF IS_AREA_OCCUPIED bc1_min_x bc1_min_y bc1_min_z bc1_max_x bc1_max_y bc1_max_z FALSE FALSE TRUE FALSE FALSE
 						STOP_PLAYBACK_RECORDED_CAR bc1_marshall_car
 					ENDIF
@@ -1234,27 +1024,18 @@ IF bc1_stage = 3
 				bc1_timer_diff = bc1_timer_end - bc1_timer_start
 				IF bc1_timer_diff > 1
 					//CLEAR_CUTSCENE 
-					SET_PLAYER_CONTROL player1 ON
-					SWITCH_WIDESCREEN OFF
-					RESTORE_CAMERA_JUMPCUT
-					SET_CAMERA_BEHIND_PLAYER
+					GOSUB restore_player_camera_control
 					bc1_stage = 4
 					//bc1_cut = 0
 				ENDIF	 
 			ENDIF
 		ELSE
-			SET_PLAYER_CONTROL player1 ON
-			SWITCH_WIDESCREEN OFF
-			RESTORE_CAMERA_JUMPCUT
-			SET_CAMERA_BEHIND_PLAYER
+			GOSUB restore_player_camera_control
 			PRINT_NOW ( BCR1_10 ) 5000 1 // Take the photograph...
 			bc1_stage = 7
 		ENDIF
 	ELSE
-		SET_PLAYER_CONTROL player1 ON
-		SWITCH_WIDESCREEN OFF
-		RESTORE_CAMERA_JUMPCUT
-		SET_CAMERA_BEHIND_PLAYER
+		GOSUB restore_player_camera_control
 		bc1_stage = 4
 	ENDIF			
 ENDIF
@@ -1367,13 +1148,7 @@ IF bc1_stage = 4
 					ENDIF
 			   	ENDIF
 				IF IS_PLAYBACK_GOING_ON_FOR_CAR bc1_marshall_car
-					GET_OFFSET_FROM_CAR_IN_WORLD_COORDS bc1_marshall_car 0.0 4.0 0.0 bc1_offset_x bc1_offset_y bc1_offset_z
-					bc1_min_x = bc1_offset_x - 1.5
-					bc1_min_y = bc1_offset_y - 1.5
-					bc1_min_z = bc1_offset_z - 1.5
-					bc1_max_x = bc1_offset_x + 1.5
-					bc1_max_y = bc1_offset_y + 1.5
-					bc1_max_z = bc1_offset_z + 1.5
+					GOSUB bc1_offset_from_car
 					IF IS_AREA_OCCUPIED bc1_min_x bc1_min_y bc1_min_z bc1_max_x bc1_max_y bc1_max_z FALSE TRUE FALSE FALSE FALSE
 						STOP_PLAYBACK_RECORDED_CAR bc1_marshall_car
 					ENDIF
@@ -1382,40 +1157,11 @@ IF bc1_stage = 4
 						SET_CAR_CRUISE_SPEED bc1_marshall_car 0.0
 						bc1_stage = 5
 					ENDIF
-					GET_CAR_HEALTH bc1_marshall_car bc1_health
-					IF bc1_health < 900
+					IF NOT IS_CAR_HEALTH_GREATER bc1_marshall_car 900
 						STOP_PLAYBACK_RECORDED_CAR bc1_marshall_car
 					ENDIF
 				ENDIF
-				IF bc1_onscreen = 1
-					GET_CHAR_COORDINATES scplayer bc1_player_x bc1_player_y bc1_player_z
-					GET_CHAR_COORDINATES bc1_target bc1_target_x bc1_target_y bc1_target_z
-					IF NOT IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE 
-						GET_GAME_TIMER bc1_timer_start
-						bc1_onscreen = 0
-					ENDIF
-				ENDIF
-				IF bc1_onscreen = 0
-					GET_CHAR_COORDINATES scplayer bc1_player_x bc1_player_y bc1_player_z
-					GET_CHAR_COORDINATES bc1_target bc1_target_x bc1_target_y bc1_target_z
-					IF NOT IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
-						GET_GAME_TIMER bc1_timer_end
-						bc1_timer_diff = bc1_timer_end - bc1_timer_start
-						IF bc1_timer_diff > 1000
-						AND bc1_timer_diff < 6000
-							PRINT_NOW ( BCR1_07 ) 100 1
-						ENDIF
-						IF bc1_timer_diff > 30000
-							IF NOT LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer bc1_target 25.0 25.0 25.0 FALSE
-								PRINT_NOW ( BCR1_12 ) 5000 1 // You let him get away!
-								GOTO mission_failed_bcrash1
-							ENDIF
-						ENDIF
-					ENDIF
-					IF IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
-						bc1_onscreen = 1
-					ENDIF
-				ENDIF
+				GOSUB bc1_onscreen_or_not
 			ENDIF
 			IF IS_CAR_IN_WATER bc1_marshall_car
 				IF DOES_CAR_HAVE_STUCK_CAR_CHECK bc1_marshall_car
@@ -1450,6 +1196,12 @@ IF bc1_stage = 5
 				ENDIF
 			ENDIF
 		ENDIF
+/* // this part won't happen I think
+// it's from `IF NOT IS_CAR_DEAD bc1_marshall_car`
+// the `ELSE` makes it `IF IS_CAR_DEAD bc1_marshall_car`
+// and there's a `AND NOT IS_CAR_DEAD bc1_marshall_car`
+// imo it doesn't make sense
+
 	ELSE
 		IF NOT IS_CHAR_DEAD bc1_target
 		AND NOT IS_CAR_DEAD bc1_marshall_car
@@ -1458,6 +1210,7 @@ IF bc1_stage = 5
 				bc1_stage = 6
 			ENDIF
 		ENDIF
+*/
 	ENDIF
 ENDIF
 
@@ -1477,10 +1230,10 @@ AND bc1_stage < 7
 			ENDIF
 			bc1_stage = 7
 		ENDIF	
-		IF NOT IS_CHAR_DEAD bc1_target
-			IF HAS_CHAR_BEEN_PHOTOGRAPHED bc1_target
-			ENDIF
-		ENDIF
+//		IF NOT IS_CHAR_DEAD bc1_target
+//			IF HAS_CHAR_BEEN_PHOTOGRAPHED bc1_target
+//			ENDIF
+//		ENDIF
 //		IF bc1_stage < 3
 //			IF NOT IS_CAR_DEAD bc1_marshall_car
 //				IF NOT IS_CHAR_DEAD bc1_target
@@ -1525,6 +1278,7 @@ IF bc1_stage = 6
 ENDIF
 
 IF bc1_stage > 3
+AND bc1_stage < 8
 	IF bc1_target_photo = 0
 		IF NOT DOES_CHAR_EXIST bc1_target
 			PRINT_NOW ( BCR1_09 ) 5000 1 // He can't be identified!
@@ -1563,32 +1317,7 @@ IF bc1_stage = 7
 					TASK_FLEE_CHAR bc1_target scplayer 50.0 100000000
 				ENDIF
 			ENDIF 
-			IF bc1_onscreen = 1
-				GET_CHAR_COORDINATES scplayer bc1_player_x bc1_player_y bc1_player_z
-				GET_CHAR_COORDINATES bc1_target bc1_target_x bc1_target_y bc1_target_z
-				IF NOT IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
-					GET_GAME_TIMER bc1_timer_start
-					bc1_onscreen = 0
-				ENDIF
-			ENDIF
-			IF bc1_onscreen = 0
-				GET_CHAR_COORDINATES scplayer bc1_player_x bc1_player_y bc1_player_z
-				GET_CHAR_COORDINATES bc1_target bc1_target_x bc1_target_y bc1_target_z
-				IF NOT IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
-					GET_GAME_TIMER bc1_timer_end
-					bc1_timer_diff = bc1_timer_end - bc1_timer_start
-					IF bc1_timer_diff > 1000
-						PRINT_NOW ( BCR1_07 ) 100 1
-					ENDIF
-					IF bc1_timer_diff > 15000					    
-						PRINT_NOW ( BCR1_12 ) 5000 1 // You let him get away!
-						GOTO mission_failed_bcrash1
-					ENDIF
-				ENDIF
-				IF IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
-					bc1_onscreen = 1
-				ENDIF
-			ENDIF
+			GOSUB bc1_onscreen_or_not
 	   	ENDIF
 		IF NOT IS_CHAR_DEAD scplayer
 			IF DOES_CHAR_EXIST bc1_target
@@ -1627,7 +1356,6 @@ IF bc1_stage = 7
 			IF bc1_camera_ammo > 0
 				IF bc1_camera_ammo_flag = 2
 					ADD_BLIP_FOR_DEAD_CHAR bc1_target bc1_target_blip
-					REMOVE_BLIP bc1_camera_pickup_blip
 					bc1_camera_ammo_flag = 1
 				ENDIF
 				IF bc1_camera_ammo_flag = 1
@@ -1659,21 +1387,6 @@ IF bc1_stage = 7
 						ENDIF
 					ENDIF
 				ENDIF
-			ELSE
-				IF IS_CHAR_DEAD bc1_target
-					IF bc1_camera_ammo_flag = 1
-						IF bc1_camera_ammo = 0
-							bc1_camera_ammo_flag = 0
-						ENDIF
-					ENDIF
-					IF bc1_camera_ammo_flag = 0
-						PRINT_NOW ( BCR1_11 ) 5000 1 // You need a camera, go and pick one up.
-						REMOVE_BLIP	bc1_target_blip
-						CREATE_PICKUP_WITH_AMMO CAMERA PICKUP_ONCE 24 -2044.10 -2523.86 31.11 bc1_camera_pickup
-						ADD_BLIP_FOR_PICKUP bc1_camera_pickup bc1_camera_pickup_blip 
-						bc1_camera_ammo_flag = 2
-					ENDIF
-				ENDIF
 			ENDIF
 		ENDIF
 	//ENDIF
@@ -1692,6 +1405,7 @@ ENDIF
 
 // In car check
 IF bc1_stage > 3
+AND bc1_stage < 9
 	IF bc1_blipped = 1
 		IF NOT IS_CHAR_DEAD scplayer
 		AND NOT IS_CAR_DEAD bc1_bmx
@@ -1711,6 +1425,53 @@ IF bc1_stage > 3
 	ENDIF
 ENDIF
 
+// FIXEDGROVE: moved the camera ammo check here
+IF bc1_stage < 8
+	IF bc1_target_photo = 0
+		GET_AMMO_IN_CHAR_WEAPON scplayer WEAPONTYPE_CAMERA bc1_camera_ammo
+		IF bc1_camera_ammo <= 0
+			IF bc1_camera_ammo_flag = 1
+			OR bc1_camera_ammo_flag = 0
+				IF DOES_BLIP_EXIST bc1_check_blip
+					CHANGE_BLIP_DISPLAY bc1_check_blip NEITHER
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_hut_blip
+					CHANGE_BLIP_DISPLAY bc1_hut_blip NEITHER
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_target_blip
+					CHANGE_BLIP_DISPLAY bc1_target_blip NEITHER
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_drop_blip
+					CHANGE_BLIP_DISPLAY bc1_drop_blip NEITHER
+				ENDIF
+				PRINT_NOW ( BCR1_11 ) 5000 1 // You need a camera, go and pick one up.
+				CREATE_PICKUP_WITH_AMMO CAMERA PICKUP_ONCE 24 -2044.10 -2523.86 31.11 bc1_camera_pickup
+				ADD_BLIP_FOR_PICKUP bc1_camera_pickup bc1_camera_pickup_blip
+				bc1_camera_ammo_flag = 2
+			ENDIF
+		ELSE
+			IF bc1_camera_ammo_flag = 2
+				IF DOES_BLIP_EXIST bc1_check_blip
+					CHANGE_BLIP_DISPLAY bc1_check_blip BOTH
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_hut_blip
+					CHANGE_BLIP_DISPLAY bc1_hut_blip BOTH
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_target_blip
+					CHANGE_BLIP_DISPLAY bc1_target_blip BOTH
+				ENDIF
+				IF DOES_BLIP_EXIST bc1_drop_blip
+					CHANGE_BLIP_DISPLAY bc1_drop_blip BOTH
+				ENDIF
+				IF DOES_PICKUP_EXIST bc1_camera_pickup
+					REMOVE_PICKUP bc1_camera_pickup
+				ENDIF
+				REMOVE_BLIP bc1_camera_pickup_blip
+				bc1_camera_ammo_flag = 1
+			ENDIF
+		ENDIF
+	ENDIF
+ENDIF
 
 GOTO mission_loop_bcrash1
 
@@ -1800,12 +1561,72 @@ RETURN
 
 // gosubs ----------------------------------------------------------------------------------
 
-
-bc1_marshall_locate:
-
-	GET_CHAR_COORDINATES bc1_marshall[bc1_cur_marshall] bc1_cur_marsh_x bc1_cur_marsh_y bc1_cur_marsh_z 
-
+bc1_onscreen_or_not:
+	IF bc1_onscreen = 1
+		GET_CHAR_COORDINATES scplayer bc1_player_x bc1_player_y bc1_player_z
+		GET_CHAR_COORDINATES bc1_target bc1_target_x bc1_target_y bc1_target_z
+		IF NOT IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
+			GET_GAME_TIMER bc1_timer_start
+			bc1_onscreen = 0
+		ENDIF
+	ENDIF
+	IF bc1_onscreen = 0
+		GET_CHAR_COORDINATES scplayer bc1_player_x bc1_player_y bc1_player_z
+		GET_CHAR_COORDINATES bc1_target bc1_target_x bc1_target_y bc1_target_z
+		IF NOT IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
+			GET_GAME_TIMER bc1_timer_end
+			bc1_timer_diff = bc1_timer_end - bc1_timer_start
+			IF bc1_timer_diff > 1000
+				IF bc1_stage = 4
+				AND bc1_timer_diff < 6000
+					PRINT_NOW ( BCR1_07 ) 100 1
+				ENDIF
+				IF bc1_stage = 7
+					PRINT_NOW ( BCR1_07 ) 100 1
+				ENDIF
+			ENDIF
+			IF bc1_timer_diff > 15000					    
+				IF bc1_stage = 7
+					PRINT_NOW ( BCR1_12 ) 5000 1 // You let him get away!
+					GOTO mission_failed_bcrash1
+				ENDIF
+				IF bc1_stage = 4
+				AND bc1_timer_diff > 30000
+					IF NOT LOCATE_CHAR_ANY_MEANS_CHAR_3D scplayer bc1_target 25.0 25.0 25.0 FALSE
+						PRINT_NOW ( BCR1_12 ) 5000 1 // You let him get away!
+						GOTO mission_failed_bcrash1
+					ENDIF
+				ENDIF
+			ENDIF
+		ENDIF
+		IF IS_LINE_OF_SIGHT_CLEAR bc1_player_x bc1_player_y bc1_player_z bc1_target_x bc1_target_y bc1_target_z TRUE FALSE FALSE FALSE FALSE
+			bc1_onscreen = 1
+		ENDIF
+	ENDIF
 RETURN
+
+bc1_offset_from_car:
+	GET_OFFSET_FROM_CAR_IN_WORLD_COORDS bc1_marshall_car 0.0 4.0 0.0 bc1_offset_x bc1_offset_y bc1_offset_z
+	bc1_min_x = bc1_offset_x - 1.5
+	bc1_min_y = bc1_offset_y - 1.5
+	bc1_min_z = bc1_offset_z - 1.5
+	bc1_max_x = bc1_offset_x + 1.5
+	bc1_max_y = bc1_offset_y + 1.5
+	bc1_max_z = bc1_offset_z + 1.5
+RETURN
+
+restore_player_camera_control:
+	SET_PLAYER_CONTROL player1 ON
+	SWITCH_WIDESCREEN OFF
+	RESTORE_CAMERA_JUMPCUT
+	SET_CAMERA_BEHIND_PLAYER
+RETURN
+
+//bc1_marshall_locate:
+//
+//	GET_CHAR_COORDINATES bc1_marshall[bc1_cur_marshall] bc1_cur_marsh_x bc1_cur_marsh_y bc1_cur_marsh_z 
+//
+//RETURN
 
 bc1_waypoint_check:
 	bc1_closest = -1 
