@@ -1202,9 +1202,9 @@ VAR_INT sc3_missioncar_alive
 VAR_INT player_fall_safe
 
 
-VAR_INT bball_unlocked
+VAR_INT bball_bits // FIXEDGROVE: was bball_unlocked
 
-bball_unlocked = 0
+bball_bits = 0
 
 
 
@@ -1264,15 +1264,15 @@ CONST_INT CONVERSATION_FINISHED				3
 CONST_INT CONVERSATION_FINISH_GRACEFULLY	4
 
 // ----- BASKETBALL GLOBALS -------------
-VAR_INT bball_challenge_active
+VAR_INT unused_bball_challenge_active // FIXEDGROVE: unused
 VAR_INT bball_challenge_high_score
 VAR_INT bball_challenge_timer
 VAR_INT bball_challenge_score
 VAR_INT bball_help
 VAR_INT bball_shot_dist	bball_shot_dist_decimal
-VAR_INT bball_active
+VAR_INT unused_bball_active // FIXEDGROVE: unused
 VAR_INT points_scored
-VAR_INT bball_throw_active
+VAR_INT unused_bball_throw_active // FIXEDGROVE: unused
 bball_ball = -1 // FIXEDGROVE
 
 
