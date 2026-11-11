@@ -74,11 +74,16 @@ GOTO bball_fool_compiler // FIXEDGROVE: remove m_stage = -1 check, and move this
 bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so the check below works
 
 // FIXEDGROVE: START - refactored this a bit
+	GET_NUMBER_OF_INSTANCES_OF_STREAMED_SCRIPT basketb.sc temp_int
+	IF temp_int = 1
+		unused_2 = 0
+	ENDIF
+
 	// skip waiting if the ball is already in the court
-	IF DOES_OBJECT_EXIST bbhoop
-		IF DOES_OBJECT_EXIST bball_ball
-			IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
-				IF IS_PLAYER_PLAYING player1
+	IF IS_PLAYER_PLAYING player1
+		IF DOES_OBJECT_EXIST bbhoop
+			IF DOES_OBJECT_EXIST bball_ball
+				IF DOES_OBJECT_HAVE_THIS_MODEL bball_ball BBALL_COL
 					IF LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
 						GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 2 x2 y2 z2
 						GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
@@ -89,8 +94,6 @@ bball_fool_compiler: // FIXEDGROVE: remove m_stage = -1 check, and move this so 
 				ENDIF
 			ENDIF
 		ENDIF
-	ELSE
-		TERMINATE_THIS_SCRIPT
 	ENDIF
 
 	// wait a bit before starting
@@ -133,7 +136,7 @@ skip_waiting:
 	temp_int = 100
 	GOSUB keep_the_script_from_restarting
 
-GOTO skip_over_this_for_now
+GOTO bball_out_of_the_loop
 
 keep_the_script_from_restarting:
 	WHILE bball_unlocked = 0
@@ -142,13 +145,13 @@ keep_the_script_from_restarting:
 		IF DOES_OBJECT_EXIST bbhoop
 			IF IS_PLAYER_PLAYING player1
 				IF NOT LOCATE_CHAR_ANY_MEANS_OBJECT_2D scplayer bbhoop 50.0 50.0 FALSE
-					TERMINATE_THIS_SCRIPT
+					RETURN
 				ENDIF
 			ELSE
-				TERMINATE_THIS_SCRIPT
+				RETURN
 			ENDIF
 		ELSE
-			TERMINATE_THIS_SCRIPT
+			RETURN
 		ENDIF
 	ENDWHILE
 
@@ -158,7 +161,7 @@ keep_the_script_from_restarting:
 	ENDWHILE
 RETURN
 
-skip_over_this_for_now:
+bball_out_of_the_loop:
 // FIXEDGROVE: END
 		   
 
@@ -912,13 +915,13 @@ ENDIF
 		// set ball back to court position
 		IF DOES_OBJECT_EXIST m_ball
 			IF HAS_MODEL_LOADED this_hoop_model
-				GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x y z
 				GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 2 x2 y2 z2
 				GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 3 x3 y3 z3
-			ENDIF
-			IF NOT IS_OBJECT_IN_AREA_3D m_ball x2 y2 z2 x3 y3 z3 FALSE
-				z += 1.0
-				SET_OBJECT_COORDINATES m_ball x y z
+				IF NOT IS_OBJECT_IN_AREA_3D m_ball x2 y2 z2 x3 y3 z3 FALSE
+					GET_LEVEL_DESIGN_COORDS_FOR_OBJECT bbhoop 1 x y z
+					z += 1.0
+					SET_OBJECT_COORDINATES m_ball x y z
+				ENDIF
 			ENDIF
 		ENDIF
 
